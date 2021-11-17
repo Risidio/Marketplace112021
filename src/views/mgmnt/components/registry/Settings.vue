@@ -86,6 +86,9 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+*{
+  color: black
+}
 .upload-preview {
   padding: 10px;
   height: auto;
