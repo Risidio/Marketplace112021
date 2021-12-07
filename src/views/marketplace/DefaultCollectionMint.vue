@@ -29,7 +29,7 @@ export default {
   },
   data () {
     return {
-      // loopRun: null,
+      loopRun: 'launch_collection_t1',
       formSubmitted: false,
       dims: { width: 360, height: 202 },
       componentKey: 0,
@@ -74,9 +74,9 @@ export default {
     this.loaded = true
   },
   methods: {
-    updateCollection (data) {
-      this.loopRun = data.loopRun
-    },
+    // updateCollection (data) {
+    //   this.loopRun = data.loopRun
+    // },
     hasFile (file) {
       if (file === 'artworkFile') return this.attributes.artworkFile && this.attributes.artworkFile.fileUrl
       else if (file === 'artworkClip') return this.attributes.artworkClip && this.attributes.artworkClip.fileUrl
@@ -146,9 +146,9 @@ export default {
     }
   },
   computed: {
-    loopRun () {
-      // const loopRun = this.$store.getters[APP_CONSTANTS.GET_LOOP_RUN_BY_KEY](this.runKey)
-      const loopRun = process.env.VUE_APP_DEFAULT_LOOP_RUN
+    loopRuns () {
+      const loopRun = this.$store.getters[APP_CONSTANTS.GET_LOOP_RUN_BY_KEY]('launch_collection_t1')
+      // const loopRun = process.env.VUE_APP_DEFAULT_LOOP_RUN
       return loopRun
     },
     runKey () {

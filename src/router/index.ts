@@ -41,6 +41,7 @@ const HowItWorks = () => import('@/views/HowItWorks.vue')
 // const PunkMinter = () => import('@/views/marketplace/PunkMinter.vue')
 const UploadItem = () => import('@/views/marketplace/UploadItem.vue')
 const DefaultCollectionMint = () => import('@/views/marketplace/DefaultCollectionMint.vue')
+const DefaultCollectionUpdateItem = () => import('@/views/marketplace/DefaultCollectionUpdateItem.vue')
 const UpdateItem = () => import('@/views/marketplace/UpdateItem.vue')
 
 // Application Admin Routes
@@ -220,12 +221,21 @@ const routes: Array<RouteConfig> = [
   {
     path: '/edit-item/:assetHash',
     name: 'edit-item',
-    components: { default: UpdateItem, header: MainNavbar, footer: MainFooter },
+    components: { default: DefaultCollectionUpdateItem, header: MainNavbar, footer: MainFooter },
     meta: {
       requiresAuth: false,
       requiresAdmin: false
     }
   },
+  // {
+  //   path: '/edit-item/:assetHash',
+  //   name: 'edit-item',
+  //   components: { default: UpdateItem, header: MainNavbar, footer: MainFooter },
+  //   meta: {
+  //     requiresAuth: false,
+  //     requiresAdmin: false
+  //   }
+  // },
   {
     path: '/upload-item',
     name: 'upload-item',

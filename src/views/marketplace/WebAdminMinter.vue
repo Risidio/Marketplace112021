@@ -17,7 +17,7 @@
           <div class="mr-1" v-for="(field, index) in invalidItems" :key="index">{{field}}</div>
         </div>
         <div>
-          <!-- <ChooseCollection :type="'traditional'" :runKey="runKey" @updateCollection="updateCollection"/> -->
+          <ChooseCollection :type="'traditional'" :runKey="runKey" @updateCollection="updateCollection"/>
         </div>
         <div v-if="this.continue">
           <ItemFormPart1 v-if="uploadState > 2" @upload-state="updateUploadState" :item="item" :upload="true" :formSubmitted="formSubmitted"/>
@@ -60,15 +60,15 @@ import NftCoverImage from '@/views/marketplace/components/update/NftCoverImage'
 import ItemFormPart1 from '@/views/marketplace/components/update/ItemFormPart1'
 import ItemFormPart2 from '@/views/marketplace/components/update/ItemFormPart2'
 import utils from '@/services/utils'
-// import ChooseCollection from '@/views/marketplace/components/toolkit/ChooseCollection'
+import ChooseCollection from '@/views/marketplace/components/toolkit/ChooseCollection'
 
 export default {
   name: 'UpdateItem',
   components: {
     NftCoverImage,
     ItemFormPart1,
-    ItemFormPart2
-    // ChooseCollection
+    ItemFormPart2,
+    ChooseCollection
   },
   data () {
     return {
