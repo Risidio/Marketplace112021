@@ -1,5 +1,5 @@
 <template>
-  <b-button-group class="text-black" id="parent-group" v-if="loaded">
+  <b-button-group style="margin-top: auto; margin-left: 10%" class="nftsBuyButton w-50" id="parent-group" v-if="loaded">
     <!-- <b-button @click="$emit('clickButton')" class="btn-square" :class="colorHover" :style="(usePixelBg) ? 'background-image: url(' + pixelBg + ')' : ''">
       <span class="d-flex justify-content-center" v-if="icon">
         <b-icon :class="(textWarning) ? 'text-warning' : ''" style="width: 30px; height: 30px;" :icon="icon"/>
@@ -8,9 +8,10 @@
         <img :class="(textWarning) ? 'text-warning' : ''" style="width: 30px; height: 30px;" :src="svgImage"/>
       </span>
     </b-button> -->
-    <b-button @click="$emit('clickButton')" class="btn-rectangle" :class="bigButtonTheme">
-      <span v-if="route"><b-link :to="route">{{label1}}</b-link></span>
-      <span v-else>{{label1}}</span>
+    <!-- <b-button @click="$emit('clickButton')" class="btn-rectangle" :class="bigButtonTheme"> -->
+    <b-button @click="$emit('clickButton')" class="cyanBg nftsBuyButton" >
+      <span v-if="route"><b-link :to="route">Buy NFT</b-link></span>
+      <span v-else>Buy NFT</span>
     </b-button>
   </b-button-group>
 </template>
@@ -31,14 +32,14 @@ export default {
     }
   },
   mounted () {
-    this.bigButtonTheme = 'btn-dark'
-    this.colorHover = 'hover-white'
-    if (this.theme) {
-      this.bigButtonTheme = 'btn-' + this.theme
-    }
-    if (this.colorOnHover) {
-      this.colorHover = 'hover-' + this.colorOnHover
-    }
+    // this.bigButtonTheme = 'btn-dark'
+    // this.colorHover = 'hover-white'
+    // if (this.theme) {
+    //   this.bigButtonTheme = 'btn-' + this.theme
+    // }
+    // if (this.colorOnHover) {
+    //   this.colorHover = 'hover-' + this.colorOnHover
+    // }
     this.loaded = true
   },
   methods: {
@@ -48,6 +49,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+
 // .btn-group > .btn {
 //   background: transparent;
 //   white-space: nowrap;

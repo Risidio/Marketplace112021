@@ -104,7 +104,36 @@ select {
     position: fixed;
   }
 }
-
+.cyanText{
+  color:#50B1B5;
+}
+.cyanBg{
+  background:#50B1B5;
+}
+.nftBuyNowSection{
+  display: flex;
+  flex-direction: row;
+}
+.nftsBuyButton{
+  border: none;
+  font-weight: 600;
+  font-size: 1.2rem;
+  width: 100%;
+  height: 40px;
+  border-radius: 20px;
+}
+.purpleBg{
+  background: #5154A1;
+}
+.purpleText{
+  color: #5154A1;
+  font-weight: 700;
+  font-size: 2rem;
+}
+.buyNowTextPadding{
+  margin: auto 5px;
+  // margin: 5px;
+}
 // .btn {
 //   font-size: 1.7rem;
 //   padding: 7px 30px;
@@ -282,11 +311,11 @@ select {
 }
 .text-description {
   font-size: 1.4rem;
-  font-family: 'Baloo Bhaina 2';
+  font-family: 'Montserrat';
 }
 .text-bio {
   font-size: 1.4rem;
-  font-family: 'Baloo Bhaina 2';
+  font-family: 'Montserrat';
 }
 .text-artist {
   font-size: 1.2rem;
