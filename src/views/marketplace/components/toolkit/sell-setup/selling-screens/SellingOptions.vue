@@ -1,12 +1,12 @@
 <template>
 <b-card-text class="mt-2 mx-2" style="min-height: 15rem;">
   <div class="mx-2" v-if="!showSaleData">
-    <div class="">
+    <div class="flex">
       <div class="mt-4">
-        <b-button class="w-100" @click="changeSellingOption(0)" :variant="(contractAsset.saleData.saleType === 0) ? 'warning' : 'light'"><span>Not On Sale</span></b-button>
+        <b-button  @click="changeSellingOption(0)" :variant="(contractAsset.saleData.saleType === 0) ? 'warning' : 'light'"><span>Not On Sale</span></b-button>
       </div>
       <div class="mt-4">
-        <b-button class="w-100" @click="changeSellingOption(1)" :variant="(contractAsset.saleData.saleType === 1) ? 'warning' : 'light'"><span>Sell</span></b-button>
+        <b-button  @click="changeSellingOption(1)" :variant="(contractAsset.saleData.saleType === 1) ? 'warning' : 'light'"><span>Sell</span></b-button>
       </div>
     </div>
     <div class="">

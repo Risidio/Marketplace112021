@@ -13,7 +13,7 @@
       </div>
     </div>
     <div id="my-nft-tabs" v-else class="mt-5">
-      <b-tabs justified content-class="bg-black text-black p-4 border mt-3">
+      <b-tabs justified content-class="bg-white text-black p-4 border mt-3">
         <b-tab active title="Sell">
           <div>
             <div class="mb-3">{{saleDataText}}</div>
@@ -61,8 +61,8 @@
     <MintingFlow v-else-if="loopRun" :loopRun="loopRun" :items="items" :mintAllocations="mintAllocations" v-on="$listeners"/>
     <template #modal-footer class="text-center"><div class="w-100"></div></template>
   </b-modal>
-  <b-modal size="lg" id="selling-modal">
-    <SellingFlow @cancel="cancel" :contractAsset="items[0].contractAsset"  v-if="items[0].contractAsset"/>
+  <b-modal class="saleModal" size="lg" id="selling-modal">
+    <SellingFlow @cancel="cancel" :attributes="items[0].attributes" :item="items[0]" :contractAsset="items[0].contractAsset"  v-if="items[0].contractAsset"/>
     <template #modal-footer class="text-center"><div class="w-100"></div></template>
   </b-modal>
 </div>

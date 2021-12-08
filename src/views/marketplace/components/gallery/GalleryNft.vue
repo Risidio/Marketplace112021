@@ -1,6 +1,6 @@
 <template>
   <b-link class="galleryNFTContainer" :to="assetUrl" v-if="item && item.contractAsset && item.attributes">
-    <MediaItemGeneral :classes="'nftGalleryView'" v-on="$listeners" :options="videoOptions" :mediaItem="item.attributes.artworkFile"/>
+    <MediaItemGeneral :classes="'nftGalleryView'" v-on="$listeners" :options="videoOptions" :mediaItem="item.attributes"/>
     <div class="nftGalleryViewText itemHover">
       <h4 style="overlow:clip; font-weight: 500">{{!item.name ? "NFT" : item.name}}</h4>
       <p class="galleryNftDetails">By:

@@ -34,6 +34,7 @@
     "sass-loader": "^8.0.2",
     "sha.js": "^2.4.11",
     "stacks-utils": "^0.1.5",
+    "three": "^0.135.0",
     "video.js": "^7.12.1",
     "vue": "^2.6.11",
     "vue-browser-detect-plugin": "^0.1.13",
