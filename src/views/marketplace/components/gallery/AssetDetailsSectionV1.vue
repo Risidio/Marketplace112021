@@ -28,7 +28,7 @@
               <h1 class="text-black">{{mintedMessage}}</h1>
               <div>
                 <div class="d-flex justify-content-between">
-                  <div class="mt-2">by <span class="cyanText">{{loopRun.makerName}}</span> <br/>
+                  <div class="mt-2">by <span class="cyanText">{{gaiaAsset.artist}}</span> <br/>
                   <div class="mt-2 mb-5" style="font-size: 1.2rem">
                    <span v-if="loopRun.type !== 'punks'">from collection <span class="cyanText">{{loopRun.currentRun}}</span> Minted at {{created()}}</span>{{editionMessage}}</div>
                   </div>
