@@ -1,18 +1,18 @@
 <template>
 <div v-if="pending">
-  <b-alert class="text-small text-black" style="background: #529e72;" show>
-    {{txMessage()}}
-  </b-alert>
-  <b-alert class="text-small" variant="light" show>
-    <h6 class="mb-3">Pending Transactions</h6>
+  <!-- <b-alert class="text-small text-black" style="" show>
+  </b-alert> -->
+  <div style="font-size: 1.5rem;" variant="light" show>
+   {{txMessage()}}
+    <h6 class="mt-3 mb-3">This NFT is being updated live on Blockchain - <a :href="transactionUrl(pending.txId)" target="_blank"><span style="text-transform: capitalise;" class="cyanText"> Click here to view it's Progress</span></a></h6>
+    <div class="w-100"><span @click="checkTx(pending.txId)" class="ml-3 w-100"><img class="w-100" :src="mintme"/></span></div>
     <div class="d-flex justify-content-between">
-      <div class="w-75"><span @click="checkTx(pending.txId)" class="ml-3"><img :src="mintme"/></span></div>
+      <br/>
       <div>
-        <a :href="transactionUrl(pending.txId)" target="_blank"><span style="text-transform: capitalise;" class="ml-3">Show on Blockchain</span></a>
       </div>
     </div>
     <div v-if="!pending">Status: {{pending.txStatus}}</div>
-  </b-alert>
+  </div>
   <div style="color: #529e72;">
     Be patient, depending on blockchain traffic this could take a while. Leave this page open to check progress. When the transaction’s confirmed NFT will update in your library.
 (It’s advisable to increase your transaction fees to speed the process.)
@@ -30,7 +30,8 @@ export default {
   props: ['pending'],
   data () {
     return {
-      mintme: require('@/assets/img/marketplace/minting-animation.gif')
+      // mintme: require('@/assets/img/marketplace/minting-animation.gif')
+      mintme: require('@/assets/img/loading2.gif')
     }
   },
   methods: {

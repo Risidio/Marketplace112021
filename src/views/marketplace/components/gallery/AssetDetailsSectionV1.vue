@@ -1,21 +1,22 @@
 <template>
-<section id="asset-details-section" v-if="gaiaAsset && gaiaAsset.contractAsset" class="text-black">
-  <b-container class="center-section" style="min-height: 50vh;">
-    <b-row align-h="center" :style="'min-height: ' + videoHeight + 'px'">
-      <b-col lg="7" sm="10" class="mb-5">
+<section style="margin: auto; margin-top: 5rem; width:90%" id="asset-details-section" v-if="gaiaAsset && gaiaAsset.contractAsset" class="text-black">
+  <!-- <b-container class=" w-100 center-section" style="min-height: 50vh;"> -->
+    <b-row style="display: flex; margin: auto" :style="'min-height: ' + videoHeight + 'px'">
+      <b-col lg="6" sm="10" class="mb-5">
         <div id="video-column" :style="dimensions">
-          <!-- <MediaItem :videoOptions="videoOptions" :attributes="gaiaAsset.attributes" :targetItem="targetItem()"/> -->
+          <MediaItem :videoOptions="videoOptions" :attributes="gaiaAsset.attributes" :targetItem="targetItem()"/>
           <MediaItemGeneral :classes="'hash1-image'" v-on="$listeners" :options="videoOptions" :mediaItem="gaiaAsset.attributes"/>
+          <!-- <MintInfo class="my-5" :item="gaiaAsset" :loopRun="loopRun" /> -->
         </div>
       </b-col>
-      <b-col lg="5" sm="10">
+      <b-col lg="6" sm="10">
         <b-row align-v="stretch" :style="'height: ' + videoHeight - 100 + 'px'">
           <b-col cols="12" class="">
             <div class="d-flex justify-content-between mb-5">
               <div><router-link class="text-black" to="/nft-marketplace"><b-icon icon="chevron-left" shift-h="-4" variant="white"></b-icon> Back</router-link></div>
               <div class="d-flex justify-content-between">
                 <b-link router-tag="span" v-b-tooltip.hover="{ variant: 'light' }" :title="ttOnAuction" class="text-black" variant="outline-success"><b-icon class="ml-2" icon="question-circle"/></b-link>
-                <div class="text-center on-auction-text ml-3 py-3 px-4 bg-warning text-black">
+                <div style="font-weight: 600; font-size: 1.2rem" class="text-center on-auction-text ml-3 py-3 px-4 bg-secondary text-white">
                   <div>{{salesBadgeLabel}}</div>
                   <div v-if="showEndTime()">{{biddingEndTime()}}</div>
                 </div>
@@ -27,18 +28,17 @@
               <h1 class="text-black">{{mintedMessage}}</h1>
               <div>
                 <div class="d-flex justify-content-between">
-                  <div>by <span class="text-warning">{{loopRun.makerName}}</span> <span v-if="loopRun.type !== 'punks'">from collection <span class="text-warning">{{loopRun.currentRun}}</span></span> {{editionMessage}}</div>
+                  <div class="mt-2">by <span class="cyanText">{{loopRun.makerName}}</span> <br/>
+                  <div class="mt-2 mb-5" style="font-size: 1.2rem">
+                   <span v-if="loopRun.type !== 'punks'">from collection <span class="cyanText">{{loopRun.currentRun}}</span> Minted at {{created()}}</span>{{editionMessage}}</div>
+                  </div>
                 </div>
               </div>
-              <div class="d-flex justify-content-end">
-                <div>{{created()}}</div>
-              </div>
-              <div v-if="gaiaAsset.description" class="w-100 text-black" v-html="preserveWhiteSpace(gaiaAsset.description)">
-              </div>
-              <div class="w-25">
+              <!-- <div class="d-flex justify-content-end">
+              </div> -->
+              <!-- <div class="w-25">
                 <ShareLinks class="mt-4" :socialLinks="getSocialLinks()" :gaiaAsset="gaiaAsset" />
-              </div>
-              <MintInfo class="my-5" :item="gaiaAsset" :loopRun="loopRun" />
+              </div> -->
               <PendingTransactionInfo v-if="pending && pending.txStatus === 'pending'" :pending="pending"/>
               <div v-else>
                 <b-row v-if="getSaleType() === 0">
@@ -53,22 +53,37 @@
                   <b-col v-if="webWalletNeeded" md="6" sm="12" class="mb-3">
                       <b-button v-b-tooltip.hover="{ variant: 'light' }" :title="ttWalletHelp" class="w-100" style="height: 61px;" variant="outline-light"><a :href="webWalletLink" class="text-black" target="_blank">Get Stacks Web Wallet <b-icon class="ml-3" icon="arrow-up-right-square-fill"/></a></b-button>
                   </b-col>
-                  <b-col md="6" sm="6" class="mb-3 text-center" v-else-if="getSaleType() > 0 && getSaleType() < 3">
-                    <SquareButton v-b-tooltip.hover="{ variant: 'light' }" :title="ttBiddingHelp" @clickButton="openPurchaceDialog()" :theme="'light'" :label1="salesButtonLabel" :svgImage="hammer" :text-warning="true"/>
+                  <b-col class="nftBuyNowSection"  v-else-if="getSaleType() > 0 && getSaleType() < 3">
+                  <div style="width: 80%; font-size: 1.5rem">
+                    <div style="display: flex;">
+                      <span class="buyNowTextPadding" > Price</span><span class="buyNowTextPadding" style="margin-left: auto;">STX<span class=" buyNowTextPadding purpleText">{{salesButtonLabel}}</span>~${{salesButtonLabel}}</span>
+                    </div>
+                    <!-- <div style="display: flex;">
+                      <span class="buyNowTextPadding">Fees</span><span class="buyNowTextPadding" style="margin-left: auto;">STX <span class=" buyNowTextPadding purpleText">6</span> ~$6</span>
+                    </div> -->
+                    <div style=" display: flex; border-top: 3px solid #5154A1">
+                      <!-- <span class="buyNowTextPadding" style="margin-left:auto;">STX <span class="buyNowTextPadding">6</span> ~$6</span> -->
+                    </div>
+                  </div>
+                    <SquareButton v-b-tooltip.hover="{ variant: 'light' }" :title="ttBiddingHelp" @clickButton="openPurchaceDialog()"/>
+                    <!-- <SquareButton v-b-tooltip.hover="{ variant: 'light' }" :title="ttBiddingHelp" @clickButton="openPurchaceDialog()" :label1="salesButtonLabel"/> -->
                   </b-col>
                 </b-row>
+                <h3 class="mt-5" >NFT Description:</h3>
+               <div v-if="gaiaAsset.description" class="mt-2 w-100 text-black" v-html="preserveWhiteSpace(gaiaAsset.description)">
               </div>
-              <div v-if="nftIndex > -1">
+              </div>
+              <!-- <div v-if="nftIndex > -1">
                 <NftHistory class="text-small mt-5" @setPending="setPending" :nftIndex="nftIndex" :loopRun="loopRun"/>
-              </div>
-              <b-row class="my-4" v-else>
+              </div> -->
+              <!-- <b-row class="my-4" v-else>
                 <b-col md="6" sm="12" class="mb-3">
                   <div class="more-link m-0" v-scroll-to="{ element: '#artist-section', duration: 1000 }"><b-link class="text-black">Find out more</b-link></div>
                 </b-col>
                 <b-col md="6" sm="12" class="">
                   <div class="more-link m-0" v-scroll-to="{ element: '#charity-section', duration: 1000 }"><b-link class="text-black">Charity</b-link></div>
                 </b-col>
-              </b-row>
+              </b-row> -->
             </div>
           </b-col>
         </b-row>
@@ -105,7 +120,7 @@
       </div>
     </template>
   </b-modal>
-  </b-container>
+  <!-- </b-container> -->
 </section>
 </template>
 
@@ -128,14 +143,14 @@ export default {
   name: 'AssetDetailsSectionV1',
   components: {
     PendingTransactionInfo,
-    ShareLinks,
-    NftHistory,
+    // ShareLinks,
+    // NftHistory,
     AssetUpdatesModal,
     EditionTrigger,
     PurchaseFlow,
     MediaItemGeneral,
-    SquareButton,
-    MintInfo
+    SquareButton
+    // MintInfo
   },
   props: ['gaiaAsset', 'loopRun'],
   data: function () {
@@ -370,7 +385,8 @@ export default {
         return this.loopRun.currentRun + ' #' + this.gaiaAsset.contractAsset.nftIndex
       }
       if (this.gaiaAsset.contractAsset) {
-        return '#' + this.gaiaAsset.contractAsset.nftIndex + ' ' + this.gaiaAsset.name
+        // return '#' + this.gaiaAsset.contractAsset.nftIndex + ' ' + this.gaiaAsset.name
+        return this.gaiaAsset.name
       }
       return this.gaiaAsset.name
     },
@@ -425,7 +441,8 @@ export default {
       if (!profile.loggedIn && this.gaiaAsset.contractAsset.saleData.saleType !== 3) return 'LOGIN TO BID'
       // const label = this.$store.getters[APP_CONSTANTS.KEY_SALES_BUTTON_LABEL](this.gaiaAsset.contractAsset.saleData.saleType)
       if (this.gaiaAsset.contractAsset.saleData.saleType === 1) {
-        return 'Buy: ' + this.gaiaAsset.contractAsset.saleData.buyNowOrStartingPrice + ' STX'
+        // return 'Buy: ' + this.gaiaAsset.contractAsset.saleData.buyNowOrStartingPrice + ' STX'
+        return this.gaiaAsset.contractAsset.saleData.buyNowOrStartingPrice
       } else if (this.gaiaAsset.contractAsset.saleData.saleType === 2) {
         const bid = this.$store.getters[APP_CONSTANTS.KEY_BIDDING_NEXT_BID](this.gaiaAsset.contractAsset)
         if (bid) return 'BID: ' + bid.amountFmt + ' STX'
@@ -433,7 +450,11 @@ export default {
       return 'NOT SELLING'
     },
     salesBadgeLabel () {
-      return this.$store.getters[APP_CONSTANTS.KEY_SALES_BADGE_LABEL](this.gaiaAsset.contractAsset)
+      const label = this.$store.getters[APP_CONSTANTS.KEY_SALES_BADGE_LABEL](this.gaiaAsset.contractAsset)
+      if (label === ('NOT FOR SALE' || 'NOT SELLING')) {
+        return 'Not On Sale'
+      }
+      return label
     },
     confirmOfferDialog () {
       const dialog = this.$store.getters[APP_CONSTANTS.KEY_DIALOG_CONTENT]('confirm-offer')
@@ -503,6 +524,7 @@ export default {
 </script>
 
 <style>
+
 .more-link {
   border: 1pt solid #fff;
   padding: 3px 10px;

@@ -4,12 +4,13 @@
     <b-alert class="text-small" show :variant="variant()">
       <b-row class="text-small">
         <b-col cols="12">
-          <span class="text-small text-bold">NFT #{{item.contractAsset.nftIndex}}
+          <!-- <span class="text-small text-bold">NFT #{{item.contractAsset.nftIndex}} -->
+              <!-- Click here to see Blockchain information -->
             <!-- : Edition {{item.contractAsset.tokenInfo.edition}} of {{item.contractAsset.tokenInfo.maxEditions}} -->
-          </span>
+          <!-- </span> -->
         </b-col>
         <b-col cols="12">
-          <span class="pointer" @click="showRoyalties = !showRoyalties">{{item.contractAsset.owner}} <b-link router-tag="span" v-b-tooltip.hover="{ variant: 'warning' }"  :title="'The owning stacks address of this loopbomb'"><b-icon class="ml-2" font-scale="1.3" icon="question-circle"/></b-link></span>
+          <span class="pointer" @click="showRoyalties = !showRoyalties"><b-link router-tag="span" v-b-tooltip.hover="{ variant: 'primary' }"  :title="'Click here to see Royalty Information'">{{item.contractAsset.owner}}<b-icon class="ml-2" font-scale="1.3" icon="question-circle"/></b-link></span>
         </b-col>
       </b-row>
       <b-row v-if="showRoyalties">
