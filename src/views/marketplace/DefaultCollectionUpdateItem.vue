@@ -72,7 +72,7 @@ export default {
   },
   data () {
     return {
-      loopRun: null,
+      // loopRun: null,
       continue: true,
       showAFUpload: false,
       requireClip: false,
@@ -250,7 +250,7 @@ export default {
     }
   },
   computed: {
-    loopRuns () {
+    loopRun () {
       const loopRun = this.$store.getters[APP_CONSTANTS.GET_LOOP_RUN_BY_KEY]('launch_collection_t1')
       // const loopRun = this.$store.getters[APP_CONSTANTS.GET_LOOP_RUN_BY_KEY](this.runKey)
       // const loopRun = process.env.VUE_APP_DEFAULT_LOOP_RUN

@@ -29,7 +29,8 @@ export default {
   },
   data () {
     return {
-      loopRun: 'launch_collection_t1',
+      // loopRun: 'launch_collection_t1',
+      loopRun: null,
       formSubmitted: false,
       dims: { width: 360, height: 202 },
       componentKey: 0,
@@ -64,6 +65,7 @@ export default {
     }
   },
   mounted () {
+    this.loopRuns()
     const profile = this.$store.getters[APP_CONSTANTS.KEY_PROFILE]
     if (!profile.loggedIn) this.$router.push('/')
     const assetHash = this.$route.params.assetHash
@@ -77,6 +79,11 @@ export default {
     // updateCollection (data) {
     //   this.loopRun = data.loopRun
     // },
+    loopRuns () {
+      const loops = this.$store.getters[APP_CONSTANTS.GET_LOOP_RUN_BY_KEY]('launch_collection_t1')
+      // const loopRun = process.env.VUE_APP_DEFAULT_LOOP_RUN
+      this.loopRun = loops
+    },
     hasFile (file) {
       if (file === 'artworkFile') return this.attributes.artworkFile && this.attributes.artworkFile.fileUrl
       else if (file === 'artworkClip') return this.attributes.artworkClip && this.attributes.artworkClip.fileUrl
@@ -146,11 +153,6 @@ export default {
     }
   },
   computed: {
-    loopRuns () {
-      const loopRun = this.$store.getters[APP_CONSTANTS.GET_LOOP_RUN_BY_KEY]('launch_collection_t1')
-      // const loopRun = process.env.VUE_APP_DEFAULT_LOOP_RUN
-      return loopRun
-    },
     runKey () {
       const defaultLoopRun = process.env.VUE_APP_DEFAULT_LOOP_RUN
       let runKey = (this.item && this.item.attributes.collection) ? this.item.attributes.collection : defaultLoopRun
