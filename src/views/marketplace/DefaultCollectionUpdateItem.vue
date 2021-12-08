@@ -17,7 +17,7 @@
           <div class="mr-1" v-for="(field, index) in invalidItems" :key="index">{{field}}</div>
         </div>
         <div>
-          <ChooseCollection :type="'traditional'" :runKey="runKey" @updateCollection="updateCollection"/>
+          <!-- <ChooseCollection :type="'traditional'" :runKey="runKey" @updateCollection="updateCollection"/> -->
         </div>
         <div v-if="this.continue">
           <ItemFormPart1 v-if="uploadState > 2" @upload-state="updateUploadState" :item="item" :upload="true" :formSubmitted="formSubmitted"/>
@@ -60,25 +60,25 @@ import NftCoverImage from '@/views/marketplace/components/update/NftCoverImage'
 import ItemFormPart1 from '@/views/marketplace/components/update/ItemFormPart1'
 import ItemFormPart2 from '@/views/marketplace/components/update/ItemFormPart2'
 import utils from '@/services/utils'
-import ChooseCollection from '@/views/marketplace/components/toolkit/ChooseCollection'
+// import ChooseCollection from '@/views/marketplace/components/toolkit/ChooseCollection'
 
 export default {
   name: 'UpdateItem',
   components: {
     NftCoverImage,
     ItemFormPart1,
-    ItemFormPart2,
-    ChooseCollection
+    ItemFormPart2
+    // ChooseCollection
   },
   data () {
     return {
+      // loopRun: null,
       continue: true,
       showAFUpload: false,
       requireClip: false,
       formSubmitted: false,
       dims: { width: 360, height: 202 },
       showErrors: false,
-      loopRun: null,
       componentKey: 0,
       uploadState: 10,
       loaded: false,
@@ -124,7 +124,8 @@ export default {
       }
       this.item = item
       this.$store.dispatch('rpayCategoryStore/fetchLoopRun', this.runKey).then((loopRun) => {
-        this.loopRun = loopRun
+        this.loopRun = 'launch_collection_t1'
+        // this.loopRun = loopRun
         this.loaded = true
       })
     })
@@ -133,9 +134,11 @@ export default {
     nextPage () {
       this.continue = !this.continue
     },
-    updateCollection (data) {
-      this.loopRun = data.loopRun
-    },
+    // updateCollection () {
+    // add data as a param above
+    //  this.loopRun = data.loopRun
+    //   this.loopRun = 'launch_collection_t1'
+    // },
     hasFile (file) {
       const item = this.$store.getters[APP_CONSTANTS.KEY_MY_ITEM](this.assetHash)
       if (!item || !item.attributes) return
@@ -247,6 +250,12 @@ export default {
     }
   },
   computed: {
+    loopRun () {
+      const loopRun = this.$store.getters[APP_CONSTANTS.GET_LOOP_RUN_BY_KEY]('launch_collection_t1')
+      // const loopRun = this.$store.getters[APP_CONSTANTS.GET_LOOP_RUN_BY_KEY](this.runKey)
+      // const loopRun = process.env.VUE_APP_DEFAULT_LOOP_RUN
+      return loopRun
+    },
     runKey () {
       const defaultLoopRun = process.env.VUE_APP_DEFAULT_LOOP_RUN
       let runKey = (this.item && this.item.attributes.collection) ? this.item.attributes.collection : defaultLoopRun
