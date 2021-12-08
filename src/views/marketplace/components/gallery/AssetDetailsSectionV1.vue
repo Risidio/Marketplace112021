@@ -5,7 +5,7 @@
       <b-col lg="7" sm="10" class="mb-5">
         <div id="video-column" :style="dimensions">
           <!-- <MediaItem :videoOptions="videoOptions" :attributes="gaiaAsset.attributes" :targetItem="targetItem()"/> -->
-          <MediaItemGeneral :classes="'hash1-image'" v-on="$listeners" :options="videoOptions" :mediaItem="getMediaItem().artworkFile"/>
+          <MediaItemGeneral :classes="'hash1-image'" v-on="$listeners" :options="videoOptions" :mediaItem="gaiaAsset.attributes"/>
         </div>
       </b-col>
       <b-col lg="5" sm="10">

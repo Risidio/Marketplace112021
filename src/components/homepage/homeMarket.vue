@@ -15,7 +15,7 @@
             <div v-for="(item, index) in filterMarketAssets" :key="index" class="homeNFTView" >
                 <div class="NFTbackgroundColour">
                     <b-link class="galleryNFTContainer" :to="assetUrl(item)" v-if="item && item.contractAsset && item.attributes">
-                  <MediaItemGeneral :classes="'nftGeneralView'" v-on="$listeners" :mediaItem="item.attributes.artworkFile"/>
+                  <MediaItemGeneral :classes="'nftGeneralView'" v-on="$listeners" :mediaItem="item.attributes"/>
                   <p style="font-size: 1em;"> {{!item.name ? "NFT" : item.name }} <span style="float: right; font-size: 0.6em; margin-top: 10px;">$ {{item.price * 1.9}}</span></p>
                   <p>By <span style="font-weight:600">{{!item.artist ? "Anonymous" : item.artist }}</span> <span style="float: right;">{{item.price}} STX</span></p>
                 </b-link>
@@ -62,7 +62,7 @@ import MediaItemGeneral from '@/views/marketplace/components/media/MediaItemGene
 import MyPageableItems from '@/views/marketplace/components/gallery/MyPageableItems'
 import utils from '@/services/utils'
 export default {
-  name: 'Gallery',
+  name: 'HomeMarket',
   components: {
     MediaItemGeneral,
     MyPageableItems
