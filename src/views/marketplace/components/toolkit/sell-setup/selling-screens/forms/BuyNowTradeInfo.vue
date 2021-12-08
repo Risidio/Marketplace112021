@@ -2,8 +2,8 @@
 <div class="row">
   <div class="col-12 mb-5">
     <div role="group">
-      <label for="input-live"><span class="text-black">Buy Now Price (STX)</span></label>
-      <b-input-group>
+      <label for="input-live"><span class="text-black">Price</span></label>
+      <b-input-group size="lg" prepend="STX" variant="outline-info">
         <b-form-input type="number" v-model="buyNowOrStartingPrice" class="input" placeholder="STX"></b-form-input>
       </b-input-group>
     </div>

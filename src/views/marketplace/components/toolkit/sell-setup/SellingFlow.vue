@@ -1,13 +1,20 @@
 <template>
-<div style="background: white" class="d-flex justify-content-center" v-if="!loading">
+<div>
+<div class="saleModal" style="background: white"  v-if="!loading">
+  <div style="margin: 20px 0 0 0;">
+    <img style="margin: 0;" class="itemImg" :src="attributes.coverImage.fileUrl"/>
+    <p class="nFTName">{{item.name}}</p>
+    <p class="nFTArtist">By <span>{{item.artist}}</span></p>
+  </div>
   <div style="background: white">
+  <b-button @click="$emit('cancel')" style="position:absolute; margin: 0 0 0 520px;">x</b-button>
     <div class="" :key="componentKey">
-      <div bg-variant="white" style="width:500px; min-height: 500px" footer-tag="footer" v-if="minted">
+      <div bg-variant="white" style="min-height: 350px" footer-tag="footer" v-if="minted">
         <!-- <SellingHeader :allowEdit="true"/> -->
         <SellingOptions :contractAsset="contractAsset" v-if="displayCard === 100" @updateAmount="updateAmount"/>
           <div class="d-flex justify-content-between">
-            <b-button @click="$emit('cancel')" class="w-50 mr-1" variant="light">Cancel</b-button>
-            <b-button @click="setTradeInfo()" class="w-50 ml-1" variant="outline-warning">Save</b-button>
+            <!-- <b-button @click="$emit('cancel')" class="w-50 mr-1" variant="light">Cancel</b-button> -->
+            <!-- <b-button @click="setTradeInfo()" class="w-50 ml-1" variant="outline-warning">Save</b-button> -->
           </div>
       </div>
       <b-card header-tag="header" footer-tag="footer" class="rpay-card" v-else>
@@ -27,11 +34,12 @@
     </div>
   </div>
   <div>
-
   </div>
 </div>
 <div v-else>
   Waiting for asset.
+</div>
+<b-button @click="setTradeInfo()" class="mintButton" style="position: absolute; margin: -30px 150px 20px 700px;">Save</b-button>
 </div>
 </template>
 
@@ -44,7 +52,7 @@ export default {
   components: {
     SellingOptions
   },
-  props: ['contractAsset'],
+  props: ['contractAsset', 'attributes', 'item'],
   data () {
     return {
       componentKey: 0,

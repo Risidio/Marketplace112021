@@ -21,6 +21,9 @@
         <div v-if="!item.contractAsset">
           <b-button class="mintButton" @click="startMinting()">Mint<span v-if="loopRun && loopRun.batchSize > 1"> Next {{loopRun.batchSize}}</span></b-button>
         </div>
+        <div v-else>
+         <b-button class="mintButton" @click="openSaleDataDialog()">Update Sale Info</b-button>
+        </div>
         <!-- <div class="text-left text-small mt-3">
           <b-link :to="'/my-nfts/' + loopRun.currentRunKey"><b-icon icon="chevron-left"/> Back</b-link>
         </div> -->
@@ -129,6 +132,11 @@ export default {
       this.$store.commit(APP_CONSTANTS.SET_RPAY_FLOW, { flow: 'minting-flow' })
       this.$store.commit('rpayStore/setDisplayCard', 100)
       this.$bvModal.show('minting-modal')
+    },
+    openSaleDataDialog: function () {
+      this.$store.commit(APP_CONSTANTS.SET_RPAY_FLOW, { flow: 'selling-flow' })
+      this.showRpay = true
+      this.$bvModal.show('selling-modal')
     },
     fetchItem () {
       if (this.$route.name === 'nft-preview') {
@@ -390,13 +398,5 @@ export default {
   padding: 30px;
   background-color: #8181813f;
   border-radius: 30px;
-}
-.mintButton{
-  display: block;
-  padding: 20px 90px;
-  margin: 20px auto;
-  background: #50B1B5;
-  border: none;
-  border-radius: 100px;
 }
 </style>
