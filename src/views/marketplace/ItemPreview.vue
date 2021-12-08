@@ -1,5 +1,5 @@
 <template>
-<section class="itemPreviewSection" id="section-minting">
+<section style="height: 100%" class="itemPreviewSection" id="section-minting">
   <div class="modal" id="myModal">
   <div class="modal-content">
     <span class="close" v-on:click="close()">&times;</span>
@@ -46,7 +46,8 @@
         </div>
         <p v-if="item.description" class="pt-4 text-small" v-html="preserveWhiteSpace(item.description)"></p>
         <MintInfo :item="item" :loopRun="loopRun"/>
-        <PendingTransactionInfo v-if="pending && pending.txStatus === 'pending'" :pending="pending"/>
+
+        <PendingTransactionInfo class="mt-5" v-if="pending && pending.txStatus === 'pending'" :pending="pending"/>
         <div v-else>
           <MintingTools class="w-100" :items="[item]" :loopRun="loopRun" @update="update"/>
         </div>
