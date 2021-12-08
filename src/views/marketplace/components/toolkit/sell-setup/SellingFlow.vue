@@ -1,17 +1,15 @@
 <template>
-<div class="mx-5 d-flex justify-content-center" v-if="!loading">
-  <div class="mx-auto">
-    <b-card-group class="" :key="componentKey" style="width: 450px;">
-      <b-card bg-variant="dark" header-tag="header" footer-tag="footer" v-if="minted">
+<div style="background: white" class="d-flex justify-content-center" v-if="!loading">
+  <div style="background: white">
+    <div class="" :key="componentKey">
+      <div bg-variant="white" style="width:500px; min-height: 500px" footer-tag="footer" v-if="minted">
         <!-- <SellingHeader :allowEdit="true"/> -->
         <SellingOptions :contractAsset="contractAsset" v-if="displayCard === 100" @updateAmount="updateAmount"/>
-        <template v-slot:footer>
           <div class="d-flex justify-content-between">
             <b-button @click="$emit('cancel')" class="w-50 mr-1" variant="light">Cancel</b-button>
             <b-button @click="setTradeInfo()" class="w-50 ml-1" variant="outline-warning">Save</b-button>
           </div>
-        </template>
-      </b-card>
+      </div>
       <b-card header-tag="header" footer-tag="footer" class="rpay-card" v-else>
         <div class="mt-5 mx-5 text-center">
           <div class="text-danger">Please mint this item before setting up sale information</div>
@@ -26,7 +24,10 @@
           </div>
         </template>
       </b-card>
-    </b-card-group>
+    </div>
+  </div>
+  <div>
+
   </div>
 </div>
 <div v-else>

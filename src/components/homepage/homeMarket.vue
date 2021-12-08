@@ -12,7 +12,7 @@
     <div class="homeMarketItems">
 
         <div class="galleryContainer" v-if="gaiaAssets.length > 0 && tab === 'Discover'">
-            <div v-for="(item, index) in gaiaAssets" :key="index" class="homeNFTView" >
+            <div v-for="(item, index) in filterMarketAssets" :key="index" class="homeNFTView" >
                 <div class="NFTbackgroundColour">
                     <b-link class="galleryNFTContainer" :to="assetUrl(item)" v-if="item && item.contractAsset && item.attributes">
                   <MediaItemGeneral :classes="'nftGeneralView'" v-on="$listeners" :mediaItem="item.attributes.artworkFile"/>
@@ -132,6 +132,10 @@ export default {
     gaiaAssets () {
       const assets = this.$store.getters[APP_CONSTANTS.KEY_GAIA_ASSETS]
       return (assets) ? assets.reverse() : []
+    },
+    filterMarketAssets () {
+      const filterMarketAssets = this.gaiaAssets.slice(0, 8)
+      return (filterMarketAssets)
     }
   }
 }

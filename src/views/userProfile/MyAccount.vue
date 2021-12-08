@@ -87,7 +87,7 @@
             <div class="yourItems">
               <router-link v-bind:to="'/nft-preview/' + item.projectId + '/' + item.contractAsset.nftIndex" ><img :src="item.image" class="itemImg" style=""/></router-link>
               <p style="font-size: 1.3em; font-weight: 500; padding:0; margin: 0"> {{item.name || 'Not named'}} <span style="float: right; font-size: 0.6em; margin-top: 10px;">$ 0</span></p>
-              <p>By <span style="font-weight:600">{{item.artist || 'Not named'}}</span> <span style="float: right;">0 STX</span></p>
+              <p>By <span style="font-weight:600">{{item.artist || 'Not named'}}</span> <span style="float: right;">{{item.contractAsset.saleData.buyNowOrStartingPrice || '0'}} STX</span></p>
             </div>
         </div>
       </div>
