@@ -36,7 +36,7 @@
       <div v-if="!hasRegistry" class="col-12"><a class="pointer text-black" @click.prevent="showRegistryDeploy = !showRegistryDeploy">deploy registry</a></div>
     </div>
     <b-tabs
-      active-nav-item-class="font-weight-bold text-uppercase text-danger"
+      active-nav-item-class="font-weight-bold text-uppercase  "
       active-tab-class="font-weight-bold text-black"
       content-class="mt-3"
       justified bg-variant="warning" v-model="tabIndex" small card left>

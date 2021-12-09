@@ -3,11 +3,11 @@
   <b-card bg-variant="white" class="mt-0 text-small py-2 text-dark">
     <div class="px-2">
       <div class="text-left">
-        <div class="text-xsmall d-flex justify-content-between">
+        <div class="  d-flex justify-content-between">
           <h6>Minting Punk {{allocation.punkIndex}}</h6>
           <div class="text-right">(status: {{allocation.txStatus}})</div>
         </div>
-        <div class="text-xsmall d-flex justify-content-between">
+        <div class="  d-flex justify-content-between">
           <div class="text-right">{{loopRun.currentRun}}</div>
           <div class="text-right">{{created()}}</div>
         </div>
@@ -27,12 +27,12 @@
               <img width="100px" height="100px" :src="loopRun.mintImage3" icon="circle" animation="throb" font-scale="5"/>
           </div>
           <div v-else style="height: 100px; width: 100px;" class="center">
-            <b-icon class="text-danger" icon="x-circle" font-scale="5"></b-icon>
+            <b-icon class=" " icon="x-circle" font-scale="5"></b-icon>
           </div>
       </div>
     </b-card-text>
     <b-card-text>
-      <div class="text-xsmall text-center mb-3">
+      <div class="  text-center mb-3">
         <span v-b-tooltip.hover="{ variant: 'warning' }" :title="'View on explorer'"><a class="text-dark" @click="checkTx(true)" :href="transactionUrl()" target="_blank">{{allocation.from}}</a></span>
       </div>
     </b-card-text>

@@ -1,7 +1,7 @@
 <template>
 <div class="" v-if="allowRevealImage()">
   <div class="text-center mb-3">
-    <span class="pointer text-danger" @click="revealImage()">tear and claim your punk!</span>
+    <span class="pointer  " @click="revealImage()">tear and claim your punk!</span>
   </div>
 </div>
 </template>

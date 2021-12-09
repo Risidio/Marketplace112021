@@ -4,7 +4,7 @@
     <div title="Make Payment" v-if="payment">
       <div class="rpay-countdown mb-3 d-flex justify-content-center">
         <span class="mr-2 text-message">valid for</span>
-        <CryptoCountdown :configuration="configuration" class="text-danger" v-on="$listeners" />
+        <CryptoCountdown :configuration="configuration" class=" " v-on="$listeners" />
       </div>
       <div class="mb-1 d-flex justify-content-center">
         <canvas class="qr-canvas" ref="lndQrcode"></canvas>

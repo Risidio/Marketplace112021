@@ -2,7 +2,7 @@
 <b-card-text>
   <div class="row mx-0">
     <div class="col-5">
-      <div @click="backToCredits" class="cursor-pointer text-one">Your <span class="text-danger" v-if="network == 'testnet'">testnet</span> order <b-icon icon="pencil"/></div>
+      <div @click="backToCredits" class="cursor-pointer text-one">Your <span class=" " v-if="network == 'testnet'">testnet</span> order <b-icon icon="pencil"/></div>
     </div>
     <div class="text-left col-7">
       <div class="text-one"><span class="text-two" v-html="numbUnits"></span> credits @ <span class="text-two" v-html="fiatSymbol"></span> {{formattedFiat}}</div>

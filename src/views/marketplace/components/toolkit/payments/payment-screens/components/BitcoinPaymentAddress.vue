@@ -2,7 +2,7 @@
 <div class="d-flex flex-column align-items-center">
   <div class="rpay-countdown mb-3 d-flex justify-content-center">
     <span class="text-message mr-1">valid for</span>
-    <CryptoCountdown :configuration="configuration" class="text-danger" v-on="$listeners" />
+    <CryptoCountdown :configuration="configuration" class=" " v-on="$listeners" />
   </div>
   <div class="mb-3 mx-auto">
     <canvas ref="lndQrcode"></canvas>

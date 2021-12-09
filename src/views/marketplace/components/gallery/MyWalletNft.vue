@@ -11,7 +11,7 @@
       </div>
     </div>
     <b-card-text class="">
-      <b-link class="text-xsmall text-info" :to="nextUrl">
+      <b-link class="  text-info" :to="nextUrl">
         <div @contextmenu="handler($event)" class="d-flex justify-content-center p-2">
             <img
               ref="itemImage"
@@ -24,7 +24,7 @@
     <b-card-text>
       <!-- Enables connecting meta data to the actual punk crash -->
       <PunkConnect v-if="loopRun" :loopRun="loopRun" :asset="asset" @updateImage="updateImage"/> <!-- v-on="$listeners"/> -->
-      <div class="text-xsmall text-center mb-3">
+      <div class="  text-center mb-3">
         <span v-if="contractAsset">{{contractAsset.owner}}</span>
         <span v-else>'ownership in progress'</span>
       </div>

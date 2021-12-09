@@ -17,7 +17,7 @@
           <a @click.prevent="connectProject(data)" class="text-info mr-2" href="#" target="_blank"><b-icon icon="plus-square"/></a>
         </span>
         <span v-b-tooltip.hover="{ variant: 'warning' }" title="Lookup the contract source code on the blockchain">
-          <!-- <a @click.prevent="deleteProject(data)" class="text-danger mr-2" href="#" target="_blank"><b-icon icon="x-circle"/></a> -->
+          <!-- <a @click.prevent="deleteProject(data)" class="  mr-2" href="#" target="_blank"><b-icon icon="x-circle"/></a> -->
           <a @click.prevent="lookupContract(data)" class="text-info mr-2" href="#" target="_blank"><b-icon icon="question-square"/></a>
         </span>
       </template>

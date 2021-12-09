@@ -1,7 +1,7 @@
 <template>
 <div v-if="events">
   <h6 class="text-black">NFT History</h6>
-  <b-row class="text-xsmall">
+  <b-row class=" ">
     <b-col md="12" sm="12">
       <b-table striped hover :items="values()" :fields="fields()" class="bg-light text-dark">
         <template #cell(status)="data">
@@ -191,7 +191,7 @@ export default {
       } else if (txStatus === 'success') {
         return 'text-success'
       } else {
-        return 'text-danger'
+        return ' '
       }
     },
     copy (type, data) {

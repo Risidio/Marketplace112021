@@ -19,7 +19,7 @@
               <p class="mt-2 mx-4 text-center text-message" v-html="swapMessage"></p>
               <p v-if="paying" class="mt-2 mx-4 text-center text-message">
                 <b-icon icon="circle" animation="throb" font-scale="1"></b-icon> Payment in Progress
-                <br/><span class="text-danger text-small">Please leave this tab open until we get the response</span>
+                <br/><span class="  text-small">Please leave this tab open until we get the response</span>
               </p>
               <CryptoPaymentScreen :configuration="configuration" @rpayEvent="rpayEvent"/>
             </div>
@@ -129,7 +129,7 @@ export default {
   },
   computed: {
     swapMessage () {
-      let sm = 'You send <span class="text-danger">'
+      let sm = 'You send <span class=" ">'
       if (this.configuration.payment.paymentOption === 'ethereum') {
         sm += this.configuration.payment.amountEth + '</span> ETH to us. '
       } else if (this.configuration.payment.paymentOption === 'bitcoin' || this.configuration.payment.paymentOption === 'lightning') {
@@ -137,12 +137,12 @@ export default {
       } else {
         sm += this.configuration.payment.amountFiat + '</span> ' + this.configuration.payment.currency + ' to us. '
       }
-      sm += '<br/>We send <span class="text-danger">' + this.configuration.payment.amountStx + '</span> STX to you. '
+      sm += '<br/>We send <span class=" ">' + this.configuration.payment.amountStx + '</span> STX to you. '
       return ''
     },
     paymentMessage () {
-      // return 'Buy <span class="text-danger">' + this.configuration.payment.amountFiat + '</span> ' + this.configuration.payment.currency + ' for <span class="text-danger">' + this.configuration.payment.amountStx + '</span> STX<br/><span style="font-size: 0.8rem;">to:</span> <span class="text-danger" style="font-size: 0.8rem;">' + this.recipient + '</span>'
-      return 'Buy <span class="text-danger">credits</span> play <span class="text-danger">loopbomb</span>'
+      // return 'Buy <span class=" ">' + this.configuration.payment.amountFiat + '</span> ' + this.configuration.payment.currency + ' for <span class=" ">' + this.configuration.payment.amountStx + '</span> STX<br/><span style="font-size: 0.8rem;">to:</span> <span class=" " style="font-size: 0.8rem;">' + this.recipient + '</span>'
+      return 'Buy <span class=" ">credits</span> play <span class=" ">loopbomb</span>'
     },
     displayCard () {
       const displayCard = this.$store.getters[APP_CONSTANTS.KEY_DISPLAY_CARD]

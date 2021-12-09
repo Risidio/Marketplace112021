@@ -1,13 +1,13 @@
 <template>
 <div class="text-dark">
-  <div class="text-right text-small"><b-link @click="$emit('cancel')" class="pt-1 px-3 text-danger"><b-icon icon="chevron-left"/> Back</b-link></div>
+  <div class="text-right text-small"><b-link @click="$emit('cancel')" class="pt-1 px-3  "><b-icon icon="chevron-left"/> Back</b-link></div>
   <div class="text-black"><h3>About You</h3></div>
-  <div class="text-danger">
+  <div class=" ">
     <MediaItemGeneral v-if="userProfile.avatar" :classes="'avatar-image'" :options="options" @deleteMediaItem="deleteMediaItem" :mediaItem="userProfile.avatar"/>
     <MyAvatar v-else @updateProfile="updateProfile" :avatar="userProfile.avatar"/>
   </div>
   <b-card class="mt-1" role="group">
-    <label for="name">First / Last Name<span class="text-danger">*</span></label>
+    <label for="name">First / Last Name<span class=" ">*</span></label>
     <b-form-input
       id="name"
       v-model="userProfile.name"
@@ -19,7 +19,7 @@
     <b-form-invalid-feedback id="name-feedback">
       Enter at least 3 letters
     </b-form-invalid-feedback>
-    <label for="name">Tag / Moniker<span class="text-danger">*</span></label>
+    <label for="name">Tag / Moniker<span class=" ">*</span></label>
     <b-form-input
       id="name"
       v-model="userProfile.tag"
@@ -42,7 +42,7 @@
 
   <div class="text-black mt-5"><h3>Social Links</h3></div>
   <b-card class="mt-1" role="group">
-    <label for="email">Email<span class="text-danger">*</span></label>
+    <label for="email">Email<span class=" ">*</span></label>
     <b-form-input
       id="email"
       v-model="userProfile.email"
@@ -101,7 +101,7 @@
       value="accepted"
       unchecked-value="unaccepted"
     >
-    <div class="pointer"><b>Agree Terms</b><span class="text-danger">*</span></div>
+    <div class="pointer"><b>Agree Terms</b><span class=" ">*</span></div>
     </b-form-checkbox>
   </b-card>
 

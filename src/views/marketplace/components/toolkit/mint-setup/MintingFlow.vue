@@ -1,5 +1,5 @@
 <template>
-<div v-if="!loading" class=" d-flex justify-content-center">
+<div v-if="!loading" >
   <div class="mx-auto">
     <div>
       <div style="border:none; border-radius: 0px">
@@ -12,16 +12,16 @@
           <AddBeneficiaryScreen :errorMessage="errorMessage" :eBen="eBen" @addBeneficiary="addBeneficiary" :beneficiaries="beneficiaries" :item="item" v-if="displayCard === 102"/>
         </div>
         -->
-        <b-row class="">
-          <b-col style="margin-bottom: 20px" cols="4" class="px-5">
+        <b-row >
+          <b-col style="margin: 0px 0px 50px 80px" cols="4" class="px-5">
             <!-- <ItemDisplay :item="items" :loopRun="loopRun"/> -->
             <!-- <MediaItemGeneral :classes="'item-image-preview'" :options="options" :mediaItem="getMediaItem()"/> -->
-            <MediaItemGeneral :classes="'item-image-preview'" :options="options" :mediaItem="mediaItem"/>
+            <MediaItemGeneral :classes="'minting-item-image-preview'" :options="options" :mediaItem="mediaItem"/>
               <h2 v-if="items[0].name" style="margin: 20px 0 0 0;">{{items[0].name}}</h2>
               <h6 v-if="items[0].artist" style="font-size: 0.7em;">By : <span style="font-weight: 600; font-size: 16px; font-family: inherit">{{items[0].artist}}</span></h6>
           </b-col>
-          <b-col cols="8" class="px-5">
-            <div class=" mt-0">
+          <b-col cols="6" class="px-5">
+            <div style="margin-top:20%">
               <RoyaltyScreen :errorMessage="errorMessage" :item="item" @mintToken="mintTwentyTokens" @editBeneficiary="editBeneficiary" @removeBeneficiary="removeBeneficiary" @updateBeneficiary="updateBeneficiary" @addNewBeneficiary="addNewBeneficiary" :beneficiaries="beneficiaries" v-if="displayCard !== 102"/>
               <AddBeneficiaryScreen :errorMessage="errorMessage" :eBen="eBen" @addBeneficiary="addBeneficiary" :beneficiaries="beneficiaries" :item="item" v-if="displayCard === 102"/>
             </div>
@@ -329,4 +329,21 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+.minting-item-image-preview {
+  display: flex;
+  width: auto;
+  height: 50vh;
+  border-radius: 5px;
+  display: block;
+  margin: auto;
+  object-fit: contain;
+  margin: auto;
+  box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.18);
+  align-items: center;
+  &:hover{
+    transition: all smooth 2s;
+    box-shadow: rgba(0, 0, 0, 0.589) 0px 10px 15px;
+    transform: scale(1.01)
+  }
+}
 </style>

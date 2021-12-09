@@ -7,7 +7,7 @@
   </span>
   <span v-else>
     <span class="ml-2 border-bottom" v-if="showEditLink"><b-link :to="'/edit-item/' + item.assetHash"><span class="mb-0">edit</span></b-link></span>
-    <span class="ml-2 border-bottom" v-if="showDeleteLink"><a href="#" @click.prevent="deleteItem" class="text-danger"><span class="mb-0">delete</span></a></span>
+    <span class="ml-2 border-bottom" v-if="showDeleteLink"><a href="#" @click.prevent="deleteItem" class=" "><span class="mb-0">delete</span></a></span>
   </span>
 </div>
 </template>

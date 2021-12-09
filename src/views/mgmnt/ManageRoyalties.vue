@@ -7,7 +7,7 @@
   <div>
     <h1 class="text-black">Manage Royalties for Collection</h1>
     <b-tabs
-      active-nav-item-class="font-weight-bold text-uppercase text-danger"
+      active-nav-item-class="font-weight-bold text-uppercase  "
       active-tab-class="font-weight-bold text-black"
       content-class="mt-3"
       justified bg-variant="warning" v-model="tabIndex" small card left>

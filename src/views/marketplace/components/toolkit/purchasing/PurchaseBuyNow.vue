@@ -4,7 +4,7 @@
     <b-col cols="12">
       <h1><span class="mr-5 text-black">Buy Now</span> {{contractAsset.saleData.buyNowOrStartingPrice}} STX</h1>
     </b-col>
-    <b-col cols="12" class="text-xsmall">
+    <b-col cols="12" class=" ">
       <RatesListing :message="''" :amount="contractAsset.saleData.buyNowOrStartingPrice"/>
     </b-col>
     <b-row class="text-small mt-5">

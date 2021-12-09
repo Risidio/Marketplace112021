@@ -1,5 +1,5 @@
 <template>
-<section v-if="content" class="text-info text-danger">
+<section v-if="content" class="text-info  ">
   <b-container class="center-section py-5">
     <b-row align-h="center">
       <b-col v-if="stage === 0" align-self="start" md="6" sm="10" xs="8" class="mb-4 d-flex justify-content-end">

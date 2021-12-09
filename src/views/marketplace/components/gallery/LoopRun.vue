@@ -6,21 +6,21 @@
         <span v-b-tooltip.hover="{ variant: 'warning' }" :title="'Your daily spin quota gives everyone equal opportunity to mine a lovely loop!'"><span class="">{{credits}}</span> more spins today</span>
       </div>
       <div v-if="limitReached">
-        <span class="text-danger" router-tag="span" v-b-tooltip.hover="{ variant: 'warning' }" :title="'Each run has unique elements that increase in scarcity with the expansion of each new version!'">
+        <span class=" " router-tag="span" v-b-tooltip.hover="{ variant: 'warning' }" :title="'Each run has unique elements that increase in scarcity with the expansion of each new version!'">
           Sorry, all minted for this run. Visit the <b-link class="text-info" to="/nft-marketplace">Marketplace</b-link>
         </span>
       </div>
       <div v-else>
         <span>
           <span class="text-warning mr-2" v-b-tooltip.hover="{ variant: 'warning' }" :title="'Each run has unique elements that increase in scarcity with the expansion of each new version!'">{{loopRun.currentRun}}</span>
-          <span class="text-xsmall" v-b-tooltip.hover="{ variant: 'warning' }" :title="nftsLeft + ' Loopbombs remain to be claimed in this run!'">{{nftsRemaining}} Minted (@{{mintPrice}} STX Each)</span>
+          <span class=" " v-b-tooltip.hover="{ variant: 'warning' }" :title="nftsLeft + ' Loopbombs remain to be claimed in this run!'">{{nftsRemaining}} Minted (@{{mintPrice}} STX Each)</span>
         </span>
       </div>
     </div>
   </div>
   <div class="text-small" v-else-if="parent === 'minting'">
       <div v-if="limitReached">
-        <span class="text-danger" router-tag="span" v-b-tooltip.hover="{ variant: 'warning' }" :title="'Each run has unique elements that increase in scarcity with the expansion of each new version!'">
+        <span class=" " router-tag="span" v-b-tooltip.hover="{ variant: 'warning' }" :title="'Each run has unique elements that increase in scarcity with the expansion of each new version!'">
           Sorry, all minted for this run. Visit the <b-link class="text-info" to="/nft-marketplace">Marketplace</b-link>
         </span>
       </div>
@@ -35,7 +35,7 @@
   </div>
 </div>
 <div v-else>
-  <div class="py-5 px-5 bg-white text-danger d-flex justify-content-center">
+  <div class="py-5 px-5 bg-white   d-flex justify-content-center">
     <div v-if="loopRun">
       Expecting contract <span class="text-bold">{{loopRun.contractId}}</span> to be deployed and connected?
     </div>

@@ -7,7 +7,7 @@
     <div>
       <div v-if="contractAsset && contractAsset.saleData.saleType === 1">
         <PurchaseBuyNow :contractAsset="contractAsset" :saleData="contractAsset.saleData" @buyNow="buyNow"/>
-        <div class="text-danger" v-html="errorMessage"></div>
+        <div class=" " v-html="errorMessage"></div>
       </div>
       <div v-else>
         Asset not on sale.

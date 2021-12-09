@@ -7,7 +7,7 @@
           <b-badge class="mb-3 p-3" variant="light" v-if="editionsMintable">Editions are <span >available</span></b-badge>
           <b-badge class="mb-3 p-3" variant="light" v-else>All editions have been minted</b-badge>
           <div class="text-right" v-if="editionsMintable && profile.superAdmin">
-            <a class="mr-3 text-danger" @click="disableEditions()">switch editions off</a>
+            <a class="mr-3  " @click="disableEditions()">switch editions off</a>
           </div>
         </div>
       </div>
@@ -37,7 +37,7 @@
         <b-button variant="outline-warning" @click="updateEditions()">Update</b-button>
       </div>
       <div class="row mb-4" v-if="transferring">
-        <div class="col-12 text-danger" v-html="transferring"></div>
+        <div class="col-12  " v-html="transferring"></div>
       </div>
     </div>
   </div>

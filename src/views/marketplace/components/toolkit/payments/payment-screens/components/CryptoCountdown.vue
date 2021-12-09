@@ -1,6 +1,6 @@
 <template>
     <div v-if="expired" class="">
-      <b-link class="text-danger" @click.prevent="$emit('rpayEvent', { opcode: 'crypto-payment-expired' })">Expired - start over</b-link>
+      <b-link class=" " @click.prevent="$emit('rpayEvent', { opcode: 'crypto-payment-expired' })">Expired - start over</b-link>
     </div>
     <div v-else>
       <div class="text-message">

@@ -21,7 +21,7 @@
         <!-- {{getLongTime()}} -->
       </div>
     </div>
-    <div><p class="text-danger" v-html="errorMessage"></p></div>
+    <div><p class=" " v-html="errorMessage"></p></div>
   </div>
 </div>
 </template>

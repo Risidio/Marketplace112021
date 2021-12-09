@@ -109,6 +109,10 @@ select {
 }
 .cyanBg{
   background:#50B1B5;
+  border: none;
+}
+.cyanBg:hover{
+  background: auto;
 }
 .nftBuyNowSection{
   display: flex;
@@ -189,15 +193,17 @@ select {
 }
 
 .modal-dialog {
-  min-width: 60vw;
+  min-width: 70vw;
   padding: 20px;
   margin: 25vh auto;
 }
 .modal-content {
   min-height: 200px;
   color: rgb(7, 0, 0);
-  // padding: 20px;
+  padding: 20px;
   border-radius: 25px;
+  background: #F5F5F5 0% 0% no-repeat padding-box;
+  box-shadow: 0px 3px 6px #00000029 inset;
 }
 .modal-header {
   text-align: right;
@@ -227,7 +233,7 @@ select {
 .bg-black {
   background-color: #000;
 }
-.text-xsmall {
+.text-danger {
   font-size: 0.9rem;
 }
 .text-big {
@@ -500,11 +506,29 @@ select {
   margin: auto;
   object-fit: cover;
   margin: auto;
+  // box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.18);
+  align-items: center;
+  &:hover{
+    transition: all smooth 2s;
+    // box-shadow: rgba(0, 0, 0, 0.589) 0px 10px 15px;
+    box-shadow: rgba(0, 36, 70, 0.61) 0px 25px 20px -20px;
+    transform: scale(1.01)
+  }
+}
+.minting-item-image-preview {
+  display: flex;
+  width: auto;
+  height: 50vh;
+  border-radius: 5px;
+  display: block;
+  margin: auto;
+  object-fit: contain;
+  margin: auto;
   box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.18);
   align-items: center;
   &:hover{
     transition: all smooth 2s;
-    box-shadow: rgba(0, 0, 0, 0.589) 0px 10px 15px;
+    box-shadow: rgba(0, 36, 70, 0.61) 0px 25px 20px -20px;
     transform: scale(1.01)
   }
 }

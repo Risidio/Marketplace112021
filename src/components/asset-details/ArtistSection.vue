@@ -41,7 +41,7 @@ export default {
         const fgcolor = content.data.theme[0].text.split(',')[1]
         return 'bg-' + bgcolor + ' text-' + fgcolor
       } catch {
-        return 'bg-primary text-info text-danger'
+        return 'bg-primary text-info  '
       }
     },
     getArtistText1: function () {

@@ -7,7 +7,7 @@
       </span>
       <div v-if="allowEdit">
         <a href="#" @click="editBeneficiary()"><b-icon icon="pencil"/></a>
-        <a class="ml-2 text-danger" href="#" @click="removeBeneficiary()"><b-icon icon="trash"/></a>
+        <a class="ml-2  " href="#" @click="removeBeneficiary()"><b-icon icon="trash"/></a>
       </div>
     </b-col>
     <b-col cols="3" class="text-right">

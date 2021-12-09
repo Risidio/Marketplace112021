@@ -52,11 +52,11 @@
             <b-input v-model="project.callBack"></b-input>
           </div>
           <div class="text2" role="group">
-            <label for="status-name"><span class="text-danger">*</span> Project State</label>
+            <label for="status-name"><span class=" ">*</span> Project State</label>
             <b-form-select size="lg" id="status-name" v-model="project.status" :options="statusEnum"></b-form-select>
           </div>
           <div class="text2" role="group">
-            <label for="type-name"><span class="text-danger">*</span> Project Type</label>
+            <label for="type-name"><span class=" ">*</span> Project Type</label>
             <b-form-select size="lg" id="type-name" v-model="project.type" :options="typeEnum"></b-form-select>
           </div>
           <div class="text2" v-if="project.type === 'punks'">

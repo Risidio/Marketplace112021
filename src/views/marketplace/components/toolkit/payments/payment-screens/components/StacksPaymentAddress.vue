@@ -25,7 +25,7 @@
       <b-button class="cp-btn-order" variant="warning" @click.prevent="sendPayment()">{{buttonLabel}}</b-button>
     </div>
     <div class="my-3 text-center">
-      <span class="text-small text-danger">{{errorMessage}}</span>
+      <span class="text-small  ">{{errorMessage}}</span>
     </div>
   </div>
 </div>

@@ -14,7 +14,7 @@
           </div>
           <div v-else>
             <div class="mb-3" role="group">
-              <label for="contractId"><span class="text-danger">*</span> contract id</label>
+              <label for="contractId"><span class=" ">*</span> contract id</label>
               <b-form-input
                 id="contractId"
                 v-model="contractId"

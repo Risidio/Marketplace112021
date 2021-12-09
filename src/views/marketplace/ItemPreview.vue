@@ -2,7 +2,8 @@
 <section style="height: 100%" class="itemPreviewSection" id="section-minting">
   <div class="modal" id="myModal">
   <div class="modal-content">
-    <span class="close" v-on:click="close()">&times;</span>
+    <span style="  position: absolute;
+  top: 100%;" class="close" v-on:click="close()">&times;</span>
     <div id="threeCanvas"><canvas  :style="dimensions()"/></div>
   </div>
 </div>
@@ -478,10 +479,13 @@ export default {
   width: 100%; /* Full width */
   height: 100%; /* Full height */
   overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  // background-color: rgb(0,0,0); /* Fallback color */
+  // background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 }
 .close{
+  // position: absolute !important;
+  // top: 0% !important;
+  // right: 0% !important;
   margin: auto;
   font-size: 30px;
 }
@@ -490,6 +494,7 @@ export default {
   background-color: #fefefe;
   margin: auto;
   // padding: 20px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
   border: 1px solid #888;
   width: 80%;
 }
