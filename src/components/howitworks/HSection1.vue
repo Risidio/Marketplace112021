@@ -52,22 +52,17 @@ export default {
 }
 .container h1{
   margin-top: 50px;
-  font-family: inherit;
-  font-size: clamp(4rem, 5rem, 6rem);
-  font-weight: 300;
-    color:white;
+  font: normal normal 300 37px/30px Montserrat;
+  color:white;
 
 }
 .container p{
-  margin:auto;
-  padding-top: 20px;
-  font-size: 1.2em;
-  font-weight: 300;
-  max-width: 750px;
+  margin: 30px auto;
+  font: normal normal 200 16px/20px Montserrat;
+  max-width: 700px;
     color:white;
 }
 .button{
-  margin-top: 50px;
   width: 220px;
   height: 55px;
   border-radius: 100px;

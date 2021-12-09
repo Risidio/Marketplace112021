@@ -3,16 +3,15 @@
   <div class = "title-container">
       <h1>{{content.howsection1[0].howtitle[0].text}}</h1>
       <p>{{content.howsection1[0].howtitle2[0].text}} </p>
-  </div>
-  <div class = "main-container">
-    <div class = "container">
-      <p> {{content.howsection1[0].howtext[0].text}}<br>
+      <div class="pCont">
+        <p> {{content.howsection1[0].howtext[0].text}}<br>
       {{content.howsection1[0].howtext[1].text}} <br>
       {{content.howsection1[0].howtext[2].text}}<br>
       {{content.howsection1[0].howtext[3].text}}</p>
-      <button class="button"> About Risidio </button>
-    </div>
-  </div>
+      </div>
+
+      </div>
+      <router-link to="/about" style="display: block; margin: auto;"><button  class="button"> About Risidio </button></router-link>
 </div>
 </template>
 
@@ -28,48 +27,33 @@ export default {
 
 <style scoped>
 .Htitle{
-  min-height: 90vh;
+  min-height: 30vh;
+  margin: 200px auto 100px auto;
 }
 .title-container {
-  font-family: inherit;
-  align-items: center;
+  padding: 20px;
+  max-width: 700px;
   text-align: center;
+  margin: auto;
 }
 .title-container h1{
-  font-family: inherit;
-  font-size: clamp(50px, 3vw, 6vw);
-  font-weight: 200;
-  padding-top: 12%;
+  font: normal normal 300 37px/30px Montserrat;
 }
 .title-container p{
   font-family: inherit;
-  font-size: clamp(25px, 1em, 3vw);
+  font-size: 22px;
   font-weight: 500;
   padding-top: 25px;
   padding-bottom: 20px;
 }
-.main-container{
-  display:flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  max-width: 1100px;
-  margin: 0 auto;
-}
-.main-container p{
-  font-size: 1.1em;
-  font-weight:300;
-  padding: 0px;
-}
-.container{
-  margin: 0px;
+.pCont p{
+  font: normal normal 300 14px/20px Montserrat;
+  margin:auto;
 }
 .button{
-  margin-top: 20px;
-  margin-bottom: 20px;
-  width: 200px;
-  height: 60px;
+  display: block;
+  margin: 50px auto;
+  padding: 15px 50px;
   border-radius: 100px;
   border: none;
   background-color: rgba(0, 162, 184, 0.1);
