@@ -180,7 +180,7 @@ export default {
         name: index
       }
       myAsset.attributes.collection = this.loopRun.currentRunKey + '/' + this.loopRun.makerUrlKey
-      myAsset.projectId = this.loopRun.contractId
+      myAsset.contractId = this.loopRun.contractId
       let assetPath = myAsset.assetHash + '.json'
       if (myAsset.attributes.collection) {
         assetPath = myAsset.attributes.collection + '/' + index + '.json'
@@ -206,7 +206,13 @@ export default {
       const editions = myAsset.attributes.editions
       const editionCost = myAsset.attributes.editionCost
       const buyNowPrice = myAsset.attributes.buyNowPrice
-      const hashish = myAsset.image + myAsset.metaDataUrl + mintPrice + editions + editionCost + buyNowPrice
+      let metaNoImageUrl = {}
+      metaNoImageUrl = Object.assign(metaNoImageUrl, myAsset)
+      if (metaNoImageUrl.image) delete metaNoImageUrl.image
+      if (metaNoImageUrl.metaDataUrl) delete metaNoImageUrl.metaDataUrl
+      if (metaNoImageUrl.attributes.imageHash) delete metaNoImageUrl.attributes.imageHash
+      if (metaNoImageUrl.attributes.artworkFile) delete metaNoImageUrl.attributes.artworkFile
+      const hashish = JSON.stringify(metaNoImageUrl)
       myAsset.assetHash = utils.buildHash(hashish)
     },
     saveAssetWithMintTxId (gaiaAsset) {

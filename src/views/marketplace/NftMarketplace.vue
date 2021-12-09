@@ -107,13 +107,13 @@ export default {
         return '/nft-marketplace/' + loopRun.makerUrlKey + '/' + loopRun.currentRunKey
       }
     },
-    projectId (project) {
-      try {
-        return project.contractId.split('.')[1] // + project.application.tokenContract.mintCounter
-      } catch (e) {
-        return project.title
-      }
-    },
+    // projectId (project) {
+    //   try {
+    //     return project.contractId.split('.')[1] // + project.application.tokenContract.mintCounter
+    //   } catch (e) {
+    //     return project.title
+    //   }
+    // },
     getImageUrl (item) {
       return this.$store.getters[APP_CONSTANTS.KEY_ASSET_IMAGE_URL](item)
     },
