@@ -13,7 +13,7 @@
     </audio>
   </div>
   <div v-else-if="contentType === 'document'">
-    <embed :class="classes" v-on="$listeners" :src="mediaItem.artworkFile.fileUrl" @error="setAltImg" :alt="mediaItem.name">
+    <embed style="" :class="classes" v-on="$listeners" :src="mediaItem.artworkFile.fileUrl" @error="setAltImg" :alt="mediaItem.name">
   </div>
   <div v-else-if="contentType === 'image'">
     <img :class="classes" v-on="$listeners" :src="mediaItem.coverImage.fileUrl" @error="setAltImg" :alt="mediaItem.name">
