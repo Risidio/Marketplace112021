@@ -1,22 +1,22 @@
 <template>
-<div>
+<div style="height: 100px">
 <div class="navbar_container">
    <img class="nav_banner" src="https://res.cloudinary.com/risidio/image/upload/v1633609222/RisidioMarketplace/gradienta-m_-1_v4hs5p.svg" alt="">
 </div>
   <div class = "mainNavbar">
-        <router-link class="risidioLogo" to="/"><img width="150px;" :src="logo" alt="risidio-logo"/></router-link>
+        <router-link class="risidioLogo" to="/"><img width="150px;" :src="logo" alt="risidio-logo" style="margin-left: -10px"/></router-link>
         <a href= "#" class = "toggle-button" v-on:click="mobileNavebar()">
           <span class="bar"></span>
           <span class="bar"></span>
           <span class="bar"></span>
         </a>
-        <div v-if="profile.loggedIn" class="navbar_links">
-            <router-link class="nav-items" to="/nft-marketplace">Gallery</router-link>
-        <b-dropdown id="dropdown-1" text="Collections" class="m-md-2 nav-items" variant="transparrent" toggle-class="text-black text-large" font-scale="1">
-          <b-dropdown-item v-for="(loopRun, index) in allLoopRuns" :key="index"><span v-if="loopRun.status !== 'disabled'" class="pointer" @click="showCollection(loopRun)">{{loopRun.currentRun}}</span></b-dropdown-item>
+        <div v-if="profile.loggedIn" class="navbar_links" style="margin-left: 19px">
+            <router-link class="nav-items" to="/nft-marketplace" >Gallery</router-link>
+        <b-dropdown id="dropdown-1" text="Collections" class=" " variant="transparrent" toggle-class="text-white" size="lg" style="padding:0px; height:55%; margin: auto 10px;">
+          <b-dropdown-item v-for="(loopRun, index) in allLoopRuns" :key="index" ><span style="margin-top: -1rem" v-if="loopRun.status !== 'disabled'" class="pointer" @click="showCollection(loopRun)"><span @click="linkTo(loopRun)">{{loopRun.currentRun}}</span></span></b-dropdown-item>
         </b-dropdown>
             <router-link class="nav-items text-black" to="/how-it-works" style="margin-left: auto;">How It Works</router-link>
-            <div class="nav-items text-black" v-on:click="aboutRisidio()">About Risidio </div>
+            <div class="nav-items text-black" to="/about">About Risidio </div>
             <router-link class="nav-items navBtn" to="/my-account"> My NFT's </router-link>
         </div>
          <div v-else class="navbar_links_not_logged">
@@ -36,6 +36,12 @@ export default {
   name: 'MainNavbar',
   components: {
   },
+  watch: {
+    '$route' () {
+      this.makerUrlKey = this.$route.params.maker
+      this.currentRunKey = this.$route.params.collection
+    }
+  },
   data () {
     return {
       query: null,
@@ -46,7 +52,17 @@ export default {
       showColls: false
     }
   },
+  mounted () {
+    this.makerUrlKey = this.$route.params.makerß
+    this.currentRunKey = this.$route.params.collection
+  },
   methods: {
+    linkTo (data) {
+      this.$router.push('/nft-marketplace/' + data.makerUrlKey + '/' + data.currentRunKey)
+    },
+    showCollection (loopRun) {
+      this.$emit('update', { opcode: 'show-collection', loopRun: loopRun })
+    },
     isSelected (runKey) {
       return (this.$route.path.indexOf('/' + runKey) > -1) ? 'text-warning' : ''
     },
