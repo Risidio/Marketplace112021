@@ -16,7 +16,7 @@
                 <div class="NFTbackgroundColour">
                     <b-link class="galleryNFTContainer" :to="assetUrl(item)" v-if="item && item.contractAsset && item.attributes">
                   <MediaItemGeneral :classes="'nftGeneralView'" v-on="$listeners" :mediaItem="item.attributes"/>
-                  <p style="font-size: 1em;"> {{!item.name ? "NFT" : item.name }} <span style="float: right; font-size: 0.6em; margin-top: 10px;">$ {{item.price * 1.9}}</span></p>
+                  <p style="font-size: 1em; text-overflow: clip; width:250px"> {{!item.name ? "NFT" : item.name }} <span style="float: right; font-size: 0.6em; margin-top: 10px;">$ {{item.price * 1.9}}</span></p>
                   <p>By <span style="font-weight:600">{{!item.artist ? "Anonymous" : item.artist }}</span> <span style="float: right;">{{item.price}} STX</span></p>
                 </b-link>
                 </div>
@@ -51,7 +51,7 @@
                 </div>
               </div>
           </div>
-            <button class="button"><router-link to="/gallery">See More Collectables</router-link></button>
+            <button class="button"><router-link style="color:white" to="/nft-marketplace">See More Collectables</router-link></button>
     </div>
   </section>
 </template>
