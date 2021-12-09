@@ -86,20 +86,22 @@ export default {
 #frame{
   margin: 50px auto;
 }
+.hS3_container{
+  justify-content: center;
+  background-color:#170A6D;
+}
 .vueperslide {
   background-color:#170A6D;
 }
 .vueperslides--fixed-height {
-  height: 100vh;
+  height: 70vh;
+  width: 90%;
+  margin: auto;
 }
 h1{
   color:white;
-  font-family: inherit;
-  font-size: clamp(50px, 3vw, 6vw);
-  font-weight: 200;
-  padding-top: 20px;
+  font: normal normal 300 37px/30px Montserrat;
   text-align: center;
-  margin-top: 5%;
 }
 h2{
   padding-top: 30px;
@@ -117,25 +119,22 @@ img{
   margin-left: 125px;
 }
 p{
-  font-weight: 300;
-  font-size: 1.2em;
-  max-width: 800px;
+  font: normal normal normal 14px/20px Montserrat;
+  max-width: 600px;
   margin: 0 auto;
   text-align: center;
   color: white;
 }
 .container{
   color:white;
-  justify-content: center;
-  align-items: center;
+  margin: 200px auto;
 }
 .textContainer{
-  margin:auto;
-  margin-top: 5vw;
+  margin-top: 50px;
 }
 .arrow{
-  width: 50px;
-  height: 50px;
+  width: 30px;
+  height: 30px;
   margin: auto;
 }
 .button{

@@ -1,7 +1,7 @@
 <template>
 <div class = "Htitle">
   <div class = "title-container">
-    <h1>{{content.howsection2[0].howtitle[0].text}}</h1>
+    <h1 style="font: normal normal 300 37px/30px Montserrat;">{{content.howsection2[0].howtitle[0].text}}</h1>
   </div>
   <img src="https://res.cloudinary.com/risidio/image/upload/v1633609788/RisidioMarketplace/006-wallet_uy3myg.svg" alt="wallet" class="wallet">
   <div class = "main-container">
@@ -33,7 +33,8 @@ export default {
 
 <style scoped>
 .Htitle{
-  min-height: 90vh;
+  min-height: 60vh;
+  margin: 100px auto;
 }
 .title-container {
   font-family: inherit;
@@ -41,18 +42,15 @@ export default {
   text-align: center;
 }
 .title-container h1{
-  font-family: inherit;
-  font-size: clamp(50px, 3vw, 6vw);
-  font-weight: 200;
-  padding-top: 10%;
-  padding-bottom: 25px;
+  font: normal normal 300 37px/30px Montserrat;
+  margin-bottom: 50px;
 }
-.title-container p{
-  font-family: inherit;
-  font-size: clamp(25px, 1em, 3vw);
-  font-weight: 500;
+.main-container p{
+  font: normal normal normal 14px/22px Montserrat;
   padding-top: 25px;
   padding-bottom: 20px;
+  max-width: 600px;
+  margin: auto;
 }
 .main-container{
   display:flex;
@@ -63,11 +61,7 @@ export default {
   max-width: 1100px;
   margin: 0 auto;
 }
-.main-container p{
-  font-size: 1.1em;
-  font-weight:300;
-  /* padding-top: 20px; */
-}
+
 .button{
   margin-top: 50px;
   width: 200px;
