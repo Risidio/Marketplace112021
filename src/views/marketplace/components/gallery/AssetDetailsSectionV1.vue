@@ -1,11 +1,4 @@
 <template>
-<div>
-  <div class="modal" id="myModal">
-  <div class="modal-content">
-    <span class="close" v-on:click="close()">&times;</span>
-    <div id="threeCanvas"><canvas style="width: 100%; max-height: 600px; min-height: 350px;" /></div>
-  </div>
-</div>
 <section style="margin: auto; margin-top: 5rem; width:90%" id="asset-details-section" v-if="gaiaAsset && gaiaAsset.contractAsset" class="text-black">
   <!-- <b-container class=" w-100 center-section" style="min-height: 50vh;"> -->
     <b-row style="display: flex; margin: auto" :style="'min-height: ' + videoHeight + 'px'">
@@ -13,9 +6,6 @@
         <div id="video-column" :style="dimensions">
           <MediaItem :videoOptions="videoOptions" :attributes="gaiaAsset.attributes" :targetItem="targetItem()"/>
           <MediaItemGeneral :classes="'hash1-image'" v-on="$listeners" :options="videoOptions" :mediaItem="gaiaAsset.attributes"/>
-          <div v-if="gaiaAsset.attributes.artworkFile.type == 'threed/glb'">
-            <button class="mintButton" v-on:click="openModal(), three()">View 3D</button>
-          </div>
           <!-- <MintInfo class="my-5" :item="gaiaAsset" :loopRun="loopRun" /> -->
         </div>
       </b-col>
@@ -131,7 +121,7 @@
     </template>
   </b-modal>
   <!-- </b-container> -->
-</section></div>
+</section>
 </template>
 
 <script>
@@ -148,9 +138,6 @@ import MintInfo from '@/views/marketplace/components/toolkit/mint-setup/MintInfo
 import NftHistory from '@/views/marketplace/components/toolkit/nft-history/NftHistory'
 import PendingTransactionInfo from '@/views/marketplace/components/toolkit/nft-history/PendingTransactionInfo'
 import ShareLinks from '@/components/utils/ShareLinks'
-import * as Three from 'three'
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 
 export default {
   name: 'AssetDetailsSectionV1',
@@ -390,125 +377,6 @@ export default {
         this.$bvModal.hide('asset-offer-modal')
         this.$root.$emit('bv::show::modal', 'success-modal')
       })
-    },
-    close () {
-      const modal = document.getElementById('myModal')
-      modal.style.display = 'none'
-    },
-    openModal () {
-      const modal = document.getElementById('myModal')
-      modal.style.display = 'block'
-    },
-    threeObjectHandler () {
-      // const selectedFile = document.getElementById('input').files[0]
-      // console.log(selectedFile)
-      // const binaryData = []
-      // binaryData.push(this.attributes.artworkFile)
-      // const url = URL.createObjectURL(new Blob(binaryData, { type: '' }))
-      const url = this.gaiaAsset.attributes.artworkFile.fileUrl
-      console.log(url)
-      return {
-        url
-      }
-    },
-    threeLights () {
-      const ambientLight = new Three.AmbientLight(0xffffff)
-
-      return {
-        ambientLight
-      }
-    },
-    threeControls (camera, renderer) {
-      const controls = new OrbitControls(camera, renderer.domElement)
-    },
-    three () {
-      const scene = new Three.Scene()
-      const canvasSize = document.getElementById('threeCanvas')
-      const sizes = {
-        width: window.innerWidth * 0.60,
-        height: window.innerHeight * 0.8
-      }
-      const camera = new Three.PerspectiveCamera(75, sizes.width / sizes.height, 0.10, 1000)
-      const loader = new GLTFLoader()
-      const material = new Three.MeshStandardMaterial({ color: 0xFF6347, wireframe: true })
-      const renderer = new Three.WebGLRenderer({ canvas: document.getElementsByTagName('canvas')[0] })
-
-      const controls = this.threeControls(camera, renderer)
-      const lights = this.threeLights()
-      const url = this.threeObjectHandler()
-
-      scene.background = new Three.Color(0xf2f2f2)
-      renderer.setSize(sizes.width, sizes.height)
-
-      // camera.position.setX(100)
-      let box = new Three.Box3()
-      scene.add(lights.ambientLight)
-      let obj = ''
-      loader.load(url.url,
-        function (gltf) {
-          obj = gltf.scene
-          obj.material = material
-          scene.add(obj)
-          console.log('model loaded')
-          console.log(obj)
-          box = box.setFromObject(obj)
-        },
-        function (xhr) { // called while loading is progressing
-          console.log((xhr.loaded / xhr.total * 100) + '% loaded')
-        },
-        function (error) {
-          console.log('An error happened' + error)
-        }
-      )
-      // These need to be run AFTER the the object has rendered
-
-      // camera.position.setY(0)
-      // camera.position.setX(0)
-      camera.position.set(5, 0, 0)
-
-      window.addEventListener('resize', () => {
-        // Update sizes
-        sizes.width = window.innerWidth * 0.6
-        sizes.height = window.innerHeight * 0.8
-
-        // Update camera
-        camera.aspect = sizes.width / sizes.height
-        camera.updateProjectionMatrix()
-
-        // Update renderer
-        renderer.setSize(sizes.width, sizes.height)
-        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
-      })
-
-      function animate () {
-        obj.rotation.y += 0.02
-      }
-      function render () {
-        renderer.render(scene, camera)
-      }
-      function start () {
-        requestAnimationFrame(start)
-        animate()
-        render()
-        // console.log('start has run once')
-        // camera.position.setY(box.min.y)
-        // camera.position.setX(box.min.x)
-        // camera.position.setZ(box.min.z)
-      }
-      function fullStart () {
-        render()
-        start()
-        console.log(canvasSize)
-        console.log('fullstart has run once ')
-      }
-      // controls.addEventListener('change', render)
-      setTimeout(() => {
-        camera.position.setY(box.min.y)
-        camera.position.setX(box.min.x)
-        camera.position.setZ(box.min.z + (box.max.y * 2))
-        console.log('camera adjusted')
-      }, 8000)
-      fullStart()
     }
   },
   computed: {

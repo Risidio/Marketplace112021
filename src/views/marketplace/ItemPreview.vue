@@ -537,5 +537,42 @@ export default {
   background-color: #8181813f;
   border-radius: 30px;
 }
+.threeToggleButton{
+  padding: 15px;
+  border-radius: 100px;
+  border: none;
+  color: blue;
+  background-color: rgba(255, 255, 255, 0.37);
+  font-size: 12px;
+  font-weight:800;
+}
 
+#threeCanvas{
+  display:block;
+}
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+.close{
+  margin: auto;
+  font-size: 30px;
+}
+/* Modal Content */
+.modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 63%;
+}
 </style>
