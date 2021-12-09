@@ -1,8 +1,11 @@
 <template>
-<b-card-text class="mx-4">
+<!-- <b-card-text class="mx-4"> -->
   <b-row>
-    <b-col cols="12">
-      <label for="buyNowPrice"><a v-b-tooltip.hover="{ variant: 'warning' }" :title="'Set buy now price - or 0 to sell later'" href="#">Buy Now <b-icon icon="question-circle"/></a></label>
+    <b-col cols="12" style="position: absolute; top:10%">
+      <label for="buyNowPrice">
+        <a style="font-size:1.5rem; font-weight:500;" v-b-tooltip.hover="{ variant: 'primary' }" :title="'Set selling price no - or leave as 0 to sell later'" href="#">Set a price for your NFT?<span style="margin-right: 20px"></span><b-icon icon="question-circle"/></a></label>
+        <div style="display: flex; height:50px; width: 80%; padding: 5px; margin: 0px 0px; ">
+        <div class="stx" > <span style="margin: -5px auto">STX</span></div>
         <b-form-input
           id="buyNowPrice"
           size="sm"
@@ -10,12 +13,15 @@
           @blur="updateItem"
           aria-describedby="buyNowPrice-help buyNowPrice-feedback"
           placeholder="Buy now price"
+          class="buyingInput"
+          style="outline: none"
         ></b-form-input>
       <b-form-invalid-feedback id="editions-feedback">
         How many editions of this NFT do you want to allow? At least 1 - at most 100
       </b-form-invalid-feedback>
+        </div>
     </b-col>
-    <b-col cols="6">
+    <!-- <b-col cols="6">
       <label for="editions"><a v-b-tooltip.hover="{ variant: 'warning' }" :title="'Set the number of editions to allow users to mint'" href="#">Editions <b-icon icon="question-circle"/></a></label>
         <b-form-input
           id="editions"
@@ -46,9 +52,9 @@
       <b-form-invalid-feedback id="edition-cost-feedback">
         Cost of minting an edition (STX) - the amount is split between the royalties
       </b-form-invalid-feedback>
-    </b-col>
+    </b-col> -->
   </b-row>
-</b-card-text>
+<!-- </b-card-text> -->
 </template>
 
 <script>
@@ -96,4 +102,20 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+.buyingInput{
+  padding:20px;
+   border-radius: 0px 20px 20px 0px;
+   width: 80%;
+   border-left: none;
+   outline: none !important;
+}
+.stx{
+  padding:20px;
+  display: flex;
+  justify-content: center;
+  font-size:1rem;
+  height:32px;
+  width: 35px;
+  border-radius: 20px 0px 0px 20px;
+  border: solid 1px lightgrey}
 </style>

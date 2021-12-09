@@ -2,7 +2,7 @@
 <b-card-text class="mx-4 border-bottom">
   <h3 class="mt-5 mb-3">{{item.name}}</h3>
   <network-options :allowEdit="allowEdit"/>
-  <div v-if="errorMessage" class="text-danger mb-3 text-bold">{{errorMessage}}</div>
+  <div v-if="errorMessage" class="  mb-3 text-bold">{{errorMessage}}</div>
   <div v-else-if="mintedMessage" class="text-info mb-3 text-bold">{{mintedMessage}}</div>
   <div v-else class="text-black mb-3 text-bold">. &nbsp;</div>
 </b-card-text>

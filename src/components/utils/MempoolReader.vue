@@ -11,7 +11,7 @@
       <div><a :class="mempoolTemp" :href="mempoolApi" target="_blank">Transactions in mempool: <span @click="fetchMempool()">{{mempool.total}}</span></a></div>
       <div :class="mempoolTemp()" v-if="mempoolTemp() === 'text-success'">Mint Away</div>
       <div :class="mempoolTemp()" v-if="mempoolTemp() === 'text-warning'">Mint with caution</div>
-      <div :class="mempoolTemp()" v-if="mempoolTemp() === 'text-danger'">Minting paused due to high loads</div>
+      <div :class="mempoolTemp()" v-if="mempoolTemp() === ' '">Minting paused due to high loads</div>
     </div>
     <div class="text-warning p-3">
       <div>Thresholds</div>
@@ -51,7 +51,7 @@ export default {
       } else if (this.mempool.total < this.mempoolSettings.threshold3) {
         return 'text-warning'
       } else {
-        return 'text-danger'
+        return ' '
       }
     }
   },

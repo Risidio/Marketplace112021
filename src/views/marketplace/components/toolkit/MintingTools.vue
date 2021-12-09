@@ -58,7 +58,7 @@
   </b-modal>
   <b-modal size="md" id="minting-modal">
     <MintingFlowV2 v-if="isTheV2Contract()" :loopRun="loopRun" :items="items" v-on="$listeners"/>
-    <MintingFlow v-else-if="loopRun" :loopRun="loopRun" :items="items" :mintAllocations="mintAllocations" v-on="$listeners"/>
+    <MintingFlow v-else-if="loopRun" :loopRun="loopRun" :items="items" :mediaItem="mediaItem" :mintAllocations="mintAllocations" v-on="$listeners"/>
     <template #modal-footer class="text-center"><div class="w-100"></div></template>
   </b-modal>
   <b-modal class="saleModal" size="lg" id="selling-modal">
@@ -98,7 +98,7 @@ export default {
     ListBeneficiaries
     // ManageEditions
   },
-  props: ['items', 'loopRun', 'mintAllocations'],
+  props: ['items', 'loopRun', 'mintAllocations', 'mediaItem'],
   data: function () {
     return {
       showApprovals: false,
@@ -194,7 +194,7 @@ export default {
 </script>
 
 <style>
-#my-nft-tabs >>> .nav-link.active {
+/* #my-nft-tabs >>> .nav-link.active {
   color: #000 !important;
 }
 #my-nft-tabs >>> .nav-link {
@@ -213,5 +213,5 @@ export default {
 }
 #minting-tools .nav-link:hover {
   color: #ccc;
-}
+} */
 </style>

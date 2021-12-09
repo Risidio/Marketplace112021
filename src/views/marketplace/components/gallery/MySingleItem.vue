@@ -2,7 +2,7 @@
 <div v-if="asset">
   <div v-if="nextBid.amount == 1" class="galleryItem onSale" >
     <b-card-text style="margin: 20px auto;" class="">
-      <b-link class="text-xsmall text-info" :to="nextUrl">
+      <b-link class="  text-info" :to="nextUrl">
         <div @contextmenu="handler($event)" class="">
             <img
               ref="itemImage"
@@ -24,7 +24,7 @@
     <b-card-text>
       <!-- Enables connecting meta data to the actual punk crash -->
       <PunkConnect v-if="loopRun" :loopRun="loopRun" :asset="asset" @updateImage="updateImage"/> <!-- v-on="$listeners"/> -->
-      <!-- <div class="text-xsmall text-center mb-3">
+      <!-- <div class="  text-center mb-3">
         <span v-if="contractAsset">{{contractAsset.owner}}</span>
         <span v-else>'ownership in progress'</span>
       </div> -->
@@ -51,7 +51,7 @@
   </div>
 <div v-if="nextBid.amount == 0" class="galleryItem" >
     <b-card-text style="margin: 20px auto;" class="">
-      <b-link class="text-xsmall text-info" :to="nextUrl">
+      <b-link class="  text-info" :to="nextUrl">
         <div @contextmenu="handler($event)" class="">
             <img
               ref="itemImage"
@@ -71,7 +71,7 @@
     <b-card-text>
       <!-- Enables connecting meta data to the actual punk crash -->
       <PunkConnect v-if="loopRun" :loopRun="loopRun" :asset="asset" @updateImage="updateImage"/> <!-- v-on="$listeners"/> -->
-      <!-- <div class="text-xsmall text-center mb-3">
+      <!-- <div class="  text-center mb-3">
         <span v-if="contractAsset">{{contractAsset.owner}}</span>
         <span v-else>'ownership in progress'</span>
       </div> -->

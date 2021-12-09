@@ -84,7 +84,7 @@
       </div>
     </div>
     <template v-slot:modal-footer>
-      <div class="w-100 text-right text-xsmall">
+      <div class="w-100 text-right  ">
         {{result}}
       </div>
     </template>

@@ -14,7 +14,7 @@
     </b-col>
     <b-col cols="2" v-if="allowEdit">
       <a href="#" @click="editBeneficiary()"><b-icon icon="pencil"/></a>
-      <a class="ml-2 text-danger" href="#" @click="delBeneficiary()"><b-icon icon="trash"/></a>
+      <a class="ml-2  " href="#" @click="delBeneficiary()"><b-icon icon="trash"/></a>
     </b-col>
     <b-col v-if="showBeneficiary" cols="11" class="bg-light py-2 mt-1 my-2 ml-3">
       <b-row v-if="index === 0">

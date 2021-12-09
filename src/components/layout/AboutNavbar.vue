@@ -36,7 +36,7 @@
             </div>
           </div>
           <b-nav-item class="text-black" to="/nft-gallery">Gallery</b-nav-item>
-          <!-- <b-nav-item class="text-black" to="/nft-marketplace"><span class="text-danger">New</span> Marketplace</b-nav-item> -->
+          <!-- <b-nav-item class="text-black" to="/nft-marketplace"><span class=" ">New</span> Marketplace</b-nav-item> -->
           <b-nav-item v-if="!canUpload()">
             <b-link v-if="profile.loggedIn" to="/exhibit-here">Apply to Exhibit</b-link>
             <b-link v-else to="/login?redirect=%2Fexhibit-here">Exhibit Here?</b-link>

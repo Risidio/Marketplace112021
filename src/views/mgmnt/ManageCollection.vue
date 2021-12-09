@@ -6,24 +6,24 @@
     <b-form class="needs-validation form-transparent" novalidate @submit="checkForm" id="contact-form">
 
     <div class="w-100 mb-3" role="group">
-      <label for="status-name"><span class="text-danger">*</span> Contract</label>
+      <label for="status-name"><span class=" ">*</span> Contract</label>
       <b-form-select id="status-name" v-model="loopRun.contractId" :options="contractIds"></b-form-select>
     </div>
 
     <div class="w-100 mb-3" role="group">
-      <label for="status-name"><span class="text-danger">*</span> Collection State</label>
+      <label for="status-name"><span class=" ">*</span> Collection State</label>
       <b-form-select id="status-name" v-model="loopRun.status" :options="statusEnum"></b-form-select>
       <b-form-text class="text-warning" id="status-help">Collection status is active/inactive depending on whether the limit has been reached. They can also be disabled.</b-form-text>
     </div>
 
     <div class="w-100 mb-3" role="group">
-      <label for="status-name"><span class="text-danger">*</span> Collection Type</label>
+      <label for="status-name"><span class=" ">*</span> Collection Type</label>
       <b-form-select id="status-name" v-model="loopRun.type" :options="typeEnum"></b-form-select>
       <b-form-text class="text-warning" id="status-help">Indicates how NFT minting is to work 'punks' implies we follow the crypto punk model and traditional is the super rare model.</b-form-text>
     </div>
 
     <div class="mb-3" role="group">
-      <label for="domains"><span class="text-danger">*</span>Domains</label>
+      <label for="domains"><span class=" ">*</span>Domains</label>
       <b-form-input
         id="domains"
         v-model="loopRun.domains"
@@ -39,7 +39,7 @@
     </div>
 
     <div class="mb-3" role="group">
-      <label for="currentRun-name"><span class="text-danger">*</span> Collection Name (max 40 chars)</label>
+      <label for="currentRun-name"><span class=" ">*</span> Collection Name (max 40 chars)</label>
       <b-form-input
         maxlength="40"
         @keyup="setRunKey()"
@@ -57,7 +57,7 @@
     </div>
 
     <div class="mb-3" role="group">
-      <label for="currentRunKey-name"><span class="text-danger">*</span> Collection URL Key</label>
+      <label for="currentRunKey-name"><span class=" ">*</span> Collection URL Key</label>
       <b-form-input
         id="currentRunKey-name"
         v-model="loopRun.currentRunKey"
@@ -71,7 +71,7 @@
     </div>
 
     <div class="mb-3" role="group">
-      <label for="makerName-name"><span class="text-danger">*</span> Maker Name (max 30 chars)</label>
+      <label for="makerName-name"><span class=" ">*</span> Maker Name (max 30 chars)</label>
       <b-form-input
         maxlength="30"
         @keyup="setMakerName()"
@@ -89,7 +89,7 @@
     </div>
 
     <div class="mb-3" role="group">
-      <label for="makerUrlKey-name"><span class="text-danger">*</span> Maker URL Key</label>
+      <label for="makerUrlKey-name"><span class=" ">*</span> Maker URL Key</label>
       <b-form-input
         maxlength="30"
         id="makerUrlKey-name"
@@ -104,7 +104,7 @@
     </div>
 
     <div class="w-50 mb-3" role="group">
-      <label for="versionLimit"><span class="text-danger">*</span> Number of NFTs Allowed for this Collection</label>
+      <label for="versionLimit"><span class=" ">*</span> Number of NFTs Allowed for this Collection</label>
       <b-form-input
         id="versionLimit"
         v-model="loopRun.versionLimit"
@@ -119,7 +119,7 @@
     </div>
 
     <div class="w-50 mb-3" role="group">
-      <label for="punkImageBaseUrl"><span class="text-danger">*</span> Base Image URL (e.g. https://imageserver.com/prod/artists/artist1/sets/set1/)</label>
+      <label for="punkImageBaseUrl"><span class=" ">*</span> Base Image URL (e.g. https://imageserver.com/prod/artists/artist1/sets/set1/)</label>
       <b-form-input
         id="punkImageBaseUrl"
         v-model="loopRun.punkImageBaseUrl"
@@ -130,7 +130,7 @@
     </div>
 
     <div class="w-50 mb-3" role="group">
-      <label for="punkImageType"><span class="text-danger">*</span> Base Image Type (.jpg, .png etc)</label>
+      <label for="punkImageType"><span class=" ">*</span> Base Image Type (.jpg, .png etc)</label>
       <b-form-input
         id="punkImageType"
         v-model="loopRun.punkImageType"
@@ -217,7 +217,7 @@
     </div>
 
     <div class="w-50 mb-3" role="group">
-      <label for="spinsPerDay"><span class="text-danger">*</span> Spins Allowed Per Day (only for generative collections)</label>
+      <label for="spinsPerDay"><span class=" ">*</span> Spins Allowed Per Day (only for generative collections)</label>
       <b-form-input
         id="spinsPerDay"
         v-model="loopRun.spinsPerDay"

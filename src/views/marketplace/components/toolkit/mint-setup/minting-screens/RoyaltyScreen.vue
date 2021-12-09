@@ -1,19 +1,17 @@
 <template>
-<b-card-group>
-  <b-card class="text-black text-xsmall bg-dark" style="min-height: 30vh;" header-tag="header" footer-tag="footer">
+<section>
+  <div class="" style="min-height: 80px;" header-tag="header" footer-tag="footer">
     <!-- <header-screen :allowEdit="false" :item="item"/> -->
-    <div class="text-danger" v-html="errorMessage"></div>
+    <div class=" " v-html="errorMessage"></div>
     <EditEditions v-if="allowEditEditions" :item="item"/>
     <!-- <Beneficiaries :hidePrimaries="hidePrimaries" :beneficiaries="beneficiaries" v-on="$listeners"/> -->
-    <ListBeneficiaries :loopRun="loopRun" :item="item" />
-    <template v-slot:footer>
-      <div class="d-flex justify-content-between">
-        <b-button @click="saveData()" class="rounded w-50 mr-2" variant="outline-light">Cancel</b-button>
-        <b-button @click="sendMintEvent()" class="w-50 ml-2" variant="warning"><span v-if="mintButtonText">{{mintButtonText}}</span><span v-else>Mint Now</span></b-button>
+    <!-- <ListBeneficiaries :loopRun="loopRun" :item="item" /> -->
+      <div style="position: absolute; top: 102%; left:50%" class="d-flex justify-content-between">
+        <b-button @click="saveData()" class="mintingButtons cyanBg" >Cancel</b-button>
+        <b-button @click="sendMintEvent()" class="mintingButtons cyanBg" ><span style="color: white" v-if="mintButtonText">{{mintButtonText}}</span><span style="color: white" v-else>Mint Now</span></b-button>
       </div>
-    </template>
-  </b-card>
-</b-card-group>
+  </div>
+</section>
 </template>
 
 <script>
@@ -25,8 +23,8 @@ import ListBeneficiaries from '@/views/marketplace/components/toolkit/ListBenefi
 export default {
   name: 'RoyaltyScreen',
   components: {
-    EditEditions,
-    ListBeneficiaries
+    EditEditions
+    // ListBeneficiaries
   },
   props: ['loopRun', 'item', 'errorMessage', 'hidePrimaries', 'mintButtonText'],
   data () {
@@ -75,4 +73,12 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+.mintingButtons{
+  height:40px;
+  border-radius: 25px;
+  width: 150px;
+  margin-left: 20px;
+  font-weight: 500;
+  font-size: 1.2rem;
+}
 </style>

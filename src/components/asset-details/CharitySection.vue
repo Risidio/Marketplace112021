@@ -54,7 +54,7 @@ export default {
         const bgcolor = content[0].data.theme[0].text.split(',')[0]
         return 'bg-' + bgcolor
       } catch {
-        return 'bg-primary text-info text-danger'
+        return 'bg-primary text-info  '
       }
     },
     getArtistText1: function () {

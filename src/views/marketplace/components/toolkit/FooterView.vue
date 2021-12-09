@@ -2,9 +2,9 @@
 <div class="">
   <b-form-input class="text-warning" disabled id="range-2" :value="displayCard" type="range" min="100" max="104" step="2"></b-form-input>
   <div class="d-flex justify-content-between" style="font-size: 0.7rem;">
-    <div :class="(displayCard === 100) ? 'text-danger' : 'text-info'" @click="skipAhead(0)">Select Credits</div>
-    <div :class="(displayCard === 102) ? 'text-danger' : 'text-info'" @click="skipAhead(1)">Choose Currency</div>
-    <div :class="(displayCard === 104) ? 'text-danger' : 'text-info'" @click="skipAhead(2)">Make Payment</div>
+    <div :class="(displayCard === 100) ? ' ' : 'text-info'" @click="skipAhead(0)">Select Credits</div>
+    <div :class="(displayCard === 102) ? ' ' : 'text-info'" @click="skipAhead(1)">Choose Currency</div>
+    <div :class="(displayCard === 104) ? ' ' : 'text-info'" @click="skipAhead(2)">Make Payment</div>
   </div>
 </div>
 </template>

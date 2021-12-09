@@ -923,21 +923,21 @@ export default {
     },
     contractSourceDisplay () {
       const cleanTokenName = this.getCleanTokenName()
-      let rep1 = '<span class="text-danger bg-white">' + this.project.owner + '</span>'
+      let rep1 = '<span class="  bg-white">' + this.project.owner + '</span>'
       let contractSourceDisplay = this.contractSource.replaceAll('params.administrator', rep1)
-      rep1 = '<span class="text-danger bg-white">' + cleanTokenName + '</span>'
+      rep1 = '<span class="  bg-white">' + cleanTokenName + '</span>'
       contractSourceDisplay = contractSourceDisplay.replaceAll('params.tokenName', rep1)
-      rep1 = '<span class="text-danger bg-white">' + cleanTokenName + '</span>'
+      rep1 = '<span class="  bg-white">' + cleanTokenName + '</span>'
       contractSourceDisplay = contractSourceDisplay.replaceAll('loopbomb', rep1)
-      rep1 = '<span class="text-danger bg-white">' + this.project.symbol + '</span>'
+      rep1 = '<span class="  bg-white">' + this.project.symbol + '</span>'
       contractSourceDisplay = contractSourceDisplay.replaceAll('params.tokenSymbol', rep1)
-      rep1 = '<span class="text-danger bg-white">' + this.project.mintPrice + '</span>'
+      rep1 = '<span class="  bg-white">' + this.project.mintPrice + '</span>'
       contractSourceDisplay = contractSourceDisplay.replaceAll('params.mintPrice', rep1)
-      rep1 = '<span class="text-danger bg-white">' + this.project.platformAddress + '</span>'
+      rep1 = '<span class="  bg-white">' + this.project.platformAddress + '</span>'
       contractSourceDisplay = contractSourceDisplay.replaceAll('params.platformAddress', rep1)
-      rep1 = '<span class="text-danger bg-white">' + this.project.collectionLimit + '</span>'
+      rep1 = '<span class="  bg-white">' + this.project.collectionLimit + '</span>'
       contractSourceDisplay = contractSourceDisplay.replaceAll('params.collectionLimit', rep1)
-      rep1 = '<span class="text-danger bg-white">' + utils.stringToHex(this.project.callBack) + '</span>'
+      rep1 = '<span class="  bg-white">' + utils.stringToHex(this.project.callBack) + '</span>'
       contractSourceDisplay = contractSourceDisplay.replaceAll('params.callBack', rep1)
       return contractSourceDisplay
     }

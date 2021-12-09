@@ -19,7 +19,7 @@
       </div>
       <b-card header-tag="header" footer-tag="footer" class="rpay-card" v-else>
         <div class="mt-5 mx-5 text-center">
-          <div class="text-danger">Please mint this item before setting up sale information</div>
+          <div class=" ">Please mint this item before setting up sale information</div>
         </div>
         <template v-slot:footer>
           <div class="footer-container">

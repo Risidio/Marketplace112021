@@ -46,7 +46,7 @@
               </div>
             </div>
 
-            <div v-html="errorMessage" class="text-danger"></div>
+            <div v-html="errorMessage" class=" "></div>
 
             <div class="mb-3" role="group">
               <label class="text2" for="username">Username</label>

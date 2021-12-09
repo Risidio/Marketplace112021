@@ -1,31 +1,34 @@
 <template>
-<div v-if="!loading" class="bg-dark d-flex justify-content-center">
+<div v-if="!loading" >
   <div class="mx-auto">
-    <b-card-group>
-      <b-card bg-variant="dark" class="text-black" header-tag="header" footer-tag="footer">
+    <div>
+      <div style="border:none; border-radius: 0px">
         <!--
         <template #header>
           <ItemDisplay :item="item" :loopRun="loopRun"/>
         </template>
-        <div class="bg-dark mt-0">
+        <div class=" mt-0">
           <RoyaltyScreen :errorMessage="errorMessage" :item="item" @mintToken="mintTwentyTokens" @editBeneficiary="editBeneficiary" @removeBeneficiary="removeBeneficiary" @updateBeneficiary="updateBeneficiary" @addNewBeneficiary="addNewBeneficiary" :beneficiaries="beneficiaries" v-if="displayCard !== 102"/>
           <AddBeneficiaryScreen :errorMessage="errorMessage" :eBen="eBen" @addBeneficiary="addBeneficiary" :beneficiaries="beneficiaries" :item="item" v-if="displayCard === 102"/>
         </div>
         -->
-        <b-row class="">
-          <b-col cols="4" class="px-5">
-            <ItemDisplay :item="null" :loopRun="loopRun"/>
+        <b-row >
+          <b-col style="margin: 0px 0px 50px 80px" cols="4" class="px-5">
+            <!-- <ItemDisplay :item="items" :loopRun="loopRun"/> -->
+            <!-- <MediaItemGeneral :classes="'item-image-preview'" :options="options" :mediaItem="getMediaItem()"/> -->
+            <MediaItemGeneral :classes="'minting-item-image-preview'" :options="options" :mediaItem="mediaItem"/>
+              <h2 v-if="items[0].name" style="margin: 20px 0 0 0;">{{items[0].name}}</h2>
+              <h6 v-if="items[0].artist" style="font-size: 0.7em;">By : <span style="font-weight: 600; font-size: 16px; font-family: inherit">{{items[0].artist}}</span></h6>
           </b-col>
-          <b-col cols="8" class="px-5">
-            <div class="bg-dark mt-0">
+          <b-col cols="6" class="px-5">
+            <div style="margin-top:20%">
               <RoyaltyScreen :errorMessage="errorMessage" :item="item" @mintToken="mintTwentyTokens" @editBeneficiary="editBeneficiary" @removeBeneficiary="removeBeneficiary" @updateBeneficiary="updateBeneficiary" @addNewBeneficiary="addNewBeneficiary" :beneficiaries="beneficiaries" v-if="displayCard !== 102"/>
               <AddBeneficiaryScreen :errorMessage="errorMessage" :eBen="eBen" @addBeneficiary="addBeneficiary" :beneficiaries="beneficiaries" :item="item" v-if="displayCard === 102"/>
             </div>
           </b-col>
         </b-row>
-
-      </b-card>
-    </b-card-group>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -37,15 +40,17 @@ import RoyaltyScreen from './minting-screens/RoyaltyScreen'
 import AddBeneficiaryScreen from './minting-screens/AddBeneficiaryScreen'
 import ItemDisplay from './minting-screens/ItemDisplay'
 import utils from '@/services/utils'
+import MediaItemGeneral from '@/views/marketplace/components/media/MediaItemGeneral'
 
 export default {
   name: 'MintingFlow',
   components: {
     RoyaltyScreen,
-    ItemDisplay,
+    // ItemDisplay,
+    MediaItemGeneral,
     AddBeneficiaryScreen
   },
-  props: ['items', 'loopRun', 'mintAllocations'],
+  props: ['items', 'loopRun', 'mintAllocations', 'mediaItem'],
   data () {
     return {
       loading: true,
@@ -82,6 +87,10 @@ export default {
     })
   },
   methods: {
+    getMediaItem () {
+      const attributes = this.$store.getters[APP_CONSTANTS.KEY_MEDIA_ATTRIBUTES](this.item)
+      return attributes
+    },
     mintToken: function () {
       // this.errorMessage = 'Minting non fungible token - takes a minute or so..'
       // the post condition applies to the address the funds are going to not from!!!
@@ -320,4 +329,21 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+.minting-item-image-preview {
+  display: flex;
+  width: auto;
+  height: 50vh;
+  border-radius: 5px;
+  display: block;
+  margin: auto;
+  object-fit: contain;
+  margin: auto;
+  box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.18);
+  align-items: center;
+  &:hover{
+    transition: all smooth 2s;
+    box-shadow: rgba(0, 0, 0, 0.589) 0px 10px 15px;
+    transform: scale(1.01)
+  }
+}
 </style>

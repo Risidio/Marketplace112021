@@ -7,7 +7,7 @@
       </div>
       <div class="">
         <div class="mb-auto">
-          <div class="text-danger mb-3 text-bold" v-html="getPendingMessage"></div>
+          <div class="  mb-3 text-bold" v-html="getPendingMessage"></div>
         </div>
       </div>
     </b-card-text>

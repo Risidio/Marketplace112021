@@ -1110,42 +1110,42 @@ export default {
     contractSourceDisplay () {
       const cleanTokenName = this.getCleanTokenName()
 
-      let rep1 = '<span class="text-danger bg-white">' + this.project.owner + '</span>'
+      let rep1 = '<span class="  bg-white">' + this.project.owner + '</span>'
       let contractSourceDisplay = this.contractSource.replaceAll('params.administrator', rep1)
 
-      rep1 = '<span class="text-danger bg-white">' + process.env.VUE_APP_STACKS_NFT_TRAIT_ADDRESS + '</span>'
+      rep1 = '<span class="  bg-white">' + process.env.VUE_APP_STACKS_NFT_TRAIT_ADDRESS + '</span>'
       contractSourceDisplay = contractSourceDisplay.replaceAll('params.nfttrait', rep1)
 
-      rep1 = '<span class="text-danger bg-white">' + process.env.VUE_APP_STACKS_APPROVABLE_TRAIT_ADDRESS + '</span>'
+      rep1 = '<span class="  bg-white">' + process.env.VUE_APP_STACKS_APPROVABLE_TRAIT_ADDRESS + '</span>'
       contractSourceDisplay = contractSourceDisplay.replaceAll('params.approvabletrait', rep1)
 
-      rep1 = '<span class="text-danger bg-white">' + cleanTokenName + '</span>'
+      rep1 = '<span class="  bg-white">' + cleanTokenName + '</span>'
       contractSourceDisplay = contractSourceDisplay.replaceAll('params.tokenName', rep1)
 
-      rep1 = '<span class="text-danger bg-white">' + cleanTokenName + '</span>'
+      rep1 = '<span class="  bg-white">' + cleanTokenName + '</span>'
       contractSourceDisplay = contractSourceDisplay.replaceAll('loopbomb', rep1)
 
-      rep1 = '<span class="text-danger bg-white">' + this.project.symbol + '</span>'
+      rep1 = '<span class="  bg-white">' + this.project.symbol + '</span>'
       contractSourceDisplay = contractSourceDisplay.replaceAll('params.tokenSymbol', rep1)
 
-      rep1 = '<span class="text-danger bg-white">' + this.project.mintPrice + '</span>'
+      rep1 = '<span class="  bg-white">' + this.project.mintPrice + '</span>'
       contractSourceDisplay = contractSourceDisplay.replaceAll('params.mintPrice', rep1)
 
-      rep1 = '<span class="text-danger bg-white">' + this.project.collectionLimit + '</span>'
+      rep1 = '<span class="  bg-white">' + this.project.collectionLimit + '</span>'
       contractSourceDisplay = contractSourceDisplay.replaceAll('params.collectionLimit', rep1)
 
-      rep1 = '<span class="text-danger bg-white">' + this.project.platformAddress + '</span>'
+      rep1 = '<span class="  bg-white">' + this.project.platformAddress + '</span>'
       contractSourceDisplay = contractSourceDisplay.replaceAll('params.platformAddress', rep1)
       if (this.project.type === 'punks') {
-        rep1 = '<span class="text-danger bg-white">true</span>'
+        rep1 = '<span class="  bg-white">true</span>'
         contractSourceDisplay = contractSourceDisplay.replaceAll('params.projectType', rep1)
       } else if (this.project.type === 'traditional') {
-        rep1 = '<span class="text-danger bg-white">false</span>'
+        rep1 = '<span class="  bg-white">false</span>'
         contractSourceDisplay = contractSourceDisplay.replaceAll('params.projectType', rep1)
       } else {
         throw new Error('unknown collection type.')
       }
-      rep1 = '<span class="text-danger bg-white">' + utils.stringToHex(this.project.callBack) + '</span>'
+      rep1 = '<span class="  bg-white">' + utils.stringToHex(this.project.callBack) + '</span>'
       contractSourceDisplay = contractSourceDisplay.replaceAll('params.callBack', rep1)
       return contractSourceDisplay
     }
