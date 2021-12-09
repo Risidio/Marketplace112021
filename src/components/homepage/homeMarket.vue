@@ -63,6 +63,7 @@ import MyPageableItems from '@/views/marketplace/components/gallery/MyPageableIt
 import utils from '@/services/utils'
 export default {
   name: 'HomeMarket',
+  props: ['gaiaAssets'],
   components: {
     MediaItemGeneral,
     MyPageableItems
@@ -129,10 +130,10 @@ export default {
     }
   },
   computed: {
-    gaiaAssets () {
-      const assets = this.$store.getters[APP_CONSTANTS.KEY_GAIA_ASSETS]
-      return (assets) ? assets.reverse() : []
-    },
+    // gaiaAssets () {
+    //   const assets = this.$store.getters[APP_CONSTANTS.KEY_GAIA_ASSETS]
+    //   return (assets) ? assets.reverse() : []
+    // },
     filterMarketAssets () {
       const filterMarketAssets = this.gaiaAssets.slice(0, 8)
       return (filterMarketAssets)
