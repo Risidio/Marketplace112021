@@ -58,13 +58,12 @@ export default {
 }
 .container p{
   margin: 30px auto;
-  font: normal normal 200 16px/20px Montserrat;
+  font: normal normal 200 1em Montserrat;
   max-width: 700px;
     color:white;
 }
 .button{
-  width: 220px;
-  height: 55px;
+padding: 15px 50px;
   border-radius: 100px;
   border: none;
   background-color: white;
