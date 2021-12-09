@@ -35,7 +35,7 @@
         <div class="nFTImageContainer">
           <h3> Preview </h3>
           <NftCoverImage :item="item" :displayHeader="false"/>
-          <p> by: {{item.uploader}}</p>
+          <p > by: {{item.uploader}}</p>
           <div v-if="!this.continue">
             <button class="btn nextButton" @click.prevent="uploadItem()">Upload</button>
           </div>
