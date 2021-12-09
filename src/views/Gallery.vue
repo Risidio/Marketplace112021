@@ -14,11 +14,12 @@
                 <div class="galleryCategory">
                 <button class="collectionsButton" v-on:click="showCategories()"> Categories <img class="arrow2" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></button>
                     <div class="galleryCategories">
-                        <a href="#">Category 1</a>
-                        <a href="#">Category 2</a>
-                        <a href="#">Category 3</a>
-                        <a href="#">Category 4</a>
-                        <a href="#">Category 5</a>
+                        <a href="#" v-on:click="setCategories('all')">All</a>
+                        <a href="#" v-on:click="setCategories('img')">Images</a>
+                        <a href="#" v-on:click="setCategories('aud')">Audio</a>
+                        <a href="#" v-on:click="setCategories('vid')">Video</a>
+                        <a href="#" v-on:click="setCategories('3d')">3D assets</a>
+                        <a href="#" v-on:click="setCategories('doc')">Documents</a>
                     </div>
                 </div>
                 <hr class="hr"/>
@@ -47,20 +48,44 @@
                         <input class="search" type="text" id="search" name="search" placeholder="Looking for anything in particular ?"><img class="view" src="https://res.cloudinary.com/risidio/image/upload/v1637238428/RisidioMarketplace/magnifying-search-lenses-tool_yaatpo.svg">
                 </div>
                 <hr/>
-                    <div style="width: 100%" v-if="loaded">
+                    <div style="width: 100%" v-if="loaded && types=='all'">
                                 <!-- <h1 class="text-black">NFT Gallery</h1> -->
                                 <div style=" display: flex; width: 100%; margin:auto;" class="row mb-4">
                                     <div class="text-black col-lg-3 col-md-4 col-sm-6 col-xs-12 mx-0 p-1" v-for="(item, index) in gaiaAssets" :key="index">
                                         <GalleryNft :item="item"/>
                                     </div>
                                 </div>
-                        </div>
+                      </div>
+                        <div style="width: 100%" v-if="loaded && types !='all'">
+                          <!-- <h1 class="text-black">NFT Gallery</h1> -->
+                          <div style=" display: flex; width: 100%; margin:auto;" class="row mb-4">
+                              <div class="text-black col-lg-3 col-md-4 col-sm-6 col-xs-12 mx-0 p-1" v-for="(item, index) in showAssets" :key="index">
+                                  <GalleryNft :item="item"/>
+                              </div>
+                          </div>
+                      </div>
                       <div class="container" style="min-height: 85vh;" v-else>
                             <b-container class="text-black mt-5">
                                 <h1>No Gallery NFTs</h1>
                                 <p>Our Gallery is coming online soon - please come back soon...</p>
                             </b-container>
                         </div>
+                      <div style="width: 100%" v-if="loaded && types !='all' && types=='img' && showAssets.length === 0">
+                         <h2> We could not find any images</h2>
+                      </div>
+                      <div style="width: 100%" v-if="loaded && types !='all' && types=='aud' && showAssets.length === 0">
+                         <h2> We could not find any audio files</h2>
+                      </div>
+                      <div style="width: 100%" v-if="loaded && types !='all' && types=='vid' && showAssets.length === 0">
+                         <h2> We could not find any video files</h2>
+                      </div>
+                      <div style="width: 100%" v-if="loaded && types !='all' && types=='3d' && showAssets.length === 0">
+                         <h2> We could not find any 3D asset files</h2>
+                      </div>
+                      <div style="width: 100%" v-if="loaded && types !='all' && types=='doc' && showAssets.length === 0">
+                         <h2> We could not find any documents </h2>
+                      </div>
+
                 <!-- <div class="galleryContainer" v-if="placeHolderItems && placeHolderItems.length > 0">
                     <div v-for="(item, index) in placeHolderItems" :key="index" class="galleryItem" >
                         <div>
@@ -91,7 +116,9 @@ export default {
     return {
       resultSet: [],
       loaded: true,
-      currentRunKey: 'launch_collection_t1'
+      currentRunKey: 'launch_collection_t1',
+      types: 'all',
+      showAssets: this.gaiaAssets
       // placeHolderItems: []
     }
   },
@@ -151,12 +178,49 @@ export default {
     },
     setCurrentRunKey (result) {
       this.currentRunKey = result
+    },
+    setCategories (type) {
+      this.types = type
+      if (type === 'img') {
+        this.showAssets = this.gaiaImageAssets
+      } else if (type === 'aud') {
+        this.showAssets = this.gaiaAudioAssets
+      } else if (type === 'vid') {
+        this.showAssets = this.gaiaVideoAssets
+      } else if (type === '3d') {
+        this.showAssets = this.gaiaThreeDAssets
+      } else if (type === 'doc') {
+        this.showAssets = this.gaiaDocAssets
+      } else {
+        this.showAssets = this.gaiaAssets
+      }
+      console.log(this.types)
     }
   },
   computed: {
     gaiaAssets () {
       const assets = this.$store.getters[APP_CONSTANTS.KEY_GAIA_ASSETS]
       return (assets) ? assets.reverse() : []
+    },
+    gaiaImageAssets () {
+      const gaiaImageAssets = this.gaiaAssets.filter(assets => assets.attributes.artworkFile.type.includes('image'))
+      return gaiaImageAssets
+    },
+    gaiaAudioAssets () {
+      const gaiaAudioAssets = this.gaiaAssets.filter(assets => assets.attributes.artworkFile.type.includes('audio'))
+      return gaiaAudioAssets
+    },
+    gaiaVideoAssets () {
+      const gaiaVideoAssets = this.gaiaAssets.filter(assets => assets.attributes.artworkFile.type.includes('video'))
+      return gaiaVideoAssets
+    },
+    gaiaThreeDAssets () {
+      const gaiaThreeDAssets = this.gaiaAssets.filter(assets => assets.attributes.artworkFile.type.includes('threed'))
+      return gaiaThreeDAssets
+    },
+    gaiaDocAssets () {
+      const gaiaDocAssets = this.gaiaAssets.filter(assets => assets.attributes.artworkFile.type.includes('application'))
+      return gaiaDocAssets
     },
     selectCollection () {
       const collections = this.$store.getters[APP_CONSTANTS.GET_LOOP_RUNS]
