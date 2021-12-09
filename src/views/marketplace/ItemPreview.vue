@@ -49,7 +49,7 @@
 
         <PendingTransactionInfo class="mt-5" v-if="pending && pending.txStatus === 'pending'" :pending="pending"/>
         <div v-else>
-          <MintingTools class="w-100" :items="[item]" :loopRun="loopRun" @update="update"/>
+          <MintingTools class="w-100" :items="[item]" :loopRun="loopRun" @update="update" :mediaItem="getMediaItem()"/>
         </div>
         <div>
           <NftHistory class="mt-5" @update="update" @setPending="setPending" :loopRun="loopRun" :nftIndex="(item.contractAsset) ? item.contractAsset.nftIndex : -1" :assetHash="item.assetHash"/>
@@ -472,7 +472,7 @@ export default {
   display: none; /* Hidden by default */
   position: fixed; /* Stay in place */
   z-index: 1; /* Sit on top */
-  padding-top: 100px; /* Location of the box */
+  // padding-top: 100px; /* Location of the box */
   left: 0;
   top: 0;
   width: 100%; /* Full width */
@@ -489,9 +489,9 @@ export default {
 .modal-content {
   background-color: #fefefe;
   margin: auto;
-  padding: 20px;
+  // padding: 20px;
   border: 1px solid #888;
-  width: 63%;
+  width: 80%;
 }
 
 .itemPreviewSection{
