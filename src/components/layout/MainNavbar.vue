@@ -1,5 +1,5 @@
 <template>
-<div style="height: 100px">
+<div >
 <div class="navbar_container">
    <img class="nav_banner" src="https://res.cloudinary.com/risidio/image/upload/v1633609222/RisidioMarketplace/gradienta-m_-1_v4hs5p.svg" alt="">
 </div>
