@@ -16,7 +16,7 @@
           <b-dropdown-item v-for="(loopRun, index) in allLoopRuns" :key="index" ><span style="margin-top: -1rem" v-if="loopRun.status !== 'disabled'" class="pointer" @click="showCollection(loopRun)"><span @click="linkTo(loopRun)">{{loopRun.currentRun}}</span></span></b-dropdown-item>
         </b-dropdown>
             <router-link class="nav-items text-black" to="/how-it-works" style="margin-left: auto;">How It Works</router-link>
-            <div class="nav-items text-black" to="/about">About Risidio </div>
+            <router-link class="nav-items text-black" to="/about">About Risidio </router-link>
             <router-link class="nav-items navBtn" to="/my-account"> My NFT's </router-link>
         </div>
          <div v-else class="navbar_links_not_logged">
