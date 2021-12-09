@@ -474,7 +474,7 @@ select {
   transition: all smooth 2s ease-in-out;
   &:hover{
     transition: all smooth 2s;
-    box-shadow: rgba(0, 0, 0, 0.589) 0px 10px 15px;
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 10px 15px;
     transform: scale(1.01)
   }
 }
