@@ -62,12 +62,17 @@
     <div v-else>
         <div class="slideContainerNotLogged" >
             <div class="notLoggedCont">
-              <iframe
+              <!-- <iframe
               style="border-radius: 10px;"
               width="529px"
               height="300px"
               frameborder="0"
-              src="https://res.cloudinary.com/risidio/video/upload/v1639140586/RisidioMarketplace/Latest_Risidio_Video_by_Fizan_100721_5_r3o1or.mp4" type="video"/>
+              src="https://res.cloudinary.com/risidio/video/upload/v1639140586/RisidioMarketplace/Latest_Risidio_Video_by_Fizan_100721_5_r3o1or.mp4" type="video"/> -->
+              <video style="width: 529px; height: 300px; border-radius: 25px; margin:auto"
+              src="https://res.cloudinary.com/risidio/video/upload/v1639140586/RisidioMarketplace/Latest_Risidio_Video_by_Fizan_100721_5_r3o1or.mp4"
+              controls
+              ></video>
+
             </div>
             <div class="notLoggedCont">
               <h1> {{content.heroarea[0].herotitle[0].text}}</h1>
