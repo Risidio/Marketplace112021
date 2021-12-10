@@ -1,8 +1,17 @@
 {
   "name": "Risidio Marketplace",
   "short_name": "Risidio",
-  "description": "Risidio - Mint your NFT's on Stacks!",
+  "description": "Risidio - building the user owned Internet with Stacks - Smart Contracts on Bitcoin",
   "start_url": "/",
+  "icons": [{
+    "src": "/img/risidio_white.png",
+    "sizes": "192x192",
+    "type": "image/png"
+  }, {
+    "src": "/img/risidio_white.png",
+    "sizes": "512x512",
+    "type": "image/png"
+  }],
   "background_color": "#000000",
   "display": "fullscreen",
   "orientation": "portrait",
