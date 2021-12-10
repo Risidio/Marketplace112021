@@ -95,7 +95,7 @@ export default {
 .homeInfo{
     min-height: 1000px;
     background: transparent linear-gradient(180deg, rgba(34, 14, 149, 1) 0%, rgba(7, 23, 100, 1) 100%) 0% 0% no-repeat padding-box;
-    padding: 5%;
+    padding: 10rem;
     color: white;
     text-align: center;
 }

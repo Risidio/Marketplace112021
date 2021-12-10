@@ -137,9 +137,9 @@ export default {
 p{padding:0; margin:0;}
 .homeMarket{
   width: 90%;
-  min-height: 80vh;
+  min-height: 80rem;
   margin: auto;
-  margin-bottom: 10vh;
+  margin: 5rem auto;
 }
 .galleryNav{
   margin: auto;

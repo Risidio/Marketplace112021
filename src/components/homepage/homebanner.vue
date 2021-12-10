@@ -139,7 +139,8 @@ export default {
 
 <style lang="scss" scoped>
 .bannerContainer{
-  min-height: 50vh;
+  height: 50rem;
+  margin-bottom: 5rem;
 }
 h2{
   margin-bottom: 30px;
@@ -180,10 +181,11 @@ h2{
   top: 0;
   left: 0;
   width: 100%;
-  height: 60vh;
+  height: 55rem;
   object-fit: cover;
   z-index: -10;
   transform: rotate(180deg);
+  margin-bottom: 50px;
 }
 .slideContainerNotLogged{
   background-color:rgba(255, 255, 255, 0.637);
