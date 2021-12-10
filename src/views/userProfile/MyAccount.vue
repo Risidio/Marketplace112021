@@ -456,15 +456,7 @@ export default {
     font-size: 40px;
     font-weight: 300;
   }
-  .button{
-  padding: 15px 30px;
-  margin: 0 10px;
-  min-width: 150px;
-  border-radius: 100px;
-  border: none;
-  font-size: 14px;
-  font-weight:500;
-}
+
 .profileBtns >:nth-child(1){
   background:#50B1B5;
   color: white;
@@ -511,8 +503,7 @@ export default {
   font-size: 14px;
   font-weight:700;
   color: rgb(222,146,123);
-  /* margin-bottom: 50px; */
-  /* padding-bottom: 50px; */
+
 }
 .button:hover{
   color: rgb(235,231,232);

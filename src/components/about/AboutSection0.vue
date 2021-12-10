@@ -4,7 +4,7 @@
      <img class="banner" src="https://res.cloudinary.com/risidio/image/upload/v1633609373/RisidioMarketplace/Group_-304_ofssmk.svg" alt="">
       <h1>{{content.aboutsection0[0].abouttitle[0].text}}</h1>
       <p>{{content.aboutsection0[0].abouttext[0].text}}</p>
-      <button class="button" > <a href="https://risidio.com/">Risidio Website</a></button>
+      <button class="button notFilled" > <a href="https://risidio.com/">Risidio Website</a></button>
   </div>
 </div>
 </template>
@@ -52,19 +52,13 @@ export default {
 .container p{
   font-size: 1em;
   font-weight: 300;
-  padding-top: 20px;
+  padding: 20px 0;
   color: white;
   max-width: 600px;
   margin: auto;
 }
-.button{
-  margin-top: 30px;
-  border-radius: 100px;
-  border: none;
-  background-color: rgba(255, 255, 255, 0.2);
-  padding: 15px 50px;
-  font-size: 12px;
-  font-weight:600;
+.container button{
+  margin: auto;
 }
 a, a:after, a:hover{
     color:var(--cyan);

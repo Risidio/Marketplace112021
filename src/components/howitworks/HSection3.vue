@@ -138,17 +138,10 @@ p{
   margin: auto;
 }
 .button{
-  margin: 0 auto;
-  display: block;
-  margin-top: 50px;
-  width: 200px;
-  height: 60px;
-  border-radius: 100px;
-  border: none;
-  background-color: rgb(0, 177, 201);
-  font-size: 14px;
-  font-weight:400;
+  margin: 20px auto 0 auto;
   color: white;
+  background-color: rgb(0, 177, 201);
+
 }
  @media only screen and (max-width: 770px)  {
   .vueperslides--fixed-height {height: 80vh;}

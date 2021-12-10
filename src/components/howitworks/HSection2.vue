@@ -8,7 +8,7 @@
     <div class = "container">
       <p>
       {{content.howsection2[0].howtext[0].text}}</p>
-      <button class="button"> Buy STX </button>
+      <button class="button notFilled"> Buy STX </button>
     </div>
   </div>
   <!-- <hr class= "hr"> -->
@@ -63,14 +63,8 @@ export default {
 }
 
 .button{
-  margin-top: 50px;
-  width: 200px;
-  height: 60px;
-  border-radius: 100px;
-  border: none;
+  margin: auto;
   background-color: rgba(0, 162, 184, 0.1);
-  font-size: 14px;
-  font-weight:700;
   color: rgb(0, 177, 201);
   /* margin-bottom: 50px; */
   /* padding-bottom: 50px; */

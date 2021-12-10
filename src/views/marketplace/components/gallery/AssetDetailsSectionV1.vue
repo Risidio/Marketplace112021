@@ -14,7 +14,7 @@
           <MediaItem :videoOptions="videoOptions" :attributes="gaiaAsset.attributes" :targetItem="targetItem()"/>
           <MediaItemGeneral :classes="'hash1-image'" v-on="$listeners" :options="videoOptions" :mediaItem="gaiaAsset.attributes"/>
           <div v-if="gaiaAsset.attributes.artworkFile.type == 'threed/glb'">
-            <button class="mintButton" v-on:click="openModal(), three()">View 3D</button>
+            <button class="button filled" v-on:click="openModal(), three()">View 3D</button>
           </div>
           <!-- <MintInfo class="my-5" :item="gaiaAsset" :loopRun="loopRun" /> -->
         </div>

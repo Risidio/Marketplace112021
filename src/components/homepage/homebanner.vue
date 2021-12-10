@@ -34,7 +34,7 @@
                               Dolor animi natus officiis sint, neque nisi consequuntur,
                               magni commodi est delectus facere! Eius modi animi dignissimos itaque
                               facere iste neque architecto!</p>
-                              <button class="button"> See The Collection </button>
+                              <button class="button filled"> See The Collection </button>
                             </div>
                         </div>
                         <div v-if="slide.id==2" class = "slideContainer">
@@ -48,7 +48,7 @@
                               Dolor animi natus officiis sint, neque nisi consequuntur,
                               magni commodi est delectus facere! Eius modi animi dignissimos itaque
                               facere iste neque architecto!</p>
-                              <button class="button"> See The Collection </button>
+                              <button class="button filled"> See The Collection </button>
                             </div>
                         </div>
                         <div v-if="slide.id==3" class = "slideContainer">
@@ -62,7 +62,7 @@
                               Dolor animi natus officiis sint, neque nisi consequuntur,
                               magni commodi est delectus facere! Eius modi animi dignissimos itaque
                               facere iste neque architecto!</p>
-                              <button class="button"> See The Collection </button>
+                              <button class="button filled"> See The Collection </button>
                             </div>
                         </div>
                     </template>
@@ -135,7 +135,9 @@ h2{
   color: white;
   margin: auto;
 }
-
+.button{
+  margin: 0;
+}
 .market_intro_h1{
   margin-bottom: 25px;
   color: white;
@@ -170,7 +172,7 @@ h2{
 }
 
 .vueperslides--fixed-height {
-  height: 40vh;
+  height: 400px;
   max-width: 90%;
   margin-left: auto;
   margin-right: auto;
@@ -203,16 +205,6 @@ h2{
 .slideContainer > *:nth-child(2){
   flex: 1 1 55%;
   min-width: 400px;
-}
-.button{
-  margin-top: 20px;
-  padding: 15px 30px;
-  border-radius: 100px;
-  border: none;
-  background-color: rgb(0, 177, 201);
-  font-size: 14px;
-  font-weight:700;
-  color: white;
 }
 
 </style>
