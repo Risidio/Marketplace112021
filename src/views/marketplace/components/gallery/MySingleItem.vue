@@ -13,13 +13,13 @@
               <div   class="text-small d-flex justify-content-between">
                 <div  class="text-right"><span v-if="loopRun">{{loopRun.currentRun}}</span> {{editionMessage}}</div>
                 <div  class="text-right">{{created()}}</div>
+              <span style="float: right font-size: 10px; font-weight: bolder;"> On Sale</span>
               </div>
-            <span style="float: right"> On Sale</span>
             </div>
       </b-link>
 
-      <p style="font-size: 1.5em; font-weight:500; margin: 15px 0 0 0; padding: 0;" class="overflow-hidden text-bold">{{this.asset.name}}</p>
-      <p style="margin: 0; padding: 0;"> By: <span style="font-weight: 500">{{asset.artist}}</span></p>
+      <p class="nFTName" style="font-size: 20px">{{this.asset.name}}</p>
+      <p class="nFTArtist"> By: <span>{{asset.artist}}</span></p>
     </b-card-text>
     <b-card-text>
       <!-- Enables connecting meta data to the actual punk crash -->

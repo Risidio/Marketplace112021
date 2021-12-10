@@ -3,27 +3,27 @@
     <div>
       <b-nav class="galleryNav" >
         <div class="galleryNavContainer" >
-          <b-nav-item class="galleryNavItem" @click="tabChange('Discover')">Discover</b-nav-item>
-          <b-nav-item class="galleryNavItem" @click="tabChange('Collections')">Collections</b-nav-item>
-          <b-nav-item class="galleryNavItem" @click="tabChange('Your NFT')">Your NFT's</b-nav-item>
+          <b-nav-item class="galleryNavItem active" id="discover" @click="tabChange('discover')">Discover</b-nav-item>
+          <b-nav-item class="galleryNavItem" id="collections" @click="tabChange('collections')">Collections</b-nav-item>
+          <!-- <b-nav-item class="galleryNavItem" @click="tabChange('Your NFT')">Your NFT's</b-nav-item> -->
         </div>
       </b-nav>
     </div>
     <div class="homeMarketItems">
 
-        <div class="galleryContainer" v-if="gaiaAssets.length > 0 && tab === 'Discover'">
+        <div class="galleryContainer" v-if="gaiaAssets.length > 0 && tab === 'discover'">
             <div v-for="(item, index) in filterMarketAssets" :key="index" class="homeNFTView" >
                 <div class="NFTbackgroundColour">
                     <b-link class="galleryNFTContainer" :to="assetUrl(item)" v-if="item && item.contractAsset && item.attributes">
                   <MediaItemGeneral :classes="'nftGeneralView'" v-on="$listeners" :mediaItem="item.attributes"/>
-                  <p style="font-size: 1em; text-overflow: clip; width:250px"> {{!item.name ? "NFT" : item.name }} <span style="float: right; font-size: 0.6em; margin-top: 10px;">$ {{item.price * 1.9}}</span></p>
-                  <p>By <span style="font-weight:600">{{!item.artist ? "Anonymous" : item.artist }}</span> <span style="float: right;">{{item.price}} STX</span></p>
+                  <p class="nFTName"> {{!item.name ? "NFT" : item.name }} <span>$ {{item.contractAsset.saleData.buyNowOrStartingPrice * 1.9}}</span></p>
+                  <p class="nFTArtist">By <span>{{!item.artist ? "Anonymous" : item.artist }}</span> <span style="float: right;">{{item.contractAsset.saleData.buyNowOrStartingPrice}} STX</span></p>
                 </b-link>
                 </div>
             </div>
         </div>
 
-        <div class="galleryContainer" v-if="tab === 'Collections'">
+        <div class="galleryContainer" v-if="tab === 'collections'">
           <b-col style="margin: auto" md="9" sm="12">
             <h1 style="margin: auto; text-align: center;">Coming soon!</h1>
             <b-row class="h-auto">
@@ -39,18 +39,18 @@
           </b-col>
         </div>
 
-          <div class=""  v-if="tab === 'Your NFT'">
+          <!-- <div class=""  v-if="tab === 'Your NFT'">
               <MyPageableItems  style="justify-content: space-evenly"  :loopRun="loopRun"/>
               <div v-if="gaiaAssets.length > 0 && tab === 'Item'" class="galleryinfoContainer">
                 <div v-for="(item, index) in gaiaAssets" :key="index" class="galleryItem" >
                   <div class="yourItems">
                     <router-link v-bind:to="'/edit-item/' + item.assetHash" ><img :src="item.image" class="itemImg" style=""/></router-link>
-                    <p style="font-size: 1.5em;"> {{item.name}} <span style="float: right; font-size: 0.6em; margin-top: 10px;">$ {{item.price * 1.9}}</span></p>
-                    <p>By <span style="font-weight:600">{{item.artist}}</span> <span style="float: right;">{{item.price}} STX</span></p>
+                    <p class="nFTName"> {{item.name}} <span >$ {{item.price * 1.9}}</span></p>
+                    <p class="nFTArtist">By <span >{{item.artist}}</span> <span style="float: right;">{{item.price}} STX</span></p>
                   </div>
                 </div>
               </div>
-          </div>
+          </div> -->
             <button class="button filled"><router-link style="color:white" to="/nft-marketplace">See More Collectables</router-link></button>
     </div>
   </section>
@@ -59,14 +59,14 @@
 <script>
 import { APP_CONSTANTS } from '@/app-constants'
 import MediaItemGeneral from '@/views/marketplace/components/media/MediaItemGeneral'
-import MyPageableItems from '@/views/marketplace/components/gallery/MyPageableItems'
+// import MyPageableItems from '@/views/marketplace/components/gallery/MyPageableItems'
 import utils from '@/services/utils'
 export default {
   name: 'HomeMarket',
   props: ['gaiaAssets'],
   components: {
-    MediaItemGeneral,
-    MyPageableItems
+    MediaItemGeneral
+    // MyPageableItems
   },
   data () {
     return {
@@ -84,6 +84,9 @@ export default {
   methods: {
     tabChange (tab) {
       this.tab = tab
+      document.getElementById('discover').classList.remove('active')
+      document.getElementById('collections').classList.remove('active')
+      document.getElementById(tab).classList.add('active')
       console.log(this.tab)
     },
     showCollections () {
@@ -173,7 +176,7 @@ p{padding:0; margin:0;}
   margin: auto;
   border: solid rgba(255, 255, 255, 0)  2px;
 }
-.galleryNavItem:hover{
+.galleryNavItem:hover, .galleryNavItem.active{
   border-bottom: 2px solid #50B1B5;
 }
 .galleryContainer{
