@@ -37,10 +37,10 @@
           <NftCoverImage :item="item" :displayHeader="false"/>
           <p> by: {{item.uploader}}</p>
           <div v-if="!this.continue">
-            <button class="btn nextButton" @click.prevent="uploadItem()">Upload</button>
+            <button class="button filled" @click.prevent="uploadItem()">Upload</button>
           </div>
           <div v-else>
-            <button class="btn nextButton" v-on:click="nextPage()"> Next </button>
+            <button class="button filled" v-on:click="nextPage()"> Next </button>
           </div>
         </div>
       </div>
@@ -331,13 +331,8 @@ export default {
   flex: 1 1 35%;
   min-width: 450px;
 }
-.nextButton{
-  margin-top: 30px;
-  padding: 15px 100px;
-  border-radius: 100px;
-  background:#50B1B5;
-  color: white;
-  font-size: 0.7em;
+.button{
+  margin: auto;
 }
 .nFTImageContainer{
   display: block;

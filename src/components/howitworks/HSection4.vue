@@ -11,7 +11,7 @@
       </div>
 
       </div>
-      <router-link to="/about" style="display: block; margin: auto;"><button  class="button"> About Risidio </button></router-link>
+      <router-link to="/about" ><button style="display: block; margin: auto;" class="button filled"> About Risidio </button></router-link>
 </div>
 </template>
 
@@ -49,17 +49,6 @@ export default {
 .pCont p{
   font: normal normal 300 14px/20px Montserrat;
   margin:auto;
-}
-.button{
-  display: block;
-  margin: 50px auto;
-  padding: 15px 50px;
-  border-radius: 100px;
-  border: none;
-  background-color: rgba(0, 162, 184, 0.1);
-  font-size: 14px;
-  font-weight:700;
-  color: rgb(0, 177, 201);
 }
 
 </style>

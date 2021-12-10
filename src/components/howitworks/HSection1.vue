@@ -4,7 +4,7 @@
     <img class="banner" src="https://res.cloudinary.com/risidio/image/upload/v1633609373/RisidioMarketplace/Group_-304_ofssmk.svg" alt="">
       <h1>{{content.howsection0[0].howtitle[0].text}}</h1>
       <p>{{content.howsection0[0].howtext[0].text}} </p>
-      <button class="button"> Get Started </button>
+      <button class="button notFilled"> Get Started </button>
   </div>
 </div>
 </template>
@@ -62,15 +62,8 @@ export default {
   max-width: 700px;
     color:white;
 }
-.button{
-padding: 15px 50px;
-  border-radius: 100px;
-  border: none;
-  background-color: white;
-  font-size: 12px;
-  font-weight:700;
-  color: rgb(0, 177, 201);
-  background: rgb(255, 255, 255);
+.container button{
+  margin: auto;
 }
 a, a:after, a:hover{
     color:black;

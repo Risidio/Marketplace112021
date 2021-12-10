@@ -6,7 +6,7 @@
           <p style="color: white; font: normal normal normal 14px/20px Montserrat; max-width: 600px">{{content.aboutsection2[0].abouttext[0].text}}<br><br>
              {{content.aboutsection2[0].abouttext1[0].text}}</p>
             <div class="m-5 d-flex justify-content-center">
-              <a title="join us on discord" href="https://discord.com/invite/sQaKVft"><button variant="light">Read More</button></a>
+              <a title="join us on discord" href="https://discord.com/invite/sQaKVft"><button class="button filled">Read More</button></a>
             </div>
         </div>
       </div>
@@ -38,18 +38,7 @@ export default {
   justify-content: center;
   color:white;
 }
-button{
-  margin-top: 30px;
-  width: 220px;
-  height: 55px;
-  border-radius: 100px;
-  border: none;
-  color:white;
-  // background-color: #FFA310;
-  background-color: #50B1B5;
-  font-size: 12px;
-  font-weight:700;
-}
+
 .values_container{
   margin: auto;
   max-width: 600px;

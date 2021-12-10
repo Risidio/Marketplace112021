@@ -5,8 +5,8 @@
             <h3>Create an account and join our marketplace.<br/><br/>
             It's quick, Safe and Free</h3>
             <div class="buttonCont">
-                <button class="button buttonLeft"> Create An Account</button>
-                <button class="button buttonRight"> Find Out More </button>
+                <button class="button filled"> Create An Account</button>
+                <button class="button notFilled"> Find Out More </button>
             </div>
         </div>
     <div class="homeMarketItems">
@@ -51,21 +51,14 @@ export default {
 .homeBottomContainer h3{
     font-size: 20px;
     color: white;
+    margin-bottom: 20px;
 }
-.button{
-  margin: 30px 10px;
-  padding: 15px 30px;
-  border-radius: 100px;
-  border: none;
-  font-size: 14px;
-  font-weight:500;
-  color: white;
+.buttonCont{
+    display: flex;
+    justify-content: center;
+    &>*{
+        margin-left: 10px;
+        margin-right: 10px;
+    }
 }
-.buttonRight{
-    background: rgba(255, 255, 255, 0.2);
-    color: rgba(95, 189, 193, 1);
-}
-.buttonRight:hover{background: rgba(255, 255, 255, 0.3)}
-.buttonLeft{background: rgba(80, 177, 181, 1);}
-.buttonLeft:hover{background: rgb(86, 195, 199);}
 </style>

@@ -51,7 +51,7 @@
                 </div>
               </div>
           </div>
-            <button class="button"><router-link style="color:white" to="/nft-marketplace">See More Collectables</router-link></button>
+            <button class="button filled"><router-link style="color:white" to="/nft-marketplace">See More Collectables</router-link></button>
     </div>
   </section>
 </template>
@@ -182,6 +182,10 @@ p{padding:0; margin:0;}
   flex-wrap: wrap;
   margin: auto;
 }
+.homeMarketItems{
+  max-width: 1800px;
+  margin: auto;
+}
 .homeNFTView{
   display: flex;
   // margin: 4rem;
@@ -196,14 +200,6 @@ p{padding:0; margin:0;}
   max-height: 400px;
 }
 .button{
-  display:block;
-  margin: 30px auto;
-  padding: 15px 30px;
-  border-radius: 100px;
-  border: none;
-  font-size: 14px;
-  font-weight:500;
-  background:#50B1B5;
-  color: white;
+  margin: 20px auto 0 auto;
 }
 </style>

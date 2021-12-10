@@ -26,13 +26,13 @@
           <h6 v-if="item.artist" style="font-size: 0.7em;">By : <span style="font-weight: 600; font-size: 16px; font-family: inherit">{{item.artist}}</span></h6>
         </div>
         <div v-if="!item.contractAsset">
-          <b-button class="mintButton" @click="startMinting()">Mint<span v-if="loopRun && loopRun.batchSize > 1"> Next {{loopRun.batchSize}}</span></b-button>
+          <b-button class="button filled" @click="startMinting()">Mint<span v-if="loopRun && loopRun.batchSize > 1"> Next {{loopRun.batchSize}}</span></b-button>
           <div v-if="item.attributes.artworkFile.type == 'threed/glb'">
-            <button class="mintButton" v-on:click="openModal(), three()">View 3D</button>
+            <button class="button filled" v-on:click="openModal(), three()">View 3D</button>
           </div>
         </div>
         <div v-else>
-         <b-button class="mintButton" @click="openSaleDataDialog()">Update Sale Info</b-button>
+         <b-button class="button filled" @click="openSaleDataDialog()">Update Sale Info</b-button>
         </div>
         <!-- <div class="text-left text-small mt-3">
           <b-link :to="'/my-nfts/' + loopRun.currentRunKey"><b-icon icon="chevron-left"/> Back</b-link>
@@ -498,7 +498,9 @@ export default {
   border: 1px solid #888;
   width: 80%;
 }
-
+.button{
+  margin-top: 20px;
+}
 .itemPreviewSection{
   max-width: 1600px;
   display: block;
