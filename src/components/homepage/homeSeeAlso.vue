@@ -74,7 +74,7 @@ export default {
 
 <style lang="scss" scoped>
 .seeAlso{
-    min-height: 60vh;
+    min-height: 60rem;
     margin: 0 7% 100px 7%;
     h2{
         font-size: 40px;

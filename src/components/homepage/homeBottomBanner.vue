@@ -29,7 +29,8 @@ export default {
 <style lang="scss" scoped>
 .homeBottomBanner{
     width:100%;
-    height: 40vh;
+    margin: auto;
+    height: auto;
     background: url(https://res.cloudinary.com/risidio/image/upload/v1633609373/RisidioMarketplace/Group_-304_ofssmk.svg)no-repeat center center;
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -37,11 +38,13 @@ export default {
     background-size: cover;
 }
 .homeBottomContainer{
-    display:block;
+    display:flex;
+    flex-direction: column;
     margin: auto auto;
-    padding-top: 10vh;
+    padding-top: 10rem;
     text-align: center;
     max-width: 800px;
+    height: 40rem;
 }
 .homeBottomContainer h2{
     font-size: 40px;
