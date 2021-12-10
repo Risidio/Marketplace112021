@@ -1,6 +1,6 @@
 <template>
 <div v-if="asset">
-  <div v-if="nextBid.amount == 1" class="galleryItem onSale" >
+  <div v-if="nextBid.amount >= 1" class="galleryItem onSale" >
     <b-card-text style="margin: 20px auto;" class="">
       <b-link class="  text-info" :to="nextUrl">
         <div @contextmenu="handler($event)" class="">

@@ -573,5 +573,7 @@ export default {
   background-color: #8181813f;
   border-radius: 30px;
 }
-
+.button{
+  margin: 20px auto 0 auto;
+}
 </style>
