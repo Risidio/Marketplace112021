@@ -6,7 +6,7 @@
     <EditEditions v-if="allowEditEditions" :item="item"/>
     <!-- <Beneficiaries :hidePrimaries="hidePrimaries" :beneficiaries="beneficiaries" v-on="$listeners"/> -->
     <!-- <ListBeneficiaries :loopRun="loopRun" :item="item" /> -->
-      <div style="position: absolute; top: 102%; left:50%" class="d-flex justify-content-between">
+      <div style="position: absolute; top: 102%; left:60%" class="d-flex justify-content-between">
         <b-button @click="saveData()" class="mintingButtons cyanBg" >Cancel</b-button>
         <b-button @click="sendMintEvent()" class="mintingButtons cyanBg" ><span style="color: white" v-if="mintButtonText">{{mintButtonText}}</span><span style="color: white" v-else>Mint Now</span></b-button>
       </div>
