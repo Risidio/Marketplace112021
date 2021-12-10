@@ -2,7 +2,7 @@
     <section class="homepage">
       <HomeBanner v-bind:profile='profile' :content="content"/>
       <HomeMarket v-bind:profile='profile' :gaiaAssets="gaiaAssets"/>
-      <HomeInfo v-bind:profile='profile'/>
+      <HomeInfo v-bind:profile='profile' :content="content"/>
       <HomeSeeAlso v-bind:profile='profile' :gaiaAssets="filterMarketAssets"/>
       <HomeBottomBanner/>
     </section>

@@ -10,7 +10,6 @@
               class="no-shadow"
               arrows-outside
               :gap="3"
-              autoplay
               >
                 <template #arrow-left>
                   <img src="https://res.cloudinary.com/risidio/image/upload/v1637153014/RisidioMarketplace/Icon_ionic-md-arrow-dropleft-circle_zpgise.svg" alt="wallet" class="arrow"/>
@@ -28,12 +27,8 @@
 
                             </div>
                             <div class="slideText">
-                              <h2>{{slide.text}}</h2>
-                              <p> lorem ipsum dolor sit amet<br>
-                              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                              Dolor animi natus officiis sint, neque nisi consequuntur,
-                              magni commodi est delectus facere! Eius modi animi dignissimos itaque
-                              facere iste neque architecto!</p>
+                              <h2>{{content.heroarea[1].herotitle[0].text}}</h2>
+                              <p> {{content.heroarea[1].herotext[0].text}}</p>
                               <button class="button filled"> See The Collection </button>
                             </div>
                         </div>
@@ -42,12 +37,8 @@
 
                             </div>
                             <div class="slideText">
-                              <h2>{{slide.text}}</h2>
-                              <p> lorem ipsum dolor sit amet<br>
-                              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                              Dolor animi natus officiis sint, neque nisi consequuntur,
-                              magni commodi est delectus facere! Eius modi animi dignissimos itaque
-                              facere iste neque architecto!</p>
+                              <h2>{{content.heroarea[2].herotitle[0].text}}</h2>
+                              <p> {{content.heroarea[2].herotext[0].text}}</p>
                               <button class="button filled"> See The Collection </button>
                             </div>
                         </div>
@@ -57,11 +48,8 @@
                             </div>
                             <div class="slideText">
                               <h2>{{slide.text}}</h2>
-                              <p> lorem ipsum dolor sit amet<br>
-                              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                              Dolor animi natus officiis sint, neque nisi consequuntur,
-                              magni commodi est delectus facere! Eius modi animi dignissimos itaque
-                              facere iste neque architecto!</p>
+                              <h2>{{content.heroarea[3].herotitle[0].text}}</h2>
+                              <p> {{content.heroarea[3].herotext[0].text}}</p>
                               <button class="button filled"> See The Collection </button>
                             </div>
                         </div>
@@ -72,10 +60,20 @@
         </div>
     </div>
     <div v-else>
-        <div class="container section1">
-            <div class="market_introduction_text">
-            <h1 class="market_intro_h1"> {{content.heroarea[0].herotitle[0].text}}</h1>
-            <p class="market_intro">{{content.heroarea[0].herotext[0].text}}</p>
+        <div class="slideContainerNotLogged" >
+            <div class="notLoggedCont">
+              <iframe
+              style="border-radius: 10px;"
+              width="529px"
+              height="300px"
+              frameborder="0"
+              src="https://res.cloudinary.com/risidio/video/upload/v1639140586/RisidioMarketplace/Latest_Risidio_Video_by_Fizan_100721_5_r3o1or.mp4" type="video"/>
+            </div>
+            <div class="notLoggedCont">
+              <h1> {{content.heroarea[0].herotitle[0].text}}</h1>
+              <p>{{content.heroarea[0].herotext[0].text}}</p>
+              <button v-on:click="startRegister()" class="button filled" >Get Your Hiro Wallet To Start</button>
+              <small v-on:click="startLogin()" style="padding-left: 40px; font-size: 0.7em; font-weight: 600; cursor: pointer"> Already Have One? Get Started </small>
             </div>
         </div>
     </div>
@@ -85,6 +83,7 @@
 <script>
 import { VueperSlides, VueperSlide } from 'vueperslides'
 import 'vueperslides/dist/vueperslides.css'
+import { APP_CONSTANTS } from '@/app-constants'
 
 export default {
   name: 'Homebanner',
@@ -113,12 +112,31 @@ export default {
       resultSet: [],
       loaded: false
     }
-  })
+  }),
+  methods: {
+    startLogin () {
+      // this.$emit('updateEventCode', { eventCode: 'connect-login' })
+      const myProfile = this.$store.getters['rpayAuthStore/getMyProfile']
+      if (myProfile.loggedIn) {
+        this.$emit('connect-login', myProfile)
+      } else {
+        this.$store.dispatch('rpayAuthStore/startLogin').then((profile) => {
+          console.log(profile)
+          location.reload()
+        }).catch(() => {
+          this.$store.commit(APP_CONSTANTS.SET_WEB_WALLET_NEEDED)
+        })
+      }
+    },
+    startRegister () {
+      window.open('https://www.hiro.so/wallet', '_blank')
+    }
+  }
 
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .bannerContainer{
   min-height: 50vh;
 }
@@ -166,6 +184,28 @@ h2{
   z-index: -10;
   transform: rotate(180deg);
 }
+.slideContainerNotLogged{
+  background-color:rgba(255, 255, 255, 0.637);
+  border-radius: 30px;
+  max-width: 1500px;
+  margin: auto;
+  height: 400px;
+  padding: 20px 50px;
+  display: flex;
+
+}
+.slideContainerNotLogged :nth-child(1){
+  justify-self: center;
+  align-self: center;
+  margin-right: 50px;
+}
+.slideContainerNotLogged :nth-child(2){
+  margin-top: 25px;
+  h1, p{
+    padding-bottom: 20px;
+  }
+}
+
 .vueperslide{
   background-color:rgba(255, 255, 255, 0.637);
   border-radius: 30px;
@@ -206,5 +246,5 @@ h2{
   flex: 1 1 55%;
   min-width: 400px;
 }
-
+.button{margin-top: 20px;}
 </style>

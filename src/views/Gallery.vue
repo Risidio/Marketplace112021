@@ -49,12 +49,12 @@
                 </div>
                 <hr/>
                     <div style="width: 100%" v-if="loaded && types=='all'">
-                                <!-- <h1 class="text-black">NFT Gallery</h1> -->
-                                <div style=" display: flex; width: 100%; margin:auto;" class="row mb-4">
-                                    <div class="text-black col-lg-3 col-md-4 col-sm-6 col-xs-12 mx-0 p-1" v-for="(item, index) in gaiaAssets" :key="index">
-                                        <GalleryNft :item="item"/>
-                                    </div>
-                                </div>
+                          <!-- <h1 class="text-black">NFT Gallery</h1> -->
+                          <div style=" display: flex; width: 100%; margin:auto;" class="row mb-4">
+                              <div class="text-black col-lg-3 col-md-4 col-sm-6 col-xs-12 mx-0 p-1" v-for="(item, index) in gaiaAssets" :key="index">
+                                  <GalleryNft :item="item"/>
+                              </div>
+                          </div>
                       </div>
                         <div style="width: 100%" v-if="loaded && types !='all'">
                           <!-- <h1 class="text-black">NFT Gallery</h1> -->
@@ -63,13 +63,13 @@
                                   <GalleryNft :item="item"/>
                               </div>
                           </div>
-                      </div>
-                      <div class="container" style="min-height: 85vh;" v-else>
+                      <div class="container" style="min-height: 85vh;" v-if="loaded && types=='all' && gaiaAssets.length === 0">
                             <b-container class="text-black mt-5">
                                 <h1>No Gallery NFTs</h1>
                                 <p>Our Gallery is coming online soon - please come back soon...</p>
                             </b-container>
                         </div>
+                      </div>
                       <div style="width: 100%" v-if="loaded && types !='all' && types=='img' && showAssets.length === 0">
                          <h2> We could not find any images</h2>
                       </div>
@@ -85,7 +85,12 @@
                       <div style="width: 100%" v-if="loaded && types !='all' && types=='doc' && showAssets.length === 0">
                          <h2> We could not find any documents </h2>
                       </div>
-
+                      <!-- <div class="container" style="min-height: 85vh;" v-else-if="">
+                          <b-container class="text-black mt-5">
+                              <h1>No Gallery NFTs</h1>
+                              <p>Our Gallery is coming online soon - please come back soon...</p>
+                          </b-container>
+                      </div> -->
                 <!-- <div class="galleryContainer" v-if="placeHolderItems && placeHolderItems.length > 0">
                     <div v-for="(item, index) in placeHolderItems" :key="index" class="galleryItem" >
                         <div>
@@ -239,10 +244,12 @@ export default {
 .mainGalleryContainer .mainGallerySidebar{
     flex: 1 1 15%;
     min-width: 200px;
+    max-width: 400px;
 }
 .mainGalleryContainer .mainGalleryBody{
     flex: 1 1 85%;
-    padding: 1% 5%;
+    padding: 10px 70px;
+    max-width: 1800px;
 }
 .filter{
     display: flex;
@@ -275,7 +282,7 @@ export default {
   min-height: 50px;
 }
 .collectionsButton{
-  margin: 20px 0 0 20px;
+  margin: 20px 0 0 10px;
   background-color: transparent;
   color: rgb(49, 49, 49);
   padding: 16px;

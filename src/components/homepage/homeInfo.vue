@@ -1,8 +1,8 @@
 <template>
     <section class="homeInfo">
         <div class="homeText">
-            <h1 style="font-size: 20px; font-weight: 600;"> Need A Hand ? </h1>
-            <h2 style="font-size: 40px; font-weight: 200;"> What You Can Do </h2>
+            <h1 style="font-size: 20px; font-weight: 600;">{{content.needahand[0].needtitle[0].text}} </h1>
+            <h2 style="font-size: 40px; font-weight: 200;"> {{content.needahand[0].needtitle2[0].text}} </h2>
         </div>
             <div v-if="profile.loggedIn">
             <div class="homeInfoContainer">
@@ -10,11 +10,8 @@
                     <div>
                         <div class="textCon">
                             <img src='https://res.cloudinary.com/risidio/image/upload/v1637162043/RisidioMarketplace/Groupe_17296_smc1up.svg'/>
-                            <p style="font-size: 16px; font-weight: 700;"> Upload and mint your NFT <br/><br/></p>
-                            <p style="font-weight: 200; padding-bottom: 20px"> Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                            Molestiae iure a culpa sed quidem totam reiciendis deleniti
-                            deserunt nisi, quod quam aliquid modi eveniet velit voluptates
-                            nemo ipsum corporis molestias.</p>
+                            <p style="font-size: 16px; font-weight: 700;"> {{content.needahand[0].upload[0].text}}  <br/><br/></p>
+                            <p style="font-weight: 200; padding-bottom: 20px"> {{content.needahand[0].uploadtext[0].text}}</p>
                             <button class='button notFilled'> Upload </button>
                         </div>
                     </div>
@@ -23,11 +20,8 @@
                     <div>
                         <div class="textCon">
                             <img src='https://res.cloudinary.com/risidio/image/upload/v1637162044/RisidioMarketplace/002-distributed_ledger_b4tq2s.svg'/>
-                            <p style="font-size: 16px; font-weight: 700;"> Sell your work <br/><br/></p>
-                            <p style="font-weight: 200; padding-bottom: 20px"> Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                            Molestiae iure a culpa sed quidem totam reiciendis deleniti
-                            deserunt nisi, quod quam aliquid modi eveniet velit voluptates
-                            nemo ipsum corporis molestias.</p>
+                            <p style="font-size: 16px; font-weight: 700;"> {{content.needahand[0].sell[0].text}}  <br/><br/></p>
+                            <p style="font-weight: 200; padding-bottom: 20px">{{content.needahand[0].selltext[0].text}} </p>
                         <button class='button notFilled'> My NFTs </button>
                         </div>
                     </div>
@@ -36,11 +30,8 @@
                     <div>
                         <div class="textCon">
                         <img src='https://res.cloudinary.com/risidio/image/upload/v1637162045/RisidioMarketplace/009-coin_ojj2mp.svg'/>
-                            <p style="font-size: 16px; font-weight: 700;"> Buy and trade NFTs <br/><br/></p>
-                            <p style="font-weight: 200; padding-bottom: 20px"> Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                            Molestiae iure a culpa sed quidem totam reiciendis deleniti
-                            deserunt nisi, quod quam aliquid modi eveniet velit voluptates
-                            nemo ipsum corporis molestias  quidem totam reiciendis d  quidem totam reiciendis d.</p>
+                            <p style="font-size: 16px; font-weight: 700;"> {{content.needahand[0].buy[0].text}}  <br/><br/></p>
+                            <p style="font-weight: 200; padding-bottom: 20px">{{content.needahand[0].buytext[0].text}} </p>
                         <button class='button notFilled'> Gallery </button>
                         </div>
                     </div>
@@ -53,11 +44,8 @@
                     <div>
                     <div class="textCon">
                         <img src='https://res.cloudinary.com/risidio/image/upload/v1637162045/RisidioMarketplace/009-coin_ojj2mp.svg'/>
-                        <p style="font-size: 16px; font-weight: 700;"> Connect your wallet <br/><br/></p>
-                        <p style="font-weight: 200; padding-bottom: 20px"> Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                        Molestiae iure a culpa sed quidem totam reiciendis deleniti
-                        deserunt nisi, quod quam aliquid modi eveniet velit voluptates
-                        nemo ipsum corporis molestias.</p>
+                        <p style="font-size: 16px; font-weight: 700;"> {{content.needahand[0].connect[0].text}}  <br/><br/></p>
+                        <p style="font-weight: 200; padding-bottom: 20px"> {{content.needahand[0].connecttext[0].text}}</p>
                         <button class='button notFilled'> Gallery </button>
                     </div>
                 </div>
@@ -66,11 +54,8 @@
                     <div>
                         <div class="textCon">
                             <img src='https://res.cloudinary.com/risidio/image/upload/v1637162043/RisidioMarketplace/Groupe_17296_smc1up.svg'/>
-                            <p style="font-size: 16px; font-weight: 700;"> Upload and mint your NFT <br/><br/></p>
-                            <p style="font-weight: 200; padding-bottom: 20px"> Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                            Molestiae iure a culpa sed quidem totam reiciendis deleniti
-                            deserunt nisi, quod quam aliquid modi eveniet velit voluptates
-                            nemo ipsum corporis molestias.</p>
+                            <p style="font-size: 16px; font-weight: 700;"> {{content.needahand[0].upload[0].text}}  <br/><br/></p>
+                            <p style="font-weight: 200; padding-bottom: 20px"> {{content.needahand[0].uploadtext[0].text}}</p>
                         <button class='button notFilled'> Upload </button>
                         </div>
                     </div>
@@ -79,11 +64,8 @@
                     <div>
                         <div class="textCon">
                             <img src='https://res.cloudinary.com/risidio/image/upload/v1637162044/RisidioMarketplace/002-distributed_ledger_b4tq2s.svg'/>
-                            <p style="font-size: 16px; font-weight: 700;"> Sell your work <br/><br/></p>
-                            <p style="font-weight: 200; padding-bottom: 20px"> Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                            Molestiae iure a culpa sed quidem totam reiciendis deleniti
-                            deserunt nisi, quod quam aliquid modi eveniet velit voluptates
-                            nemo ipsum corporis molestias.</p>
+                            <p style="font-size: 16px; font-weight: 700;"> {{content.needahand[0].sell[0].text}}  <br/><br/></p>
+                            <p style="font-weight: 200; padding-bottom: 20px">{{content.needahand[0].selltext[0].text}} </p>
                         <button class='button notFilled'> My NFTs </button>
                         </div>
                     </div>
@@ -92,11 +74,8 @@
                     <div>
                         <div class="textCon">
                         <img src='https://res.cloudinary.com/risidio/image/upload/v1637162045/RisidioMarketplace/009-coin_ojj2mp.svg'/>
-                            <p style="font-size: 16px; font-weight: 700;"> Buy and trade NFTs <br/><br/></p>
-                            <p style="font-weight: 200; padding-bottom: 20px"> Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                            Molestiae iure a culpa sed quidem totam reiciendis deleniti
-                            deserunt nisi, quod quam aliquid modi eveniet velit voluptates
-                            nemo ipsum corporis molestias  quidem totam reiciendis d  quidem totam reiciendis d.</p>
+                            <p style="font-size: 16px; font-weight: 700;"> {{content.needahand[0].buy[0].text}}  <br/><br/></p>
+                            <p style="font-weight: 200; padding-bottom: 20px">{{content.needahand[0].buytext[0].text}} </p>
                         <button class='button notFilled'> Connect </button></div>
                     </div>
                 </div>
@@ -108,7 +87,7 @@
 <script>
 export default {
   name: 'HomeInfo',
-  props: ['profile']
+  props: ['profile', 'content']
 }
 </script>
 
