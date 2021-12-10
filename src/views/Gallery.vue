@@ -244,10 +244,12 @@ export default {
 .mainGalleryContainer .mainGallerySidebar{
     flex: 1 1 15%;
     min-width: 200px;
+    max-width: 400px;
 }
 .mainGalleryContainer .mainGalleryBody{
     flex: 1 1 85%;
-    padding: 1% 5%;
+    padding: 10px 70px;
+    max-width: 1800px;
 }
 .filter{
     display: flex;
@@ -280,7 +282,7 @@ export default {
   min-height: 50px;
 }
 .collectionsButton{
-  margin: 20px 0 0 20px;
+  margin: 20px 0 0 10px;
   background-color: transparent;
   color: rgb(49, 49, 49);
   padding: 16px;
