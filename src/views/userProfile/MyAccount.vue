@@ -35,7 +35,7 @@
           </div>
         </div>
     </div>
-    <div>
+    <div class="galleryContainerLimited">
       <div>
         <b-nav class="galleryNav" >
           <div class="galleryNavContainer" >
@@ -319,6 +319,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.galleryContainerLimited{
+  max-width: 1500px;
+  margin: auto;
+}
 .wantMore{
   display: block;
   text-align: center;
@@ -345,7 +349,7 @@ export default {
 }
 .viewContainer{
   margin: 100px auto;
-  width: 80vw;
+  max-width: 1600px;
   height: 100%;
 
   .galleryNav{

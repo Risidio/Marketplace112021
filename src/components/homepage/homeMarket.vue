@@ -73,12 +73,11 @@ export default {
       resultSet: [],
       loaded: false,
       placeHolderItems: [],
-      tab: 'Discover',
+      tab: 'discover',
       loopRuns: []
     }
   },
   mounted () {
-    this.generateData()
     this.findAssets()
   },
   methods: {
@@ -105,18 +104,6 @@ export default {
       this.$store.dispatch('rpayStacksContractStore/fetchContractDataFirstEditions').then(() => {
         this.loaded = true
       })
-    },
-    generateData () {
-      const array = {
-        name: 'item1',
-        coverImage: 'https://res.cloudinary.com/risidio/image/upload/v1634828295/RisidioMarketplace/Screenshot_2021-10-21_at_15.57.57_q7chjf.png',
-        nFTArtist: 'unknown',
-        price: 13,
-        type: 'image'
-      }
-      for (let i = 0; i < 20; ++i) {
-        this.placeHolderItems.push(array)
-      }
     },
     fetchFullRegistry () {
       const $self = this
