@@ -69,16 +69,16 @@
           <div v-if="!item.contractAsset" class="galleryItem">
             <div class="yourItems">
               <router-link v-bind:to="'/edit-item/' + item.assetHash" ><img :src="item.image" class="itemImg" style=""/></router-link>
-              <p style="font-size: 1.3em; font-weight: 500; padding:0; margin: 0"> {{item.name || 'Not named'}} </p>
-              <p>By <span style="font-weight:600">{{item.artist || 'Not named'}}</span></p>
+              <p class="nFTName"> {{item.name || 'Not named'}} </p>
+              <p class="nFTArtist">By <span style="font-weight:600">{{item.artist || 'Not named'}}</span></p>
             </div>
           </div>
           <div v-else class="galleryItem isNFT">
             <div class="yourItems">
               <router-link v-bind:to="'/nft-preview/' + item.projectId + '/' + item.contractAsset.nftIndex" ><img :src="item.image" class="itemImg" style=""/></router-link>
               <small style="font-size: 10px; padding: 0; margin: 0; float: right"> minted</small>
-              <p style="font-size: 1.3em; font-weight: 500; padding:0; margin: 0"> {{item.name || 'Not named'}}</p>
-              <p>By <span style="font-weight:600">{{item.artist || 'Not named'}}</span></p>
+              <p class="nFTName"> {{item.name || 'Not named'}}</p>
+              <p class="nFTArtist">By <span style="font-weight:600">{{item.artist || 'Not named'}}</span></p>
             </div>
           </div>
         </div>
@@ -87,8 +87,8 @@
         <div v-for="(item, index) in gaiaNFTSaleItem" :key="index" class="galleryItem onSale">
             <div class="yourItems">
               <router-link v-bind:to="'/nft-preview/' + item.projectId + '/' + item.contractAsset.nftIndex" ><img :src="item.image" class="itemImg" style=""/></router-link>
-              <p style="font-size: 1.3em; font-weight: 500; padding:0; margin: 0"> {{item.name || 'Not named'}} <span style="float: right; font-size: 0.6em; margin-top: 10px;">$ 0</span></p>
-              <p>By <span style="font-weight:600">{{item.artist || 'Not named'}}</span> <span style="float: right;">{{item.contractAsset.saleData.buyNowOrStartingPrice || '0'}} STX</span></p>
+              <p class="nFTName"> {{item.name || 'Not named'}} <span style="float: right; font-size: 0.6em; margin-top: 10px;">$ 0</span></p>
+              <p class="nFTArtist">By <span style="font-weight:600">{{item.artist || 'Not named'}}</span> <span style="float: right;">{{item.contractAsset.saleData.buyNowOrStartingPrice || '0'}} STX</span></p>
             </div>
         </div>
       </div>
