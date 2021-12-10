@@ -1,7 +1,7 @@
 <template>
   <section class="bannerContainer">
     <img class="banner" src="https://res.cloudinary.com/risidio/image/upload/v1633609373/RisidioMarketplace/Group_-304_ofssmk.svg" alt="">
-    <div v-if="profile.loggedIn" class="if">
+    <div v-if="profile.loggedIn && rand === 0" class="if">
         <div class="loggedBanner">
             <div class="vueSlideContainer galleryContainer">
               <vueper-slides
@@ -110,7 +110,8 @@ export default {
     ],
     return: {
       resultSet: [],
-      loaded: false
+      loaded: false,
+      rand: 1
     }
   }),
   methods: {
