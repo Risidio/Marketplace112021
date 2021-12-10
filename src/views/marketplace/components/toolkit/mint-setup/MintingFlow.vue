@@ -1,6 +1,6 @@
 <template>
 <div v-if="!loading" >
-  <div class="mx-auto">
+  <div class="">
     <div>
       <div style="border:none; border-radius: 0px">
         <!--
@@ -13,12 +13,13 @@
         </div>
         -->
         <b-row >
-          <b-col style="margin: 0px 0px 50px 80px" cols="4" class="px-5">
+          <b-col cols="4" class="px-5">
             <!-- <ItemDisplay :item="items" :loopRun="loopRun"/> -->
             <!-- <MediaItemGeneral :classes="'item-image-preview'" :options="options" :mediaItem="getMediaItem()"/> -->
-            <MediaItemGeneral :classes="'minting-item-image-preview'" :options="options" :mediaItem="mediaItem"/>
-              <h2 v-if="items[0].name" style="margin: 20px 0 0 0;">{{items[0].name}}</h2>
-              <h6 v-if="items[0].artist" style="font-size: 0.7em;">By : <span style="font-weight: 600; font-size: 16px; font-family: inherit">{{items[0].artist}}</span></h6>
+            <!-- <MediaItemGeneral :classes="'minting-item-image-preview'" :options="options" :mediaItem="mediaItem"/> -->
+            <MediaItemGeneral :classes="'item-image-preview'" :options="options" :mediaItem="mediaItem"/>
+              <h2 v-if="items[0].name" style="margin: 20px 0px 0px 20px;">{{items[0].name}}</h2>
+              <h6 v-if="items[0].artist" style="font-size: 0.7em; margin: 5px 0px 0px 20px;">By : <span style="font-weight: 600; font-size: 16px; font-family: inherit">{{items[0].artist}}</span></h6>
           </b-col>
           <b-col cols="6" class="px-5">
             <div style="margin-top:20%">
