@@ -184,8 +184,8 @@ const gaiaAsset = {
   saleData: {}
 }
 const appDetails = {
-  name: 'ThisIsNumberOne - NFTs on Bitcoin',
-  icon: origin + '/img/logo/logo.png'
+  name: 'Risidio Marketplace - NFTs on Stacks!',
+  icon: origin + '/img/sticksnstones_logo.png'
 }
 
 const setup = function (data) {
