@@ -22,8 +22,9 @@
          <div v-else class="navbar_links_not_logged">
             <router-link class="nav-items text-black" to="/how-it-works" style="margin-left: auto;" id="howItWorks">How It Works</router-link>
             <router-link class="nav-items text-black" to="/about">About Risidio </router-link>
-            <div @click.prevent="startLogin(); events();" id="login" class =" nav-items text-black">Login</div>
-            <div @mouseover="isHidden = !isHidden" @blur="isHidden = !isHidden" class=" nav-items navBtn text-black" id="register" v-on:click="startRegister()"> Register <div v-show="isHidden" class="registerTooltip"> Click Register to download the Hiro Wallet extension and get started!</div></div>
+            <!-- <div @click.prevent="startLogin(); events();" id="login" class =" nav-items text-black">Login</div> -->
+            <!-- <div @mouseover="isHidden = !isHidden" @blur="isHidden = !isHidden" class=" nav-items navBtn text-black" id="register" v-on:click="startRegister()"> Connect with Hiro Wallet <div v-show="isHidden" class="registerTooltip"> Click Register to download the Hiro Wallet extension and get started!</div></div> -->
+            <div @mouseover="isHidden = !isHidden" @blur="isHidden = !isHidden" class=" nav-items navBtn text-black" id="register" v-on:click="startRegister()"> Connect with Hiro Wallet </div>
         </div>
   </div>
 </div>
@@ -89,6 +90,7 @@ export default {
           location.reload()
         }).catch(() => {
           this.$store.commit(APP_CONSTANTS.SET_WEB_WALLET_NEEDED)
+          window.open('https://www.hiro.so/wallet', '_blank')
         })
       }
     },
@@ -109,7 +111,7 @@ export default {
       }
     },
     startRegister () {
-      window.open('https://www.hiro.so/wallet', '_blank')
+      this.startLogin()
     },
     aboutRisidio () {
       window.open('https://www.Risidio.com', '_blank')
