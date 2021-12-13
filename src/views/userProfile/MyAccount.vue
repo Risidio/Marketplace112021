@@ -65,7 +65,7 @@
             <p style="font-weight: 300;">create your own collection of artworks </p>
           </div>
         </div>
-        <div v-for="(item, index) in gaiaStorageNotNFT" :key="index"  >
+        <div v-for="(item, index) in gaiaAssetNotMinted" :key="index"  >
           <div v-if="!item.mintInfo" class="galleryItem">
             <div class="yourItems">
               <router-link v-bind:to="'/item-preview/' + item.assetHash + '/' + 0" ><img :src="item.image" class="itemImg" style=""/></router-link>
@@ -314,6 +314,10 @@ export default {
       const gaiaAssets = this.$store.getters[APP_CONSTANTS.KEY_MY_ITEMS]
       return gaiaAssets
     },
+    gaiaAssetNotMinted () {
+      const gaiaAsset = this.$store.getters[APP_CONSTANTS.KEY_MY_UNMINTED_ITEMS]
+      return gaiaAsset
+    },
     filteredNFTGaia () {
       const filteredGaia = this.gaiaAssets.filter(assets => assets.contractAsset !== null)
       return filteredGaia
@@ -322,10 +326,10 @@ export default {
       const saleItem = this.resultSet.filter(assets => assets.contractAsset.saleData.buyNowOrStartingPrice !== 0)
       return saleItem
     },
-    gaiaStorageNotNFT () {
-      const notNFT = this.gaiaAssets.filter(assets => assets.contractAsset == null)
-      return notNFT
-    },
+    // gaiaStorageNotNFT () {
+    //   const notNFT = this.gaiaAsset.filter(assets => assets.contractAsset !== null)
+    //   return notNFT
+    // },
     hasNfts () {
       const myContractAssets = this.$store.getters[APP_CONSTANTS.KEY_MY_CONTRACT_ASSETS]
       return myContractAssets && myContractAssets.length
