@@ -52,28 +52,28 @@ export default {
 </script>
 <style>
 .page-item .page-link {
-    background-color: #212121 !important;
-    border-color: #212121 !important;
+    background-color: #50B1B5 !important;
+    border-color: #50B1B5 !important;
     color: #fff !important;
 }
 .page-item.disabled .page-link {
-  background-color: #212121 !important;
-  border-color: #212121 !important;
+  background-color: #50B1B5 !important;
+  border-color: #50B1B5 !important;
   color: #fff !important;
 }
 .page-item.active .page-link {
-    color: #212121 !important;
+    color: #50B1B5 !important;
     background-color: #ffd54f !important;
     border-color: #ffd54f !important;
 }
 .page-item:last-child .page-link {
-    border-color: #212121 !important;
-    background-color: #212121 !important;
+    border-color: #50B1B5 !important;
+    background-color: #50B1B5 !important;
     color: #fff !important;
 }
 .page-item:first-child .page-link {
-    border-color: #212121 !important;
-    background-color: #212121 !important;
+    border-color: #50B1B5 !important;
+    background-color: #50B1B5 !important;
     color: #fff !important;
 }
 

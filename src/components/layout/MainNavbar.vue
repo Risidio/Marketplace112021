@@ -11,7 +11,7 @@
           <span class="bar"></span>
         </a>
         <div v-if="profile.loggedIn" class="navbar_links" style="margin-left: 19px">
-            <router-link class="nav-items" to="/nft-marketplace" >Gallery</router-link>
+            <router-link class="nav-items" to="/nft-marketplace/risidio/launch_collection_t1" >Gallery</router-link>
             <b-dropdown id="dropdown-1" text="Featured Collections" class=" " variant="transparent" toggle-class="text-white" size="lg" style="padding:0px; height:55%; margin: auto 10px;">
               <b-dropdown-item v-for="(loopRun, index) in allLoopRuns" :key="index" ><span style="margin-top: -1rem" v-if="loopRun.status !== 'disabled'" class="pointer" @click="showCollection(loopRun)"><span @click="linkTo(loopRun)">{{loopRun.currentRun}}</span></span></b-dropdown-item>
             </b-dropdown>

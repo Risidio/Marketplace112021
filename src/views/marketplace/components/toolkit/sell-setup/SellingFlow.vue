@@ -1,13 +1,12 @@
 <template>
 <div>
-<div class="saleModal" style="background: white"  v-if="!loading">
+<div class="saleModal" style="background: transparent"  v-if="!loading">
   <div style="margin: 20px 0 0 0;">
     <img style="margin: 0;" class="itemImg" :src="attributes.coverImage.fileUrl"/>
     <p class="nFTName">{{item.name}}</p>
     <p class="nFTArtist">By <span>{{item.artist}}</span></p>
   </div>
   <div style="background: white">
-  <b-button @click="$emit('cancel')" style="position:absolute; margin: 0 0 0 520px;">x</b-button>
     <div class="" :key="componentKey">
       <div bg-variant="white" style="min-height: 350px" footer-tag="footer" v-if="minted">
         <!-- <SellingHeader :allowEdit="true"/> -->
@@ -39,7 +38,7 @@
 <div v-else>
   Waiting for asset.
 </div>
-<b-button @click="setTradeInfo()" class="mintButton" style="position: absolute; margin: -30px 150px 20px 700px;">Save</b-button>
+<b-button @click="setTradeInfo()" class="mintButton" style="position: absolute; margin: 0px 0px 0px 950px;">Save</b-button>
 </div>
 </template>
 
