@@ -68,7 +68,7 @@
         <div v-for="(item, index) in gaiaStorageNotNFT" :key="index"  >
           <div v-if="!item.mintInfo" class="galleryItem">
             <div class="yourItems">
-              <router-link v-bind:to="'/edit-item/' + item.assetHash" ><img :src="item.image" class="itemImg" style=""/></router-link>
+              <router-link v-bind:to="'/item-preview/' + item.assetHash + '/' + 0" ><img :src="item.image" class="itemImg" style=""/></router-link>
               <p style="font-size: 10px; padding: 0; margin: 0; float: right"> Not Minted </p>
               <p class="nFTName"> {{item.name || 'Not named'}} </p>
               <p class="nFTArtist">By <span style="font-weight:600">{{item.artist || 'Not named'}}</span></p>
