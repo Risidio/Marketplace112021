@@ -40,7 +40,7 @@
         <b-nav class="galleryNav" >
           <div class="galleryNavContainer" >
             <b-nav-item id="NFT" class="galleryNavItem" @click="tabChange('NFT')">Your NFTs</b-nav-item>
-            <b-nav-item id="Item" class="galleryNavItem active" @click="tabChange('Item')">Your Items</b-nav-item>
+            <b-nav-item id="Item" class="galleryNavItem active" @click="tabChange('Item')">Your Items (Not Minted) </b-nav-item>
             <b-nav-item id="Sale" class="galleryNavItem" @click="tabChange('Sale')">Your NFTS on sale</b-nav-item>
             <!-- <b-nav-item id="Fav" class="galleryNavItem" @click="tabChange('Fav')">Favourite NFTs</b-nav-item> -->
           </div>
@@ -65,28 +65,29 @@
             <p style="font-weight: 300;">create your own collection of artworks </p>
           </div>
         </div>
-        <div v-for="(item, index) in gaiaAssets" :key="index"  >
-          <div v-if="!item.contractAsset" class="galleryItem">
+        <div v-for="(item, index) in gaiaStorageNotNFT" :key="index"  >
+          <div v-if="!item.mintInfo" class="galleryItem">
             <div class="yourItems">
-              <router-link v-bind:to="'/edit-item/' + item.assetHash" ><img :src="item.image" class="itemImg" style=""/></router-link>
+              <router-link v-bind:to="'/item-preview/' + item.assetHash + '/' + 0" ><img :src="item.image" class="itemImg" style=""/></router-link>
+              <p style="font-size: 10px; padding: 0; margin: 0; float: right"> Not Minted </p>
               <p class="nFTName"> {{item.name || 'Not named'}} </p>
               <p class="nFTArtist">By <span style="font-weight:600">{{item.artist || 'Not named'}}</span></p>
             </div>
           </div>
           <div v-else class="galleryItem isNFT">
             <div class="yourItems">
-              <router-link v-bind:to="'/nft-preview/' + item.projectId + '/' + item.contractAsset.nftIndex" ><img :src="item.image" class="itemImg" style=""/></router-link>
-              <small style="font-size: 10px; padding: 0; margin: 0; float: right"> minted</small>
+              <router-link v-bind:to="'/item-preview/' + item.assetHash + '/' + 0" ><img :src="item.image" class="itemImg" style=""/></router-link>
+              <p style="font-size: 10px; padding: 0; margin: 0; float: right"> Minting In Progress </p>
               <p class="nFTName"> {{item.name || 'Not named'}}</p>
               <p class="nFTArtist">By <span style="font-weight:600">{{item.artist || 'Not named'}}</span></p>
             </div>
           </div>
         </div>
       </div>
-      <div v-else-if="gaiaNFTSaleItem.length > 0 && tab === 'Sale'" class="galleryinfoContainer">
+      <div v-else-if="resultSet.length > 0 && tab === 'Sale'" class="galleryinfoContainer">
         <div v-for="(item, index) in gaiaNFTSaleItem" :key="index" class="galleryItem onSale">
             <div class="yourItems">
-              <router-link v-bind:to="'/nft-preview/' + item.projectId + '/' + item.contractAsset.nftIndex" ><img :src="item.image" class="itemImg" style=""/></router-link>
+              <router-link v-bind:to="'/nfts/' + item.contractId + '/' + item.contractAsset.nftIndex" ><img :src="item.image" class="itemImg" style=""/></router-link>
               <p class="nFTName"> {{item.name || 'Not named'}} <span style="float: right; font-size: 0.6em; margin-top: 10px;">$ 0</span></p>
               <p class="nFTArtist">By <span style="font-weight:600">{{item.artist || 'Not named'}}</span> <span style="float: right;">{{item.contractAsset.saleData.buyNowOrStartingPrice || '0'}} STX</span></p>
             </div>
@@ -115,6 +116,7 @@ import { APP_CONSTANTS } from '@/app-constants'
 import MySingleItem from '@/views/marketplace/components/gallery/MySingleItem'
 const STX_CONTRACT_ADDRESS = process.env.VUE_APP_STACKS_CONTRACT_ADDRESS
 const STX_CONTRACT_NAME = process.env.VUE_APP_STACKS_CONTRACT_NAME
+const LOOP_RUN_DEF = process.env.VUE_APP_DEFAULT_LOOP_RUN
 
 export default {
   name: 'MyAccount',
@@ -134,7 +136,10 @@ export default {
       tab: 'Item',
       pageSize: 20,
       loopRun: null,
-      filteredAssets: []
+      filteredAssets: [],
+      numberOfItems: null,
+      tokenCount: null,
+      resultSet: []
     }
   },
   mounted () {
@@ -178,6 +183,14 @@ export default {
       })
     },
     fetchLoopRun () {
+      const data = {
+        // contractId: (this.loopRun) ? this.loopRun.contractId : STX_CONTRACT_ADDRESS + '.' + STX_CONTRACT_NAME,
+        runKey: (this.loopRun) ? this.loopRun.currentRunKey : LOOP_RUN_DEF,
+        stxAddress: this.profile.stxAddress,
+        asc: true,
+        page: 0,
+        pageSize: this.pageSize
+      }
       let currentRunKey = this.$route.params.collection
       if (!currentRunKey) {
         currentRunKey = process.env.VUE_APP_DEFAULT_LOOP_RUN
@@ -185,6 +198,13 @@ export default {
       this.$store.dispatch('rpayCategoryStore/fetchLoopRun', currentRunKey).then((loopRun) => {
         this.loopRun = loopRun
         this.fetchAllocations()
+        this.loading = false
+      })
+      this.resultSet = null
+      this.$store.dispatch('rpayStacksContractStore/fetchMyTokens', data).then((result) => {
+        this.resultSet = result.gaiaAssets // this.resultSet.concat(results)
+        this.tokenCount = result.tokenCount
+        this.numberOfItems = result.gaiaAssets.length
         this.loading = false
       })
     },
@@ -299,8 +319,12 @@ export default {
       return filteredGaia
     },
     gaiaNFTSaleItem () {
-      const saleItem = this.filteredNFTGaia.filter(assets => assets.contractAsset.saleData.buyNowOrStartingPrice !== 0)
+      const saleItem = this.resultSet.filter(assets => assets.contractAsset.saleData.buyNowOrStartingPrice !== 0)
       return saleItem
+    },
+    gaiaStorageNotNFT () {
+      const notNFT = this.gaiaAssets.filter(assets => assets.contractAsset == null)
+      return notNFT
     },
     hasNfts () {
       const myContractAssets = this.$store.getters[APP_CONSTANTS.KEY_MY_CONTRACT_ASSETS]
