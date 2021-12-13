@@ -318,18 +318,10 @@ export default {
       const gaiaAsset = this.$store.getters[APP_CONSTANTS.KEY_MY_UNMINTED_ITEMS]
       return gaiaAsset
     },
-    filteredNFTGaia () {
-      const filteredGaia = this.gaiaAssets.filter(assets => assets.contractAsset !== null)
-      return filteredGaia
-    },
     gaiaNFTSaleItem () {
       const saleItem = this.resultSet.filter(assets => assets.contractAsset.saleData.buyNowOrStartingPrice !== 0)
       return saleItem
     },
-    // gaiaStorageNotNFT () {
-    //   const notNFT = this.gaiaAsset.filter(assets => assets.contractAsset !== null)
-    //   return notNFT
-    // },
     hasNfts () {
       const myContractAssets = this.$store.getters[APP_CONSTANTS.KEY_MY_CONTRACT_ASSETS]
       return myContractAssets && myContractAssets.length

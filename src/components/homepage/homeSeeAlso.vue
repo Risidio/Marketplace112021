@@ -20,7 +20,7 @@
             <vueper-slide v-for="(item, index) in gaiaAssets" :key="index" class="galleryItem" >
               <template #content>
                 <div class="galleryContainer">
-                  <img :src="item.image" class="itemImg"/>
+                  <router-link v-bind:to="'/nfts/' + item.contractId + '/' + item.contractAsset.nftIndex" ><img :src="item.image" class="itemImg" style=""/></router-link>
                   <p style="font-size: 1em;margin: 5px 0 0 0;"> {{!item.name ? "NFT" : item.name }} <span style="float: right; font-size: 0.6em; margin-top: 10px;">$ {{item.contractAsset.saleData.buyNowOrStartingPrice * 1.9}}</span></p>
                   <p>By <span style="font-weight:600">{{!item.artist ? "Anonymous" : item.artist }}</span> <span style="float: right;">{{item.contractAsset.saleData.buyNowOrStartingPrice}} STX</span></p>
                 </div>
