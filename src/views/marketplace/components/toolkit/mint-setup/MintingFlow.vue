@@ -18,11 +18,12 @@
             <!-- <MediaItemGeneral :classes="'item-image-preview'" :options="options" :mediaItem="getMediaItem()"/> -->
             <!-- <MediaItemGeneral :classes="'minting-item-image-preview'" :options="options" :mediaItem="mediaItem"/> -->
             <MediaItemGeneral :classes="'item-image-preview'" :options="options" :mediaItem="mediaItem"/>
-              <h2 v-if="items[0].name" style="margin: 20px 0px 0px 20px;">{{items[0].name}}</h2>
-              <h6 v-if="items[0].artist" style="font-size: 0.7em; margin: 5px 0px 0px 20px;">By : <span style="font-weight: 600; font-size: 16px; font-family: inherit">{{items[0].artist}}</span></h6>
+              <h2 v-if="items[0].name" style="max-width: 250px; margin: auto;" class="nFTName">{{items[0].name}}</h2>
+              <h6 v-if="items[0].artist" style="max-width: 250px; margin: auto;" class="nFTArtist">By : <span style="font-weight: 600; font-size: 16px; font-family: inherit">{{items[0].artist}}</span></h6>
           </b-col>
-          <b-col cols="6" class="px-5">
-            <div style="margin-top:20%">
+          <b-col cols="6" class="px-8">
+            <div style="margin-top:30%; align-items: center;  justify-content: center;">
+              <p style="font-weight: bold;"> Beware! Once minted, NFT information cannot be changed. Make sure your information is correct!</p>
               <RoyaltyScreen :errorMessage="errorMessage" :item="item" @mintToken="mintTwentyTokens" @editBeneficiary="editBeneficiary" @removeBeneficiary="removeBeneficiary" @updateBeneficiary="updateBeneficiary" @addNewBeneficiary="addNewBeneficiary" :beneficiaries="beneficiaries" v-if="displayCard !== 102"/>
               <AddBeneficiaryScreen :errorMessage="errorMessage" :eBen="eBen" @addBeneficiary="addBeneficiary" :beneficiaries="beneficiaries" :item="item" v-if="displayCard === 102"/>
             </div>

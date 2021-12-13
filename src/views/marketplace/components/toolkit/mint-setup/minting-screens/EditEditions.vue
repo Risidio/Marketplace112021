@@ -5,7 +5,7 @@
       <label for="buyNowPrice">
         <!-- <a style="font-size:2rem; font-weight:500;" v-b-tooltip.hover="{ variant: 'primary' }" :title="'Set selling price no - or leave as 0 to sell later'" href="#">Set a price for your NFT?<span style="margin-right: 20px"></span><b-icon icon="question-circle"/></a></label> -->
         <a style="font-size:2rem; font-weight:500;" v-b-tooltip.hover="{ variant: 'primary' }" href="#">Set a price for your NFT?<span style="margin-right: 20px"></span></a></label>
-        <p style="font-size:1.2rem; font-weight:300;">Set selling price no - or leave as 0 to sell later</p>
+        <p style="font-size:1.2rem; font-weight:300;">Set selling price now - or leave as 0 to sell later</p>
         <div style="display: flex; height:50px; width: 80%; padding: 5px; margin: 0px 0px; ">
         <div class="stx" > <span style="margin: -5px auto">STX</span></div>
         <b-form-input
