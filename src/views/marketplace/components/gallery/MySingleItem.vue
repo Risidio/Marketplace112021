@@ -65,8 +65,8 @@
               </div>
             </div>
       </b-link>
-      <p  class="nFTName" style="font-size: 20px;">{{this.asset.name}}</p>
-      <p style="nFTArtist"> By: <span style="font-weight: 500">{{asset.artist}}</span></p>
+      <p class="nFTName" style="font-size: 20px">{{this.asset.name}}</p>
+      <p class="nFTArtist"> By: <span>{{asset.artist}}</span></p>
     </b-card-text>
     <b-card-text>
       <!-- Enables connecting meta data to the actual punk crash -->
