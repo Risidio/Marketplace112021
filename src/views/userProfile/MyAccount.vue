@@ -5,8 +5,9 @@
           <div class="profileItems">
           <img class="profileImg" src="https://res.cloudinary.com/risidio/image/upload/v1637580392/RisidioMarketplace/depositphotos_137014128-stock-illustration-user-profile-icon_splob8.jpg" alt="">
           <span title='edit your profile' class="pencil">&#9998;</span></div>
-          <div class="usernameEdit"><input type="text" placeholder="Username"><span title='edit your profile' class="">&#9998;</span></div>
+          <div class="usernameEdit"><input type="text" placeholder="Username"><span title='edit your profile' class="">&#9998;</span>
         </div>
+          <p style="margin: -20px 0; padding: 0 10px; font-weight: 700; text-decoration: underline; color: #50B1B5; cursor: pointer" >View Transaction History</p></div>
         <div class="walletDetails">
           <h1>Your Wallet Information:</h1>
           <h2>Wallet: {{username}}</h2>
@@ -19,7 +20,7 @@
             </div>
             <div>
                 <p>{{currency}} {{yourSTX}}</p>
-                <select id="currency" name="currency" class="form-control" @change="currencyChange($event.target.value)">
+                <select id="currency" name="currency" class="form-control"  @change="currencyChange($event.target.value)">
                    <option value="USD">USD</option>
                    <option value="GBP">GBP</option>
                    <option value="EUR">EUR</option>
@@ -443,7 +444,7 @@ export default {
   cursor: pointer;
 }
 .form-control{
-  max-width: 100px;
+  max-width: 150px;
   margin: auto;
 }
 .usernameEdit{

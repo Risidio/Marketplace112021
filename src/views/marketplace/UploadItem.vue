@@ -1,5 +1,5 @@
 <template>
-<section class="" id="section-upload">
+<section id="section-upload">
   <b-container class="mt-5 pt-5 text-black">
     <b-row>
       <b-col md="6" offset-md="3" sm="12" align-self="start" class="">
