@@ -77,8 +77,10 @@
             <div class="notLoggedCont">
               <h1> {{content.heroarea[0].herotitle[0].text}}</h1>
               <p>{{content.heroarea[0].herotext[0].text}}</p>
-              <button v-on:click="startRegister()" class="button filled" >Get Your Hiro Wallet To Start</button>
-              <small v-on:click="startLogin()" style="padding-left: 40px; font-size: 0.7em; font-weight: 600; cursor: pointer"> Already Have One? Get Started </small>
+              <div class="bannerButtonContainer">
+              <button v-on:click="startRegister()" class="button filled">Get Your Hiro Wallet To Start</button>
+              <button v-on:click="startLogin()" class="secondaryBannerButton button"> <span style="margin: auto">Already Have One? Click here to Get Started</span>  </button>
+              </div>
             </div>
         </div>
     </div>
@@ -160,8 +162,24 @@ h2{
   color: white;
   margin: auto;
 }
-.button{
-  margin: 0;
+.bannerButtonContainer{
+  display: flex;
+  flex-direction: row;
+  margin: auto;
+}
+.secondaryBannerButton {
+  width:40rem;
+  padding: 14.5px 5px;
+  margin-bottom: 5px;
+  font-size: 0.7em;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: center;
+  background: lightgrey;
+}
+.secondaryBannerButton:hover{
+    background: rgba(255, 255, 255, 0.767);
+    color: lightseagreen;
 }
 .market_intro_h1{
   margin-bottom: 25px;
@@ -193,6 +211,8 @@ h2{
   margin-bottom: 50px;
 }
 .slideContainerNotLogged{
+  display: flex;
+    flex-direction: row;
   background-color:rgba(255, 255, 255, 0.637);
   border-radius: 30px;
   max-width: 1500px;
@@ -200,7 +220,6 @@ h2{
   height: 400px;
   padding: 20px 50px;
   display: flex;
-
 }
 .slideContainerNotLogged :nth-child(1){
   justify-self: center;
@@ -255,4 +274,18 @@ h2{
   min-width: 400px;
 }
 .button{margin-top: 20px;}
+
+@media only screen and (max-width: 1200px) {
+  .slideContainerNotLogged{
+  display: flex;
+  flex-direction: column;
+  height: 65vh;
+  }
+  .bannerContainer{
+      height: 80vh;
+  }
+  .banner{
+    height: 80vh;
+  }
+}
 </style>
