@@ -1,14 +1,15 @@
 <template>
   <div class="viewContainer">
     <div class="profileContainer">
-        <div class="profile">
+        <div class="profile" style="margin-left: 40px;">
           <div class="profileItems">
           <img class="profileImg" src="https://res.cloudinary.com/risidio/image/upload/v1637580392/RisidioMarketplace/depositphotos_137014128-stock-illustration-user-profile-icon_splob8.jpg" alt="">
-          <span title='edit your profile' class="pencil">&#9998;</span></div>
-          <div class="usernameEdit"><input type="text" placeholder="Username"><span title='edit your profile' class="">&#9998;</span>
+          <p title='edit your profile' style="width: 45px; -webkit-transform: scaleX(-1);transform: scaleX(-1);" class="pencil">&#9998;</p>
+        </div>
+          <div class="usernameEdit" ><input type="text" placeholder="Username"><span style="width: 35px; -webkit-transform: scaleX(-1);transform: scaleX(-1);" title='edit your profile' class="">&#9998;</span>
         </div>
           <p style="margin: -20px 0; padding: 0 10px; font-weight: 700; text-decoration: underline; color: #50B1B5; cursor: pointer" >View Transaction History</p></div>
-        <div class="walletDetails">
+        <div class="walletDetails" style="margin-right: 40px;">
           <h1>Your Wallet Information:</h1>
           <h2>Wallet: {{username}}</h2>
           <!-- <h2>John Doe</h2> -->
