@@ -17,7 +17,7 @@
     <h1>{{message}}</h1>
   </b-container>
   <div class="itemPreviewBody" v-else>
-      <div style="margin-bottom: 20px;"><router-link class="backBtn" to="/my-account"><b-icon icon="chevron-left" shift-h="-3"></b-icon> Back </router-link></div>
+      <div class="backBtn"><router-link class="backBtn" to="/my-account"><b-icon icon="chevron-left" shift-h="-3"></b-icon> Back </router-link></div>
     <div :key="componentKey" class="itemPreviewContainer" >
       <div class = "itemPreviewSubContainer">
         <div class="itemPreviewNFT">
@@ -540,6 +540,7 @@ export default {
 .backBtn{
   color: rgb(0, 0, 138);
   font-weight: 700;
+  margin-bottom: 50px;
 }
 .assetArtist{
   font-weight: 400;
