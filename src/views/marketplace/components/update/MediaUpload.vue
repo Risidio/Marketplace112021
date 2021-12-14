@@ -2,17 +2,17 @@
 <div class="">
   <div @drop.prevent="loadMediaObjects" @dragover.prevent class="p-4 drop-zone d-flex flex-column align-items-center">
     <div class="mt-4 mb-5" v-html="contentModel.title"></div>
-    <div class="mx-5 px-5 " style="border: 1pt dashed #000;">
+    <div class="mx-5 px-5 " style="border: 1pt dashed rgb(0, 45, 129); border-radius: 5px; padding: 30px;">
       <div class="mt-5" v-html="contentModel.message"></div>
       <div v-if="contentModel.iconName" class="mt-5"><b-icon class="text-warning" scale="3" :icon="contentModel.iconName"/></div>
       <div>
         <input style="width: 80%;" class="input-file" type="file" :ref="getUploadId()" @change="loadMediaObjects"/>
       </div>
-      <div class="mx-auto" style="position:relative; top: 35px;">
-        <b-button variant="light" v-html="contentModel.buttonName" @click="chooseFiles()"></b-button>
+      <div class="mx-auto" style="position:relative; top: 55px;">
+        <button class="button" v-html="contentModel.buttonName" @click="chooseFiles()"></button>
       </div>
     </div>
-    <div v-if="hideLinkPaste">
+    <div style="width: 450px; text-align: center;" v-if="hideLinkPaste">
       <div class="mt-5 pt-5 text-small">for files > 20M paste a link! <br/>Need hosting? E.g. see <a href="https://docs.stacks.co/build-apps/references/gaia" target="_blank">Gaia</a>, <a href="https://ipfs.io/" target="_blanK">IPFS</a> or <a href="https://cloudinary.com/" target="_blanK">Cloudinary</a></div>
       <div class="mt-3 text-left mb-3" style="font-size: 1.2rem; width: 100%;">
         <b-form-input
@@ -403,5 +403,11 @@ export default {
 }
 select {
   padding: 0px 10px;
+}
+.button{
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; background: white; margin: auto;
+}
+.button:active, button:hover{
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 1px 0px;
 }
 </style>

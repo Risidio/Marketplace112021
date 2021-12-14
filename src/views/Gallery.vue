@@ -3,24 +3,24 @@
         <div class="mainGalleryContainer">
             <div class="mainGallerySidebar">
                 <div class="galleryCollections">
-                    <button class="collectionsButton" v-on:click="showCollections()">Collections <img class="arrow1" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></button>
-                    <div class="collectionsMenu">
-                        <div class="ml-5">
-                          <CollectionSidebar :allowUploads="false" @update="update"/>
-                        </div>
+                  <button class="collectionsButton" v-on:click="showCollections()">Collections <img class="arrow1" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></button>
+                  <div class="collectionsMenu">
+                    <div class="ml-5">
+                      <CollectionSidebar :allowUploads="false" @update="update"/>
                     </div>
+                  </div>
                 </div>
                 <hr class="hr"/>
                 <div class="galleryCategory">
-                <button class="collectionsButton" v-on:click="showCategories()"> Categories <img class="arrow2" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></button>
-                    <div class="galleryCategories">
-                        <a href="#" v-on:click="setCategories('all')">All</a>
-                        <a href="#" v-on:click="setCategories('img')">Images</a>
-                        <a href="#" v-on:click="setCategories('aud')">Audio</a>
-                        <a href="#" v-on:click="setCategories('vid')">Video</a>
-                        <a href="#" v-on:click="setCategories('3d')">3D assets</a>
-                        <a href="#" v-on:click="setCategories('doc')">Documents</a>
-                    </div>
+                  <button class="collectionsButton" v-on:click="showCategories()"> Categories <img class="arrow2" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></button>
+                  <div class="galleryCategories">
+                    <a href="#" v-on:click="setCategories('all')">All</a>
+                    <a href="#" v-on:click="setCategories('img')">Images</a>
+                    <a href="#" v-on:click="setCategories('aud')">Audio</a>
+                    <a href="#" v-on:click="setCategories('vid')">Video</a>
+                    <a href="#" v-on:click="setCategories('3d')">3D assets</a>
+                    <a href="#" v-on:click="setCategories('doc')">Documents</a>
+                  </div>
                 </div>
                 <hr class="hr"/>
             </div>
@@ -155,6 +155,7 @@ export default {
       const arrow = document.getElementsByClassName('arrow2')[0]
       categories.classList.toggle('active')
       arrow.classList.toggle('active')
+      console.log('click')
     },
     findAssets () {
       this.$store.dispatch('rpayStacksContractStore/fetchContractDataFirstEditions').then(() => {

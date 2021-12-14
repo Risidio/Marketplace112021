@@ -1,28 +1,30 @@
 <template>
     <section class="mainGallery">
         <div class="mainGalleryContainer">
-            <div class="mainGallerySidebar">
+          <div class="mainGallerySidebar">
                 <div class="galleryCollections">
-                    <button class="collectionsButton" v-on:click="showCollections()">Collections <img class="arrow1 active" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></button>
-                    <div class="collectionsMenu active">
-                        <div class="ml-5">
-                          <CollectionSidebar @updateResults="updateResults" :allowUploads="false" @update="update"/>
-                        </div>
+                  <button class="collectionsButton" v-on:click="showCollections()">Collections <img class="arrow1" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></button>
+                  <div class="collectionsMenu">
+                    <div class="ml-5">
+                      <CollectionSidebar @updateResults="updateResults" :allowUploads="false" @update="update"/>
                     </div>
+                  </div>
                 </div>
                 <hr class="hr"/>
                 <div class="galleryCategory">
-                <button class="collectionsButton" v-on:click="showCategories()"> Categories <img class="arrow2" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></button>
-                    <div class="galleryCategories">
-                        <a href="#">Category 1</a>
-                        <a href="#">Category 2</a>
-                        <a href="#">Category 3</a>
-                        <a href="#">Category 4</a>
-                        <a href="#">Category 5</a>
-                    </div>
+                  <button class="collectionsButton" v-on:click="showCategories()"> Categories <img class="arrow2" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></button>
+                  <div class="galleryCategories">
+                    <a href="#" v-on:click="setCategories('all')">All</a>
+                    <a href="#" v-on:click="setCategories('img')">Images</a>
+                    <a href="#" v-on:click="setCategories('aud')">Audio</a>
+                    <a href="#" v-on:click="setCategories('vid')">Video</a>
+                    <a href="#" v-on:click="setCategories('3d')">3D assets</a>
+                    <a href="#" v-on:click="setCategories('doc')">Documents</a>
+                  </div>
                 </div>
                 <hr class="hr"/>
             </div>
+
             <div class="mainGalleryBody">
                 <div class="filter">
                     <div>
@@ -138,6 +140,13 @@ export default {
       const arrow = document.getElementsByClassName('arrow1')[0]
       collection.classList.toggle('active')
       arrow.classList.toggle('active')
+    },
+    showCategories () {
+      const categories = document.getElementsByClassName('galleryCategories')[0]
+      const arrow = document.getElementsByClassName('arrow2')[0]
+      categories.classList.toggle('active')
+      arrow.classList.toggle('active')
+      console.log('click')
     },
     tokenCount (data) {
       this.numbTokens = data.numbTokens

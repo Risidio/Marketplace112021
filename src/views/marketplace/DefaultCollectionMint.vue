@@ -1,17 +1,23 @@
 <template>
-<section class="" id="section-upload">
-  <b-container class="mt-5 pt-5 text-black">
+<section  id="section-upload">
+  <div class="createSection" style="margin-top: 150px">
+    <div style="margin-bottom: 20px;"><router-link class="backBtn" to="/my-account"><b-icon icon="chevron-left" shift-h="-3"></b-icon> Back </router-link></div>
     <b-row>
       <b-col md="6" offset-md="3" sm="12" align-self="start" class="">
         <!-- <ChooseCollection :type="'traditional'" @updateCollection="updateCollection"/> -->
       </b-col>
     </b-row>
     <b-row v-if="loopRun">
-      <b-col md="6" offset-md="3" sm="12" align-self="start" class=" text-center">
-        <MediaUpload :hideLinkPaste="true" :myUploadId="'artworkFile'" :dims="dims" :contentModel="contentModelArtwork" :limit="1" :sizeLimit="20" :mediaTypes="'video,image,threed,audio,pdf'" @updateMedia="updateMedia($event)"/>
-      </b-col>
+      <div class="createContainer" >
+        <MediaUpload style="text-align: center;" :hideLinkPaste="true" :myUploadId="'artworkFile'" :dims="dims" :contentModel="contentModelArtwork" :limit="1" :sizeLimit="20" :mediaTypes="'video,image,threed,audio,pdf'" @updateMedia="updateMedia($event)"/>
+        <div>
+          <img style="margin: 50px auto 0 auto; display: block;" src="https://res.cloudinary.com/risidio/image/upload/v1639492660/RisidioMarketplace/Screenshot_2021-12-14_143724_xhjxfs.png"/>
+            <h3 style="margin-bottom: 20px;"> Upload an item </h3>
+            <p style="font-size: 14px" > Please drag and drop an item, which you would like to mint as NFT. The platform supports jpg, jpeg, png, tiff, mp3, wav, mp4, mov. wmv, obj, gltf, glb, stl.</p>
+        </div>
+      </div>
     </b-row>
-  </b-container>
+  </div>
 </section>
 </template>
 
@@ -178,6 +184,9 @@ export default {
 }
 </script>
 <style lang="scss" >
+.createSection{
+  min-width: 40vh;
+}
 * {color: black}
 #upload-item .drop-zone {
   min-width: 300px;
@@ -191,5 +200,26 @@ export default {
 #upload-item .badge {
   cursor: pointer;
   padding: 5px !important;
+}
+
+.createContainer{
+  display: flex;
+  flex-wrap: wrap;
+}
+.createContainer > *:nth-child(1){
+  flex: 1 1 50%;
+  min-width: 400px;
+}
+.createContainer > *:nth-child(2){
+  flex: 1 1 50%;
+  min-width: 400px;
+}
+.backBtn{
+  color: rgb(0, 0, 138);
+  font-weight: 700;
+}
+.createSection{
+  max-width: 1500px;
+  margin: auto;
 }
 </style>
