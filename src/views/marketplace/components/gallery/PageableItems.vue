@@ -2,8 +2,8 @@
   <div>
     <div class="mb-4" :key="componentKey">
       <Pagination @changePage="gotoPage" :pageSize="pageSize" :numberOfItems="numberOfItems" v-if="numberOfItems > 0"/>
-      <div id="my-table" class="row" v-if="resultSet && resultSet.length > 0">
-        <div class="text-black col-lg-4 col-md-4 col-sm-6 col-xs-12 mx-0 p-1" v-for="(asset, index) of resultSet" :key="index">
+      <div id="my-table" class="row" v-if="resultSet && resultSet.length > 0" >
+        <div class="text-black col-lg-3 col-md-4 col-sm-6 col-xs-12 mx-none p-1" style="display: flex; margin:auto"  v-for="(asset, index) of resultSet" :key="index">
           <MySingleItem v-if="!skipme(asset)" :loopRun="loopRun" :parent="'list-view'" :asset="asset"/>
         </div>
       </div>
