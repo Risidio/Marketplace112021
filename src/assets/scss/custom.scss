@@ -654,7 +654,7 @@ select {
 }
 .button{
   display: flex;
-  text-align: center;
+  text-align: center !important;
   margin-top: 20px;
   padding: 15px 50px;
   min-width: 100px;
@@ -664,12 +664,16 @@ select {
   font-weight:500;
 }
 .notFilled{
+  text-align: center !important;
   color: rgba(95, 189, 193, 1);
   background: rgba(255, 255, 255, 0.2);
 }
 .notFilled:hover{
 color: white;
 }
+.notFilledButtonText {  color: rgba(95, 189, 193, 1);
+margin: auto;}
+.notFilledButtonText:hover {  color: white;}
 .filled{
   background: rgba(95, 189, 193, 1);
   color: rgb(255, 255, 255);

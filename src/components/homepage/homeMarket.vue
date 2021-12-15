@@ -16,8 +16,8 @@
                 <div class="NFTbackgroundColour">
                     <b-link class="galleryNFTContainer" :to="assetUrl(item)" v-if="item && item.contractAsset && item.attributes">
                   <MediaItemGeneral :classes="'nftGeneralView'" v-on="$listeners" :mediaItem="item.attributes"/>
-                  <p class="nFTName"> {{!item.name ? "NFT" : item.name }} <span>$ {{item.contractAsset.saleData.buyNowOrStartingPrice * 1.9}}</span></p>
-                  <p class="nFTArtist">By <span>{{!item.artist ? "Anonymous" : item.artist }}</span> <span style="float: right;">{{item.contractAsset.saleData.buyNowOrStartingPrice}} STX</span></p>
+                  <p class="nFTName"> {{!item.name ? "NFT" : item.name }} <span style="float: right;">{{item.contractAsset.saleData.buyNowOrStartingPrice}} STX</span></p>
+                  <p class="nFTArtist">By <span>{{!item.artist ? "Anonymous" : item.artist }}</span> </p><span>$ {{item.contractAsset.saleData.buyNowOrStartingPrice * 1.9}}</span>
                 </b-link>
                 </div>
             </div>
