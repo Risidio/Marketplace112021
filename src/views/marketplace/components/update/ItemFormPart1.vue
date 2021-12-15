@@ -1,13 +1,13 @@
 <template>
 <div>
-  <!--
+<!--
   <div class="text-left">
     <b-form-checkbox size="lg" @change="togglePrivacy" v-model="publicAvailable" name="check-button" switch class="text-warning">
       <h2 v-if="!publicAvailable" class=" "><b>Private</b> <b-link router-tag="span" v-b-tooltip.hover="{ variant: 'light' }" :title="'Not visible in search and not displayed in the Marketplace'" class="ml-2" variant="outline-success"><b-icon icon="question-circle"/></b-link></h2>
       <h2 v-else class="text-success"><b>Public</b> <b-link router-tag="span" v-b-tooltip.hover="{ variant: 'light' }" :title="'Visible in search and displayed in the Marketplace'" class="ml-2" variant="outline-success"><b-icon icon="question-circle"/></b-link></h2>
     </b-form-checkbox>
-  </div>
-  -->
+  </div> -->
+
   <div class="mb-3" role="group">
     <label for="item-name" class="label">Title :</label>
     <b-form-input
