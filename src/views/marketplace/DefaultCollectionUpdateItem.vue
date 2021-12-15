@@ -334,6 +334,7 @@ export default {
 }
 .updateItemContainer{
   max-width: 1800px;
+  padding: 0 80px;
   margin: 100px auto 0 auto;
 }
 .updateItem{
