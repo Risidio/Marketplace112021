@@ -10,7 +10,14 @@
           <div v-else>
             <img v-on:click="nextPage()" src="https://res.cloudinary.com/risidio/image/upload/v1633609154/RisidioMarketplace/Component_14_6_yes92k.svg"/>
           </div>
-          <h2 class="mb-4"><span style="margin-bottom: 20px; font-size: 3.2rem;">NFT Info</span></h2>
+          <div><h2 class="mb-4"><span style="margin-bottom: 20px; font-size: 3.2rem;">NFT Info</span></h2>
+          </div>
+            <div style="margin-left: auto;" class="text-left">
+              <b-form-checkbox size="lg" @change="togglePrivacy" v-model="publicAvailable" name="check-button" switch class="text-warning">
+                <h2 style="font-weight: 300; font-size: 2.2rem;"  v-if="!publicAvailable" class=" "><b>Private</b> <b-link router-tag="span" v-b-tooltip.hover="{ variant: 'light' }" :title="'Not visible in search and not displayed in the Marketplace'" class="ml-2" variant="outline-success"><b-icon icon="question-circle"/></b-link></h2>
+                <h2 v-else style="font-weight: 300; font-size: 2.2rem;" class="text-success"><b>Public</b> <b-link router-tag="span" v-b-tooltip.hover="{ variant: 'light' }" :title="'Visible in search and displayed in the Marketplace'" class="ml-2" variant="outline-success"><b-icon icon="question-circle"/></b-link></h2>
+              </b-form-checkbox>
+            </div>
         </div>
         <div class="my-4 bg-danger p-3" v-if="invalidItems.length > 0 && showErrors">
           <div>Required fields:</div>
@@ -111,7 +118,8 @@ export default {
         popoverBody: 'Your cover image.'
       },
       doValidate: true,
-      defaultBadge: require('@/assets/img/risidio_white.png')
+      defaultBadge: require('@/assets/img/risidio_white.png'),
+      publicAvailable: true
     }
   },
   mounted () {
@@ -129,6 +137,10 @@ export default {
         this.loaded = true
       })
     })
+    if (!this.item.privacy) {
+      this.item.privacy = 'public'
+    }
+    this.publicAvailable = this.item.privacy === 'public'
   },
   methods: {
     nextPage () {
@@ -139,6 +151,13 @@ export default {
     //  this.loopRun = data.loopRun
     //   this.loopRun = 'launch_collection_t1'
     // },
+    togglePrivacy: function () {
+      if (this.publicAvailable) {
+        this.item.privacy = 'public'
+      } else {
+        this.item.privacy = 'private'
+      }
+    },
     hasFile (file) {
       const item = this.$store.getters[APP_CONSTANTS.KEY_MY_ITEM](this.assetHash)
       if (!item || !item.attributes) return
@@ -314,9 +333,8 @@ export default {
   min-height: 100vh !important
 }
 .updateItemContainer{
-  margin-left: 6%;
-  margin-right: 6%;
-  margin-top: 100px;
+  max-width: 1800px;
+  margin: 100px auto 0 auto;
 }
 .updateItem{
   display: flex;

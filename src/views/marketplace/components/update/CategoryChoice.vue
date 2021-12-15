@@ -2,18 +2,19 @@
 <div>
   <div class="mb-3" role="group">
     <div class="mb-3" :key="componentKey" v-if="showCats">
-      <label for="categories">Main category :</label>
+      <label for="categories">Keywords</label>
       <br/>
       <b-badge id="categories" @click="setCategory(kw)" class="pointer mr-3 mb-3 py-2 pt-3 px-5" v-for="(kw, index) in categories" :key="index" pill :variant="(item.attributes.category && item.attributes.category.name === kw.name) ? 'warning' : 'secondary'">{{kw.displayName}}</b-badge>
     </div>
     <!-- <label for="item-keywords">Keywords (comma separated) :</label> -->
+    <!-- <label> Keywords :</label> -->
     <b-form-input
       id="item-keywords"
       @blur="changeKeywords"
       v-model="keywords"
       :state="itemKeywordsState"
       aria-describedby="item-keywords-help item-keywords-feedback"
-      placeholder="Enter keywords. (comma separated)"
+      placeholder="Choose keywords or enter your own"
       trim
       class="inputArea"
     ></b-form-input>
@@ -97,5 +98,9 @@ export default {
   font-weight: 200;
   font-size: 0.8em;
   padding: 15px;
+}
+label{
+  font-weight: 500;
+  font-size: .8em;
 }
 </style>
