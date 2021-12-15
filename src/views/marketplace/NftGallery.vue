@@ -3,8 +3,8 @@
   <div class="my-5">
     <h1 class="text-black">#1 NFT Gallery</h1>
     <div class="row mb-4">
-      <div v-for="(item, index) in gaiaAssets" :key="index" class="mt-5 col-md-4 col-sm-4 col-6">
-        <GalleryNft class="mb-2" :item="item"/>
+      <div v-for="(item, index) in gaiaAssets" :key="index"  class="mt-5 col-md-4 col-sm-4 col-6" >
+        <GalleryNft style="display: flex; margin: auto" :item="item"/>
       </div>
     </div>
   </div>

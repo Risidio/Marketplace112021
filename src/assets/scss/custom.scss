@@ -74,9 +74,9 @@ body h2 a {
   margin-bottom: 0;
   font-family: Montserrat, Arial, Helvetica, sans-serif !important;
 }
-body h2 a:hover {
+// body h2 a:hover {
 
-}
+// }
 body a {
   // color: black;
   font-family: Montserrat, Arial, Helvetica, sans-serif !important;
@@ -484,13 +484,16 @@ select {
 }
 
 .nftGalleryView{
-  width: 27rem;
-  height: 27rem;
-  border-radius: 25px;
+  min-width: 25rem;
+  width: 15vw;
+  min-height: 25rem;
+  height: 15vw;
+  border-radius: 2rem;
   object-fit: cover;
-  padding: 1vw;
+  // padding: 1vw;
   z-index: 1;
-  margin: 1rem;
+  margin: 2rem;
+  // margin: auto;
   }
 .item-image {
   height: auto;
@@ -654,7 +657,6 @@ select {
 }
 .button{
   display: flex;
-  text-align: center !important;
   margin-top: 20px;
   padding: 15px 50px;
   min-width: 100px;
@@ -664,16 +666,10 @@ select {
   font-weight:500;
 }
 .notFilled{
-  text-align: center !important;
   color: rgba(95, 189, 193, 1);
   background: rgba(255, 255, 255, 0.2);
+
 }
-.notFilled:hover{
-color: white;
-}
-.notFilledButtonText {  color: rgba(95, 189, 193, 1);
-margin: auto;}
-.notFilledButtonText:hover {  color: white;}
 .filled{
   background: rgba(95, 189, 193, 1);
   color: rgb(255, 255, 255);
