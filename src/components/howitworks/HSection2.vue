@@ -1,84 +1,54 @@
 <template>
 <div class = "Htitle">
   <div class = "title-container">
-    <h1 style="font: normal normal 300 37px/30px Montserrat;">{{content.howsection2[0].howtitle[0].text}}</h1>
-  </div>
-  <img src="https://res.cloudinary.com/risidio/image/upload/v1633609788/RisidioMarketplace/006-wallet_uy3myg.svg" alt="wallet" class="wallet">
-  <div class = "main-container">
-    <div class = "container">
-      <p>
-      {{content.howsection2[0].howtext[0].text}}</p>
-      <button class="button notFilled"> Buy STX </button>
-    </div>
-  </div>
-  <!-- <hr class= "hr"> -->
+      <h1>{{content.howsection1[0].howtitle[0].text}}</h1>
+      <p>{{content.howsection1[0].howtitle2[0].text}} </p>
+      <div class="pCont">
+        <p> {{content.howsection1[0].howtext[0].text}}<br>
+      {{content.howsection1[0].howtext[1].text}} <br>
+      {{content.howsection1[0].howtext[2].text}}<br>
+      {{content.howsection1[0].howtext[3].text}}</p>
+      </div>
+
+      </div>
+      <router-link to="/about" ><button style="display: block; margin: auto;" class="button filled"> About Risidio </button></router-link>
 </div>
 </template>
 
 <script>
 export default {
-  name: 'Group4',
+  name: 'WRuma',
+  props: ['content'],
   components: {
 
-  },
-  props: ['content'],
-  data () {
-    return {
-    }
-  },
-  computed: {
   }
 }
 </script>
 
 <style scoped>
 .Htitle{
-  min-height: 60vh;
-  margin: 100px auto;
+  min-height: 30vh;
+  margin: 200px auto 100px auto;
 }
 .title-container {
-  font-family: inherit;
-  align-items: center;
+  padding: 20px;
+  max-width: 1000px;
   text-align: center;
+  margin: auto;
 }
 .title-container h1{
   font: normal normal 300 37px/30px Montserrat;
-  margin-bottom: 50px;
 }
-.main-container p{
-  font: normal normal normal 14px/22px Montserrat;
+.title-container p{
+  font-family: inherit;
+  font-size: 22px;
+  font-weight: 500;
   padding-top: 25px;
   padding-bottom: 20px;
-  max-width: 600px;
-  margin: auto;
 }
-.main-container{
-  display:flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  max-width: 1100px;
-  margin: 0 auto;
+.pCont p{
+  font: normal normal 300 14px/20px Montserrat;
+  margin:auto;
 }
 
-.button{
-  margin: auto;
-  background-color: rgba(0, 162, 184, 0.1);
-  color: rgb(0, 177, 201);
-  /* margin-bottom: 50px; */
-  /* padding-bottom: 50px; */
-}
-.wallet{
-  margin: 0 auto 25px auto;
-  display: block;
-  width: 250px;
-  height: 250px;
-}
-.hr{
-  margin-top: 50px;
-  color: grey;
-  width: 60%;
-  height: 3px;
-}
 </style>

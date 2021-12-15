@@ -94,9 +94,11 @@ export default {
   background-color:#170A6D;
 }
 .vueperslides--fixed-height {
-  height: 70vh;
-  width: 90%;
+  height: 500px;
+  min-width: 500px;
+  max-width: 1300px;
   margin: auto;
+  padding: 0 50px;
 }
 h1{
   color:white;
@@ -120,14 +122,14 @@ img{
 }
 p{
   font: normal normal normal 14px/20px Montserrat;
-  max-width: 600px;
+  max-width: 1000px;
   margin: 0 auto;
   text-align: center;
   color: white;
 }
 .container{
   color:white;
-  margin: 200px auto;
+  margin: 150px auto;
 }
 .textContainer{
   margin-top: 50px;
@@ -148,6 +150,6 @@ p{
 }
 
 @media only screen and (max-width: 500px)  {
-  .vueperslides--fixed-height {height: 120vh;}
+  .vueperslides--fixed-height {height: 80vh;}
 }
 </style>

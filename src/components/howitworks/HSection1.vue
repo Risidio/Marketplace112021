@@ -1,10 +1,10 @@
 <template>
 <div class = "Htitle">
-  <div class = "container">
     <img class="banner" src="https://res.cloudinary.com/risidio/image/upload/v1633609373/RisidioMarketplace/Group_-304_ofssmk.svg" alt="">
+  <div class = "container">
       <h1>{{content.howsection0[0].howtitle[0].text}}</h1>
-      <p>{{content.howsection0[0].howtext[0].text}} </p>
-      <button class="button notFilled"> Get Started </button>
+      <!-- <p>{{content.howsection0[0].howtext[0].text}} </p> -->
+      <!-- <button class="button notFilled"> Get Started </button> -->
   </div>
 </div>
 </template>
@@ -42,6 +42,8 @@ export default {
     color:white;
 }
 .container {
+  display: grid;
+  place-items: center;
   min-width: 100%;
   padding: 50px;
   align-items: center;
@@ -51,7 +53,6 @@ export default {
   min-height: 40vh;
 }
 .container h1{
-  margin-top: 50px;
   font: normal normal 300 37px/30px Montserrat;
   color:white;
 
