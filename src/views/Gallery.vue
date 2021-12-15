@@ -48,19 +48,19 @@
                         <input class="search" type="text" id="search" name="search" placeholder="Looking for anything in particular ?"><img class="view" src="https://res.cloudinary.com/risidio/image/upload/v1637238428/RisidioMarketplace/magnifying-search-lenses-tool_yaatpo.svg">
                 </div>
                 <hr/>
-                    <div style="width: 100%" v-if="loaded && types=='all'">
+                    <div style="width: 100%; margin:auto;" v-if="loaded && types=='all'">
                           <!-- <h1 class="text-black">NFT Gallery</h1> -->
                           <div style=" display: flex; width: 100%; margin:auto;" class="row mb-4">
-                              <div class="text-black col-lg-3 col-md-4 col-sm-6 col-xs-12 mx-0 p-1" v-for="(item, index) in gaiaAssets" :key="index">
-                                  <GalleryNft :item="item"/>
+                              <div class="text-black col-lg-3 col-md-4 col-sm-6 col-xs-12 mx-0 p-1" style="display: flex; margin:auto"  v-for="(item, index) in gaiaAssets" :key="index">
+                                  <GalleryNft style="display: flex; margin:auto" :item="item"/>
                               </div>
                           </div>
                       </div>
                         <div style="width: 100%" v-if="loaded && types !='all'">
                           <!-- <h1 class="text-black">NFT Gallery</h1> -->
                           <div style=" display: flex; width: 100%; margin:auto;" class="row mb-4">
-                              <div class="text-black col-lg-3 col-md-4 col-sm-6 col-xs-12 mx-0 p-1" v-for="(item, index) in showAssets" :key="index">
-                                  <GalleryNft :item="item"/>
+                              <div class="text-black col-lg-3 col-md-4 col-sm-6 col-xs-12 mx-0 p-1" style="display: flex; margin:auto"  v-for="(item, index) in showAssets" :key="index">
+                                  <GalleryNft style="display: flex; margin:auto" :item="item"/>
                               </div>
                           </div>
                       <div class="container" style="min-height: 85vh;" v-if="loaded && types=='all' && gaiaAssets.length === 0">
@@ -220,10 +220,10 @@ export default {
       const gaiaVideoAssets = this.gaiaAssets.filter(assets => assets.attributes.artworkFile.type.includes('video'))
       return gaiaVideoAssets
     },
-    gaiaThreeDAssets () {
-      const gaiaThreeDAssets = this.gaiaAssets.filter(assets => assets.attributes.artworkFile.type.includes('threed'))
-      return gaiaThreeDAssets
-    },
+    // gaiaThreeDAssets () {
+    //   const gaiaThreeDAssets = this.gaiaAssets.filter(assets => assets.attributes.artworkFile.type.includes('threed'))
+    //   return gaiaThreeDAssets
+    // },
     gaiaDocAssets () {
       const gaiaDocAssets = this.gaiaAssets.filter(assets => assets.attributes.artworkFile.type.includes('application'))
       return gaiaDocAssets
@@ -250,7 +250,8 @@ export default {
 .mainGalleryContainer .mainGalleryBody{
     flex: 1 1 85%;
     padding: 10px 70px;
-    max-width: 1800px;
+    max-width: 80vw;
+    margin: auto;
 }
 .filter{
     display: flex;

@@ -131,15 +131,16 @@ export default {
 }
 .itemHover{
     position: absolute;
-    margin-top: -10.5rem;
+    margin-top: 60%;
     // border-radius: 5px;
     display: none;
     padding: 1.5rem;
     background: rgba(255, 255, 255, 0.447);
-    height: 8rem;
-    width: 23.7rem;
+    height: 30%;
+    // width: 80%;
+    width: 15vw;
     z-index: 10;
-    margin-left: 2.6rem;
+    margin-left: 2rem;
   backdrop-filter: blur(1rem);
 }
 

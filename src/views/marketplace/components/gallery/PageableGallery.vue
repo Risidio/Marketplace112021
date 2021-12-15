@@ -3,8 +3,8 @@
     <div class="mb-4" :key="componentKey">
       <Pagination @changePage="gotoPage" :pageSize="pageSize" :numberOfItems="numberOfItems" v-if="numberOfItems > 0"/>
       <div id="my-table" class="row" v-if="resultSet && resultSet.length > 0">
-        <div class="text-black col-lg-3 col-md-4 col-sm-6 col-xs-12 mx-0 p-1" v-for="(item, index) of resultSet" :key="index">
-            <GalleryNft :item="item"/>
+        <div class="text-black col-lg-3 col-md-4 col-sm-6 col-xs-12 mx-none p-1" style="display: flex; margin:auto"  v-for="(item, index) of resultSet" :key="index">
+            <GalleryNft style="display: flex; margin:auto" :item="item"/>
           <!-- <MySingleItem v-if="!skipme(asset)" :loopRun="loopRun" :parent="'list-view'" :asset="asset"/> -->
         </div>
       </div>
