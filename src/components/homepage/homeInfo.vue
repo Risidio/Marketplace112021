@@ -43,8 +43,8 @@
                 <div>
                     <div>
                     <div class="textCon">
-                        <h1 class="oneTwoThreeFour">1</h1>
-                        <img src='https://res.cloudinary.com/risidio/image/upload/v1637162045/RisidioMarketplace/009-coin_ojj2mp.svg'/>
+                        <!-- <h1 class="oneTwoThreeFour">1</h1> -->
+                        <img src='https://res.cloudinary.com/risidio/image/upload/v1633609788/RisidioMarketplace/006-wallet_uy3myg.svg'/>
                         <p style="font-size: 16px; font-weight: 700;"> {{content.needahand[0].connect[0].text}}  <br/><br/></p>
                         <p style="font-weight: 200; padding-bottom: 20px"> {{content.needahand[0].connecttext[0].text}}</p>
                         <!-- <button class='button notFilled' @click="startLogin"> Connect A Web Wallet to Begin!</button> -->
@@ -54,7 +54,7 @@
                 <div>
                     <div>
                         <div class="textCon">
-                            <h1 class="oneTwoThreeFour">2</h1>
+                            <!-- <h1 class="oneTwoThreeFour">2</h1> -->
                             <img src='https://res.cloudinary.com/risidio/image/upload/v1637162043/RisidioMarketplace/Groupe_17296_smc1up.svg'/>
                             <p style="font-size: 16px; font-weight: 700;"> {{content.needahand[0].upload[0].text}}  <br/><br/></p>
                             <p style="font-weight: 200; padding-bottom: 20px"> {{content.needahand[0].uploadtext[0].text}}</p>
@@ -65,7 +65,7 @@
                 <div>
                     <div>
                         <div class="textCon">
-                            <h1 class="oneTwoThreeFour">3</h1>
+                            <!-- <h1 class="oneTwoThreeFour">3</h1> -->
                             <img src='https://res.cloudinary.com/risidio/image/upload/v1637162044/RisidioMarketplace/002-distributed_ledger_b4tq2s.svg'/>
                             <p style="font-size: 16px; font-weight: 700;"> {{content.needahand[0].sell[0].text}}  <br/><br/></p>
                             <p style="font-weight: 200; padding-bottom: 20px">{{content.needahand[0].selltext[0].text}} </p>
@@ -76,7 +76,7 @@
                 <div>
                     <div>
                         <div class="textCon">
-                            <h1 class="oneTwoThreeFour">4</h1>
+                            <!-- <h1 class="oneTwoThreeFour">4</h1> -->
                         <img src='https://res.cloudinary.com/risidio/image/upload/v1637162045/RisidioMarketplace/009-coin_ojj2mp.svg'/>
                             <p style="font-size: 16px; font-weight: 700;"> {{content.needahand[0].buy[0].text}}  <br/><br/></p>
                             <p style="font-weight: 200; padding-bottom: 20px">{{content.needahand[0].buytext[0].text}} </p>
@@ -125,7 +125,7 @@ export default {
 }
 .homeInfo{
     min-height: 1000px;
-    background: transparent linear-gradient(180deg, rgba(34, 14, 149, 1) 0%, rgba(7, 23, 100, 1) 100%) 0% 0% no-repeat padding-box;
+    background: transparent linear-gradient(180deg, rgba(54, 24, 165, 0.925) 0%, rgb(16, 29, 92) 100%) 0% 0% no-repeat padding-box;
     padding: 10rem;
     color: white;
     text-align: center;

@@ -666,7 +666,9 @@ select {
 .notFilled{
   color: rgba(95, 189, 193, 1);
   background: rgba(255, 255, 255, 0.2);
-
+}
+.notFilled:hover{
+color: white;
 }
 .filled{
   background: rgba(95, 189, 193, 1);

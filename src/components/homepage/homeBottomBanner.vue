@@ -1,12 +1,11 @@
 <template>
     <section class="homeBottomBanner">
         <div v-if="profile.loggedIn" class="homeBottomContainer">
-            <h2>Start Trading Collectables</h2>
+            <h2>Explore the New Era of Digital Collectables and NFT's</h2>
             <h3>Create an account and join our marketplace.<br/><br/>
             It's quick, Safe and Free</h3>
             <div class="buttonCont">
-                <button class="button filled"> Create An Account</button>
-                <button class="button notFilled"> Find Out More </button>
+                <router-link class="button notFilled" to="/how-it-works"> Find Out More </router-link>
             </div>
         </div>
         <div v-else class="homeBottomContainer">
@@ -14,20 +13,38 @@
             <h3>Create an account and join our marketplace.<br/><br/>
             It's quick, Safe and Free</h3>
             <div class="buttonCont">
-                <button class="button filled"> Create An Account</button>
-                <button class="button notFilled"> Find Out More </button>
+                <button class="button filled" @click="startLogin"> Connect with a Wallet to Start!</button>
+                <router-link class="button notFilled" to="/how-it-works"> Find Out More </router-link>
             </div>
         </div>
     </section>
 </template>
 
 <script>
+import { APP_CONSTANTS } from '@/app-constants'
 
 export default {
   name: 'homeBottomBanner',
   props: ['profile'],
   data () {
     return {
+    }
+  },
+  methods: {
+    startLogin () {
+      // this.$emit('updateEventCode', { eventCode: 'connect-login' })
+      const myProfile = this.$store.getters['rpayAuthStore/getMyProfile']
+      if (myProfile.loggedIn) {
+        this.$emit('connect-login', myProfile)
+      } else {
+        this.$store.dispatch('rpayAuthStore/startLogin').then((profile) => {
+          console.log(profile)
+          location.reload()
+        }).catch(() => {
+          this.$store.commit(APP_CONSTANTS.SET_WEB_WALLET_NEEDED)
+          window.open('https://www.hiro.so/wallet', '_blank')
+        })
+      }
     }
   }
 }
@@ -49,7 +66,7 @@ export default {
     display:flex;
     flex-direction: column;
     margin: auto auto;
-    padding-top: 10%;
+    padding-top: 8%;
     text-align: center;
     max-width: 800px;
     height: 40rem;

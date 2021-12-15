@@ -117,6 +117,7 @@ export default {
 <style>
 /* FOOTER STYLE */
 footer {
+  color: white !important;
   background-color: #5154A1;
 }
 
