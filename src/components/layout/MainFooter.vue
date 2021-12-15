@@ -13,13 +13,13 @@
         <div class="col-lg-7 col-12 d-flex columns3-content__container">
             <div class="footer__column-content ml-lg-auto">
               <div> Marketplace</div>
-              <div v-on:click="topFunction()"><router-link to="/">Gallery</router-link></div>
+              <div v-on:click="topFunction()"><router-link to="/nft-marketplace">Gallery</router-link></div>
               <div v-on:click="topFunction()"><router-link to="/how-it-works">How It Works</router-link></div>
               <div class="text-secondary">leveller</div>
               <div class="text-secondary">leveller</div>
             </div>
-            <div class="footer__column-content">
-              <div>Your NFTs</div>
+            <div v-if="profile.loggedIn" class="footer__column-content">
+              <div >Your NFTs</div>
               <div v-on:click="topFunction()"><router-link to="/my-nfts">All Your Nft's</router-link></div>
               <div v-on:click="topFunction()"><router-link to="/create">Add an NFT</router-link></div>
               <div class="text-secondary">leveller</div>
@@ -71,6 +71,7 @@
 </div>
 </template>
 <script>
+import { APP_CONSTANTS } from '@/app-constants'
 
 export default {
   components: {
@@ -107,16 +108,17 @@ export default {
     // }
   },
   computed: {
-    // content () {
-    //   const content = this.$store.getters['contentStore/getHomepage']
-    //   return content
-    // }
+    profile () {
+      const profile = this.$store.getters[APP_CONSTANTS.KEY_PROFILE]
+      return profile
+    }
   }
 }
 </script>
 <style>
 /* FOOTER STYLE */
 footer {
+  color: white !important;
   background-color: #5154A1;
 }
 
