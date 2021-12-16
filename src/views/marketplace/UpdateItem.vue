@@ -181,7 +181,7 @@ export default {
           const myAsset = this.$store.getters[APP_CONSTANTS.KEY_MY_ITEM](this.assetHash)
           myAsset.attributes[attributes.id] = attributes
           myAsset.attributes.collection = this.loopRun.currentRunKey + '/' + this.loopRun.makerUrlKey
-          myAsset.projectId = this.loopRun.contractId
+          myAsset.contractId = this.loopRun.contractId
           $self.$store.dispatch('rpayMyItemStore/saveItem', myAsset).then((item) => {
             $self.$store.dispatch('rpayMyItemStore/saveRootFileOnce')
             $self.item = item
