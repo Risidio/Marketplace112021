@@ -1,5 +1,5 @@
 <template>
-  <b-button-group style="margin-top: auto; margin-left: 10%" class="nftsBuyButton w-50" id="parent-group" v-if="loaded">
+  <b-button-group style="margin-top: auto; float: right;" class="nftsBuyButton w-50" id="parent-group" v-if="loaded">
     <!-- <b-button @click="$emit('clickButton')" class="btn-square" :class="colorHover" :style="(usePixelBg) ? 'background-image: url(' + pixelBg + ')' : ''">
       <span class="d-flex justify-content-center" v-if="icon">
         <b-icon :class="(textWarning) ? 'text-warning' : ''" style="width: 30px; height: 30px;" :icon="icon"/>
@@ -10,8 +10,8 @@
     </b-button> -->
     <!-- <b-button @click="$emit('clickButton')" class="btn-rectangle" :class="bigButtonTheme"> -->
     <b-button @click="$emit('clickButton')" class="cyanBg nftsBuyButton" >
-      <span v-if="route"><b-link :to="route">Buy NFT</b-link></span>
-      <span v-else>Buy NFT</span>
+      <span v-if="item.attributes.buyNowPrice >= 1" ><b-link style="color:white;" :to="route">Buy NFT</b-link></span>
+      <span v-else>Register Interest</span>
     </b-button>
   </b-button-group>
 </template>
@@ -21,7 +21,7 @@ export default {
   name: 'SquareButton',
   components: {
   },
-  props: ['theme', 'usePixelBg', 'label1', 'icon', 'route', 'svgImage', 'textWarning', 'colorOnHover'],
+  props: ['theme', 'usePixelBg', 'label1', 'icon', 'route', 'svgImage', 'textWarning', 'colorOnHover', 'item'],
   data () {
     return {
       pixelBg: require('@/assets/img/pixelBg.svg'),

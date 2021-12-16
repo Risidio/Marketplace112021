@@ -6,8 +6,9 @@
     <div id="threeCanvas"><canvas style="width: 100%; max-height: 600px; min-height: 350px;" /></div>
   </div>
 </div>
-<section style="margin: auto; margin-top: 5rem; width:90%" id="asset-details-section" v-if="gaiaAsset && gaiaAsset.contractAsset" class="text-black">
+<section style="margin: auto; margin-top: 5rem; max-width: 1400px; padding: 0 20px;" id="asset-details-section" v-if="gaiaAsset && gaiaAsset.contractAsset" class="text-black">
   <!-- <b-container class=" w-100 center-section" style="min-height: 50vh;"> -->
+              <div class="backBtn"><router-link class="backBtn" to="/nft-marketplace/risidio/launch_collection_t1"><b-icon icon="chevron-left" shift-h="-3"></b-icon> Back </router-link></div>
     <b-row style="display: flex; margin: auto" :style="'min-height: ' + videoHeight + 'px'">
       <b-col lg="6" sm="10" class="mb-5">
         <div id="video-column" :style="dimensions">
@@ -21,21 +22,17 @@
       </b-col>
       <b-col lg="6" sm="10">
         <b-row align-v="stretch" :style="'height: ' + videoHeight - 100 + 'px'">
-          <b-col cols="12" class="">
-            <div class="d-flex justify-content-between mb-5">
-              <div><router-link class="text-black" to="/nft-marketplace"><b-icon icon="chevron-left" shift-h="-4" variant="white"></b-icon> Back</router-link></div>
-              <div class="d-flex justify-content-between">
-                <b-link router-tag="span" v-b-tooltip.hover="{ variant: 'light' }" :title="ttOnAuction" class="text-black" variant="outline-success"><b-icon class="ml-2" icon="question-circle"/></b-link>
+          <b-col md="12" align-self="end" :key="componentKey">
+            <div class="w-100">
+              <div class="flex"><h1 class="text-black">{{mintedMessage}}</h1>
+              <div style="margin-left: auto;" class="d-flex">
+                <b-link router-tag="span" v-b-tooltip.hover="{ variant: 'light' }" :title='salesBadgeLabel' class="text-black" variant="outline-success"><b-icon class="ml-2" icon="question-circle"/></b-link>
                 <div style="font-weight: 600; font-size: 1.2rem" class="text-center on-auction-text ml-3 py-3 px-4 bg-secondary text-white">
-                  <div>{{salesBadgeLabel}}</div>
+                  <div style="color: white;">{{salesBadgeLabel}}</div>
                   <div v-if="showEndTime()">{{biddingEndTime()}}</div>
                 </div>
               </div>
-            </div>
-          </b-col>
-          <b-col md="12" align-self="end" :key="componentKey">
-            <div class="w-100">
-              <h1 class="text-black">{{mintedMessage}}</h1>
+              </div>
               <div>
                 <div class="d-flex justify-content-between">
                   <div class="mt-2">by <span class="cyanText">{{gaiaAsset.artist}}</span> <br/>
@@ -50,13 +47,13 @@
                 <ShareLinks class="mt-4" :socialLinks="getSocialLinks()" :gaiaAsset="gaiaAsset" />
               </div> -->
               <PendingTransactionInfo v-if="pending && pending.txStatus === 'pending'" :pending="pending"/>
-              <div v-else>
+              <div style="margin-top: 50px" v-else>
                 <b-row v-if="getSaleType() === 0">
                   <b-col md="6" sm="12" v-if="editionsAvailable">
                     <EditionTrigger :item="gaiaAsset" @mintedEvent="mintedEvent" :loopRun="loopRun"/>
                   </b-col>
-                  <b-col md="6" sm="12" v-else>
-                    <SquareButton @clickButton="openUpdates()" :theme="'light'" :label1="'GET UPDATES'" :icon="'eye'" :text-warning="true"/>
+                  <b-col style="padding: 10px;" v-else>
+                    <SquareButton @clickButton="openUpdates()" :item="gaiaAsset" :theme="'light'" :label1="'GET UPDATES'" :icon="'eye'" :text-warning="true"/>
                   </b-col>
                 </b-row>
                 <b-row v-else>
@@ -75,7 +72,7 @@
                       <!-- <span class="buyNowTextPadding" style="margin-left:auto;">STX <span class="buyNowTextPadding">6</span> ~$6</span> -->
                     </div>
                   </div>
-                    <SquareButton v-b-tooltip.hover="{ variant: 'light' }" :title="ttBiddingHelp" @clickButton="openPurchaceDialog()"/>
+                    <SquareButton v-b-tooltip.hover="{ variant: 'light' }" :item="gaiaAsset" :title="ttBiddingHelp" @clickButton="openPurchaceDialog()"/>
                     <!-- <SquareButton v-b-tooltip.hover="{ variant: 'light' }" :title="ttBiddingHelp" @clickButton="openPurchaceDialog()" :label1="salesButtonLabel"/> -->
                   </b-col>
                 </b-row>
@@ -684,7 +681,7 @@ export default {
   border: 1px solid #888;
   width: 63%;
 }
-
+.button{ margin: auto;}
 .more-link {
   border: 1pt solid #fff;
   padding: 3px 10px;
@@ -698,5 +695,10 @@ export default {
 }
 #asset-offer-modal .modal-content {
   text-align: left !important;
+}
+.backBtn{
+  color: rgb(0, 0, 138);
+  font-weight: 700;
+  margin-bottom: 30px;
 }
 </style>
