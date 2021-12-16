@@ -60,8 +60,8 @@ export default {
   },
   methods: {
     parseRunKey (gaiaAsset) {
-      if (gaiaAsset.currentRunKey) {
-        return (gaiaAsset.currentRunKey.indexOf('/') > -1) ? gaiaAsset.currentRunKey.split('/')[0] : gaiaAsset.currentRunKey
+      if (gaiaAsset.attributes.collection) {
+        return (gaiaAsset.attributes.collection.indexOf('/') > -1) ? gaiaAsset.attributes.collection.split('/')[0] : gaiaAsset.attributes.collection
       }
       return process.env.VUE_APP_DEFAULT_LOOP_RUN
     },
