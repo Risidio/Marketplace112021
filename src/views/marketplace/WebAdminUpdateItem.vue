@@ -35,7 +35,7 @@
         <div class="nFTImageContainer">
           <h3> Preview </h3>
           <NftCoverImage :item="item" :displayHeader="false"/>
-          <p> by: {{item.uploader}}</p>
+          <p > by: {{item.uploader}}</p>
           <div v-if="!this.continue">
             <button class="btn nextButton" @click.prevent="uploadItem()">Upload</button>
           </div>
@@ -61,9 +61,8 @@ import ItemFormPart1 from '@/views/marketplace/components/update/ItemFormPart1'
 import ItemFormPart2 from '@/views/marketplace/components/update/ItemFormPart2'
 import utils from '@/services/utils'
 import ChooseCollection from '@/views/marketplace/components/toolkit/ChooseCollection'
-
 export default {
-  name: 'UpdateItem',
+  name: 'WebAdminUpdateItem',
   components: {
     NftCoverImage,
     ItemFormPart1,
@@ -117,7 +116,7 @@ export default {
   mounted () {
     this.assetHash = this.$route.params.assetHash
     this.$store.dispatch('rpayMyItemStore/findItemByAssetHash', this.assetHash).then((item) => {
-      // this.uploadState++
+      this.uploadState++
       if (!item) {
         this.$router.push('/my-nfts/' + this.loopRun.currentRunKey)
         return
@@ -287,6 +286,7 @@ export default {
   }
 }
 </script>
+
 <style lang="scss" >
 #upload-item .drop-zone {
   min-width: 300px;

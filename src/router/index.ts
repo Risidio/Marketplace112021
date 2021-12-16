@@ -40,9 +40,11 @@ const Gallery = () => import('@/views/Gallery.vue')
 const HowItWorks = () => import('@/views/HowItWorks.vue')
 // const PunkMinter = () => import('@/views/marketplace/PunkMinter.vue')
 const UploadItem = () => import('@/views/marketplace/UploadItem.vue')
+const WebAdminUploadItem = () => import('@/views/marketplace/WebAdminUploadItem.vue')
 const DefaultCollectionMint = () => import('@/views/marketplace/DefaultCollectionMint.vue')
 const DefaultCollectionUpdateItem = () => import('@/views/marketplace/DefaultCollectionUpdateItem.vue')
 const UpdateItem = () => import('@/views/marketplace/UpdateItem.vue')
+const WebAdminUpdateItem = () => import('@/views/marketplace/WebAdminUpdateItem.vue')
 
 // Application Admin Routes
 const ManageRegistry = () => import(/* webpackChunkName: "ManageRegistry" */ '@/views/mgmnt/ManageRegistry.vue')
@@ -140,18 +142,6 @@ const routes: Array<RouteConfig> = [
     components: { default: About, header: MainNavbar, footer: MainFooter },
     meta: { title: 'About - Risidio' }
   },
-  // {
-  //   path: '/create',
-  //   name: 'create',
-  //   components: { default: UploadItem, header: MainNavbar, footer: MainFooter },
-  //   meta: { title: 'Upload your NFT' }
-  // },
-  {
-    path: '/create',
-    name: 'create',
-    components: { default: DefaultCollectionMint, header: MainNavbar, footer: MainFooter },
-    meta: { title: 'Upload your NFT' }
-  },
   {
     path: '/login',
     name: 'login',
@@ -219,6 +209,12 @@ const routes: Array<RouteConfig> = [
     }
   },
   {
+    path: '/create',
+    name: 'create',
+    components: { default: DefaultCollectionMint, header: MainNavbar, footer: MainFooter },
+    meta: { title: 'Upload your NFT' }
+  },
+  {
     path: '/edit-item/:assetHash',
     name: 'edit-item',
     components: { default: DefaultCollectionUpdateItem, header: MainNavbar, footer: MainFooter },
@@ -227,24 +223,30 @@ const routes: Array<RouteConfig> = [
       requiresAdmin: false
     }
   },
-  // {
-  //   path: '/edit-item/:assetHash',
-  //   name: 'edit-item',
-  //   components: { default: UpdateItem, header: MainNavbar, footer: MainFooter },
-  //   meta: {
-  //     requiresAuth: false,
-  //     requiresAdmin: false
-  //   }
-  // },
   {
-    path: '/upload-item',
-    name: 'upload-item',
-    components: { default: UploadItem, header: MainNavbar, footer: MainFooter },
+    path: '/admin-mint',
+    name: 'admin-mint',
+    components: { default: WebAdminUploadItem, header: MainNavbar, footer: MainFooter },
+    meta: { title: 'Upload your NFT' }
+  },
+  {
+    path: '/admin-item/:assetHash',
+    name: 'admin-item',
+    components: { default: WebAdminUpdateItem, header: MainNavbar, footer: MainFooter },
     meta: {
       requiresAuth: false,
       requiresAdmin: false
     }
   },
+  // {
+  //   path: '/upload-item',
+  //   name: 'upload-item',
+  //   components: { default: UploadItem, header: MainNavbar, footer: MainFooter },
+  //   meta: {
+  //     requiresAuth: false,
+  //     requiresAdmin: false
+  //   }
+  // },
   {
     path: '/my-nfts',
     name: 'my-nfts',

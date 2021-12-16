@@ -70,7 +70,7 @@ import utils from '@/services/utils'
 // import ChooseCollection from '@/views/marketplace/components/toolkit/ChooseCollection'
 
 export default {
-  name: 'UpdateItem',
+  name: 'DefaultCollectionUpdateItem',
   components: {
     NftCoverImage,
     ItemFormPart1,
