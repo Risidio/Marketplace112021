@@ -32,7 +32,7 @@
                         <img src='https://res.cloudinary.com/risidio/image/upload/v1637162045/RisidioMarketplace/009-coin_ojj2mp.svg'/>
                             <p style="font-size: 16px; font-weight: 700;"> {{content.needahand[0].buy[0].text}}  <br/><br/></p>
                             <p style="font-weight: 200; padding-bottom: 20px">{{content.needahand[0].buytext[0].text}} </p>
-                        <router-link style="width:200px; margin:auto; text-align: center; padding: auto" class='button notFilled' to="/nft-marketplace"> <span style="margin: auto"  class="notFilledButtonText">Gallery</span> </router-link>
+                        <router-link style="width:200px; margin:auto; text-align: center; padding: auto" class='button notFilled' to="/nft-marketplace/risidio/launch_collection_t1"> <span style="margin: auto"  class="notFilledButtonText">Gallery</span> </router-link>
                         </div>
                     </div>
                 </div>
@@ -40,17 +40,17 @@
         </div>
         <div v-else>
             <div class="homeInfoContainer">
-                <div>
+                <!-- <div>
                     <div>
                     <div class="textCon">
-                        <!-- <h1 class="oneTwoThreeFour">1</h1> -->
+                         <h1 class="oneTwoThreeFour">1</h1>
                         <img src='https://res.cloudinary.com/risidio/image/upload/v1633609788/RisidioMarketplace/006-wallet_uy3myg.svg'/>
                         <p style="font-size: 16px; font-weight: 700;"> {{content.needahand[0].connect[0].text}}  <br/><br/></p>
                         <p style="font-weight: 200; padding-bottom: 20px"> {{content.needahand[0].connecttext[0].text}}</p>
-                        <!-- <button class='button notFilled' @click="startLogin"> Connect A Web Wallet to Begin!</button> -->
+                        <button class='button notFilled' @click="startLogin"> Connect A Web Wallet to Begin!</button>
                     </div>
                 </div>
-                </div>
+                </div> -->
                 <div>
                     <div>
                         <div class="textCon">
