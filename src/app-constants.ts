@@ -66,6 +66,7 @@ export const APP_CONSTANTS = {
   KEY_CONTENT_CHARITIES: 'contentStore/getCharities',
   KEY_CONTENT_INFO_PAGE: 'contentStore/getInformationById',
   KEY_BREAK_LINE: 'contentStore/getBreakLine',
+  KEY_CONTENT_FOOTER: 'contentStore/getMainFooter',
   KEY_CONTENT_MARKET: 'contentStore/getMarket',
 
   // KEY_PIXEL_BACKGROUND: 'contentStore/getPixelBackground',

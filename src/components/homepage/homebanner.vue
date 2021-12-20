@@ -1,7 +1,7 @@
 <template>
   <section class="bannerContainer">
     <img class="banner" src="https://res.cloudinary.com/risidio/image/upload/v1633609373/RisidioMarketplace/Group_-304_ofssmk.svg" alt="">
-    <div v-if="profile.loggedIn && rand === 0" class="if">
+    <div v-if="profile.loggedIn" class="if">
         <div class="loggedBanner">
             <div class="vueSlideContainer galleryContainer">
               <vueper-slides
@@ -42,7 +42,7 @@
                               <button class="button filled"> See The Collection </button>
                             </div>
                         </div>
-                        <div v-if="slide.id==3" class = "slideContainer">
+                        <!-- <div v-if="slide.id==3" class = "slideContainer">
                             <div class="slideImage">
 
                             </div>
@@ -52,7 +52,7 @@
                               <p> {{content.heroarea[3].herotext[0].text}}</p>
                               <button class="button filled"> See The Collection </button>
                             </div>
-                        </div>
+                        </div> -->
                     </template>
                 </vueper-slide>
               </vueper-slides>
@@ -109,11 +109,11 @@ export default {
       {
         id: '2',
         text: 'Collection'
-      },
-      {
-        id: '3',
-        text: 'Collection'
       }
+      // {
+      //   id: '3',
+      //   text: 'Collection'
+      // }
     ],
     return: {
       resultSet: [],
