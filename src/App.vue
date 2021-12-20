@@ -104,6 +104,11 @@ export default {
           this.$store.commit('contentStore/addMarket', document.data)
         }
       })
+      this.$prismic.client.getSingle('launchcollection').then(document => {
+        if (document) {
+          this.$store.commit('contentStore/addLaunchCollection', document.data)
+        }
+      })
       this.$prismic.client.getSingle('howitworks').then(document => {
         if (document) {
           this.$store.commit('contentStore/addHowItWorks', document.data)
