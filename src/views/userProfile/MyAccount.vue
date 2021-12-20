@@ -9,7 +9,7 @@
           <div class="usernameEdit" ><input type="text" placeholder="Username"><span style="width: 35px; -webkit-transform: scaleX(-1);transform: scaleX(-1);" title='edit your profile' class="">&#9998;</span>
         </div>
           <p style="margin: -20px 0; padding: 0 10px; font-weight: 700; text-decoration: underline; color: #50B1B5; cursor: pointer" >View Transaction History</p></div>
-        <div class="walletDetails" style="margin-right: 40px;">
+        <div class="walletDetails">
           <h1>Your Wallet Information:</h1>
           <h2>Wallet: {{username}}</h2>
           <!-- <h2>John Doe</h2> -->
@@ -502,7 +502,7 @@ export default {
   // background: rgb(255,255,255);
   // background: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 0%, rgb(245, 245, 245) 100%);
   border-radius: 20px;
-  margin: auto;
+  margin: auto 40px;
   min-height: 400px;
   & > h1 {
     margin: 20px auto;

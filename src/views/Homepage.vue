@@ -4,7 +4,7 @@
       <HomeMarket v-bind:profile='profile' :gaiaAssets="gaiaAssets"/>
       <HomeInfo v-bind:profile='profile' :content="content"/>
       <HomeSeeAlso v-bind:profile='profile' :gaiaAssets="filterMarketAssets"/>
-      <HomeBottomBanner v-bind:profile='profile'/>
+      <HomeBottomBanner v-bind:profile='profile' :content="content"/>
     </section>
 </template>
 

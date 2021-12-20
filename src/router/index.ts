@@ -38,6 +38,7 @@ const NftMarketplace = () => import('@/views/marketplace/NftMarketplace.vue')
 const NftCollection = () => import('@/views/marketplace/NftCollection.vue')
 const Gallery = () => import('@/views/Gallery.vue')
 const HowItWorks = () => import('@/views/HowItWorks.vue')
+const LaunchCollection = () => import('@/views/collections/LaunchCollection.vue')
 // const PunkMinter = () => import('@/views/marketplace/PunkMinter.vue')
 const UploadItem = () => import('@/views/marketplace/UploadItem.vue')
 const WebAdminUploadItem = () => import('@/views/marketplace/WebAdminUploadItem.vue')
@@ -157,6 +158,12 @@ const routes: Array<RouteConfig> = [
       requiresAdmin: false,
       title: 'Manage Profile'
     }
+  },
+  {
+    path: '/launch_collection_t1',
+    name: 'launch-collection',
+    components: { default: LaunchCollection, header: MainNavbar, footer: MainFooter },
+    meta: { title: 'Launch Collection Featuring Benny' }
   },
   {
     path: '/information/:infoId',

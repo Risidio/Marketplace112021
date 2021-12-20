@@ -59,7 +59,7 @@ export default {
   },
   methods: {
     linkTo (data) {
-      this.$router.push('/nft-marketplace/' + data.makerUrlKey + '/' + data.currentRunKey)
+      this.$router.push(data.currentRunKey)
     },
     showCollection (loopRun) {
       this.$emit('update', { opcode: 'show-collection', loopRun: loopRun })

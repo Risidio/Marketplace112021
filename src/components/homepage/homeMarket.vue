@@ -142,31 +142,6 @@ p{padding:0; margin:0;}
   margin: auto;
   margin: 5rem auto;
 }
-.galleryNav{
-  margin: auto;
-  margin-bottom: 70px;
-  width: 100%;
-  justify-items: center;
-  align-items: center;
-  border-bottom: solid rgba(128, 128, 128, 0.112) 1px;
-}
-.galleryNavContainer{
-  margin: auto;
-  margin-bottom: -1px;
-  max-width: 1200px;
-  display: flex;
-  flex-direction: row;
-}
-.galleryNavItem{
-  font-size: 18px;
-  max-width: 500px;
-  padding: 5px;
-  margin: auto;
-  border: solid rgba(255, 255, 255, 0)  2px;
-}
-.galleryNavItem:hover, .galleryNavItem.active{
-  border-bottom: 2px solid #50B1B5;
-}
 .galleryContainer{
   display: flex;
   flex-direction: row;

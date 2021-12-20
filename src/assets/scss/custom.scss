@@ -416,7 +416,31 @@ select {
 #asset-details .hash1-image {
   border: none;
 }
-
+.galleryNav{
+  margin: auto;
+  margin-bottom: 70px;
+  width: 100%;
+  justify-items: center;
+  align-items: center;
+  border-bottom: solid rgba(128, 128, 128, 0.112) 1px;
+}
+.galleryNavContainer{
+  margin: auto;
+  margin-bottom: -1px;
+  max-width: 1200px;
+  display: flex;
+  flex-direction: row;
+}
+.galleryNavItem{
+  font-size: 18px;
+  max-width: 500px;
+  padding: 5px;
+  margin: auto;
+  border: solid rgba(255, 255, 255, 0)  2px;
+}
+.galleryNavItem:hover, .galleryNavItem.active{
+  border-bottom: 2px solid #50B1B5;
+}
 .NFTbackgroundColour{
   background: rgba(129, 129, 129, 0.12);
   border-radius: 30px;
@@ -668,7 +692,10 @@ select {
 .notFilled{
   color: rgba(95, 189, 193, 1);
   background: rgba(255, 255, 255, 0.2);
-
+}
+.notFilledBlue{
+  color: rgba(95, 189, 193, 1);
+  background: rgba(80, 177, 181, 0.1);
 }
 .filled{
   background: rgba(95, 189, 193, 1);

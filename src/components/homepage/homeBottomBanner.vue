@@ -1,17 +1,17 @@
 <template>
     <section class="homeBottomBanner">
         <div v-if="profile.loggedIn" class="homeBottomContainer">
-            <h2>Explore the New Era of Digital Collectables and NFT's</h2>
-            <h3>Create an account and join our marketplace.<br/><br/>
-            It's quick, Safe and Free</h3>
+            <h2>{{content.bottomcontent[0].maintitle[0].text}}</h2>
+            <h3>{{content.bottomcontent[0].text[0].text}}<br/><br/>
+            {{content.bottomcontent[0].text[1].text}}</h3>
             <div class="buttonCont">
                 <router-link class="button notFilled" to="/how-it-works"> Find Out More </router-link>
             </div>
         </div>
         <div v-else class="homeBottomContainer">
-            <h2>Explore the New Era of Digital Collectables and NFT's</h2>
-            <h3>Create an account and join our marketplace.<br/><br/>
-            It's quick, Safe and Free</h3>
+            <h2>{{content.bottomcontent[0].maintitle[0].text}}</h2>
+            <h3>{{content.bottomcontent[0].text[0].text}}<br/><br/>
+            {{content.bottomcontent[0].text[1].text}}</h3>
             <div class="buttonCont">
                 <button class="button filled" @click="startLogin"> Connect with a Wallet to Start!</button>
                 <router-link class="button notFilled" to="/how-it-works"> Find Out More </router-link>
@@ -25,7 +25,7 @@ import { APP_CONSTANTS } from '@/app-constants'
 
 export default {
   name: 'homeBottomBanner',
-  props: ['profile'],
+  props: ['profile', 'content'],
   data () {
     return {
     }
