@@ -58,7 +58,6 @@ export default {
       document.getElementById('unsold').classList.remove('active')
       document.getElementById('all').classList.remove('active')
       document.getElementById(tab).classList.add('active')
-      console.log(tab)
     }
   }
 }
