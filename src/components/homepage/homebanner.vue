@@ -88,12 +88,15 @@
             </div>
         </div>
     </div>
+    <div class="searchB">
+    <HomeSearchBar/></div>
   </section>
 </template>
 
 <script>
 import { VueperSlides, VueperSlide } from 'vueperslides'
 import 'vueperslides/dist/vueperslides.css'
+import HomeSearchBar from './homeSearchBar.vue'
 import { APP_CONSTANTS } from '@/app-constants'
 
 export default {
@@ -102,7 +105,8 @@ export default {
 
   components: {
     VueperSlides,
-    VueperSlide
+    VueperSlide,
+    HomeSearchBar
   },
   data: () => ({
     slide: [
@@ -158,6 +162,10 @@ h2{
   letter-spacing: 1px;
   font-size: 40px;
   font-weight: 400;
+}
+.searchB{
+  display: relative;
+  bottom: 0;
 }
 .market_introduction_text{
   margin: auto;
@@ -243,7 +251,7 @@ h2{
 }
 
 .vueperslides--fixed-height {
-  height: 400px;
+  height: 350px;
   max-width: 90%;
   margin-left: auto;
   margin-right: auto;
@@ -266,7 +274,7 @@ h2{
   display: flex;
   flex-wrap: wrap;
   height:100%;
-  padding: 40px;
+  padding: 25px 40px;
   gap: 5%;
 }
 .slideContainer > *:nth-child(1){
@@ -288,9 +296,9 @@ h2{
 }
 @media only screen and (max-width: 1200px) {
   .slideContainerNotLogged{
-  display: flex;
-  flex-direction: column;
-  height: 65vh;
+    display: flex;
+    flex-direction: column;
+    height: 65vh;
   }
   .bannerContainer{
       height: 80vh;
