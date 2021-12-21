@@ -20,7 +20,7 @@
             <div class="walletCurrency">
               <div>
                 <p>Credit Remaining:</p>
-                <p> {{profile.accountInfo.balance}} stx</p>
+                <p id="stxInfo" > {{yourSTX}} stx</p>
               </div>
               <div>
                   <p>{{currency}} {{yourSTX}}</p>
@@ -180,6 +180,7 @@ export default {
       if (pressed === 1) {
         document.getElementById('walletDetails').classList.remove('hide')
         document.getElementById('infoButton').classList.add('hidden')
+        this.yourSTX = this.profile.accountInfo.balance
       } else {
         document.getElementById('walletDetails').classList.add('hide')
         document.getElementById('infoButton').classList.remove('hidden')
