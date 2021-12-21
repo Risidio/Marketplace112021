@@ -31,7 +31,7 @@
       How many editions of this NFT do you want to allow? At least 1 - at most 100
     </b-form-invalid-feedback>
   </div>
-  <div class="mb-3" role="group text-right w-100">
+  <!-- <div class="mb-3" role="group text-right w-100">
     <label class="label" for="item-edition-cost">Cost per edition (STX) :</label>
     <b-form-input
       id="item-edition-cost"
@@ -46,7 +46,7 @@
     <b-form-invalid-feedback id="item-editions-feedback">
       How much STX tokens each subsequent edition costs
     </b-form-invalid-feedback>
-  </div>
+  </div>-->
 </div>
 </template>
 

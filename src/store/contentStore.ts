@@ -15,7 +15,8 @@ const contentStore = {
       tooltips: null,
       emails: null,
       howItWorks: null,
-      hiroWallet: null
+      hiroWallet: null,
+      searchWord: null
     },
     defaultArtist: 'chemicalx',
     waitingImage: 'https://images.prismic.io/dbid/c19ad445-eab4-4de9-9b5a-c10eb158dc5e_black_no1.png?auto=compress,format'

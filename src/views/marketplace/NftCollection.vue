@@ -46,7 +46,7 @@
                             <a href="#">Category 5</a>
                         </div>
                     </div>
-                        <input class="search" type="text" id="search" name="search" placeholder="Looking for anything in particular ?"><img class="view" src="https://res.cloudinary.com/risidio/image/upload/v1637238428/RisidioMarketplace/magnifying-search-lenses-tool_yaatpo.svg">
+                        <input class="search" type="text" id="search" name="search" placeholder="Looking for anything in particular ?" :value="search"><img class="view" src="https://res.cloudinary.com/risidio/image/upload/v1637238428/RisidioMarketplace/magnifying-search-lenses-tool_yaatpo.svg">
                 </div>
                 <hr/>
                     <div style="width: 100%" v-if="!showSearch">
@@ -192,6 +192,10 @@ export default {
     loopRun () {
       const loopRun = this.$store.getters[APP_CONSTANTS.GET_LOOP_RUN_BY_KEY](this.currentRunKey)
       return loopRun
+    },
+    search () {
+      const content = this.$store.state.contentStore.content.searchWord
+      return content
     }
   }
 }

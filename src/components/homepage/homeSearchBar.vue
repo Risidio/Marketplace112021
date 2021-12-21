@@ -11,7 +11,7 @@
     </div>
   </div>
   <div>
-  <input class="search_input_box" type="text" placeholder=" Looking for something in particular?  "> <span class="searchIcon">&#8981;</span>
+  <input class="search_input_box" type="text" placeholder=" Looking for something in particular? " @input="searchWord($event)"> <span class="searchIcon" v-on:click="openMarket()" >&#8981;</span>
   </div>
 </div>
 </template>
@@ -26,7 +26,8 @@ export default {
   data () {
     return {
       query: null,
-      isHidden: false
+      isHidden: false,
+      currentSearch: null
     }
   },
   methods: {
@@ -35,9 +36,23 @@ export default {
     },
     showHidden () {
       this.isHidden = !this.isHidden
+    },
+    searchWord (e) {
+      this.currentSearch = e.target.value
+      this.$store.state.contentStore.content.searchWord = this.currentSearch
+      console.log(e.target.value)
+      console.log(this.$store.state.contentStore.content.searchWord)
+    },
+    openMarket () {
+      this.$router.push('/nft-marketplace/risidio/launch_collection_t1')
+      console.log('routerOpen')
     }
   },
   computed: {
+    search () {
+      const content = this.$store.state.contentStore.content
+      return content
+    }
   }
 }
 </script>
@@ -133,7 +148,7 @@ export default {
 }
 .dropdown_option{
   padding: 10px;
-  border: 1px solid rgb(255, 212, 22);;
+  border: 1px solid grey;
   background: white;
   border-radius: 0px;
   margin: 2px;
@@ -142,8 +157,8 @@ export default {
 }
 
 .dropdown_option:hover{
-  background: rgb(255, 212, 22);
-  border: 1px solid rgb(255, 212, 22);;
+  background: grey;
+  border: 1px solid rgb(105, 105, 105);
   transition: 0.3s;
   z-index: 10;
 }
