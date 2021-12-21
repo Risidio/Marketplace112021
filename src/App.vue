@@ -114,6 +114,11 @@ export default {
           this.$store.commit('contentStore/addHowItWorks', document.data)
         }
       })
+      this.$prismic.client.getSingle('hiro_walet').then(document => {
+        if (document) {
+          this.$store.commit('contentStore/addHiroWallet', document.data)
+        }
+      })
       this.$prismic.client.getSingle('mainfooter').then((document) => {
         if (document) {
           this.$store.commit('contentStore/addMainFooter', document.data)

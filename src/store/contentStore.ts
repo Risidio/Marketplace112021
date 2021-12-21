@@ -14,7 +14,8 @@ const contentStore = {
       about: null,
       tooltips: null,
       emails: null,
-      howItWorks: null
+      howItWorks: null,
+      hiroWallet: null
     },
     defaultArtist: 'chemicalx',
     waitingImage: 'https://images.prismic.io/dbid/c19ad445-eab4-4de9-9b5a-c10eb158dc5e_black_no1.png?auto=compress,format'
@@ -121,6 +122,9 @@ const contentStore = {
     },
     getHowItWorks: state => {
       return state.content.howItWorks
+    },
+    getHiroWallet: state => {
+      return state.content.hiroWallet
     }
   },
   mutations: {
@@ -165,6 +169,9 @@ const contentStore = {
     },
     addArtists (state, o) {
       state.content.artists = o
+    },
+    addHiroWallet (state, o) {
+      state.content.hiroWallet = o
     }
   },
   actions: {

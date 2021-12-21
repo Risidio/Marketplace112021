@@ -15,6 +15,7 @@ import Information from '../views/Information.vue'
 // const Information = () => import('../views/Information.vue')
 import ExhibitHere from '../views/ExhibitHere.vue'
 import ManageProfile from '../views/ManageProfile.vue'
+import HiroWallet from '../views/HiroWallet.vue'
 
 // private pages
 // import MyAccount from '../views/userProfile/MyAccount.vue'
@@ -142,6 +143,12 @@ const routes: Array<RouteConfig> = [
     name: 'about',
     components: { default: About, header: MainNavbar, footer: MainFooter },
     meta: { title: 'About - Risidio' }
+  },
+  {
+    path: '/hiro-wallet',
+    name: 'hiro-wallet',
+    components: { default: HiroWallet, header: MainNavbar, footer: MainFooter },
+    meta: { title: 'Hiro Wallet - Risidio' }
   },
   {
     path: '/login',

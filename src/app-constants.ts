@@ -37,6 +37,7 @@ export const APP_CONSTANTS = {
 
   KEY_CONTENT_ABOUT: 'contentStore/getAbout',
   KEY_CONTENT_HOW: 'contentStore/getHowItWorks',
+  KEY_CONTENT_HIRO_WALLET: 'contentStore/getHiroWallet',
 
   KEY_MY_ITEMS: 'rpayMyItemStore/getMyItems',
   KEY_MY_UNMINTED_ITEMS: 'rpayMyItemStore/getMyUnmintedItems',
