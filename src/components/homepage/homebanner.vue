@@ -82,7 +82,7 @@
               <h1> {{content.heroarea[0].herotitle[0].text}}</h1>
               <p>{{content.heroarea[0].herotext[0].text}}</p>
               <div class="bannerButtonContainer">
-              <button v-on:click="startRegister()" class="button filled">Get Your Hiro Wallet To Start</button>
+              <router-link to="/hiro-wallet" ><button class="button filled">Get Your Hiro Wallet To Start</button></router-link>
               <button v-on:click="startLogin()" class="secondaryBannerButton button"> <span style="margin: auto">Already Have One? Click here to Get Started</span>  </button>
               </div>
             </div>
@@ -165,7 +165,7 @@ h2{
 }
 .searchB{
   display: relative;
-  bottom: 0;
+  // bottom: 0;
 }
 .market_introduction_text{
   margin: auto;
@@ -228,7 +228,7 @@ h2{
   background-color:rgba(255, 255, 255, 0.637);
   border-radius: 30px;
   max-width: 1500px;
-  margin: auto;
+  margin: auto auto 25px auto;
   height: 400px;
   padding: 20px 50px;
   display: flex;
@@ -255,6 +255,7 @@ h2{
   max-width: 90%;
   margin-left: auto;
   margin-right: auto;
+  margin-bottom: 25px;
   backdrop-filter: blur(2rem);
 }
 .loggedBanner, .blurBackground{

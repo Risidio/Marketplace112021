@@ -1,5 +1,5 @@
 <template>
-<div>
+<div class="hiroWalletPage">
   <HiroWalletSection0 :content="content"/>
   <HiroWalletSection1 :content="content"/>
 </div>
@@ -37,6 +37,8 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+.hiroWalletPage{
+  min-height: 30vh;
+}
 </style>

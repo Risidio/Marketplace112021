@@ -3,18 +3,35 @@
   <div class="container">
     <h1 class="text-white">{{ content.s2_title[0].text }}</h1>
     <prismic-rich-text class="main-content text-center" :field="content.s2_text"/>
-    <button class="button"><a href="#">{{ content.s2_button[0].text }}</a></button>
+    <button class="button" @click="startLogin()"><a href="#">{{ content.s2_button[0].text }}</a></button>
   </div>
 </section>
 </template>
 
 <script>
+import { APP_CONSTANTS } from '@/app-constants'
 export default {
   name: 'HiroWalletSection0',
+  props: ['content'],
   components: {
 
   },
-  props: ['content'],
+  methods: {
+    startLogin () {
+      // this.$emit('updateEventCode', { eventCode: 'connect-login' })
+      const myProfile = this.$store.getters['rpayAuthStore/getMyProfile']
+      if (myProfile.loggedIn) {
+        this.$emit('connect-login', myProfile)
+      } else {
+        this.$store.dispatch('rpayAuthStore/startLogin').then((profile) => {
+          console.log(profile)
+          location.reload()
+        }).catch(() => {
+          this.$store.commit(APP_CONSTANTS.SET_WEB_WALLET_NEEDED)
+        })
+      }
+    }
+  },
   computed: {
   }
 }
@@ -22,9 +39,10 @@ export default {
 
 <style scoped>
   .section0-container {
-    padding-top: 50px;
-    padding-bottom: 50px;
+    display: grid;
+    place-items: center;
     background-color: #170A6D;
+    min-height: 500px;
   }
   h1 {
     text-align: center;

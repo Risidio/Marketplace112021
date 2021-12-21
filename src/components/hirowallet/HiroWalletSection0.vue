@@ -3,17 +3,22 @@
   <img class="wallet-img" src="https://res.cloudinary.com/risidio/image/upload/v1633609788/RisidioMarketplace/006-wallet_uy3myg.svg"/>
   <h1>{{ content.s1_title[0].text }}</h1>
   <prismic-rich-text class="main-content text-center" :field="content.s1_text"/>
-  <button class="button"><a href="#">{{ content.s1_button[0].text }}</a></button>
+  <button class="button" @click="startRegister()"><a href="#">{{ content.s1_button[0].text }}</a></button>
 </section>
 </template>
 
 <script>
 export default {
   name: 'HiroWalletSection0',
+  props: ['content'],
   components: {
 
   },
-  props: ['content'],
+  methods: {
+    startRegister () {
+      window.open('https://www.hiro.so/wallet', '_blank')
+    }
+  },
   computed: {
   }
 }
@@ -24,6 +29,7 @@ export default {
     padding-top: 50px;
     padding-bottom: 50px;
     text-align: center;
+    min-height: 500px;
   }
   .wallet-img {
     max-width: 80px;
