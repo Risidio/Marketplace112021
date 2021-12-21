@@ -9,31 +9,35 @@
           <div class="usernameEdit" ><input type="text" placeholder="Username"><span style="width: 35px; -webkit-transform: scaleX(-1);transform: scaleX(-1);" title='edit your profile' class="">&#9998;</span>
         </div>
           <p style="margin: -20px 0; padding: 0 10px; font-weight: 700; text-decoration: underline; color: #50B1B5; cursor: pointer" >View Transaction History</p></div>
-        <div class="walletDetails" style="margin-right: 40px;">
-          <h1>Your Wallet Information:</h1>
-          <h2>Wallet: {{username}}</h2>
-          <!-- <h2>John Doe</h2> -->
-          <br/>
-          <div class="walletCurrency">
-            <div>
-              <p>Credit Remaining:</p>
-              <p> {{profile.accountInfo.balance}} stx</p>
+        <div class="walletContainer">
+          <button class="button filled infoButton" id="infoButton" @click="viewInfo(1)"> View Info</button>
+          <div id="walletDetails" class="walletDetails hide">
+            <button class="notFilled" @click="viewInfo(0)">Hide</button>
+            <h1>Your Wallet Information:</h1>
+            <h2>Wallet: {{username}}</h2>
+            <!-- <h2>John Doe</h2> -->
+            <br/>
+            <div class="walletCurrency">
+              <div>
+                <p>Credit Remaining:</p>
+                <p id="stxInfo" > {{yourSTX}} stx</p>
+              </div>
+              <div>
+                  <p>{{currency}} {{yourSTX}}</p>
+                  <select id="currency" name="currency" class="form-control"  @change="currencyChange($event.target.value)">
+                    <option value="USD">USD</option>
+                    <option value="GBP">GBP</option>
+                    <option value="EUR">EUR</option>
+                    <option value="NOK">NOK</option>
+                  </select>
+              </div>
             </div>
-            <div>
-                <p>{{currency}} {{yourSTX}}</p>
-                <select id="currency" name="currency" class="form-control"  @change="currencyChange($event.target.value)">
-                   <option value="USD">USD</option>
-                   <option value="GBP">GBP</option>
-                   <option value="EUR">EUR</option>
-                   <option value="NOK">NOK</option>
-                </select>
+            <div class="profileBtns">
+              <!-- <router-link  to="/create"><button class="button">Mint an NFT</button></router-link > -->
+              <router-link  to="/"><button class="button" @click="logout">Logout</button></router-link >
+              <!-- <router-link class="profileBtn mintBtn" to="/create">Mint an NFT</router-link>
+              <router-link  class="profileBtn logoutBtn" to="/">Disconnect</router-link > -->
             </div>
-          </div>
-          <div class="profileBtns">
-            <!-- <router-link  to="/create"><button class="button">Mint an NFT</button></router-link > -->
-            <router-link  to="/"><button class="button" @click="logout">Logout</button></router-link >
-            <!-- <router-link class="profileBtn mintBtn" to="/create">Mint an NFT</router-link>
-            <router-link  class="profileBtn logoutBtn" to="/">Disconnect</router-link > -->
           </div>
         </div>
     </div>
@@ -172,6 +176,16 @@ export default {
     }
   },
   methods: {
+    viewInfo (pressed) {
+      if (pressed === 1) {
+        document.getElementById('walletDetails').classList.remove('hide')
+        document.getElementById('infoButton').classList.add('hidden')
+        this.yourSTX = this.profile.accountInfo.balance
+      } else {
+        document.getElementById('walletDetails').classList.add('hide')
+        document.getElementById('infoButton').classList.remove('hidden')
+      }
+    },
     logout () {
       // this.$emit('updateEventCode', { eventCode: 'connect-logout' })
       this.$store.dispatch('rpayAuthStore/startLogout').then(() => {
@@ -472,6 +486,15 @@ export default {
     padding: 5px;
     color: lightseagreen;
 }
+.infoButton{
+  position: absolute;
+  z-index: 10;
+  margin-top: 150px;
+  margin-left: 250px;
+}
+.infoButton.hidden{
+  display: none;
+}
 .noNFT{
   display: block;
   margin: auto;
@@ -492,7 +515,9 @@ export default {
   color: #50B1B5;
 }
 }
-
+.hide {
+  filter: blur(1rem);
+}
 .walletDetails{
   max-width: 600px;
   text-align: center;
@@ -502,7 +527,7 @@ export default {
   // background: rgb(255,255,255);
   // background: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 0%, rgb(245, 245, 245) 100%);
   border-radius: 20px;
-  margin: auto;
+  margin: auto 40px;
   min-height: 400px;
   & > h1 {
     margin: 20px auto;
@@ -529,7 +554,21 @@ export default {
   font-size: 14px;
   font-weight:700;
   color: rgb(222,146,123);
-
+}
+.notFilled{
+  display: block;
+  background-color: rgba(255, 255, 255, 0);
+  font-size: 14px;
+  margin: 0 0 0 auto;
+  border: none;
+  padding: 10px auto;
+  font-weight:700;
+  color: black;
+  margin-left: auto;
+}
+.notFilled:hover{
+  background-color: rgba(255, 255, 255, 0);
+  color: black;
 }
 .button:hover{
   color: rgb(235,231,232);

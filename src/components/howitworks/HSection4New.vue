@@ -14,51 +14,51 @@
           :title="slide.title">
           <template #content>
             <div v-if="slide.id==1" class = "container">
-              <h1>Get Your Stacks Wallet</h1>
+              <h1>{{content.howsectionslide1[0].howslidetitle[0].text}}</h1>
             <img src="https://res.cloudinary.com/risidio/image/upload/v1633609788/RisidioMarketplace/006-wallet_uy3myg.svg" alt="wallet" class="wallet">
               <!-- <h2> Step <br><span>0{{slide.id}} </span> </h2> -->
               <div class = "textContainer">
+                    <p style="max-width: 500px; margin: auto;">{{content.howsectionslide1[0].howslidetext[0].text}}</p><br/>
                     <ol>
-                        <li><p> &nbsp; Click login button</p></li><br/>
-                        <li><p> &nbsp; Install the Stacks wallet browser extension (using a modern browser)</p></li><br/>
-                        <li><p> &nbsp; Once redirected, click "I am new to stacks" to create your Stacks account</p></li><br/>
-                        <li><p> &nbsp; You will now see your Secret Key. You must store this in a secure place as you will need the key to access your wallet</p></li><br/>
-                        <li><p> &nbsp; Click "I have saved it"</p></li><br/>
-                        <li><p> &nbsp; Create a password and then click "Done"</p></li>
+                        <li><p> &nbsp; {{content.howsectionslide1[0].howslidetext[1].text}}</p></li><br/>
+                        <li><p> &nbsp; {{content.howsectionslide1[0].howslidetext[2].text}}</p></li><br/>
+                        <li><p> &nbsp; {{content.howsectionslide1[0].howslidetext[3].text}}</p></li><br/>
+                        <li><p> &nbsp; {{content.howsectionslide1[0].howslidetext[4].text}}</p></li><br/>
+                        <li><p> &nbsp; {{content.howsectionslide1[0].howslidetext[5].text}}</p></li><br/>
+                        <li><p> &nbsp; {{content.howsectionslide1[0].howslidetext[6].text}}</p></li>
                     </ol>
                     <button class="button"> Get Your Stacks/Hiro Wallet </button>
               </div>
             </div>
             <div v-if="slide.id==2" class = "container">
-              <h1>Upload Your Item</h1>
+              <h1>{{content.howsectionslide2[0].howslidetitle[0].text}}</h1>
               <img src="https://res.cloudinary.com/risidio/image/upload/v1633609788/RisidioMarketplace/006-wallet_uy3myg.svg" alt="wallet" class="wallet">
               <!-- <h2> Step <br><span>0{{slide.id}} </span> </h2> -->
               <div class = "textContainer">
                 <ol>
-                    <li><p> &nbsp; Click "Upload an Item" and upload an item</p></li><br/>
-                    <li><p> &nbsp; Upload a cover for the item if needed</p></li><br/>
-                    <li><p> &nbsp; Add the title, description, and keywords for it</p></li><br/>
-                    <li><p> &nbsp; Choose wether you'd like to set your item as private or public</p></li><br/>
-                    <li><p> &nbsp; Click "Next"</p></li><br/>
-                    <li><p> &nbsp; State the author and number of editions for your item</p></li><br/>
-                    <li><p> &nbsp; Click "Upload"</p></li>
+                    <li><p> &nbsp; {{content.howsectionslide2[0].howslidetext[1].text}}</p></li><br/>
+                    <li><p> &nbsp; {{content.howsectionslide2[0].howslidetext[2].text}}</p></li><br/>
+                    <li><p> &nbsp; {{content.howsectionslide2[0].howslidetext[3].text}}</p></li><br/>
+                    <li><p> &nbsp; {{content.howsectionslide2[0].howslidetext[4].text}}</p></li><br/>
+                    <li><p> &nbsp; {{content.howsectionslide2[0].howslidetext[5].text}}</p></li><br/>
+                    <li><p> &nbsp; {{content.howsectionslide2[0].howslidetext[6].text}}</p></li><br/>
+                    <li><p> &nbsp; {{content.howsectionslide2[0].howslidetext[7].text}}</p></li><br/>
+                    <li><p> &nbsp; {{content.howsectionslide2[0].howslidetext[8].text}}</p></li>
                 </ol>
                 <button class="button"> Upload Your Items </button>
               </div>
             </div>
             <div v-if="slide.id==3" class = "container">
-              <h1>Set Royalties For Your NFTs And Mint</h1>
+              <h1>{{content.howsectionslide3[0].howslidetitle[0].text}}</h1>
               <img src="https://res.cloudinary.com/risidio/image/upload/v1633609788/RisidioMarketplace/006-wallet_uy3myg.svg" alt="wallet" class="wallet">
               <!-- <h2> Step <br><span>0{{slide.id}} </span> </h2> -->
               <div class = "textContainer">
                 <ol>
-                    <li><p> &nbsp; Click on "Mint" under your item description</p></li><br/>
-                    <li><p> &nbsp; Click on "Set royalties"</p></li><br/>
-                    <li><p> &nbsp; Enter the percentage of royalties you want for you NFT</p></li><br/>
-                    <li><p> &nbsp; Click "Save"</p></li><br/>
-                    <li><p> &nbsp; Click "Next"</p></li><br/>
-                    <li><p> &nbsp; Click on "Edit" if you would like to change the details. Otherwise, click "Mint"</p></li><br/>
-                    <li><p> &nbsp; Wait for item to be minted</p></li>
+                    <li><p> &nbsp; {{content.howsectionslide3[0].howslidetext[1].text}}</p></li><br/>
+                    <li><p> &nbsp; {{content.howsectionslide3[0].howslidetext[2].text}}</p></li><br/>
+                    <li><p> &nbsp; {{content.howsectionslide3[0].howslidetext[3].text}}</p></li><br/>
+                    <li><p> &nbsp; {{content.howsectionslide3[0].howslidetext[4].text}}</p></li><br/>
+                    <li><p> &nbsp; {{content.howsectionslide3[0].howslidetext[5].text}}</p></li>
                 </ol>
                 <button class="button"> Mint Your NFTs </button>
               </div>
@@ -112,9 +112,9 @@ export default {
   background-color:#ffffff;
 }
 .vueperslides--fixed-height {
-  height: 920px;
+  height: 1100px;
   min-width: 500px;
-  max-width: 1300px;
+  max-width: 1100px;
   margin: 150px auto;
   padding: 0 50px;
 }
@@ -144,7 +144,7 @@ p{
 }
 ol{
     margin: 30px;
-    max-width: 800px;
+    max-width: 550px;
     margin: auto;
 }
 .container{

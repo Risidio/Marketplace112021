@@ -4,12 +4,11 @@
       <h1>{{content.howsection1[0].howtitle[0].text}}</h1>
       <p>{{content.howsection1[0].howtitle2[0].text}} </p>
       <div class="pCont">
-        <p> {{content.howsection1[0].howtext[0].text}}<br>
-      {{content.howsection1[0].howtext[1].text}} <br>
+        <p> {{content.howsection1[0].howtext[0].text}}<br/></p></div>
+      <!-- {{content.howsection1[0].howtext[1].text}} <br>
       {{content.howsection1[0].howtext[2].text}}<br>
       {{content.howsection1[0].howtext[3].text}}</p>
-      </div>
-
+       -->
       </div>
       <router-link to="/about" ><button style="display: block; margin: auto;" class="button filled"> About Risidio </button></router-link>
 </div>

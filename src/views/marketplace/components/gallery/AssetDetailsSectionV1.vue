@@ -14,6 +14,7 @@
         <div id="video-column" :style="dimensions">
           <MediaItem :videoOptions="videoOptions" :attributes="gaiaAsset.attributes" :targetItem="targetItem()"/>
           <MediaItemGeneral :classes="'hash1-image'" v-on="$listeners" :options="videoOptions" :mediaItem="gaiaAsset.attributes"/>
+          <div class="editions"> <h2>EDITION <span>{{gaiaAsset.contractAsset.tokenInfo.edition}}</span> / {{gaiaAsset.contractAsset.tokenInfo.maxEditions}}</h2></div>
           <div v-if="gaiaAsset.attributes.artworkFile.type.includes('threed')">
             <button class="button filled" v-on:click="openModal(), three()">View 3D</button>
           </div>
@@ -652,7 +653,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 #threeCanvas{
   display:block;
 }
@@ -697,8 +698,27 @@ export default {
   text-align: left !important;
 }
 .backBtn{
-  color: rgb(0, 0, 138);
+  color: #170A6D;
   font-weight: 700;
   margin-bottom: 30px;
+}
+.button{
+  margin-top: 20px;
+}
+.editions{
+  background-color: #170A6D;
+  padding: 5px;
+  align-items: center;
+  display: grid;
+  place-items: center;
+}
+.editions h2{
+  place-items: center;
+  color: white;
+  font-weight: 200;
+  margin: 0;
+}
+.editions h2 span {
+  font-weight: 500;
 }
 </style>

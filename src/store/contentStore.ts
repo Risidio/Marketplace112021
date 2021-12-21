@@ -7,6 +7,7 @@ const contentStore = {
       charities: [],
       mainFooter: null,
       marketplacetemplate: null,
+      launchcollection: null,
       information: null,
       navigation: null,
       homepage: null,
@@ -116,6 +117,9 @@ const contentStore = {
     getNavbar: state => {
       return state.content.navigation
     },
+    getLaunchCollection: state => {
+      return state.content.launchcollection
+    },
     getHowItWorks: state => {
       return state.content.howItWorks
     },
@@ -129,6 +133,9 @@ const contentStore = {
     },
     addEmails (state, o) {
       state.content.emails = o
+    },
+    addLaunchCollection (state, o) {
+      state.content.launchcollection = o
     },
     addMarket (state, o) {
       state.content.marketplacetemplate = o

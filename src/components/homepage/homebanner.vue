@@ -1,7 +1,7 @@
 <template>
   <section class="bannerContainer">
     <img class="banner" src="https://res.cloudinary.com/risidio/image/upload/v1633609373/RisidioMarketplace/Group_-304_ofssmk.svg" alt="">
-    <div v-if="profile.loggedIn && rand === 0" class="if">
+    <div v-if="profile.loggedIn" class="if">
         <div class="loggedBanner">
             <div class="vueSlideContainer galleryContainer">
               <vueper-slides
@@ -9,6 +9,7 @@
               fixed-height="true"
               class="no-shadow"
               arrows-outside
+              :touchable="false"
               :gap="3"
               >
                 <template #arrow-left>
@@ -24,12 +25,15 @@
                     <template #content>
                         <div v-if="slide.id==1" class = "slideContainer">
                             <div class="slideImage">
-
+                              <img
+                              src="https://res.cloudinary.com/risidio/image/upload/v1640003055/RisidioMarketplace/Tiger_BitStacks_By_Benny_d8rprd.png"
+                              alt="Tiger-BitStacks-By-Benny"
+                              class="collectionImage"/>
                             </div>
                             <div class="slideText">
                               <h2>{{content.heroarea[1].herotitle[0].text}}</h2>
                               <p> {{content.heroarea[1].herotext[0].text}}</p>
-                              <button class="button filled"> See The Collection </button>
+                              <router-link to="/launch_collection_t1"><button class="button filled"> See The Collection </button></router-link>
                             </div>
                         </div>
                         <div v-if="slide.id==2" class = "slideContainer">
@@ -39,10 +43,10 @@
                             <div class="slideText">
                               <h2>{{content.heroarea[2].herotitle[0].text}}</h2>
                               <p> {{content.heroarea[2].herotext[0].text}}</p>
-                              <button class="button filled"> See The Collection </button>
+                              <button class="button filled"> Coming soon </button>
                             </div>
                         </div>
-                        <div v-if="slide.id==3" class = "slideContainer">
+                        <!-- <div v-if="slide.id==3" class = "slideContainer">
                             <div class="slideImage">
 
                             </div>
@@ -52,7 +56,7 @@
                               <p> {{content.heroarea[3].herotext[0].text}}</p>
                               <button class="button filled"> See The Collection </button>
                             </div>
-                        </div>
+                        </div> -->
                     </template>
                 </vueper-slide>
               </vueper-slides>
@@ -109,11 +113,11 @@ export default {
       {
         id: '2',
         text: 'Collection'
-      },
-      {
-        id: '3',
-        text: 'Collection'
       }
+      // {
+      //   id: '3',
+      //   text: 'Collection'
+      // }
     ],
     return: {
       resultSet: [],
@@ -274,7 +278,14 @@ h2{
   min-width: 400px;
 }
 .button{margin-top: 20px;}
-
+.collectionImage{
+  display: block;
+  width: 300px;
+  height: 300px;
+  border-radius: 10px;
+  margin: auto;
+  box-shadow: 10px 10px 30px #0000002F;
+}
 @media only screen and (max-width: 1200px) {
   .slideContainerNotLogged{
   display: flex;
