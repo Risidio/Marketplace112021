@@ -38,11 +38,11 @@ export default {
       return (assets) ? assets.reverse() : []
     },
     filteredLaunch () {
-      const filteredAssets = this.gaiaAssets.slice(0, 16)
+      const filteredAssets = this.gaiaAssets.slice(0, 12)
       return filteredAssets
     },
     filteredUnSoldLaunch () {
-      const unsoldLaunch = this.gaiaAssets.filter((assets) => assets.attributes.buyNowPrice > 0).slice(0, 16)
+      const unsoldLaunch = this.gaiaAssets.filter((assets) => assets.attributes.buyNowPrice > 0).slice(0, 12)
       return unsoldLaunch
     }
   }
