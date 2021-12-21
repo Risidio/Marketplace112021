@@ -1,5 +1,6 @@
 <template>
 <section class="container section0-container">
+  <img class="wallet-img" src="https://res.cloudinary.com/risidio/image/upload/v1633609788/RisidioMarketplace/006-wallet_uy3myg.svg"/>
   <h1>{{ content.s1_title[0].text }}</h1>
   <prismic-rich-text class="main-content text-center" :field="content.s1_text"/>
   <button class="button"><a href="#">{{ content.s1_button[0].text }}</a></button>
@@ -22,6 +23,12 @@ export default {
   .section0-container {
     padding-top: 50px;
     padding-bottom: 50px;
+    text-align: center;
+  }
+  .wallet-img {
+    max-width: 80px;
+    height: auto;
+    margin-bottom: 16px;
   }
   h1 {
     text-align: center;
