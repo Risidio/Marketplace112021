@@ -40,7 +40,7 @@ export default {
   text-align: center;
   color:white;
   margin-top: -35px;
-  min-height: 40vh;
+  min-height: 400px;
 }
 .container h1{
   margin-top: 40px;

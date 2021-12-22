@@ -33,7 +33,7 @@ export default {
 /* General style */
 .our_values{
   background-color: rgb(11, 11, 116);
-  min-height: 50vh;
+  min-height: 400px;
   text-align: center;
   justify-content: center;
   color:white;
