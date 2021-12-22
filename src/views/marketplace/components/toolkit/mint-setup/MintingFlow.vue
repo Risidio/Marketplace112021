@@ -2,33 +2,36 @@
 <div v-if="!loading" >
   <div class="">
     <div>
-      <div style="border:none; border-radius: 0px">
-        <!--
+      <div>
+<!--
         <template #header>
           <ItemDisplay :item="item" :loopRun="loopRun"/>
-        </template>
-        <div class=" mt-0">
+        </template> -->
+        <!-- <div class=" mt-0">
           <RoyaltyScreen :errorMessage="errorMessage" :item="item" @mintToken="mintTwentyTokens" @editBeneficiary="editBeneficiary" @removeBeneficiary="removeBeneficiary" @updateBeneficiary="updateBeneficiary" @addNewBeneficiary="addNewBeneficiary" :beneficiaries="beneficiaries" v-if="displayCard !== 102"/>
           <AddBeneficiaryScreen :errorMessage="errorMessage" :eBen="eBen" @addBeneficiary="addBeneficiary" :beneficiaries="beneficiaries" :item="item" v-if="displayCard === 102"/>
-        </div>
-        -->
-        <b-row >
-          <b-col cols="4" class="px-5">
+        </div> -->
+
+        <div class="mintingFlowContainer">
+            <h3> Mint Your Artwork</h3>
+          <div class="mintingContainer">
             <!-- <ItemDisplay :item="items" :loopRun="loopRun"/> -->
             <!-- <MediaItemGeneral :classes="'item-image-preview'" :options="options" :mediaItem="getMediaItem()"/> -->
             <!-- <MediaItemGeneral :classes="'minting-item-image-preview'" :options="options" :mediaItem="mediaItem"/> -->
-            <MediaItemGeneral :classes="'item-image-preview'" :options="options" :mediaItem="mediaItem"/>
-              <h2 v-if="items[0].name" style="max-width: 250px; margin: auto;" class="nFTName">{{items[0].name}}</h2>
-              <h6 v-if="items[0].artist" style="max-width: 250px; margin: auto;" class="nFTArtist">By : <span style="font-weight: 600; font-size: 16px; font-family: inherit">{{items[0].artist}}</span></h6>
-          </b-col>
-          <b-col cols="6" class="px-8">
-            <div style="margin-top:30%; align-items: center;  justify-content: center;">
-              <p style="font-weight: bold;"> Beware! Once minted, NFT information cannot be changed. Make sure your information is correct!</p>
-              <RoyaltyScreen :errorMessage="errorMessage" :item="item" @mintToken="mintTwentyTokens" @editBeneficiary="editBeneficiary" @removeBeneficiary="removeBeneficiary" @updateBeneficiary="updateBeneficiary" @addNewBeneficiary="addNewBeneficiary" :beneficiaries="beneficiaries" v-if="displayCard !== 102"/>
-              <AddBeneficiaryScreen :errorMessage="errorMessage" :eBen="eBen" @addBeneficiary="addBeneficiary" :beneficiaries="beneficiaries" :item="item" v-if="displayCard === 102"/>
+            <div class="galleryItemMint">
+              <MediaItemGeneral :classes="'item-image-preview'" :options="options" :mediaItem="mediaItem"/>
+              <h2 v-if="items[0].name" class="nFTName">{{items[0].name}}</h2>
+              <h6 v-if="items[0].artist" class="nFTArtist">By : <span style="font-weight: 600; font-size: 16px; font-family: inherit">{{items[0].artist}}</span></h6>
             </div>
-          </b-col>
-        </b-row>
+          </div>
+          <div cols="6" class="px-8">
+            <div>
+              <RoyaltyScreen :errorMessage="errorMessage" :item="item" @mintToken="mintTwentyTokens" @editBeneficiary="editBeneficiary" @removeBeneficiary="removeBeneficiary" @updateBeneficiary="updateBeneficiary" @addNewBeneficiary="addNewBeneficiary" :beneficiaries="beneficiaries" v-if="displayCard !== 102"/>
+              <!-- <AddBeneficiaryScreen :errorMessage="errorMessage" :eBen="eBen" @addBeneficiary="addBeneficiary" :beneficiaries="beneficiaries" :item="item" v-if="displayCard === 102"/> -->
+            </div>
+              <p style="font-weight: bold; text-align: center; max-width: 400px; margin: auto"> Beware! Once minted, NFT information cannot be changed. Make sure your information is correct!</p>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -49,8 +52,8 @@ export default {
   components: {
     RoyaltyScreen,
     // ItemDisplay,
-    MediaItemGeneral,
-    AddBeneficiaryScreen
+    MediaItemGeneral
+    // AddBeneficiaryScreen
   },
   props: ['items', 'loopRun', 'mintAllocations', 'mediaItem'],
   data () {
@@ -347,5 +350,26 @@ export default {
     box-shadow: rgba(0, 0, 0, 0.589) 0px 10px 15px;
     transform: scale(1.01)
   }
+}
+.mintingFlowContainer{
+  display: flex;
+  flex-direction: column;
+  h3{
+    text-align: center;
+    font: normal normal 300 35px/40px Montserrat;
+    margin-bottom: 30px;
+  }
+}
+.mintingContainer{
+  max-width: 400px;
+  margin: auto;
+}
+.galleryItemMint{
+  border-radius: 25px;
+  // margin-bottom: 40px;
+  height: 400px;
+  padding: 30px 20px;
+  background: rgba(129, 129, 129, 0.12) 0% 0% no-repeat;
+  transition: all smooth 2s ease-in-out;
 }
 </style>

@@ -1,7 +1,7 @@
 <template>
-<span class="text-small">
+<span class="text-small" style="display: block; margin: auto; text-align: center;">
     <span v-for="(rate, index) in rates" :key="index" class="">
-      <span class="text-right mr-2">
+      <span class="text-center mr-2">
         {{rate.value}} <span style="font-weight: 600">{{rate.text}}</span>
       </span>
     </span>

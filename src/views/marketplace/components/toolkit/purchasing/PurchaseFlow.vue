@@ -6,7 +6,7 @@
   <div v-else>
     <div>
       <div v-if="contractAsset && contractAsset.saleData.saleType === 1">
-        <PurchaseBuyNow :contractAsset="contractAsset" :saleData="contractAsset.saleData" @buyNow="buyNow"/>
+        <PurchaseBuyNow :contractAsset="contractAsset" :gaiaAsset="gaiaAsset" :saleData="contractAsset.saleData" @buyNow="buyNow"/>
         <div class=" " v-html="errorMessage"></div>
       </div>
       <div v-else>

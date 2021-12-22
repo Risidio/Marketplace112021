@@ -114,6 +114,14 @@ select {
 .cyanBg:hover{
   background: auto;
 }
+.greyBg{
+  background:#EBEBEB;
+  color: black;
+  border:none;
+}
+.greyBg:hover{
+  background: rgb(87, 87, 87);
+}
 .nftBuyNowSection{
   display: flex;
   flex-direction: row;
@@ -193,9 +201,9 @@ select {
 }
 
 .modal-dialog {
-  min-width: 70vw;
+  min-width: 500px;
   padding: 20px;
-  margin: 25vh auto;
+  margin: 10vh auto;
 }
 .modal-content {
   min-height: 200px;

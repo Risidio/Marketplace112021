@@ -1,8 +1,11 @@
 <template>
 <b-container>
   <b-row class="p-5 row mt-2">
-    <b-col cols="12">
-      <h1><span class="mr-5 text-black">Buy Now</span> {{contractAsset.saleData.buyNowOrStartingPrice}} STX</h1>
+    <b-col cols="12" style="text-align: center;">
+      <h1> Confirm </h1>
+      <h4 style="font: normal normal 500 16px Montserrat"> You're going to buy</h4>
+      <h4> {{gaiaAsset.name}}</h4>
+      <h4 style="margin-top: 20px;"><span class="mr-5 text-black"> For {{contractAsset.saleData.buyNowOrStartingPrice}} STX</span></h4>
     </b-col>
     <b-col cols="12" class=" ">
       <RatesListing :message="''" :amount="contractAsset.saleData.buyNowOrStartingPrice"/>
@@ -25,7 +28,7 @@
       You own this NFT!
     </b-col>
     <b-col class="mt-5" cols="12" v-else>
-      <b-button variant="success" @click="$emit('buyNow')">BUY NOW</b-button>
+      <b-button class="button" @click="$emit('buyNow')">BUY NOW</b-button>
     </b-col>
   </b-row>
 </b-container>
@@ -40,7 +43,7 @@ export default {
   components: {
     RatesListing
   },
-  props: ['contractAsset'],
+  props: ['contractAsset', 'gaiaAsset'],
   data () {
     return {
       loading: true,
@@ -75,5 +78,8 @@ export default {
 .input-group-text {
   background: #fff;
   color: #000;
+}
+.button{
+  margin: auto;
 }
 </style>

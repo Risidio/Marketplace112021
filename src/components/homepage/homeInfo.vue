@@ -85,7 +85,7 @@
                     </div>
                 </div>
             </div>
-                <button v-if="!profile.loggedIn" class='button notFilled' v-on:click="startLogin()"> Connect Your Hiro Wallet </button>
+                <button v-if="!profile.loggedIn" class='button notFilled' v-on:click="startLogin()"> Connect with Hiro Wallet </button>
                 <!-- <button style=" margin: 50px auto; width:30vw; max-height: 50vw" class='button notFilled' @click="startLogin"> <span style="margin:auto">Connect A Web Wallet to Get Started!</span> </button> -->
         </div>
     </section>
