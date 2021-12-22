@@ -77,6 +77,9 @@ p{
   flex-wrap: wrap;
   text-align: left;
 }
+.theTeamContainer{
+  gap: 20px;
+}
 .theTeamContainer >* {
   flex: 1 1 400px;
 }
