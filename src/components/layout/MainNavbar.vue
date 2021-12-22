@@ -47,7 +47,7 @@ export default {
     return {
       query: null,
       banner: 'https://images.prismic.io/digirad/6e5bb3a5-21b7-4bcb-b5a7-85128b6e6e8a_Rumba_bg_small.png?auto=compress,format',
-      logo: 'https://res.cloudinary.com/risidio/image/upload/v1636649879/RisidioMarketplace/Groupe_15980_s92src.svg',
+      logo: 'https://res.cloudinary.com/risidio/image/upload/v1633609248/RisidioMarketplace/Group_-1_fgpanq.svg',
       isHidden: false,
       loopRuns: [],
       showColls: false
@@ -183,8 +183,9 @@ export default {
 .mainNavbar{
   display: flex;
   width: 90vw;
-  margin: 20px auto 13px auto;
+  margin: 20px auto 20px auto;
 }
+.mainNavbar{}
 /* NAVBAR PADDING AND WIDTH */
 .nav_banner{
   position: absolute;
