@@ -1,6 +1,7 @@
 <template>
   <div id="frame">
     <div class = "hS4_container">
+      <h1 class="main-heading">{{ content.howsection2_title[0].text }}</h1>
       <div class = "container step-container">
         <div class="tip-number">Tip #1</div>
         <h1>{{content.howsectionslide1[0].howslidetitle[0].text}}</h1>
@@ -74,6 +75,10 @@ export default {
 <style scoped>
 #frame{
   margin: 50px auto;
+}
+.main-heading {
+  color: #1B0A72;
+  margin-bottom: 100px;
 }
 .hS4_container{
   justify-content: center;

@@ -1,82 +1,37 @@
 <template>
   <div id="frame">
     <div class = "hS3_container">
-      <vueper-slides fixed-height="true" :infinite="false">
-        <template #arrow-left>
-          <img src="https://res.cloudinary.com/risidio/image/upload/v1637153014/RisidioMarketplace/Icon_ionic-md-arrow-dropleft-circle_zpgise.svg" alt="wallet" class="arrow"/>
-        </template>
-        <template #arrow-right>
-          <img src="https://res.cloudinary.com/risidio/image/upload/v1637152994/RisidioMarketplace/Icon_ionic-md-arrow-dropleft-circle_1_ex6tmv.svg" alt="wallet" class="arrow"/>
-        </template>
-        <vueper-slide
-          v-for="(slide) in slide"
-          :key="slide.id"
-          :title="slide.title">
-          <template #content>
-            <div v-if="slide.id==1" class = "container">
-              <h1>{{content.howsectionslide1[0].howslidetitle[0].text}}</h1>
-              <!-- <h2> Step <br><span>0{{slide.id}} </span> </h2> -->
-              <div class = "textContainer">
-                    <p>
-                      {{content.howsectionslide1[0].howslidetext[0].text}}<br><br>
-                      {{content.howsectionslide1[0].howslidetext1[0].text}}
-                    </p>
-                    <button class="button"> Download A Wallet </button>
-              </div>
-            </div>
-            <div v-if="slide.id==2" class = "container">
-              <h1>{{content.howsectionslide2[0].howslidetitle[0].text}}</h1>
-              <!-- <h2> Step <br><span>0{{slide.id}} </span> </h2> -->
-              <div class = "textContainer">
-                    <p>{{content.howsectionslide2[0].howslidetext[0].text}}<br><br>
-                      {{content.howsectionslide2[0].howslidetext1[0].text}} <br><br>
-                    </p>
-                    <button class="button"> Get STX </button>
-              </div>
-            </div>
-            <div v-if="slide.id==3" class = "container">
-              <h1>{{content.howsectionslide3[0].howslidetitle[0].text}}</h1>
-              <!-- <h2> Step <br><span>0{{slide.id}} </span> </h2> -->
-              <div class = "textContainer">
-                    <p>{{content.howsectionslide3[0].howslidetext[0].text}}<br><br>
-                      {{content.howsectionslide3[0].howslidetext1[0].text}}  <br><br>
-                    </p>
-                    <button class="button"> Register </button>
-              </div>
-            </div>
-          </template>
-        </vueper-slide>
-      </vueper-slides>
+      <h1>{{ content.howsection1_5_title[0].text }}</h1>
+
+      <div class="question-container" v-for="(item, index) in content.howsection1_5" :key="index">
+        <button v-b-toggle="`question-${index}`" @click="isCollapsed.splice(index, 1, !isCollapsed[index])" class="question-button">
+          {{ item.howsection1_5_subtitle[0].text }}
+          <b-icon v-if="isCollapsed[index]" icon="x"></b-icon>
+          <b-icon v-else icon="info-circle"></b-icon>
+        </button>
+        <b-collapse :id="`question-${index}`">
+          <div class="question-content">
+            <prismic-rich-text class="question-text" :field="item.howsection1_5_text"/>
+            <a href="#" class="button filled">{{ item.howsection1_5_button[0].text }}</a>
+          </div>
+        </b-collapse>
+      </div>
+
     </div>
   </div>
 </template>
 
 <script>
-import { VueperSlides, VueperSlide } from 'vueperslides'
-import 'vueperslides/dist/vueperslides.css'
 export default {
   name: 'Group3',
   components: {
-    VueperSlides,
-    VueperSlide
   },
   props: ['content'],
   data: () => ({
-    slide: [
-      {
-        id: '1',
-        text: 'Upload Your Item'
-      },
-      {
-        id: '2',
-        text: 'Mint the Bitcoin'
-      },
-      {
-        id: '3',
-        text: 'Set Your Royalties'
-      }
-    ]
+    isCollapsed: [false, false, false]
   }),
+  methods: {
+  },
   computed: {
   }
 }
@@ -86,70 +41,75 @@ export default {
 #frame{
   margin: 50px auto;
 }
-.hS3_container{
+.hS3_container {
   justify-content: center;
   background-color:#170A6D;
+  padding: 100px 15px;
 }
-.vueperslide {
-  background-color:#170A6D;
+.question-button {
+  display: flex;
+  align-items: center;
+  font: normal normal 300 25px/30px Montserrat;
+  letter-spacing: 0px;
+  color: #170A6D;
+  text-align: left;
+  margin: 0 auto 23px;
+  padding: 20px 30px;
+  max-width: 730px;
+  width: 100%;
+  min-height: 73px;
+  background: #FFFFFF 0% 0% no-repeat padding-box;
+  box-shadow: 0px 3px 6px #00000029;
+  border-radius: 6px;
+  border: none;
 }
-.vueperslides--fixed-height {
-  height: 500px;
-  min-width: 500px;
-  max-width: 1300px;
-  margin: auto;
-  padding: 0 50px;
+.question-button.not-collapsed {
+  border-radius: 6px 6px 0 0;
+  margin: 0 auto 0;
+}
+.question-button svg {
+  margin-left: auto;
+  width: 28px;
+  height: auto;
+}
+.question-content {
+  display: flex;
+  align-items: center;
+  text-align: left;
+  background: #FFFFFF 0% 0% no-repeat padding-box;
+  box-shadow: 0px 3px 6px #00000029;
+  border-radius: 0 0 6px 6px;
+  max-width: 730px;
+  width: 100%;
+  margin: 1px auto 45px;
+  position: relative;
+}
+.question-text {
+  font: normal normal normal 14px/20px Montserrat;
+  text-align: left;
+  color: #000000;
+  padding: 20px 30px;
+  margin: 0;
+  max-width: 600px;
+}
+.question-content a.button {
+  font: normal normal bold 11px/14px Montserrat;
+  letter-spacing: 0px;
+  color: #FFFFFF;
+  text-transform: capitalize;
+  justify-content: center;
+  width: 177px;
+  height: 43px;
+  padding-left: 30px;
+  padding-right: 30px;
+  position: absolute;
+  bottom: -20px;
+  right: 40px;
 }
 h1{
   color:white;
   font: normal normal 300 37px/30px Montserrat;
   text-align: center;
-}
-h2{
-  padding-top: 30px;
-  text-align: center;
-  color: white;
-  font-weight: 400;
-}
-span{
-  font-weight: 600;
-  font-size: 1.2em;
-}
-img{
-  height: 250px;
-  width: 250px;
-  margin-left: 125px;
-}
-p{
-  font: normal normal normal 14px/20px Montserrat;
-  max-width: 1000px;
-  margin: 0 auto;
-  text-align: center;
-  color: white;
-}
-.container{
-  color:white;
-  margin: 150px auto;
-}
-.textContainer{
-  margin-top: 50px;
-}
-.arrow{
-  width: 30px;
-  height: 30px;
-  margin: auto;
-}
-.button{
-  margin: 20px auto 0 auto;
-  color: white;
-  background-color: rgb(0, 177, 201);
-
-}
- @media only screen and (max-width: 770px)  {
-  .vueperslides--fixed-height {height: 80vh;}
-}
-
-@media only screen and (max-width: 500px)  {
-  .vueperslides--fixed-height {height: 80vh;}
+  margin-bottom: 100px;
 }
 </style>
