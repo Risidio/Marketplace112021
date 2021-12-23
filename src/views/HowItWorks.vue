@@ -3,8 +3,6 @@
         <HSection1 :content="content"/>
         <HSection2 :content="content"/>
         <HSection3 :content="content"/>
-        <HSection4New :content="content"/>
-        <!-- <HSection4 :content="content"/> -->
   </div>
 </template>
 
@@ -12,8 +10,6 @@
 import HSection1 from '@/components/howitworks/HSection1'
 import HSection2 from '@/components/howitworks/HSection2'
 import HSection3 from '@/components/howitworks/HSection3'
-// import HSection4 from '@/components/howitworks/HSection4'
-import HSection4New from '@/components/howitworks/HSection4New.vue'
 import { APP_CONSTANTS } from '@/app-constants'
 
 export default {
@@ -21,9 +17,7 @@ export default {
   components: {
     HSection1,
     HSection2,
-    HSection3,
-    // HSection4,
-    HSection4New
+    HSection3
   },
   props: ['howitworks'],
   data () {
