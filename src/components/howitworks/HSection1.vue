@@ -31,15 +31,15 @@ export default {
   top: 0;
   left: 0;
   width: 100%;
-  height: 50rem;
+  height: 37rem;
   object-fit: cover;
   z-index: -10;
   transform: rotate(180deg);
-    color:white;
+  color:white;
 }
 .HTitle{
   width:100%;
-    color:white;
+  color:white;
 }
 .container {
   display: grid;
@@ -50,7 +50,7 @@ export default {
   text-align: center;
   color:white;
   margin-top: -35px;
-  min-height: 40vh;
+  min-height: 300px;
 }
 .container h1{
   font: normal normal 300 37px/30px Montserrat;
