@@ -22,8 +22,6 @@ body {
   color: black !important;
 }
 
-
-
 body h1 {
   color: black;
   font-size: 3.0rem;
@@ -92,6 +90,24 @@ input {
 select {
   font-weight: 700;
   font-family: Montserrat, Arial, Helvetica, sans-serif !important;
+}
+::-webkit-scrollbar {
+  width: 10px;
+}
+/* Track */
+::-webkit-scrollbar-track {
+  background: #fff;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }
 .navbar-dark .navbar-nav .nav-link {
   color: #fff !important;
