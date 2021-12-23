@@ -13,7 +13,7 @@
             <h3>{{content.bottomcontent[0].text[0].text}}<br/><br/>
             {{content.bottomcontent[0].text[1].text}}</h3>
             <div class="buttonCont">
-                <button class="button filled" @click="startLogin"> Connect with a Wallet to Start!</button>
+                <button class="button filled" @click="startLogin"> Connect with Hiro Wallet</button>
                 <router-link class="button notFilled" to="/how-it-works"> Find Out More </router-link>
             </div>
         </div>

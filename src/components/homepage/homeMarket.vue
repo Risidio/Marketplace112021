@@ -52,7 +52,7 @@
                 </div>
               </div>
           </div> -->
-            <button class="button filled"><router-link style="color:white" to="/nft-marketplace">See More Collectables</router-link></button>
+            <button class="button filled"><router-link style="color:white" to="/nft-marketplace/risidio/launch_collection_t1">See More Collectables</router-link></button>
     </div>
   </section>
 </template>

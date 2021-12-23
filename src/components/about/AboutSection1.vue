@@ -34,5 +34,6 @@ export default {
 .aboutSection1Container p{
   font: normal normal normal 14px/20px Montserrat;
   max-width: 600px;
+  padding: 15px;
 }
 </style>
