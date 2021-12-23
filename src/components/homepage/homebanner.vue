@@ -224,7 +224,7 @@ h2{
 }
 .slideContainerNotLogged{
   display: flex;
-    flex-direction: row;
+  flex-direction: row;
   background-color:rgba(255, 255, 255, 0.637);
   border-radius: 30px;
   max-width: 1500px;
