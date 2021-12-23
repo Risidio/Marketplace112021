@@ -1,23 +1,33 @@
 <template>
-  <div id="frame">
-    <div class = "hS3_container">
-      <h1>{{ content.howsection1_5_title[0].text }}</h1>
+  <div class = "hS3_container">
+    <h1>{{ content.howsection2_title[0].text }}</h1>
 
-      <div class="question-container" v-for="(item, index) in content.howsection1_5" :key="index">
-        <button v-b-toggle="`question-${index}`" @click="isCollapsed.splice(index, 1, !isCollapsed[index])" class="question-button">
-          {{ item.howsection1_5_subtitle[0].text }}
-          <b-icon v-if="isCollapsed[index]" icon="x"></b-icon>
-          <b-icon v-else icon="info-circle"></b-icon>
-        </button>
-        <b-collapse :id="`question-${index}`">
+    <div class="question-container" v-for="(item, index) in content.howsection2" :key="index">
+      <button v-b-toggle="`question-${index}`" @click="isCollapsed.splice(index, 1, !isCollapsed[index])" class="question-button">
+        {{ item.subtitle[0].text }}
+        <b-icon v-if="isCollapsed[index]" icon="x"></b-icon>
+        <b-icon v-else icon="info-circle"></b-icon>
+      </button>
+      <b-collapse :id="`question-${index}`">
+        <div v-if="item.instructions[0]">
           <div class="question-content">
-            <prismic-rich-text class="question-text" :field="item.howsection1_5_text"/>
-            <a href="#" class="button filled">{{ item.howsection1_5_button[0].text }}</a>
+            <prismic-rich-text class="question-content--text" :field="item.text"/>
           </div>
-        </b-collapse>
-      </div>
-
+          <div class="question-instructions">
+            <img :src="item.img" alt="">
+            <prismic-rich-text class="question-instructions--text" :field="item.instructions"/>
+            <a href="#" class="button filled">{{ item.button[0].text }}</a>
+          </div>
+        </div>
+        <div v-else>
+          <div class="question-content solo">
+            <prismic-rich-text class="question-content--text" :field="item.text"/>
+            <a href="#" class="button filled">{{ item.button[0].text }}</a>
+          </div>
+        </div>
+      </b-collapse>
     </div>
+
   </div>
 </template>
 
@@ -38,9 +48,6 @@ export default {
 </script>
 
 <style scoped>
-#frame{
-  margin: 50px auto;
-}
 .hS3_container {
   justify-content: center;
   background-color:#170A6D;
@@ -58,7 +65,7 @@ export default {
   max-width: 730px;
   width: 100%;
   min-height: 73px;
-  background: #FFFFFF 0% 0% no-repeat padding-box;
+  background: rgba(255, 255, 255, 0.7) 0% 0% no-repeat padding-box;
   box-shadow: 0px 3px 6px #00000029;
   border-radius: 6px;
   border: none;
@@ -73,43 +80,78 @@ export default {
   height: auto;
 }
 .question-content {
-  display: flex;
-  align-items: center;
-  text-align: left;
-  background: #FFFFFF 0% 0% no-repeat padding-box;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.7) 0% 0% no-repeat padding-box;
   box-shadow: 0px 3px 6px #00000029;
-  border-radius: 0 0 6px 6px;
+  border-radius: 0;
   max-width: 730px;
   width: 100%;
-  margin: 1px auto 45px;
-  position: relative;
+  margin: 1px auto 1px;
+  padding: 45px 30px;
 }
-.question-text {
+.question-content--text, .question-instructions--text {
   font: normal normal normal 14px/20px Montserrat;
   text-align: left;
   color: #000000;
-  padding: 20px 30px;
   margin: 0;
-  max-width: 600px;
 }
-.question-content a.button {
+.solo {
+  border-radius: 0 0 6px 6px;
+}
+.question-container a.button {
+  display: inline-flex;
   font: normal normal bold 11px/14px Montserrat;
   letter-spacing: 0px;
   color: #FFFFFF;
   text-transform: capitalize;
   justify-content: center;
-  width: 177px;
+  min-width: 177px;
   height: 43px;
   padding-left: 30px;
   padding-right: 30px;
-  position: absolute;
-  bottom: -20px;
-  right: 40px;
+  margin-top: 50px;
 }
 h1{
   color:white;
   font: normal normal 300 37px/30px Montserrat;
   text-align: center;
   margin-bottom: 100px;
+}
+img {
+  width: 150px;
+  height: auto;
+  margin-bottom: 50px;
+}
+.question-instructions {
+  text-align: center;
+  background: rgba(255, 255, 255, 0.7) 0% 0% no-repeat padding-box;
+  box-shadow: 0px 3px 6px #00000029;
+  border-radius: 0 0 6px 6px;
+  max-width: 730px;
+  width: 100%;
+  padding: 70px 20px;
+  margin: 0 auto 45px;
+}
+.question-instructions--text {
+  text-align: left;
+  max-width: 500px;
+  margin: 0 auto;
+}
+.question-instructions--text >>> li {
+  padding-left: 40px;
+  margin-bottom: 35px;
+}
+.question-instructions--text >>> li:last-child {
+  margin-bottom: 0;
+}
+@media only screen and (max-width: 500px)  {
+  .question-instructions--text >>> li {
+    padding-left: 20px;
+  }
+}
+@media only screen and (max-width: 360px)  {
+  .question-instructions--text >>> li {
+    padding-left: 10px;
+  }
 }
 </style>
