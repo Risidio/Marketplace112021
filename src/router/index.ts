@@ -40,6 +40,7 @@ const NftCollection = () => import('@/views/marketplace/NftCollection.vue')
 const Gallery = () => import('@/views/Gallery.vue')
 const HowItWorks = () => import('@/views/HowItWorks.vue')
 const LaunchCollection = () => import('@/views/collections/LaunchCollection.vue')
+const QandA = () => import('@/views/QandA.vue')
 // const PunkMinter = () => import('@/views/marketplace/PunkMinter.vue')
 const UploadItem = () => import('@/views/marketplace/UploadItem.vue')
 const WebAdminUploadItem = () => import('@/views/marketplace/WebAdminUploadItem.vue')
@@ -102,6 +103,12 @@ const routes: Array<RouteConfig> = [
     name: 'gallery',
     components: { default: Gallery, header: MainNavbar, footer: MainFooter },
     meta: { title: 'Marketplace for NFTs by the Number One Team Secured by Bitcoin' }
+  },
+  {
+    path: '/qa',
+    name: 'QandA',
+    components: { default: QandA, header: MainNavbar, footer: MainFooter },
+    meta: { title: 'Ask your questions' }
   },
   // {
   //   path: '/nft-marketplace',
