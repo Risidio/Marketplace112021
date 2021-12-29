@@ -3,6 +3,7 @@
         <HSection1 :content="content"/>
         <HSection2 :content="content"/>
         <HSection3 :content="content"/>
+        <h1> hi</h1>
   </div>
 </template>
 
