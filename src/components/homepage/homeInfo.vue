@@ -22,7 +22,7 @@
                             <img src='https://res.cloudinary.com/risidio/image/upload/v1637162044/RisidioMarketplace/002-distributed_ledger_b4tq2s.svg'/>
                             <p style="font-size: 16px; font-weight: 700;"> {{content.needahand[0].sell[0].text}}  <br/><br/></p>
                             <p style="font-weight: 200; padding-bottom: 20px">{{content.needahand[0].selltext[0].text}} </p>
-                        <router-link style="width:200px; margin:auto; text-align: center; padding: auto" class='button notFilled' to="/my-account"> <span style="margin: auto"  class="notFilledButtonText">My NFTs</span> </router-link>
+                            <router-link style="width:200px; margin:auto; text-align: center; padding: auto" class='button notFilled' to="/my-account"> <span style="margin: auto"  class="notFilledButtonText">My NFTs</span> </router-link>
                         </div>
                     </div>
                 </div>
@@ -32,7 +32,7 @@
                         <img src='https://res.cloudinary.com/risidio/image/upload/v1637162045/RisidioMarketplace/009-coin_ojj2mp.svg'/>
                             <p style="font-size: 16px; font-weight: 700;"> {{content.needahand[0].buy[0].text}}  <br/><br/></p>
                             <p style="font-weight: 200; padding-bottom: 20px">{{content.needahand[0].buytext[0].text}} </p>
-                        <router-link style="width:200px; margin:auto; text-align: center; padding: auto" class='button notFilled' to="/nft-marketplace/risidio/launch_collection_t1"> <span style="margin: auto"  class="notFilledButtonText">Gallery</span> </router-link>
+                            <router-link style="width:200px; margin:auto; text-align: center; padding: auto" class='button notFilled' to="/nft-marketplace/risidio/launch_collection_t1"> <span style="margin: auto"  class="notFilledButtonText">Gallery</span> </router-link>
                         </div>
                     </div>
                 </div>
@@ -140,6 +140,9 @@ export default {
     min-height: 400px;
     & button{
         margin: auto;
+    }
+    & a:hover {
+        color: white;
     }
 }
 .button{

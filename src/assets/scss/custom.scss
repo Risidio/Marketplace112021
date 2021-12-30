@@ -725,6 +725,8 @@ select {
   background: rgba(95, 189, 193, 1);
   color: rgb(255, 255, 255);
   &:hover{
-    background: rgb(13, 79, 202);
+    // background: rgb(13, 79, 202);
+    background: rgba(95, 189, 193, 0.5);
+
   }
 }

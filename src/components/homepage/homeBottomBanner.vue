@@ -88,5 +88,8 @@ export default {
         margin-left: 10px;
         margin-right: 10px;
     }
+    & a:hover{
+      color: white;
+    }
 }
 </style>
