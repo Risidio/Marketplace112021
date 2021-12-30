@@ -206,7 +206,7 @@ export default {
   .mainGalleryContainer{
     display: flex;
     flex-wrap: wrap;
-    min-height: 100vh;
+    min-height: 100rem;
 }
 .mainGalleryContainer .mainGallerySidebar{
     flex: 1 1 15%;
@@ -242,12 +242,13 @@ export default {
     background: #F5F5F5;
 }
 .galleryCollections, .galleryCategory{
+  margin-top: 20px;
+  display: grid;
   position: relative;
-  display: inline-block;
   min-height: 50px;
+  place-items: center;
 }
 .collectionsButton{
-  margin: 20px 0 0 20px;
   background-color: transparent;
   color: rgb(49, 49, 49);
   padding: 16px;
@@ -258,8 +259,8 @@ export default {
 }
 
 .view{
-    margin: 20px 0 0 0;
-    padding: 16px 0;
+  margin-top: 10px;
+  padding: 10px 0;
 }
 .collectionsMenu, .galleryCategories{
   display: none;
@@ -267,7 +268,7 @@ export default {
   min-width: 160px;
   z-index: 1;
     a {
-    margin-left: 35px;
+    margin-left: 1rem;
     font-size: 15px;
     color: black;
     padding: 12px 16px;

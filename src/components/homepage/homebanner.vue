@@ -157,11 +157,17 @@ export default {
   height: 50rem;
   margin-bottom: 5rem;
 }
-h2{
-  margin-bottom: 30px;
-  letter-spacing: 1px;
-  font-size: 40px;
-  font-weight: 400;
+.slideText{
+  h2{
+    margin-bottom: 1rem;
+    letter-spacing: 1px;
+    font-size: 40px;
+    font-weight: 400;
+  }
+  p{
+    font-size: 1.4rem;
+    max-width: 50rem;
+  }
 }
 .searchB{
   display: relative;
@@ -225,6 +231,7 @@ h2{
 .slideContainerNotLogged{
   display: flex;
   flex-direction: row;
+  align-items: center;
   background-color:rgba(255, 255, 255, 0.637);
   border-radius: 30px;
   max-width: 1500px;
@@ -251,8 +258,8 @@ h2{
 }
 
 .vueperslides--fixed-height {
-  height: 350px;
-  max-width: 90%;
+  height: 32rem;
+  max-width: 85%;
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 25px;
@@ -274,9 +281,10 @@ h2{
 .slideContainer{
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
   height:100%;
   padding: 25px 40px;
-  gap: 5%;
+  gap: 2rem;
 }
 .slideContainer > *:nth-child(1){
   flex: 1 1 40%;
@@ -287,10 +295,13 @@ h2{
   min-width: 400px;
 }
 .button{margin-top: 20px;}
+.button:hover{
+  background: rgba(95, 189, 193, 0.6);
+}
 .collectionImage{
   display: block;
-  width: 300px;
-  height: 300px;
+  width: 25rem;
+  height: 25rem;
   border-radius: 10px;
   margin: auto;
   box-shadow: 10px 10px 30px #0000002F;
