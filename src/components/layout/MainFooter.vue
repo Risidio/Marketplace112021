@@ -20,7 +20,7 @@
               <div >Your NFTs</div>
               <div v-on:click="topFunction()"><router-link to="/my-nfts">All Your Nft's</router-link></div>
               <div v-on:click="topFunction()"><router-link to="/create">Add an NFT</router-link></div>
-              <div class="text-secondary">leveller</div>
+              <div v-on:click="topFunction()"><router-link to="/qa">FAQ</router-link></div>
               <div class="text-secondary">leveller</div>
             </div>
             <div class="footer__column-content">
