@@ -94,13 +94,22 @@ export default {
 .inputArea{
   width: 100%;
   border: none;
-  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-  font-weight: 200;
-  font-size: 0.8em;
-  padding: 15px;
+  font-weight: 300;
+  font-size: 14px;
+  padding: 22px;
+  box-shadow: 0px 3px 6px #00000029;
+  border-radius: 8px;
+  margin: 6px 0;
+  letter-spacing: 0px;
+  color: #000000;
+}
+.inputArea::placeholder {
+  font-weight: 400;
+  opacity: 0.4;
 }
 label{
   font-weight: 500;
   font-size: .8em;
+  margin-bottom: 10px;
 }
 </style>

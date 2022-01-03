@@ -10,12 +10,12 @@
 
   <div class="mb-3" role="group">
     <label for="item-name" class="label">Title :</label>
-    <b-form-input
+    <input
       id="item-name"
       v-model="item.name"
       :state="itemNameState"
       aria-describedby="item-name-help item-name-feedback"
-      placeholder="Enter name of NFT"
+      placeholder="Add a title for your NFT"
       trim
       class="inputArea"
       minlength="3"
@@ -27,7 +27,7 @@
   </div>
   <div class="mb-4" role="group">
     <label for="item-name" class="label">Description :</label>
-    <b-form-textarea
+    <textarea
       ref="description"
       v-model="item.description"
       rows="5"
@@ -92,10 +92,18 @@ export default {
 .inputArea{
   width: 100%;
   border: none;
-  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-  font-weight: 200;
-  font-size: 0.8em;
+  font-weight: 300;
+  font-size: 14px;
   padding: 15px;
+  box-shadow: 0px 3px 6px #00000029;
+  border-radius: 8px;
+  margin: 6px 0;
+  letter-spacing: 0px;
+  color: #000000;
+}
+.inputArea::placeholder {
+  font-weight: 400;
+  opacity: 0.75;
 }
 .label{
   font-weight: 500;
