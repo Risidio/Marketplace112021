@@ -168,4 +168,7 @@ p{padding:0; margin:0;}
 .button{
   margin: 20px auto 0 auto;
 }
+#discover {
+  margin-right: 20px;
+}
 </style>
