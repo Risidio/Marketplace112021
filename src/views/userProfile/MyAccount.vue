@@ -10,8 +10,8 @@
         </div>
           <p style="margin: -20px 0; padding: 0 10px; font-weight: 700; text-decoration: underline; color: #50B1B5; cursor: pointer" >View Transaction History</p></div>
         <div class="walletContainer">
-          <button class="button filled infoButton" id="infoButton" @click="viewInfo(1)"> View Info</button>
-          <div id="walletDetails" class="walletDetails hide">
+          <button class="button filled infoButton hidden" id="infoButton" @click="viewInfo(1)"> View Info</button>
+          <div id="walletDetails" class="walletDetails">
             <button class="notFilled" @click="viewInfo(0)">Hide</button>
             <h1>Your Wallet Information:</h1>
             <h2>Wallet: {{username}}</h2>
