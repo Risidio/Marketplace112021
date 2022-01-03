@@ -12,10 +12,18 @@
           </div>
           <div><h2 class="mb-4"><span style="margin-bottom: 20px; font-size: 3.2rem;">NFT Info</span></h2>
           </div>
-            <div style="margin-left: auto;" class="text-left">
-              <b-form-checkbox size="lg" @change="togglePrivacy" v-model="publicAvailable" name="check-button" switch class="text-warning">
-                <h2 style="font-weight: 300; font-size: 2.2rem;"  v-if="!publicAvailable" class=" "><b>Private</b> <b-link router-tag="span" v-b-tooltip.hover="{ variant: 'light' }" :title="'Not visible in search and not displayed in the Marketplace'" class="ml-2" variant="outline-success"><b-icon icon="question-circle"/></b-link></h2>
-                <h2 v-else style="font-weight: 300; font-size: 2.2rem;" class="text-success"><b>Public</b> <b-link router-tag="span" v-b-tooltip.hover="{ variant: 'light' }" :title="'Visible in search and displayed in the Marketplace'" class="ml-2" variant="outline-success"><b-icon icon="question-circle"/></b-link></h2>
+            <div style="margin-left: auto; display: flex; align-items: center;" class="text-left" id="togglebox">
+              <b-form-checkbox size="lg" @change="togglePrivacy" v-model="publicAvailable" name="check-button" switch class="">
+                <span style="font-weight: 500; font-size: 1.1rem; display: flex; align-items: center;"  v-if="!publicAvailable" class=" ">Private
+                  <b-link router-tag="span" v-b-tooltip.hover="{ variant: 'light' }" :title="'Not visible in search and not displayed in the Marketplace'" class="ml-2" variant="outline-success"  style="font-size: 16px;">
+                    <b-icon icon="question-circle"/>
+                  </b-link>
+                </span>
+                <span v-else style="font-weight: 500; font-size: 1.1rem; display: flex; align-items: center;" class="">Public
+                  <b-link router-tag="span" v-b-tooltip.hover="{ variant: 'light' }" :title="'Visible in search and displayed in the Marketplace'" class="ml-2" variant="outline-success"  style="font-size: 16px;">
+                    <b-icon icon="question-circle"/>
+                  </b-link>
+                </span>
               </b-form-checkbox>
             </div>
         </div>
@@ -380,4 +388,33 @@ export default {
     cursor: pointer;
   }
 }
+#togglebox .custom-switch.b-custom-control-lg .custom-control-label::before {
+    top: 0.3125rem;
+    height: 2rem;
+    left: -2.8125rem;
+    width: 4rem;
+    border-radius: 34px;
+    box-shadow: 0px 0px 10px #0D010527;
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    border: none;
+}
+#togglebox .custom-switch.b-custom-control-lg .custom-control-input:checked ~ .custom-control-label::after {
+  transform: translateX(1.9375rem);
+}
+#togglebox .custom-switch.b-custom-control-lg .custom-control-label::after {
+    top: calc( 0.35rem + 2px);
+    left: calc( -2.8125rem + 3px);
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 50%;
+    background-size: 50% 50%;
+}
+#togglebox  .custom-switch .custom-control-label::after {
+  background-color: #FFA310;
+}
+#togglebox .custom-control-label {
+    padding-left: 20px;
+    padding-top: 1px;
+}
+
 </style>

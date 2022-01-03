@@ -1,7 +1,7 @@
 <template>
 <div>
   <div class="mb-3" role="group">
-    <label class="label" for="item-name">Artist / Maker / Creator</label>
+    <label class="label" for="item-name">Author:</label>
     <b-form-input
       id="artist-name"
       v-model="item.artist"
@@ -12,7 +12,7 @@
       class="inputArea"
     ></b-form-input>
     <b-form-invalid-feedback id="item-artist-feedback">
-      Enter the name of the artist
+      Enter the name of the creator
     </b-form-invalid-feedback>
   </div>
   <div class="mb-3" role="group text-right w-100">

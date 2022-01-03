@@ -4,7 +4,7 @@
     <div class="mb-3" :key="componentKey" v-if="showCats">
       <label for="categories">Keywords</label>
       <br/>
-      <b-badge id="categories" @click="setCategory(kw)" class="pointer mr-3 mb-3 py-2 pt-3 px-5" v-for="(kw, index) in categories" :key="index" pill :variant="(item.attributes.category && item.attributes.category.name === kw.name) ? 'warning' : 'secondary'">{{kw.displayName}}</b-badge>
+      <b-badge id="categories" @click="setCategory(kw)" class="pointer mr-3 mb-3 py-2 px-5" v-for="(kw, index) in categories" :key="index" pill :variant="(item.attributes.category && item.attributes.category.name === kw.name) ? 'secondary' : 'light'">{{kw.displayName}}</b-badge>
     </div>
     <!-- <label for="item-keywords">Keywords (comma separated) :</label> -->
     <!-- <label> Keywords :</label> -->
@@ -111,5 +111,9 @@ label{
   font-weight: 500;
   font-size: .8em;
   margin-bottom: 10px;
+}
+#categories {
+  font-size: 11px;
+  font-weight: 400;
 }
 </style>
