@@ -105,8 +105,8 @@
         <div class="noNFT">
         <h3> You do not own any Items yet</h3>
           <div class="profileBtns">
-            <router-link class="btn button" to="/">Gallery</router-link>
-            <router-link class="btn button" to="/create">Mint Your Item</router-link>
+            <router-link class="button filled" to="/">Gallery</router-link>
+            <router-link class="button notFilledBlue" to="/create">Mint Your Item</router-link>
           </div>
         </div>
       </div>
@@ -506,14 +506,25 @@ export default {
     font-weight: 300;
   }
 
-.profileBtns >:nth-child(1){
-  background:#50B1B5;
-  color: white;
+// .profileBtns >:nth-child(1){
+//   background:#50B1B5;
+//   color: white;
+// }
+// .profileBtns >:nth-child(2){
+//   background:#50b2b523;
+//   color: #50B1B5;
+// }
 }
-.profileBtns >:nth-child(2){
-  background:#50b2b523;
-  color: #50B1B5;
-}
+.profileBtns{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  & > * {
+    margin: 0 10px;
+  }
+  & > *:hover{
+    color: white;
+  }
 }
 .hide {
   filter: blur(1rem);
