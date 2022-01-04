@@ -2,7 +2,7 @@
 <section id="section-upload" class="section-upload">
   <div v-if="item" class="updateItemContainer">
     <div v-if="hasFile('coverImage')" class="updateItem">
-      <b-col class="" md="8" sm="12" align-self="start">
+      <div>
         <div class="bckButton">
           <div v-if="this.continue">
             <router-link to="/my-account"><img src="https://res.cloudinary.com/risidio/image/upload/v1633609154/RisidioMarketplace/Component_14_6_yes92k.svg"/></router-link>
@@ -37,12 +37,11 @@
           <div>Required fields:</div>
           <div class="mr-1 text-black" v-for="(field, index) in invalidItems" :key="index">{{field}}</div>
         </div>
-      </b-col>
+      </div>
       <div md="4" sm="12" >
         <div class="nFTImageContainer">
           <h3> Preview </h3>
           <NftCoverImage :item="item" :displayHeader="false"/>
-          <p> by: {{item.uploader}}</p>
           <div v-if="!this.continue">
             <button class="button filled" @click.prevent="uploadItem()">Upload</button>
           </div>
@@ -344,11 +343,11 @@ export default {
 }
 .updateItem >*:nth-child(1){
   flex: 1 1 60%;
-  max-width: 800px
+  max-width: 700px
 }
 .updateItem >*:nth-child(2){
   flex: 1 1 35%;
-  min-width: 450px;
+  min-width: 400px;
 }
 .button{
   margin: auto;
