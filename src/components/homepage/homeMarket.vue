@@ -143,9 +143,10 @@ p{padding:0; margin:0;}
   margin: 5rem auto;
 }
 .galleryContainer{
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, max-content));
+  max-width: 1480px;
+  justify-content: center;
   margin: auto;
 }
 .homeMarketItems{
