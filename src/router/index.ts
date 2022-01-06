@@ -40,6 +40,7 @@ const NftCollection = () => import('@/views/marketplace/NftCollection.vue')
 const Gallery = () => import('@/views/Gallery.vue')
 const HowItWorks = () => import('@/views/HowItWorks.vue')
 const LaunchCollection = () => import('@/views/collections/LaunchCollection.vue')
+const TestCollection = () => import('@/views/collections/TestCollection.vue')
 const QandA = () => import('@/views/QandA.vue')
 // const PunkMinter = () => import('@/views/marketplace/PunkMinter.vue')
 const UploadItem = () => import('@/views/marketplace/UploadItem.vue')
@@ -178,6 +179,12 @@ const routes: Array<RouteConfig> = [
     name: 'launch-collection',
     components: { default: LaunchCollection, header: MainNavbar, footer: MainFooter },
     meta: { title: 'Launch Collection Featuring Benny' }
+  },
+  {
+    path: '/testcollection',
+    name: 'testcollection',
+    components: { default: TestCollection, header: MainNavbar, footer: MainFooter },
+    meta: { title: 'Test Collection using IPFS' }
   },
   {
     path: '/information/:infoId',
