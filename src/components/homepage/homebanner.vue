@@ -34,6 +34,7 @@
                               <h2>{{content.heroarea[1].herotitle[0].text}}</h2>
                               <p> {{content.heroarea[1].herotext[0].text}}</p>
                               <router-link to="/launch_collection_t1"><button class="button filled"> See The Collection </button></router-link>
+                              <button @click="mintToken" class="button filled" ><span style="color: white" v-if="mintButtonText">{{mintButtonText}}</span><span style="color: white" v-else>Mint Now</span></button>
                             </div>
                         </div>
                         <div v-if="slide.id==2" class = "slideContainer">
@@ -126,7 +127,11 @@ export default {
     return: {
       resultSet: [],
       loaded: false,
-      rand: 1
+      rand: 1,
+      loading: true,
+      errorMessage: null,
+      beneficiaries: null,
+      eBen: null
     }
   }),
   methods: {
@@ -146,9 +151,56 @@ export default {
     },
     startRegister () {
       window.open('https://www.hiro.so/wallet', '_blank')
+    },
+    mintToken: function () {
+      console.log('message')
+      // this.errorMessage = 'Minting non fungible token - takes a minute or so..'
+      // the post condition applies to the address the funds are going to not from!!!
+      // when minting the funds go to the contract admin.
+      const contractAsset = this.$store.getters[APP_CONSTANTS.KEY_ASSET_FROM_CONTRACT_BY_HASH](this.items[0].assetHash)
+      if (contractAsset) {
+        return
+      }
+
+      const profile = this.$store.getters[APP_CONSTANTS.KEY_PROFILE]
+      const application = this.$store.getters[APP_CONSTANTS.KEY_APPLICATION_FROM_REGISTRY_BY_CONTRACT_ID](this.loopRun.contractId)
+      let mintPrice = application.tokenContract.mintPrice
+      const defaultMintPrice = Number(process.env.VUE_APP_DEFAULT_MINT_PRICE)
+      mintPrice = Math.max(application.tokenContract.mintPrice, defaultMintPrice)
+      if (!this.items[0].attributes.buyNowPrice) this.items[0].attributes.buyNowPrice = 0
+      const data = {
+        mintPrice: mintPrice,
+        owner: profile.stxAddress,
+        assetHash: this.items[0].assetHash,
+        metaDataUrl: this.items[0].metaDataUrl,
+        beneficiaries: this.items[0].beneficiaries || [],
+        editions: (this.items[0].editions) ? this.items[0].editions : 1,
+        editionCost: (this.items[0].editionCost) ? this.items[0].editionCost : 0,
+        sendAsSky: true, // only applicable in local
+        contractAddress: this.loopRun.contractId.split('.')[0],
+        contractName: this.loopRun.contractId.split('.')[1],
+        functionName: 'mint-token'
+      }
+      this.$store.dispatch('rpayPurchaseStore/mintToken', data).then((result) => {
+        const item = this.$store.getters[APP_CONSTANTS.KEY_MY_ITEM](result.assetHash)
+        if (result.txId) {
+          item.mintInfo = {
+            txId: result.txId,
+            txStatus: result.txStatus,
+            timestamp: result.timestamp
+          }
+          this.$store.dispatch('rpayMyItemStore/quickSaveItem', item).then((item) => {
+            this.$emit('update', item)
+          })
+        }
+      }).catch((err) => {
+        this.errorMessage = 'Minting error: ' + err
+      })
+    },
+    sendMintEvent: function () {
+      this.$emit('mintToken')
     }
   }
-
 }
 </script>
 
