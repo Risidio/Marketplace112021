@@ -46,7 +46,7 @@
         <b-nav class="galleryNav" >
           <div class="galleryNavContainer" >
             <b-nav-item id="NFT" class="galleryNavItem" @click="tabChange('NFT')">Your NFTs</b-nav-item>
-            <b-nav-item id="Item" class="galleryNavItem active" @click="tabChange('Item')">Your Items (Not Minted) </b-nav-item>
+            <!-- <b-nav-item id="Item" class="galleryNavItem active" @click="tabChange('Item')">Your Items (Not Minted) </b-nav-item> -->
             <b-nav-item id="Sale" class="galleryNavItem" @click="tabChange('Sale')">Your NFTS on sale</b-nav-item>
             <!-- <b-nav-item id="Fav" class="galleryNavItem" @click="tabChange('Fav')">Favourite NFTs</b-nav-item> -->
           </div>
@@ -139,7 +139,7 @@ export default {
       yourSTX: null,
       currency: '',
       profileInfo: {},
-      tab: 'Item',
+      tab: 'NFT',
       pageSize: 20,
       loopRun: null,
       filteredAssets: [],
