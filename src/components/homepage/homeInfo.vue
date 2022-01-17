@@ -6,7 +6,7 @@
         </div>
             <div v-if="profile.loggedIn">
             <div class="homeInfoContainer">
-                <!-- <div>
+                <div>
                     <div>
                         <div class="textCon">
                             <img src='https://res.cloudinary.com/risidio/image/upload/v1637162043/RisidioMarketplace/Groupe_17296_smc1up.svg'/>
@@ -15,7 +15,7 @@
                             <router-link style="width:200px; margin:auto; text-align: center; padding: auto" class='button notFilled' to="/create"> <span style="margin: auto" class="notFilledButtonText">Upload</span> </router-link>
                         </div>
                     </div>
-                </div> -->
+                </div>
                 <div>
                     <div>
                         <div class="textCon">
@@ -51,17 +51,17 @@
                     </div>
                 </div>
                 </div> -->
-                <!-- <div>
+                <div>
                     <div>
                         <div class="textCon">
-                             <h1 class="oneTwoThreeFour">2</h1>
+                            <!-- <h1 class="oneTwoThreeFour">2</h1> -->
                             <img src='https://res.cloudinary.com/risidio/image/upload/v1637162043/RisidioMarketplace/Groupe_17296_smc1up.svg'/>
                             <p style="font-size: 16px; font-weight: 700;"> {{content.needahand[0].upload[0].text}}  <br/><br/></p>
                             <p style="font-weight: 200; padding-bottom: 20px"> {{content.needahand[0].uploadtext[0].text}}</p>
-                         <button class='button notFilled'> Upload </button>
+                        <!-- <button class='button notFilled'> Upload </button> -->
                         </div>
                     </div>
-                </div> -->
+                </div>
                 <div>
                     <div>
                         <div class="textCon">
