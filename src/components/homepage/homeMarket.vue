@@ -11,18 +11,27 @@
     </div>
     <div class="homeMarketItems">
 
-        <div class="galleryContainer" v-if="gaiaAssets.length > 0 && tab === 'discover'">
+      <div class="galleryContainer" v-if="testData.length > 0 && tab === 'discover'">
+        <div v-for="(item, index) in testData" :key="index" class="homeNFTView" >
+          <div class="NFTbackgroundColour">
+            <img class="nftGeneralView" :src="'https://' + gateWay + item.image" alt="nft-cover"/>
+            <p class="nFTName"> {{!item.name ? "NFT" : item.name }} <span style="float: right;">{{item.nftIndex}} NDX</span></p>
+            <p class="nFTArtist">By <span>{{!item.artist ? "Anonymous" : item.artist }}</span> </p>
+          </div>
+        </div>
+      </div>
+        <!-- <div class="galleryContainer" v-if="gaiaAssets.length > 0 && tab === 'discover'">
             <div v-for="(item, index) in filterMarketAssets" :key="index" class="homeNFTView" >
                 <div class="NFTbackgroundColour">
                     <b-link class="galleryNFTContainer" :to="assetUrl(item)" v-if="item && item.contractAsset && item.attributes">
                   <MediaItemGeneral :classes="'nftGeneralView'" v-on="$listeners" :mediaItem="item.attributes"/>
                   <p class="nFTName"> {{!item.name ? "NFT" : item.name }} <span style="float: right;">{{item.contractAsset.saleData.buyNowOrStartingPrice}} STX</span>
-                  <!-- <span>$ {{item.contractAsset.saleData.buyNowOrStartingPrice * 1.9}}</span></p> -->
+                  <span>$ {{item.contractAsset.saleData.buyNowOrStartingPrice * 1.9}}</span></p>
                   <p class="nFTArtist">By <span>{{!item.artist ? "Anonymous" : item.artist }}</span> </p>
                 </b-link>
                 </div>
             </div>
-        </div>
+        </div> -->
 
         <div class="galleryContainer" v-if="tab === 'collections'">
           <b-col style="margin: auto" md="9" sm="12">
@@ -62,11 +71,13 @@ import { APP_CONSTANTS } from '@/app-constants'
 import MediaItemGeneral from '@/views/marketplace/components/media/MediaItemGeneral'
 // import MyPageableItems from '@/views/marketplace/components/gallery/MyPageableItems'
 import utils from '@/services/utils'
+const PINATA_GATEWAY = process.env.VUE_APP_PINATA_GATEWAY
+
 export default {
   name: 'HomeMarket',
   props: ['gaiaAssets'],
   components: {
-    MediaItemGeneral
+    // MediaItemGeneral
     // MyPageableItems
   },
   data () {
@@ -125,9 +136,42 @@ export default {
     //   const assets = this.$store.getters[APP_CONSTANTS.KEY_GAIA_ASSETS]
     //   return (assets) ? assets.reverse() : []
     // },
+    testData () {
+      const nftArray = []
+      for (let x = 0; x < 20; ++x) {
+        const nft = {
+          id: 1,
+          nftIndex: x,
+          version: 1,
+          name: 'nft' + x,
+          description: 'this is nft number: ' + x,
+          image: '/ipfs/QmaCA2KUUKpbjYcC6NuTNqgnx4RYP1DPx7fWUEz1TSUsVB/' + x + '.png',
+          artist: 'Generic Artist',
+          attributes: null,
+          properties: {
+            collection: 'test_collections',
+            collectionId: 'risidio/test_collections',
+            totalSupply: 200,
+            externalUrl: 'ipfs://QmaCA2KUUKpbjYcC6NuTNqgnx4RYP1DPx7fWUEz1TSUsVB/' + x + '.png',
+            animationUrl: null
+          },
+          localization: {
+            uri: null,
+            locales: ['en'],
+            default: 'en'
+          }
+        }
+        nftArray.push(nft)
+      }
+      return (nftArray)
+    },
     filterMarketAssets () {
       const filterMarketAssets = this.gaiaAssets.slice(0, 8)
       return (filterMarketAssets)
+    },
+    gateWay () {
+      const gateway = PINATA_GATEWAY
+      return gateway
     }
   }
 }

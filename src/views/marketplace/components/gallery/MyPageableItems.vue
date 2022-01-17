@@ -4,7 +4,7 @@
     <div class="mb-4" v-if="showMinted && loopRun"> -->
       <Pagination @changePage="gotoPage" :pageSize="pageSize" :numberOfItems="numberOfItems" v-if="numberOfItems > 0" />
       <div class="galleryinfoContainer" id="my-table" v-if="resultSet && resultSet.length > 0">
-        <div class="addNewContainer" stye="max-width: 320px">
+        <!-- <div class="addNewContainer" stye="max-width: 320px">
           <router-link to="/create">
             <p style="font-size: 70px; font-weight: 300; color: grey;">&plus;</p>
             <p style="font-weight: 500;"> Add new NFT</p>
@@ -14,7 +14,7 @@
             <p style="font-weight: 500;">Create a collection</p>
             <p style="font-weight: 300;">create your own collection of artworks </p>
           </div>
-        </div>
+        </div> -->
         <div v-for="(asset, index) of resultSet" :key="index">
           <MySingleItem @updateImage="updateImage" :parent="'list-view'" :loopRun="loopRun" :asset="asset" :key="componentKey" class=""/>
         </div>
