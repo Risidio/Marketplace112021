@@ -31,11 +31,10 @@
                               class="collectionImage"/>
                             </div>
                             <div class="slideText">
-                              <h2>{{content.heroarea[1].herotitle[0].text}}</h2>
-                              <p> {{content.heroarea[1].herotext[0].text}}</p>
-                              <router-link to="/launch_collection_t1"><button class="button filled"> See The Collection </button></router-link>
+                              <button @click="list" class="button filled" ><span style="color: white" v-if="mintButtonText">{{mintButtonText}}</span><span style="color: white" v-else>List Now</span></button>
+                              <button @click="buy" class="button filled" ><span style="color: white" v-if="mintButtonText">{{mintButtonText}}</span><span style="color: white" v-else>Buy Now</span></button>
                               <button @click="mintToken" class="button filled" ><span style="color: white" v-if="mintButtonText">{{mintButtonText}}</span><span style="color: white" v-else>Mint Now</span></button>
-                            </div>
+                             </div>
                         </div>
                         <div v-if="slide.id==2" class = "slideContainer">
                             <div class="slideImage">
@@ -157,31 +156,131 @@ export default {
       // this.errorMessage = 'Minting non fungible token - takes a minute or so..'
       // the post condition applies to the address the funds are going to not from!!!
       // when minting the funds go to the contract admin.
-      const contractAsset = this.$store.getters[APP_CONSTANTS.KEY_ASSET_FROM_CONTRACT_BY_HASH](this.items[0].assetHash)
-      if (contractAsset) {
-        return
-      }
+      // const contractAsset = this.$store.getters[APP_CONSTANTS.KEY_ASSET_FROM_CONTRACT_BY_HASH](this.items[0].assetHash)
+      // if (contractAsset) {
+      //   return
+      // }
 
-      const profile = this.$store.getters[APP_CONSTANTS.KEY_PROFILE]
-      const application = this.$store.getters[APP_CONSTANTS.KEY_APPLICATION_FROM_REGISTRY_BY_CONTRACT_ID](this.loopRun.contractId)
-      let mintPrice = application.tokenContract.mintPrice
-      const defaultMintPrice = Number(process.env.VUE_APP_DEFAULT_MINT_PRICE)
-      mintPrice = Math.max(application.tokenContract.mintPrice, defaultMintPrice)
-      if (!this.items[0].attributes.buyNowPrice) this.items[0].attributes.buyNowPrice = 0
+      // const profile = this.$store.getters[APP_CONSTANTS.KEY_PROFILE]
+      // const application = this.$store.getters[APP_CONSTANTS.KEY_APPLICATION_FROM_REGISTRY_BY_CONTRACT_ID](this.loopRun.contractId)
+      // let mintPrice = application.tokenContract.mintPrice
+      // const defaultMintPrice = Number(process.env.VUE_APP_DEFAULT_MINT_PRICE)
+      // mintPrice = Math.max(application.tokenContract.mintPrice, defaultMintPrice)
+      // if (!this.items[0].attributes.buyNowPrice) this.items[0].attributes.buyNowPrice = 0
       const data = {
-        mintPrice: mintPrice,
-        owner: profile.stxAddress,
-        assetHash: this.items[0].assetHash,
-        metaDataUrl: this.items[0].metaDataUrl,
-        beneficiaries: this.items[0].beneficiaries || [],
-        editions: (this.items[0].editions) ? this.items[0].editions : 1,
-        editionCost: (this.items[0].editionCost) ? this.items[0].editionCost : 0,
+        mintPrice: 10,
+        owner: 'ST22QPESFJ8XKJDWR1MHVXV2S4NBE44BA944NS4D2',
+        assetHash: '0x0c5f53ee53ae12ee388abe2de9fa47513deddc70da960afac716db06c92701f0',
+        metaDataUrl: 'https://google.co.in',
+        beneficiaries: [],
+        editions: 1,
+        editionCost: 0,
         sendAsSky: true, // only applicable in local
-        contractAddress: this.loopRun.contractId.split('.')[0],
-        contractName: this.loopRun.contractId.split('.')[1],
-        functionName: 'mint-token'
+        contractAddress: 'ST22QPESFJ8XKJDWR1MHVXV2S4NBE44BA944NS4D2',
+        contractName: 'test_collections',
+        functionName: 'mint-token',
+        batchOption: 1
       }
-      this.$store.dispatch('rpayPurchaseStore/mintToken', data).then((result) => {
+      this.$store.dispatch('rpayPurchaseStore/cpsMintToken', data).then((result) => {
+        const item = this.$store.getters[APP_CONSTANTS.KEY_MY_ITEM](result.assetHash)
+        if (result.txId) {
+          item.mintInfo = {
+            txId: result.txId,
+            txStatus: result.txStatus,
+            timestamp: result.timestamp
+          }
+          this.$store.dispatch('rpayMyItemStore/quickSaveItem', item).then((item) => {
+            this.$emit('update', item)
+          })
+        }
+      }).catch((err) => {
+        this.errorMessage = 'Minting error: ' + err
+      })
+    },
+    list: function () {
+      console.log('message')
+      // this.errorMessage = 'Minting non fungible token - takes a minute or so..'
+      // the post condition applies to the address the funds are going to not from!!!
+      // when minting the funds go to the contract admin.
+      // const contractAsset = this.$store.getters[APP_CONSTANTS.KEY_ASSET_FROM_CONTRACT_BY_HASH](this.items[0].assetHash)
+      // if (contractAsset) {
+      //   return
+      // }
+
+      // const profile = this.$store.getters[APP_CONSTANTS.KEY_PROFILE]
+      // const application = this.$store.getters[APP_CONSTANTS.KEY_APPLICATION_FROM_REGISTRY_BY_CONTRACT_ID](this.loopRun.contractId)
+      // let mintPrice = application.tokenContract.mintPrice
+      // const defaultMintPrice = Number(process.env.VUE_APP_DEFAULT_MINT_PRICE)
+      // mintPrice = Math.max(application.tokenContract.mintPrice, defaultMintPrice)
+      // if (!this.items[0].attributes.buyNowPrice) this.items[0].attributes.buyNowPrice = 0
+      const data = {
+        mintPrice: 10,
+        owner: 'ST22QPESFJ8XKJDWR1MHVXV2S4NBE44BA944NS4D2',
+        assetHash: '0x0c5f53ee53ae12ee388abe2de9fa47513deddc70da960afac716db06c92701f0',
+        metaDataUrl: 'https://google.co.in',
+        beneficiaries: [],
+        nftIndex: 1,
+        price: 100000,
+        commissionContract: 'ST22QPESFJ8XKJDWR1MHVXV2S4NBE44BA944NS4D2',
+        editions: 1,
+        editionCost: 10000,
+        sendAsSky: true, // only applicable in local
+        contractAddress: 'ST22QPESFJ8XKJDWR1MHVXV2S4NBE44BA944NS4D2',
+        contractName: 'test_collections',
+        functionName: 'mint-token',
+        batchOption: 1
+      }
+      this.$store.dispatch('rpayMarketStore/listInUstx', data).then((result) => {
+        const item = this.$store.getters[APP_CONSTANTS.KEY_MY_ITEM](result.assetHash)
+        if (result.txId) {
+          item.mintInfo = {
+            txId: result.txId,
+            txStatus: result.txStatus,
+            timestamp: result.timestamp
+          }
+          this.$store.dispatch('rpayMyItemStore/quickSaveItem', item).then((item) => {
+            this.$emit('update', item)
+          })
+        }
+      }).catch((err) => {
+        this.errorMessage = 'Minting error: ' + err
+      })
+    },
+    buy: function () {
+      console.log('message')
+      // this.errorMessage = 'Minting non fungible token - takes a minute or so..'
+      // the post condition applies to the address the funds are going to not from!!!
+      // when minting the funds go to the contract admin.
+      // const contractAsset = this.$store.getters[APP_CONSTANTS.KEY_ASSET_FROM_CONTRACT_BY_HASH](this.items[0].assetHash)
+      // if (contractAsset) {
+      //   return
+      // }
+
+      // const profile = this.$store.getters[APP_CONSTANTS.KEY_PROFILE]
+      // const application = this.$store.getters[APP_CONSTANTS.KEY_APPLICATION_FROM_REGISTRY_BY_CONTRACT_ID](this.loopRun.contractId)
+      // let mintPrice = application.tokenContract.mintPrice
+      // const defaultMintPrice = Number(process.env.VUE_APP_DEFAULT_MINT_PRICE)
+      // mintPrice = Math.max(application.tokenContract.mintPrice, defaultMintPrice)
+      // if (!this.items[0].attributes.buyNowPrice) this.items[0].attributes.buyNowPrice = 0
+      const data = {
+        mintPrice: 10,
+        owner: 'ST22QPESFJ8XKJDWR1MHVXV2S4NBE44BA944NS4D2',
+        assetHash: '0x0c5f53ee53ae12ee388abe2de9fa47513deddc70da960afac716db06c92701f0',
+        metaDataUrl: 'https://google.co.in',
+        beneficiaries: [],
+        nftIndex: 2,
+        price: 100,
+        buyNowOrStartingPrice: 100,
+        commissionContract: 'ST22QPESFJ8XKJDWR1MHVXV2S4NBE44BA944NS4D2',
+        editions: 1,
+        editionCost: 0,
+        sendAsSky: true, // only applicable in local
+        contractAddress: 'ST22QPESFJ8XKJDWR1MHVXV2S4NBE44BA944NS4D2',
+        contractName: 'test_collections',
+        functionName: 'mint-token',
+        batchOption: 1
+      }
+      this.$store.dispatch('rpayMarketStore/buyInUstx', data).then((result) => {
         const item = this.$store.getters[APP_CONSTANTS.KEY_MY_ITEM](result.assetHash)
         if (result.txId) {
           item.mintInfo = {
