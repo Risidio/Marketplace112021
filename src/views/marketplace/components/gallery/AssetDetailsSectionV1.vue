@@ -12,12 +12,13 @@
     <b-row style="display: flex; margin: auto" :style="'min-height: ' + videoHeight + 'px'">
       <b-col lg="6" sm="10" class="mb-5">
         <div id="video-column" :style="dimensions">
-          <MediaItem :videoOptions="videoOptions" :attributes="gaiaAsset.attributes" :targetItem="targetItem()"/>
-          <MediaItemGeneral :classes="'hash1-image'" v-on="$listeners" :options="videoOptions" :mediaItem="gaiaAsset.attributes"/>
+          <!-- <MediaItem :videoOptions="videoOptions" :attributes="gaiaAsset.attributes" :targetItem="targetItem()"/>
+          <MediaItemGeneral :classes="'hash1-image'" v-on="$listeners" :options="videoOptions" :mediaItem="gaiaAsset.attributes"/> -->
+          <img :src="gaiaAsset.image" class="hash1-image"/>
           <div class="editions"> <h2>EDITION <span>{{gaiaAsset.contractAsset.tokenInfo.edition}}</span> / {{gaiaAsset.contractAsset.tokenInfo.maxEditions}}</h2></div>
-          <div v-if="gaiaAsset.attributes.artworkFile.type.includes('threed')">
+          <!-- <div v-if="gaiaAsset.attributes.artworkFile.type.includes('threed')">
             <button class="button filled" v-on:click="openModal(), three()">View 3D</button>
-          </div>
+          </div> -->
           <!-- <MintInfo class="my-5" :item="gaiaAsset" :loopRun="loopRun" /> -->
         </div>
       </b-col>
@@ -159,7 +160,7 @@ export default {
     AssetUpdatesModal,
     EditionTrigger,
     PurchaseFlow,
-    MediaItemGeneral,
+    // MediaItemGeneral,
     SquareButton
     // MintInfo
   },

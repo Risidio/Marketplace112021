@@ -60,9 +60,9 @@ export default {
   },
   methods: {
     parseRunKey (gaiaAsset) {
-      if (gaiaAsset.attributes.collection) {
-        return (gaiaAsset.attributes.collection.indexOf('/') > -1) ? gaiaAsset.attributes.collection.split('/')[0] : gaiaAsset.attributes.collection
-      }
+      // if (gaiaAsset.attributes.collection) {
+      //   return (gaiaAsset.attributes.collection.indexOf('/') > -1) ? gaiaAsset.attributes.collection.split('/')[0] : gaiaAsset.attributes.collection
+      // }
       return process.env.VUE_APP_DEFAULT_LOOP_RUN
     },
     getArtistPrismicId () {

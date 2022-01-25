@@ -89,7 +89,8 @@ export default {
     fetchPage (page) {
       const data = {
         // contractId: (this.loopRun) ? this.loopRun.contractId : STX_CONTRACT_ADDRESS + '.' + STX_CONTRACT_NAME,
-        runKey: (this.loopRun) ? this.loopRun.currentRunKey : LOOP_RUN_DEF,
+        // runKey: (this.loopRun) ? this.loopRun.currentRunKey : LOOP_RUN_DEF,
+        contractId: this.loopRun.contractId,
         stxAddress: this.profile.stxAddress,
         asc: true,
         page: page,
