@@ -214,12 +214,14 @@ export default {
       // mintPrice = Math.max(application.tokenContract.mintPrice, defaultMintPrice)
       // if (!this.items[0].attributes.buyNowPrice) this.items[0].attributes.buyNowPrice = 0
       const data = {
-        mintPrice: 10,
+        mintPrice: 100,
         owner: 'ST22QPESFJ8XKJDWR1MHVXV2S4NBE44BA944NS4D2',
         assetHash: '0x0c5f53ee53ae12ee388abe2de9fa47513deddc70da960afac716db06c92701f0',
         metaDataUrl: 'https://google.co.in',
         beneficiaries: [],
-        nftIndex: 1,
+        nftIndex: 3,
+        commissionContractAddress: 'ST22QPESFJ8XKJDWR1MHVXV2S4NBE44BA944NS4D2',
+        commissionContractName: 'commission',
         price: 100000,
         commissionContract: 'ST22QPESFJ8XKJDWR1MHVXV2S4NBE44BA944NS4D2',
         editions: 1,
@@ -227,7 +229,7 @@ export default {
         sendAsSky: true, // only applicable in local
         contractAddress: 'ST22QPESFJ8XKJDWR1MHVXV2S4NBE44BA944NS4D2',
         contractName: 'test_collections',
-        functionName: 'mint-token',
+        functionName: 'list-in-ustx',
         batchOption: 1
       }
       this.$store.dispatch('rpayMarketStore/listInUstx', data).then((result) => {
@@ -268,7 +270,9 @@ export default {
         assetHash: '0x0c5f53ee53ae12ee388abe2de9fa47513deddc70da960afac716db06c92701f0',
         metaDataUrl: 'https://google.co.in',
         beneficiaries: [],
-        nftIndex: 2,
+        nftIndex: 3,
+        commissionContractAddress: 'ST22QPESFJ8XKJDWR1MHVXV2S4NBE44BA944NS4D2',
+        commissionContractName: 'commission',
         price: 100,
         buyNowOrStartingPrice: 100,
         commissionContract: 'ST22QPESFJ8XKJDWR1MHVXV2S4NBE44BA944NS4D2',
@@ -277,7 +281,7 @@ export default {
         sendAsSky: true, // only applicable in local
         contractAddress: 'ST22QPESFJ8XKJDWR1MHVXV2S4NBE44BA944NS4D2',
         contractName: 'test_collections',
-        functionName: 'mint-token',
+        functionName: 'buy-in-ustx',
         batchOption: 1
       }
       this.$store.dispatch('rpayMarketStore/buyInUstx', data).then((result) => {
