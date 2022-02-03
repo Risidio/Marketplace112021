@@ -31,6 +31,7 @@
                     <option value="NOK">NOK</option>
                   </select>
               </div>
+              <button @click="fetchPage(0)"></button>
             </div>
             <div class="profileBtns">
               <!-- <router-link  to="/create"><button class="button">Mint an NFT</button></router-link > -->
@@ -143,9 +144,19 @@ export default {
       pageSize: 20,
       loopRun: null,
       filteredAssets: [],
-      numberOfItems: null,
       tokenCount: null,
-      resultSet: []
+      resultSet: [],
+      resultSets: [],
+      nftTotal: 0,
+      loading: true,
+      doPaging: true,
+      numberOfItems: 0,
+      componentKey: 0,
+      nowOnPage: 0,
+      cached: 0,
+      cachedPage: 0,
+      cachedPageSize: 50,
+      defQuery: null
     }
   },
   mounted () {
@@ -166,7 +177,19 @@ export default {
       ga.contractAsset = Object.assign({}, myContractAssets[i])
       this.myNfts.push(ga)
     }
+    const data = {
+      // stxAddress: (process.env.VUE_APP_NETWORK === 'local') ? 'STFJEDEQB1Y1CQ7F04CS62DCS5MXZVSNXXN413ZG' : this.profile.stxAddress,
+      stxAddress: this.profile.stxAddress,
+      contractFilter: '',
+      page: this.cachedPage,
+      pageSize: this.cachedPageSize
+    }
+    this.$store.dispatch('rpayStacksContractStore/cacheWalletNfts', data).then((nfts) => {
+      this.nftTotal = (nfts) ? nfts.total : 0
+      this.fetchPage(0)
+    })
     this.findAssets()
+    this.fetchPage(0)
     this.loaded = true
   },
   watch: {
@@ -176,6 +199,25 @@ export default {
     }
   },
   methods: {
+    fetchPage (page) {
+      const data = {
+        // stxAddress: (process.env.VUE_APP_NETWORK === 'local') ? 'STFJEDEQB1Y1CQ7F04CS62DCS5MXZVSNXXN413ZG' : this.profile.stxAddress,
+        stxAddress: this.profile.stxAddress,
+        page: page,
+        pageSize: this.pageSize,
+        query: '?' + this.defQuery
+      }
+      this.resultSets = []
+      this.$store.dispatch('rpayStacksContractStore/fetchWalletNftsByFilters', data).then((result) => {
+        console.log(result)
+        this.resultSets = result.gaiaAssets
+        this.tokenCount = result.tokenCount
+        if (this.tokenCount === 0) {
+          // this.cacheWalletNfts()
+        }
+        this.loading = false
+      })
+    },
     viewInfo (pressed) {
       if (pressed === 1) {
         document.getElementById('walletDetails').classList.remove('hide')

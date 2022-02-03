@@ -14,7 +14,7 @@
       </b-col>
     </b-row>
     <b-row class="text-small my-2 py-2">
-      <b-col cols="12" v-for="(bene, index) in beneficiaries" :key="index">
+      <b-col cols="12" v-="(bene, index) in beneficiaries" :key="index">
         <Beneficiary :beneficiary="bene" v-on="$listeners" :hidePrimaries="hidePrimaries" :beneficiary="bene" :index="index"/>
         <!--
         <Beneficiary v-on="$listeners" :beneficiary="beneficiaries[1]" :index="1"/>
