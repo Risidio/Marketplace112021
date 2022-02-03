@@ -87,13 +87,11 @@ export default {
       loaded: false,
       placeHolderItems: [],
       tab: 'discover',
-      loopRuns: [],
-      thisData: []
+      loopRuns: []
     }
   },
   mounted () {
     this.findAssets()
-    this.fetchCollections()
   },
   methods: {
     tabChange (tab) {
@@ -116,64 +114,8 @@ export default {
       arrow.classList.toggle('active')
     },
     findAssets () {
-      const data = {
-        contractId: 'ST22QPESFJ8XKJDWR1MHVXV2S4NBE44BA944NS4D2.test_collections7',
-        nftIndex: 2,
-        page: 0,
-        pageSize: 10,
-        stxAddress: 'ST22QPESFJ8XKJDWR1MHVXV2S4NBE44BA944NS4D2',
-        mine: 'ST22QPESFJ8XKJDWR1MHVXV2S4NBE44BA944NS4D2'
-      }
-      this.$store.dispatch('rpayStacksContractStore/fetchTokensByContractId', data).then((data) => {
-        console.log(data)
-      }).catch((error) => {
-        console.log(error.message)
-      })
       this.$store.dispatch('rpayStacksContractStore/fetchContractDataFirstEditions').then(() => {
         this.loaded = true
-      })
-      this.$store.dispatch('rpayStacksContractStore/fetchMetaDataUrl', data).then((data) => {
-        console.log(data)
-      }).catch((error) => {
-        console.log(error.message)
-      })
-      this.$store.dispatch('rpayStacksContractStore/fetchWalletCount', data).then((data) => {
-        console.log(data)
-      }).catch((error) => {
-        console.log(error.message)
-      })
-      this.$store.dispatch('rpayStacksContractStore/fetchMyTokensCPSV2', data).then((data) => {
-        console.log(data)
-      }).catch((error) => {
-        console.log(error.message)
-      })
-      this.$store.dispatch('rpayStacksContractStore/fetchAssetsByOwner', data).then((data) => {
-        console.log(data)
-      }).catch((error) => {
-        console.log(error.message)
-      })
-      this.$store.dispatch('rpayStacksContractStore/fetchAssetNames', data).then((data) => {
-        console.log(data)
-      }).catch((error) => {
-        console.log(error.message)
-      })
-      this.$store.dispatch('rpaySearchStore/findAssets', data).then((data) => {
-        console.log(data)
-      }).catch((error) => {
-        console.log(error.message)
-      })
-    },
-    fetchCollections () {
-      const data = {
-        contractId: 'ST22QPESFJ8XKJDWR1MHVXV2S4NBE44BA944NS4D2.test_collections7',
-        runKey: 'test_collections7',
-        page: 1,
-        pageSize: 10,
-        asc: true
-      }
-      this.$store.dispatch('rpayStacksContractStore/fetchTokensByContractIdAndRunKey', data).then((result) => {
-        this.resultSet = result.gaiaAssets
-        console.log(result)
       })
     },
     fetchFullRegistry () {
@@ -202,9 +144,9 @@ export default {
       // mintPrice = Math.max(application.tokenContract.mintPrice, defaultMintPrice)
       // if (!this.items[0].attributes.buyNowPrice) this.items[0].attributes.buyNowPrice = 0
       const data = item
-      data.mintPrice = 100
+      data.mintPrice = 10
       data.beneficiaries = []
-      data.price = 100
+      data.price = 10
       data.buyNowOrStartingPrice = 1
       data.editions = 1
       data.editionCost = 1
@@ -255,9 +197,13 @@ export default {
     }
   },
   computed: {
+    // gaiaAssets () {
+    //   const assets = this.$store.getters[APP_CONSTANTS.KEY_GAIA_ASSETS]
+    //   return (assets) ? assets.reverse() : []
+    // },
     testData () {
       const nftArray = []
-      for (let x = 0; x < 5; ++x) {
+      for (let x = 0; x < 10; ++x) {
         const nft = {
           id: 1,
           nftIndex: x,
@@ -265,19 +211,18 @@ export default {
           assetHash: '0x0c5f53ee53ae12ee388abe2de9fa47513deddc70da960afac716db06c92701f0',
           version: 1,
           name: 'nft' + x,
-          assetName: 'ST22QPESFJ8XKJDWR1MHVXV2S4NBE44BA944NS4D2',
           description: 'this is nft number: ' + x,
           commissionContractAddress: 'ST22QPESFJ8XKJDWR1MHVXV2S4NBE44BA944NS4D2',
-          commissionContractName: 'test_collections5',
+          commissionContractName: 'commission',
           commissionContract: 'ST22QPESFJ8XKJDWR1MHVXV2S4NBE44BA944NS4D2',
           contractAddress: 'ST22QPESFJ8XKJDWR1MHVXV2S4NBE44BA944NS4D2',
-          contractName: 'test_collections5',
+          contractName: 'test_collections',
           image: '/ipfs/QmaCA2KUUKpbjYcC6NuTNqgnx4RYP1DPx7fWUEz1TSUsVB/' + x + '.png',
           artist: 'Generic Artist',
           attributes: null,
           properties: {
-            collection: 'test_collections5',
-            collectionId: 'risidio/test_collections5',
+            collection: 'test_collections',
+            collectionId: 'risidio/test_collections',
             totalSupply: 200,
             externalUrl: 'ipfs://QmaCA2KUUKpbjYcC6NuTNqgnx4RYP1DPx7fWUEz1TSUsVB/' + x + '.png',
             animationUrl: null
@@ -299,16 +244,6 @@ export default {
     gateWay () {
       const gateway = PINATA_GATEWAY
       return gateway
-    },
-    allLoopRuns () {
-      const loopRunsActive = this.$store.getters[APP_CONSTANTS.GET_LOOP_RUNS_BY_STATUS]('active')
-      const loopRunsInactive = this.$store.getters[APP_CONSTANTS.GET_LOOP_RUNS_BY_STATUS]('inactive')
-      const loopRunsMinting = this.$store.getters[APP_CONSTANTS.GET_LOOP_RUNS_BY_STATUS]('unrevealed')
-      return loopRunsActive.concat(loopRunsInactive.concat(loopRunsMinting))
-    },
-    application () {
-      const application = this.$store.getters[APP_CONSTANTS.KEY_APPLICATION_FROM_REGISTRY_BY_CONTRACT_ID]('ST22QPESFJ8XKJDWR1MHVXV2S4NBE44BA944NS4D2.test_collections6')
-      return application
     }
   }
 }
