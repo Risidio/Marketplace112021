@@ -202,14 +202,15 @@ export default {
       // mintPrice = Math.max(application.tokenContract.mintPrice, defaultMintPrice)
       // if (!this.items[0].attributes.buyNowPrice) this.items[0].attributes.buyNowPrice = 0
       const data = item
-      data.mintPrice = 100
+      data.mintPrice = 10
       data.beneficiaries = []
       data.price = 100
-      data.buyNowOrStartingPrice = 1
+      data.buyNowOrStartingPrice = 100
       data.editions = 1
+      data.price = 1
       data.editionCost = 1
       data.sendAsSky = true
-      data.funtionName = 'buy-in-ustx'
+      data.functionName = 'buy-in-ustx'
       data.batchOption = 1
       data.metaDataUrl = 'https://google.co.in'
       console.log(data)
@@ -268,16 +269,17 @@ export default {
           assetName: 'ST22QPESFJ8XKJDWR1MHVXV2S4NBE44BA944NS4D2',
           description: 'this is nft number: ' + x,
           commissionContractAddress: 'ST22QPESFJ8XKJDWR1MHVXV2S4NBE44BA944NS4D2',
-          commissionContractName: 'test_collections5',
+          commissionContractName: 'commission',
+          price: 100,
           commissionContract: 'ST22QPESFJ8XKJDWR1MHVXV2S4NBE44BA944NS4D2',
           contractAddress: 'ST22QPESFJ8XKJDWR1MHVXV2S4NBE44BA944NS4D2',
-          contractName: 'test_collections5',
+          contractName: 'test_collections7',
           image: '/ipfs/QmaCA2KUUKpbjYcC6NuTNqgnx4RYP1DPx7fWUEz1TSUsVB/' + x + '.png',
           artist: 'Generic Artist',
           attributes: null,
           properties: {
-            collection: 'test_collections5',
-            collectionId: 'risidio/test_collections5',
+            collection: 'test_collections7',
+            collectionId: 'risidio/test_collections7',
             totalSupply: 200,
             externalUrl: 'ipfs://QmaCA2KUUKpbjYcC6NuTNqgnx4RYP1DPx7fWUEz1TSUsVB/' + x + '.png',
             animationUrl: null
@@ -307,7 +309,7 @@ export default {
       return loopRunsActive.concat(loopRunsInactive.concat(loopRunsMinting))
     },
     application () {
-      const application = this.$store.getters[APP_CONSTANTS.KEY_APPLICATION_FROM_REGISTRY_BY_CONTRACT_ID]('ST22QPESFJ8XKJDWR1MHVXV2S4NBE44BA944NS4D2.test_collections6')
+      const application = this.$store.getters[APP_CONSTANTS.KEY_APPLICATION_FROM_REGISTRY_BY_CONTRACT_ID]('ST22QPESFJ8XKJDWR1MHVXV2S4NBE44BA944NS4D2.test_collections7')
       return application
     }
   }
