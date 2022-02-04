@@ -117,7 +117,7 @@ export default {
     },
     findAssets () {
       const data = {
-        contractId: 'ST22QPESFJ8XKJDWR1MHVXV2S4NBE44BA944NS4D2.test_collections7',
+        contractId: 'ST22QPESFJ8XKJDWR1MHVXV2S4NBE44BA944NS4D2.test_collections8',
         nftIndex: 2,
         page: 0,
         pageSize: 10,
@@ -125,6 +125,7 @@ export default {
         mine: 'ST22QPESFJ8XKJDWR1MHVXV2S4NBE44BA944NS4D2'
       }
       this.$store.dispatch('rpayStacksContractStore/fetchTokensByContractId', data).then((data) => {
+        console.log('Normal')
         console.log(data)
       }).catch((error) => {
         console.log(error.message)
@@ -143,6 +144,7 @@ export default {
         console.log(error.message)
       })
       this.$store.dispatch('rpayStacksContractStore/fetchMyTokensCPSV2', data).then((data) => {
+        console.log('CPV2')
         console.log(data)
       }).catch((error) => {
         console.log(error.message)
