@@ -204,8 +204,8 @@ export default {
       const data = item
       data.mintPrice = 10
       data.beneficiaries = []
-      data.price = 100
-      data.buyNowOrStartingPrice = 100
+      data.price = 1
+      data.buyNowOrStartingPrice = 1
       data.editions = 1
       data.price = 1
       data.editionCost = 1
@@ -260,7 +260,7 @@ export default {
       const nftArray = []
       for (let x = 0; x < 5; ++x) {
         const nft = {
-          id: 1,
+          id: x,
           nftIndex: x,
           owner: 'ST22QPESFJ8XKJDWR1MHVXV2S4NBE44BA944NS4D2',
           assetHash: '0x0c5f53ee53ae12ee388abe2de9fa47513deddc70da960afac716db06c92701f0',
@@ -273,7 +273,7 @@ export default {
           price: 100,
           commissionContract: 'ST22QPESFJ8XKJDWR1MHVXV2S4NBE44BA944NS4D2',
           contractAddress: 'ST22QPESFJ8XKJDWR1MHVXV2S4NBE44BA944NS4D2',
-          contractName: 'test_collections7',
+          contractName: 'test_collections',
           image: '/ipfs/QmaCA2KUUKpbjYcC6NuTNqgnx4RYP1DPx7fWUEz1TSUsVB/' + x + '.png',
           artist: 'Generic Artist',
           attributes: null,
