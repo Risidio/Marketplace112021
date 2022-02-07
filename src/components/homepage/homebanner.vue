@@ -25,10 +25,20 @@
                     <template #content>
                         <div v-if="slide.id==1" class = "slideContainer">
                             <div class="slideImage">
-                              <img
-                              src="https://res.cloudinary.com/risidio/image/upload/v1640003055/RisidioMarketplace/Tiger_BitStacks_By_Benny_d8rprd.png"
-                              alt="Tiger-BitStacks-By-Benny"
-                              class="collectionImage"/>
+                              <div class="collectionImageBack">
+                                <img
+                                src="https://res.cloudinary.com/risidio/image/upload/v1634828295/RisidioMarketplace/Screenshot_2021-10-21_at_15.57.57_q7chjf.png"
+                                alt="Tiger-BitStacks-By-Benny"
+                                class="collectionImage"/>
+                                <img
+                                src="https://res.cloudinary.com/risidio/image/upload/v1634828295/RisidioMarketplace/Screenshot_2021-10-21_at_15.57.57_q7chjf.png"
+                                alt="Tiger-BitStacks-By-Benny"
+                                class="collectionImage"/>
+                                <img
+                                src="https://res.cloudinary.com/risidio/image/upload/v1640003055/RisidioMarketplace/Tiger_BitStacks_By_Benny_d8rprd.png"
+                                alt="Tiger-BitStacks-By-Benny"
+                                class="collectionImage collectionImageFront"/>
+                              </div>
                             </div>
                             <div class="slideText">
                               <h2>{{content.heroarea[1].herotitle[0].text}}</h2>
@@ -38,7 +48,20 @@
                         </div>
                         <div v-if="slide.id==2" class = "slideContainer">
                             <div class="slideImage">
-
+                              <div class="collectionImageBack">
+                                <img
+                                src="https://res.cloudinary.com/risidio/image/upload/v1644231731/RisidioMarketplace/Screenshot_2022-02-07_110034_vy0tyl.png"
+                                alt="Image-from-Eggschain"
+                                class="collectionImage"/>
+                                <img
+                                src="https://res.cloudinary.com/risidio/image/upload/v1644231731/RisidioMarketplace/Screenshot_2022-02-07_105958_upudjc.png"
+                                alt="Image-from-Eggschain"
+                                class="collectionImage"/>
+                                <img
+                                src="https://res.cloudinary.com/risidio/image/upload/v1644231731/RisidioMarketplace/Screenshot_2022-02-07_110021_hkdboj.png"
+                                alt="Image-from-Eggschain"
+                                class="collectionImage collectionImageFront"/>
+                              </div>
                             </div>
                             <div class="slideText">
                               <h2>{{content.heroarea[2].herotitle[0].text}}</h2>
@@ -159,14 +182,14 @@ export default {
   margin-bottom: 5rem;
 }
 .slideText{
+  position: relative;
   h2{
     margin-bottom: 1rem;
     letter-spacing: 1px;
-    font-size: 40px;
-    font-weight: 400;
+    font: normal normal 300 30px/55px Montserrat;
   }
   p{
-    font-size: 1.4rem;
+    font: normal normal 300 14px/18px Montserrat;
     max-width: 50rem;
   }
 }
@@ -278,10 +301,10 @@ export default {
   margin: 35px auto;
   border-radius: 30px;
 }
-
 .vueperslides__arrow .arrow{
-  width: 35px;
-  height: 35px;
+  width: 25px;
+  height: 25px;
+  color: white;
 }
 .slideContainer{
   display: flex;
@@ -289,7 +312,7 @@ export default {
   align-items: center;
   height:100%;
   padding: 25px 40px;
-  gap: 2rem;
+  gap: 5rem;
 }
 .slideContainer > *:nth-child(1){
   flex: 1 1 40%;
@@ -299,18 +322,36 @@ export default {
   flex: 1 1 55%;
   min-width: 400px;
 }
-.button{margin-top: 20px;}
+.button{margin-top: 20px; position: abs}
 .button:hover{
   background: rgba(95, 189, 193, 0.6);
 }
 .collectionImage{
   display: block;
-  width: 25rem;
-  height: 25rem;
+  width: 211px;
+  height: 189px;
   border-radius: 10px;
   margin: auto;
   box-shadow: 10px 10px 30px #0000002F;
+  object-fit: cover;
 }
+.slideImage{
+  position: relative;
+}
+.collectionImageBack{
+  position: relative;
+  display: flex;
+}
+.collectionImageFront{
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+  text-align: center;
+  transform: scale(1.15)
+}
+
 @media only screen and (max-width: 1200px) {
   .slideContainerNotLogged{
     display: flex;

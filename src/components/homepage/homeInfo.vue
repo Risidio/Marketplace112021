@@ -1,8 +1,8 @@
 <template>
     <section class="homeInfo">
         <div class="homeText">
-            <h1 style="font-size: 20px; font-weight: 600;">{{content.needahand[0].needtitle[0].text}} </h1>
-            <h2 style="font-size: 40px; font-weight: 200;"> {{content.needahand[0].needtitle2[0].text}} </h2>
+            <h1 style="font: normal normal bold 17px/20px Montserrat;">{{content.needahand[0].needtitle[0].text}} </h1>
+            <h2 style="font: normal normal 200 40px/49px Montserrat;"> {{content.needahand[0].needtitle2[0].text}} </h2>
         </div>
             <div v-if="profile.loggedIn">
             <div class="homeInfoContainer">
@@ -11,7 +11,7 @@
                         <div class="textCon">
                             <img src='https://res.cloudinary.com/risidio/image/upload/v1637162043/RisidioMarketplace/Groupe_17296_smc1up.svg'/>
                             <p style="font-size: 16px; font-weight: 700;"> {{content.needahand[0].upload[0].text}}  <br/><br/></p>
-                            <p class="infoText"> {{content.needahand[0].uploadtext[0].text}}</p>
+                            <p class="homeInfoText"> {{content.needahand[0].uploadtext[0].text}}</p>
                             <router-link style="width:200px; margin:auto; text-align: center; padding: auto" class='button notFilled' to="/create"> <span style="margin: auto" class="notFilledButtonText">Upload</span> </router-link>
                         </div>
                     </div>
@@ -20,8 +20,8 @@
                     <div>
                         <div class="textCon">
                             <img src='https://res.cloudinary.com/risidio/image/upload/v1637162044/RisidioMarketplace/002-distributed_ledger_b4tq2s.svg'/>
-                            <p style="font-size: 16px; font-weight: 700;"> {{content.needahand[0].sell[0].text}}  <br/><br/></p>
-                            <p class="infoText">{{content.needahand[0].selltext[0].text}} </p>
+                            <p style="font-size: 14px; font-weight: 700;"> {{content.needahand[0].sell[0].text}}  <br/><br/></p>
+                            <p class="homeInfoText">{{content.needahand[0].selltext[0].text}} </p>
                             <router-link style="width:200px; margin:auto; text-align: center; padding: auto" class='button notFilled' to="/my-account"> <span style="margin: auto"  class="notFilledButtonText">My NFTs</span> </router-link>
                         </div>
                     </div>
@@ -30,8 +30,8 @@
                     <div>
                         <div class="textCon">
                         <img src='https://res.cloudinary.com/risidio/image/upload/v1637162045/RisidioMarketplace/009-coin_ojj2mp.svg'/>
-                            <p style="font-size: 16px; font-weight: 700;"> {{content.needahand[0].buy[0].text}}  <br/><br/></p>
-                            <p class="infoText">{{content.needahand[0].buytext[0].text}} </p>
+                            <p style="font-size: 14px; font-weight: 700;"> {{content.needahand[0].buy[0].text}}  <br/><br/></p>
+                            <p class="homeInfoText">{{content.needahand[0].buytext[0].text}} </p>
                             <router-link style="width:200px; margin:auto; text-align: center; padding: auto" class='button notFilled' to="/nft-marketplace/risidio/launch_collection_t1"> <span style="margin: auto"  class="notFilledButtonText">Gallery</span> </router-link>
                         </div>
                     </div>
@@ -46,7 +46,7 @@
                          <h1 class="oneTwoThreeFour">1</h1>
                         <img src='https://res.cloudinary.com/risidio/image/upload/v1633609788/RisidioMarketplace/006-wallet_uy3myg.svg'/>
                         <p style="font-size: 16px; font-weight: 700;"> {{content.needahand[0].connect[0].text}}  <br/><br/></p>
-                        <p class="infoText"> {{content.needahand[0].connecttext[0].text}}</p>
+                        <p class="homeInfoText"> {{content.needahand[0].connecttext[0].text}}</p>
                         <button class='button notFilled' @click="startLogin"> Connect A Web Wallet to Begin!</button>
                     </div>
                 </div>
@@ -57,7 +57,7 @@
                             <!-- <h1 class="oneTwoThreeFour">2</h1> -->
                             <!-- <img src='https://res.cloudinary.com/risidio/image/upload/v1637162043/RisidioMarketplace/Groupe_17296_smc1up.svg'/>
                             <p style="font-size: 16px; font-weight: 700;"> {{content.needahand[0].upload[0].text}}  <br/><br/></p>
-                            <p class="infoText"> {{content.needahand[0].uploadtext[0].text}}</p> -->
+                            <p class="homeInfoText"> {{content.needahand[0].uploadtext[0].text}}</p> -->
                         <!-- <button class='button notFilled'> Upload </button> -->
                         <!-- </div> -->
                     <!-- </div> -->
@@ -67,8 +67,8 @@
                         <div class="textCon">
                             <!-- <h1 class="oneTwoThreeFour">3</h1> -->
                             <img src='https://res.cloudinary.com/risidio/image/upload/v1637162044/RisidioMarketplace/002-distributed_ledger_b4tq2s.svg'/>
-                            <p style="font-size: 16px; font-weight: 700;"> {{content.needahand[0].sell[0].text}}  <br/><br/></p>
-                            <p class="infoText">{{content.needahand[0].selltext[0].text}} </p>
+                            <p style="font-size: 14px; font-weight: 700;"> {{content.needahand[0].sell[0].text}}  <br/><br/></p>
+                            <p class="homeInfoText">{{content.needahand[0].selltext[0].text}} </p>
                         <!-- <button class='button notFilled'> My NFTs </button> -->
                         </div>
                     </div>
@@ -78,8 +78,8 @@
                         <div class="textCon">
                             <!-- <h1 class="oneTwoThreeFour">4</h1> -->
                         <img src='https://res.cloudinary.com/risidio/image/upload/v1637162045/RisidioMarketplace/009-coin_ojj2mp.svg'/>
-                            <p style="font-size: 16px; font-weight: 700;"> {{content.needahand[0].buy[0].text}}  <br/><br/></p>
-                            <p class="infoText">{{content.needahand[0].buytext[0].text}} </p>
+                            <p style="font-size: 14px; font-weight: 700;"> {{content.needahand[0].buy[0].text}}  <br/><br/></p>
+                            <p class="homeInfoText">{{content.needahand[0].buytext[0].text}} </p>
                          <!-- <button  class='button notFilled'> Gallery </button> -->
                         </div>
                     </div>
@@ -134,7 +134,7 @@ export default {
 .homeText > * {
   color:white;
   max-width: 800px;
-  margin: 30px auto
+  margin: 10px auto
 }
 .textCon{
     min-height: 400px;
@@ -174,8 +174,8 @@ export default {
         color: white;
     }
 }
-.infoText{
-    font: normal normal 200 14px/18px Montserrat;
+.homeInfoText{
+    font: normal normal 300 10px/18px Montserrat;
     max-width: 350px;
     padding-bottom: 50px;
 }

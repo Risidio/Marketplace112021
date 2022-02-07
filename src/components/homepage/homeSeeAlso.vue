@@ -17,12 +17,12 @@
             <template #arrow-right>
                 <img src="https://res.cloudinary.com/risidio/image/upload/v1633609474/RisidioMarketplace/Icon_ionic-md-arrow-dropleft-circle-1_oclpff.svg" alt="wallet" class="arrow"/>
             </template>
-            <vueper-slide v-for="(item, index) in gaiaAssets" :key="index" class="galleryItem" >
+            <vueper-slide v-for="(item, index) in gaiaAssets" :key="index" class="NFTbackgroundColour" >
               <template #content>
-                <div class="galleryContainer">
-                  <router-link v-bind:to="'/nfts/' + item.contractId + '/' + item.contractAsset.nftIndex" ><img :src="item.image" class="itemImg" style=""/></router-link>
-                  <p style="font-size: 1em;margin: 5px 0 0 0;"> {{!item.name ? "NFT" : item.name }} <span style="float: right; font-size: 0.6em; margin-top: 10px;">$ {{item.contractAsset.saleData.buyNowOrStartingPrice * 1.9}}</span></p>
-                  <p>By <span style="font-weight:600">{{!item.artist ? "Anonymous" : item.artist }}</span> <span style="float: right;">{{item.contractAsset.saleData.buyNowOrStartingPrice}} STX</span></p>
+                <div class="galleryNFTContainer">
+                  <router-link v-bind:to="'/nfts/' + item.contractId + '/' + item.contractAsset.nftIndex" ><img :src="item.image" class="nftGeneralView" style=""/></router-link>
+                  <p class="nFTName"> {{!item.name ? "NFT" : item.name }} <span>$ {{item.contractAsset.saleData.buyNowOrStartingPrice * 1.9}}</span></p>
+                  <p class="nFTArtist">By <span style="font-weight:600">{{!item.artist ? "Anonymous" : item.artist }}</span> <span style="float: right;">{{item.contractAsset.saleData.buyNowOrStartingPrice}} STX</span></p>
                 </div>
               </template>
           </vueper-slide>
@@ -47,7 +47,7 @@ export default {
       placeHolderItems: [],
       breakpoints: {
         1600: {
-          visibleSlides: 3,
+          visibleSlides: 4.15,
           slideRatio: 1 / 2.5
         },
         1200: {
@@ -74,10 +74,10 @@ export default {
 
 <style lang="scss" scoped>
 .seeAlso{
-    min-height: 60rem;
-    margin: 0 7% 100px 7%;
+    min-height: 40rem;
+    margin: 0 7% 10px 7%;
     h2{
-        font-size: 40px;
+        font: normal normal 300 37px/45px Montserrat;
         margin: 100px 20px 50px 20px;
         text-align: center;
     }
@@ -85,7 +85,7 @@ export default {
 .seeAlsoContainer{
   max-width: 1500px;
   margin: auto;
-  height: 400px;
+  min-height: 200px;
 }
 .vueperslides--fixed-height {
   height: 400px;
@@ -96,7 +96,7 @@ export default {
 }
 .vueperslide{
   background-color:rgba(226, 226, 226, 0.8);
-  min-height: 385px;
+  min-height: 319px;
   border-radius: 30px;
 }
 .vueperslides__arrow .arrow{
@@ -105,15 +105,15 @@ export default {
 }
 .galleryItem{
   display: block;
-  padding: 25px;
   margin: 0 auto;
-  border-radius: 25px;
-  background: rgba(129, 129, 129, 0.12) 0% 0% no-repeat padding-box;
-  margin-bottom: 40px;
-  max-width: 320px;
+  max-width: 255px;
 }
 .galleryContainer{
   margin: auto;
   width: 100%;
+}
+.NFTbackgroundColour{
+  max-width: 255px;
+  max-height: 319px;
 }
 </style>
