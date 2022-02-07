@@ -52,12 +52,31 @@ export default {
       tab: 'unsold'
     }
   },
+  mounted () {
+    this.findAssets()
+  },
   methods: {
     tabChange (tab) {
       this.tab = tab
       document.getElementById('unsold').classList.remove('active')
       document.getElementById('all').classList.remove('active')
       document.getElementById(tab).classList.add('active')
+    },
+    findAssets () {
+      const data = {
+        contractId: 'ST22QPESFJ8XKJDWR1MHVXV2S4NBE44BA944NS4D2.test_collections7',
+        nftIndex: 2,
+        page: 0,
+        pageSize: 10,
+        stxAddress: 'ST22QPESFJ8XKJDWR1MHVXV2S4NBE44BA944NS4D2',
+        mine: 'ST22QPESFJ8XKJDWR1MHVXV2S4NBE44BA944NS4D2'
+      }
+      this.$store.dispatch('rpayStacksContractStore/fetchTokensByContractId', data).then((data) => {
+        console.log('Normal')
+        console.log(data)
+      }).catch((error) => {
+        console.log(error.message)
+      })
     }
   }
 }

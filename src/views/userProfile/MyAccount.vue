@@ -149,6 +149,8 @@ export default {
     }
   },
   mounted () {
+    this.findAssets()
+    this.findAssets1()
     let currentRunKey = this.$route.params.collection
     if (!currentRunKey) {
       this.showWalletNfts = true
@@ -166,7 +168,6 @@ export default {
       ga.contractAsset = Object.assign({}, myContractAssets[i])
       this.myNfts.push(ga)
     }
-    this.findAssets()
     this.loaded = true
   },
   watch: {
@@ -240,13 +241,29 @@ export default {
         // stxAddress: (NETWORK === 'local') ? 'STFJEDEQB1Y1CQ7F04CS62DCS5MXZVSNXXN413ZG' : this.profile.stxAddress
         stxAddress: this.profile.stxAddress,
         page: 0,
-        pageSize: this.pageSize,
+        pageSize: 100,
         query: '?' + this.defQuery
       }
       this.$store.dispatch('rpayStacksContractStore/fetchWalletNftsByFilters', data).then((results) => {
         console.log(results)
       }).catch((error) => {
         console.log('error ' + error)
+      })
+    },
+    findAssets1 () {
+      const data = {
+        contractId: 'ST22QPESFJ8XKJDWR1MHVXV2S4NBE44BA944NS4D2.test_collections8',
+        nftIndex: 2,
+        page: 0,
+        pageSize: 10,
+        stxAddress: 'ST22QPESFJ8XKJDWR1MHVXV2S4NBE44BA944NS4D2',
+        mine: 'ST22QPESFJ8XKJDWR1MHVXV2S4NBE44BA944NS4D2'
+      }
+      this.$store.dispatch('rpayStacksContractStore/fetchTokensByContractId', data).then((data) => {
+        console.log('Normal')
+        console.log(data)
+      }).catch((error) => {
+        console.log(error.message)
       })
     },
     currencyChange (currency) {

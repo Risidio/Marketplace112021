@@ -317,6 +317,8 @@ export default {
 .slideContainer > *:nth-child(1){
   flex: 1 1 40%;
   min-width: 400px;
+  max-width: 400px;
+  margin: auto;
 }
 .slideContainer > *:nth-child(2){
   flex: 1 1 55%;
@@ -352,17 +354,46 @@ export default {
   transform: scale(1.15)
 }
 
-@media only screen and (max-width: 1200px) {
+@media only screen and (max-width: 1260px) {
+  .vueperslides--fixed-height {
+    height: 50rem;
+    max-width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+    backdrop-filter: blur(2rem);
+  }
   .slideContainerNotLogged{
     display: flex;
     flex-direction: column;
     height: 65vh;
   }
+  .slideContainer > *:nth-child(1){
+    min-width: 300px;
+  }
+.slideContainer > *:nth-child(2){
+    min-width: 300px;
+}
   .bannerContainer{
-      height: 80vh;
+    min-height: 65rem;
   }
   .banner{
-    height: 80vh;
+    min-height: 65rem;
+  }
+}
+@media only screen and (max-width: 550px) {
+   .vueperslides--fixed-height {
+    height: 60rem;
+    max-width: 85%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 25px;
+    backdrop-filter: blur(2rem);
+  }
+    .bannerContainer{
+    height: 80rem;
+  }
+    .banner{
+    height: 80rem;
   }
 }
 </style>

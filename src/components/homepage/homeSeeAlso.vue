@@ -51,8 +51,8 @@ export default {
           slideRatio: 1 / 2.5
         },
         1200: {
-          visibleSlides: 2,
-          slideRatio: 1 / 1.5
+          visibleSlides: 3.2,
+          slideRatio: 1 / 1.8
         },
         800: {
           visibleSlides: 1.1,
@@ -61,10 +61,6 @@ export default {
         }
       }
     }
-  },
-  mounted () {
-    this.generateData()
-    console.log(this.placeHolderItems)
   },
   methods: {
 
