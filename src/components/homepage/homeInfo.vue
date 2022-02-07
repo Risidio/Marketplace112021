@@ -168,14 +168,13 @@ export default {
         max-height: 300px;
     }
     p{
-        font-size: .9em;
+        font: normal normal 300 14px/18px Montserrat;
         display: block;
         margin:auto;
         color: white;
     }
 }
 .homeInfoText{
-    font: normal normal 300 10px/18px Montserrat;
     max-width: 350px;
     padding-bottom: 50px;
 }

@@ -5,8 +5,7 @@
       <b-link class="  text-info" :to="nextUrl">
         <div @contextmenu="handler($event)" class="">
             <img
-              ref="itemImage"
-              class="itemImg"
+              class="nftGeneralView"
               :src="image" @error="imageError()"/>
         </div>
             <div class="text-left">
@@ -54,8 +53,8 @@
       <b-link class="  text-info" :to="nextUrl">
         <div @contextmenu="handler($event)" class="">
             <img
-              ref="itemImage"
-              class="itemImg"
+
+              class="nftGeneralView"
               :src="image" @error="imageError()"/>
         </div>
             <div class="text-left">

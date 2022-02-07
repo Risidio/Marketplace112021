@@ -179,7 +179,7 @@ export default {
 <style lang="scss" scoped>
 .bannerContainer{
   height: 50rem;
-  margin-bottom: 5rem;
+  // margin-bottom: 5rem;
 }
 .slideText{
   position: relative;

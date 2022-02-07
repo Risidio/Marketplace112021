@@ -443,7 +443,7 @@ select {
 }
 .galleryNav {
 	margin: auto;
-	margin-bottom: 70px;
+	margin-bottom: 40px;
 	width: 100%;
 	justify-items: center;
 	align-items: center;
@@ -451,7 +451,6 @@ select {
 }
 .galleryNavContainer {
 	margin: auto;
-
 	max-width: 1200px;
 	display: flex;
 	flex-direction: row;
@@ -657,12 +656,16 @@ select {
 	flex-direction: column;
 	gap: 10px;
 	text-align: center;
+	padding: 20px;
+	max-height: 370px;
+	width: 280px;
 	p {
+		font: normal normal 300 12px/18px Montserrat;
 		padding: 0;
 		margin: 0;
 	}
 	& > * {
-		padding: 30px;
+		padding: 20px;
 		border-radius: 26px;
 		background: rgba(129, 129, 129, 0.12) 0% 0% no-repeat;
 	}

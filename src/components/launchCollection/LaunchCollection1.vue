@@ -107,24 +107,25 @@ export default {
   backdrop-filter: blur(2rem);
 }
 .collectionName{
-    font: normal normal 300 45px/60px Montserrat;
+    font: normal normal 300 40px/55px Montserrat;
     padding: 10px;
     color: White;
 }
 .collectionArtist{
     display: none;
-    font: normal normal 300 24px/30px Montserrat;
+    font: normal normal medium 17px/20px Montserrat;
     padding: 10px;
     color: white;
+    text-align: center;
 }
 .collectionArtist.show{
     display: block;
 }
 .contentTitle{
-    font: normal normal 400 22px/36px Montserrat;
+    font: normal normal normal 20px/24px Helvetica Neue;
 }
 .collectionInfo{
-    font: normal normal 400 20px/24px Montserrat;
+    font: normal normal medium 17px/20px Montserrat;
     color: white;
 }
 .collectionInfo2{
@@ -134,7 +135,7 @@ export default {
     padding: 5px;
 }
 .collectionInfo1{
-    font: normal normal 600 16px/20px Montserrat;
+    font: normal normal medium 17px/20px Montserrat;
     max-width: 450px;
     padding: 5px;
 }
@@ -169,7 +170,7 @@ export default {
     object-fit: cover;
 }
 .circleImageInfo{
-    width: 100px;
+    width: 130px;
     height: 100px;
     border-radius: 50%;
     object-fit: cover;

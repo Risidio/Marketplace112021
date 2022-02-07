@@ -1,6 +1,5 @@
 <template>
     <section class="homeMarket">
-    <div>
       <b-nav class="galleryNav" >
         <div class="galleryNavContainer" >
           <b-nav-item class="galleryNavItem active" id="discover" @click="tabChange('discover')">Discover</b-nav-item>
@@ -8,7 +7,6 @@
           <!-- <b-nav-item class="galleryNavItem" @click="tabChange('Your NFT')">Your NFT's</b-nav-item> -->
         </div>
       </b-nav>
-    </div>
     <div class="homeMarketItems">
 
         <div class="galleryContainer" v-if="gaiaAssets.length > 0 && tab === 'discover'">
@@ -139,7 +137,7 @@ p{padding:0; margin:0;}
 .homeMarket{
   width: 90%;
   min-height: 80rem;
-  margin: 20px auto 70px auto;
+  margin: 10px auto 70px auto;
 }
 .galleryContainer{
   display: grid;
