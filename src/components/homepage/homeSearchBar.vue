@@ -1,5 +1,5 @@
 <template>
-<div class="search_bar_container searchWidth">
+<div class="search_bar_container">
   <div class="dropdown_container">
     <div class="dropdown_selector" @click="showHidden()"> <span style="display:flex; margin: 9px auto; width: fit-content;">Search by <span style="color:#50B1B5; margin: 0 5px; font-size: 2.5rem;">▸</span></span>
       <div class="dropdown_option_container">
@@ -64,9 +64,7 @@ export default {
   z-index: 10;
   margin: auto;
 }
-.searchWidth{
-    max-width: 400px !important;
-}
+
 .searchIcon{
   position: absolute;
   font-size: 4.5rem;
@@ -100,10 +98,11 @@ export default {
 }
 
 .search_input_box{
+  min-width: 500px;
+  max-width: 1000px !important;
   border-top-right-radius: 40px;
   border-bottom-right-radius: 40px;
   height: 60px;
-  width: 50vw;
   outline: none;
   padding: 10px;
   background: white;

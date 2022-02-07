@@ -89,7 +89,8 @@
         </div>
     </div>
     <div class="searchB">
-    <HomeSearchBar/></div>
+      <HomeSearchBar/>
+    </div>
   </section>
 </template>
 
@@ -171,8 +172,12 @@ export default {
 }
 .searchB{
   display: relative;
-  // bottom: 0;
+  margin-top: -25px;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 800px;
 }
+
 .market_introduction_text{
   margin: auto;
   max-width: 1600px;
@@ -266,7 +271,7 @@ export default {
   backdrop-filter: blur(2rem);
 }
 .loggedBanner, .blurBackground{
-  min-height: 40vh;
+  min-height: 400px;
   position: relative;
   z-index: 2;
   max-width: 1500px;
