@@ -11,8 +11,8 @@
         </div>
         <div class="homeMarketItems">
             <div class="galleryContainer" v-if="filteredLaunch.length > 0 && tab === 'all'">
-                <div v-for="(item, index) in filteredLaunch" :key="index" class="homeNFTView" >
-                    <div class="NFTbackgroundColour">
+                <div v-for="(item, index) in filteredLaunch" :key="index" class="NFTbackgroundColour" >
+                    <div class="">
                         <b-link class="galleryNFTContainer" v-if="item && item.contractAsset && item.attributes">
                             <MediaItemGeneral :classes="'nftGeneralView'" v-on="$listeners" :mediaItem="item.attributes"/>
                     <p class="nFTName"> {{!item.name ? "NFT" : item.name }} <span style="float: right;">{{item.contractAsset.saleData.buyNowOrStartingPrice}} STX</span>
@@ -23,8 +23,8 @@
                 </div>
             </div>
             <div class="galleryContainer" v-if="filteredUnSoldLaunch.length > 0 && tab === 'unsold'">
-                <div v-for="(item, index) in filteredUnSoldLaunch" :key="index" class="homeNFTView" >
-                    <div class="NFTbackgroundColour">
+                <div v-for="(item, index) in filteredUnSoldLaunch" :key="index" class="NFTbackgroundColour" >
+                    <div class="">
                         <b-link class="galleryNFTContainer" v-if="item && item.contractAsset && item.attributes">
                             <MediaItemGeneral :classes="'nftGeneralView'" v-on="$listeners" :mediaItem="item.attributes"/>
                     <p class="nFTName"> {{!item.name ? "NFT" : item.name }} <span style="float: right;">{{item.contractAsset.saleData.buyNowOrStartingPrice}} STX</span>
@@ -52,20 +52,39 @@ export default {
       tab: 'unsold'
     }
   },
+  mounted () {
+    this.findAssets()
+  },
   methods: {
     tabChange (tab) {
       this.tab = tab
       document.getElementById('unsold').classList.remove('active')
       document.getElementById('all').classList.remove('active')
       document.getElementById(tab).classList.add('active')
+    },
+    findAssets () {
+      const data = {
+        contractId: 'ST22QPESFJ8XKJDWR1MHVXV2S4NBE44BA944NS4D2.test_collections7',
+        nftIndex: 2,
+        page: 0,
+        pageSize: 10,
+        stxAddress: 'ST22QPESFJ8XKJDWR1MHVXV2S4NBE44BA944NS4D2',
+        mine: 'ST22QPESFJ8XKJDWR1MHVXV2S4NBE44BA944NS4D2'
+      }
+      this.$store.dispatch('rpayStacksContractStore/fetchTokensByContractId', data).then((data) => {
+        console.log('Normal')
+        console.log(data)
+      }).catch((error) => {
+        console.log(error.message)
+      })
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-.launchS1{
-    min-height: 50vh;
+.launchS2{
+    min-height: 50rem;
     display: grid;
     place-items: center;
 }
@@ -86,16 +105,13 @@ export default {
     }
 }
 p{padding:0; margin:0;}
-.homeMarket{
-  width: 90%;
-  min-height: 80rem;
-  margin: auto;
-  margin: 5rem auto;
-}
+
 .galleryContainer{
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(255px, max-content));
+  gap: 20px;
+  max-width: 1350px;
+  justify-content: center;
   margin: auto;
 }
 .homeMarketItems{
@@ -116,7 +132,7 @@ p{padding:0; margin:0;}
   max-height: 400px;
 }
 .button{
-  margin: 100px auto 100px auto;
+  margin: 50px auto 50px auto;
 }
 #unsold {
   margin-right: 20px;

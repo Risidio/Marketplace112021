@@ -1,6 +1,5 @@
 <template>
     <section class="homeMarket">
-    <div>
       <b-nav class="galleryNav" >
         <div class="galleryNavContainer" >
           <b-nav-item class="galleryNavItem active" id="discover" @click="tabChange('discover')">Discover</b-nav-item>
@@ -8,12 +7,11 @@
           <!-- <b-nav-item class="galleryNavItem" @click="tabChange('Your NFT')">Your NFT's</b-nav-item> -->
         </div>
       </b-nav>
-    </div>
     <div class="homeMarketItems">
 
         <div class="galleryContainer" v-if="gaiaAssets.length > 0 && tab === 'discover'">
-            <div v-for="(item, index) in filterMarketAssets" :key="index" class="homeNFTView" >
-                <div class="NFTbackgroundColour">
+            <div v-for="(item, index) in filterMarketAssets" :key="index" class="NFTbackgroundColour" >
+                <div class="">
                     <b-link class="galleryNFTContainer" :to="assetUrl(item)" v-if="item && item.contractAsset && item.attributes">
                   <MediaItemGeneral :classes="'nftGeneralView'" v-on="$listeners" :mediaItem="item.attributes"/>
                   <p class="nFTName"> {{!item.name ? "NFT" : item.name }} <span style="float: right;">{{item.contractAsset.saleData.buyNowOrStartingPrice}} STX</span>
@@ -52,7 +50,7 @@
                 </div>
               </div>
           </div> -->
-            <button class="button filled"><router-link style="color:white" to="/nft-marketplace/risidio/launch_collection_t1">See More Collectables</router-link></button>
+          <router-link style="color:white" class="routerL" to="/nft-marketplace/risidio/launch_collection_t1"> <button class="button filled">See More Collectables</button></router-link>
     </div>
   </section>
 </template>
@@ -139,13 +137,13 @@ p{padding:0; margin:0;}
 .homeMarket{
   width: 90%;
   min-height: 80rem;
-  margin: auto;
-  margin: 5rem auto;
+  margin: 10px auto 70px auto;
 }
 .galleryContainer{
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(340px, max-content));
-  max-width: 1480px;
+  grid-template-columns: repeat(auto-fill, minmax(255px, max-content));
+  gap: 20px;
+  max-width: 1350px;
   justify-content: center;
   margin: auto;
 }
@@ -153,23 +151,12 @@ p{padding:0; margin:0;}
   max-width: 1800px;
   margin: auto;
 }
-.homeNFTView{
-  display: flex;
-  // margin: 4rem;
-  border-radius: 25px;
-  // padding: 4rem;
-  margin: auto;
-}
-.homeNFTView > *{
-  flex: 1 1 300px;
-  padding: 30px;
-  min-width: 300px;
-  max-height: 400px;
-}
+
 .button{
-  margin: 20px auto 0 auto;
+  margin: 50px auto;
+  font: normal normal bold 11px/14px Montserrat;
 }
 #discover {
-  margin-right: 20px;
+  margin-right: 50px;
 }
 </style>

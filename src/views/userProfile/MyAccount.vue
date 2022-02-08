@@ -62,8 +62,8 @@
       <div v-else-if="gaiaAssets.length > 0 && tab === 'Item'" class="galleryinfoContainer">
         <div class="addNewContainer">
           <router-link to="/create">
-            <p style="font-size: 70px; font-weight: 300; color: grey;">&plus;</p>
-            <p style="font-weight: 500;"> Add new NFT</p>
+            <p style="font-size: 150px; margin-top: 20px;font-weight: 300; color: grey;">&plus;</p>
+            <p style="font-weight: 500; margin-top: 30px;"> Add new NFT</p>
             <p style="font-weight: 300;"> Do you have your own item and would like to add it to the marketplace? Mint it now!</p>
           </router-link>
           <div>
@@ -72,17 +72,17 @@
           </div>
         </div>
         <div v-for="(item, index) in gaiaAssetNotMinted" :key="index"  >
-          <div v-if="!item.mintInfo" class="galleryItem">
-            <div class="yourItems">
-              <router-link v-bind:to="'/item-preview/' + item.assetHash + '/' + 0" ><img :src="item.image" class="itemImg" style=""/></router-link>
+          <div v-if="!item.mintInfo" class="NFTbackgroundColour">
+            <div class="galleryNFTContainer">
+              <router-link v-bind:to="'/item-preview/' + item.assetHash + '/' + 0" ><img :src="item.image" class="nftGeneralView" style=""/></router-link>
               <p style="font-size: 10px; padding: 0; margin: 0; float: right"> Not Minted </p>
               <p class="nFTName"> {{item.name || 'Not named'}} </p>
               <p class="nFTArtist">By <span style="font-weight:600">{{item.artist || 'Not named'}}</span></p>
             </div>
           </div>
-          <div v-else class="galleryItem isNFT">
-            <div class="yourItems">
-              <router-link v-bind:to="'/item-preview/' + item.assetHash + '/' + 0" ><img :src="item.image" class="itemImg" style=""/></router-link>
+          <div v-else class="NFTbackgroundColour isNFT">
+            <div class="galleryNFTContainer">
+              <router-link v-bind:to="'/item-preview/' + item.assetHash + '/' + 0" ><img :src="item.image" class="nftGeneralView" style=""/></router-link>
               <p style="font-size: 10px; padding: 0; margin: 0; float: right"> Minting In Progress </p>
               <p class="nFTName"> {{item.name || 'Not named'}}</p>
               <p class="nFTArtist">By <span style="font-weight:600">{{item.artist || 'Not named'}}</span></p>
@@ -91,9 +91,9 @@
         </div>
       </div>
       <div v-else-if="resultSet.length > 0 && tab === 'Sale'" class="galleryinfoContainer">
-        <div v-for="(item, index) in gaiaNFTSaleItem" :key="index" class="galleryItem onSale">
-            <div class="yourItems">
-              <router-link v-bind:to="'/nfts/' + item.contractId + '/' + item.contractAsset.nftIndex" ><img :src="item.image" class="itemImg" style=""/></router-link>
+        <div v-for="(item, index) in gaiaNFTSaleItem" :key="index" class="NFTbackgroundColour onSale">
+            <div class="galleryNFTContainer">
+              <router-link v-bind:to="'/nfts/' + item.contractId + '/' + item.contractAsset.nftIndex" ><img :src="item.image" class="nftGeneralView" style=""/></router-link>
               <p class="nFTName"> {{item.name || 'Not named'}} <span style="float: right; font-size: 0.6em; margin-top: 10px;">$ 0</span></p>
               <p class="nFTArtist">By <span style="font-weight:600">{{item.artist || 'Not named'}}</span> <span style="float: right;">{{item.contractAsset.saleData.buyNowOrStartingPrice || '0'}} STX</span></p>
             </div>
@@ -149,6 +149,8 @@ export default {
     }
   },
   mounted () {
+    this.findAssets()
+    this.findAssets1()
     let currentRunKey = this.$route.params.collection
     if (!currentRunKey) {
       this.showWalletNfts = true
@@ -166,7 +168,6 @@ export default {
       ga.contractAsset = Object.assign({}, myContractAssets[i])
       this.myNfts.push(ga)
     }
-    this.findAssets()
     this.loaded = true
   },
   watch: {
@@ -240,13 +241,29 @@ export default {
         // stxAddress: (NETWORK === 'local') ? 'STFJEDEQB1Y1CQ7F04CS62DCS5MXZVSNXXN413ZG' : this.profile.stxAddress
         stxAddress: this.profile.stxAddress,
         page: 0,
-        pageSize: this.pageSize,
+        pageSize: 100,
         query: '?' + this.defQuery
       }
       this.$store.dispatch('rpayStacksContractStore/fetchWalletNftsByFilters', data).then((results) => {
         console.log(results)
       }).catch((error) => {
         console.log('error ' + error)
+      })
+    },
+    findAssets1 () {
+      const data = {
+        contractId: 'ST22QPESFJ8XKJDWR1MHVXV2S4NBE44BA944NS4D2.test_collections9',
+        nftIndex: 2,
+        page: 0,
+        pageSize: 10,
+        stxAddress: 'ST22QPESFJ8XKJDWR1MHVXV2S4NBE44BA944NS4D2',
+        mine: 'ST22QPESFJ8XKJDWR1MHVXV2S4NBE44BA944NS4D2'
+      }
+      this.$store.dispatch('rpayStacksContractStore/fetchTokensByContractId', data).then((data) => {
+        console.log('Normal')
+        console.log(data)
+      }).catch((error) => {
+        console.log(error.message)
       })
     },
     currencyChange (currency) {

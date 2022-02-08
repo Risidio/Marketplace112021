@@ -41,6 +41,7 @@ const Gallery = () => import('@/views/Gallery.vue')
 const HowItWorks = () => import('@/views/HowItWorks.vue')
 const LaunchCollection = () => import('@/views/collections/LaunchCollection.vue')
 const QandA = () => import('@/views/QandA.vue')
+const AdminPage = () => import('@/views/AdminPage.vue')
 // const PunkMinter = () => import('@/views/marketplace/PunkMinter.vue')
 const UploadItem = () => import('@/views/marketplace/UploadItem.vue')
 const WebAdminUploadItem = () => import('@/views/marketplace/WebAdminUploadItem.vue')
@@ -85,6 +86,12 @@ const routes: Array<RouteConfig> = [
     name: 'my-account',
     components: { default: MyAccount, header: MainNavbar, footer: MainFooter },
     meta: { title: 'Your Account - Risidio' }
+  },
+  {
+    path: '/admin-collection-mint',
+    name: 'adminCollectionMint',
+    components: { default: AdminPage, header: MainNavbar, footer: MainFooter },
+    meta: { title: 'Hi Risidio Admin' }
   },
   {
     path: '/nft-gallery',

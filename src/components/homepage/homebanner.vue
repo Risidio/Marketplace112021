@@ -25,10 +25,20 @@
                     <template #content>
                         <div v-if="slide.id==1" class = "slideContainer">
                             <div class="slideImage">
-                              <img
-                              src="https://res.cloudinary.com/risidio/image/upload/v1640003055/RisidioMarketplace/Tiger_BitStacks_By_Benny_d8rprd.png"
-                              alt="Tiger-BitStacks-By-Benny"
-                              class="collectionImage"/>
+                              <div class="collectionImageBack">
+                                <img
+                                src="https://res.cloudinary.com/risidio/image/upload/v1634828295/RisidioMarketplace/Screenshot_2021-10-21_at_15.57.57_q7chjf.png"
+                                alt="Tiger-BitStacks-By-Benny"
+                                class="collectionImage"/>
+                                <img
+                                src="https://res.cloudinary.com/risidio/image/upload/v1634828295/RisidioMarketplace/Screenshot_2021-10-21_at_15.57.57_q7chjf.png"
+                                alt="Tiger-BitStacks-By-Benny"
+                                class="collectionImage"/>
+                                <img
+                                src="https://res.cloudinary.com/risidio/image/upload/v1640003055/RisidioMarketplace/Tiger_BitStacks_By_Benny_d8rprd.png"
+                                alt="Tiger-BitStacks-By-Benny"
+                                class="collectionImage collectionImageFront"/>
+                              </div>
                             </div>
                             <div class="slideText">
                               <h2>{{content.heroarea[1].herotitle[0].text}}</h2>
@@ -38,7 +48,20 @@
                         </div>
                         <div v-if="slide.id==2" class = "slideContainer">
                             <div class="slideImage">
-
+                              <div class="collectionImageBack">
+                                <img
+                                src="https://res.cloudinary.com/risidio/image/upload/v1644231731/RisidioMarketplace/Screenshot_2022-02-07_110034_vy0tyl.png"
+                                alt="Image-from-Eggschain"
+                                class="collectionImage"/>
+                                <img
+                                src="https://res.cloudinary.com/risidio/image/upload/v1644231731/RisidioMarketplace/Screenshot_2022-02-07_105958_upudjc.png"
+                                alt="Image-from-Eggschain"
+                                class="collectionImage"/>
+                                <img
+                                src="https://res.cloudinary.com/risidio/image/upload/v1644231731/RisidioMarketplace/Screenshot_2022-02-07_110021_hkdboj.png"
+                                alt="Image-from-Eggschain"
+                                class="collectionImage collectionImageFront"/>
+                              </div>
                             </div>
                             <div class="slideText">
                               <h2>{{content.heroarea[2].herotitle[0].text}}</h2>
@@ -89,7 +112,8 @@
         </div>
     </div>
     <div class="searchB">
-    <HomeSearchBar/></div>
+      <HomeSearchBar/>
+    </div>
   </section>
 </template>
 
@@ -155,24 +179,28 @@ export default {
 <style lang="scss" scoped>
 .bannerContainer{
   height: 50rem;
-  margin-bottom: 5rem;
+  // margin-bottom: 5rem;
 }
 .slideText{
+  position: relative;
   h2{
     margin-bottom: 1rem;
     letter-spacing: 1px;
-    font-size: 40px;
-    font-weight: 400;
+    font: normal normal 300 30px/55px Montserrat;
   }
   p{
-    font-size: 1.4rem;
+    font: normal normal 300 14px/18px Montserrat;
     max-width: 50rem;
   }
 }
 .searchB{
   display: relative;
-  // bottom: 0;
+  margin-top: -25px;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 800px;
 }
+
 .market_introduction_text{
   margin: auto;
   max-width: 1600px;
@@ -266,17 +294,17 @@ export default {
   backdrop-filter: blur(2rem);
 }
 .loggedBanner, .blurBackground{
-  min-height: 40vh;
+  min-height: 400px;
   position: relative;
   z-index: 2;
   max-width: 1500px;
   margin: 35px auto;
   border-radius: 30px;
 }
-
 .vueperslides__arrow .arrow{
-  width: 35px;
-  height: 35px;
+  width: 25px;
+  height: 25px;
+  color: white;
 }
 .slideContainer{
   display: flex;
@@ -284,39 +312,88 @@ export default {
   align-items: center;
   height:100%;
   padding: 25px 40px;
-  gap: 2rem;
+  gap: 5rem;
 }
 .slideContainer > *:nth-child(1){
   flex: 1 1 40%;
   min-width: 400px;
+  max-width: 400px;
+  margin: auto;
 }
 .slideContainer > *:nth-child(2){
   flex: 1 1 55%;
   min-width: 400px;
 }
-.button{margin-top: 20px;}
+.button{margin-top: 20px; position: abs}
 .button:hover{
   background: rgba(95, 189, 193, 0.6);
 }
 .collectionImage{
   display: block;
-  width: 25rem;
-  height: 25rem;
+  width: 211px;
+  height: 189px;
   border-radius: 10px;
   margin: auto;
   box-shadow: 10px 10px 30px #0000002F;
+  object-fit: cover;
 }
-@media only screen and (max-width: 1200px) {
+.slideImage{
+  position: relative;
+}
+.collectionImageBack{
+  position: relative;
+  display: flex;
+}
+.collectionImageFront{
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+  text-align: center;
+  transform: scale(1.15)
+}
+
+@media only screen and (max-width: 1260px) {
+  .vueperslides--fixed-height {
+    height: 50rem;
+    max-width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+    backdrop-filter: blur(2rem);
+  }
   .slideContainerNotLogged{
     display: flex;
     flex-direction: column;
     height: 65vh;
   }
+  .slideContainer > *:nth-child(1){
+    min-width: 300px;
+  }
+.slideContainer > *:nth-child(2){
+    min-width: 300px;
+}
   .bannerContainer{
-      height: 80vh;
+    min-height: 65rem;
   }
   .banner{
-    height: 80vh;
+    min-height: 65rem;
+  }
+}
+@media only screen and (max-width: 550px) {
+   .vueperslides--fixed-height {
+    height: 60rem;
+    max-width: 85%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 25px;
+    backdrop-filter: blur(2rem);
+  }
+    .bannerContainer{
+    height: 80rem;
+  }
+    .banner{
+    height: 80rem;
   }
 }
 </style>

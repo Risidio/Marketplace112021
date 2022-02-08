@@ -1,5 +1,5 @@
 <template>
-<div class="search_bar_container searchWidth">
+<div class="search_bar_container">
   <div class="dropdown_container">
     <div class="dropdown_selector" @click="showHidden()"> <span style="display:flex; margin: 9px auto; width: fit-content;">Search by <span style="color:#50B1B5; margin: 0 5px; font-size: 2.5rem;">▸</span></span>
       <div class="dropdown_option_container">
@@ -64,14 +64,12 @@ export default {
   z-index: 10;
   margin: auto;
 }
-.searchWidth{
-    max-width: 400px !important;
-}
+
 .searchIcon{
   position: absolute;
-  font-size: 4.5rem;
-  margin-left: -5.5rem;
-  margin-top: -0.5rem;
+  font-size: 3.5rem;
+  margin-left: -4.5rem;
+  margin-top: -0.3rem;
   color: #50B1B5;
   transform: rotate(270deg);
   cursor: pointer;
@@ -80,9 +78,10 @@ export default {
 .dropdown_selector{
   border-top-left-radius: 40px;
   border-bottom-left-radius: 40px;
-  height: 60px;
+  font: normal normal 300 11px/14px Montserrat;
+  height: 50px;
   width: 155px;
-  padding: 10px;
+  padding: 9px;
   outline: none;
   background: white;
   transition: 0.3s;
@@ -100,33 +99,34 @@ export default {
 }
 
 .search_input_box{
+  min-width: 500px;
+  max-width: 1000px !important;
   border-top-right-radius: 40px;
   border-bottom-right-radius: 40px;
-  height: 60px;
-  width: 50vw;
+  height: 50px;
   outline: none;
   padding: 10px;
   background: white;
   box-shadow: 0px 3px 6px #00000029;
   border: 1px solid #F5F5F5;
-  font: normal normal 300 16px/24px Montserrat;
+  font: normal normal 300 11px/14px Montserrat;
   z-index: 1;
   }
 
 ::-webkit-input-placeholder {
-   font: normal normal 300 16px/24px Montserrat;
+   font: normal normal 300 11px/14px Montserrat;
 }
 
 :-moz-placeholder { /* Firefox 18- */
-   font: normal normal 300 16px/24px Montserrat;
+   font: normal normal 300 11px/14px Montserrat;
 }
 
 ::-moz-placeholder {  /* Firefox 19+ */
-   font: normal normal 300 16px/24px Montserrat;
+   font: normal normal 300 11px/14px Montserrat;
 }
 
 :-ms-input-placeholder {
-   font: normal normal 300 16px/24px Montserrat;
+   font: normal normal 300 11px/14px Montserrat;
 }
 
 .dropdown_container{

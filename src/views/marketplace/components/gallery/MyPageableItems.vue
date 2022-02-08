@@ -4,10 +4,10 @@
     <div class="mb-4" v-if="showMinted && loopRun"> -->
       <Pagination @changePage="gotoPage" :pageSize="pageSize" :numberOfItems="numberOfItems" v-if="numberOfItems > 0" />
       <div class="galleryinfoContainer" id="my-table" v-if="resultSet && resultSet.length > 0">
-        <div class="addNewContainer" stye="max-width: 320px">
+        <div class="addNewContainer" stye="">
           <router-link to="/create">
-            <p style="font-size: 70px; font-weight: 300; color: grey;">&plus;</p>
-            <p style="font-weight: 500;"> Add new NFT</p>
+            <p style="font-size: 150px; margin-top: 20px;font-weight: 300; color: grey;">&plus;</p>
+            <p style="font-weight: 500; margin-top: 30px;"> Add new NFT</p>
             <p style="font-weight: 300;"> Do you have your own item and would like to add it to the marketplace? Mint it now!</p>
           </router-link>
           <div>

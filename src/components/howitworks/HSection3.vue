@@ -3,6 +3,7 @@
     <h1>{{ content.howsection2_title[0].text }}</h1>
 
     <div class="question-container" v-for="(item, index) in content.howsection2" :key="index">
+    <div v-if="index == 0 || index == 3"> <!-- comment this code out to return all the text on prismic-->
       <button v-b-toggle="`question-${index}`" @click="isCollapsed.splice(index, 1, !isCollapsed[index])" class="question-button">
         {{ item.subtitle[0].text }}
         <b-icon v-if="isCollapsed[index]" icon="x"></b-icon>
@@ -27,7 +28,7 @@
         </div>
       </b-collapse>
     </div>
-
+</div>
   </div>
 </template>
 

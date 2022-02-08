@@ -11,17 +11,23 @@
           <span class="bar"></span>
         </a>
         <div v-if="profile.loggedIn" class="navbar_links" style="margin-left: 19px">
-            <router-link class="nav-items" to="/nft-marketplace/risidio/launch_collection_t1" >Gallery</router-link>
-            <b-dropdown id="dropdown-1" text="Featured Collections" class=" " variant="transparent" toggle-class="text-white" size="lg" style="padding:0px; height:55%; margin: auto 10px;">
+            <router-link class="nav-items bold" to="/nft-marketplace/risidio/launch_collection_t1" >Gallery</router-link>
+            <b-dropdown id="dropdown-1" text="Featured Collections" class="bold" variant="transparent" toggle-class="text-white" size="lg" style="padding:0px; height:55%; margin: auto 10px; font-weight: 600;">
               <b-dropdown-item v-for="(loopRun, index) in allLoopRuns" :key="index" ><span style="margin-top: -1rem" v-if="loopRun.status !== 'disabled'" class="pointer" @click="showCollection(loopRun)"><span @click="linkTo(loopRun)">{{loopRun.currentRun}}</span></span></b-dropdown-item>
             </b-dropdown>
-            <router-link class="nav-items text-black" to="/how-it-works" style="margin-left: auto;">How It Works</router-link>
-            <router-link class="nav-items text-black" to="/about">About Risidio </router-link>
-            <router-link class="nav-items navBtn" to="/my-account"> My NFT's </router-link>
+            <router-link
+            v-if="profile.stxAddress == ('ST112ZVZ2YQSW74BQ65VST84806RV5ZZZTW0261CV')
+            || profile.stxAddress == 'ST22QPESFJ8XKJDWR1MHVXV2S4NBE44BA944NS4D2'
+            || profile.stxAddress == 'ST28QQXAKCFWG7M956JPCJK0AT9FTSJ2DW27BX7ER'
+            || profile.stxAddress == 'ST1C3ERA3SJYNEWV4AK4JN6TDY7CMDKHA92YZDTSX'"
+            class="nav-items thin" to="/admin-collection-mint" style="margin-left: auto;" >Admin</router-link>
+            <router-link class="nav-items thin" to="/how-it-works" style="">How It Works</router-link>
+            <router-link class="nav-items text-black thin" to="/about">About Risidio </router-link>
+            <router-link class="nav-items navBtn thin" to="/my-account"> My NFT's </router-link>
         </div>
          <div v-else class="navbar_links_not_logged">
-            <router-link class="nav-items text-black" to="/how-it-works" style="margin-left: auto;" id="howItWorks">How It Works</router-link>
-            <router-link class="nav-items text-black" to="/about">About Risidio </router-link>
+            <router-link class="nav-items text-black thin" to="/how-it-works" style="margin-left: auto;" id="howItWorks">How It Works</router-link>
+            <router-link class="nav-items text-black thin" to="/about">About Risidio </router-link>
             <!-- <div @click.prevent="startLogin(); events();" id="login" class =" nav-items text-black">Login</div> -->
             <!-- <div @mouseover="isHidden = !isHidden" @blur="isHidden = !isHidden" class=" nav-items navBtn text-black" id="register" v-on:click="startRegister()"> Connect with Hiro Wallet <div v-show="isHidden" class="registerTooltip"> Click Register to download the Hiro Wallet extension and get started!</div></div> -->
             <div @mouseover="isHidden = !isHidden" @blur="isHidden = !isHidden" class=" nav-items navBtn text-black" id="register" v-on:click="startRegister()"> Connect with Hiro Wallet </div>
@@ -226,6 +232,12 @@ export default {
   font-size: 1.2rem;
   color: white;
   cursor: pointer;
+}
+.thin{
+  font: normal normal 300 12px/15px Montserrat;
+}
+.bold{
+  font: normal normal 600 12px/15px Montserrat;
 }
 .nav-items:hover{
   color: white;
