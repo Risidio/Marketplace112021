@@ -16,15 +16,15 @@
                         <p>STX: {{nft.contractAsset.listingInUstx.price ||  0}}</p>
                         <div class="flex" v-if="nft.contractAsset.listingInUstx.price == 0">
                             <p>Not On Sale </p>
-                            <button class="buy-button" @click="buyNFT()">List</button>
+                            <button class="buy-button" @click="listNFT(currentRun, nft)">List</button>
                         </div>
                         <div v-else>
-                            <button class="buy-button" @click="buyNFT()">Buy</button>
+                            <button class="buy-button" @click="buyNFT(currentRun, nft)">Buy</button>
                         </div>
                     </div>
                     <hr style="margin-top: 50px;"/>
                     <h4> Would you like to mint more in this Collection ?</h4>
-                    <p>Index: <input type="number"/><button class="mint-button" @click="buyNFT()">Mint</button></p>
+                    <p>Index: <input type="number"/><button class="mint-button" @click="mintNFT(currentRun, nft)">Mint</button></p>
                 </div>
             </div>
         </div>
@@ -32,6 +32,8 @@
 </template>
 
 <script>
+import { APP_CONSTANTS } from '@/app-constants'
+
 export default {
   name: 'AdminCollectionMint',
   props: ['allLoopRuns', 'projects'],
@@ -61,13 +63,85 @@ export default {
         this.currentRunAssets = result
       })
     },
-    buyNFT (buyNowData) {
-      this.$store.dispatch('rpayMarketStore/buyInUstx', buyNowData).then((result) => {
+    buyNFT (currentRun, nft) {
+      console.log(currentRun)
+      const data = {
+        commissionContractAddress: 'ST22QPESFJ8XKJDWR1MHVXV2S4NBE44BA944NS4D2',
+        commissionContractName: 'commission',
+        owner: currentRun.owner,
+        nftIndex: nft.contractAsset.nftIndex,
+        price: nft.contractAsset.listingInUstx.price,
+        sendAsSky: true, // only applicable in local
+        contractAddress: nft.contractAsset.contractId.split('.')[0],
+        contractName: nft.contractAsset.contractId.split('.')[1],
+        functionName: 'buy-in-ustx',
+        assetName: nft.contractAsset.contractId.split('.')[1] + 'NFT ' + nft.contractAsset.nftIndex,
+        batchOption: 1
+      }
+      this.$store.dispatch('rpayMarketStore/buyInUstx', data).then((result) => {
         this.result = result
         this.flowType = 2
       }).catch((err) => {
         this.errorMessage = err
         this.flowType = 3
+      })
+    },
+    listNFT (currentRun, nft) {
+      const data = {
+        owner: currentRun.owner,
+        nftIndex: nft.contractAsset.nftIndex,
+        commissionContractAddress: 'ST22QPESFJ8XKJDWR1MHVXV2S4NBE44BA944NS4D2',
+        commissionContractName: 'commission',
+        price: 1,
+        sendAsSky: true, // only applicable in local
+        contractAddress: nft.contractAsset.contractId.split('.')[0],
+        contractName: nft.contractAsset.contractId.split('.')[1],
+        functionName: 'list-in-ustx',
+        batchOption: 1
+      }
+      this.$store.dispatch('rpayMarketStore/listInUstx', data).then((result) => {
+        const item = this.$store.getters[APP_CONSTANTS.KEY_MY_ITEM](result.assetHash)
+        if (result.txId) {
+          item.mintInfo = {
+            txId: result.txId,
+            txStatus: result.txStatus,
+            timestamp: result.timestamp
+          }
+          this.$store.dispatch('rpayMyItemStore/quickSaveItem', item).then((item) => {
+            this.$emit('update', item)
+          })
+        }
+      }).catch((err) => {
+        this.errorMessage = 'Minting error: ' + err
+      })
+    },
+    mintNFT (currentRun, nft) {
+      const data = {
+        mintPrice: 10,
+        owner: currentRun.owner,
+        beneficiaries: [],
+        editions: 1,
+        editionCost: 0,
+        sendAsSky: true, // only applicable in local
+        contractAddress: currentRun.application.contractId.split('.')[0],
+        contractName: currentRun.application.contractId.split('.')[1],
+        functionName: 'mint-token',
+        batchOption: 1
+      }
+      this.$store.dispatch('rpayPurchaseStore/cpsMintToken', data).then((result) => {
+        const item = this.$store.getters[APP_CONSTANTS.KEY_MY_ITEM](result.assetHash)
+        if (result.txId) {
+          item.mintInfo = {
+            txId: result.txId,
+            txStatus: result.txStatus,
+            timestamp: result.timestamp
+          }
+          this.$store.dispatch('rpayMyItemStore/quickSaveItem', item).then((item) => {
+            this.$emit('update', item)
+          })
+        }
+      }).catch((err) => {
+        this.errorMessage = 'Minting error: ' + err
       })
     }
   }

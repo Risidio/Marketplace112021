@@ -17,7 +17,9 @@
             </b-dropdown>
             <router-link
             v-if="profile.stxAddress == ('ST112ZVZ2YQSW74BQ65VST84806RV5ZZZTW0261CV')
-            || profile.stxAddress == 'ST22QPESFJ8XKJDWR1MHVXV2S4NBE44BA944NS4D2'"
+            || profile.stxAddress == 'ST22QPESFJ8XKJDWR1MHVXV2S4NBE44BA944NS4D2'
+            || profile.stxAddress == 'ST28QQXAKCFWG7M956JPCJK0AT9FTSJ2DW27BX7ER'
+            || profile.stxAddress == 'ST1C3ERA3SJYNEWV4AK4JN6TDY7CMDKHA92YZDTSX'"
             class="nav-items thin" to="/admin-collection-mint" style="margin-left: auto;" >Admin</router-link>
             <router-link class="nav-items thin" to="/how-it-works" style="">How It Works</router-link>
             <router-link class="nav-items text-black thin" to="/about">About Risidio </router-link>
