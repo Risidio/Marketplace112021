@@ -252,7 +252,7 @@ export default {
     },
     findAssets1 () {
       const data = {
-        contractId: 'ST22QPESFJ8XKJDWR1MHVXV2S4NBE44BA944NS4D2.test_collections8',
+        contractId: 'ST22QPESFJ8XKJDWR1MHVXV2S4NBE44BA944NS4D2.test_collections9',
         nftIndex: 2,
         page: 0,
         pageSize: 10,

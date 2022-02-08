@@ -15,7 +15,11 @@
             <b-dropdown id="dropdown-1" text="Featured Collections" class="bold" variant="transparent" toggle-class="text-white" size="lg" style="padding:0px; height:55%; margin: auto 10px; font-weight: 600;">
               <b-dropdown-item v-for="(loopRun, index) in allLoopRuns" :key="index" ><span style="margin-top: -1rem" v-if="loopRun.status !== 'disabled'" class="pointer" @click="showCollection(loopRun)"><span @click="linkTo(loopRun)">{{loopRun.currentRun}}</span></span></b-dropdown-item>
             </b-dropdown>
-            <router-link class="nav-items thin" to="/how-it-works" style="margin-left: auto;">How It Works</router-link>
+            <router-link
+            v-if="profile.stxAddress == ('ST112ZVZ2YQSW74BQ65VST84806RV5ZZZTW0261CV')
+            || profile.stxAddress == 'ST22QPESFJ8XKJDWR1MHVXV2S4NBE44BA944NS4D2'"
+            class="nav-items thin" to="/admin-collection-mint" style="margin-left: auto;" >Admin</router-link>
+            <router-link class="nav-items thin" to="/how-it-works" style="">How It Works</router-link>
             <router-link class="nav-items text-black thin" to="/about">About Risidio </router-link>
             <router-link class="nav-items navBtn thin" to="/my-account"> My NFT's </router-link>
         </div>
