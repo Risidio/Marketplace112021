@@ -14,7 +14,7 @@
                     <div v-for="(nft, index) in currentRunAssets.gaiaAssets" :key="index" class="adminSingleNFTs">
                         <p>NFT #{{nft.contractAsset.nftIndex || 0}}</p>
                         <p>STX: {{nft.contractAsset.listingInUstx.price ||  0}}</p>
-                        <div class="flex" v-if="nft.contractAsset.listingInUstx.price == 0">
+                        <div class="flex" v-if="nft.contractAsset && nft.contractAsset.listingInUstx && nft.contractAsset.listingInUstx.price == 0">
                             <p>Not On Sale </p>
                             <button class="buy-button" @click="listNFT(currentRun, nft)">List</button>
                         </div>
@@ -66,22 +66,14 @@ export default {
     buyNFT (currentRun, nft) {
       console.log(currentRun)
       const data = {
-        mintPrice: 10,
-        owner: 'ST22QPESFJ8XKJDWR1MHVXV2S4NBE44BA944NS4D2',
-        assetHash: '0x0c5f53ee53ae12ee388abe2de9fa47513deddc70da960afac716db06c92701f0',
-        metaDataUrl: 'https://google.co.in',
-        beneficiaries: [],
-        nftIndex: 3,
         commissionContractAddress: 'ST22QPESFJ8XKJDWR1MHVXV2S4NBE44BA944NS4D2',
         commissionContractName: 'commission',
-        price: 100,
-        buyNowOrStartingPrice: 100,
-        commissionContract: 'ST22QPESFJ8XKJDWR1MHVXV2S4NBE44BA944NS4D2',
-        editions: 1,
-        editionCost: 0,
+        owner: currentRun.owner,
+        nftIndex: nft.contractAsset.nftIndex,
+        price: nft.contractAsset.listingInUstx.price,
         sendAsSky: true, // only applicable in local
-        contractAddress: 'ST22QPESFJ8XKJDWR1MHVXV2S4NBE44BA944NS4D2',
-        contractName: 'test_collections',
+        contractAddress: nft.contractAsset.contractId.split('.')[0],
+        contractName: nft.contractAsset.contractId.split('.')[1],
         functionName: 'buy-in-ustx',
         assetName: nft.contractAsset.contractId.split('.')[1] + 'NFT ' + nft.contractAsset.nftIndex,
         batchOption: 1
