@@ -22,20 +22,23 @@
             </div>
         </div>
 
-        <div class="galleryContainer" v-if="tab === 'collections'">
-          <b-col style="margin: auto" md="9" sm="12">
+        <div class="galleryContainer1" v-if="tab === 'collections'">
+          <div class="comingSoon">
+
             <h1 style="margin: auto; text-align: center;">Coming soon!</h1>
-            <b-row class="h-auto">
+          </div>
+          <!-- <b-col style="margin: auto" md="9" sm="12">
+            <div class="h-auto">
               <b-col class="mt-5 w-100"  v-for="(loopRun, index) in loopRuns" :key="index" >
                 <div>
-                  <b-link :to="collectionUrl(loopRun)">
+                  <div :to="collectionUrl(loopRun)">
                     <img style="width: 100%; height: 100%;" :src="getImageUrl(loopRun)"  v-b-tooltip.hover="{ variant: 'light' }" :title="'Collection\n' + loopRun.currentRun"/>
                       <div class=""><b-link :to="collectionUrl(loopRun)">{{loopRun.currentRun}}</b-link></div>
-                  </b-link>
+                  </div>
                 </div>
               </b-col>
-            </b-row>
-          </b-col>
+            </div>
+          </b-col> -->
         </div>
 
           <!-- <div class=""  v-if="tab === 'Your NFT'">
@@ -151,7 +154,12 @@ p{padding:0; margin:0;}
   max-width: 1800px;
   margin: auto;
 }
-
+.comingSoon{
+  display: grid;
+  place-items: center;
+  max-width: 400px;
+  margin: auto;
+}
 .button{
   margin: 50px auto;
   font: normal normal bold 11px/14px Montserrat;

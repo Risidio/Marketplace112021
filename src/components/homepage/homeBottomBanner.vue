@@ -2,7 +2,7 @@
     <section class="homeBottomBanner">
         <div v-if="profile.loggedIn" class="homeBottomContainer">
             <h2>{{content.bottomcontent[0].maintitle[0].text}}</h2>
-            <h3>{{content.bottomcontent[0].text[0].text}}<br/><br/>
+            <h3>{{content.bottomcontent[0].text[0].text}}<br/>
             {{content.bottomcontent[0].text[1].text}}</h3>
             <div class="buttonCont">
                 <router-link class="button notFilled" to="/how-it-works"> Find Out More </router-link>
@@ -10,7 +10,7 @@
         </div>
         <div v-else class="homeBottomContainer">
             <h2>{{content.bottomcontent[0].maintitle[0].text}}</h2>
-            <h3>{{content.bottomcontent[0].text[0].text}}<br/><br/>
+            <h3>{{content.bottomcontent[0].text[0].text}}<br/>
             {{content.bottomcontent[0].text[1].text}}</h3>
             <div class="buttonCont">
                 <button class="button filled" @click="startLogin"> Connect with Hiro Wallet</button>
@@ -54,7 +54,7 @@ export default {
 .homeBottomBanner{
     width:100%;
     margin: auto;
-    height: 60vh;
+    min-height: 400px;
     // max-height: 50vh;
     background: url(https://res.cloudinary.com/risidio/image/upload/v1633609373/RisidioMarketplace/Group_-304_ofssmk.svg)no-repeat center center;
     -webkit-background-size: cover;
@@ -66,7 +66,7 @@ export default {
     display:flex;
     flex-direction: column;
     margin: auto auto;
-    padding-top: 8%;
+    padding-top: 100px;
     text-align: center;
     max-width: 800px;
     height: 40rem;
@@ -77,9 +77,16 @@ export default {
     color: white;
 }
 .homeBottomContainer h3{
-    font-size: 20px;
+    font-size: 17px;
     color: white;
     margin-bottom: 20px;
+}
+.button{
+  width: 180px;
+  padding: 15px;
+  text-align: center;
+  display: grid;
+  place-items: center;
 }
 .buttonCont{
     display: flex;

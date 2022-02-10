@@ -127,7 +127,7 @@ export default {
 .homeInfo{
     min-height: 800px;
     background: transparent linear-gradient(180deg, rgba(54, 24, 165, 0.925) 0%, rgb(16, 29, 92) 100%) 0% 0% no-repeat padding-box;
-    padding: 10rem;
+    padding: 10rem 1rem;
     color: white;
     text-align: center;
 }
@@ -137,7 +137,7 @@ export default {
   margin: 10px auto
 }
 .textCon{
-    min-height: 400px;
+    min-height: 30px;
     & button{
         margin: auto;
     }
@@ -146,11 +146,11 @@ export default {
     }
 }
 .button{
-    margin: auto;
+    margin: 50px auto;
 }
 .homeInfoContainer{
-    margin-top: 100px;
-    max-width: 1600px;
+    // margin-top: 100px;
+    max-width: 1000px;
     margin: auto;
     display: flex;
     flex-wrap: wrap;
@@ -158,7 +158,6 @@ export default {
 .homeInfoContainer > * {
     flex-direction: row;
     flex: 1 1 400px;
-    padding: 20px 50px;
     text-align: center;
     img{
         border-radius: 10px;
@@ -175,7 +174,7 @@ export default {
     }
 }
 .homeInfoText{
-    max-width: 350px;
+    max-width: 275px;
     padding-bottom: 50px;
 }
 </style>

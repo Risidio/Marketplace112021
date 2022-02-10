@@ -111,5 +111,8 @@ p{
 .imgIcon{
   width: 100px;
   height: 100px;
+  margin-left: auto;
+}
+@media only screen and (max-width: 450px) {
 }
 </style>

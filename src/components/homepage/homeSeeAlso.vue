@@ -50,8 +50,16 @@ export default {
           visibleSlides: 4.15,
           slideRatio: 1 / 2.5
         },
+        1400: {
+          visibleSlides: 3.2,
+          slideRatio: 1 / 1.8
+        },
         1200: {
           visibleSlides: 3.2,
+          slideRatio: 1 / 1.8
+        },
+        1000: {
+          visibleSlides: 2.6,
           slideRatio: 1 / 1.8
         },
         800: {

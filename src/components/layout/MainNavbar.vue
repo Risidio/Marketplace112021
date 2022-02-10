@@ -1,10 +1,24 @@
 <template>
 <div >
+<!-- The Modal -->
+<div id="myModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="hiro-modal-content">
+    <span class="close" @click="closeModal()">&times;</span>
+    <h3 class="modalH3">No Hiro Wallet Found</h3>
+    <p class="modalP"> No Hiro Wallet is found!</p>
+    <p class="modalP2"> No Hiro Wallet Is found! You need to connect a Hiro Wallet to the site to get started in order to browse, buy, sell and trade NFTs. Please visit 'what's a wallet?' for more information.</p>
+    <button class="button notFilledBlue" @click="downloadWallet()"> Download For "Browser"</button>
+    <p class="modalP3" @click="closeModal()"> <router-link to="/hiro-wallet">What's A Wallet ? </router-link></p>
+  </div>
+
+</div>
 <div class="navbar_container">
    <img class="nav_banner" src="https://res.cloudinary.com/risidio/image/upload/v1633609222/RisidioMarketplace/gradienta-m_-1_v4hs5p.svg" alt="">
 </div>
   <div class = "mainNavbar">
-        <router-link class="risidioLogo" to="/"><img width="150px;" :src="logo" alt="risidio-logo" style="margin-left: -10px"/></router-link>
+        <router-link class="risidioLogo" to="/"><img width="150px;" :src="logo" alt="risidio-logo" style="margin-left: -10px; margin-right: 20px;"/></router-link>
         <a href= "#" class = "toggle-button" v-on:click="mobileNavebar()">
           <span class="bar"></span>
           <span class="bar"></span>
@@ -15,17 +29,15 @@
             <b-dropdown id="dropdown-1" text="Featured Collections" class="bold" variant="transparent" toggle-class="text-white" size="lg" style="padding:0px; height:55%; margin: auto 10px; font-weight: 600;">
               <b-dropdown-item v-for="(loopRun, index) in allLoopRuns" :key="index" ><span style="margin-top: -1rem" v-if="loopRun.status !== 'disabled'" class="pointer" @click="showCollection(loopRun)"><span @click="linkTo(loopRun)">{{loopRun.currentRun}}</span></span></b-dropdown-item>
             </b-dropdown>
-            <router-link
-            v-if="profile.stxAddress == ('ST112ZVZ2YQSW74BQ65VST84806RV5ZZZTW0261CV')
-            || profile.stxAddress == 'ST22QPESFJ8XKJDWR1MHVXV2S4NBE44BA944NS4D2'
-            || profile.stxAddress == 'ST28QQXAKCFWG7M956JPCJK0AT9FTSJ2DW27BX7ER'
-            || profile.stxAddress == 'ST1C3ERA3SJYNEWV4AK4JN6TDY7CMDKHA92YZDTSX'"
-            class="nav-items thin" to="/admin-collection-mint" style="margin-left: auto;" >Admin</router-link>
             <router-link class="nav-items thin" to="/how-it-works" style="margin-left: auto;">How It Works</router-link>
             <router-link class="nav-items text-black thin" to="/about">About Risidio </router-link>
             <router-link class="nav-items navBtn thin" to="/my-account"> My NFT's </router-link>
         </div>
          <div v-else class="navbar_links_not_logged">
+            <router-link class="nav-items bold" to="/nft-marketplace/risidio/launch_collection_t1" >Gallery</router-link>
+            <b-dropdown id="dropdown-1" text="Featured Collections" class="bold" variant="transparent" toggle-class="text-white" size="lg" style="padding:0px; height:55%; margin: auto 10px; font-weight: 600;">
+              <b-dropdown-item v-for="(loopRun, index) in allLoopRuns" :key="index" ><span style="margin-top: -1rem" v-if="loopRun.status !== 'disabled'" class="pointer" @click="showCollection(loopRun)"><span @click="linkTo(loopRun)">{{loopRun.currentRun}}</span></span></b-dropdown-item>
+            </b-dropdown>
             <router-link class="nav-items text-black thin" to="/how-it-works" style="margin-left: auto;" id="howItWorks">How It Works</router-link>
             <router-link class="nav-items text-black thin" to="/about">About Risidio </router-link>
             <!-- <div @click.prevent="startLogin(); events();" id="login" class =" nav-items text-black">Login</div> -->
@@ -96,7 +108,9 @@ export default {
           location.reload()
         }).catch(() => {
           this.$store.commit(APP_CONSTANTS.SET_WEB_WALLET_NEEDED)
-          window.open('https://www.hiro.so/wallet', '_blank')
+          // window.open('https://www.hiro.so/wallet', '_blank')
+          const modal = document.getElementById('myModal')
+          modal.style.display = 'block'
         })
       }
     },
@@ -121,6 +135,13 @@ export default {
     },
     aboutRisidio () {
       window.open('https://www.Risidio.com', '_blank')
+    },
+    closeModal () {
+      const modal = document.getElementById('myModal')
+      modal.style.display = 'none'
+    },
+    downloadWallet () {
+      window.open('https://www.hiro.so/wallet', '_blank')
     }
   },
   computed: {
@@ -188,8 +209,7 @@ export default {
 <style lang="scss">
 .mainNavbar{
   display: flex;
-  width: 90vw;
-  margin: 20px auto 20px auto;
+  margin: 20px 50px;
 }
 .mainNavbar{}
 /* NAVBAR PADDING AND WIDTH */
@@ -271,7 +291,71 @@ export default {
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   cursor: default;
 }
-@media only screen and (max-width: 1000px){
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding: 100px 10px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.hiro-modal-content {
+  display: grid;
+  place-items: center;
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border-radius: 34px;
+  border: none;
+  max-width: 651px;
+  height: 379px;
+  text-align: center;
+
+/* The Close Button */
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 30px;
+  font-weight: bold;
+  text-align: right;
+  max-width: 30px;
+  margin-left: auto;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+.button{
+  margin: 50px auto 0 auto;
+}
+.modalH3{
+  font: normal normal 300 30px/55px Montserrat;
+}
+.modalP, .modalP2{
+  font: normal normal normal 14px/18px Montserrat;
+  max-width: 460px;
+  margin: 5px auto;
+}
+.modalP3{
+  font: normal normal bold 11px/14px Montserrat;
+  padding: 5px;
+  cursor: pointer;
+  &:hover{
+    text-decoration: underline;
+  }
+}
+}
+@media only screen and (max-width: 1100px){
   .toggle-button{
     display:flex;
   }

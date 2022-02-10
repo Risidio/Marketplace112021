@@ -1,29 +1,30 @@
 <template>
   <div class="viewContainer">
     <div class="profileContainer">
-        <div class="profile" style="margin-left: 40px;">
+      <div class="profile">
           <div class="profileItems">
           <img class="profileImg" src="https://res.cloudinary.com/risidio/image/upload/v1637580392/RisidioMarketplace/depositphotos_137014128-stock-illustration-user-profile-icon_splob8.jpg" alt="">
           <p title='edit your profile' style="width: 45px; -webkit-transform: scaleX(-1);transform: scaleX(-1);" class="pencil">&#9998;</p>
         </div>
           <div class="usernameEdit" ><input type="text" placeholder="Username"><span style="width: 35px; -webkit-transform: scaleX(-1);transform: scaleX(-1);" title='edit your profile' class="">&#9998;</span>
         </div>
-          <p style="margin: -20px 0; padding: 0 10px; font-weight: 700; text-decoration: underline; color: #50B1B5; cursor: pointer" >View Transaction History</p></div>
+          <p class="profile-history" >View Transaction History</p>
+        </div>
         <div class="walletContainer">
           <button class="button filled infoButton hidden" id="infoButton" @click="viewInfo(1)"> View Info</button>
           <div id="walletDetails" class="walletDetails">
-            <button class="notFilled" @click="viewInfo(0)">Hide</button>
+            <button class="notFilled" @click="viewInfo(0)">HIDE</button>
             <h1>Your Wallet Information:</h1>
-            <h2>Wallet: {{username}}</h2>
+            <h2>{{username}}</h2>
             <!-- <h2>John Doe</h2> -->
             <br/>
             <div class="walletCurrency">
               <div>
-                <p>Credit Remaining:</p>
-                <p id="stxInfo" > {{yourSTX}} stx</p>
+                <p style="font: normal normal 300 12px/15px Montserrat;">Credit Remaining:</p>
+                <pre id="stxInfo" style="font: normal normal 300 15px/19px Montserrat;"> <span style="color: rgba(81, 84, 161, 1); font: normal normal 600 12px/15px Montserrat;">{{yourSTX}}</span>  STX</pre>
               </div>
               <div>
-                  <p>{{currency}} {{yourSTX}}</p>
+                  <pre style="font: normal normal 300 15px/19px Montserrat;"><span style="color: rgba(81, 84, 161, 1); font: normal normal 600 12px/15px Montserrat;">{{yourSTX}}</span>   {{currency}}</pre>
                   <select id="currency" name="currency" class="form-control"  @change="currencyChange($event.target.value)">
                     <option value="USD">USD</option>
                     <option value="GBP">GBP</option>
@@ -151,6 +152,7 @@ export default {
   mounted () {
     this.findAssets()
     this.findAssets1()
+    this.setSTX()
     let currentRunKey = this.$route.params.collection
     if (!currentRunKey) {
       this.showWalletNfts = true
@@ -249,6 +251,9 @@ export default {
       }).catch((error) => {
         console.log('error ' + error)
       })
+    },
+    setSTX () {
+      this.yourSTX = this.profile.accountInfo.balance
     },
     findAssets1 () {
       const data = {
@@ -376,6 +381,12 @@ export default {
   max-width: 1500px;
   margin: auto;
 }
+.profile{
+  max-width: 900px;
+  // padding: 0 100px;
+  margin: 0 auto;
+}
+
 .wantMore{
   display: block;
   text-align: center;
@@ -402,6 +413,7 @@ export default {
 }
 .viewContainer{
   margin: 100px auto;
+  padding: 20px;
   max-width: 1600px;
   height: 100%;
 
@@ -427,7 +439,7 @@ export default {
   padding: 10px;
   margin: auto;
   border: solid rgba(255, 255, 255, 0)  2px;
-  font-size: 1.5rem;
+  font-size: 14px;
   font-weight: 500;
   margin: 0 10px;
 }
@@ -443,9 +455,12 @@ export default {
 
 .profileContainer{
   display: flex;
-  justify-content: space-between;
+  // justify-content: space-between;
   margin-top: 2rem;
   flex-wrap: wrap;
+  max-width: 1380px;
+  margin: auto;
+  gap: 20px;
 }
 .profileContainer > *{
   flex: 1  1 500px;
@@ -500,14 +515,14 @@ export default {
   }
 .usernameEdit > span {
   width: 10%;
-    padding: 5px;
-    color: lightseagreen;
+  padding: 5px;
+  color: lightseagreen;
 }
 .infoButton{
   position: absolute;
-  z-index: 10;
-  margin-top: 150px;
-  margin-left: 250px;
+  z-index: 20;
+  right: 150px;
+  top: 100px;
 }
 .infoButton.hidden{
   display: none;
@@ -546,35 +561,37 @@ export default {
 .hide {
   filter: blur(1rem);
 }
+.walletContainer{
+  position: relative;
+}
 .walletDetails{
-  max-width: 600px;
+  position: relative;
+  max-width: 416px;
+  min-height: 272px;
   text-align: center;
-  padding: 30px;
-  height: auto;
-  background: #afafaf18;
+  padding: 20px;
+  background: rgba(129, 129, 129, 0.06);
   // background: rgb(255,255,255);
   // background: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 0%, rgb(245, 245, 245) 100%);
   border-radius: 20px;
-  margin: auto 40px;
-  min-height: 400px;
+  margin-left: auto;
   & > h1 {
-    margin: 20px auto;
+    font: normal normal 600 15px/19px Montserrat;
+    margin: 20px auto 0 auto;
   }
   & > h2 {
-    margin: 20px auto;
-    color: navy;
-    font-size: 1.2rem;
-    font-weight: 600;
+    margin: 0 auto 0 auto;
+    font: normal normal 600 12px/15px Montserrat;
+    color: #5154A1;
   }
   .profileBtns{
     display: flex;
     flex-direction: row;
     justify-content: center;
     width: auto;
-    margin: 40px auto auto auto;
+    margin: 20px auto auto auto;
   }
   .button{
-  margin: 10px;
   padding: 15px 50px;
   border-radius: 100px;
   border: none;
@@ -603,7 +620,28 @@ export default {
   background-color: rgb(222,146,123);
 }
 }
-
+.profile-history{
+  margin: -20px 0; padding: 0 10px;
+  font: normal normal bold 12px/15px Montserrat;
+  text-decoration: underline;
+  color: #50B1B5;
+  cursor: pointer
+}
+@media only screen and (max-width: 1100px){
+  .usernameEdit{
+    margin: 30px auto;
+  }
+  .profile-history{
+    text-align: center;
+    margin-bottom: 10px;
+  }
+  .walletDetails{
+    margin: auto;
+  }
+  .profileItems, .profileImg{
+    margin: auto;
+  }
+}
 @media only screen and (max-width: 1250px){
   .profileItems, .profileImg{
     margin: auto;

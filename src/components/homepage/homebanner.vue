@@ -42,7 +42,7 @@
                             </div>
                             <div class="slideText">
                               <h2>{{content.heroarea[1].herotitle[0].text}}</h2>
-                              <p> {{content.heroarea[1].herotext[0].text}}</p>
+                              <p class="slide-text-p"> {{content.heroarea[1].herotext[0].text}}</p>
                               <router-link to="/launch_collection_t1"><button class="button filled"> See The Collection </button></router-link>
                             </div>
                         </div>
@@ -65,7 +65,7 @@
                             </div>
                             <div class="slideText">
                               <h2>{{content.heroarea[2].herotitle[0].text}}</h2>
-                              <p> {{content.heroarea[2].herotext[0].text}}</p>
+                              <p class="slide-text-p"> {{content.heroarea[2].herotext[0].text}}</p>
                               <button class="button filled"> Coming soon </button>
                             </div>
                         </div>
@@ -95,24 +95,24 @@
               height="300px"
               frameborder="0"
               src="https://res.cloudinary.com/risidio/video/upload/v1639140586/RisidioMarketplace/Latest_Risidio_Video_by_Fizan_100721_5_r3o1or.mp4" type="video"/> -->
-              <video style="width: 529px; height: 300px; border-radius: 25px; margin:auto"
+              <video class="home-video"
               src="https://res.cloudinary.com/risidio/video/upload/v1639140586/RisidioMarketplace/Latest_Risidio_Video_by_Fizan_100721_5_r3o1or.mp4"
               controls
               ></video>
 
             </div>
-            <div class="notLoggedCont">
-              <h1> {{content.heroarea[0].herotitle[0].text}}</h1>
-              <p>{{content.heroarea[0].herotext[0].text}}</p>
+            <div class="slideText">
+              <h2> {{content.heroarea[0].herotitle[0].text}}</h2>
+              <p class="slide-text-p">{{content.heroarea[0].herotext[0].text}}</p>
               <div class="bannerButtonContainer">
-              <router-link to="/hiro-wallet" ><button class="button filled">Get Your Hiro Wallet To Start</button></router-link>
-              <button v-on:click="startLogin()" class="secondaryBannerButton button"> <span style="margin: auto">Already Have One? Click here to Get Started</span>  </button>
+                <router-link to="/hiro-wallet" ><button class="button filled">Get Your Hiro Wallet To Start</button></router-link>
+                <p class="bannerButtonText" v-on:click="startLogin()">Already Have One? Get Started</p>
               </div>
             </div>
         </div>
     </div>
     <div class="searchB">
-      <HomeSearchBar/>
+      <!-- <HomeSearchBar/> -->
     </div>
   </section>
 </template>
@@ -129,8 +129,8 @@ export default {
 
   components: {
     VueperSlides,
-    VueperSlide,
-    HomeSearchBar
+    VueperSlide
+    // HomeSearchBar
   },
   data: () => ({
     slide: [
@@ -179,18 +179,23 @@ export default {
 <style lang="scss" scoped>
 .bannerContainer{
   height: 50rem;
+  align-items: center;
+  padding: 20px;
+  // display: grid;
+  // place-items: center;
   // margin-bottom: 5rem;
 }
 .slideText{
   position: relative;
+  margin-top: -30px;
   h2{
     margin-bottom: 1rem;
     letter-spacing: 1px;
     font: normal normal 300 30px/55px Montserrat;
   }
-  p{
+  .slide-text-p{
     font: normal normal 300 14px/18px Montserrat;
-    max-width: 50rem;
+    max-width: 450px;
   }
 }
 .searchB{
@@ -209,9 +214,14 @@ export default {
   margin: auto;
 }
 .bannerButtonContainer{
-  display: flex;
-  flex-direction: row;
-  margin: auto;
+  position: relative;
+  margin: -30px auto 0;
+}
+.bannerButtonText{
+  font: normal normal bold 11px/14px Montserrat;
+  position: absolute;
+  bottom: -50px;
+  left: 20px;
 }
 .secondaryBannerButton {
   width:40rem;
@@ -242,6 +252,13 @@ export default {
   margin: auto;
   color: white;
 }
+.home-video{
+  width: 381px;
+  height: 234px;
+  border-radius: 5px;
+  margin:auto;
+  object-fit: center;
+}
 .market_intro_Ex{
   font-size: 1.2em;
 }
@@ -259,35 +276,35 @@ export default {
 .slideContainerNotLogged{
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   align-items: center;
+  margin: 0 auto 0 auto;
+  justify-content: center;
   background-color:rgba(255, 255, 255, 0.637);
   border-radius: 30px;
-  max-width: 1500px;
-  margin: auto auto 25px auto;
-  height: 400px;
-  padding: 20px 50px;
-  display: flex;
+  gap: 100px;
+  max-width: 1178px;
+  min-height: 344px;
+  padding: 20px;
 }
+
 .slideContainerNotLogged :nth-child(1){
   justify-self: center;
   align-self: center;
-  margin-right: 50px;
 }
 .slideContainerNotLogged :nth-child(2){
-  margin-top: 25px;
   h1, p{
     padding-bottom: 20px;
   }
 }
-
 .vueperslide{
   background-color:rgba(255, 255, 255, 0.637);
   border-radius: 30px;
 }
 
 .vueperslides--fixed-height {
-  height: 32rem;
-  max-width: 85%;
+  height: 287px;
+  max-width: 1178px;
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 25px;
@@ -311,18 +328,13 @@ export default {
   flex-wrap: wrap;
   align-items: center;
   height:100%;
-  padding: 25px 40px;
-  gap: 5rem;
+  padding: 25px 20px;
 }
 .slideContainer > *:nth-child(1){
-  flex: 1 1 40%;
-  min-width: 400px;
-  max-width: 400px;
   margin: auto;
 }
 .slideContainer > *:nth-child(2){
-  flex: 1 1 55%;
-  min-width: 400px;
+  margin: auto;
 }
 .button{margin-top: 20px; position: abs}
 .button:hover{
@@ -330,8 +342,8 @@ export default {
 }
 .collectionImage{
   display: block;
-  width: 211px;
-  height: 189px;
+  max-width: 211px;
+  max-height: 189px;
   border-radius: 10px;
   margin: auto;
   box-shadow: 10px 10px 30px #0000002F;
@@ -354,25 +366,30 @@ export default {
   transform: scale(1.15)
 }
 
-@media only screen and (max-width: 1260px) {
+@media only screen and (max-width:970px) {
   .vueperslides--fixed-height {
     height: 50rem;
-    max-width: 95%;
+    // max-width: 95%;
     margin-left: auto;
     margin-right: auto;
     backdrop-filter: blur(2rem);
   }
-  .slideContainerNotLogged{
-    display: flex;
-    flex-direction: column;
-    height: 65vh;
+  .slideContainerNotLogged, .slideContainer{
+    text-align: center;
+    gap: 20px;
   }
-  .slideContainer > *:nth-child(1){
-    min-width: 300px;
+  .button{margin: auto}
+  .bannerButtonContainer{
+    max-width: 300px;
+    display:grid;
+    place-items: center;
+    align-items: center;
+    padding-bottom: 20px;
   }
-.slideContainer > *:nth-child(2){
-    min-width: 300px;
-}
+  .bannerButtonText{
+    left: 60px;
+    bottom: -30px;
+  }
   .bannerContainer{
     min-height: 65rem;
   }
@@ -383,14 +400,24 @@ export default {
 @media only screen and (max-width: 550px) {
    .vueperslides--fixed-height {
     height: 60rem;
-    max-width: 85%;
+    // max-width: 85%;
     margin-left: auto;
     margin-right: auto;
     margin-bottom: 25px;
     backdrop-filter: blur(2rem);
   }
+  .collectionImage{
+    width: 150px;
+    height: 150px;
+  }
+  .slideContainerNotLogged{
+    gap: 10px;
+  }
+  .home-video{
+    width: 300px;
+  }
     .bannerContainer{
-    height: 80rem;
+      height: 80rem;
   }
     .banner{
     height: 80rem;

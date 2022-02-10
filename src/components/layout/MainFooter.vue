@@ -21,6 +21,15 @@
               <div v-on:click="topFunction()"><router-link to="/my-nfts">All Your Nft's</router-link></div>
               <!-- <div v-on:click="topFunction()"><router-link to="/create">Add an NFT</router-link></div> -->
               <div v-on:click="topFunction()"><router-link to="/qa">FAQ</router-link></div>
+              <div>
+                <router-link
+                v-if="profile.stxAddress == ('ST112ZVZ2YQSW74BQ65VST84806RV5ZZZTW0261CV')
+                || profile.stxAddress == 'ST22QPESFJ8XKJDWR1MHVXV2S4NBE44BA944NS4D2'
+                || profile.stxAddress == 'ST28QQXAKCFWG7M956JPCJK0AT9FTSJ2DW27BX7ER'
+                || profile.stxAddress == 'ST1C3ERA3SJYNEWV4AK4JN6TDY7CMDKHA92YZDTSX'"
+                to="/admin-collection-mint" >Admin</router-link>
+                <div v-else class="text-secondary">leveller</div>
+              </div>
               <div class="text-secondary">leveller</div>
             </div>
             <div class="footer__column-content">
