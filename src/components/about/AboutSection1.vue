@@ -31,6 +31,9 @@ export default {
   place-items: center;
   text-align: center;
 }
+.aboutSection1Container{
+  margin-bottom: 50px;
+}
 .aboutSection1Container p{
   font: normal normal normal 14px/20px Montserrat;
   max-width: 600px;

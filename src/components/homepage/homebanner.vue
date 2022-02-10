@@ -336,7 +336,7 @@ export default {
 .slideContainer > *:nth-child(2){
   margin: auto;
 }
-.button{margin-top: 20px; position: abs}
+.button{margin-top: 20px;}
 .button:hover{
   background: rgba(95, 189, 193, 0.6);
 }

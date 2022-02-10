@@ -439,7 +439,7 @@ export default {
   padding: 10px;
   margin: auto;
   border: solid rgba(255, 255, 255, 0)  2px;
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 500;
   margin: 0 10px;
 }
