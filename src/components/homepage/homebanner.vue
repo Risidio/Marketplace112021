@@ -8,14 +8,17 @@
               :infinite="false"
               fixed-height="true"
               class="no-shadow"
-              arrows-outside
-              :touchable="false"
+              :arrows="showArrow"
+              :arrows-outside="showArrow"
+              :touchable="touchableSlide"
               :gap="3"
+              bullets-outside
+              :visible-slides="1"
               >
-                <template #arrow-left>
+                <template v-if="showArrow == true" #arrow-left>
                   <img src="https://res.cloudinary.com/risidio/image/upload/v1637153014/RisidioMarketplace/Icon_ionic-md-arrow-dropleft-circle_zpgise.svg" alt="wallet" class="arrow"/>
                 </template>
-                <template #arrow-right>
+                <template v-if="showArrow == true" #arrow-right>
                   <img src="https://res.cloudinary.com/risidio/image/upload/v1637152994/RisidioMarketplace/Icon_ionic-md-arrow-dropleft-circle_1_ex6tmv.svg" alt="wallet" class="arrow"/>
                 </template>
                 <vueper-slide
@@ -25,6 +28,7 @@
                     <template #content>
                         <div v-if="slide.id==1" class = "slideContainer">
                             <div class="slideImage">
+                              <h2 class="mobileHeader">{{content.heroarea[1].herotitle[0].text}}</h2>
                               <div class="collectionImageBack">
                                 <img
                                 src="https://res.cloudinary.com/risidio/image/upload/v1634828295/RisidioMarketplace/Screenshot_2021-10-21_at_15.57.57_q7chjf.png"
@@ -41,13 +45,14 @@
                               </div>
                             </div>
                             <div class="slideText">
-                              <h2>{{content.heroarea[1].herotitle[0].text}}</h2>
+                              <h2 class="notMobileHeader">{{content.heroarea[1].herotitle[0].text}}</h2>
                               <p class="slide-text-p"> {{content.heroarea[1].herotext[0].text}}</p>
                               <router-link to="/launch_collection_t1"><button class="button filled"> See The Collection </button></router-link>
                             </div>
                         </div>
                         <div v-if="slide.id==2" class = "slideContainer">
                             <div class="slideImage">
+                            <h2 class="mobileHeader">{{content.heroarea[2].herotitle[0].text}}</h2>
                               <div class="collectionImageBack">
                                 <img
                                 src="https://res.cloudinary.com/risidio/image/upload/v1644231731/RisidioMarketplace/Screenshot_2022-02-07_110034_vy0tyl.png"
@@ -64,7 +69,7 @@
                               </div>
                             </div>
                             <div class="slideText">
-                              <h2>{{content.heroarea[2].herotitle[0].text}}</h2>
+                              <h2 class="notMobileHeader">{{content.heroarea[2].herotitle[0].text}}</h2>
                               <p class="slide-text-p"> {{content.heroarea[2].herotext[0].text}}</p>
                               <button class="button filled"> Coming soon </button>
                             </div>
@@ -88,7 +93,9 @@
     </div>
     <div v-else>
         <div class="slideContainerNotLogged" >
+
             <div class="notLoggedCont">
+              <h2 class="mobileHeader"> {{content.heroarea[0].herotitle[0].text}}</h2>
               <!-- <iframe
               style="border-radius: 10px;"
               width="529px"
@@ -102,7 +109,7 @@
 
             </div>
             <div class="slideText">
-              <h2> {{content.heroarea[0].herotitle[0].text}}</h2>
+              <h2 class="notMobileHeader"> {{content.heroarea[0].herotitle[0].text}}</h2>
               <p class="slide-text-p">{{content.heroarea[0].herotext[0].text}}</p>
               <div class="bannerButtonContainer">
                 <router-link to="/hiro-wallet" ><button class="button filled">Get Your Hiro Wallet To Start</button></router-link>
@@ -133,6 +140,8 @@ export default {
     // HomeSearchBar
   },
   data: () => ({
+    touchableSlide: false,
+    showArrow: true,
     slide: [
       {
         id: '1',
@@ -151,8 +160,13 @@ export default {
       resultSet: [],
       loaded: false,
       rand: 1
+      // touchableSlide: false
     }
   }),
+  created () {
+    window.addEventListener('resize', this.checkScreen)
+    this.checkScreen()
+  },
   methods: {
     startLogin () {
       // this.$emit('updateEventCode', { eventCode: 'connect-login' })
@@ -170,6 +184,16 @@ export default {
     },
     startRegister () {
       window.open('https://www.hiro.so/wallet', '_blank')
+    },
+    checkScreen () {
+      this.windowWidth = window.innerWidth
+      if (this.windowWidth < 720) {
+        this.touchableSlide = true
+        this.showArrow = false
+      } else if (this.windowWidth > 720) {
+        this.touchableSlide = false
+        this.showArrow = true
+      }
     }
   }
 
@@ -184,6 +208,10 @@ export default {
   // display: grid;
   // place-items: center;
   // margin-bottom: 5rem;
+}
+.if{
+  max-width: 1300px;
+  margin: auto;
 }
 .slideText{
   position: relative;
@@ -206,13 +234,6 @@ export default {
   max-width: 800px;
 }
 
-.market_introduction_text{
-  margin: auto;
-  max-width: 1600px;
-  text-align: center;
-  color: white;
-  margin: auto;
-}
 .bannerButtonContainer{
   position: relative;
   margin: -30px auto 0;
@@ -283,7 +304,7 @@ export default {
   background-color:rgba(255, 255, 255, 0.637);
   border-radius: 30px;
   gap: 100px;
-  max-width: 1178px;
+  max-width: 1135px;
   min-height: 344px;
   padding: 20px;
 }
@@ -304,7 +325,7 @@ export default {
 
 .vueperslides--fixed-height {
   height: 287px;
-  max-width: 1178px;
+  max-width: 1135px;
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 25px;
@@ -314,7 +335,7 @@ export default {
   min-height: 400px;
   position: relative;
   z-index: 2;
-  max-width: 1500px;
+  max-width: 1135px;
   margin: 35px auto;
   border-radius: 30px;
 }
@@ -322,6 +343,7 @@ export default {
   width: 25px;
   height: 25px;
   color: white;
+  position: relative;
 }
 .slideContainer{
   display: flex;
@@ -365,8 +387,13 @@ export default {
   text-align: center;
   transform: scale(1.15)
 }
+@media only screen and (max-width:1290px) {
+    .vueperslides--fixed-height {
+    max-width: 85%;
+  }
+}
+@media only screen and (max-width:1120px) {
 
-@media only screen and (max-width:970px) {
   .vueperslides--fixed-height {
     height: 50rem;
     // max-width: 95%;
@@ -376,7 +403,7 @@ export default {
   }
   .slideContainerNotLogged, .slideContainer{
     text-align: center;
-    gap: 20px;
+    gap: 50px;
   }
   .button{margin: auto}
   .bannerButtonContainer{
@@ -391,13 +418,41 @@ export default {
     bottom: -30px;
   }
   .bannerContainer{
-    min-height: 65rem;
+    min-height: 62rem;
   }
   .banner{
-    min-height: 65rem;
+    min-height: 70rem;
+  }
+}
+.notMobileHeader, .mobileHeader{
+    margin-bottom: 1rem;
+    letter-spacing: 1px;
+    font: normal normal 300 30px/55px Montserrat;
+}
+.mobileHeader {
+  display: none;
+}
+.notMobileHeader{
+  display: block;
+}
+@media only screen and (max-width: 720px){
+  .vueperslides--fixed-height {
+    max-width: 1135px;
   }
 }
 @media only screen and (max-width: 550px) {
+  .slideContainerNotLogged{
+    .mobileHeader{
+      margin-bottom: 0;
+    }
+  }
+  .mobileHeader{
+    display: block;
+    margin-bottom: 35px;
+  }
+  .notMobileHeader{
+    display:none;
+  }
    .vueperslides--fixed-height {
     height: 60rem;
     // max-width: 85%;
@@ -411,13 +466,13 @@ export default {
     height: 150px;
   }
   .slideContainerNotLogged{
-    gap: 10px;
+    gap: 40px;
   }
   .home-video{
     width: 300px;
   }
     .bannerContainer{
-      height: 80rem;
+      height: 72rem;
   }
     .banner{
     height: 80rem;

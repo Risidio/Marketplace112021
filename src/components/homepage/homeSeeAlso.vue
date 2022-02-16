@@ -5,7 +5,7 @@
         <vueper-slides
             class="no-shadow"
             :visible-slides="3.7"
-            :gap="3"
+            :gap="2"
             :slide-ratio="1 / 4"
             :dragging-distance="100"
             :breakpoints="breakpoints"
@@ -47,7 +47,7 @@ export default {
       placeHolderItems: [],
       breakpoints: {
         1600: {
-          visibleSlides: 4.15,
+          visibleSlides: 3.4,
           slideRatio: 1 / 2.5
         },
         1400: {
@@ -87,13 +87,13 @@ export default {
     }
 }
 .seeAlsoContainer{
-  max-width: 1500px;
+  max-width: 1135px;
   margin: auto;
   min-height: 200px;
 }
 .vueperslides--fixed-height {
   height: 400px;
-  max-width: 90%;
+  max-width: 85%;
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 50px;

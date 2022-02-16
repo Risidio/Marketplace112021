@@ -150,7 +150,7 @@ export default {
 }
 .homeInfoContainer{
     // margin-top: 100px;
-    max-width: 1000px;
+    max-width: 1135px;
     margin: auto;
     display: flex;
     flex-wrap: wrap;

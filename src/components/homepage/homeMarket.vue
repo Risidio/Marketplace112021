@@ -9,7 +9,7 @@
       </b-nav>
     <div class="homeMarketItems">
 
-        <div class="galleryContainer" v-if="gaiaAssets.length > 0 && tab === 'discover'">
+        <div class="galleryContainer" v-if="gaiaAssets.length > 0 && tab === 'discover' && shownAssets.length == 0">
             <div v-for="(item, index) in filterMarketAssets" :key="index" class="NFTbackgroundColour" >
                 <div class="">
                     <b-link class="galleryNFTContainer" :to="assetUrl(item)" v-if="item && item.contractAsset && item.attributes">
@@ -21,7 +21,18 @@
                 </div>
             </div>
         </div>
-
+        <div class="galleryContainer" v-else-if="gaiaAssets.length > 0 && tab === 'discover' && shownAssets.length > 0">
+          <div v-for="(item, index) in shownAssets" :key="index" class="NFTbackgroundColour">
+            <div class="">
+                    <b-link class="galleryNFTContainer" :to="assetUrl(item)" v-if="item && item.contractAsset && item.attributes">
+                  <MediaItemGeneral :classes="'nftGeneralView'" v-on="$listeners" :mediaItem="item.attributes"/>
+                  <p class="nFTName"> {{!item.name ? "NFT" : item.name }} <span style="float: right;">{{item.contractAsset.saleData.buyNowOrStartingPrice}} STX</span>
+                  <!-- <span>$ {{item.contractAsset.saleData.buyNowOrStartingPrice * 1.9}}</span></p> -->
+                  <p class="nFTArtist">By <span>{{!item.artist ? "Anonymous" : item.artist }}</span> </p>
+                </b-link>
+              </div>
+          </div>
+        </div>
         <div class="galleryContainer1" v-if="tab === 'collections'">
           <div class="comingSoon">
 
@@ -75,12 +86,18 @@ export default {
       resultSet: [],
       loaded: false,
       placeHolderItems: [],
+      shownAssets: [],
       tab: 'discover',
       loopRuns: []
     }
   },
   mounted () {
+    window.addEventListener('scroll', this.checkScreen)
     this.findAssets()
+  },
+  created () {
+    window.addEventListener('resize', this.checkScreen)
+    // this.checkScreen()
   },
   methods: {
     tabChange (tab) {
@@ -115,6 +132,15 @@ export default {
         $self.loaded = true
       })
     },
+    checkScreen () {
+      this.shownAssets = this.mobileAssets
+      this.windowWidth = window.innerWidth
+      if (this.windowWidth <= 600) {
+        this.shownAssets = this.mobileAssets
+      } else if (this.windowWidth > 600) {
+        this.shownAssets = []
+      }
+    },
     assetUrl (item) {
       if (item.contractAsset) {
         return '/nfts/' + item.contractAsset.contractId + '/' + item.contractAsset.nftIndex
@@ -129,6 +155,10 @@ export default {
     filterMarketAssets () {
       const filterMarketAssets = this.gaiaAssets.slice(0, 8)
       return (filterMarketAssets)
+    },
+    mobileAssets () {
+      const mobileAssets = this.gaiaAssets.slice(0, 2)
+      return (mobileAssets)
     }
   }
 }
@@ -146,7 +176,7 @@ p{padding:0; margin:0;}
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(255px, max-content));
   gap: 20px;
-  max-width: 1350px;
+  max-width: 1135px;
   justify-content: center;
   margin: auto;
 }
