@@ -3,19 +3,22 @@
     <div class="profileContainer">
       <div class="profile">
           <div class="profileItems">
-          <img class="profileImg" src="https://res.cloudinary.com/risidio/image/upload/v1637580392/RisidioMarketplace/depositphotos_137014128-stock-illustration-user-profile-icon_splob8.jpg" alt="">
-          <p title='edit your profile' style="width: 45px; -webkit-transform: scaleX(-1);transform: scaleX(-1);" class="pencil">&#9998;</p>
-        </div>
-          <div class="usernameEdit" ><input type="text" placeholder="Username"><span style="width: 35px; -webkit-transform: scaleX(-1);transform: scaleX(-1);" title='edit your profile' class="">&#9998;</span>
-        </div>
-          <p class="profile-history" >View Transaction History</p>
+            <img class="profileImg" src="https://res.cloudinary.com/risidio/image/upload/v1637580392/RisidioMarketplace/depositphotos_137014128-stock-illustration-user-profile-icon_splob8.jpg" alt="">
+            <p title='edit your profile' style="width: 25px; -webkit-transform: scaleX(-1);transform: scaleX(-1);" class="pencil">&#9998;</p>
+          </div>
+          <div class="usernameContainer">
+            <div class="usernameEdit" >
+              <input type="text" placeholder="Username"><span style="width: 35px; -webkit-transform: scaleX(-1);transform: scaleX(-1);" title='edit your profile' class="">&#9998;</span>
+            </div>
+            <p class="profile-history" >View Transaction History</p>
+          </div>
         </div>
         <div class="walletContainer">
           <button class="button filled infoButton hidden" id="infoButton" @click="viewInfo(1)"> View Info</button>
           <div id="walletDetails" class="walletDetails">
             <button class="notFilled" @click="viewInfo(0)">HIDE</button>
-            <h1>Your Wallet Information:</h1>
-            <h2>{{username}}</h2>
+            <h1>Your Wallet Info:</h1>
+            <h2>ID - {{username.substring(0, 30)}}...</h2>
             <!-- <h2>John Doe</h2> -->
             <br/>
             <div class="walletCurrency">
@@ -24,7 +27,7 @@
                 <pre id="stxInfo" style="font: normal normal 300 15px/19px Montserrat;"> <span style="color: rgba(81, 84, 161, 1); font: normal normal 600 12px/15px Montserrat;">{{yourSTX}}</span>  STX</pre>
               </div>
               <div>
-                  <pre style="font: normal normal 300 15px/19px Montserrat;"><span style="color: rgba(81, 84, 161, 1); font: normal normal 600 12px/15px Montserrat;">{{yourSTX}}</span>   {{currency}}</pre>
+                  <pre class="figure" style="font: normal normal 300 15px/19px Montserrat;"><span style="color: rgba(81, 84, 161, 1); font: normal normal 600 12px/15px Montserrat;">{{yourSTX}}</span>   {{currency}}</pre>
                   <select id="currency" name="currency" class="form-control"  @change="currencyChange($event.target.value)">
                     <option value="USD">USD</option>
                     <option value="GBP">GBP</option>
@@ -35,7 +38,7 @@
             </div>
             <div class="profileBtns">
               <!-- <router-link  to="/create"><button class="button">Mint an NFT</button></router-link > -->
-              <router-link  to="/"><button class="button" @click="logout">Logout</button></router-link >
+              <router-link  to="/"><button class="button" @click="logout">Disconnect</button></router-link >
               <!-- <router-link class="profileBtn mintBtn" to="/create">Mint an NFT</router-link>
               <router-link  class="profileBtn logoutBtn" to="/">Disconnect</router-link > -->
             </div>
@@ -394,8 +397,8 @@ export default {
   font-weight: 500;
 }
 .profileItems{
-  width: 20rem;
-  height: 20rem;
+  width: 15rem;
+  height: 15rem;
 }
 .walletCurrency{
   display: flex;
@@ -469,7 +472,7 @@ export default {
   width: 149px;
   height: 149px;
   display: block;
-  margin-right: auto;
+  margin: auto;
   border-radius: 50%;
   object-fit: cover;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
@@ -479,15 +482,16 @@ export default {
   background: white;
   color: lightseagreen;
   position: relative;
-  width: 5rem;
-  height: 5rem;
-  top: -185px;
-  left: 150px;
-  padding: 10px;
+  // width: 3rem;
+  // height: 2rem;
+  // padding: 1px;
+  top: -140px;
+  left: 110px;
+  padding: 2px;
   border-radius: 50%;
-  text-align: center;
+  // text-align: center;
   box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
-  font-size: 2rem;
+  font-size: 1.5rem;
   cursor: pointer;
 }
 .form-control{
@@ -573,14 +577,14 @@ export default {
   background: rgba(129, 129, 129, 0.06);
   // background: rgb(255,255,255);
   // background: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 0%, rgb(245, 245, 245) 100%);
-  border-radius: 20px;
+  border-radius: 14px;
   margin-left: auto;
   & > h1 {
     font: normal normal 600 15px/19px Montserrat;
     margin: 20px auto 0 auto;
   }
   & > h2 {
-    margin: 0 auto 0 auto;
+    margin: 8px auto 0 auto;
     font: normal normal 600 12px/15px Montserrat;
     color: #5154A1;
   }
@@ -596,7 +600,7 @@ export default {
   border-radius: 100px;
   border: none;
   background-color: rgb(235,231,232);
-  font-size: 14px;
+  font-size: 11px;
   font-weight:700;
   color: rgb(222,146,123);
 }
@@ -627,13 +631,42 @@ export default {
   color: #50B1B5;
   cursor: pointer
 }
-@media only screen and (max-width: 1100px){
+@media only screen and (max-width: 1050px){
+  .walletCurrency{
+    flex-wrap: nowrap;
+    flex-direction: column;
+    max-width: 150px;
+    margin: auto;
+    & > div:nth-child(1){
+      border-right: none;
+      border-bottom: solid rgb(209, 209, 209) 2px;
+    }
+    & > div:nth-child(2){
+      margin-top: 10px;
+    }
+    height: 100px;
+  }
+  .usernameContainer{
+    max-width: 400px;
+    margin: 40px auto 20px auto;
+    border-radius: 14px;
+    background-color: #EFEFEF;
+    padding: 10px 50px;
+  }
   .usernameEdit{
-    margin: 30px auto;
+    background: none;
+    max-width: 300px;
+    margin: 20px auto 50px auto;
+    input{
+      border: none;
+      background: none}
   }
   .profile-history{
     text-align: center;
     margin-bottom: 10px;
+  }
+  .walletDetails{
+    background: #EFEFEF;
   }
   .walletDetails{
     margin: auto;
