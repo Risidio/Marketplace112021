@@ -75,7 +75,7 @@ export default {
         contractAddress: nft.contractAsset.contractId.split('.')[0],
         contractName: nft.contractAsset.contractId.split('.')[1],
         functionName: 'buy-in-ustx',
-        assetName: nft.contractAsset.contractId.split('.')[1] + 'NFT ' + nft.contractAsset.nftIndex,
+        assetName: nft.contractAsset.contractId.split('.')[1],
         batchOption: 1
       }
       this.$store.dispatch('rpayMarketStore/buyInUstx', data).then((result) => {

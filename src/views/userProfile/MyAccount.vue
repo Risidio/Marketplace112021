@@ -378,7 +378,7 @@ export default {
 
 <style lang="scss" scoped>
 .galleryContainerLimited{
-  max-width: 1500px;
+  max-width: 1135px;
   margin: auto;
 }
 .profile{
@@ -414,7 +414,7 @@ export default {
 .viewContainer{
   margin: 100px auto;
   padding: 20px;
-  max-width: 1600px;
+  max-width: 1135px;
   height: 100%;
 
   .galleryNav{
@@ -466,8 +466,8 @@ export default {
   flex: 1  1 500px;
 }
 .profileImg{
-  width: 20rem;
-  height: 20rem;
+  width: 149px;
+  height: 149px;
   display: block;
   margin-right: auto;
   border-radius: 50%;
