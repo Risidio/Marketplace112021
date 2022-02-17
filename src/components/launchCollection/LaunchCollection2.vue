@@ -85,8 +85,7 @@ export default {
 <style lang="scss" scoped>
 .launchS2{
     min-height: 50rem;
-    display: grid;
-    place-items: center;
+  padding: 20px;
 }
 .container{
     text-align: center;
@@ -110,7 +109,7 @@ p{padding:0; margin:0;}
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(255px, max-content));
   gap: 20px;
-  max-width: 1350px;
+  max-width: 1135px;
   justify-content: center;
   margin: auto;
 }
@@ -118,19 +117,20 @@ p{padding:0; margin:0;}
   max-width: 1800px;
   margin: auto;
 }
-.homeNFTView{
-  display: flex;
-  // margin: 4rem;
-  border-radius: 25px;
-  // padding: 4rem;
-  margin: auto;
-}
-.homeNFTView > *{
-  flex: 1 1 300px;
-  padding: 30px;
-  min-width: 300px;
-  max-height: 400px;
-}
+// .homeNFTView{
+//   display: flex;
+//   flex-wrap: wrap;
+//   // margin: 4rem;
+//   border-radius: 25px;
+//   // padding: 4rem;
+//   margin: auto;
+// }
+// .homeNFTView > *{
+//   flex: 1 1 300px;
+//   padding: 30px;
+//   min-width: 300px;
+//   max-height: 400px;
+// }
 .button{
   margin: 50px auto 50px auto;
 }

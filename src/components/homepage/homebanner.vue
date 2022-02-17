@@ -50,7 +50,31 @@
                               <router-link to="/launch_collection_t1"><button class="button filled"> See The Collection </button></router-link>
                             </div>
                         </div>
-                        <div v-if="slide.id==2" class = "slideContainer">
+                          <div v-if="slide.id == 2" class = "slideContainer">
+                            <div class="slideImage">
+                            <h2 class="mobileHeader"> The Indige Collection</h2>
+                              <div class="collectionImageBack">
+                                <img
+                                src="https://res.cloudinary.com/risidio/image/upload/v1645094856/RisidioMarketplace/MUSHROOMS_12_vjlr5b.jpg"
+                                alt="Image-from-Indige"
+                                class="collectionImage"/>
+                                <img
+                                src="https://res.cloudinary.com/risidio/image/upload/v1645094854/RisidioMarketplace/JOHN_PAINTINGS_01_bma7pe.jpg"
+                                alt="Image-from-Indige"
+                                class="collectionImage collectionImageFront"/>
+                                <img
+                                src="https://res.cloudinary.com/risidio/image/upload/v1645094855/RisidioMarketplace/KANGAROO_06_dgw1bw.jpg"
+                                alt="Image-from-Indige"
+                                class="collectionImage"/>
+                              </div>
+                            </div>
+                            <div class="slideText">
+                              <h2 class="notMobileHeader">The Indige Collection</h2>
+                              <p class="slide-text-p"> {{content.heroarea[2].herotext[0].text}}</p>
+                              <router-link to="/indige-collection"><button class="button filled"> See The Collection </button></router-link>
+                            </div>
+                        </div>
+                        <div v-if="slide.id == 3" class = "slideContainer">
                             <div class="slideImage">
                             <h2 class="mobileHeader">{{content.heroarea[2].herotitle[0].text}}</h2>
                               <div class="collectionImageBack">
@@ -150,11 +174,11 @@ export default {
       {
         id: '2',
         text: 'Collection'
+      },
+      {
+        id: '3',
+        text: 'Collection'
       }
-      // {
-      //   id: '3',
-      //   text: 'Collection'
-      // }
     ],
     return: {
       resultSet: [],
@@ -364,8 +388,8 @@ export default {
 }
 .collectionImage{
   display: block;
-  max-width: 211px;
-  max-height: 189px;
+  width: 211px;
+  height: 189px;
   border-radius: 10px;
   margin: auto;
   box-shadow: 10px 10px 30px #0000002F;
