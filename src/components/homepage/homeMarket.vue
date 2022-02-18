@@ -13,7 +13,7 @@
             <div v-for="(item, index) in filterMarketAssets" :key="index" class="NFTbackgroundColour" >
                 <div class="">
                     <b-link class="galleryNFTContainer" :to="assetUrl(item)" v-if="item && item.contractAsset && item.attributes">
-                  <MediaItemGeneral :classes="'nftGeneralView'" v-on="$listeners" :mediaItem="item.attributes"/>
+                  <img class="nftGeneralView" :src="item.attributes.artworkFile.fileUrl"/>
                   <p class="nFTName"> {{!item.name ? "NFT" : item.name }} <span style="float: right;">{{item.contractAsset.saleData.buyNowOrStartingPrice}} STX</span>
                   <!-- <span>$ {{item.contractAsset.saleData.buyNowOrStartingPrice * 1.9}}</span></p> -->
                   <p class="nFTArtist">By <span>{{!item.artist ? "Anonymous" : item.artist }}</span> </p>
@@ -25,7 +25,7 @@
           <div v-for="(item, index) in shownAssets" :key="index" class="NFTbackgroundColour">
             <div class="">
                     <b-link class="galleryNFTContainer" :to="assetUrl(item)" v-if="item && item.contractAsset && item.attributes">
-                  <MediaItemGeneral :classes="'nftGeneralView'" v-on="$listeners" :mediaItem="item.attributes"/>
+                  <img class="nftGeneralView" :src="item.attributes.artworkFile.fileUrl"/>
                   <p class="nFTName"> {{!item.name ? "NFT" : item.name }} <span style="float: right;">{{item.contractAsset.saleData.buyNowOrStartingPrice}} STX</span>
                   <!-- <span>$ {{item.contractAsset.saleData.buyNowOrStartingPrice * 1.9}}</span></p> -->
                   <p class="nFTArtist">By <span>{{!item.artist ? "Anonymous" : item.artist }}</span> </p>
@@ -78,7 +78,7 @@ export default {
   name: 'HomeMarket',
   props: ['gaiaAssets'],
   components: {
-    MediaItemGeneral
+    // MediaItemGeneral
     // MyPageableItems
   },
   data () {

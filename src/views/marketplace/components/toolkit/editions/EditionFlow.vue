@@ -1,8 +1,10 @@
 <template>
 <div>
   <b-row>
-    <b-col cols="12">
-      <h1>Mint Next Edition</h1>
+    <b-col cols="12" style="text-align: center;">
+      <h1 style="font: normal normal 300 30px/55px Montserrat;">Confirm</h1>
+      <p style="center; font: normal normal normal 14px/18px Montserrat;"> You are going to buy</p>
+      <p style="font: normal normal 300 20px/24px Montserrat;">{{item.name}}</p>
     </b-col>
   </b-row>
   <b-row class="row text-left mt-2">
@@ -19,7 +21,7 @@
       </div>
     </b-col>
   </b-row>
-  <b-button :buttonLabel="'BUY EDITION'" @click="mintEdition">BUY EDITION</b-button>
+  <button class="button notFilledBlue" :buttonLabel="'BUY EDITION'" @click="mintEdition">BUY EDITION</button>
 </div>
 </template>
 
@@ -65,11 +67,34 @@ export default {
       }).catch(() => {
         this.$emit('mintedEvent', { opcode: 'mint-edition-failed' })
       })
+    },
+    buyNFT (currentRun, nft) {
+      console.log(currentRun)
+      const data = {
+        commissionContractAddress: 'ST22QPESFJ8XKJDWR1MHVXV2S4NBE44BA944NS4D2',
+        commissionContractName: 'commission',
+        owner: currentRun.owner,
+        nftIndex: nft.contractAsset.nftIndex,
+        price: nft.contractAsset.listingInUstx.price,
+        sendAsSky: true, // only applicable in local
+        contractAddress: nft.contractAsset.contractId.split('.')[0],
+        contractName: nft.contractAsset.contractId.split('.')[1],
+        functionName: 'buy-in-ustx',
+        assetName: nft.contractAsset.contractId.split('.')[1],
+        batchOption: 1
+      }
+      this.$store.dispatch('rpayMarketStore/buyInUstx', data).then((result) => {
+        this.result = result
+        this.flowType = 2
+      }).catch((err) => {
+        this.errorMessage = err
+        this.flowType = 3
+      })
     }
   },
   computed: {
     currentCost: function () {
-      return this.item.contractAsset.tokenInfo.editionCost
+      return this.item.contractAsset.listingInUstx.price
     },
     editionsMintable: function () {
       return (this.item.contractAsset.tokenInfo.maxEditions >= this.item.contractAsset.editionCounter)
@@ -87,5 +112,13 @@ export default {
 .input-group-text {
   background: #fff;
   color: #000;
+}
+.button{
+  display: grid;
+  place-items: center;
+  margin: auto;
+  font: normal normal bold 11px/14px Montserrat;
+ width: 251px;
+height: 43px;
 }
 </style>

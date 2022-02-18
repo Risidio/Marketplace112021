@@ -2,7 +2,7 @@
 <div class="row text-small" v-if="editionsMintable">
   <div class="col-12">
     <div class="mt-4 mb-3">
-      <b-button variant="outline-warning" @click.prevent="openEditionDialog()">Buy Edition</b-button>
+      <button class="button filled" @click.prevent="openEditionDialog()"> Buy It Now </button>
     </div>
     <div>
       <span>{{currentMaxEditions - (editionCounter - 1)}} editions available at <span class="">{{currentCost}}</span> STX</span>
@@ -57,4 +57,12 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+.button{
+  width: 120px;
+  padding: 0;
+  display: grid;
+  place-items: center;
+  width: 251px;
+  height: 43px;
+}
 </style>

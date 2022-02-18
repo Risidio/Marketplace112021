@@ -1,23 +1,16 @@
 <template>
-<div>
-  <div class="modal" id="myModal">
-  <div class="modal-content">
-    <span class="close" v-on:click="close()">&times;</span>
-    <div id="threeCanvas"><canvas style="width: 100%; max-height: 600px; min-height: 350px;" /></div>
-  </div>
-</div>
-<section style="margin: auto; margin-top: 5rem; max-width: 1400px; padding: 0 20px;" id="asset-details-section" v-if="gaiaAsset && gaiaAsset.contractAsset" class="text-black">
+<section style="margin: auto; margin-top: 10rem; max-width: 1135px; padding: 0 20px;" id="asset-details-section" v-if="gaiaAsset && gaiaAsset.contractAsset" class="text-black">
   <!-- <b-container class=" w-100 center-section" style="min-height: 50vh;"> -->
-              <div class="backBtn"><router-link class="backBtn" to="/nft-marketplace/risidio/launch_collection_t1"><b-icon icon="chevron-left" shift-h="-3"></b-icon> Back </router-link></div>
+              <div class="backBtn"><router-link class="backBtn" :to="'/' + gaiaAsset.properties.collectionId"><b-icon icon="chevron-left" shift-h="-3"></b-icon> Back </router-link></div>
     <b-row style="display: flex; margin: auto" :style="'min-height: ' + videoHeight + 'px'">
       <b-col lg="6" sm="10" class="mb-5">
         <div id="video-column" :style="dimensions">
-          <MediaItem :videoOptions="videoOptions" :attributes="gaiaAsset.attributes" :targetItem="targetItem()"/>
-          <MediaItemGeneral :classes="'hash1-image'" v-on="$listeners" :options="videoOptions" :mediaItem="gaiaAsset.attributes"/>
+          <!-- <MediaItem :videoOptions="videoOptions" :attributes="gaiaAsset" /> -->
+          <MediaItemGeneral :classes="'hash1-image'" v-on="$listeners" :options="videoOptions" :mediaItem="gaiaAsset"/>
           <div class="editions"> <h2>EDITION <span>{{gaiaAsset.contractAsset.tokenInfo.edition}}</span> / {{gaiaAsset.contractAsset.tokenInfo.maxEditions}}</h2></div>
-          <div v-if="gaiaAsset.attributes.artworkFile.type.includes('threed')">
+          <!-- <div v-if="gaiaAsset.attributes.artworkFile.type.includes('threed')">
             <button class="button filled" v-on:click="openModal(), three()">View 3D</button>
-          </div>
+          </div> -->
           <!-- <MintInfo class="my-5" :item="gaiaAsset" :loopRun="loopRun" /> -->
         </div>
       </b-col>
@@ -25,20 +18,21 @@
         <b-row align-v="stretch" :style="'height: ' + videoHeight - 100 + 'px'">
           <b-col md="12" align-self="end" :key="componentKey">
             <div class="w-100">
-              <div class="flex"><h1 class="text-black">{{mintedMessage}}</h1>
+              <div class="flex"><h1 class="text-black">{{gaiaAsset.name}}</h1>
               <div style="margin-left: auto;" class="d-flex">
                 <b-link router-tag="span" v-b-tooltip.hover="{ variant: 'light' }" :title='salesBadgeLabel' class="text-black" variant="outline-success"><b-icon class="ml-2" icon="question-circle"/></b-link>
                 <div style="font-weight: 600; font-size: 1.2rem" class="text-center on-auction-text ml-3 py-3 px-4 bg-secondary text-white">
                   <div style="color: white;">{{salesBadgeLabel}}</div>
-                  <div v-if="showEndTime()">{{biddingEndTime()}}</div>
+                  <!-- <div v-if="showEndTime()">{{biddingEndTime()}}</div> -->
                 </div>
               </div>
               </div>
               <div>
                 <div class="d-flex justify-content-between">
-                  <div class="mt-2">by <span class="cyanText">{{gaiaAsset.artist}}</span> <br/>
-                  <div class="mt-2 mb-5" style="font-size: 1.2rem">
-                   <span v-if="loopRun.type !== 'punks'">from collection <span class="cyanText">{{loopRun.currentRun}}</span> Minted at {{created()}}</span>{{editionMessage}}</div>
+                  <div><p style="font: normal normal 300 12px/15px Montserrat;">By <span style="font: normal normal bold 12px/15px Montserrat;" class="cyanText">{{loopRun.makerName}}</span> <br/></p>
+                    <div class="mt-2 mb-5" style="font-size: 1.2rem">
+                      <span v-if="loopRun.type !== 'punks'">from collection <span class="cyanText">{{loopRun.currentRun}}</span> Minted at {{created()}}</span>{{editionMessage}}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -50,31 +44,31 @@
               <PendingTransactionInfo v-if="pending && pending.txStatus === 'pending'" :pending="pending"/>
               <div style="margin-top: 50px" v-else>
                 <b-row v-if="getSaleType() === 0">
+                  <!-- <b-col class="priceSection" v-if="editionsAvailable">
+                    <p class="basePrice"> Price <span> STX  <span> {{(gaiaAsset.contractAsset.listingInUstx.price / 1.10).toFixed(0)}}</span></span></p>
+                    <p class="feePrice"> Fees <span>STX {{gaiaAsset.contractAsset.listingInUstx.price - (gaiaAsset.contractAsset.listingInUstx.price / 1.10).toFixed(0)}}</span></p>
+                    <hr/>
+                    <p class="fullPrice"><span> STX <span>{{gaiaAsset.contractAsset.listingInUstx.price}}</span></span></p>
+                  </b-col>
                   <b-col md="6" sm="12" v-if="editionsAvailable">
                     <EditionTrigger :item="gaiaAsset" @mintedEvent="mintedEvent" :loopRun="loopRun"/>
                   </b-col>
                   <b-col style="padding: 10px;" v-else>
                     <SquareButton @clickButton="openUpdates()" :item="gaiaAsset" :theme="'light'" :label1="'GET UPDATES'" :icon="'eye'" :text-warning="true"/>
-                  </b-col>
+                  </b-col> -->
                 </b-row>
                 <b-row v-else>
                   <b-col v-if="webWalletNeeded" md="6" sm="12" class="mb-3">
-                      <b-button v-b-tooltip.hover="{ variant: 'light' }" :title="ttWalletHelp" class="w-100" style="height: 61px;" variant="outline-light"><a :href="webWalletLink" class="text-black" target="_blank">Get Stacks Web Wallet <b-icon class="ml-3" icon="arrow-up-right-square-fill"/></a></b-button>
+                    <b-button v-b-tooltip.hover="{ variant: 'light' }" :title="ttWalletHelp" class="w-100" style="height: 61px;" variant="outline-light"><a :href="webWalletLink" class="text-white" target="_blank">Get Stacks Web Wallet <b-icon class="ml-3" icon="arrow-up-right-square-fill"/></a></b-button>
                   </b-col>
-                  <b-col class="nftBuyNowSection"  v-else-if="getSaleType() > 0 && getSaleType() < 3">
-                  <div style="width: 80%; font-size: 1.5rem">
-                    <div style="display: flex;">
-                      <span class="buyNowTextPadding" > Price</span><span class="buyNowTextPadding" style="margin-left: auto;">STX<span class=" buyNowTextPadding purpleText">{{salesButtonLabel}}</span>~${{salesButtonLabel}}</span>
-                    </div>
-                    <!-- <div style="display: flex;">
-                      <span class="buyNowTextPadding">Fees</span><span class="buyNowTextPadding" style="margin-left: auto;">STX <span class=" buyNowTextPadding purpleText">6</span> ~$6</span>
-                    </div> -->
-                    <div style=" display: flex; border-top: 3px solid #5154A1">
-                      <!-- <span class="buyNowTextPadding" style="margin-left:auto;">STX <span class="buyNowTextPadding">6</span> ~$6</span> -->
-                    </div>
-                  </div>
-                    <SquareButton v-b-tooltip.hover="{ variant: 'light' }" :item="gaiaAsset" :title="ttBiddingHelp" @clickButton="openPurchaceDialog()"/>
-                    <!-- <SquareButton v-b-tooltip.hover="{ variant: 'light' }" :title="ttBiddingHelp" @clickButton="openPurchaceDialog()" :label1="salesButtonLabel"/> -->
+                  <b-col class="priceSection" v-if="getSaleType() > 0">
+                    <p class="basePrice"> Price <span> STX  <span> {{(gaiaAsset.contractAsset.listingInUstx.price / 1.10).toFixed(0)}}</span></span></p>
+                    <p class="feePrice"> Fees <span>STX {{gaiaAsset.contractAsset.listingInUstx.price - (gaiaAsset.contractAsset.listingInUstx.price / 1.10).toFixed(0)}}</span></p>
+                    <hr/>
+                    <p class="fullPrice"><span> STX <span>{{gaiaAsset.contractAsset.listingInUstx.price}}</span></span></p>
+                  </b-col>
+                  <b-col md="6" sm="6" class="mb-3 text-center" v-if="getSaleType() > 0">
+                    <button class="button filled" :title="ttBiddingHelp" @click="openPurchaceDialog()" >{{salesButtonLabel}}</button>
                   </b-col>
                 </b-row>
                 <h3 class="mt-5" >NFT Description:</h3>
@@ -97,7 +91,7 @@
         </b-row>
       </b-col>
     </b-row>
-  <b-modal size="lg" id="asset-offer-modal" class="text-left">
+  <b-modal id="asset-offer-modal" class="modal text-left">
     <PurchaseFlow v-if="showRpay === 1" :gaiaAsset="gaiaAsset" :loopRun="loopRun" :forceOfferFlow="forceOfferFlow" @offerSent="offerSent"/>
     <AssetUpdatesModal v-if="showRpay === 2" @registerForUpdates="registerForUpdates"/>
     <template #modal-header="{ close }">
@@ -129,7 +123,7 @@
     </template>
   </b-modal>
   <!-- </b-container> -->
-</section></div>
+</section>
 </template>
 
 <script>
@@ -140,15 +134,12 @@ import utils from '@/services/utils'
 import AssetUpdatesModal from '@/views/marketplace/components/toolkit/purchasing/AssetUpdatesModal'
 import PurchaseFlow from '@/views/marketplace/components/toolkit/purchasing/PurchaseFlow'
 import MediaItemGeneral from '@/views/marketplace/components/media/MediaItemGeneral'
-import SquareButton from '@/components/utils/SquareButton'
-import EditionTrigger from '@/views/marketplace/components/toolkit/editions/EditionTrigger'
+// import EditionTrigger from '@/views/marketplace/components/toolkit/editions/EditionTrigger'
 import MintInfo from '@/views/marketplace/components/toolkit/mint-setup/MintInfo'
 import NftHistory from '@/views/marketplace/components/toolkit/nft-history/NftHistory'
 import PendingTransactionInfo from '@/views/marketplace/components/toolkit/nft-history/PendingTransactionInfo'
 import ShareLinks from '@/components/utils/ShareLinks'
-import * as Three from 'three'
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
+// import formatUtils from '@/services/formatUtils.js'
 
 export default {
   name: 'AssetDetailsSectionV1',
@@ -157,19 +148,20 @@ export default {
     // ShareLinks,
     // NftHistory,
     AssetUpdatesModal,
-    EditionTrigger,
+    // EditionTrigger,
     PurchaseFlow,
-    MediaItemGeneral,
-    SquareButton
+    MediaItemGeneral
     // MintInfo
   },
   props: ['gaiaAsset', 'loopRun'],
   data: function () {
     return {
+      showDownload: false,
       forceOfferFlow: false,
-      // grid: require('@/assets/img/navbar-footer/grid.svg'),
-      // cross: require('@/assets/img/navbar-footer/cross.svg'),
-      // hammer: require('@/assets/img/auction.svg'),
+      hiddenCPS: true,
+      // grid: require('@/assets/img/marketplace/grid.svg'),
+      // cross: require('@/assets/img/marketplace/cross.svg'),
+      // hammer: require('@/assets/img/marketplace/auction.svg'),
       showRpay: 0,
       nftIndex: -1,
       pending: null,
@@ -231,10 +223,14 @@ export default {
         if (!result || !result.txStatus || result.txStatus === 'pending') {
           this.pending = result
         } else if (this.pending.txStatus === 'pending' && result.txStatus === 'success') {
-          if (result.functionName === 'mint-token') {
-            const data = { contractId: this.loopRun.contractId, assetHash: result.assetHash }
-            this.updateCacheByHash(data)
-          } else {
+          if (result.functionName.indexOf('mint-token') > -1) {
+            if (result.functionName.indexOf('-twenty') > -1) {
+              result.assetHash = result.assetHashes[0]
+              this.updateCacheByHash(result)
+            } else {
+              this.updateCacheByHash(result)
+            }
+          } else if (result.txStatus === 'success' && result.functionName.indexOf('mint-token') === -1) {
             const data = { contractId: this.loopRun.contractId, nftIndex: result.nftIndex }
             this.updateCacheByNftIndex(data)
           }
@@ -244,30 +240,24 @@ export default {
       }
       this.pending = result
     },
-    getSocialLinks: function () {
-      const content = this.$store.getters[APP_CONSTANTS.KEY_CONTENT_CHARITY_BY_ARTIST_ID](this.artistId)
-      if (content && content.length > 0 && content[0].data.social_links && content[0].data.social_links.length > 0) {
-        return content.data.social_links
-      }
-      return [
-        {
-          // eslint-disable-next-line @typescript-eslint/camelcase
-          social_link: [{
-            text: 'type=twitter'
-          }]
-        },
-        {
-          // eslint-disable-next-line @typescript-eslint/camelcase
-          social_link: [{
-            text: 'type=facebook'
-          }]
-        }
-      ]
-    },
-    getMediaItem () {
-      const attributes = this.$store.getters[APP_CONSTANTS.KEY_MEDIA_ATTRIBUTES](this.gaiaAsset)
-      return attributes
-    },
+    // getSocialLinks: function () {
+    //   const content = this.$store.getters[APP_CONSTANTS.KEY_CONTENT_CHARITY_BY_ARTIST_ID](this.artistId)
+    //   if (content && content.length > 0 && content[0].data.social_links && content[0].data.social_links.length > 0) {
+    //     return content.data.social_links
+    //   }
+    //   return [
+    //     {
+    //       social_link: [{
+    //         text: 'type=twitter'
+    //       }]
+    //     },
+    //     {
+    //       social_link: [{
+    //         text: 'type=facebook'
+    //       }]
+    //     }
+    //   ]
+    // },
     updateCacheByHash (data) {
       this.$store.dispatch('rpayStacksContractStore/updateCacheByHash', data).then(() => {
         this.$store.dispatch('rpayStacksContractStore/fetchTokenByContractIdAndAssetHash', data)
@@ -304,12 +294,6 @@ export default {
     offerSent: function () {
       // local notification
     },
-    showEndTime: function () {
-      return this.gaiaAsset.contractAsset.saleData.saleType === 2
-    },
-    biddingEndTime: function () {
-      return DateTime.fromMillis(this.gaiaAsset.contractAsset.saleData.biddingEndTime).toLocaleString({ weekday: 'short', month: 'short', day: '2-digit', hour: '2-digit', minute: '2-digit' })
-    },
     targetItem: function () {
       return this.$store.getters[APP_CONSTANTS.KEY_TARGET_FILE_FOR_DISPLAY](this.gaiaAsset)
     },
@@ -318,9 +302,7 @@ export default {
       return 'max-width: ' + dims.height + '; max-height: ' + dims.height + ';'
     },
     poster: function () {
-      if (this.gaiaAsset.attributes.coverImage) {
-        return this.gaiaAsset.attributes.coverImage.fileUrl
-      }
+      return this.$store.getters[APP_CONSTANTS.KEY_ASSET_IMAGE_URL](this.gaiaAsset)
     },
     getArtist: function () {
       if (this.gaiaAsset.artist) {
@@ -336,24 +318,23 @@ export default {
       this.$bvModal.show('asset-offer-modal', { assetHash: this.assetHash })
     },
     getSaleType: function () {
-      return this.gaiaAsset.contractAsset.saleData.saleType
+      if (this.gaiaAsset.contractAsset.listingInUstx) {
+        return this.gaiaAsset.contractAsset.listingInUstx.price
+      }
+      return 0
     },
     openPurchaceDialog: function () {
       this.forceOfferFlow = false
       const profile = this.$store.getters[APP_CONSTANTS.KEY_PROFILE]
-      if (!profile.loggedIn && this.gaiaAsset.contractAsset.saleData.saleType !== 3) {
+      if (!profile.loggedIn) {
         this.$store.dispatch('rpayAuthStore/startLogin').then(() => {
           this.$store.dispatch('rpayCategoryStore/fetchLatestLoopRunForStxAddress', { currentRunKey: process.env.VUE_APP_DEFAULT_LOOP_RUN, stxAddress: profile.stxAddress }, { root: true })
-          this.$emit('registerByConnect')
         }).catch((err) => {
           console.log(err)
           // https://chrome.google.com/webstore/detail/stacks-wallet/ldinpeekobnhjjdofggfgjlcehhmanlj
           this.webWalletNeeded = true
         })
       } else {
-        if (this.gaiaAsset.contractAsset.saleData.saleType === 0) {
-          return
-        }
         this.showRpay = 1
         this.$bvModal.show('asset-offer-modal')
       }
@@ -388,125 +369,6 @@ export default {
         this.$bvModal.hide('asset-offer-modal')
         this.$root.$emit('bv::show::modal', 'success-modal')
       })
-    },
-    close () {
-      const modal = document.getElementById('myModal')
-      modal.style.display = 'none'
-    },
-    openModal () {
-      const modal = document.getElementById('myModal')
-      modal.style.display = 'block'
-    },
-    threeObjectHandler () {
-      // const selectedFile = document.getElementById('input').files[0]
-      // console.log(selectedFile)
-      // const binaryData = []
-      // binaryData.push(this.attributes.artworkFile)
-      // const url = URL.createObjectURL(new Blob(binaryData, { type: '' }))
-      const url = this.gaiaAsset.attributes.artworkFile.fileUrl
-      console.log(url)
-      return {
-        url
-      }
-    },
-    threeLights () {
-      const ambientLight = new Three.AmbientLight(0xffffff)
-
-      return {
-        ambientLight
-      }
-    },
-    threeControls (camera, renderer) {
-      const controls = new OrbitControls(camera, renderer.domElement)
-    },
-    three () {
-      const scene = new Three.Scene()
-      const canvasSize = document.getElementById('threeCanvas')
-      const sizes = {
-        width: window.innerWidth * 0.60,
-        height: window.innerHeight * 0.8
-      }
-      const camera = new Three.PerspectiveCamera(75, sizes.width / sizes.height, 0.10, 1000)
-      const loader = new GLTFLoader()
-      const material = new Three.MeshStandardMaterial({ color: 0xFF6347, wireframe: true })
-      const renderer = new Three.WebGLRenderer({ canvas: document.getElementsByTagName('canvas')[0] })
-
-      const controls = this.threeControls(camera, renderer)
-      const lights = this.threeLights()
-      const url = this.threeObjectHandler()
-
-      scene.background = new Three.Color(0xf2f2f2)
-      renderer.setSize(sizes.width, sizes.height)
-
-      // camera.position.setX(100)
-      let box = new Three.Box3()
-      scene.add(lights.ambientLight)
-      let obj = ''
-      loader.load(url.url,
-        function (gltf) {
-          obj = gltf.scene
-          obj.material = material
-          scene.add(obj)
-          console.log('model loaded')
-          console.log(obj)
-          box = box.setFromObject(obj)
-        },
-        function (xhr) { // called while loading is progressing
-          console.log((xhr.loaded / xhr.total * 100) + '% loaded')
-        },
-        function (error) {
-          console.log('An error happened' + error)
-        }
-      )
-      // These need to be run AFTER the the object has rendered
-
-      // camera.position.setY(0)
-      // camera.position.setX(0)
-      camera.position.set(5, 0, 0)
-
-      window.addEventListener('resize', () => {
-        // Update sizes
-        sizes.width = window.innerWidth * 0.6
-        sizes.height = window.innerHeight * 0.8
-
-        // Update camera
-        camera.aspect = sizes.width / sizes.height
-        camera.updateProjectionMatrix()
-
-        // Update renderer
-        renderer.setSize(sizes.width, sizes.height)
-        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
-      })
-
-      function animate () {
-        obj.rotation.y += 0.02
-      }
-      function render () {
-        renderer.render(scene, camera)
-      }
-      function start () {
-        requestAnimationFrame(start)
-        animate()
-        render()
-        // console.log('start has run once')
-        // camera.position.setY(box.min.y)
-        // camera.position.setX(box.min.x)
-        // camera.position.setZ(box.min.z)
-      }
-      function fullStart () {
-        render()
-        start()
-        console.log(canvasSize)
-        console.log('fullstart has run once ')
-      }
-      // controls.addEventListener('change', render)
-      setTimeout(() => {
-        camera.position.setY(box.min.y)
-        camera.position.setX(box.min.x)
-        camera.position.setZ(box.min.z + (box.max.y * 2))
-        console.log('camera adjusted')
-      }, 8000)
-      fullStart()
     }
   },
   computed: {
@@ -515,8 +377,7 @@ export default {
         return this.loopRun.currentRun + ' #' + this.gaiaAsset.contractAsset.nftIndex
       }
       if (this.gaiaAsset.contractAsset) {
-        // return '#' + this.gaiaAsset.contractAsset.nftIndex + ' ' + this.gaiaAsset.name
-        return this.gaiaAsset.name
+        return '#' + this.gaiaAsset.contractAsset.nftIndex + ' ' + this.gaiaAsset.name
       }
       return this.gaiaAsset.name
     },
@@ -541,7 +402,7 @@ export default {
       return transactions
     },
     editionsAvailable: function () {
-      return this.gaiaAsset.contractAsset.tokenInfo.edition === 1 && this.gaiaAsset.contractAsset.editionCounter < this.gaiaAsset.contractAsset.tokenInfo.maxEditions
+      return this.gaiaAsset.contractAsset.tokenInfo.edition === 1 && this.gaiaAsset.contractAsset.tokenInfo.maxEditions > 1 && this.gaiaAsset.contractAsset.editionCounter < this.gaiaAsset.contractAsset.tokenInfo.maxEditions
     },
     webWalletLink () {
       if (this.$browserDetect.isFirefox) {
@@ -568,23 +429,22 @@ export default {
     salesButtonLabel () {
       if (this.webWalletNeeded) return 'GET STACKS WALLET'
       const profile = this.$store.getters[APP_CONSTANTS.KEY_PROFILE]
-      if (!profile.loggedIn && this.gaiaAsset.contractAsset.saleData.saleType !== 3) return 'LOGIN TO BID'
+      if (!profile.loggedIn) return 'LOGIN TO BUY'
       // const label = this.$store.getters[APP_CONSTANTS.KEY_SALES_BUTTON_LABEL](this.gaiaAsset.contractAsset.saleData.saleType)
-      if (this.gaiaAsset.contractAsset.saleData.saleType === 1) {
-        // return 'Buy: ' + this.gaiaAsset.contractAsset.saleData.buyNowOrStartingPrice + ' STX'
-        return this.gaiaAsset.contractAsset.saleData.buyNowOrStartingPrice
-      } else if (this.gaiaAsset.contractAsset.saleData.saleType === 2) {
-        const bid = this.$store.getters[APP_CONSTANTS.KEY_BIDDING_NEXT_BID](this.gaiaAsset.contractAsset)
-        if (bid) return 'BID: ' + bid.amountFmt + ' STX'
+      if (this.gaiaAsset.contractAsset.listingInUstx && this.gaiaAsset.contractAsset.listingInUstx.price > 0) {
+        const fprice = this.gaiaAsset.contractAsset.listingInUstx.price + ' STX'
+        return 'Buy: ' + fprice
       }
       return 'NOT SELLING'
     },
     salesBadgeLabel () {
-      const label = this.$store.getters[APP_CONSTANTS.KEY_SALES_BADGE_LABEL](this.gaiaAsset.contractAsset)
-      if (label === ('NOT FOR SALE' || 'NOT SELLING')) {
-        return 'Not On Sale'
+      if (this.contractAsset) {
+        if (this.contractAsset.listingInUstx && this.contractAsset.listingInUstx.price > 0) {
+          return this.contractAsset.listingInUstx.price + ' STX'
+        }
       }
-      return label
+      return 'not on sale'
+      // return this.$store.getters[APP_CONSTANTS.KEY_SALES_BADGE_LABEL](this.gaiaAsset.contractAsset)
     },
     confirmOfferDialog () {
       const dialog = this.$store.getters[APP_CONSTANTS.KEY_DIALOG_CONTENT]('confirm-offer')
@@ -600,17 +460,6 @@ export default {
     },
     ttOfferingHelp () {
       const tooltip = this.$store.getters[APP_CONSTANTS.KEY_TOOL_TIP]('tt-offering-help')
-      return (tooltip) ? tooltip[0].text : ''
-    },
-    ttOnAuction () {
-      let tooltip = this.$store.getters[APP_CONSTANTS.KEY_TOOL_TIP]('tt-not-selling')
-      if (this.gaiaAsset.contractAsset.saleData.saleType === 1) {
-        tooltip = this.$store.getters[APP_CONSTANTS.KEY_TOOL_TIP]('tt-buy-now')
-      } else if (this.gaiaAsset.contractAsset.saleData.saleType === 2) {
-        tooltip = this.$store.getters[APP_CONSTANTS.KEY_TOOL_TIP]('tt-on-auction')
-      } else if (this.gaiaAsset.contractAsset.saleData.saleType === 3) {
-        tooltip = this.$store.getters[APP_CONSTANTS.KEY_TOOL_TIP]('tt-make-offer')
-      }
       return (tooltip) ? tooltip[0].text : ''
     },
     configuration () {
@@ -629,9 +478,9 @@ export default {
         showMeta: false,
         dimensions: 'max-width: 100%; max-height: auto;',
         aspectRatio: '1:1',
-        poster: (this.gaiaAsset.attributes.coverImage) ? this.gaiaAsset.attributes.coverImage.fileUrl : null,
+        poster: this.gaiaAsset.image,
         sources: [
-          { src: this.gaiaAsset.attributes.artworkFile.fileUrl, type: this.gaiaAsset.attributes.artworkFile.type }
+          { src: (this.gaiaAsset.properties) ? this.gaiaAsset.properties.animation_url : null }
         ],
         fluid: false
       }
@@ -656,6 +505,31 @@ export default {
 <style lang="scss" scoped>
 #threeCanvas{
   display:block;
+}
+.priceSection{
+  .basePrice, .feePrice{
+    font: normal normal 300 12px/18px Montserrat;
+    span{
+      float: right;
+      margin-left: auto;
+      span{
+        margin-left: 4px;
+        color: #5154A1;
+        font: normal normal bold 16px/19px Montserrat;
+      }
+    }
+  }
+}
+.fullPrice{
+  font: normal normal 300 20px/29px Montserrat;
+  float: right;
+    span{
+      font: normal normal 300 20px/29px Montserrat;
+      span{
+        font: normal normal bold 24px/29px Montserrat;
+        color:#5154A1;
+      }
+    }
 }
 .modal {
   display: none; /* Hidden by default */
@@ -682,7 +556,7 @@ export default {
   border: 1px solid #888;
   width: 63%;
 }
-.button{ margin: auto;}
+
 .more-link {
   border: 1pt solid #fff;
   padding: 3px 10px;
@@ -699,11 +573,17 @@ export default {
 }
 .backBtn{
   color: #170A6D;
-  font-weight: 700;
+  font: normal normal bold 11px/14px Montserrat;
   margin-bottom: 30px;
 }
 .button{
-  margin-top: 20px;
+  width: 120px;
+  padding: 0;
+  display: grid;
+  place-items: center;
+  width: 251px;
+  height: 43px;
+  margin-top: 55px;
 }
 .editions{
   background-color: #170A6D;

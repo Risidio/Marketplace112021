@@ -16,7 +16,7 @@
     <embed style="" :class="classes" v-on="$listeners" :src="mediaItem.artworkFile.fileUrl" @error="setAltImg" :alt="mediaItem.name">
   </div>
   <div v-else-if="contentType === 'image'">
-    <img :class="classes" v-on="$listeners" :src="mediaItem.coverImage.fileUrl" @error="setAltImg" :alt="mediaItem.name">
+    <img :class="classes" v-on="$listeners" :src="mediaItem.image" @error="setAltImg" :alt="mediaItem.name">
   </div>
 
   <!-- <div v-if="options.showMeta" class="py-0" style="font-size: 1.2rem;">
@@ -60,7 +60,7 @@ export default {
   },
   mounted () {
     if (this.mediaItem) {
-      const aft = this.mediaItem.artworkFile.type
+      const aft = this.mediaItem.image
       if (!aft) {
         this.contentType = 'image'
       } else {

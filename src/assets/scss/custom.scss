@@ -435,8 +435,9 @@ select {
 }
 .hash1-image {
 	width: 100%;
-	min-height: 400px;
+	min-height: auto;
 	border-radius: 0%;
+	// object-fit: contain;
 }
 #asset-details .hash1-image {
 	border: none;

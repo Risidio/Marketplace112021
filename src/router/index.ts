@@ -39,7 +39,9 @@ const NftMarketplace = () => import('@/views/marketplace/NftMarketplace.vue')
 const NftCollection = () => import('@/views/marketplace/NftCollection.vue')
 const Gallery = () => import('@/views/Gallery.vue')
 const HowItWorks = () => import('@/views/HowItWorks.vue')
+
 const LaunchCollection = () => import('@/views/collections/LaunchCollection.vue')
+const IndigeCollection = () => import('@/views/collections/IndigeCollection.vue')
 const QandA = () => import('@/views/QandA.vue')
 const AdminPage = () => import('@/views/AdminPage.vue')
 // const PunkMinter = () => import('@/views/marketplace/PunkMinter.vue')
@@ -185,6 +187,12 @@ const routes: Array<RouteConfig> = [
     name: 'launch-collection',
     components: { default: LaunchCollection, header: MainNavbar, footer: MainFooter },
     meta: { title: 'Launch Collection Featuring Benny' }
+  },
+  {
+    path: '/risidio/indige5',
+    name: 'indige-collecion',
+    components: { default: IndigeCollection, header: MainNavbar, footer: MainFooter },
+    meta: { title: 'The Indige Collection' }
   },
   {
     path: '/information/:infoId',
