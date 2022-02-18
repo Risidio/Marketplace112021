@@ -189,7 +189,7 @@ const routes: Array<RouteConfig> = [
     meta: { title: 'Launch Collection Featuring Benny' }
   },
   {
-    path: '/indige-collection',
+    path: '/risidio/indige5',
     name: 'indige-collecion',
     components: { default: IndigeCollection, header: MainNavbar, footer: MainFooter },
     meta: { title: 'The Indige Collection' }

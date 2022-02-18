@@ -10,29 +10,29 @@
             </b-nav>
         </div>
         <div class="homeMarketItems">
-            <div class="galleryContainer" v-if="currentRunAssets.gaiaAssets.length > 0 && tab === 'all'">
-                <div v-for="(item, index) in currentRunAssets.gaiaAssets" :key="index" class="NFTbackgroundColour" >
+            <div class="galleryContainer" v-if="resultSet.length > 0 && tab === 'all'">
+                <div v-for="(item, index) in resultSet" :key="index" class="NFTbackgroundColour" >
                     <div class="">
-                      <!-- <b-link class="galleryNFTContainer" v-if="item && item.contractAsset && item.attributes"> -->
-                      <!-- <MediaItemGeneral :classes="'nftGeneralView'" v-on="$listeners" :mediaItem="item.attributes"/> -->
-                      <img alt="Collection Image" src="https://res.cloudinary.com/risidio/image/upload/v1645094854/RisidioMarketplace/JOHN_PAINTINGS_01_bma7pe.jpg" class="nftGeneralView"/>
-                    <p class="nFTName"> {{!item.name ? "NFT " + index : item.name }} <span style="float: right;">{{item.contractAsset.listingInUstx.price}} STX</span></p>
-                    <!-- <span>$ {{item.contractAsset.saleData.buyNowOrStartingPrice * 1.9}}</span></p> -->
-                    <p class="nFTArtist">By <span>{{!item.artist ? "Indige" : item.artist }}</span> </p>
-                    <!-- </b-link> -->
+                      <b-link class="galleryNFTContainer" :to="assetUrl(item)">
+                        <!-- <MediaItemGeneral :classes="'nftGeneralView'" v-on="$listeners" :mediaItem="item.attributes"/> -->
+                        <img alt="Collection Image" :src="item.image" class="nftGeneralView"/>
+                      <p class="nFTName"> {{!item.name ? "NFT " + index : item.name }} <span style="float: right;">{{item.contractAsset.listingInUstx.price}} STX</span></p>
+                      <!-- <span>$ {{item.contractAsset.saleData.buyNowOrStartingPrice * 1.9}}</span></p> -->
+                      <p class="nFTArtist">By <span>{{!item.artist ? "Indige" : item.artist }}</span> </p>
+                    </b-link>
                     </div>
                 </div>
             </div>
-            <div class="galleryContainer" v-if="currentRunAssets.gaiaAssets.length > 0 && tab === 'unsold'">
-                <div v-for="(item, index) in currentRunAssets.gaiaAssets" :key="index" class="NFTbackgroundColour" >
+            <div class="galleryContainer" v-if="resultSet.length > 0 && tab === 'unsold'">
+                <div v-for="(item, index) in resultSet" :key="index" class="NFTbackgroundColour" >
                     <div class="">
-                      <!-- <b-link class="galleryNFTContainer" v-if="item && item.contractAsset && item.attributes"> -->
+                      <b-link class="galleryNFTContainer" :to="assetUrl(item)">
                       <!-- <MediaItemGeneral :classes="'nftGeneralView'" v-on="$listeners" :mediaItem="item.attributes"/> -->
-                      <img alt="Collection Image" src="https://res.cloudinary.com/risidio/image/upload/v1645094854/RisidioMarketplace/JOHN_PAINTINGS_01_bma7pe.jpg" class="nftGeneralView"/>
+                      <img alt="Collection Image" :src="item.image" class="nftGeneralView"/>
                     <p class="nFTName"> {{!item.name ? "NFT " + index : item.name }} <span style="float: right;">{{item.contractAsset.listingInUstx.price}} STX</span></p>
                     <!-- <span>$ {{item.contractAsset.saleData.buyNowOrStartingPrice * 1.9}}</span></p> -->
                     <p class="nFTArtist">By <span>{{!item.artist ? "Indige" : item.artist }}</span> </p>
-                    <!-- </b-link> -->
+                    </b-link>
                     </div>
                 </div>
             </div>
@@ -47,19 +47,22 @@ import axios from 'axios'
 // import MediaItemGeneral from '@/views/marketplace/components/media/MediaItemGeneral'
 export default {
   name: 'Indige-Collection-S2',
-  props: ['content', 'gaiaAssets', 'filteredUnSoldLaunch', 'filteredLaunch', 'projects'],
+  props: ['content', 'projects'],
   components: {
     // MediaItemGeneral
   },
   data () {
     return {
       tab: 'unsold',
-      currentRunAssets: []
+      currentRunAssets: [],
+      loopRun: [],
+      resultSet: [],
+      numberOfItems: 0,
+      loading: true
     }
   },
   mounted () {
-    // this.findAssets()
-    this.getAssets(this.application)
+    this.getAssets()
   },
   methods: {
     tabChange (tab) {
@@ -68,61 +71,27 @@ export default {
       document.getElementById('all').classList.remove('active')
       document.getElementById(tab).classList.add('active')
     },
-    // findAssets () {
-    //   const data = {
-    //     contractId: 'ST22QPESFJ8XKJDWR1MHVXV2S4NBE44BA944NS4D2.test_collections7',
-    //     nftIndex: 2,
-    //     page: 0,
-    //     pageSize: 10,
-    //     stxAddress: 'ST22QPESFJ8XKJDWR1MHVXV2S4NBE44BA944NS4D2',
-    //     mine: 'ST22QPESFJ8XKJDWR1MHVXV2S4NBE44BA944NS4D2'
-    //   }
-    //   this.$store.dispatch('rpayStacksContractStore/fetchTokensByContractId', data).then((data) => {
-    //     console.log('Normal')
-    //     console.log(data)
-    //   }).catch((error) => {
-    //     console.log(error.message)
-    //   })
-    // },
-    getAssets (currentRun) {
-      const data = {
-        runKey: (currentRun) ? currentRun.currentRunKey : null,
-        contractId: currentRun.contractId,
-        // query: queryStr,
-        page: 0,
-        pageSize: 100
-      }
-      this.$store.dispatch('rpayStacksContractStore/fetchTokensByContractId', data).then((result) => {
-        this.currentRunAssets = result
-        this.getJSON(result.gaiaAssets)
+    getAssets () {
+      this.$store.dispatch('rpayCategoryStore/fetchLoopRun', 'indige5').then((loopRun) => {
+        this.loopRun = loopRun
+        const data = {
+          contractId: loopRun.contractId,
+          asc: true,
+          runKey: loopRun.currentRunKey,
+          page: 0,
+          pageSize: 5
+        }
+        this.resultSet = null
+        this.$store.dispatch('rpayStacksContractStore/fetchTokensByContractId', data).then((result) => {
+          this.resultSet = result.gaiaAssets
+          this.numberOfItems = result.tokenCount
+          this.loading = false
+        })
       })
     },
-    getJSON (gaiaAsset) {
-      console.log(gaiaAsset)
-      // const data = {
-      //   tokenUri: gaiaAsset[x].contractAsset.tokenInfo.metaDataUrl,
-      //   contractId: gaiaAsset[x].contractAsset.contractId
-      // }
-      // const uri = 'http://api.risidio.local' + '/mesh/v2/meta-data-json'
-      // axios.post(uri, data).then(response => {
-      //   console.log(response)
-      // })
-      for (let x = 0; x <= gaiaAsset.length; ++x) {
-        // const link = 'https://risidio.mypinata.cloud/ipfs/' + gaiaAsset[x].contractAsset.tokenInfo.metaDataUrl.split('/')[1] + '/nft-' + x + '.json'
-        // console.log(link)
-        // axios.get(link).then((result) => {
-        //   console.log(result)
-        // }).catch((error) => {
-        //   console.log(error.message)
-        // })
-        const data = {
-          tokenUri: gaiaAsset[x].contractAsset.tokenInfo.metaDataUrl,
-          contractId: gaiaAsset[x].contractAsset.contractId
-        }
-        const uri = 'https://stacksmate.com' + '/mesh/v2/meta-data-json'
-        axios.post(uri, data).then(response => {
-          console.log(response)
-        })
+    assetUrl (item) {
+      if (item.contractAsset) {
+        return '/nfts/' + item.contractAsset.contractId + '/' + item.contractAsset.nftIndex
       }
     }
   },

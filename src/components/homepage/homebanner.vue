@@ -71,7 +71,7 @@
                             <div class="slideText">
                               <h2 class="notMobileHeader">The Indige Collection</h2>
                               <p class="slide-text-p"> {{content.heroarea[2].herotext[0].text}}</p>
-                              <router-link to="/indige-collection"><button class="button filled"> See The Collection </button></router-link>
+                              <router-link to="/risidio/indige5"><button class="button filled"> See The Collection </button></router-link>
                             </div>
                         </div>
                         <div v-if="slide.id == 3" class = "slideContainer">

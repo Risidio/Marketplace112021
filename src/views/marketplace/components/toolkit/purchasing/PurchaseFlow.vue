@@ -4,10 +4,10 @@
     <PurchaseOfferLogin :offerData="offerData" @registerByEmail="registerByEmail" @registerByConnect="registerByConnect" @backStep="backStep"/>
   </div>
   <div v-else>
-    <div>
-      <div v-if="contractAsset && contractAsset.saleData.saleType === 1">
-        <PurchaseBuyNow :contractAsset="contractAsset" :gaiaAsset="gaiaAsset" :saleData="contractAsset.saleData" @buyNow="buyNow"/>
-        <div class=" " v-html="errorMessage"></div>
+    <div >
+      <div v-if="contractAsset && contractAsset.listingInUstx" class="modall">
+        <PurchaseBuyNow :gaiaAsset="gaiaAsset" :contractAsset="contractAsset" :listingInUstx="contractAsset.listingInUstx" @buyNow="buyNow"/>
+        <div class="text-danger" v-html="errorMessage"></div>
       </div>
       <div v-else>
         Asset not on sale.
@@ -56,37 +56,38 @@ export default {
   methods: {
     buyNow: function () {
       const contractAsset = this.gaiaAsset.contractAsset
-      // const mac = this.$store.getters[APP_CONSTANTS.KEY_MACS_WALLET]
-      // const sky = this.$store.getters[APP_CONSTANTS.KEY_SKYS_WALLET]
       const profile = this.$store.getters[APP_CONSTANTS.KEY_PROFILE]
-      const recipient = profile.stxAddress // (contractAsset.owner === mac.keyInfo.address) ? sky.keyInfo.address : mac.keyInfo.address
+      if (!this.loopRun.commissionContractId) {
+        this.$notify({ type: 'warning', title: 'Unable to Process', text: 'The commission contract is missing - goto to the collection settings and add the contractId of your commission contract.' })
+        return
+      }
       if (!profile.loggedIn) {
         this.$store.dispatch('rpayAuthStore/startLogin').then(() => {
           this.$store.dispatch('rpayCategoryStore/fetchLatestLoopRunForStxAddress', { currentRunKey: process.env.VUE_APP_DEFAULT_LOOP_RUN, stxAddress: profile.stxAddress }, { root: true })
-          this.$emit('registerByConnect')
         }).catch((err) => {
           console.log(err)
           // https://www.hiro.so/wallet/install-web
           this.webWalletNeeded = true
         })
+      } else {
+        const buyNowData = {
+          contractAddress: contractAsset.contractId.split('.')[0],
+          contractName: contractAsset.contractId.split('.')[1],
+          commissionContractAddress: this.loopRun.commissionContractId.split('.')[0],
+          commissionContractName: this.loopRun.commissionContractId.split('.')[1],
+          assetName: this.loopRun.assetName,
+          owner: contractAsset.owner,
+          price: contractAsset.listingInUstx.price,
+          nftIndex: contractAsset.nftIndex
+        }
+        this.$store.dispatch('rpayMarketStore/buyInUstx', buyNowData).then((result) => {
+          this.result = result
+          this.flowType = 2
+        }).catch((err) => {
+          this.errorMessage = err
+          this.flowType = 3
+        })
       }
-      const buyNowData = {
-        // postConditions: postConds,
-        contractAddress: (this.loopRun) ? this.loopRun.contractId.split('.')[0] : STX_CONTRACT_ADDRESS,
-        contractName: (this.loopRun) ? this.loopRun.contractId.split('.')[1] : STX_CONTRACT_NAME,
-        sendAsSky: false,
-        nftIndex: contractAsset.nftIndex,
-        buyNowOrStartingPrice: contractAsset.saleData.buyNowOrStartingPrice,
-        owner: contractAsset.owner,
-        provider: 'risidio',
-        recipient: recipient
-      }
-      this.$store.dispatch('rpayPurchaseStore/buyNow', buyNowData).then(() => {
-        this.flowType = 2
-      }).catch((err) => {
-        this.errorMessage = err
-        this.flowType = 3
-      })
     },
     minted () {
       const contractAsset = this.gaiaAsset.contractAsset
@@ -102,4 +103,8 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+.modall{
+  max-width: 500px;
+  margin: auto;
+}
 </style>

@@ -23,7 +23,12 @@
             <div class="whiteContainer">
                 <p class="contentTitle" >{{content.intro[0].contenttitle[0].text}}</p>
                 <p class="collectionInfo2">{{content.intro[0].beforereadmore[0].text}} </p>
-                <p1 class="extraContent collectionInfo2" id="hiddenContent"> {{content.intro[0].afterreadmore[0].text}}  </p1>
+                <div class="extraContent collectionInfo2" id="hiddenContent"> <p>{{content.intro[0].afterreadmore[0].text}}</p>
+                <video class="indige-video"
+                src="https://res.cloudinary.com/risidio/video/upload/v1645180952/RisidioMarketplace/Video_JSG_Large_Mural_qajyum.mp4"
+                controls
+                ></video>
+                </div>
                 <p @click="showContent(1)" class="readMore show" id="readMore"> Read More </p>
                 <p @click="showContent(2)" class="readMore" id="hide"> Hide </p>
             </div>
@@ -74,9 +79,9 @@ export default {
   z-index: -10;
   margin-bottom: 50px;
   background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0)),
-  url("https://res.cloudinary.com/risidio/image/upload/v1645094854/RisidioMarketplace/JOHN_PAINTINGS_01_bma7pe.jpg");
+  url("https://res.cloudinary.com/risidio/image/upload/v1645092568/RisidioMarketplace/INDIGEWHALE_2_baclhi.jpg");
 //   background-repeat: no-repeat;
-  object-fit: center;
+    background-position: center;
   padding: 20px;
 }
 // .background{
@@ -98,6 +103,13 @@ export default {
     text-align: center;
     max-width: 700px;
     min-height: 100px;
+}
+.indige-video{
+  width: 381px;
+  height: 234px;
+  border-radius: 5px;
+  margin:auto;
+  object-fit: center;
 }
 .whiteContainer{
   background-color:rgba(255, 255, 255, 0.637);
