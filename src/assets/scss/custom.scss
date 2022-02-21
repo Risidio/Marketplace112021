@@ -482,11 +482,13 @@ select {
 }
 .NFTbackgroundColour:hover {
 	.nftGeneralView {
+		transform: scale(1.05);
 		box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 	}
 }
 
 .nftGeneralView {
+	transition: all 0.2s ease-in-out;
 	width: 211px;
 	height: 189px;
 	border-radius: 10px;

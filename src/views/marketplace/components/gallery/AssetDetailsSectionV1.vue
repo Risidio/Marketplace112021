@@ -438,9 +438,9 @@ export default {
       return 'NOT SELLING'
     },
     salesBadgeLabel () {
-      if (this.contractAsset) {
-        if (this.contractAsset.listingInUstx && this.contractAsset.listingInUstx.price > 0) {
-          return this.contractAsset.listingInUstx.price + ' STX'
+      if (this.gaiaAsset.contractAsset) {
+        if (this.gaiaAsset.contractAsset.listingInUstx && this.gaiaAsset.contractAsset.listingInUstx.price > 0) {
+          return 'on sale'
         }
       }
       return 'not on sale'

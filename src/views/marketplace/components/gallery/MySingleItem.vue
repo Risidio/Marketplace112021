@@ -1,33 +1,26 @@
 <template>
 <div v-if="asset">
-  <div v-if="nextBid.amount >= 1" class="galleryItem onSale" >
-    <b-card-text style="margin: 20px auto;" class="">
-      <b-link class="  text-info" :to="nextUrl">
-        <div @contextmenu="handler($event)" class="">
-            <img
-              class="nftGeneralView"
-              :src="image" @error="imageError()"/>
-        </div>
-            <div class="text-left">
-              <div   class="text-small d-flex justify-content-between">
-                <div  class="text-right"><span v-if="loopRun">{{loopRun.currentRun}}</span> {{editionMessage}}</div>
-                <div  class="text-right">{{created()}}</div>
-              <span style="float: right font-size: 10px; font-weight: bolder;"> On Sale</span>
-              </div>
-            </div>
-      </b-link>
-
-      <p class="nFTName" style="font-size: 20px">{{this.asset.name}}</p>
-      <p class="nFTArtist"> By: <span>{{asset.artist}}</span></p>
-    </b-card-text>
+<div class="NFTbackgroundColour" >
+  <div class="">
+      <b-link class="galleryNFTContainer" :to="nextUrl">
+        <img class="nftGeneralView" :src="image" @error="imageError()"/>
+        <p style="margin-top: 0;" class="nFTName">{{this.asset.name}}</p>
+        <p class="nFTArtist"> By: <span>{{asset.properties.collection}}</span></p>
+            <!-- <div class="text-left">
+              <div   class="text-small d-flex justify-content-between"> -->
+                <!-- <div  class="text-right"><span v-if="loopRun">{{loopRun.currentRun}}</span> {{editionMessage}}</div> -->
+                <!-- <div  class="text-right">{{created()}}</div> -->
+              <!-- </div>
+            </div> -->
     <b-card-text>
       <!-- Enables connecting meta data to the actual punk crash -->
-      <PunkConnect v-if="loopRun" :loopRun="loopRun" :asset="asset" @updateImage="updateImage"/> <!-- v-on="$listeners"/> -->
+      <!-- <PunkConnect v-if="loopRun" :loopRun="loopRun" :asset="asset" @updateImage="updateImage"/>  -->
+      <!-- v-on="$listeners"/> -->
       <!-- <div class="  text-center mb-3">
         <span v-if="contractAsset">{{contractAsset.owner}}</span>
         <span v-else>'ownership in progress'</span>
       </div> -->
-      <div class="mb-4 d-flex justify-content-center" v-if="marketplace || myNfts">
+      <!-- <div class="mb-4 d-flex justify-content-center" v-if="marketplace || myNfts">
         <b-button :to="nextUrl" :variant="variant">{{sellingMessage}}</b-button>
       </div>
       <div class="d-flex justify-content-center" v-else-if="nftPage">
@@ -41,59 +34,14 @@
           <b-link v-else class="text-small text-warning" :to="'/item-preview/' + asset.assetHash + '/1'">mint now</b-link>
         </div>
         <div v-if="iAmOwner">
-        </div>
+        </div> -->
         <!-- <div class="text-info" v-if="!marketplace && !nftPage">
           <b-link v-if="contractAsset" class="text-small text-warning" :to="'/nfts/' + contractAsset.contractId + '/' + contractAsset.nftIndex">marketplace</b-link>
+      </div>
         </div> -->
-      </div>
     </b-card-text>
-  </div>
-<div v-if="nextBid.amount == 0" class="galleryItem" >
-    <b-card-text style="margin: 20px auto;" class="">
-      <b-link class="  text-info" :to="nextUrl">
-        <div @contextmenu="handler($event)" class="">
-            <img
-
-              class="nftGeneralView"
-              :src="image" @error="imageError()"/>
-        </div>
-            <div class="text-left">
-              <div   class="text-small d-flex justify-content-between">
-                <div  class="text-right"><span v-if="loopRun">{{loopRun.currentRun}}</span> {{editionMessage}}</div>
-                <div  class="text-right">{{created()}}</div>
-              </div>
-            </div>
-      </b-link>
-      <p class="nFTName" style="font-size: 20px">{{this.asset.name}}</p>
-      <p class="nFTArtist"> By: <span>{{asset.artist}}</span></p>
-    </b-card-text>
-    <b-card-text>
-      <!-- Enables connecting meta data to the actual punk crash -->
-      <PunkConnect v-if="loopRun" :loopRun="loopRun" :asset="asset" @updateImage="updateImage"/> <!-- v-on="$listeners"/> -->
-      <!-- <div class="  text-center mb-3">
-        <span v-if="contractAsset">{{contractAsset.owner}}</span>
-        <span v-else>'ownership in progress'</span>
-      </div> -->
-      <div class="mb-4 d-flex justify-content-center" v-if="marketplace || myNfts">
-        <b-button :to="nextUrl" :variant="variant">{{sellingMessage}}</b-button>
-      </div>
-      <div class="d-flex justify-content-center" v-else-if="nftPage">
-      </div>
-      <div class="d-flex justify-content-between">
-        <div v-if="itemPreview">
-          <div><a v-b-tooltip.bottom title="Download NFT" class="text-info text-light ml-3" href="#" @click.prevent="download"><b-icon class="text-info arrow-repeat" font-scale="1" icon="arrow-down-circle"></b-icon></a></div>
-        </div>
-        <div v-else-if="myNfts">
-          <b-link v-if="contractAsset" class="text-small text-warning" :to="'/nft-preview/' + asset.contractAsset.contractId + '/' + asset.contractAsset.nftIndex">manage</b-link>
-          <b-link v-else class="text-small text-warning" :to="'/item-preview/' + asset.assetHash + '/1'">mint now</b-link>
-        </div>
-        <div v-if="iAmOwner">
-        </div>
-        <!-- <div class="text-info" v-if="!marketplace && !nftPage">
-          <b-link v-if="contractAsset" class="text-small text-warning" :to="'/nfts/' + contractAsset.contractId + '/' + contractAsset.nftIndex">marketplace</b-link>
-        </div> -->
-      </div>
-    </b-card-text>
+    </b-link>
+    </div>
   </div>
 </div>
 </template>
@@ -101,13 +49,13 @@
 <script>
 import { DateTime } from 'luxon'
 import { APP_CONSTANTS } from '@/app-constants'
-import PunkConnect from './PunkConnect'
+// import PunkConnect from './PunkConnect'
 
 // noinspection JSUnusedGlobalSymbols
 export default {
   name: 'MySingleItem',
   components: {
-    PunkConnect
+    // PunkConnect
   },
   props: ['asset', 'loopRun', 'parent'],
   data () {

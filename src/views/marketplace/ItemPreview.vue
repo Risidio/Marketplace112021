@@ -1,12 +1,5 @@
 <template>
 <section style="height: 100%" class="itemPreviewSection" id="section-minting">
-  <div class="modal" id="myModal">
-  <div class="modal-content">
-    <span style="  position: absolute;
-  top: 100%;" class="close" v-on:click="close()">&times;</span>
-    <div id="threeCanvas"><canvas  :style="dimensions()"/></div>
-  </div>
-</div>
   <div class="nFTInfo">
     <p> <span>Last Update</span> <br/>
     <span class="spanDate">{{moment(1)}}</span><br>
@@ -20,16 +13,14 @@
       <div class="backBtn"><router-link class="backBtn" to="/my-account"><b-icon icon="chevron-left" shift-h="-3"></b-icon> Back </router-link></div>
     <div :key="componentKey" class="itemPreviewContainer" >
       <div class = "itemPreviewSubContainer">
-        <div class="itemPreviewNFT">
-          <MediaItemGeneral :classes="'item-image-preview'" :options="options" :mediaItem="getMediaItem()"/>
-          <h2 v-if="item.name" style="margin: 20px 0 0 0;">{{item.name}}</h2>
-          <h6 v-if="item.artist" style="font-size: 0.7em;">By : <span style="font-weight: 600; font-size: 16px; font-family: inherit">{{item.artist}}</span></h6>
+        <div class="NFTbackgroundColour">
+          <img :src="item.image" class="nftGeneralView" :options="options"/>
+          <h2 style="margin-top: 0;" class="nFTName" v-if="item.name" >{{item.name}}</h2>
+          <p></p>
+          <p style="margin: -25px 0; justify-self: flex-start; align-self: start;" class="nFTArtist" v-if="item.properties.collection">By: <span>{{item.properties.collection}}</span></p>
         </div>
         <div v-if="!item.contractAsset">
-          <b-button class="button filled" @click="startMinting()">Mint<span v-if="loopRun && loopRun.batchSize > 1"> Next {{loopRun.batchSize}}</span></b-button>
-          <div v-if="item.attributes.artworkFile.type == 'threed/glb'">
-            <button class="button filled" v-on:click="openModal(), three()">View 3D</button>
-          </div>
+          <button class="button filled" @click="startMinting()">Mint<span v-if="loopRun && loopRun.batchSize > 1"> Next {{loopRun.batchSize}}</span></button>
         </div>
         <div v-else>
          <b-button class="button filled" @click="openSaleDataDialog()">Update Sale Info</b-button>
@@ -63,7 +54,7 @@
 
 <script>
 import { APP_CONSTANTS } from '@/app-constants'
-import MediaItemGeneral from '@/views/marketplace/components/media/MediaItemGeneral'
+// import MediaItemGeneral from '@/views/marketplace/components/media/MediaItemGeneral'
 import ItemActionMenu from '@/views/marketplace/components/update/ItemActionMenu'
 import PendingTransactionInfo from '@/views/marketplace/components/toolkit/nft-history/PendingTransactionInfo'
 import NftHistory from '@/views/marketplace/components/toolkit/nft-history/NftHistory'
@@ -77,7 +68,7 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 export default {
   name: 'ItemPreview',
   components: {
-    MediaItemGeneral,
+    // MediaItemGeneral,
     NftHistory,
     MintingTools,
     PendingTransactionInfo,
@@ -147,14 +138,6 @@ export default {
         return 'width: 100%; max-height: 600px; min-height: 350px;'
       }
       return 'width: 100%; height: auto'
-    },
-    close () {
-      const modal = document.getElementById('myModal')
-      modal.style.display = 'none'
-    },
-    openModal () {
-      const modal = document.getElementById('myModal')
-      modal.style.display = 'block'
     },
     startMinting: function () {
       this.$store.commit(APP_CONSTANTS.SET_RPAY_FLOW, { flow: 'minting-flow' })
@@ -250,117 +233,6 @@ export default {
     },
     targetItem: function () {
       return this.$store.getters[APP_CONSTANTS.KEY_TARGET_FILE_FOR_DISPLAY](this.item)
-    },
-    threeObjectHandler () {
-      // const selectedFile = document.getElementById('input').files[0]
-      // console.log(selectedFile)
-      // const binaryData = []
-      // binaryData.push(this.attributes.artworkFile)
-      // const url = URL.createObjectURL(new Blob(binaryData, { type: '' }))
-      const url = this.getMediaItem().artworkFile.fileUrl
-      console.log(url)
-      return {
-        url
-      }
-    },
-    threeLights () {
-      const ambientLight = new Three.AmbientLight(0xffffff)
-
-      return {
-        ambientLight
-      }
-    },
-    threeControls (camera, renderer) {
-      const controls = new OrbitControls(camera, renderer.domElement)
-    },
-    three () {
-      const scene = new Three.Scene()
-      const canvasSize = document.getElementById('threeCanvas')
-      const sizes = {
-        width: window.innerWidth * 0.60,
-        height: window.innerHeight * 0.8
-      }
-      const camera = new Three.PerspectiveCamera(75, sizes.width / sizes.height, 0.10, 1000)
-      const loader = new GLTFLoader()
-      const material = new Three.MeshStandardMaterial({ color: 0xFF6347, wireframe: true })
-      const renderer = new Three.WebGLRenderer({ canvas: document.getElementsByTagName('canvas')[0] })
-
-      const controls = this.threeControls(camera, renderer)
-      const lights = this.threeLights()
-      const url = this.threeObjectHandler()
-
-      scene.background = new Three.Color(0xf2f2f2)
-      renderer.setSize(sizes.width, sizes.height)
-
-      // camera.position.setX(100)
-      let box = new Three.Box3()
-      scene.add(lights.ambientLight)
-      let obj = ''
-      loader.load(url.url,
-        function (gltf) {
-          obj = gltf.scene
-          obj.material = material
-          scene.add(obj)
-          console.log('model loaded')
-          console.log(obj)
-          box = box.setFromObject(obj)
-        },
-        function (xhr) { // called while loading is progressing
-          console.log((xhr.loaded / xhr.total * 100) + '% loaded')
-        },
-        function (error) {
-          console.log('An error happened' + error)
-        }
-      )
-      // These need to be run AFTER the the object has rendered
-
-      // camera.position.setY(0)
-      // camera.position.setX(0)
-      camera.position.set(5, 0, 0)
-
-      window.addEventListener('resize', () => {
-        // Update sizes
-        sizes.width = window.innerWidth * 0.6
-        sizes.height = window.innerHeight * 0.8
-
-        // Update camera
-        camera.aspect = sizes.width / sizes.height
-        camera.updateProjectionMatrix()
-
-        // Update renderer
-        renderer.setSize(sizes.width, sizes.height)
-        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
-      })
-
-      function animate () {
-        obj.rotation.y += 0.02
-      }
-      function render () {
-        renderer.render(scene, camera)
-      }
-      function start () {
-        requestAnimationFrame(start)
-        animate()
-        render()
-        // console.log('start has run once')
-        // camera.position.setY(box.min.y)
-        // camera.position.setX(box.min.x)
-        // camera.position.setZ(box.min.z)
-      }
-      function fullStart () {
-        render()
-        start()
-        console.log(canvasSize)
-        console.log('fullstart has run once ')
-      }
-      // controls.addEventListener('change', render)
-      setTimeout(() => {
-        camera.position.setY(box.min.y)
-        camera.position.setX(box.min.x)
-        camera.position.setZ(box.min.z + (box.max.y * 2))
-        console.log('camera adjusted')
-      }, 8000)
-      fullStart()
     }
   },
   computed: {
@@ -383,7 +255,7 @@ export default {
     },
     runKey () {
       const defaultLoopRun = process.env.VUE_APP_DEFAULT_LOOP_RUN
-      let runKey = (this.item && this.item.attributes.collection) ? this.item.attributes.collection : defaultLoopRun
+      let runKey = (this.item && this.item.properties.collection) ? this.item.properties.collection : defaultLoopRun
       if (runKey.indexOf('/') > -1) {
         runKey = runKey.split('/')[0]
       }
@@ -415,10 +287,10 @@ export default {
         muted: false,
         controls: true,
         showMeta: false,
-        poster: (this.item.attributes.coverImage) ? this.item.attributes.coverImage.fileUrl : null,
-        sources: [
-          { src: this.item.attributes.artworkFile.fileUrl, type: this.item.attributes.artworkFile.type }
-        ],
+        // poster: (this.item.attributes.coverImage) ? this.item.attributes.coverImage.fileUrl : null,
+        // sources: [
+        //   { src: this.item.attributes.artworkFile.fileUrl, type: this.item.attributes.artworkFile.type }
+        // ],
         fluid: true
       }
       return videoOptions
@@ -466,43 +338,11 @@ export default {
   border: none !important;
   background-color: transparent !important;
 }
-#threeCanvas{
-  display:block;
-}
-.modal {
-  display: none; /* Hidden by default */
-  position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
-  // padding-top: 100px; /* Location of the box */
-  left: 0;
-  top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-  // background-color: rgb(0,0,0); /* Fallback color */
-  // background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-}
-.close{
-  // position: absolute !important;
-  // top: 0% !important;
-  // right: 0% !important;
-  margin: auto;
-  font-size: 30px;
-}
-/* Modal Content */
-.modal-content {
-  background-color: #fefefe;
-  margin: auto;
-  // padding: 20px;
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
-  border: 1px solid #888;
-  width: 80%;
-}
 .button{
   margin-top: 20px;
 }
 .itemPreviewSection{
-  max-width: 1600px;
+  max-width: 1135px;
   display: block;
   margin: auto;
   padding: 3%;
@@ -533,23 +373,16 @@ export default {
     font-size: 20px;
   }
 }
-
+.NFTbackgroundColour{
+  margin: auto;
+}
 .itemPreviewSubContainer{
   max-width: 500px;
 }
 .backBtn{
-  color: rgb(0, 0, 138);
-  font-weight: 700;
-  margin-bottom: 50px;
-}
-.assetArtist{
-  font-weight: 400;
-  font-size: 16px;
-}
-.assetName{
-  font-size: 40px;
-  font-weight: 400;
-  letter-spacing: 1.5px;
+  color: #170A6D;
+  font: normal normal bold 11px/14px Montserrat;
+  margin-bottom: 30px;
 }
 .itemPreviewBody{
   margin-top: 100px;
@@ -566,14 +399,7 @@ export default {
 .itemPreviewContainerDetails{
   max-width: 900px;
 }
-.itemPreviewNFT{
-  margin: auto;
-  max-width: 320px;
-  min-height: 400px;
-  padding: 30px;
-  background-color: #8181813f;
-  border-radius: 30px;
-}
+
 .button{
   margin: 20px auto 0 auto;
 }

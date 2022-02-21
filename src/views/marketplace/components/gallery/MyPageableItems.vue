@@ -3,8 +3,8 @@
     <!-- <h1 class="pointer mb-4 border-bottom" @click="showMinted = !showMinted"><b-icon font-scale="0.6" v-if="showMinted" icon="chevron-down"/><b-icon font-scale="0.6" v-else icon="chevron-right"/> {{tokenCount}} Minted NFTs</h1>
     <div class="mb-4" v-if="showMinted && loopRun"> -->
       <Pagination @changePage="gotoPage" :pageSize="pageSize" :numberOfItems="numberOfItems" v-if="numberOfItems > 0" />
-      <div class="galleryinfoContainer" id="my-table" v-if="resultSet && resultSet.length > 0">
-        <div class="addNewContainer" stye="">
+     <div class="galleryinfoContainer" id="my-table" v-if="resultSet && resultSet.length > 0">
+        <!--  <div class="addNewContainer" stye="">
           <router-link to="/create">
             <p style="font-size: 150px; margin-top: 20px;font-weight: 300; color: grey;">&plus;</p>
             <p style="font-weight: 500; margin-top: 30px;"> Add new NFT</p>
@@ -14,14 +14,18 @@
             <p style="font-weight: 500;">Create a collection</p>
             <p style="font-weight: 300;">create your own collection of artworks </p>
           </div>
-        </div>
+        </div> -->
         <div v-for="(asset, index) of resultSet" :key="index">
           <MySingleItem @updateImage="updateImage" :parent="'list-view'" :loopRun="loopRun" :asset="asset" :key="componentKey" class=""/>
         </div>
       </div>
-      <div class="d-flex justify-content-start my-3 mx-4" v-else>
-        <div class="mt-5">
-          <p>No NFTs found for this collection...</p>
+      <div v-else>
+        <div class="noNFT">
+        <h3> You do not own any Items yet</h3>
+          <div class="profileBtns">
+            <router-link class="button filled" to="/">Gallery</router-link>
+            <!-- <router-link class="button notFilledBlue" to="/create">Mint Your Item</router-link> -->
+          </div>
         </div>
       </div>
     </div>
@@ -56,11 +60,10 @@ export default {
     }
   },
   mounted () {
-    this.currentRunKey = this.$route.params.collection
+    this.currentRunKey = this.loopRun.currentRunKey
     // this.numberOfItems = 500 // this.loopRun.tokenCount
     this.fetchPage(0)
     this.loading = false
-
     const $self = this
     let resizeTimer
     window.addEventListener('resize', function () {
@@ -93,7 +96,8 @@ export default {
         stxAddress: this.profile.stxAddress,
         asc: true,
         page: page,
-        pageSize: this.pageSize
+        pageSize: this.pageSize,
+        contractId: this.loopRun.contractId
       }
       if (this.currentRunKey) data.runKey = this.currentRunKey
       if (process.env.VUE_APP_NETWORK === 'local') {
@@ -120,7 +124,35 @@ export default {
   }
 }
 </script>
-<style>
+<style lang="scss" scoped>
 .myItemsIntroText {font-weight: 200; font-size: 1.1rem; color: #fff;}
-
+  .profileBtns{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: auto;
+    margin: 20px auto auto auto;
+  }
+  .profileBtns{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  & > * {
+    margin: 0 10px;
+  }
+  & > *:hover{
+    color: white;
+  }
+}
+  .noNFT{
+  display: block;
+  margin: auto;
+  max-width: 100%;
+  text-align: center;
+  h3{
+    margin: 50px 0;
+    font-size: 40px;
+    font-weight: 300;
+  }
+}
 </style>

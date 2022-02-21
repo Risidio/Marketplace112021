@@ -43,7 +43,6 @@
 
 <script>
 import { APP_CONSTANTS } from '@/app-constants'
-import axios from 'axios'
 // import MediaItemGeneral from '@/views/marketplace/components/media/MediaItemGeneral'
 export default {
   name: 'Indige-Collection-S2',

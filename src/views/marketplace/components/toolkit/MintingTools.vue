@@ -16,8 +16,12 @@
       <b-tabs justified content-class="bg-white text-black p-4 border mt-3">
         <b-tab active title="Sell">
           <div>
-            <div class="mb-3">{{saleDataText}}</div>
-            <b-button class="btn-action" variant="outline-warning" @click="openSaleDataDialog()">Update Sale Info</b-button>
+            <div v-if="items[0].contractAsset.listingInUstx && items[0].contractAsset.listingInUstx.price > 0" class="mb-3"> <h4>ON SALE</h4>
+              <b-button class="btn-action" variant="outline-warning" @click="openSaleDataDialog()">Update Sale Info</b-button>
+            </div>
+            <div v-else> <h4>NOT ON SALE</h4>
+              <b-button class="btn-action" variant="outline-warning" @click="openSaleDataDialog()">Put Item On Sale</b-button>
+            </div>
           </div>
         </b-tab>
         <b-tab title="Meta Data" v-if="allowEditEditions">

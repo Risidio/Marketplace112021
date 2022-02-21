@@ -49,9 +49,9 @@
       <div>
         <b-nav class="galleryNav" >
           <div class="galleryNavContainer" >
-            <b-nav-item id="NFT" class="galleryNavItem" @click="tabChange('NFT')">Your NFTs</b-nav-item>
-            <b-nav-item id="Item" class="galleryNavItem active" @click="tabChange('Item')">Your Items (Not Minted) </b-nav-item>
-            <b-nav-item id="Sale" class="galleryNavItem" @click="tabChange('Sale')">Your NFTS on sale</b-nav-item>
+            <b-nav-item id="NFT" class="galleryNavItem active" @click="tabChange('NFT')">Your NFTs</b-nav-item>
+            <b-nav-item id="Sale" class="galleryNavItem" @click="tabChange('Sale')">Your NFTs On Sale</b-nav-item>
+            <b-nav-item id="Fav" class="galleryNavItem" @click="tabChange('Fav')">Your Favourites</b-nav-item>
             <!-- <b-nav-item id="Fav" class="galleryNavItem" @click="tabChange('Fav')">Favourite NFTs</b-nav-item> -->
           </div>
         </b-nav>
@@ -59,12 +59,26 @@
       <div v-if="tab === 'NFT' && loopRun" class="">
         <div>
           <MyPageableItems :loopRun="loopRun"/>
-          <router-link to="/gallery" style="font-size: 0.8em; font-weight: 700; display: block; text-align: center; margin-top: 50px"><span style="color: #5FBDC1; ">Want More ? See The Gallery</span></router-link>
+          <router-link to="/gallery" style="font: normal normal bold 11px/14px Montserrat; display: block; text-align: center; margin-top: 50px"><span style="color: #5FBDC1; ">Want More ? See The Gallery</span></router-link>
         </div>
 
       </div>
-      <div v-else-if="gaiaAssets.length > 0 && tab === 'Item'" class="galleryinfoContainer">
-        <div class="addNewContainer">
+      <div v-else-if="saleItem.length > 0 && tab === 'Sale'" class="galleryinfoContainer">
+        <div>
+        <div v-for="(item, index) in saleItem" :key="index" class="NFTbackgroundColour" >
+            <div class="">
+              <b-link class="galleryNFTContainer" v-bind:to="'/nft-preview/' + item.contractAsset.contractId + '/' + item.contractAsset.nftIndex">
+              <!-- <MediaItemGeneral :classes="'nftGeneralView'" v-on="$listeners" :mediaItem="item.attributes"/> -->
+              <img alt="Collection Image" :src="item.image" class="nftGeneralView"/>
+            <p class="nFTName" style="margin-top: 0;"> {{!item.name ? "NFT " + index : item.name }} <span style="float: right;">{{item.contractAsset.listingInUstx.price}} STX</span></p>
+            <!-- <span>$ {{item.contractAsset.saleData.buyNowOrStartingPrice * 1.9}}</span></p> -->
+            <p class="nFTArtist">By <span>{{!item.artist ? "Indige" : item.artist }}</span> </p>
+            </b-link>
+            </div>
+        </div>
+          <router-link to="/gallery" style="font: normal normal bold 11px/14px Montserrat; display: block; text-align: center; margin-top: 50px"><span style="color: #5FBDC1; ">Want More ? See The Gallery</span></router-link>
+        </div>
+        <!-- <div class="addNewContainer">
           <router-link to="/create">
             <p style="font-size: 150px; margin-top: 20px;font-weight: 300; color: grey;">&plus;</p>
             <p style="font-weight: 500; margin-top: 30px;"> Add new NFT</p>
@@ -74,8 +88,8 @@
             <p style="font-weight: 500;">Create a collection</p>
             <p style="font-weight: 300;">create your own collection of artworks </p>
           </div>
-        </div>
-        <div v-for="(item, index) in gaiaAssetNotMinted" :key="index"  >
+        </div> -->
+        <!-- <div v-for="(item, index) in gaiaAssetNotMinted" :key="index"  >
           <div v-if="!item.mintInfo" class="NFTbackgroundColour">
             <div class="galleryNFTContainer">
               <router-link v-bind:to="'/item-preview/' + item.assetHash + '/' + 0" ><img :src="item.image" class="nftGeneralView" style=""/></router-link>
@@ -92,25 +106,32 @@
               <p class="nFTArtist">By <span style="font-weight:600">{{item.artist || 'Not named'}}</span></p>
             </div>
           </div>
+        </div> -->
+      </div>
+      <div v-else-if="saleItem.length === 0 && tab === 'Sale'">
+        <div class="noNFT">
+          <h3> You do not own any items on sale</h3>
+          <div class="profileBtns">
+            <router-link class="button filled" to="/">Gallery</router-link>
+            <!-- <router-link class="button notFilledBlue" to="/create">Mint Your Item</router-link> -->
+          </div>
         </div>
       </div>
-      <div v-else-if="resultSet.length > 0 && tab === 'Sale'" class="galleryinfoContainer">
-        <div v-for="(item, index) in gaiaNFTSaleItem" :key="index" class="NFTbackgroundColour onSale">
-            <div class="galleryNFTContainer">
-              <router-link v-bind:to="'/nfts/' + item.contractId + '/' + item.contractAsset.nftIndex" ><img :src="item.image" class="nftGeneralView" style=""/></router-link>
-              <p class="nFTName"> {{item.name || 'Not named'}} <span style="float: right; font-size: 0.6em; margin-top: 10px;">$ 0</span></p>
-              <p class="nFTArtist">By <span style="font-weight:600">{{item.artist || 'Not named'}}</span> <span style="float: right;">{{item.contractAsset.saleData.buyNowOrStartingPrice || '0'}} STX</span></p>
-            </div>
+      <div v-else-if="tab === 'Fav'">
+        <div class="noNFT">
+        <h3> You do not have any favourite items</h3>
+          <div class="profileBtns">
+            <router-link class="button filled" to="/">Gallery</router-link>
+            <!-- <router-link class="button notFilledBlue" to="/create">Mint Your Item</router-link> -->
+          </div>
         </div>
       </div>
-      <!-- <div v-else-if="tab === 'Fav'">
-      </div> -->
       <div v-else>
         <div class="noNFT">
         <h3> You do not own any Items yet</h3>
           <div class="profileBtns">
             <router-link class="button filled" to="/">Gallery</router-link>
-            <router-link class="button notFilledBlue" to="/create">Mint Your Item</router-link>
+            <!-- <router-link class="button notFilledBlue" to="/create">Mint Your Item</router-link> -->
           </div>
         </div>
       </div>
@@ -143,36 +164,23 @@ export default {
       yourSTX: null,
       currency: '',
       profileInfo: {},
-      tab: 'Item',
+      tab: 'NFT',
       pageSize: 20,
       loopRun: null,
       filteredAssets: [],
       numberOfItems: null,
       tokenCount: null,
-      resultSet: []
+      resultSet: [],
+      allocations: [],
+      saleItem: []
     }
   },
   mounted () {
-    this.findAssets()
-    this.findAssets1()
+    this.fetchLoopRun()
     this.setSTX()
-    let currentRunKey = this.$route.params.collection
-    if (!currentRunKey) {
-      this.showWalletNfts = true
-      this.loading = false
-      currentRunKey = process.env.VUE_APP_DEFAULT_LOOP_RUN
-      this.fetchLoopRun()
-      // if (this.$route.path !== '/my-nfts/' + currentRunKey) this.$router.push('/my-nfts/' + currentRunKey)
-    } else {
-      this.fetchLoopRun()
-    }
-    this.data = { stxAddress: this.profile.stxAddress, mine: true }
-    const myContractAssets = this.$store.getters[APP_CONSTANTS.KEY_MY_CONTRACT_ASSETS]
-    for (let i = 0; i < myContractAssets.length; i++) {
-      const ga = this.$store.getters[APP_CONSTANTS.KEY_GAIA_ASSET_BY_HASH](myContractAssets[i].tokenInfo.assetHash)
-      ga.contractAsset = Object.assign({}, myContractAssets[i])
-      this.myNfts.push(ga)
-    }
+    this.fetchSaleItem()
+    this.yourSTX = this.profile.accountInfo.balance
+    // let currentRunKey = 'indige5'
     this.loaded = true
   },
   watch: {
@@ -205,29 +213,58 @@ export default {
       })
     },
     fetchLoopRun () {
-      const data = {
-        // contractId: (this.loopRun) ? this.loopRun.contractId : STX_CONTRACT_ADDRESS + '.' + STX_CONTRACT_NAME,
-        runKey: (this.loopRun) ? this.loopRun.currentRunKey : LOOP_RUN_DEF,
-        stxAddress: this.profile.stxAddress,
-        asc: true,
-        page: 0,
-        pageSize: this.pageSize
-      }
-      let currentRunKey = this.$route.params.collection
+      let currentRunKey = 'indige5'
       if (!currentRunKey) {
-        currentRunKey = process.env.VUE_APP_DEFAULT_LOOP_RUN
+        currentRunKey = 'indige5'
       }
       this.$store.dispatch('rpayCategoryStore/fetchLoopRun', currentRunKey).then((loopRun) => {
         this.loopRun = loopRun
         this.fetchAllocations()
         this.loading = false
       })
+      const data = {
+        // contractId: (this.loopRun) ? this.loopRun.contractId : STX_CONTRACT_ADDRESS + '.' + STX_CONTRACT_NAME,
+        runKey: 'indige5',
+        stxAddress: this.profile.stxAddress,
+        asc: true,
+        page: 0,
+        pageSize: 50,
+        contractId: 'ST1NXBK3K5YYMD6FD41MVNP3JS1GABZ8TRVX023PT.indige5'
+      }
       this.resultSet = null
       this.$store.dispatch('rpayStacksContractStore/fetchMyTokens', data).then((result) => {
+        console.log(result)
         this.resultSet = result.gaiaAssets // this.resultSet.concat(results)
         this.tokenCount = result.tokenCount
         this.numberOfItems = result.gaiaAssets.length
         this.loading = false
+      }).catch((error) => {
+        console.log(error.message)
+      })
+    },
+    fetchSaleItem () {
+      const data = {
+        // contractId: (this.loopRun) ? this.loopRun.contractId : STX_CONTRACT_ADDRESS + '.' + STX_CONTRACT_NAME,
+        runKey: 'indige5',
+        stxAddress: this.profile.stxAddress,
+        asc: true,
+        page: 0,
+        pageSize: 50,
+        contractId: 'ST1NXBK3K5YYMD6FD41MVNP3JS1GABZ8TRVX023PT.indige5'
+      }
+      this.$store.dispatch('rpayStacksContractStore/fetchMyTokens', data).then((result) => {
+        try {
+          for (let i = 0; i <= result.gaiaAssets.length; i++) {
+            if (result.gaiaAssets[i].contractAsset.listingInUstx.price > 0) {
+              this.saleItem.push(result.gaiaAssets[i])
+              console.log(result)
+            }
+          }
+        } catch (error) {
+          console.log(error)
+        }
+      }).catch((error) => {
+        console.log(error.message)
       })
     },
     fetchAllocations () {
@@ -237,42 +274,8 @@ export default {
         this.allocations = results || []
       })
     },
-    canUpload () {
-      const hasUploadPriv = this.$store.getters[APP_CONSTANTS.KEY_HAS_PRIVILEGE]('can-upload')
-      return hasUploadPriv
-    },
-    findAssets () {
-      const data = {
-        // stxAddress: (NETWORK === 'local') ? 'STFJEDEQB1Y1CQ7F04CS62DCS5MXZVSNXXN413ZG' : this.profile.stxAddress
-        stxAddress: this.profile.stxAddress,
-        page: 0,
-        pageSize: 100,
-        query: '?' + this.defQuery
-      }
-      this.$store.dispatch('rpayStacksContractStore/fetchWalletNftsByFilters', data).then((results) => {
-        console.log(results)
-      }).catch((error) => {
-        console.log('error ' + error)
-      })
-    },
     setSTX () {
       this.yourSTX = this.profile.accountInfo.balance
-    },
-    findAssets1 () {
-      const data = {
-        contractId: 'ST22QPESFJ8XKJDWR1MHVXV2S4NBE44BA944NS4D2.test_collections9',
-        nftIndex: 2,
-        page: 0,
-        pageSize: 10,
-        stxAddress: 'ST22QPESFJ8XKJDWR1MHVXV2S4NBE44BA944NS4D2',
-        mine: 'ST22QPESFJ8XKJDWR1MHVXV2S4NBE44BA944NS4D2'
-      }
-      this.$store.dispatch('rpayStacksContractStore/fetchTokensByContractId', data).then((data) => {
-        console.log('Normal')
-        console.log(data)
-      }).catch((error) => {
-        console.log(error.message)
-      })
     },
     currencyChange (currency) {
       this.yourSTX = this.profile.accountInfo.balance
@@ -287,9 +290,9 @@ export default {
     tabChange (tab) {
       this.tab = tab
       document.getElementById('NFT').classList.remove('active')
-      document.getElementById('Item').classList.remove('active')
+      // document.getElementById('Item').classList.remove('active')
       document.getElementById('Sale').classList.remove('active')
-      // document.getElementById('Fav').classList.remove('active')
+      document.getElementById('Fav').classList.remove('active')
       document.getElementById(tab).classList.add('active')
       console.log(this.tab)
     },
@@ -298,25 +301,13 @@ export default {
     }
   },
   computed: {
-    projects () {
-      const appmap = this.$store.getters[APP_CONSTANTS.KEY_REGISTRY]
-      if (appmap) return appmap.apps
-      return []
-    },
-    content () {
-      const content = this.$store.getters['contentStore/getHomepage']
-      return content
+    application () {
+      const application = this.$store.getters[APP_CONSTANTS.KEY_APPLICATION_FROM_REGISTRY_BY_CONTRACT_ID]('ST22QPESFJ8XKJDWR1MHVXV2S4NBE44BA944NS4D2.launch_collections_artw')
+      return application
     },
     showAdmin () {
       const profile = this.$store.getters[APP_CONSTANTS.KEY_PROFILE]
       return profile.superAdmin || location.origin.indexOf('local') > -1
-    },
-    stxAddress () {
-      const profile = this.$store.getters[APP_CONSTANTS.KEY_PROFILE]
-      if (profile.wallet && profile.wallet.keyInfo.address) {
-        return profile.wallet.keyInfo.address.substring(0, 5) + '...' + profile.wallet.keyInfo.address.substring(profile.wallet.keyInfo.address.length - 5)
-      }
-      return 'n/a'
     },
     username () {
       const profile = this.$store.getters[APP_CONSTANTS.KEY_PROFILE]
@@ -350,18 +341,6 @@ export default {
     webWalletNeeded () {
       const webWalletNeeded = this.$store.getters[APP_CONSTANTS.KEY_WEB_WALLET_NEEDED]
       return webWalletNeeded
-    },
-    gaiaAssets () {
-      const gaiaAssets = this.$store.getters[APP_CONSTANTS.KEY_MY_ITEMS]
-      return gaiaAssets
-    },
-    gaiaAssetNotMinted () {
-      const gaiaAsset = this.$store.getters[APP_CONSTANTS.KEY_MY_UNMINTED_ITEMS]
-      return gaiaAsset
-    },
-    gaiaNFTSaleItem () {
-      const saleItem = this.resultSet.filter(assets => assets.contractAsset.saleData.buyNowOrStartingPrice !== 0)
-      return saleItem
     },
     hasNfts () {
       const myContractAssets = this.$store.getters[APP_CONSTANTS.KEY_MY_CONTRACT_ASSETS]
@@ -438,6 +417,7 @@ export default {
 }
 
 .galleryNavItem{
+  text-align: center;
   width: fit-content;
   padding: 10px;
   margin: auto;
