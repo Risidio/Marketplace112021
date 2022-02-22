@@ -66,7 +66,7 @@
     <template #modal-footer class="text-center"><div class="w-100"></div></template>
   </b-modal>
   <b-modal class="saleModalContainer" size="xl" id="selling-modal">
-    <SellingFlow @cancel="cancel" :attributes="items[0].attributes" :item="items[0]" :contractAsset="items[0].contractAsset"  v-if="items[0].contractAsset"/>
+    <SellingFlow @cancel="cancel" :attributes="items[0].attributes" :item="items[0]" :loopRun="loopRun" :contractAsset="items[0].contractAsset"  v-if="items[0].contractAsset"/>
     <template #modal-footer class="text-center"><div class="w-100"></div></template>
   </b-modal>
 </div>
