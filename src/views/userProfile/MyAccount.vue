@@ -64,7 +64,7 @@
 
       </div>
       <div v-else-if="saleItem.length > 0 && tab === 'Sale'" class="galleryinfoContainer">
-        <div>
+
         <div v-for="(item, index) in saleItem" :key="index" class="NFTbackgroundColour" >
             <div class="">
               <b-link class="galleryNFTContainer" v-bind:to="'/nft-preview/' + item.contractAsset.contractId + '/' + item.contractAsset.nftIndex">
@@ -76,8 +76,7 @@
             </b-link>
             </div>
         </div>
-          <router-link to="/gallery" style="font: normal normal bold 11px/14px Montserrat; display: block; text-align: center; margin-top: 50px"><span style="color: #5FBDC1; ">Want More ? See The Gallery</span></router-link>
-        </div>
+          <!-- <router-link to="/gallery" style="font: normal normal bold 11px/14px Montserrat; display: block; text-align: center; margin-top: 50px"><span style="color: #5FBDC1; ">Want More ? See The Gallery</span></router-link> -->
         <!-- <div class="addNewContainer">
           <router-link to="/create">
             <p style="font-size: 150px; margin-top: 20px;font-weight: 300; color: grey;">&plus;</p>
@@ -428,7 +427,7 @@ export default {
 }
 
 .galleryNavItem:hover, .galleryNavItem.active{
-    border-bottom: 2px solid #50B1B5;
+  border-bottom: 2px solid #50B1B5;
 }
 }
 .yourItems{

@@ -16,14 +16,17 @@
         <div class="NFTbackgroundColour">
           <img :src="item.image" class="nftGeneralView" :options="options"/>
           <h2 style="margin-top: 0;" class="nFTName" v-if="item.name" >{{item.name}}</h2>
-          <p></p>
-          <p style="margin: -25px 0; justify-self: flex-start; align-self: start;" class="nFTArtist" v-if="item.properties.collection">By: <span>{{item.properties.collection}}</span></p>
+          <p style="margin: 0; justify-self: flex-start; align-self: start;" class="nFTArtist" v-if="item.properties.collection">By: <span>{{item.properties.collection}}</span></p>
         </div>
         <div v-if="!item.contractAsset">
           <button class="button filled" @click="startMinting()">Mint<span v-if="loopRun && loopRun.batchSize > 1"> Next {{loopRun.batchSize}}</span></button>
         </div>
+        <div v-else-if="item.contractAsset.listingInUstx && item.contractAsset.listingInUstx.price > 0">
+        <b-link  :to="assetUrl(item)"><b-button class="button notFilledBlue">View On Market</b-button></b-link>
+         <button class="cancel-button" @click="delistItem()">Delist item</button>
+        </div>
         <div v-else>
-         <b-button class="button filled" @click="openSaleDataDialog()">Update Sale Info</b-button>
+         <b-button style="display: grid; place-items: center; padding: 15px 80px;" class="button filled" @click="openSaleDataDialog()">Sell</b-button>
         </div>
         <!-- <div class="text-left text-small mt-3">
           <b-link :to="'/my-nfts/' + loopRun.currentRunKey"><b-icon icon="chevron-left"/> Back</b-link>
@@ -32,7 +35,7 @@
       <div class="itemPreviewContainerDetails">
         <div>
           <div class="mb-2 d-flex justify-content-between">
-            <h2 class="d-block border-bottom mb-5">{{mintedMessage}}</h2>
+            <h2 class="font: normal normal normal 38px/41px Montserrat;">{{mintedMessage}}</h2>
             <ItemActionMenu :item="item" :loopRun="loopRun"/>
           </div>
         </div>
@@ -40,15 +43,25 @@
         <MintInfo :item="item" :loopRun="loopRun"/>
 
         <PendingTransactionInfo class="mt-5" v-if="pending && pending.txStatus === 'pending'" :pending="pending"/>
-        <div v-else>
+        <div style="display: none">
           <MintingTools class="w-100" :items="[item]" :loopRun="loopRun" @update="update" :mediaItem="getMediaItem()"/>
         </div>
-        <div>
+        <b-nav class="galleryNav" >
+          <div class="galleryNavContainer" >
+            <b-nav-item id="Info" class="galleryNavItem active" @click="tabChange('Info')">Info</b-nav-item>
+            <b-nav-item id="History" class="galleryNavItem" @click="tabChange('History')">History</b-nav-item>
+          </div>
+        </b-nav>
+        <div v-if="tab === 'History'">
           <NftHistory class="mt-5" @update="update" @setPending="setPending" :loopRun="loopRun" :nftIndex="(item.contractAsset) ? item.contractAsset.nftIndex : -1" :assetHash="item.assetHash"/>
+        </div>
+        <div v-if="tab === 'Info'">
+          <p style="font: normal normal normal 14px/18px Montserrat;">Description of the NFT / collectable - Examples such the content of NFTs, specific themes of the collection, quotations by the creator, the meaning behind the creation of this piece etc.</p>
         </div>
       </div>
     </div>
   </div>
+
 </section>
 </template>
 
@@ -87,7 +100,8 @@ export default {
       item: null,
       message: 'No item available...',
       contractNameNext: process.env.VUE_APP_STACKS_CONTRACT_NAME_NEXT,
-      showRpay: false
+      showRpay: false,
+      tab: 'Info'
     }
   },
   mounted () {
@@ -139,6 +153,25 @@ export default {
       }
       return 'width: 100%; height: auto'
     },
+    assetUrl (item) {
+      if (item.contractAsset) {
+        return '/nfts/' + item.contractAsset.contractId + '/' + item.contractAsset.nftIndex
+      }
+    },
+    delistItem () {
+      const data = {
+        sendAsSky: true,
+        contractAddress: this.item.contractAsset.contractId.split('.')[0],
+        contractName: this.item.contractAsset.contractId.split('.')[1],
+        nftIndex: this.item.contractAsset.nftIndex
+      }
+      this.$store.dispatch('rpayMarketStore/unlistInUstx', data).then((result) => {
+        this.result = result
+      }).catch((error) => {
+        console.log(error)
+        this.sellingMessage = null
+      })
+    },
     startMinting: function () {
       this.$store.commit(APP_CONSTANTS.SET_RPAY_FLOW, { flow: 'minting-flow' })
       this.$store.commit('rpayStore/setDisplayCard', 100)
@@ -148,6 +181,12 @@ export default {
       this.$store.commit(APP_CONSTANTS.SET_RPAY_FLOW, { flow: 'selling-flow' })
       this.showRpay = true
       this.$bvModal.show('selling-modal')
+    },
+    tabChange (tab) {
+      this.tab = tab
+      document.getElementById('Info').classList.remove('active')
+      document.getElementById('History').classList.remove('active')
+      document.getElementById(tab).classList.add('active')
     },
     fetchItem () {
       if (this.$route.name === 'nft-preview') {
@@ -295,22 +334,6 @@ export default {
       }
       return videoOptions
     },
-    /**
-    item1 () {
-      // get the item from my uploads - then try my nfts
-      if (this.nftIndex !== null && typeof this.nftIndex !== 'undefined' && this.nftIndex > -1) {
-        return this.$store.getters[APP_CONSTANTS.KEY_ASSET_FROM_NFT_INDEX](Number(this.nftIndex))
-      }
-      let item = this.$store.getters[APP_CONSTANTS.KEY_GAIA_ASSET_BY_HASH_EDITION]({ assetHash: this.assetHash, edition: 1 })
-      if (!item) {
-        item = this.$store.getters[APP_CONSTANTS.KEY_MY_ITEM](this.assetHash)
-      }
-      if (this.edition > 1) {
-        item = this.$store.getters[APP_CONSTANTS.KEY_GAIA_ASSET_BY_HASH_EDITION]({ assetHash: this.assetHash, edition: this.edition })
-      }
-      return item
-    },
-    **/
     profile () {
       const profile = this.$store.getters['rpayAuthStore/getMyProfile']
       return profile
@@ -322,12 +345,7 @@ export default {
       return this.item.contractAsset && this.item.contractAsset.owner === this.profile.stxAddress
     },
     minted () {
-      // const profile = this.$store.getters['rpayAuthStore/getMyProfile']
-      // return !this.item.contractAsset && this.item.contractAsset.owner === profile.stxAddress
       return this.item.contractAsset
-    },
-    attributes () {
-      return this.item.attributes
     }
   }
 }
@@ -348,6 +366,9 @@ export default {
   padding: 3%;
   background-color: white;
   height: 70vh;
+}
+.galleryNavItem:hover, .galleryNavItem.active{
+  border-bottom: 2px solid #50B1B5;
 }
 .nFTInfo{
   position: absolute;

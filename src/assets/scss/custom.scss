@@ -742,6 +742,26 @@ select {
 	font: normal normal bold 11px/14px Montserrat;
 	font-weight: 500;
 }
+.cancel-button {
+	display: flex;
+	padding: 15px 30px;
+	min-width: 100px;
+	border-radius: 100px;
+	border: none;
+	font: normal normal bold 11px/14px Montserrat;
+	font-weight: 500;
+	margin: auto;
+	background: none;
+	color: #de927b;
+	cursor: pointer;
+}
+.cancel-button:hover,
+.cancel-button:active,
+.cancel-button:focus {
+	background: none;
+	text-decoration: underline;
+	color: #de927b;
+}
 .notFilled {
 	color: rgba(95, 189, 193, 1);
 	background: rgba(255, 255, 255, 0.2);
