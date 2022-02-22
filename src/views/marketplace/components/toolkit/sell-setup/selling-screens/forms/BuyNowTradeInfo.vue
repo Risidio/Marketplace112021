@@ -1,11 +1,13 @@
 <template>
 <div class="row">
   <div class="col-12 mb-5">
-    <div role="group">
-      <label for="input-live"><span class="text-black">Price</span></label>
-      <b-input-group size="lg" prepend="STX" variant="outline-info">
-        <b-form-input type="number" v-model="buyNowOrStartingPrice" class="input" placeholder="STX"></b-form-input>
-      </b-input-group>
+    <div>
+      <p style="font-size: 12px;"> Price</p>
+      <div class="buyNowInput">
+        <label class="buyNowInputLabel">STX</label>
+          <input min="0" type="number" v-model="buyNowOrStartingPrice" placeholder="STX"/>
+      </div>
+      <!-- </b-input-group> -->
     </div>
   </div>
   <div><p class=" " v-html="errorMessage"></p></div>
@@ -50,4 +52,27 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+.buyNowInput{
+  input{
+    border-bottom-right-radius: 22px;
+    border-top-right-radius: 22px;
+    border: 1px solid #ccc;
+    border-left: 0;
+    padding: 8px 5px 8px 20px;
+    font-size: 11px;
+    font-weight: 300;
+    margin-left: auto;
+    text-align: right;
+    width: 50%;
+  }
+}
+.buyNowInputLabel{
+  border: 1px solid #ccc;
+  border-bottom-left-radius: 22px;
+  border-top-left-radius: 22px;
+  font-size: 11px;
+  padding: 8px 20px;
+  background: #FFF;
+  color: #9c9c9c;
+}
 </style>

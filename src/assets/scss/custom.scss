@@ -219,7 +219,7 @@ select {
 .modal-dialog {
 	min-width: 500px;
 	padding: 20px;
-	margin: 10vh auto;
+	margin: 10px auto;
 }
 .modal-content {
 	min-height: 200px;
@@ -227,7 +227,7 @@ select {
 	padding: 20px;
 	border-radius: 25px;
 	background: #f5f5f5 0% 0% no-repeat padding-box;
-	box-shadow: 0px 3px 6px #00000029 inset;
+	// box-shadow: 0px 3px 6px #00000029 inset;
 }
 .modal-header {
 	text-align: right;
@@ -685,29 +685,31 @@ select {
 //   height: 50vh;
 //   border-radius: 50px;
 // }
-
 .saleModal {
-	width: 100%;
+	position: relative;
+	max-width: 100%;
+	border: none;
 	border-radius: 25px;
 	display: flex;
 	flex-wrap: wrap;
+	gap: 30px;
 	padding: 20px 50px;
-
 	& > :nth-child(1) {
-		flex: 1 1 35%;
+		flex: 1 1 15%;
 	}
 	& > :nth-child(2) {
 		flex: 1 1 65%;
 	}
 }
 .mintButton {
-	display: block;
-	padding: 18px 50px;
-	margin: 30px auto;
-	background: #50b1b5;
-	border: none;
+	display: flex;
+	margin-top: 20px;
+	padding: 15px 40px;
+	min-width: 100px;
 	border-radius: 100px;
-	font-size: 0.65em;
+	border: none;
+	font: normal normal bold 11px/14px Montserrat;
+	font-weight: 500;
 }
 .flex {
 	display: flex;

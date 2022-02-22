@@ -1,10 +1,10 @@
 <template>
 <section style="height: 100%" class="itemPreviewSection" id="section-minting">
   <div class="nFTInfo">
-    <p> <span>Last Update</span> <br/>
-    <span class="spanDate">{{moment(1)}}</span><br>
-     <span class="spanDate1">{{moment(2)}}</span><br>
-      <span class="spanDate">{{moment(3)}}</span></p>
+    <p class="lastUpdate">Last Update</p>
+    <p class="spanDate">{{moment(1)}}</p>
+     <p class="spanDate1">{{moment(2)}}</p>
+      <p class="spanDate">{{moment(3)}}</p>
   </div>
   <b-container class="my-5 pt-5" v-if="!item || !loopRun">
     <h1>{{message}}</h1>
@@ -354,23 +354,28 @@ export default {
   background-color: #5154A1;
   color: white;
   padding: 10px 0 10px 30px;
-  min-width: 175px;
-  min-height: 100px;
+  width: 130px; height: 82px;
   right: 0;
   top: 175px;
-  border-top-left-radius: 10px;
-  border-bottom-left-radius: 10px;
-  span{
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+  .lastUpdate{
     color: white !important;
-    font-size: bolder;
+    font: normal normal bold 10px/13px Montserrat;
+    padding: 0;
+    margin: 0;
   }
   .spanDate{
-    font-weight: 100;
-    font-size: 13px;
+    color: white !important;
+    font: normal normal normal 10px/14px Montserrat;
+    padding: 0;
+    margin: 3px 0;
   }
   .spanDate1{
-    font-weight: 500;
-    font-size: 20px;
+    color: white !important;
+    font: normal normal normal 21px/11px Montserrat;
+    padding: 0;
+    margin: 0;
   }
 }
 .NFTbackgroundColour{
@@ -390,11 +395,15 @@ export default {
 .itemPreviewContainer{
   display: flex;
   flex-wrap: wrap;
-  /* gap: 60px; */
+  column-gap: 100px;
 }
-.itemPreviewContainer >*{
+.itemPreviewContainer >*:nth-child(2){
   margin: 0 auto;
-  flex: 1 1 400px;
+  flex: 1 1 600px;
+}
+.itemPreviewContainer >*:nth-child(1){
+  margin: 0 auto;
+  flex: 1 1 200px;
 }
 .itemPreviewContainerDetails{
   max-width: 900px;

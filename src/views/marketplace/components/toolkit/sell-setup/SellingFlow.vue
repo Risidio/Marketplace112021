@@ -1,14 +1,14 @@
 <template>
 <div>
-<div class="saleModal" style="background: transparent"  v-if="!loading">
-  <div style="margin: 20px 0 0 0;">
-    <img style="margin: 0;" class="itemImg" :src="attributes.coverImage.fileUrl"/>
+<div class="saleModal" v-if="!loading">
+  <div style="display: block; max-width: 210px; margin: auto;">
+    <img style="margin: 0;" class="nftGeneralView" :src="item.image"/>
     <p class="nFTName">{{item.name}}</p>
-    <p class="nFTArtist">By <span>{{item.artist}}</span></p>
+    <p class="nFTArtist">By <span>{{item.properties.collection}}</span></p>
   </div>
-  <div style="background: white">
+  <div style="background: transparent">
     <div class="" :key="componentKey">
-      <div bg-variant="white" style="min-height: 350px" footer-tag="footer" v-if="minted">
+      <div bg-variant="white" style="min-height: 250px" footer-tag="footer" v-if="minted">
         <!-- <SellingHeader :allowEdit="true"/> -->
         <SellingOptions :contractAsset="contractAsset" v-if="displayCard === 100" @updateAmount="updateAmount"/>
           <div class="d-flex justify-content-between">
@@ -32,13 +32,11 @@
       </b-card>
     </div>
   </div>
-  <div>
-  </div>
 </div>
 <div v-else>
   Waiting for asset.
 </div>
-<b-button @click="setTradeInfo()" class="mintButton" style="position: absolute; margin: 0px 0px 0px 950px;">Save</b-button>
+<b-button @click="setTradeInfo()" class="mintButton filled" style="position: absolute; margin: 5px 0px 0px 800px;">Submit</b-button>
 </div>
 </template>
 
@@ -144,4 +142,8 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+// .NFTbackgroundColour{
+//   max-width: 255px;
+//   margin: auto;
+// }
 </style>

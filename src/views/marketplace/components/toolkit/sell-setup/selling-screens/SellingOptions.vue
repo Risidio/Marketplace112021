@@ -2,12 +2,12 @@
 <b-card-text class="mt-2 mx-2" style="min-height: 15rem;">
   <div class="mx-2" v-if="!showSaleData">
     <div class="flex">
-      <div class="mt-4">
+      <!-- <div class="mt-4">
         <b-button  @click="changeSellingOption(0)" :variant="(contractAsset.saleData.saleType === 0) ? 'warning' : 'light'"><span>Not On Sale</span></b-button>
       </div>
       <div class="mt-4">
         <b-button  @click="changeSellingOption(1)" :variant="(contractAsset.saleData.saleType === 1) ? 'warning' : 'light'"><span>Sell</span></b-button>
-      </div>
+      </div> -->
     </div>
     <div class="">
       <div class="mt-5 mx-5">
@@ -16,9 +16,9 @@
         <AuctionTradeInfo :contractAsset="contractAsset" v-else-if="contractAsset.saleData.saleType === 2" v-on="$listeners"/>
         <OfferTradeInfo :contractAsset="contractAsset" v-else-if="contractAsset.saleData.saleType === 3" v-on="$listeners"/>
       </div>
-      <div class="text-center mt-5 text-black">
+      <!-- <div class="text-center mt-5 text-black">
         Save to update your Marketplace data
-      </div>
+      </div> -->
     </div>
   </div>
 </b-card-text>
@@ -41,6 +41,9 @@ export default {
     return {
       showSaleData: false
     }
+  },
+  mounted () {
+    this.changeSellingOption(1)
   },
   methods: {
     changeSellingOption: function (saleType) {

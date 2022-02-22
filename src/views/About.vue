@@ -4,7 +4,7 @@
     <AboutSection0 :content="content"/>
     <AboutSection1 :content="content"/>
     <AboutSection2 :content="content"/>
-    <AboutSection3 :content="content"/>
+    <!-- <AboutSection3 :content="content"/> -->
   </section>
 </div>
 </template>
@@ -15,15 +15,15 @@ import { APP_CONSTANTS } from '@/app-constants'
 import AboutSection0 from '@/components/about/AboutSection0'
 import AboutSection1 from '@/components/about/AboutSection1'
 import AboutSection2 from '@/components/about/AboutSection2'
-import AboutSection3 from '@/components/about/AboutSection3'
+// import AboutSection3 from '@/components/about/AboutSection3'
 
 export default {
   name: 'About',
   components: {
     AboutSection0,
     AboutSection1,
-    AboutSection2,
-    AboutSection3
+    AboutSection2
+    // AboutSection3
   },
   data () {
     return {

@@ -65,7 +65,7 @@
     <MintingFlow v-else-if="loopRun" :loopRun="loopRun" :items="items" :mediaItem="mediaItem" :mintAllocations="mintAllocations" v-on="$listeners"/>
     <template #modal-footer class="text-center"><div class="w-100"></div></template>
   </b-modal>
-  <b-modal class="saleModal" size="lg" id="selling-modal">
+  <b-modal class="saleModalContainer" size="xl" id="selling-modal">
     <SellingFlow @cancel="cancel" :attributes="items[0].attributes" :item="items[0]" :contractAsset="items[0].contractAsset"  v-if="items[0].contractAsset"/>
     <template #modal-footer class="text-center"><div class="w-100"></div></template>
   </b-modal>
