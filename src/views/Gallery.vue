@@ -4,9 +4,10 @@
             <div class="mainGallerySidebar">
                 <div class="galleryCollections">
                   <button class="collectionsButton" v-on:click="showCollections()">Collections <img class="arrow1" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></button>
-                  <div class="collectionsMenu">
-                    <div class="ml-5">
-                      <CollectionSidebar :allowUploads="false" @update="update"/>
+                  <div class="collectionsMenu" v-if="projects">
+                    <div v-for="(item, index) in projects" :key="index" class="collectionMenuContainer">
+                      <input class="collectionItemRadio" type="radio" :id="item.title" name="radio" :value="index" @click="sortCollection(item)">
+                      <label class="collectionItems">{{item.title}}</label>
                     </div>
                   </div>
                 </div>
@@ -48,61 +49,12 @@
                         <input class="search" type="text" id="search" name="search" placeholder="Looking for anything in particular ?"><img class="view" src="https://res.cloudinary.com/risidio/image/upload/v1637238428/RisidioMarketplace/magnifying-search-lenses-tool_yaatpo.svg">
                 </div>
                 <hr/>
-                    <div style="width: 100%; margin:auto;" v-if="loaded && types=='all'">
-                          <!-- <h1 class="text-black">NFT Gallery</h1> -->
-                          <div style=" display: flex; width: 100%; margin:auto;" class="row mb-4">
-                              <div class="text-black col-lg-3 col-md-4 col-sm-6 col-xs-12 mx-0 p-1" style="display: flex; margin:auto"  v-for="(item, index) in gaiaAssets" :key="index">
-                                  <GalleryNft style="display: flex; margin:auto" :item="item"/>
-                              </div>
-                          </div>
-                      </div>
-                        <div style="width: 100%" v-if="loaded && types !='all'">
-                          <!-- <h1 class="text-black">NFT Gallery</h1> -->
-                          <div style=" display: flex; width: 100%; margin:auto;" class="row mb-4">
-                              <div class="text-black col-lg-3 col-md-4 col-sm-6 col-xs-12 mx-0 p-1" style="display: flex; margin:auto"  v-for="(item, index) in showAssets" :key="index">
-                                  <GalleryNft style="display: flex; margin:auto" :item="item"/>
-                              </div>
-                          </div>
-                      <div class="container" style="min-height: 85vh;" v-if="loaded && types=='all' && gaiaAssets.length === 0">
-                            <b-container class="text-black mt-5">
-                                <h1>No Gallery NFTs</h1>
-                                <p>Our Gallery is coming online soon - please come back soon...</p>
-                            </b-container>
-                        </div>
-                      </div>
-                      <div style="width: 100%" v-if="loaded && types !='all' && types=='img' && showAssets.length === 0">
-                         <h2> We could not find any images</h2>
-                      </div>
-                      <div style="width: 100%" v-if="loaded && types !='all' && types=='aud' && showAssets.length === 0">
-                         <h2> We could not find any audio files</h2>
-                      </div>
-                      <div style="width: 100%" v-if="loaded && types !='all' && types=='vid' && showAssets.length === 0">
-                         <h2> We could not find any video files</h2>
-                      </div>
-                      <div style="width: 100%" v-if="loaded && types !='all' && types=='3d' && showAssets.length === 0">
-                         <h2> We could not find any 3D asset files</h2>
-                      </div>
-                      <div style="width: 100%" v-if="loaded && types !='all' && types=='doc' && showAssets.length === 0">
-                         <h2> We could not find any documents </h2>
-                      </div>
-                      <!-- <div class="container" style="min-height: 85vh;" v-else-if="">
-                          <b-container class="text-black mt-5">
-                              <h1>No Gallery NFTs</h1>
-                              <p>Our Gallery is coming online soon - please come back soon...</p>
-                          </b-container>
-                      </div> -->
-                <!-- <div class="galleryContainer" v-if="placeHolderItems && placeHolderItems.length > 0">
-                    <div v-for="(item, index) in placeHolderItems" :key="index" class="galleryItem" >
-                        <div>
-                            <img :src="item.coverImage" style="display: block; width: 100%; height:250px;margin:auto; border-radius:25px;box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.18); border-radius: 5px;"/>
-                            <div class="itemHover">
-                                <p style="font-size: 1.5em;"> {{item.name}} <span style="float: right; font-size: 0.6em; margin-top: 10px;">$ {{item.price * 1.9}}</span></p>
-                                <p>By <span style="font-weight:600">{{item.nFTArtist}}</span> <span style="float: right;">{{item.price}} STX</span></p>
-                            </div>
-                        </div>
-                    </div>
-                </div> -->
-            </div>
+                <div v-if="resultSet">
+                  <div v-for="(item, index) in resultSet" :key="index" style="display: flex; " >
+                    <div v-if="item.image" :src="item.image"><img :src="item.image" style="max-width: 500px;"/></div>
+                  </div>
+                </div>
+              </div>
         </div>
     </section>
 </template>
@@ -111,11 +63,13 @@
 import { APP_CONSTANTS } from '@/app-constants'
 import GalleryNft from '@/views/marketplace/components/gallery/GalleryNft'
 import CollectionSidebar from '@/views/marketplace/components/gallery/CollectionSidebar'
+import utils from '@/services/utils'
+
 export default {
   name: 'Gallery',
   components: {
-    GalleryNft,
-    CollectionSidebar
+    // GalleryNft,
+    // CollectionSidebar
   },
   data () {
     return {
@@ -123,13 +77,14 @@ export default {
       loaded: true,
       currentRunKey: 'launch_collection_t1',
       types: 'all',
-      showAssets: this.gaiaAssets
+      numberOfItems: null,
+      projects: []
       // placeHolderItems: []
     }
   },
   mounted () {
     // this.generateData()
-    this.fetchCollections()
+    this.fetchFullRegistry()
     this.findAssets()
   },
   methods: {
@@ -162,6 +117,23 @@ export default {
         this.loaded = true
       })
     },
+    sortCollection (loopRun) {
+      console.log(loopRun)
+      const data = {
+        contractId: loopRun.contractId,
+        asc: true,
+        runKey: loopRun ? loopRun.currentRunKey : null,
+        page: 0,
+        pageSize: 20
+      }
+      this.resultSet = null
+      this.$store.dispatch('rpayStacksContractStore/fetchTokensByContractId', data).then((result) => {
+        console.log(result)
+        this.resultSet = result.gaiaAssets
+        this.numberOfItems = result.tokenCount
+        this.loading = false
+      })
+    },
     generateData () {
       const array = {
         name: 'item1',
@@ -174,63 +146,30 @@ export default {
         this.placeHolderItems.push(array)
       }
     },
-    fetchCollections () {
-      const data = {
-        runKey: (this.currentRunKey === null) ? 'launch_collection_t1' : this.currentRunKey
-      }
-      this.$store.dispatch('rpayStacksContractStore/fetchTokensByContractIdAndRunKey', data).then((result) => {
-        this.resultSet = result.gaiaAssets
+    fetchFullRegistry () {
+      const $self = this
+      this.$store.dispatch('rpayProjectStore/fetchProjectsByStatus', '').then((projects) => {
+        $self.projects = utils.sortResults(projects)
+        console.log(projects)
+        $self.projects.forEach((p) => {
+          const application = this.$store.getters[APP_CONSTANTS.KEY_APPLICATION_FROM_REGISTRY_BY_CONTRACT_ID](p.contractId)
+          p.application = application
+        })
+        $self.loaded = true
       })
     },
     setCurrentRunKey (result) {
       this.currentRunKey = result
-    },
-    setCategories (type) {
-      this.types = type
-      if (type === 'img') {
-        this.showAssets = this.gaiaImageAssets
-      } else if (type === 'aud') {
-        this.showAssets = this.gaiaAudioAssets
-      } else if (type === 'vid') {
-        this.showAssets = this.gaiaVideoAssets
-      } else if (type === '3d') {
-        this.showAssets = this.gaiaThreeDAssets
-      } else if (type === 'doc') {
-        this.showAssets = this.gaiaDocAssets
-      } else {
-        this.showAssets = this.gaiaAssets
-      }
-      console.log(this.types)
     }
   },
   computed: {
-    gaiaAssets () {
-      const assets = this.$store.getters[APP_CONSTANTS.KEY_GAIA_ASSETS]
-      return (assets) ? assets.reverse() : []
+    allLoopRuns () {
+      const loopRuns = this.$store.getters[APP_CONSTANTS.GET_LOOP_RUNS]
+      return loopRuns
     },
-    gaiaImageAssets () {
-      const gaiaImageAssets = this.gaiaAssets.filter(assets => assets.attributes.artworkFile.type.includes('image'))
-      return gaiaImageAssets
-    },
-    gaiaAudioAssets () {
-      const gaiaAudioAssets = this.gaiaAssets.filter(assets => assets.attributes.artworkFile.type.includes('audio'))
-      return gaiaAudioAssets
-    },
-    gaiaVideoAssets () {
-      const gaiaVideoAssets = this.gaiaAssets.filter(assets => assets.attributes.artworkFile.type.includes('video'))
-      return gaiaVideoAssets
-    },
-    // gaiaThreeDAssets () {
-    //   const gaiaThreeDAssets = this.gaiaAssets.filter(assets => assets.attributes.artworkFile.type.includes('threed'))
-    //   return gaiaThreeDAssets
-    // },
-    gaiaDocAssets () {
-      const gaiaDocAssets = this.gaiaAssets.filter(assets => assets.attributes.artworkFile.type.includes('application'))
-      return gaiaDocAssets
-    },
-    selectCollection () {
-      const collections = this.$store.getters[APP_CONSTANTS.GET_LOOP_RUNS]
-      return collections
+    application () {
+      const application = this.$store.getters[APP_CONSTANTS.KEY_APPLICATION_FROM_REGISTRY_BY_CONTRACT_ID]('ST22QPESFJ8XKJDWR1MHVXV2S4NBE44BA944NS4D2.test_collections9')
+      return application
     }
   }
 }
@@ -240,24 +179,24 @@ export default {
 .mainGalleryContainer{
     display: flex;
     flex-wrap: wrap;
-    min-height: 100vh;
+    min-height: 500px;
 }
 .mainGalleryContainer .mainGallerySidebar{
     flex: 1 1 15%;
-    min-width: 200px;
-    max-width: 400px;
+    min-width: 150px;
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
 }
 .mainGalleryContainer .mainGalleryBody{
     flex: 1 1 85%;
     padding: 10px 70px;
-    max-width: 80vw;
-    margin: auto;
+    max-width: 1400px;
+    // margin: auto;
 }
 .filter{
-    display: flex;
-    flex-direction: row;
-    flex-wrap:wrap;
-    width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap:wrap;
+  width: 100%;
 }
 .filter >*:nth-child(1){
     flex: 1 1 500px;
@@ -267,13 +206,12 @@ export default {
     flex: 1 1 500px;
 }
 .search{
-    margin: 20px 0 0 30px;
-    padding: 10px 10px 10px 50px;
-    border: 0;
-    border-left: solid 0.5px rgb(196, 196, 196);
-    border-radius: 0;
-    font-size: 14px;
-    font-weight: 300;
+  margin: 20px 0 0 30px;
+  padding: 5px 10px 5px 50px;
+  border: 0;
+  border-left: solid 0.5px rgb(196, 196, 196);
+  border-radius: 0;
+  font: normal normal 300 13px/16px Montserrat;
 }
 .mainGallerySidebar{
     background: #F5F5F5;
@@ -288,15 +226,15 @@ export default {
   background-color: transparent;
   color: rgb(49, 49, 49);
   padding: 16px;
-  font-size: 16px;
-  font-weight: bolder;
+  font: normal normal 600 14px/18px Montserrat;
   border: none;
   cursor: pointer;
 }
 
 .view{
-    margin: 20px 0 0 0;
-    padding: 16px 0;
+  font: normal normal 300 13px/16px Montserrat;
+  margin: 20px 0 0 0;
+  padding: 16px 0;
 }
 .collectionsMenu, .galleryCategories{
   display: none;
@@ -351,5 +289,23 @@ export default {
     background: rgba(255, 255, 255, 0.25);
     display: none;
     padding: 5px;
+}
+.collectionMenuContainer{
+  display: flex;
+  align-items: center;
+}
+.collectionItemRadio{
+  width: 20px;
+  height: 20px;
+  border: none;
+  margin-left: 30px;
+  margin-right: 10px;
+  border-radius: 50%;
+  // box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+}
+
+.collectionMenuContainer .collectionItems{
+  margin-top: 5px;
+  font-size: 11px;
 }
 </style>

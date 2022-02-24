@@ -71,14 +71,14 @@ export default {
       document.getElementById(tab).classList.add('active')
     },
     getAssets () {
-      this.$store.dispatch('rpayCategoryStore/fetchLoopRun', 'indige5').then((loopRun) => {
+      this.$store.dispatch('rpayCategoryStore/fetchLoopRun', 'indige100').then((loopRun) => {
         this.loopRun = loopRun
         const data = {
           contractId: loopRun.contractId,
           asc: true,
           runKey: loopRun.currentRunKey,
           page: 0,
-          pageSize: 5
+          pageSize: 20
         }
         this.resultSet = null
         this.$store.dispatch('rpayStacksContractStore/fetchTokensByContractId', data).then((result) => {
