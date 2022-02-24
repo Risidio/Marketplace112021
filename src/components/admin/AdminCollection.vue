@@ -1,53 +1,53 @@
 <template>
-  <div class="adminContainer">
-    <div class="adminCollections">
+  <div class='adminContainer'>
+    <div class='adminCollections'>
       <h2>Collections!!!</h2>
       <div
-        v-for="(loopRun, index) in projects"
-        :key="index"
-        class="adminCollectionList"
-        @click="selectedCollection(loopRun)"
+        v-for='(loopRun, index) in projects'
+        :key='index'
+        class='adminCollectionList'
+        @click='selectedCollection(loopRun)'
       >
-        <p class="singleLoopRun">{{ loopRun.contractId.split(".").pop() }}</p>
+        <p class='singleLoopRun'>{{ loopRun.contractId.split('.').pop() }}</p>
       </div>
     </div>
-    <div class="adminNfts">
-      <div v-if="currentRun">
-        <h2>{{ currentRun.contractId.split(".").pop() }}</h2>
+    <div class='adminNfts'>
+      <div v-if='currentRun'>
+        <h2>{{ currentRun.contractId.split('.').pop() }}</h2>
         <hr />
-        <div v-if="currentRunAssets" class="adminNFTs">
+        <div v-if='currentRunAssets' class='adminNFTs'>
           <div
-            v-for="(nft, index) in currentRunAssets.gaiaAssets"
-            :key="index"
-            class="adminSingleNFTs"
+            v-for='(nft, index) in currentRunAssets.gaiaAssets'
+            :key='index'
+            class='adminSingleNFTs'
           >
             <p>NFT #{{ nft.contractAsset.nftIndex || 0 }}</p>
             <p>STX: {{ nft.contractAsset.listingInUstx.price || 0 }}</p>
             <div
-              class="flex"
-              v-if="
+              class='flex'
+              v-if='
                 nft.contractAsset &&
                   nft.contractAsset.listingInUstx &&
                   nft.contractAsset.listingInUstx.price == 0
-              "
+              '
             >
               <p>Not On Sale</p>
-              <button class="buy-button" @click="listNFT(currentRun, nft)">
+              <button class='buy-button' @click='listNFT(currentRun, nft)'>
                 List
               </button>
             </div>
             <div v-else>
-              <button class="buy-button" @click="buyNFT(currentRun, nft)">
+              <button class='buy-button' @click='buyNFT(currentRun, nft)'>
                 Buy
               </button>
             </div>
           </div>
-          <hr style="margin-top: 50px;" />
+          <hr style='margin-top: 50px;' />
           <h4>Would you like to mint more in this Collection ?</h4>
           <p>
-            Index: <input type="number" /><button
-              class="mint-button"
-              @click="mintNFT(currentRun, nft)"
+            Index: <input type='number' /><button
+              class='mint-button'
+              @click='mintNFT(currentRun, nft)'
             >
               Mint
             </button>
@@ -59,102 +59,102 @@
 </template>
 
 <script>
-import { APP_CONSTANTS } from "@/app-constants";
+import { APP_CONSTANTS } from '@/app-constants'
 
 export default {
-  name: "AdminCollectionMint",
-  props: ["allLoopRuns", "projects"],
-  data() {
+  name: 'AdminCollectionMint',
+  props: ['allLoopRuns', 'projects'],
+  data () {
     return {
       currentRun: [],
       currentRunAssets: []
-    };
+    }
   },
-  mounted() {
-    this.currentRun = this.allLoopRuns[1];
+  mounted () {
+    this.currentRun = this.allLoopRuns[1]
   },
   methods: {
-    selectedCollection(selected) {
-      this.currentRun = selected;
-      this.getAssets(selected);
+    selectedCollection (selected) {
+      this.currentRun = selected
+      this.getAssets(selected)
     },
-    getAssets(currentRun) {
+    getAssets (currentRun) {
       const data = {
         runKey: currentRun ? currentRun.currentRunKey : null,
         contractId: currentRun.contractId,
         // query: queryStr,
         page: 0,
         pageSize: 100
-      };
+      }
       this.$store
-        .dispatch("rpayStacksContractStore/fetchTokensByContractId", data)
+        .dispatch('rpayStacksContractStore/fetchTokensByContractId', data)
         .then(result => {
-          this.currentRunAssets = result;
-        });
+          this.currentRunAssets = result
+        })
     },
-    buyNFT(currentRun, nft) {
-      console.log(currentRun);
+    buyNFT (currentRun, nft) {
+      console.log(currentRun)
       const data = {
-        commissionContractAddress: "ST22QPESFJ8XKJDWR1MHVXV2S4NBE44BA944NS4D2",
-        commissionContractName: "commission",
+        commissionContractAddress: 'ST22QPESFJ8XKJDWR1MHVXV2S4NBE44BA944NS4D2',
+        commissionContractName: 'commission',
         owner: currentRun.owner,
         nftIndex: nft.contractAsset.nftIndex,
         price: nft.contractAsset.listingInUstx.price,
         sendAsSky: true, // only applicable in local
-        contractAddress: nft.contractAsset.contractId.split(".")[0],
-        contractName: nft.contractAsset.contractId.split(".")[1],
-        functionName: "buy-in-ustx",
-        assetName: nft.contractAsset.contractId.split(".")[1],
+        contractAddress: nft.contractAsset.contractId.split('.')[0],
+        contractName: nft.contractAsset.contractId.split('.')[1],
+        functionName: 'buy-in-ustx',
+        assetName: nft.contractAsset.contractId.split('.')[1],
         batchOption: 1
-      };
+      }
       this.$store
-        .dispatch("rpayMarketStore/buyInUstx", data)
+        .dispatch('rpayMarketStore/buyInUstx', data)
         .then(result => {
-          this.result = result;
-          this.flowType = 2;
+          this.result = result
+          this.flowType = 2
         })
         .catch(err => {
-          this.errorMessage = err;
-          this.flowType = 3;
-        });
+          this.errorMessage = err
+          this.flowType = 3
+        })
     },
-    listNFT(currentRun, nft) {
+    listNFT (currentRun, nft) {
       const data = {
         owner: currentRun.owner,
         nftIndex: nft.contractAsset.nftIndex,
-        commissionContractAddress: "ST22QPESFJ8XKJDWR1MHVXV2S4NBE44BA944NS4D2",
-        commissionContractName: "commission",
+        commissionContractAddress: 'ST22QPESFJ8XKJDWR1MHVXV2S4NBE44BA944NS4D2',
+        commissionContractName: 'commission',
         price: 1,
         sendAsSky: true, // only applicable in local
-        contractAddress: nft.contractAsset.contractId.split(".")[0],
-        contractName: nft.contractAsset.contractId.split(".")[1],
-        functionName: "list-in-ustx",
+        contractAddress: nft.contractAsset.contractId.split('.')[0],
+        contractName: nft.contractAsset.contractId.split('.')[1],
+        functionName: 'list-in-ustx',
         batchOption: 1
-      };
+      }
       this.$store
-        .dispatch("rpayMarketStore/listInUstx", data)
+        .dispatch('rpayMarketStore/listInUstx', data)
         .then(result => {
           const item = this.$store.getters[APP_CONSTANTS.KEY_MY_ITEM](
             result.assetHash
-          );
+          )
           if (result.txId) {
             item.mintInfo = {
               txId: result.txId,
               txStatus: result.txStatus,
               timestamp: result.timestamp
-            };
+            }
             this.$store
-              .dispatch("rpayMyItemStore/quickSaveItem", item)
+              .dispatch('rpayMyItemStore/quickSaveItem', item)
               .then(item => {
-                this.$emit("update", item);
-              });
+                this.$emit('update', item)
+              })
           }
         })
         .catch(err => {
-          this.errorMessage = "Minting error: " + err;
-        });
+          this.errorMessage = 'Minting error: ' + err
+        })
     },
-    mintNFT(currentRun, nft) {
+    mintNFT (currentRun, nft) {
       const data = {
         mintPrice: 10,
         owner: currentRun.owner,
@@ -162,39 +162,39 @@ export default {
         editions: 1,
         editionCost: 0,
         sendAsSky: true, // only applicable in local
-        contractAddress: currentRun.application.contractId.split(".")[0],
-        contractName: currentRun.application.contractId.split(".")[1],
-        functionName: "mint-token",
+        contractAddress: currentRun.application.contractId.split('.')[0],
+        contractName: currentRun.application.contractId.split('.')[1],
+        functionName: 'mint-token',
         batchOption: 1
-      };
+      }
       this.$store
-        .dispatch("rpayPurchaseStore/cpsMintToken", data)
+        .dispatch('rpayPurchaseStore/cpsMintToken', data)
         .then(result => {
           const item = this.$store.getters[APP_CONSTANTS.KEY_MY_ITEM](
             result.assetHash
-          );
+          )
           if (result.txId) {
             item.mintInfo = {
               txId: result.txId,
               txStatus: result.txStatus,
               timestamp: result.timestamp
-            };
+            }
             this.$store
-              .dispatch("rpayMyItemStore/quickSaveItem", item)
+              .dispatch('rpayMyItemStore/quickSaveItem', item)
               .then(item => {
-                this.$emit("update", item);
-              });
+                this.$emit('update', item)
+              })
           }
         })
         .catch(err => {
-          this.errorMessage = "Minting error: " + err;
-        });
+          this.errorMessage = 'Minting error: ' + err
+        })
     }
   }
-};
+}
 </script>
 
-<style lang="scss" scoped>
+<style lang='scss' scoped>
 .adminContainer {
   min-height: 50rem;
   max-width: 1500px;
