@@ -1,7 +1,7 @@
 <template>
 <section style="margin: auto; margin-top: 10rem; max-width: 1135px; padding: 0 20px;" id="asset-details-section" v-if="gaiaAsset && gaiaAsset.contractAsset" class="text-black">
   <!-- <b-container class=" w-100 center-section" style="min-height: 50vh;"> -->
-              <div class="backBtn"><router-link class="backBtn" :to="'/' + gaiaAsset.properties.collectionId"><b-icon icon="chevron-left" shift-h="-3"></b-icon> Back </router-link></div>
+              <div class="backBtn"><router-link class="backBtn" :to="'/' + 'indige5'"><b-icon icon="chevron-left" shift-h="-3"></b-icon> Back </router-link></div>
     <b-row style="display: flex; margin: auto" :style="'min-height: ' + videoHeight + 'px'">
       <b-col lg="6" sm="10" class="mb-5">
         <div id="video-column" :style="dimensions">

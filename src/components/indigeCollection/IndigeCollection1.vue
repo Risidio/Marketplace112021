@@ -2,10 +2,10 @@
     <div class="launchS1">
             <div class="background" alt=""/>
             <div class="artistContainer">
-                <img @click="showArtistInfo()" alt="Collection Image" src="https://res.cloudinary.com/risidio/image/upload/v1645094854/RisidioMarketplace/JOHN_PAINTINGS_01_bma7pe.jpg" class="circleImage"/>
+                <img @click="showArtistInfo()" alt="Collection Image" src="https://res.cloudinary.com/risidio/image/upload/q_auto:eco/f_auto/RisidioMarketplace/JOHN_PAINTINGS_01_bma7pe.jpg" class="circleImage"/>
                 <p class="collectionArtist show" id="artistName"> Indige </p>
                 <div class="artistInfo" id="artistInfo">
-                    <img alt="Collection Image" src="https://res.cloudinary.com/risidio/image/upload/v1645094854/RisidioMarketplace/JOHN_PAINTINGS_01_bma7pe.jpg" class="circleImageInfo"/>
+                    <img alt="Collection Image" src="https://res.cloudinary.com/risidio/image/upload/q_auto:eco/f_auto/RisidioMarketplace/JOHN_PAINTINGS_01_bma7pe.jpg" class="circleImageInfo"/>
                     <div>
                     <p class="collectionInfo1"> Indige </p>
                     <p class="collectionInfo2"> {{content.artistinfo[0].artistdescription[0].text}}</p>
@@ -25,7 +25,7 @@
                 <p class="collectionInfo2">{{content.intro[0].beforereadmore[0].text}} </p>
                 <div class="extraContent collectionInfo2" id="hiddenContent"> <p>{{content.intro[0].afterreadmore[0].text}}</p>
                 <video class="indige-video"
-                src="https://res.cloudinary.com/risidio/video/upload/v1645180952/RisidioMarketplace/Video_JSG_Large_Mural_qajyum.mp4"
+                src="https://res.cloudinary.com/risidio/video/upload/v1645180952/du_30.0/q_70:qmax_20/RisidioMarketplace/Video_JSG_Large_Mural_qajyum.mp4"
                 controls
                 ></video>
                 </div>

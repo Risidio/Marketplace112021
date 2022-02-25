@@ -49,9 +49,11 @@
                         <input class="search" type="text" id="search" name="search" placeholder="Looking for anything in particular ?"><img class="view" src="https://res.cloudinary.com/risidio/image/upload/v1637238428/RisidioMarketplace/magnifying-search-lenses-tool_yaatpo.svg">
                 </div>
                 <hr/>
-                <div v-if="resultSet">
-                  <div v-for="(item, index) in resultSet" :key="index" style="display: flex; " >
-                    <div v-if="item.image" :src="item.image"><img :src="item.image" style="max-width: 500px;"/></div>
+                <div v-if="resultSet" class="galleryGrid">
+                  <div v-for="(item, index) in resultSet" :key="index" :id="index">
+                    <div v-if="item.image" class="gridField" >
+                      <img :id="'image' + index" :src="item.image" alt="Risidio Gallery" class="gallery-display">
+                    </div>
                   </div>
                 </div>
               </div>
@@ -85,8 +87,18 @@ export default {
   mounted () {
     // this.generateData()
     this.fetchFullRegistry()
-    this.findAssets()
   },
+  updated () {
+    if (this.projects) {
+      this.getImageDimensions()
+    }
+    const img = document.getElementById('1')
+    const imgWidth = img.clientWidth
+    console.log(imgWidth)
+  },
+  // created () {
+  //   if (this.resultset) this.placeImage()
+  // },
   methods: {
     update (data) {
       if (data.opcode === 'show-uploads') {
@@ -98,6 +110,23 @@ export default {
           this.$router.push('/nft-marketplace/' + data.loopRun.makerUrlKey + '/' + data.loopRun.currentRunKey)
         }
       }
+    },
+    getImageDimensions () {
+      for (let i = 0; i < this.projects.length; ++i) {
+        const container = document.getElementById(i)
+        const imageId = document.getElementById('image' + i)
+        const imgWidth = imageId.clientWidth
+        const imgHeight = imageId.clientHeight
+        console.log(imgWidth)
+        console.log(imgHeight)
+        if (imgHeight > 135 && imgHeight < 225) container.classList.add('grid-height-2')
+        if (imgHeight > 225) container.classList.add('grid-height-3')
+        if (imgWidth > 211) container.classList.add('grid-length-2')
+        console.log(container.classList)
+      }
+    },
+    placeImage () {
+      console.log('adjustImag')
     },
     showCollections () {
       const collection = document.getElementsByClassName('collectionsMenu')[0]
@@ -111,11 +140,6 @@ export default {
       categories.classList.toggle('active')
       arrow.classList.toggle('active')
       console.log('click')
-    },
-    findAssets () {
-      this.$store.dispatch('rpayStacksContractStore/fetchContractDataFirstEditions').then(() => {
-        this.loaded = true
-      })
     },
     sortCollection (loopRun) {
       console.log(loopRun)
@@ -134,29 +158,19 @@ export default {
         this.loading = false
       })
     },
-    generateData () {
-      const array = {
-        name: 'item1',
-        coverImage: 'https://res.cloudinary.com/risidio/image/upload/v1634828295/RisidioMarketplace/Screenshot_2021-10-21_at_15.57.57_q7chjf.png',
-        nFTArtist: 'unknown',
-        price: 13,
-        type: 'image'
-      }
-      for (let i = 0; i < 20; ++i) {
-        this.placeHolderItems.push(array)
-      }
-    },
     fetchFullRegistry () {
       const $self = this
       this.$store.dispatch('rpayProjectStore/fetchProjectsByStatus', '').then((projects) => {
         $self.projects = utils.sortResults(projects)
         console.log(projects)
+        this.sortCollection(projects[16])
         $self.projects.forEach((p) => {
           const application = this.$store.getters[APP_CONSTANTS.KEY_APPLICATION_FROM_REGISTRY_BY_CONTRACT_ID](p.contractId)
           p.application = application
         })
         $self.loaded = true
       })
+      console.log('registry')
     },
     setCurrentRunKey (result) {
       this.currentRunKey = result
@@ -184,6 +198,7 @@ export default {
 .mainGalleryContainer .mainGallerySidebar{
     flex: 1 1 15%;
     min-width: 150px;
+    max-width: 250px;
     box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
 }
 .mainGalleryContainer .mainGalleryBody{
@@ -271,16 +286,7 @@ export default {
     display: flex;
     flex-wrap: wrap;
 }
-.galleryItem{
-    flex: 1 1 250px;
-    margin: 50px auto 0 auto;
-    max-width: 250px;
-}
-.galleryItem:hover{
-    .itemHover{
-        display:block;
-    }
-}
+
 .itemHover{
     position: absolute;
     width: 250px;
@@ -307,5 +313,25 @@ export default {
 .collectionMenuContainer .collectionItems{
   margin-top: 5px;
   font-size: 11px;
+}
+.gallery-display{
+  max-width: 400px;
+  max-height: 400px;
+}
+.galleryGrid{
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: repeat(auto-fill, minmax(135px, 1fr));
+  // gap: 10px;
+  grid-auto-flow: dense;
+}
+.grid-length-2{
+  grid-column-end: span 2;
+}
+.grid-height-2{
+  grid-row-end: span 2;
+}
+.grid-height-3{
+  grid-row-end: span 3;
 }
 </style>

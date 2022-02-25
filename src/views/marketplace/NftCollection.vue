@@ -129,22 +129,22 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.galleryContainer{
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: row;
-  gap: 5%;
-  height: 800px;
-}
-.gallerySidebar{
-  flex: 1 1 20%;
-  max-width: 300px;
-  min-width: 300px;
-  background: black;
-}
-.galleryMain{
-  flex: 1 1 75%;
-  max-width: 1000px;
-  min-width: 400px;
-}
+// .galleryContainer{
+//   display: flex;
+//   flex-wrap: wrap;
+//   flex-direction: row;
+//   gap: 5%;
+//   height: 800px;
+// }
+// .gallerySidebar{
+//   flex: 1 1 20%;
+//   max-width: 300px;
+//   min-width: 300px;
+//   background: black;
+// }
+// .galleryMain{
+//   flex: 1 1 75%;
+//   max-width: 1000px;
+//   min-width: 400px;
+// }
 </style>

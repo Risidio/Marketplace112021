@@ -55,15 +55,15 @@
                             <h2 class="mobileHeader"> The Indige Collection</h2>
                               <div class="collectionImageBack">
                                 <img
-                                src="https://res.cloudinary.com/risidio/image/upload/v1645094856/RisidioMarketplace/MUSHROOMS_12_vjlr5b.jpg"
+                                src="https://res.cloudinary.com/risidio/image/upload/f_auto/q_auto:good/RisidioMarketplace/MUSHROOMS_12_vjlr5b.jpg"
                                 alt="Image-from-Indige"
                                 class="collectionImage"/>
                                 <img
-                                src="https://res.cloudinary.com/risidio/image/upload/v1645094854/RisidioMarketplace/JOHN_PAINTINGS_01_bma7pe.jpg"
+                                src="https://res.cloudinary.com/risidio/image/upload/f_auto/q_auto:good/RisidioMarketplace/JOHN_PAINTINGS_01_bma7pe.jpg"
                                 alt="Image-from-Indige"
                                 class="collectionImage collectionImageFront"/>
                                 <img
-                                src="https://res.cloudinary.com/risidio/image/upload/v1645094855/RisidioMarketplace/KANGAROO_06_dgw1bw.jpg"
+                                src="https://res.cloudinary.com/risidio/image/upload/f_auto/q_auto:good/indige/indige-36_ablyca.jpg"
                                 alt="Image-from-Indige"
                                 class="collectionImage"/>
                               </div>
@@ -79,7 +79,7 @@
                             <h2 class="mobileHeader">{{content.heroarea[2].herotitle[0].text}}</h2>
                               <div class="collectionImageBack">
                                 <img
-                                src="https://res.cloudinary.com/risidio/image/upload/v1644231731/RisidioMarketplace/Screenshot_2022-02-07_110034_vy0tyl.png"
+                                src="https://res.cloudinary.com/risidio/image/upload/f_auto/RisidioMarketplace/Screenshot_2022-02-07_110034_vy0tyl.png"
                                 alt="Image-from-Eggschain"
                                 class="collectionImage"/>
                                 <img
