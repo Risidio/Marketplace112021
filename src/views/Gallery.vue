@@ -320,7 +320,7 @@ export default {
 }
 .galleryGrid{
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
   grid-template-rows: repeat(auto-fill, minmax(135px, 1fr));
   // gap: 10px;
   grid-auto-flow: dense;
