@@ -15,7 +15,7 @@
                     <div class="">
                       <b-link class="galleryNFTContainer" :to="assetUrl(item)">
                         <!-- <MediaItemGeneral :classes="'nftGeneralView'" v-on="$listeners" :mediaItem="item.attributes"/> -->
-                        <img alt="Collection Image" :src="item.image" class="nftGeneralView"/>
+                      <img alt="Collection Image" :src="'https://res.cloudinary.com/risidio/image/upload/f_auto/q_auto:low/indige-testing/' + item.image.split('/')[5]" class="nftGeneralView"/>
                       <p class="nFTName"> {{!item.name ? "NFT " + index : item.name }} <span style="float: right;">{{item.contractAsset.listingInUstx.price}} STX</span></p>
                       <!-- <span>$ {{item.contractAsset.saleData.buyNowOrStartingPrice * 1.9}}</span></p> -->
                       <p class="nFTArtist">By <span>{{!item.artist ? "Indige" : item.artist }}</span> </p>
@@ -28,7 +28,7 @@
                     <div class="">
                       <b-link class="galleryNFTContainer" :to="assetUrl(item)">
                       <!-- <MediaItemGeneral :classes="'nftGeneralView'" v-on="$listeners" :mediaItem="item.attributes"/> -->
-                      <img alt="Collection Image" :src="item.image" class="nftGeneralView"/>
+                    <img alt="Collection Image" :src="'https://res.cloudinary.com/risidio/image/upload/f_auto/q_auto:low/indige-testing/' + item.image.split('/')[5]" class="nftGeneralView"/>
                     <p class="nFTName"> {{!item.name ? "NFT " + index : item.name }} <span style="float: right;">{{item.contractAsset.listingInUstx.price}} STX</span></p>
                     <!-- <span>$ {{item.contractAsset.saleData.buyNowOrStartingPrice * 1.9}}</span></p> -->
                     <p class="nFTArtist">By <span>{{!item.artist ? "Indige" : item.artist }}</span> </p>
@@ -36,7 +36,8 @@
                     </div>
                 </div>
             </div>
-            <router-link to="/nft-marketplace/risidio/launch_collection_t1"><button class="button notFilledBlue"> See More </button></router-link>
+            <!-- <router-link to="/nft-marketplace/risidio/launch_collection_t1"><button class="button notFilledBlue"> See More </button></router-link> -->
+            <button class="button notFilledBlue" @click="setPageSize()"> See More </button>
         </div>
     </div>
 </template>
@@ -57,7 +58,8 @@ export default {
       loopRun: [],
       resultSet: [],
       numberOfItems: 0,
-      loading: true
+      loading: true,
+      pageSize: 20
     }
   },
   mounted () {
@@ -70,15 +72,19 @@ export default {
       document.getElementById('all').classList.remove('active')
       document.getElementById(tab).classList.add('active')
     },
+    setPageSize () {
+      this.pageSize += 10
+      this.getAssets()
+    },
     getAssets () {
-      this.$store.dispatch('rpayCategoryStore/fetchLoopRun', 'indige5').then((loopRun) => {
+      this.$store.dispatch('rpayCategoryStore/fetchLoopRun', 'indigenew100').then((loopRun) => {
         this.loopRun = loopRun
         const data = {
           contractId: loopRun.contractId,
           asc: true,
           runKey: loopRun.currentRunKey,
           page: 0,
-          pageSize: 5
+          pageSize: this.pageSize
         }
         this.resultSet = null
         this.$store.dispatch('rpayStacksContractStore/fetchTokensByContractId', data).then((result) => {
