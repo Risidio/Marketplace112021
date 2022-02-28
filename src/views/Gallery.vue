@@ -159,11 +159,13 @@ export default {
           if (imgHeight >= y && imgHeight < y + 10) {
             container.classList.add('grid-height-' + x)
           }
-          console.log(y)
+          // console.log(y)
         }
         if (dimensions >= 2.8) {
           container.classList.add('grid-length-2')
           console.log(container.classList[0].split('-')[2])
+          const currentClass = container.classList[0]
+          container.classList.remove(currentClass)
           container.classList.add('grid-height-' + (parseInt(container.classList[0].split('-')[2]) + 7))
           console.log(container.classList)
         } else {
@@ -201,7 +203,7 @@ export default {
         asc: true,
         runKey: loopRun ? loopRun.currentRunKey : null,
         page: 0,
-        pageSize: 20
+        pageSize: 30
       }
       this.resultSet = null
       this.$store.dispatch('rpayStacksContractStore/fetchTokensByContractId', data).then((result) => {
@@ -305,7 +307,7 @@ transition: all smooth 2s ease-in-out;
 .square-display-img{
   width: 211px;
   height: 189px;
-  object-fit: cover;
+  object-fit: contain;
   box-shadow: 10px 10px 30px #0000002F;
   border-radius: 5px;
 }
