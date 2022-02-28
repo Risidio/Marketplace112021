@@ -10,10 +10,10 @@
     <div class="homeMarketItems">
 
         <div class="galleryContainer" v-if="gaiaAssets.length > 0 && tab === 'discover' && shownAssets.length == 0">
-            <div v-for="(item, index) in filterMarketAssets" :key="index" class="NFTbackgroundColour" >
+            <div v-for="(item, index) in gaiaAssets" :key="index" class="NFTbackgroundColour" >
                 <div class="">
-                    <b-link class="galleryNFTContainer" :to="assetUrl(item)" v-if="item && item.contractAsset && item.attributes">
-                  <img class="nftGeneralView" :src="item.attributes.artworkFile.fileUrl"/>
+                    <b-link class="galleryNFTContainer" :to="assetUrl(item)" v-if="item && item.contractAsset">
+                  <img class="nftGeneralView-limited" :src="'https://res.cloudinary.com/risidio/image/upload/f_auto/q_auto:low/indige-testing/' + item.image.split('/')[5]"/>
                   <p class="nFTName"> {{!item.name ? "NFT" : item.name }} <span style="float: right;">{{item.contractAsset.saleData.buyNowOrStartingPrice}} STX</span>
                   <!-- <span>$ {{item.contractAsset.saleData.buyNowOrStartingPrice * 1.9}}</span></p> -->
                   <p class="nFTArtist">By <span>{{!item.artist ? "Anonymous" : item.artist }}</span> </p>
@@ -25,7 +25,7 @@
           <div v-for="(item, index) in shownAssets" :key="index" class="NFTbackgroundColour">
             <div class="">
                     <b-link class="galleryNFTContainer" :to="assetUrl(item)" v-if="item && item.contractAsset && item.attributes">
-                  <img class="nftGeneralView" :src="item.attributes.artworkFile.fileUrl"/>
+                  <img class="nftGeneralView" :src="'https://res.cloudinary.com/risidio/image/upload/f_auto/q_auto:low/indige-testing/' + item.image.split('/')[5]"/>
                   <p class="nFTName"> {{!item.name ? "NFT" : item.name }} <span style="float: right;">{{item.contractAsset.saleData.buyNowOrStartingPrice}} STX</span>
                   <!-- <span>$ {{item.contractAsset.saleData.buyNowOrStartingPrice * 1.9}}</span></p> -->
                   <p class="nFTArtist">By <span>{{!item.artist ? "Anonymous" : item.artist }}</span> </p>
@@ -64,7 +64,7 @@
                 </div>
               </div>
           </div> -->
-          <router-link style="color:white" class="routerL" to="/nft-marketplace/risidio/launch_collection_t1"> <button class="button filled">See More Collectables</button></router-link>
+          <router-link style="color:white" class="routerL" to="/nft-marketplace"> <button class="button filled">See More Collectables</button></router-link>
     </div>
   </section>
 </template>
@@ -88,7 +88,8 @@ export default {
       placeHolderItems: [],
       shownAssets: [],
       tab: 'discover',
-      loopRuns: []
+      loopRuns: [],
+      mobileAssets: []
     }
   },
   mounted () {
@@ -124,14 +125,6 @@ export default {
         this.loaded = true
       })
     },
-    fetchFullRegistry () {
-      const $self = this
-      this.$store.dispatch('rpayProjectStore/fetchProjectsByStatus', 'active').then((projects) => {
-        $self.projects = utils.sortResults(projects)
-        $self.loopRuns = this.allLoopRuns
-        $self.loaded = true
-      })
-    },
     checkScreen () {
       this.shownAssets = this.mobileAssets
       this.windowWidth = window.innerWidth
@@ -152,14 +145,14 @@ export default {
     //   const assets = this.$store.getters[APP_CONSTANTS.KEY_GAIA_ASSETS]
     //   return (assets) ? assets.reverse() : []
     // },
-    filterMarketAssets () {
-      const filterMarketAssets = this.gaiaAssets.slice(0, 8)
-      return (filterMarketAssets)
-    },
-    mobileAssets () {
-      const mobileAssets = this.gaiaAssets.slice(0, 2)
-      return (mobileAssets)
-    }
+    // filterMarketAssets () {
+    //   const filterMarketAssets = this.gaiaAssets.slice(0, 8)
+    //   return (filterMarketAssets)
+    // },
+    // mobileAssets () {
+    //   const mobileAssets = this.gaiaAssets.slice(0, 2)
+    //   return (mobileAssets)
+    // }
   }
 }
 
