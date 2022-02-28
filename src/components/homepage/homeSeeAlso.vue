@@ -21,8 +21,8 @@
               <template #content>
                 <div class="galleryNFTContainer">
                   <router-link v-bind:to="'/nfts/' + item.contractId + '/' + item.contractAsset.nftIndex" ><img :src="item.image" class="nftGeneralView" style=""/></router-link>
-                  <p class="nFTName"> {{!item.name ? "NFT" : item.name }} <span>$ {{item.contractAsset.saleData.buyNowOrStartingPrice * 1.9}}</span></p>
-                  <p class="nFTArtist">By <span style="font-weight:600">{{!item.artist ? "Anonymous" : item.artist }}</span> <span style="float: right;">{{item.contractAsset.saleData.buyNowOrStartingPrice}} STX</span></p>
+                  <p class="nFTName"> {{!item.name ? "NFT" : item.name }}<!-- <span>$ {{item.contractAsset.saleData.buyNowOrStartingPrice * 1.9}}</span>--><span style="float: right;">{{item.contractAsset.saleData.buyNowOrStartingPrice}} STX</span></p>
+                  <p class="nFTArtist">By <!--<span style="font-weight:600">{{!item.artist ? "Anonymous" : item.artist }}</span> --></p>
                 </div>
               </template>
           </vueper-slide>

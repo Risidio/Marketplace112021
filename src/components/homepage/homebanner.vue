@@ -134,9 +134,9 @@
             </div>
             <div class="slideText">
               <h2 class="notMobileHeader"> {{content.heroarea[0].herotitle[0].text}}</h2>
-              <p class="slide-text-p">{{content.heroarea[0].herotext[0].text}}</p>
+              <p class="slide-text-p">{{content.heroarea[0].herotext[0].text}}</p><br/>
               <div class="bannerButtonContainer">
-                <router-link to="/hiro-wallet" ><button class="button filled">Get Your Hiro Wallet To Start</button></router-link>
+                <router-link to="/hiro-wallet" ><button class="button filled">Get Your Hiro Wallet To Start</button></router-link><br/>
                 <p class="bannerButtonText" v-on:click="startLogin()">Already Have One? Get Started</p>
               </div>
             </div>
