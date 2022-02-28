@@ -148,6 +148,7 @@ export default {
 .button{
     margin: 50px auto;
 }
+
 .homeInfoContainer{
     // margin-top: 100px;
     max-width: 1135px;
@@ -171,6 +172,13 @@ export default {
         display: block;
         margin:auto;
         color: white;
+    }
+}
+@media only screen and(max-width :520px)
+{
+    .homeText h2{
+        font-weight:700;
+        //color: red;
     }
 }
 .homeInfoText{
