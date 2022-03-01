@@ -425,6 +425,9 @@ export default {
   font-weight: 500;
   margin: 0 10px;
 }
+.galleryNavItem:focus{
+  color:red;
+}
 
 .galleryNavItem:hover, .galleryNavItem.active{
   border-bottom: 2px solid #50B1B5;

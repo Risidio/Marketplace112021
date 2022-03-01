@@ -174,11 +174,14 @@ export default {
         color: white;
     }
 }
-@media only screen and(max-width :520px)
+@media only screen and(max-width :1100px)
 {
     .homeText h2{
         font-weight:700;
         //color: red;
+    }
+    .button{
+        margin-top: 100px;
     }
 }
 .homeInfoText{

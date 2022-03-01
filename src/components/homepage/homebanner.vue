@@ -470,6 +470,12 @@ export default {
       margin-bottom: 0;
     }
   }
+  .slide-text-p{
+    margin-top: -120px;
+  }
+  .button{
+    margin-top: 30px;
+  }
   .mobileHeader{
     display: block;
     margin-bottom: 35px;
