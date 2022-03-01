@@ -109,6 +109,11 @@ export default {
           this.$store.commit('contentStore/addLaunchCollection', document.data)
         }
       })
+      this.$prismic.client.getSingle('indigecollection').then(document => {
+        if (document) {
+          this.$store.commit('contentStore/addIndigeCollection', document.data)
+        }
+      })
       this.$prismic.client.getSingle('howitworks').then(document => {
         if (document) {
           this.$store.commit('contentStore/addHowItWorks', document.data)

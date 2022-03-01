@@ -111,7 +111,7 @@ export default {
 
 <style lang="scss" scoped>
 .launchS2{
-    min-height: 50rem;
+  min-height: 50rem;
   padding: 20px;
 }
 .container{

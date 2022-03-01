@@ -8,6 +8,7 @@ const contentStore = {
       mainFooter: null,
       marketplacetemplate: null,
       launchcollection: null,
+      indigecollection: null,
       information: null,
       navigation: null,
       homepage: null,
@@ -121,6 +122,9 @@ const contentStore = {
     getLaunchCollection: state => {
       return state.content.launchcollection
     },
+    getIndigeCollection: state => {
+      return state.content.indigecollection
+    },
     getHowItWorks: state => {
       return state.content.howItWorks
     },
@@ -137,6 +141,9 @@ const contentStore = {
     },
     addLaunchCollection (state, o) {
       state.content.launchcollection = o
+    },
+    addIndigeCollection (state, o) {
+      state.content.indigecollection = o
     },
     addMarket (state, o) {
       state.content.marketplacetemplate = o

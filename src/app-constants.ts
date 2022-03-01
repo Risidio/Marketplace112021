@@ -68,6 +68,7 @@ export const APP_CONSTANTS = {
   KEY_CONTENT_INFO_PAGE: 'contentStore/getInformationById',
   KEY_BREAK_LINE: 'contentStore/getBreakLine',
   KEY_CONTENT_LAUNCH_COLLECTION: 'contentStore/getLaunchCollection',
+  KEY_CONTENT_INDIGE_COLLECTION: 'contentStore/getIndigeCollection',
   KEY_CONTENT_FOOTER: 'contentStore/getMainFooter',
   KEY_CONTENT_MARKET: 'contentStore/getMarket',
 

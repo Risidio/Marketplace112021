@@ -1,6 +1,6 @@
 <template>
     <div>
-        <IndigeCollection1 :content="content"/>
+        <IndigeCollection1 :content="content" :numberOfItems="numberOfItems"/>
         <IndigeCollection2
         :gaiaAssets="gaiaAssets"
         :filteredUnSoldLaunch="filteredUnSoldLaunch"
@@ -25,15 +25,46 @@ export default {
   },
   data () {
     return {
+      currentRunAssets: [],
+      loopRun: [],
+      resultSet: [],
+      numberOfItems: 0,
+      loading: true,
+      pageSize: 20
     }
   },
+  mounted () {
+    this.getAssets()
+  },
   methods: {
+    getAssets () {
+      this.$store.dispatch('rpayCategoryStore/fetchLoopRun', 'indigenew100').then((loopRun) => {
+        this.loopRun = loopRun
+        const data = {
+          contractId: loopRun.contractId,
+          asc: true,
+          runKey: loopRun.currentRunKey,
+          page: 0,
+          pageSize: this.pageSize
+        }
+        this.resultSet = null
+        this.$store.dispatch('rpayStacksContractStore/fetchTokensByContractId', data).then((result) => {
+          this.resultSet = result.gaiaAssets
+          this.numberOfItems = result.tokenCount
+          this.loading = false
+        })
+      })
+    }
   },
   computed: {
     content () {
-      const content = this.$store.getters[APP_CONSTANTS.KEY_CONTENT_LAUNCH_COLLECTION]
+      const content = this.$store.getters[APP_CONSTANTS.KEY_CONTENT_INDIGE_COLLECTION]
       return content
     },
+    // content1 () {
+    //   const content = this.$store.getters[APP_CONSTANTS.KEY_CONTENT_INDIGE_COLLECTION]
+    //   return content
+    // },
     projects () {
       const appmap = this.$store.getters[APP_CONSTANTS.KEY_REGISTRY]
       if (appmap) return appmap.apps
