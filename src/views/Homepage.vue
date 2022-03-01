@@ -1,9 +1,9 @@
 <template>
     <section class="homepage">
       <HomeBanner v-bind:profile='profile' :content="content"/>
-      <HomeMarket v-bind:profile='profile' :gaiaAssets="gaiaAssets"/>
+      <HomeMarket v-bind:profile='profile' :gaiaAssets="resultSet"/>
       <HomeInfo v-bind:profile='profile' :content="content"/>
-      <HomeSeeAlso v-bind:profile='profile' :gaiaAssets="filterMarketAssets"/>
+      <HomeSeeAlso v-bind:profile='profile' :gaiaAssets="resultSet"/>
       <HomeBottomBanner v-bind:profile='profile' :content="content"/>
     </section>
 </template>
@@ -30,16 +30,51 @@ export default {
   },
   data () {
     return {
+      resultSet: [],
+      loading: true,
+      numberOfItems: null
     }
   },
   mounted () {
     this.findAssets()
+    this.fetchFullRegistry()
   },
   methods: {
     findAssets () {
       this.$store.dispatch('rpaySearchStore/findByProjectId', STX_CONTRACT_ADDRESS + '.' + STX_CONTRACT_NAME).then((results) => {
         this.resultSet = results.filter(result => result.attributes.artworkFile.fileUrl !== null)
       })
+    },
+    sortCollection (loopRun) {
+      console.log(loopRun)
+      const data = {
+        contractId: loopRun.contractId,
+        asc: true,
+        runKey: loopRun ? loopRun.currentRunKey : null,
+        page: 0,
+        pageSize: 30
+      }
+      this.resultSet = null
+      this.$store.dispatch('rpayStacksContractStore/fetchTokensByContractId', data).then((result) => {
+        console.log(result)
+        this.resultSet = result.gaiaAssets.slice(0, 8)
+        this.numberOfItems = result.tokenCount
+        this.loading = false
+      })
+    },
+    fetchFullRegistry () {
+      const $self = this
+      this.$store.dispatch('rpayProjectStore/fetchProjectsByStatus', '').then((projects) => {
+        $self.projects = utils.sortResults(projects)
+        console.log(projects)
+        this.sortCollection(projects[16])
+        $self.projects.forEach((p) => {
+          const application = this.$store.getters[APP_CONSTANTS.KEY_APPLICATION_FROM_REGISTRY_BY_CONTRACT_ID](p.contractId)
+          p.application = application
+        })
+        $self.loaded = true
+      })
+      console.log('registry')
     }
   },
   computed: {
