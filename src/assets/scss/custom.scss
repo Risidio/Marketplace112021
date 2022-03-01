@@ -479,9 +479,11 @@ select {
 	padding: 20px;
 	margin: 2rem;
 	cursor: pointer;
+	transition: all 0.2s ease-in-out;
 }
 .NFTbackgroundColour:hover {
-	.nftGeneralView {
+	.nftGeneralView,
+	.nftGeneralView-limited {
 		transform: scale(1.05);
 		box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 	}
@@ -499,6 +501,7 @@ select {
 	box-shadow: 10px 10px 30px #0000002f;
 }
 .nftGeneralView-limited {
+	transition: all 0.2s ease-in-out;
 	width: 211px;
 	height: 189px;
 	border-radius: 10px;
