@@ -279,7 +279,12 @@ export default {
 .navBtn:hover{
   color: white;
 }
-
+.navBtn:focus{
+  color:rgb(0, 255, 85);
+}
+.navBtn:hover{
+  background: rgba(227, 238, 238, 0.6);
+}
 .registerTooltip{
   margin-top: 25px;
   margin-left: -10.2rem;
@@ -359,6 +364,12 @@ export default {
   .toggle-button{
     display:flex;
   }
+  .text-black{
+    margin-top: -12px;
+  }
+  .navBtn{
+    margin-top: 12px;
+  }
   .mainNavbar{
     flex-direction:column;
     z-index: 1000;
@@ -375,7 +386,6 @@ export default {
   .nav-items{
     margin-left: auto;
     margin-right: auto;
-
   }
   .navbar_links.active, .navbar_links_not_logged.active{
     display:flex;

@@ -99,4 +99,13 @@ export default {
       color: white;
     }
 }
+@media only screen and (max-width: 520px){
+  .homeBottomContainer h2{
+    font-size: 30px;
+  }
+  .homeBottomContainer h3{
+    font-size: 13px;
+  }
+}
+
 </style>

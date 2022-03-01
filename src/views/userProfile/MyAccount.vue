@@ -18,7 +18,7 @@
           <div id="walletDetails" class="walletDetails">
             <button class="notFilled" @click="viewInfo(0)">HIDE</button>
             <h1>Your Wallet Info:</h1>
-            <h2>ID - {{username.substring(0, 30)}}...</h2>
+            <h2>ID - {{username.substring(0, 41)}}...</h2>
             <!-- <h2>John Doe</h2> -->
             <br/>
             <div class="walletCurrency">
@@ -59,7 +59,7 @@
       <div v-if="tab === 'NFT' && loopRun" class="">
         <div>
           <MyPageableItems :loopRun="loopRun"/>
-          <router-link to="/gallery" style="font: normal normal bold 11px/14px Montserrat; display: block; text-align: center; margin-top: 50px"><span style="color: #5FBDC1; ">Want More ? See The Gallery</span></router-link>
+          <router-link to="/gallery" style="font: normal normal bold 11px/14px Montserrat; display: block; text-align: center; margin-top: 50px"><!--<span style="color: #5FBDC1; ">Want More ? See The Gallery</span>--></router-link>
         </div>
 
       </div>
@@ -424,6 +424,9 @@ export default {
   font-size: 12px;
   font-weight: 500;
   margin: 0 10px;
+}
+.galleryNavItem:focus{
+  color:red;
 }
 
 .galleryNavItem:hover, .galleryNavItem.active{
