@@ -18,7 +18,7 @@
             </div>
             <div v-if="profile.loggedIn" class="footer__column-content">
               <div >Your NFTs</div>
-              <div v-on:click="topFunction()"><router-link to="/my-nfts">All Your Nft's</router-link></div>
+              <div v-on:click="topFunction()"><router-link to="/my-account">All Your Nft's</router-link></div>
               <!-- <div v-on:click="topFunction()"><router-link to="/create">Add an NFT</router-link></div> -->
               <div v-on:click="topFunction()"><router-link to="/qa">FAQ</router-link></div>
               <div>
@@ -34,10 +34,10 @@
             </div>
             <div class="footer__column-content">
               <div>Risidio</div>
-              <div v-on:click="topFunction()"><router-link to="/get-in-touch">Who We Are</router-link></div>
-              <div v-on:click="topFunction()"><router-link to="/get-in-touch">What We Do</router-link></div>
-              <div v-on:click="topFunction()"><router-link to="/get-in-touch">Work With Us</router-link></div>
-              <div v-on:click="topFunction()"><router-link to="/get-in-touch">Get in Touch</router-link></div>
+              <div v-on:click="topFunction()"><router-link to="/about">Who We Are</router-link></div>
+              <div v-on:click="topFunction()"><router-link to="/about">What We Do</router-link></div>
+              <div v-on:click="topFunction()"><router-link to="/about">Work With Us</router-link></div>
+              <div v-on:click="topFunction()"><router-link to="/about">Get in Touch</router-link></div>
             </div>
         </div>
       </div>

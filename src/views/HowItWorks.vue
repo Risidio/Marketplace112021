@@ -1,13 +1,13 @@
 <template>
   <div class="howitworks" v-if="content">
-        <HSection1 :content="content"/>
+        <!-- <HSection1 :content="content"/> -->
         <HSection2 :content="content"/>
         <HSection3 :content="content"/>
   </div>
 </template>
 
 <script>
-import HSection1 from '@/components/howitworks/HSection1'
+// import HSection1 from '@/components/howitworks/HSection1'
 import HSection2 from '@/components/howitworks/HSection2'
 import HSection3 from '@/components/howitworks/HSection3'
 import { APP_CONSTANTS } from '@/app-constants'
@@ -15,7 +15,7 @@ import { APP_CONSTANTS } from '@/app-constants'
 export default {
   name: 'howitworks',
   components: {
-    HSection1,
+    // HSection1,
     HSection2,
     HSection3
   },

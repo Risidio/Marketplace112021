@@ -24,7 +24,7 @@
                   <img :src="'https://res.cloudinary.com/risidio/image/upload/f_auto/q_auto:low/indige-testing/' + item.image.split('/')[5]" class="nftGeneralView-limited" style=""/>
                   </router-link>
                   <p class="nFTName"> {{!item.name ? "NFT" : item.name }} <span>$ {{item.contractAsset.saleData.buyNowOrStartingPrice * 1.9}}</span></p>
-                  <p class="nFTArtist">By <span style="font-weight:600">{{!item.artist ? "Anonymous" : item.artist }}</span> <span style="float: right;">{{item.contractAsset.saleData.buyNowOrStartingPrice}} STX</span></p>
+                  <p class="nFTArtist">By <span style="font-weight:600">{{!item.properties.collection ? "Anonymous" : item.properties.collection }}</span> <span style="float: right;">{{item.contractAsset.saleData.buyNowOrStartingPrice}} STX</span></p>
 
                 </div>
               </template>

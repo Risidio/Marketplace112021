@@ -10,6 +10,11 @@
        -->
       </div>
       <router-link to="/about" ><button style="display: block; margin: auto;" class="button"> About Risidio </button></router-link>
+      <p class="faq-tag"> Faq </p>
+      <div class="line">
+        <div> </div>
+        <div> </div>
+      </div>
 </div>
 </template>
 
@@ -23,8 +28,9 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .Htitle{
+  position: relative;
   min-height: 30vh;
   margin: 200px auto 100px auto;
 }
@@ -56,5 +62,32 @@ button {
   font-weight: 700;
   color: #5FBDC1;
 }
-
+.faq-tag{
+  position: absolute;
+  font: normal normal normal 14px/16px Helvetica Neue;
+  text-transform: uppercase;
+  color: #1B0A72;
+  text-align: center;
+  bottom: -40px;
+  right: 0;
+  left: 0;
+  margin: auto;
+}
+.line{
+  position: absolute;
+  right: 0;
+  left: 0;
+  margin: auto;
+  width: 200px;
+  height: 70px;
+  display: flex;
+  flex-direction: row;
+  bottom: -125px;
+  & > * {
+    width: 50%;
+  }
+  & :nth-child(1){
+    border-right: 1px solid #1B0A72;
+  }
+}
 </style>

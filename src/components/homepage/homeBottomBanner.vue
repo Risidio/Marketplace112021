@@ -54,7 +54,7 @@ export default {
 .homeBottomBanner{
     width:100%;
     margin: auto;
-    min-height: 400px;
+    min-height: 500px;
     // max-height: 50vh;
     background: url(https://res.cloudinary.com/risidio/image/upload/v1633609373/RisidioMarketplace/Group_-304_ofssmk.svg)no-repeat center center;
     -webkit-background-size: cover;
@@ -74,12 +74,13 @@ export default {
 .homeBottomContainer h2{
     font-size: 40px;
     font-weight: 200;
+    margin-bottom: 50px;
     color: white;
 }
 .homeBottomContainer h3{
     font-size: 17px;
     color: white;
-    margin-bottom: 20px;
+    margin-bottom: 50px;
 }
 .button{
   width: 180px;

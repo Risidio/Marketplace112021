@@ -70,7 +70,7 @@
                             </div>
                             <div class="slideText">
                               <h2 class="notMobileHeader">The Indige Collection</h2>
-                              <p class="slide-text-p"> {{content.heroarea[2].herotext[0].text}}</p>
+                              <p class="slide-text-p"> {{content.heroarea[3].herotext[0].text}}</p>
                               <router-link to="/indige5"><button class="button filled"> See The Collection </button></router-link>
                             </div>
                         </div>
@@ -471,7 +471,7 @@ export default {
     }
   }
   .slide-text-p{
-    margin-top: -120px;
+    margin-top: -80px;
   }
   .button{
     margin-top: 30px;

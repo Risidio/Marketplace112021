@@ -68,7 +68,7 @@ export default {
   min-height: 73px;
   background: rgba(255, 255, 255, 0.7) 0% 0% no-repeat padding-box;
   box-shadow: 0px 3px 6px #00000029;
-  border-radius: 6px;
+  border-radius: 15px;
   border: none;
 }
 .question-button.not-collapsed {
