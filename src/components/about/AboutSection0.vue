@@ -4,7 +4,7 @@
      <img class="banner" src="https://res.cloudinary.com/risidio/image/upload/v1633609373/RisidioMarketplace/Group_-304_ofssmk.svg" alt="">
       <h1>{{content.aboutsection0[0].abouttitle[0].text}}</h1>
       <p>{{content.aboutsection0[0].abouttext[0].text}}</p>
-      <button class="button notFilled" > <a href="https://risidio.com/">Risidio Website</a></button>
+      <button class="button notFilled" > <a href="https://risidio.com/" target="_blank">Risidio Website</a></button>
   </div>
 </div>
 </template>

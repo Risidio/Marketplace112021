@@ -17,7 +17,7 @@
           <div class="question-instructions">
             <img :src="item.img" alt="">
             <prismic-rich-text class="question-instructions--text" :field="item.instructions"/>
-            <a href="#" class="button filled">{{ item.button[0].text }}</a>
+            <a href="/hiro-wallet" class="button filled">{{ item.button[0].text }}</a>
           </div>
         </div>
         <div v-else>
