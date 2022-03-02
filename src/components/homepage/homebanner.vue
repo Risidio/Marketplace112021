@@ -132,7 +132,7 @@
               ></video>
 
             </div>
-            <div class="slideText">
+            <div class="slideText slideText-notLogged">
               <h2 class="notMobileHeader"> {{content.heroarea[0].herotitle[0].text}}</h2>
               <p class="slide-text-p">{{content.heroarea[0].herotext[0].text}}</p><br/>
               <div class="bannerButtonContainer">
@@ -265,7 +265,7 @@ export default {
 .bannerButtonText{
   font: normal normal bold 11px/14px Montserrat;
   position: absolute;
-  bottom: -50px;
+  top: 50px;
   left: 20px;
 }
 .secondaryBannerButton {
@@ -300,9 +300,9 @@ export default {
 .home-video{
   width: 381px;
   height: 234px;
-  border-radius: 5px;
+  border-radius: 15px;
   margin:auto;
-  object-fit: center;
+  object-fit: cover;
 }
 .market_intro_Ex{
   font-size: 1.2em;
@@ -470,6 +470,9 @@ export default {
       margin-bottom: 0;
     }
   }
+  .bannerButtonText{
+    top: 100px;
+  }
   .slide-text-p{
     margin-top: -80px;
   }
@@ -482,6 +485,9 @@ export default {
   }
   .notMobileHeader{
     display:none;
+  }
+  .slideText-notLogged{
+    margin-top: 50px;
   }
    .vueperslides--fixed-height {
     height: 60rem;

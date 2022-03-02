@@ -1,6 +1,6 @@
 <template>
     <div>
-        <LaunchCollection1 :content="content"/>
+        <LaunchCollection1 :content="content" :gaiaAssets="gaiaAssets"/>
         <LaunchCollection2
         :gaiaAssets="gaiaAssets"
         :filteredUnSoldLaunch="filteredUnSoldLaunch"
