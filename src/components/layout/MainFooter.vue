@@ -47,10 +47,10 @@
           &copy; &nbsp; Risidio Ltd. All right reserved.
         </div>
         <div>
-          <!-- <a href="https://discord.gg/qvuxB9P"><img :src="discordLogo" alt="discord-logo"></a>
+          <a href="https://discord.gg/nmKx5WkPaG"><img :src="discordLogo" alt="discord-logo"></a>
           <a href="https://www.instagram.com/risidio_official/"><img :src="instagramLogo" alt="instagram-logo"></a>
           <a href="https://twitter.com/Risidio1"><img :src="twitterLogo" alt="twitter-logo"></a>
-          <a href="https://www.youtube.com/channel/UCrMDxxhMvpeyErw7m92IIXA/featured"><img :src="youtubeLogo" alt="youtube-logo"></a> -->
+          <!--<a href="https://www.youtube.com/channel/UCrMDxxhMvpeyErw7m92IIXA/featured"><img :src="youtubeLogo" alt="youtube-logo"></a> -->
         </div>
         <div>
           <span>Privacy Policy</span>
@@ -90,11 +90,11 @@ export default {
   },
   data () {
     return {
-      logo: require('@/assets/img/risidio_white.png')
+      logo: require('@/assets/img/risidio_white.png'),
       // year: new Date().getFullYear(),
-      // discordLogo: require('@/assets/img/discord-logo.svg'),
-      // instagramLogo: require('@/assets/img/instagram-logo.svg'),
-      // twitterLogo: require('@/assets/img/twitter-logo.svg'),
+      discordLogo: require('@/assets/img/discord-logo.png'),
+      instagramLogo: require('@/assets/img/instagram-logo.png'),
+      twitterLogo: require('@/assets/img/twitter-logo.png')
       // youtubeLogo: require('@/assets/img/youtube-logo.svg')
     }
   },
