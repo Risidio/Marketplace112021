@@ -23,7 +23,7 @@
         <div v-else>
           <div class="question-content solo">
             <prismic-rich-text class="question-content--text" :field="item.text"/>
-            <a href="#" class="button filled">{{ item.button[0].text }}</a>
+            <!-- <a href="#" class="button filled">{{ item.button[0].text }}</a> -->
           </div>
         </div>
       </b-collapse>

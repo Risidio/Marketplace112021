@@ -1,5 +1,5 @@
 <template>
-  <div class="viewContainer">
+  <div class="viewContainer" v-if="loading === true">
     <div class="profileContainer">
       <div class="profile">
           <div class="profileItems">
@@ -18,27 +18,28 @@
           <div id="walletDetails" class="walletDetails">
             <button class="notFilled" @click="viewInfo(0)">HIDE</button>
             <h1>Your Wallet Info:</h1>
-            <h2>ID - {{username.substring(0, 41)}}...</h2>
+            <h2>ID - {{username.substring(0, 30)}}...</h2>
             <!-- <h2>John Doe</h2> -->
             <br/>
             <div class="walletCurrency">
               <div>
                 <p style="font: normal normal 300 12px/15px Montserrat;">Credit Remaining:</p>
-                <pre id="stxInfo" style="font: normal normal 300 15px/19px Montserrat;"> <span style="color: rgba(81, 84, 161, 1); font: normal normal 600 12px/15px Montserrat;">{{yourSTX}}</span>  STX</pre>
+                <pre id="stxInfo" style="font: normal normal 300 15px/19px Montserrat;"> <span style="color: rgba(81, 84, 161, 1); font: normal normal 600 12px/15px Montserrat;" v-if="profile && profile.accountInfo">{{profile.accountInfo.balance}}</span>  STX</pre>
               </div>
               <div>
-                  <pre class="figure" style="font: normal normal 300 15px/19px Montserrat;"><span style="color: rgba(81, 84, 161, 1); font: normal normal 600 12px/15px Montserrat;">{{yourSTX}}</span>   {{currency}}</pre>
+                  <pre class="figure" style="font: normal normal 300 15px/19px Montserrat;"><span style="color: rgba(81, 84, 161, 1); font: normal normal 600 12px/15px Montserrat;">{{yourSTX}}</span> {{currencyPreference? currencyPreference.text : currency}} </pre>
                   <select id="currency" name="currency" class="form-control"  @change="currencyChange($event.target.value)">
-                    <option value="USD">USD</option>
-                    <option value="GBP">GBP</option>
+                    <option v-for="(rates, index) in rates" :key="index" :value="rates.text">{{rates.text}}</option>
+                    <!-- <option value="GBP">GBP</option>
                     <option value="EUR">EUR</option>
-                    <option value="NOK">NOK</option>
+                    <option value="NOK">NOK</option> -->
                   </select>
               </div>
             </div>
             <div class="profileBtns">
               <!-- <router-link  to="/create"><button class="button">Mint an NFT</button></router-link > -->
               <router-link  to="/"><button class="button" @click="logout">Disconnect</button></router-link >
+              <!-- <RatesListing :amount="profile.accountInfo.balance"/> -->
               <!-- <router-link class="profileBtn mintBtn" to="/create">Mint an NFT</router-link>
               <router-link  class="profileBtn logoutBtn" to="/">Disconnect</router-link > -->
             </div>
@@ -136,17 +137,23 @@
       </div>
     </div>
   </div>
+  <div v-else>
+    loading
+  </div>
 </template>
 
 <script>
 // import GalleryNft from '@/components/marketplace/GalleryNft'
-import MyWalletNfts from '@/views/marketplace/components/gallery/MyWalletNfts'
+// import MyWalletNfts from '@/views/marketplace/components/gallery/MyWalletNfts'
 import MyPageableItems from '@/views/marketplace/components/gallery/MyPageableItems'
 import { APP_CONSTANTS } from '@/app-constants'
-import MySingleItem from '@/views/marketplace/components/gallery/MySingleItem'
-const STX_CONTRACT_ADDRESS = process.env.VUE_APP_STACKS_CONTRACT_ADDRESS
-const STX_CONTRACT_NAME = process.env.VUE_APP_STACKS_CONTRACT_NAME
-const LOOP_RUN_DEF = process.env.VUE_APP_DEFAULT_LOOP_RUN
+// import RatesListing from '@/views/marketplace/components/toolkit/RatesListing'
+import utils from '@/services/utils'
+
+// import MySingleItem from '@/views/marketplace/components/gallery/MySingleItem'
+// const STX_CONTRACT_ADDRESS = process.env.VUE_APP_STACKS_CONTRACT_ADDRESS
+// const STX_CONTRACT_NAME = process.env.VUE_APP_STACKS_CONTRACT_NAME
+// const LOOP_RUN_DEF = process.env.VUE_APP_DEFAULT_LOOP_RUN
 
 export default {
   name: 'MyAccount',
@@ -154,10 +161,11 @@ export default {
     // MyWalletNfts
     // MySingleItem
     MyPageableItems
+    // RatesListing
   },
   data () {
     return {
-      loaded: false,
+      loading: true,
       myNfts: [],
       myMintingNfts: [],
       yourSTX: null,
@@ -171,16 +179,27 @@ export default {
       tokenCount: null,
       resultSet: [],
       allocations: [],
-      saleItem: []
+      saleItem: [],
+      amount: null,
+      defaultRate: null,
+      currencyPreference: null
     }
   },
   mounted () {
     this.fetchLoopRun()
-    this.setSTX()
+    const tickerRates = this.$store.getters[APP_CONSTANTS.KEY_TICKER_RATES]
+    this.defaultRate = tickerRates[0].currency
+    this.loading = false
     this.fetchSaleItem()
-    this.yourSTX = this.profile.accountInfo.balance
+    this.setSTX()
+    // this.yourSTX = this.profile.accountInfo.balance
     // let currentRunKey = 'indige5'
-    this.loaded = true
+    this.loading = true
+  },
+  created () {
+    this.amount = this.profile.accountInfo.balance
+    this.currencyPreference = JSON.parse(localStorage.getItem('currencyPreferences'))
+    console.log(this.currencyPreference)
   },
   watch: {
     '$route' () {
@@ -193,7 +212,7 @@ export default {
       if (pressed === 1) {
         document.getElementById('walletDetails').classList.remove('hide')
         document.getElementById('infoButton').classList.add('hidden')
-        this.yourSTX = this.profile.accountInfo.balance
+        if (this.currencyPreference) this.yourSTX = this.profile.accountInfo.balance
       } else {
         document.getElementById('walletDetails').classList.add('hide')
         document.getElementById('infoButton').classList.remove('hidden')
@@ -219,7 +238,7 @@ export default {
       this.$store.dispatch('rpayCategoryStore/fetchLoopRun', currentRunKey).then((loopRun) => {
         this.loopRun = loopRun
         this.fetchAllocations()
-        this.loading = false
+        this.loading = true
       })
       const data = {
         // contractId: (this.loopRun) ? this.loopRun.contractId : STX_CONTRACT_ADDRESS + '.' + STX_CONTRACT_NAME,
@@ -236,7 +255,7 @@ export default {
         this.resultSet = result.gaiaAssets // this.resultSet.concat(results)
         this.tokenCount = result.tokenCount
         this.numberOfItems = result.gaiaAssets.length
-        this.loading = false
+        this.loading = true
       }).catch((error) => {
         console.log(error.message)
       })
@@ -274,16 +293,18 @@ export default {
       })
     },
     setSTX () {
-      this.yourSTX = this.profile.accountInfo.balance
+      const getRate = this.rates.find((rate) => rate.text === this.currencyPreference.text)
+      console.log(this.currencyPreference.text)
+      if (this.currencyPreference) this.yourSTX = getRate.value
+      // if (this.currencyPreference) this.yourSTX = getRate.value
     },
     currencyChange (currency) {
       this.yourSTX = this.profile.accountInfo.balance
       this.currency = currency
-      if (this.currency === 'EUR') {
-        this.yourSTX = this.yourSTX * 2.5
-      }
-      console.log(this.currency)
-      console.log(this.yourSTX)
+      const getRate = this.rates.find((rate) => rate.text === currency)
+      this.yourSTX = getRate.value
+      const object = JSON.stringify(getRate)
+      localStorage.setItem('currencyPreferences', object)
       // e.current.value
     },
     tabChange (tab) {
@@ -337,21 +358,42 @@ export default {
       const profile = this.$store.getters[APP_CONSTANTS.KEY_PROFILE]
       return profile
     },
-    webWalletNeeded () {
-      const webWalletNeeded = this.$store.getters[APP_CONSTANTS.KEY_WEB_WALLET_NEEDED]
-      return webWalletNeeded
-    },
-    hasNfts () {
-      const myContractAssets = this.$store.getters[APP_CONSTANTS.KEY_MY_CONTRACT_ASSETS]
-      return myContractAssets && myContractAssets.length
-    },
-    hasProfile () {
-      const profile = this.$store.getters[APP_CONSTANTS.KEY_PROFILE]
-      return profile
-    },
     myTokens () {
       const myContractAssets = this.$store.getters[APP_CONSTANTS.KEY_MY_CONTRACT_ASSETS]
       return myContractAssets
+    },
+    rateOptions () {
+      const tickerRates = this.$store.getters[APP_CONSTANTS.KEY_TICKER_RATES]
+      const options = []
+      tickerRates.forEach((rate) => {
+        options.push({
+          text: rate.currency,
+          value: rate.currency
+        })
+      })
+      return options
+    },
+    rates () {
+      const tickerRates = this.$store.getters[APP_CONSTANTS.KEY_TICKER_RATES]
+      const profile = this.$store.getters[APP_CONSTANTS.KEY_PROFILE]
+      const options = []
+      const stxToBtc = tickerRates[0].stxPrice / tickerRates[0].last
+      options.push({
+        text: 'BTC',
+        value: utils.toDecimals(stxToBtc * profile.accountInfo.balance, 100000)
+      })
+      const stxToETh = tickerRates[0].stxPrice / tickerRates[0].ethPrice
+      options.push({
+        text: 'ETH',
+        value: utils.toDecimals(stxToETh * profile.accountInfo.balance, 100000)
+      })
+      tickerRates.forEach((rate) => {
+        options.push({
+          text: rate.currency,
+          value: utils.toDecimals(rate.stxPrice * profile.accountInfo.balance)
+        })
+      })
+      return options
     }
   }
 }
