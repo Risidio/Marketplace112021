@@ -12,7 +12,7 @@
             <div v-for="(item, index) in gaiaAssets" :key="index" class="NFTbackgroundColour" >
                 <div class="">
                     <b-link class="galleryNFTContainer" :to="assetUrl(item)" v-if="item && item.contractAsset">
-                  <img class="nftGeneralView-limited" :src="'https://res.cloudinary.com/risidio/image/upload/f_auto/q_auto:low/indige-testing/' + item.image.split('/')[5]"/>
+                  <img class="nftGeneralView" :src="'https://res.cloudinary.com/risidio/image/upload/f_auto/q_auto:low/indige-testing/' + item.image.split('/')[5]"/>
                   <p class="nFTName"> {{!item.name ? "NFT" : item.name }} <span style="float: right;">{{item.contractAsset.listingInUstx.price}} STX</span>
                   <!-- <span>$ {{item.contractAsset.listingInUstx.price * 1.9}}</span></p> -->
                   <p class="nFTArtist">By <span>{{!item.properties.collection ? "Anonymous" : item.properties.collection }}</span> </p>
@@ -92,9 +92,9 @@ export default {
     }
   },
   mounted () {
-    window.addEventListener('scroll', this.checkScreen)
-    this.findAssets()
+    window.addEventListener('mouse-move', this.checkScreen)
     this.mobileAssets = this.gaiaAssets.slice(0, 2)
+    this.findAssets()
   },
   created () {
     window.addEventListener('resize', this.checkScreen)

@@ -3,8 +3,8 @@
         <div class="mainGalleryContainer">
             <div class="mainGallerySidebar">
                 <div class="galleryCollections">
-                  <button class="collectionsButton" v-on:click="showCollections()">Collections <img class="arrow1" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></button>
-                  <div class="collectionsMenu" v-if="projects">
+                  <button class="collectionsButton" v-on:click="showCollections()">Collections <img class="arrow1 active" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></button>
+                  <div class="collectionsMenu active" v-if="projects">
                     <div v-for="(item, index) in projects" :key="index" class="collectionMenuContainer">
                       <input class="collectionItemRadio" type="radio" :id="item.title" name="radio" :value="index" @click="sortCollection(item)">
                       <label class="collectionItems">{{item.title}}</label>
@@ -203,7 +203,7 @@ export default {
         asc: true,
         runKey: loopRun ? loopRun.currentRunKey : null,
         page: 0,
-        pageSize: 30
+        pageSize: 28
       }
       this.resultSet = null
       this.$store.dispatch('rpayStacksContractStore/fetchTokensByContractId', data).then((result) => {
@@ -307,7 +307,9 @@ transition: all smooth 2s ease-in-out;
 .square-display-img{
   width: 211px;
   height: 189px;
-  object-fit: contain;
+  // background-size: cover;
+  object-fit: cover;
+  // object-fit: scale-down;
   box-shadow: 10px 10px 30px #0000002F;
   border-radius: 5px;
 }

@@ -4,10 +4,10 @@
         <div class='seeAlsoContainer'>
         <vueper-slides
             class="no-shadow"
-            :visible-slides="3.7"
+            :visible-slides="4"
             :gap="2"
             :slide-ratio="1 / 4"
-            :dragging-distance="100"
+            :dragging-distance="211"
             :breakpoints="breakpoints"
             fixed-height="true"
             autoplay>
@@ -21,7 +21,7 @@
               <template #content>
                 <div class="galleryNFTContainer">
                   <router-link v-bind:to="'/nfts/' + item.contractId + '/' + item.contractAsset.nftIndex" >
-                  <img :src="'https://res.cloudinary.com/risidio/image/upload/f_auto/q_auto:low/indige-testing/' + item.image.split('/')[5]" class="nftGeneralView-limited" style=""/>
+                  <img :src="'https://res.cloudinary.com/risidio/image/upload/f_auto/q_auto:low/indige-testing/' + item.image.split('/')[5]" class="nftGeneralView" style=""/>
                   </router-link>
                   <p class="nFTName"> {{!item.name ? "NFT" : item.name }} <span>{{item.contractAsset.listingInUstx.price}} STX</span></p>
                   <p class="nFTArtist">By <span style="font-weight:600"><span style="float: right; margin-right: 5px;">$ {{item.contractAsset.listingInUstx.price * 1.9}}</span></span></p>
@@ -50,7 +50,7 @@ export default {
       placeHolderItems: [],
       breakpoints: {
         1600: {
-          visibleSlides: 3.4,
+          visibleSlides: 4,
           slideRatio: 1 / 2.5
         },
         1400: {
@@ -58,7 +58,7 @@ export default {
           slideRatio: 1 / 1.8
         },
         1200: {
-          visibleSlides: 3.2,
+          visibleSlides: 3,
           slideRatio: 1 / 1.8
         },
         1000: {
@@ -82,7 +82,7 @@ export default {
 <style lang="scss" scoped>
 .seeAlso{
     min-height: 40rem;
-    margin: 0 7% 10px 7%;
+    margin: 0 5% 10px 5%;
     h2{
         font: normal normal 300 37px/45px Montserrat;
         margin: 100px 20px 50px 20px;
@@ -90,13 +90,13 @@ export default {
     }
 }
 .seeAlsoContainer{
-  max-width: 1135px;
+  max-width: 1200px;
   margin: auto;
   min-height: 200px;
 }
 .vueperslides--fixed-height {
-  height: 400px;
-  max-width: 85%;
+  height: 380px;
+  max-width: 100%;
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 50px;
@@ -122,5 +122,19 @@ export default {
 .NFTbackgroundColour{
   max-width: 255px;
   max-height: 319px;
+}
+@media only screen and (max-width: 1400px){
+  .seeAlsoContainer{
+    max-width: 1000px;
+    margin: auto;
+    min-height: 200px;
+}
+@media only screen and (max-width: 1150px){
+.vueperslides--fixed-height {
+  height: 380px;
+  max-width: 90%;
+}
+}
+
 }
 </style>
