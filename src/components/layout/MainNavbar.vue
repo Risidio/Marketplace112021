@@ -14,6 +14,7 @@
   </div>
 
 </div>
+
 <div class="navbar_container">
    <img class="nav_banner" src="https://res.cloudinary.com/risidio/image/upload/v1633609222/RisidioMarketplace/gradienta-m_-1_v4hs5p.svg" alt="">
 </div>
@@ -26,9 +27,18 @@
         </a>
         <div v-if="profile.loggedIn" class="navbar_links" style="margin-left: 19px">
             <router-link class="nav-items bold" to="/nft-marketplace" >Explore</router-link>
-            <b-dropdown id="dropdown-1" text="Featured Collections" class="bold" variant="transparent" toggle-class="text-white" size="lg" style="padding:0px; height:55%; margin: auto 10px; font-weight: 600;">
+            <div style="position: relative; margin-top: 2px;" @click="openMenu()">
+              <p class="nav-items bold" > Featured Collections <img class="arrow2" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></p>
+              <p class="featured" > Featured Collections <img style="margin-left: 8px;" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></p>
+              <div class="dropdownMenu">
+                <div v-for="(item, index) in allLoopRuns" :key="index" class="dropdownMenu-container">
+                  <p @click="linkTo(item)">{{item.currentRun}}</p>
+                </div>
+              </div>
+            </div>
+            <!-- <b-dropdown id="dropdown-1" text="Featured Collections" class="bold" variant="transparent" toggle-class="text-white" size="lg" style="padding:0px; height:55%; margin: auto 10px; font-weight: 600;">
               <b-dropdown-item v-for="(loopRun, index) in allLoopRuns" :key="index" ><span style="margin-top: -1rem" v-if="loopRun.status !== 'disabled'" class="pointer" @click="showCollection(loopRun)"><span @click="linkTo(loopRun)">{{loopRun.currentRun}}</span></span></b-dropdown-item>
-            </b-dropdown>
+            </b-dropdown> -->
             <router-link class="nav-items thin" to="/how-it-works" style="margin-left: auto;">How It Works</router-link>
             <router-link class="nav-items text-black thin" to="/about">About Risidio </router-link>
             <router-link class="nav-items navBtn thin" to="/my-account"> My NFT's </router-link>
@@ -114,6 +124,12 @@ export default {
         })
       }
     },
+    openMenu () {
+      const dropdownShow = document.getElementsByClassName('dropdownMenu')[0]
+      const featured = document.getElementsByClassName('featured')[0]
+      dropdownShow.classList.toggle('show')
+      featured.classList.toggle('show')
+    },
     mobileNavebar () {
       const myProfile = this.$store.getters['rpayAuthStore/getMyProfile']
       if (myProfile.loggedIn) {
@@ -148,11 +164,6 @@ export default {
     allLoopRuns () {
       const loopRuns = this.$store.getters[APP_CONSTANTS.GET_LOOP_RUNS]
       return loopRuns
-    },
-    projects () {
-      const appmap = this.$store.getters[APP_CONSTANTS.KEY_REGISTRY]
-      if (appmap) return appmap.apps
-      return []
     },
     content () {
       const content = this.$store.getters['contentStore/getHomepage']
@@ -226,6 +237,7 @@ export default {
   color: white;
 }
 .navbar_links_not_logged, .navbar_links{
+  position: relative;
   display: flex;
   flex-direction: row;
   width: 100%;
@@ -245,6 +257,10 @@ export default {
   width:90%;
   background-color: #fff;
   border-radius:10px;
+}
+.arrow2{
+  margin-left: 8px;
+  transform: rotate(180deg)
 }
 .nav-items{
   margin: auto 0;
@@ -309,7 +325,47 @@ export default {
   background-color: rgb(0,0,0); /* Fallback color */
   background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 }
-
+.dropdownMenu{
+  position: absolute;
+  background: white;
+  display: none;
+  flex-direction: column;
+  width: 100%;
+  border-radius: 5px;
+  top: 0;
+  z-index: 10;
+  p{
+    font-size: 11px;
+    padding: 5px 20px;
+    cursor: pointer;
+  }
+  p:hover{
+    text-decoration: underline;
+    color: #5FBDC1;
+  }
+  // width: 100px;
+  // height: 100px;
+}
+.dropdownMenu-container{
+  &:nth-child(1){
+    margin-top: 50px;
+  }
+}
+.dropdownMenu.show{
+  display: flex;
+}
+.featured{
+  position: absolute;
+  display: none;
+  top: 19px;
+  left: 19px;
+  font-size: 1.2rem;
+  font-weight: bolder;
+  z-index: 11;
+}
+.featured.show{
+  display: flex;
+}
 /* Modal Content */
 .hiro-modal-content {
   display: grid;
