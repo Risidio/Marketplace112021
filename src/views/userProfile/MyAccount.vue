@@ -24,10 +24,11 @@
             <div class="walletCurrency">
               <div>
                 <p style="font: normal normal 300 12px/15px Montserrat;">Credit Remaining:</p>
-                <pre id="stxInfo" style="font: normal normal 300 15px/19px Montserrat;"> <span style="color: rgba(81, 84, 161, 1); font: normal normal 600 12px/15px Montserrat;" v-if="profile && profile.accountInfo">{{profile.accountInfo.balance}}</span>  STX</pre>
+                <pre id="stxInfo" style="font: normal normal 300 15px/19px Montserrat;"> <span style="color: rgba(81, 84, 161, 1); font: normal normal 600 12px/15px Montserrat;" v-if="profile && profile.accountInfo">{{profile.accountInfo.balance || 5}}</span>  STX</pre>
               </div>
               <div>
-                  <pre class="figure" style="font: normal normal 300 15px/19px Montserrat;"><span style="color: rgba(81, 84, 161, 1); font: normal normal 600 12px/15px Montserrat;">{{yourSTX}}</span> {{currency ? currency : currencyPreference.text || null}} </pre>
+                  <pre v-if="currencyPreference && currencyPreference.text" class="figure" style="font: normal normal 300 15px/19px Montserrat;"><span style="color: rgba(81, 84, 161, 1); font: normal normal 600 12px/15px Montserrat;">{{yourSTX}}</span> {{currency ? currency : currencyPreference.text || null}}</pre>
+                  <pre v-else class="figure" style="font: normal normal 300 15px/19px Montserrat;"><span style="color: rgba(81, 84, 161, 1); font: normal normal 600 12px/15px Montserrat;">{{yourSTX}}</span> {{currency || null}}</pre>
                   <select id="currency" name="currency" class="form-control"  @change="currencyChange($event.target.value)">
                     <option v-for="(rates, index) in rates" :key="index" :value="rates.text">{{rates.text}}</option>
                     <!-- <option value="GBP">GBP</option>
@@ -138,7 +139,7 @@
     </div>
   </div>
   <div v-else>
-    loading
+    {{location.reload()}}
   </div>
 </template>
 
@@ -180,7 +181,7 @@ export default {
       resultSet: [],
       allocations: [],
       saleItem: [],
-      amount: null,
+      // amount: null,
       defaultRate: null,
       currencyPreference: null
     }
@@ -197,7 +198,7 @@ export default {
     this.loading = true
   },
   created () {
-    this.amount = this.profile.accountInfo.balance
+    // this.amount = this.profile.accountInfo.balance
     this.currencyPreference = JSON.parse(localStorage.getItem('currencyPreferences'))
     console.log(this.currencyPreference)
   },
@@ -212,7 +213,7 @@ export default {
       if (pressed === 1) {
         document.getElementById('walletDetails').classList.remove('hide')
         document.getElementById('infoButton').classList.add('hidden')
-        if (this.currencyPreference) this.yourSTX = this.profile.accountInfo.balance
+        if (this.currencyPreference) this.yourSTX = this.profile.accountInfo.balance || 55
       } else {
         document.getElementById('walletDetails').classList.add('hide')
         document.getElementById('infoButton').classList.remove('hidden')
@@ -299,7 +300,7 @@ export default {
       // if (this.currencyPreference) this.yourSTX = getRate.value
     },
     currencyChange (currency) {
-      this.yourSTX = this.profile.accountInfo.balance
+      this.yourSTX = this.profile.accountInfo.balance || 55
       this.currency = currency
       const getRate = this.rates.find((rate) => rate.text === currency)
       this.yourSTX = getRate.value

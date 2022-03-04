@@ -59,7 +59,7 @@ export default {
       resultSet: [],
       numberOfItems: 0,
       loading: true,
-      pageSize: 20
+      pageSize: 16
     }
   },
   mounted () {
