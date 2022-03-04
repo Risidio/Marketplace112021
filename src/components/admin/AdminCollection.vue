@@ -3,7 +3,7 @@
     <div class='adminCollections'>
       <h2>Collections!!!</h2>
       <div
-        v-for='(loopRun, index) in projects'
+        v-for='(loopRun, index) in allLoopRuns'
         :key='index'
         class='adminCollectionList'
         @click='selectedCollection(loopRun)'
@@ -95,8 +95,8 @@ export default {
     buyNFT (currentRun, nft) {
       console.log(currentRun)
       const data = {
-        commissionContractAddress: 'ST22QPESFJ8XKJDWR1MHVXV2S4NBE44BA944NS4D2',
-        commissionContractName: 'commission',
+        commissionContractAddress: currentRun.commissionContractId.split('.')[0],
+        commissionContractName: currentRun.commissionContractId.split('.')[1],
         owner: currentRun.owner,
         nftIndex: nft.contractAsset.nftIndex,
         price: nft.contractAsset.listingInUstx.price,
@@ -122,8 +122,8 @@ export default {
       const data = {
         owner: currentRun.owner,
         nftIndex: nft.contractAsset.nftIndex,
-        commissionContractAddress: 'ST22QPESFJ8XKJDWR1MHVXV2S4NBE44BA944NS4D2',
-        commissionContractName: 'commission',
+        commissionContractAddress: currentRun.commissionContractId.split('.')[0],
+        commissionContractName: currentRun.commissionContractId.split('.')[1],
         price: 1,
         sendAsSky: true, // only applicable in local
         contractAddress: nft.contractAsset.contractId.split('.')[0],

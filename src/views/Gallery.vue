@@ -49,10 +49,10 @@
                           <!-- <button @click="showSquare"> display</button> -->
                        <!-- </div>
                     </div>-->
-                        <input class="search" type="text" id="search" name="search" placeholder="Looking for anything in particular ?"><img class="view" src="https://res.cloudinary.com/risidio/image/upload/v1637238428/RisidioMarketplace/magnifying-search-lenses-tool_yaatpo.svg">
+                        <input class="search" type="text" id="search" name="search" placeholder="Looking for anything in particular ?" @change="searching($event.target.value)"><img class="view" src="https://res.cloudinary.com/risidio/image/upload/v1637238428/RisidioMarketplace/magnifying-search-lenses-tool_yaatpo.svg">
                 <!--</div>-->
                 <hr/>
-                <div v-if="resultSet && view !== 'squared'" class="galleryGrid">
+                <div v-if="resultSet && view !== 'squared' && searched.length == 0" class="galleryGrid">
                   <div v-for="(item, index) in resultSet" :key="index" :id="index">
                     <div v-if="item.image" class="gallery-display" >
                       <img :id="'image' + index" :src="'https://res.cloudinary.com/risidio/image/upload/f_auto/q_auto:low/indige-testing/' + item.image.split('/')[5]"
@@ -60,8 +60,25 @@
                     </div>
                   </div>
                 </div>
-                <div v-if="resultSet && view == 'squared'" class="gallerySquare">
+                <div v-if="resultSet && view == 'squared' && searched.length == 0" class="gallerySquare">
                   <div v-for="(item, index) in resultSet" :key="index">
+                    <div v-if="item.image" class="square-display" >
+                      <b-link class="galleryNFTContainer" v-bind:to="'/nfts/' + item.contractAsset.contractId + '/' + item.contractAsset.nftIndex">
+                      <img :src="'https://res.cloudinary.com/risidio/image/upload/f_auto/q_auto:low/indige-testing/' + item.image.split('/')[5]"
+                       alt="Risidio Gallery" class="square-display-img">
+                      <div class="rel">
+                        <div class="galleryHover">
+                          <p class="nFTName"> {{!item.name ? "NFT" : item.name }} <span style="float: right;">{{item.contractAsset.saleData.buyNowOrStartingPrice}} STX</span>
+                              <!-- <span>$ {{item.contractAsset.saleData.buyNowOrStartingPrice * 1.9}}</span></p> -->
+                          <p class="nFTArtist">By <span>{{!item.artist ? "Anonymous" : item.artist }}</span> </p>
+                        </div>
+                      </div>
+                      </b-link>
+                    </div>
+                  </div>
+                </div>
+                <div v-if="resultSet && view == 'squared' && searched.length > 0" class="gallerySquare">
+                  <div v-for="(item, index) in searched" :key="index">
                     <div v-if="item.image" class="square-display" >
                       <b-link class="galleryNFTContainer" v-bind:to="'/nfts/' + item.contractAsset.contractId + '/' + item.contractAsset.nftIndex">
                       <img :src="'https://res.cloudinary.com/risidio/image/upload/f_auto/q_auto:low/indige-testing/' + item.image.split('/')[5]"
@@ -102,7 +119,8 @@ export default {
       types: 'all',
       numberOfItems: null,
       projects: [],
-      view: 'squared'
+      view: 'squared',
+      searched: []
       // placeHolderItems: []
     }
   },
@@ -135,6 +153,11 @@ export default {
           this.$router.push('/nft-marketplace/' + data.loopRun.makerUrlKey + '/' + data.loopRun.currentRunKey)
         }
       }
+    },
+    searching (input) {
+      const result = this.resultSet.filter((searchItem) => searchItem.name.includes(input))
+      this.searched = result
+      console.log(result)
     },
     changeView () {
       if (this.view === 'squared') {
@@ -333,6 +356,9 @@ transition: all smooth 2s ease-in-out;
   border-left: solid 0.5px rgb(196, 196, 196);
   border-radius: 0;
   font: normal normal 300 13px/16px Montserrat;
+}
+.search:active, .search:focus{
+  outline: none;
 }
 .mainGallerySidebar{
     background: #F5F5F5;
