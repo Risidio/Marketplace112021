@@ -26,8 +26,8 @@
                 <hr class="hr"/> -->
             </div>
             <div class="mainGalleryBody">
-                <div class="filter">
-                    <div>
+               <!-- <div class="filter">-->
+                   <!-- <div>
                         <p class="view" @click="changeView()">View</p>
                         <button class="collectionsButton"> Popular <img class="arrow2" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></button>
                         <div class="galleryCategories">
@@ -45,12 +45,12 @@
                             <a href="#">Category 4</a>
                             <a href="#">Category 5</a>
                         </div>
-                        <div>
+                        <div>-->
                           <!-- <button @click="showSquare"> display</button> -->
-                        </div>
-                    </div>
+                       <!-- </div>
+                    </div>-->
                         <input class="search" type="text" id="search" name="search" placeholder="Looking for anything in particular ?"><img class="view" src="https://res.cloudinary.com/risidio/image/upload/v1637238428/RisidioMarketplace/magnifying-search-lenses-tool_yaatpo.svg">
-                </div>
+                <!--</div>-->
                 <hr/>
                 <div v-if="resultSet && view !== 'squared'" class="galleryGrid">
                   <div v-for="(item, index) in resultSet" :key="index" :id="index">
@@ -327,8 +327,8 @@ transition: all smooth 2s ease-in-out;
     flex: 1 1 500px;
 }
 .search{
-  margin: 20px 0 0 30px;
-  padding: 5px 10px 5px 50px;
+  margin: 20px 0 0 35px;
+  padding: 10px 500px 10px 430px;
   border: 0;
   border-left: solid 0.5px rgb(196, 196, 196);
   border-radius: 0;
@@ -354,7 +354,7 @@ transition: all smooth 2s ease-in-out;
 
 .view{
   font: normal normal 300 13px/16px Montserrat;
-  margin: 20px 0 0 0;
+  margin: 5px 0 0 5px;
   padding: 16px 0;
   cursor: pointer;
 }
