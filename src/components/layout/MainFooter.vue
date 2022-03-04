@@ -47,9 +47,9 @@
           &copy; &nbsp; Risidio Ltd. All right reserved.
         </div>
         <div>
-          <a href="https://discord.gg/nmKx5WkPaG"><img :src="discordLogo" alt="discord-logo"></a>
-          <a href="https://www.instagram.com/risidio_official/"><img :src="instagramLogo" alt="instagram-logo"></a>
-          <a href="https://twitter.com/Risidio1"><img :src="twitterLogo" alt="twitter-logo"></a>
+          <a href="https://discord.gg/nmKx5WkPaG" target="_blank"><img :src="discordLogo" alt="discord-logo"></a>
+          <a href="https://www.instagram.com/risidio_official/" target="_blank"><img :src="instagramLogo" alt="instagram-logo"></a>
+          <a href="https://twitter.com/Risidio1" target="_blank"><img :src="twitterLogo" alt="twitter-logo"></a>
           <!--<a href="https://www.youtube.com/channel/UCrMDxxhMvpeyErw7m92IIXA/featured"><img :src="youtubeLogo" alt="youtube-logo"></a> -->
         </div>
         <div>
@@ -141,7 +141,7 @@ footer .container {
 
 footer a {
   color: #fff !important;
-}
+  }
 
 /* FOOTER LOGO COLUMN */
 .footer-logo {
@@ -189,7 +189,9 @@ footer .navbar-brand {
   border-top: 1px solid #E3E3E3;
   opacity: 0.2;
 }
-
+.footer__bottom-row :hover{
+  transform: scale(1.2);
+}
 .footer__bottom-row {
   font-size: 1.2rem;
   font-weight: 300;
