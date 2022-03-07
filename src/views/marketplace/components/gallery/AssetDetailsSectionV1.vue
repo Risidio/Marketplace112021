@@ -134,24 +134,15 @@ import utils from '@/services/utils'
 import AssetUpdatesModal from '@/views/marketplace/components/toolkit/purchasing/AssetUpdatesModal'
 import PurchaseFlow from '@/views/marketplace/components/toolkit/purchasing/PurchaseFlow'
 import MediaItemGeneral from '@/views/marketplace/components/media/MediaItemGeneral'
-// import EditionTrigger from '@/views/marketplace/components/toolkit/editions/EditionTrigger'
-import MintInfo from '@/views/marketplace/components/toolkit/mint-setup/MintInfo'
-import NftHistory from '@/views/marketplace/components/toolkit/nft-history/NftHistory'
 import PendingTransactionInfo from '@/views/marketplace/components/toolkit/nft-history/PendingTransactionInfo'
-import ShareLinks from '@/components/utils/ShareLinks'
-// import formatUtils from '@/services/formatUtils.js'
 
 export default {
   name: 'AssetDetailsSectionV1',
   components: {
     PendingTransactionInfo,
-    // ShareLinks,
-    // NftHistory,
     AssetUpdatesModal,
-    // EditionTrigger,
     PurchaseFlow,
     MediaItemGeneral
-    // MintInfo
   },
   props: ['gaiaAsset', 'loopRun'],
   data: function () {

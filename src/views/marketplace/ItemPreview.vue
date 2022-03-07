@@ -67,16 +67,12 @@
 
 <script>
 import { APP_CONSTANTS } from '@/app-constants'
-// import MediaItemGeneral from '@/views/marketplace/components/media/MediaItemGeneral'
 import ItemActionMenu from '@/views/marketplace/components/update/ItemActionMenu'
 import PendingTransactionInfo from '@/views/marketplace/components/toolkit/nft-history/PendingTransactionInfo'
 import NftHistory from '@/views/marketplace/components/toolkit/nft-history/NftHistory'
 import MintInfo from '@/views/marketplace/components/toolkit/mint-setup/MintInfo'
 import MintingTools from '@/views/marketplace/components/toolkit/MintingTools'
 import moment from 'moment'
-import * as Three from 'three'
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 
 export default {
   name: 'ItemPreview',

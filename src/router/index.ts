@@ -5,7 +5,6 @@ import store from '@/store'
 // templates
 import MainNavbar from '@/components/layout/MainNavbar.vue'
 import MainFooter from '@/components/layout/MainFooter.vue'
-import AdminNav from '@/views/mgmnt/AdminNav.vue'
 
 // public pages
 import HiroWallet from '../views/HiroWallet.vue'
