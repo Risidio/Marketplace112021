@@ -1,17 +1,11 @@
 <template>
 <section style="margin: auto; margin-top: 10rem; max-width: 1135px; padding: 0 20px;" id="asset-details-section" v-if="gaiaAsset && gaiaAsset.contractAsset" class="text-black">
-  <!-- <b-container class=" w-100 center-section" style="min-height: 50vh;"> -->
-              <div class="backBtn"><router-link class="backBtn" :to="'/' + 'indige5'"><b-icon icon="chevron-left" shift-h="-3"></b-icon> Back </router-link></div>
+  <div class="backBtn"><router-link class="backBtn" :to="'/' + 'indige5'"><b-icon icon="chevron-left" shift-h="-3"></b-icon> Back </router-link></div>
     <b-row style="display: flex; margin: auto" :style="'min-height: ' + videoHeight + 'px'">
       <b-col lg="6" sm="10" class="mb-5">
         <div id="video-column" :style="dimensions">
-          <!-- <MediaItem :videoOptions="videoOptions" :attributes="gaiaAsset" /> -->
           <MediaItemGeneral :classes="'hash1-image'" v-on="$listeners" :options="videoOptions" :mediaItem="gaiaAsset"/>
           <div class="editions"> <h2>EDITION <span>{{gaiaAsset.contractAsset.tokenInfo.edition}}</span> / {{gaiaAsset.contractAsset.tokenInfo.maxEditions}}</h2></div>
-          <!-- <div v-if="gaiaAsset.attributes.artworkFile.type.includes('threed')">
-            <button class="button filled" v-on:click="openModal(), three()">View 3D</button>
-          </div> -->
-          <!-- <MintInfo class="my-5" :item="gaiaAsset" :loopRun="loopRun" /> -->
         </div>
       </b-col>
       <b-col lg="6" sm="10">
@@ -36,26 +30,9 @@
                   </div>
                 </div>
               </div>
-              <!-- <div class="d-flex justify-content-end">
-              </div> -->
-              <!-- <div class="w-25">
-                <ShareLinks class="mt-4" :socialLinks="getSocialLinks()" :gaiaAsset="gaiaAsset" />
-              </div> -->
               <PendingTransactionInfo v-if="pending && pending.txStatus === 'pending'" :pending="pending"/>
               <div style="margin-top: 50px" v-else>
                 <b-row v-if="getSaleType() === 0">
-                  <!-- <b-col class="priceSection" v-if="editionsAvailable">
-                    <p class="basePrice"> Price <span> STX  <span> {{(gaiaAsset.contractAsset.listingInUstx.price / 1.10).toFixed(0)}}</span></span></p>
-                    <p class="feePrice"> Fees <span>STX {{gaiaAsset.contractAsset.listingInUstx.price - (gaiaAsset.contractAsset.listingInUstx.price / 1.10).toFixed(0)}}</span></p>
-                    <hr/>
-                    <p class="fullPrice"><span> STX <span>{{gaiaAsset.contractAsset.listingInUstx.price}}</span></span></p>
-                  </b-col>
-                  <b-col md="6" sm="12" v-if="editionsAvailable">
-                    <EditionTrigger :item="gaiaAsset" @mintedEvent="mintedEvent" :loopRun="loopRun"/>
-                  </b-col>
-                  <b-col style="padding: 10px;" v-else>
-                    <SquareButton @clickButton="openUpdates()" :item="gaiaAsset" :theme="'light'" :label1="'GET UPDATES'" :icon="'eye'" :text-warning="true"/>
-                  </b-col> -->
                 </b-row>
                 <b-row v-else>
                   <b-col v-if="webWalletNeeded" md="6" sm="12" class="mb-3">
@@ -68,31 +45,20 @@
                     <p class="fullPrice"><span> STX <span>{{gaiaAsset.contractAsset.listingInUstx.price}}</span></span></p>
                   </b-col>
                   <b-col md="6" sm="6" class="mb-3 text-center" v-if="getSaleType() > 0">
-                    <button class="button filled" :title="ttBiddingHelp" @click="openPurchaceDialog()" >{{salesButtonLabel}}</button>
+                    <button class="button filled" :title="ttBiddingHelp" @click="openPurchaseDialog()" >{{salesButtonLabel}}</button>
                   </b-col>
                 </b-row>
                 <h3 class="mt-5" >NFT Description:</h3>
                <div v-if="gaiaAsset.description" class="mt-2 w-100 text-black" v-html="preserveWhiteSpace(gaiaAsset.description)">
               </div>
               </div>
-              <!-- <div v-if="nftIndex > -1">
-                <NftHistory class="text-small mt-5" @setPending="setPending" :nftIndex="nftIndex" :loopRun="loopRun"/>
-              </div> -->
-              <!-- <b-row class="my-4" v-else>
-                <b-col md="6" sm="12" class="mb-3">
-                  <div class="more-link m-0" v-scroll-to="{ element: '#artist-section', duration: 1000 }"><b-link class="text-black">Find out more</b-link></div>
-                </b-col>
-                <b-col md="6" sm="12" class="">
-                  <div class="more-link m-0" v-scroll-to="{ element: '#charity-section', duration: 1000 }"><b-link class="text-black">Charity</b-link></div>
-                </b-col>
-              </b-row> -->
             </div>
           </b-col>
         </b-row>
       </b-col>
     </b-row>
   <b-modal id="asset-offer-modal" class="modal text-left">
-    <PurchaseFlow v-if="showRpay === 1" :gaiaAsset="gaiaAsset" :loopRun="loopRun" :forceOfferFlow="forceOfferFlow" @offerSent="offerSent"/>
+    <PurchaseFlow v-if="showRpay === 1" :gaiaAsset="gaiaAsset" :loopRun="loopRun" :forceOfferFlow="forceOfferFlow"/>
     <AssetUpdatesModal v-if="showRpay === 2" @registerForUpdates="registerForUpdates"/>
     <template #modal-header="{ close }">
       <div class=" text-warning w-100 d-flex justify-content-end">
@@ -122,7 +88,6 @@
       </div>
     </template>
   </b-modal>
-  <!-- </b-container> -->
 </section>
 </template>
 
@@ -150,9 +115,6 @@ export default {
       showDownload: false,
       forceOfferFlow: false,
       hiddenCPS: true,
-      // grid: require('@/assets/img/marketplace/grid.svg'),
-      // cross: require('@/assets/img/marketplace/cross.svg'),
-      // hammer: require('@/assets/img/marketplace/auction.svg'),
       showRpay: 0,
       nftIndex: -1,
       pending: null,
@@ -226,29 +188,10 @@ export default {
             this.updateCacheByNftIndex(data)
           }
         } else if (result.txStatus.startsWith('abort')) {
-          // this.$notify({ type: 'danger', title: 'Transaction Info', text: 'Transaction failed - check blockchain for cause.' })
         }
       }
       this.pending = result
     },
-    // getSocialLinks: function () {
-    //   const content = this.$store.getters[APP_CONSTANTS.KEY_CONTENT_CHARITY_BY_ARTIST_ID](this.artistId)
-    //   if (content && content.length > 0 && content[0].data.social_links && content[0].data.social_links.length > 0) {
-    //     return content.data.social_links
-    //   }
-    //   return [
-    //     {
-    //       social_link: [{
-    //         text: 'type=twitter'
-    //       }]
-    //     },
-    //     {
-    //       social_link: [{
-    //         text: 'type=facebook'
-    //       }]
-    //     }
-    //   ]
-    // },
     updateCacheByHash (data) {
       this.$store.dispatch('rpayStacksContractStore/updateCacheByHash', data).then(() => {
         this.$store.dispatch('rpayStacksContractStore/fetchTokenByContractIdAndAssetHash', data)
@@ -282,9 +225,8 @@ export default {
     back: function () {
       this.$bvModal.hide('result-modal')
     },
-    offerSent: function () {
-      // local notification
-    },
+    // offerSent: function () {
+    // },
     targetItem: function () {
       return this.$store.getters[APP_CONSTANTS.KEY_TARGET_FILE_FOR_DISPLAY](this.gaiaAsset)
     },
@@ -314,7 +256,7 @@ export default {
       }
       return 0
     },
-    openPurchaceDialog: function () {
+    openPurchaseDialog: function () {
       this.forceOfferFlow = false
       const profile = this.$store.getters[APP_CONSTANTS.KEY_PROFILE]
       if (!profile.loggedIn) {
@@ -322,7 +264,6 @@ export default {
           this.$store.dispatch('rpayCategoryStore/fetchLatestLoopRunForStxAddress', { currentRunKey: process.env.VUE_APP_DEFAULT_LOOP_RUN, stxAddress: profile.stxAddress }, { root: true })
         }).catch((err) => {
           console.log(err)
-          // https://chrome.google.com/webstore/detail/stacks-wallet/ldinpeekobnhjjdofggfgjlcehhmanlj
           this.webWalletNeeded = true
         })
       } else {
@@ -435,7 +376,6 @@ export default {
         }
       }
       return 'not on sale'
-      // return this.$store.getters[APP_CONSTANTS.KEY_SALES_BADGE_LABEL](this.gaiaAsset.contractAsset)
     },
     confirmOfferDialog () {
       const dialog = this.$store.getters[APP_CONSTANTS.KEY_DIALOG_CONTENT]('confirm-offer')
@@ -514,13 +454,13 @@ export default {
 .fullPrice{
   font: normal normal 300 20px/29px Montserrat;
   float: right;
+  span{
+    font: normal normal 300 20px/29px Montserrat;
     span{
-      font: normal normal 300 20px/29px Montserrat;
-      span{
-        font: normal normal bold 24px/29px Montserrat;
-        color:#5154A1;
-      }
+      font: normal normal bold 24px/29px Montserrat;
+      color:#5154A1;
     }
+  }
 }
 .modal {
   display: none; /* Hidden by default */
