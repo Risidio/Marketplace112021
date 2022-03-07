@@ -15,13 +15,12 @@
 </template>
 
 <script>
-import LoopRun from '@/views/marketplace/components/gallery/LoopRun'
 import { APP_CONSTANTS } from '@/app-constants'
 
 export default {
   name: 'ItemDisplay',
   components: {
-    LoopRun
+
   },
   props: ['item', 'loopRun'],
   data () {

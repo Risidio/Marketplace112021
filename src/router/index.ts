@@ -17,9 +17,7 @@ const About = () => import('../views/About.vue')
 // Public Marketplace Routes
 const ItemPreview = () => import('@/views/marketplace/ItemPreview.vue')
 const AssetDetails = () => import('@/views/marketplace/AssetDetails.vue')
-const MyNftLibrary = () => import('@/views/marketplace/MyNftLibrary.vue')
-const NftGallery = () => import('@/views/marketplace/NftGallery.vue')
-const NftCollection = () => import('@/views/marketplace/NftCollection.vue')
+
 const Gallery = () => import('@/views/Gallery.vue')
 const HowItWorks = () => import('@/views/HowItWorks.vue')
 const LaunchCollection = () => import('@/views/collections/LaunchCollection.vue')
@@ -71,12 +69,6 @@ const routes: Array<RouteConfig> = [
     meta: { title: 'Your Account - Risidio' }
   },
   {
-    path: '/nft-gallery',
-    name: 'nft-gallery',
-    components: { default: NftGallery, header: MainNavbar, footer: MainFooter },
-    meta: { title: 'Gallery - Risidio' }
-  },
-  {
     path: '/how-it-works',
     name: 'how-it-works',
     components: { default: HowItWorks, header: MainNavbar, footer: MainFooter },
@@ -93,18 +85,6 @@ const routes: Array<RouteConfig> = [
     name: 'QandA',
     components: { default: QandA, header: MainNavbar, footer: MainFooter },
     meta: { title: 'Ask your questions' }
-  },
-  {
-    path: '/nft-marketplace/:maker/:collection',
-    name: 'nft-collection',
-    components: { default: NftCollection, header: MainNavbar, footer: MainFooter },
-    meta: { title: 'Collections - Risidio Marketplace' }
-  },
-  {
-    path: '/nft-marketplace/:maker/:collection',
-    name: 'nft-collection',
-    components: { default: NftCollection, header: MainNavbar, footer: MainFooter },
-    meta: { title: 'Collections - Risidio Marketplace' }
   },
   {
     path: '/about',
@@ -168,24 +148,6 @@ const routes: Array<RouteConfig> = [
       requiresAuth: false,
       requiresAdmin: false,
       title: 'Item preview'
-    }
-  },
-  {
-    path: '/my-nfts',
-    name: 'my-nfts',
-    components: { default: MyNftLibrary, header: MainNavbar, footer: MainFooter },
-    meta: {
-      requiresAuth: false,
-      requiresAdmin: false
-    }
-  },
-  {
-    path: '/my-nfts/:collection',
-    name: 'my-nfts',
-    components: { default: MyNftLibrary, header: MainNavbar, footer: MainFooter },
-    meta: {
-      requiresAuth: false,
-      requiresAdmin: false
     }
   },
   /**
