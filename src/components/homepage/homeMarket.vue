@@ -8,7 +8,7 @@
         </div>
       </b-nav>
     <div class="homeMarketItems">
-        <div class="galleryContainer" v-if="gaiaAssets.length > 0 && tab === 'discover' && shownAssets.length == 0">
+        <div class="galleryContainer" v-if="gaiaAssets && gaiaAssets.length > 0 && tab === 'discover' && shownAssets.length == 0">
             <div v-for="(item, index) in gaiaAssets" :key="index" class="NFTbackgroundColour" >
                 <div class="">
                     <b-link class="galleryNFTContainer" :to="assetUrl(item)" v-if="item && item.contractAsset">
@@ -20,7 +20,7 @@
                 </div>
             </div>
         </div>
-        <div class="galleryContainer" v-else-if="gaiaAssets.length > 0 && tab === 'discover' && shownAssets.length > 0">
+        <div class="galleryContainer" v-else-if="gaiaAssets && gaiaAssets.length > 0 && tab === 'discover' && shownAssets.length > 0">
           <div v-for="(item, index) in shownAssets" :key="index" class="NFTbackgroundColour">
             <div class="">
                     <b-link class="galleryNFTContainer" :to="assetUrl(item)" v-if="item && item.contractAsset">
@@ -37,32 +37,7 @@
 
             <h1 style="margin: auto; text-align: center;">Coming soon!</h1>
           </div>
-          <!-- <b-col style="margin: auto" md="9" sm="12">
-            <div class="h-auto">
-              <b-col class="mt-5 w-100"  v-for="(loopRun, index) in loopRuns" :key="index" >
-                <div>
-                  <div :to="collectionUrl(loopRun)">
-                    <img style="width: 100%; height: 100%;" :src="getImageUrl(loopRun)"  v-b-tooltip.hover="{ variant: 'light' }" :title="'Collection\n' + loopRun.currentRun"/>
-                      <div class=""><b-link :to="collectionUrl(loopRun)">{{loopRun.currentRun}}</b-link></div>
-                  </div>
-                </div>
-              </b-col>
-            </div>
-          </b-col> -->
         </div>
-
-          <!-- <div class=""  v-if="tab === 'Your NFT'">
-              <MyPageableItems  style="justify-content: space-evenly"  :loopRun="loopRun"/>
-              <div v-if="gaiaAssets.length > 0 && tab === 'Item'" class="galleryinfoContainer">
-                <div v-for="(item, index) in gaiaAssets" :key="index" class="galleryItem" >
-                  <div class="yourItems">
-                    <router-link v-bind:to="'/edit-item/' + item.assetHash" ><img :src="item.image" class="itemImg" style=""/></router-link>
-                    <p class="nFTName"> {{item.name}} <span >$ {{item.price * 1.9}}</span></p>
-                    <p class="nFTArtist">By <span >{{item.artist}}</span> <span style="float: right;">{{item.price}} STX</span></p>
-                  </div>
-                </div>
-              </div>
-          </div> -->
           <router-link style="color:white" class="routerL" to="/nft-marketplace"> <button class="button filled">See More Collectables</button></router-link>
     </div>
   </section>
@@ -70,15 +45,11 @@
 
 <script>
 import { APP_CONSTANTS } from '@/app-constants'
-import MediaItemGeneral from '@/views/marketplace/components/media/MediaItemGeneral'
-// import MyPageableItems from '@/views/marketplace/components/gallery/MyPageableItems'
-import utils from '@/services/utils'
+
 export default {
   name: 'HomeMarket',
   props: ['gaiaAssets'],
   components: {
-    // MediaItemGeneral
-    // MyPageableItems
   },
   data () {
     return {
@@ -141,18 +112,6 @@ export default {
     }
   },
   computed: {
-    // gaiaAssets () {
-    //   const assets = this.$store.getters[APP_CONSTANTS.KEY_GAIA_ASSETS]
-    //   return (assets) ? assets.reverse() : []
-    // },
-    // filterMarketAssets () {
-    //   const filterMarketAssets = this.gaiaAssets.slice(0, 8)
-    //   return (filterMarketAssets)
-    // },
-    // mobileAssets () {
-    //   const mobileAssets = this.gaiaAssets.slice(0, 2)
-    //   return (mobileAssets)
-    // }
   }
 }
 

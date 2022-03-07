@@ -26,10 +26,6 @@ const LaunchCollection = () => import('@/views/collections/LaunchCollection.vue'
 const IndigeCollection = () => import('@/views/collections/IndigeCollection.vue')
 const QandA = () => import('@/views/QandA.vue')
 const AdminPage = () => import('@/views/AdminPage.vue')
-const WebAdminUploadItem = () => import('@/views/marketplace/WebAdminUploadItem.vue')
-const DefaultCollectionMint = () => import('@/views/marketplace/DefaultCollectionMint.vue')
-const DefaultCollectionUpdateItem = () => import('@/views/marketplace/DefaultCollectionUpdateItem.vue')
-const WebAdminUpdateItem = () => import('@/views/marketplace/WebAdminUpdateItem.vue')
 const MyAccount = () => import('@/views/userProfile/MyAccount.vue')
 
 // Application Admin Routes
@@ -172,36 +168,6 @@ const routes: Array<RouteConfig> = [
       requiresAuth: false,
       requiresAdmin: false,
       title: 'Item preview'
-    }
-  },
-  {
-    path: '/create',
-    name: 'create',
-    components: { default: DefaultCollectionMint, header: MainNavbar, footer: MainFooter },
-    meta: { title: 'Upload your NFT' }
-  },
-  {
-    path: '/edit-item/:assetHash',
-    name: 'edit-item',
-    components: { default: DefaultCollectionUpdateItem, header: MainNavbar, footer: MainFooter },
-    meta: {
-      requiresAuth: false,
-      requiresAdmin: false
-    }
-  },
-  {
-    path: '/admin-mint',
-    name: 'admin-mint',
-    components: { default: WebAdminUploadItem, header: MainNavbar, footer: MainFooter },
-    meta: { title: 'Upload your NFT' }
-  },
-  {
-    path: '/admin-item/:assetHash',
-    name: 'admin-item',
-    components: { default: WebAdminUpdateItem, header: MainNavbar, footer: MainFooter },
-    meta: {
-      requiresAuth: false,
-      requiresAdmin: false
     }
   },
   {
