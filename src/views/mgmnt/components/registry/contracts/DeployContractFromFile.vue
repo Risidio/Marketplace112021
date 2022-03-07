@@ -55,7 +55,7 @@
 
 <script>
 // import MediaFilesUpload from '@/components/utils/MediaFilesUpload'
-import MediaUpload from '@/views/marketplace/components/update/MediaUpload'
+// import MediaUpload from '@/views/marketplace/components/update/MediaUpload'
 
 const NETWORK = process.env.VUE_APP_NETWORK
 const REGISTRY_CONTRACT_ADDRESS = process.env.VUE_APP_REGISTRY_CONTRACT_ADDRESS
@@ -64,7 +64,7 @@ const REGISTRY_CONTRACT_NAME = process.env.VUE_APP_REGISTRY_CONTRACT_NAME
 export default {
   name: 'DeployContractFromFile',
   components: {
-    MediaUpload
+    // MediaUpload
   },
   watch: {
   },

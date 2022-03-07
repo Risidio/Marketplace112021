@@ -36,15 +36,9 @@ export default {
     }
   },
   mounted () {
-    this.findAssets()
     this.fetchFullRegistry()
   },
   methods: {
-    findAssets () {
-      this.$store.dispatch('rpaySearchStore/findByProjectId', STX_CONTRACT_ADDRESS + '.' + STX_CONTRACT_NAME).then((results) => {
-        this.resultSet = results.filter(result => result.attributes.artworkFile.fileUrl !== null)
-      })
-    },
     sortCollection (loopRun) {
       console.log(loopRun)
       const data = {
