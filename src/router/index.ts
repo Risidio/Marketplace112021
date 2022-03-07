@@ -26,16 +26,6 @@ const QandA = () => import('@/views/QandA.vue')
 const AdminPage = () => import('@/views/AdminPage.vue')
 const MyAccount = () => import('@/views/userProfile/MyAccount.vue')
 
-// Application Admin Routes
-const ManageRegistry = () => import(/* webpackChunkName: "ManageRegistry" */ '@/views/mgmnt/ManageRegistry.vue')
-const ManagePrivileges = () => import(/* webpackChunkName: "ManagePrivileges" */ '@/views/mgmnt/ManagePrivileges.vue')
-const ManageRequests = () => import(/* webpackChunkName: "ManageRequests" */ '@/views/mgmnt/ManageRequests.vue')
-// const ManageCollections = () => import(/* webpackChunkName: "ManageCollections" */ '@/views/mgmnt/ManageCollections.vue')
-// const ManageCollection = () => import(/* webpackChunkName: "ManageCollection" */ '@/views/mgmnt/ManageCollection.vue')
-// const ManageAllocation = () => import(/* webpackChunkName: "ManageAllocation" */ '@/views/mgmnt/ManageAllocation.vue')
-// const ManageRoyalties = () => import(/* webpackChunkName: "ManageRoyalties" */ '@/views/mgmnt/ManageRoyalties.vue')
-const ManageOffers = () => import(/* webpackChunkName: "ManageOffers" */ '@/views/mgmnt/ManageOffers.vue')
-
 Vue.use(VueRouter)
 
 const isPermitted = function (to, profile) {
@@ -148,72 +138,6 @@ const routes: Array<RouteConfig> = [
       requiresAuth: false,
       requiresAdmin: false,
       title: 'Item preview'
-    }
-  },
-  /**
-   * admin section...
-   */
-  {
-    path: '/mgmnt',
-    name: 'registry',
-    components: { default: ManageRegistry, adminNav: AdminNav, header: MainNavbar, footer: MainFooter },
-    meta: {
-      requiresAuth: true,
-      requiresAdmin: true
-    }
-  },
-  {
-    path: '/mgmnt/registry',
-    name: 'registry',
-    components: { default: ManageRegistry, adminNav: AdminNav, header: MainNavbar, footer: MainFooter },
-    meta: {
-      requiresAuth: true,
-      requiresAdmin: true
-    }
-  },
-  {
-    path: '/mgmnt/registry/:section',
-    name: 'registry-section',
-    components: { default: ManageRegistry, adminNav: AdminNav, header: MainNavbar, footer: MainFooter },
-    meta: {
-      requiresAuth: true,
-      requiresAdmin: true
-    }
-  },
-  {
-    path: '/mgmnt/manage-privileges',
-    name: 'manage-privileges',
-    components: { default: ManagePrivileges, adminNav: AdminNav, header: MainNavbar, footer: MainFooter },
-    meta: {
-      requiresAuth: true,
-      requiresAdmin: true
-    }
-  },
-  {
-    path: '/mgmnt/manage-offers',
-    name: 'manage-offers',
-    components: { default: ManageOffers, adminNav: AdminNav, header: MainNavbar, footer: MainFooter },
-    meta: {
-      requiresAuth: true,
-      requiresAdmin: true
-    }
-  },
-  {
-    path: '/mgmnt/exhibit-requests',
-    name: 'exhibit-requests',
-    components: { default: ManageRequests, adminNav: AdminNav, header: MainNavbar, footer: MainFooter },
-    meta: {
-      requiresAuth: true,
-      requiresAdmin: true
-    }
-  },
-  {
-    path: '/mgmnt/app-admin',
-    name: 'app-admin',
-    components: { default: ManageRegistry, adminNav: AdminNav, header: MainNavbar, footer: MainFooter },
-    meta: {
-      requiresAuth: true,
-      requiresAdmin: true
     }
   }
 ]
