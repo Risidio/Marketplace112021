@@ -3,13 +3,11 @@ import VueRouter, { RouteConfig } from 'vue-router'
 import store from '@/store'
 
 // templates
-// import AboutNavbar from '@/components/layout/AboutNavbar.vue'
 import MainNavbar from '@/components/layout/MainNavbar.vue'
 import MainFooter from '@/components/layout/MainFooter.vue'
 import AdminNav from '@/views/mgmnt/AdminNav.vue'
 
 // public pages
-import HomeFooter from '@/components/layout/HomeFooter.vue'
 import Login from '../views/Login.vue'
 import Information from '../views/Information.vue'
 // const Information = () => import('../views/Information.vue')
@@ -18,17 +16,9 @@ import ManageProfile from '../views/ManageProfile.vue'
 import HiroWallet from '../views/HiroWallet.vue'
 
 // private pages
-// import MyAccount from '../views/userProfile/MyAccount.vue'
-
 const Homepage = () => import('../views/Homepage.vue')
-// const NumberOne = () => import('../views/NumberOne.vue')
 
-const Charity = () => import('../views/Charity.vue')
 const About = () => import('../views/About.vue')
-// const Charity = () => import('../views/Charity.vue')
-// const AssetDetails = () => import('../views/AssetDetails.vue')
-// const About = () => import('../views/About.vue')
-// const NumberOne = () => import('../views/NumberOne.vue')
 
 // Public Marketplace Routes
 const ItemPreview = () => import('@/views/marketplace/ItemPreview.vue')
@@ -167,12 +157,6 @@ const routes: Array<RouteConfig> = [
     meta: { title: 'Hiro Wallet - Risidio' }
   },
   {
-    path: '/login',
-    name: 'login',
-    components: { default: Login, header: MainNavbar, footer: HomeFooter },
-    meta: { title: 'Login page' }
-  },
-  {
     path: '/profile',
     name: 'profile',
     components: { default: ManageProfile, header: MainNavbar, footer: MainFooter },
@@ -198,11 +182,6 @@ const routes: Array<RouteConfig> = [
     path: '/information/:infoId',
     name: 'info-page',
     components: { default: Information, header: MainNavbar, footer: MainFooter }
-  },
-  {
-    path: '/charity/:charityId',
-    name: 'charity-page',
-    components: { default: Charity, header: MainNavbar, footer: MainFooter }
   },
   {
     path: '/assets/:assetHash/:edition',
