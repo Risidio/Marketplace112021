@@ -39,9 +39,9 @@
         <b-tab title="Royalties">
           <ListBeneficiaries :loopRun="loopRun" class="mt-3" :item="items[0]"/>
         </b-tab>
-        <b-tab title="Operator">
+        <!-- <b-tab title="Operator">
           <ApprovalFlow :loopRun="loopRun" :item="items[0]"/>
-        </b-tab>
+        </b-tab> -->
         <b-tab title="Next" v-if="profile.superAdmin && contractNameNext">
           <b-button @click="startMinting()" :theme="'light'" :label1="'MINT ITEM'" :icon="'eye'"/>
         </b-tab>
@@ -57,11 +57,6 @@
     <div v-html="mintResult"></div>
     <template #modal-footer class="text-center"><div class="w-100"></div></template>
   </b-modal>
-  <b-modal size="md" id="minting-modal">
-    <MintingFlowV2 v-if="isTheV2Contract()" :loopRun="loopRun" :items="items" v-on="$listeners"/>
-    <MintingFlow v-else-if="loopRun" :loopRun="loopRun" :items="items" :mediaItem="mediaItem" :mintAllocations="mintAllocations" v-on="$listeners"/>
-    <template #modal-footer class="text-center"><div class="w-100"></div></template>
-  </b-modal>
   <b-modal class="saleModalContainer" size="xl" id="selling-modal">
     <SellingFlow @cancel="cancel" :attributes="items[0].attributes" :item="items[0]" :loopRun="loopRun" :contractAsset="items[0].contractAsset"  v-if="items[0].contractAsset"/>
     <template #modal-footer class="text-center"><div class="w-100"></div></template>
@@ -70,12 +65,9 @@
 </template>
 
 <script>
-import MintingFlow from './mint-setup/MintingFlow'
-import MintingFlowV2 from './mint-setup/MintingFlowV2'
 import SellingFlow from './sell-setup/SellingFlow'
 import { APP_CONSTANTS } from '@/app-constants'
 import AcceptOffer from '@/views/marketplace/components/toolkit/AcceptOffer'
-import ApprovalFlow from '@/views/marketplace/components/toolkit/approvals/ApprovalFlow'
 import ListBeneficiaries from '@/views/marketplace/components/toolkit/ListBeneficiaries'
 
 const STX_CONTRACT_NAME_V2 = process.env.VUE_APP_STACKS_CONTRACT_NAME_V2
@@ -83,13 +75,9 @@ const STX_CONTRACT_NAME_V2 = process.env.VUE_APP_STACKS_CONTRACT_NAME_V2
 export default {
   name: 'MintingTools',
   components: {
-    MintingFlow,
-    MintingFlowV2,
     SellingFlow,
     AcceptOffer,
-    ApprovalFlow,
     ListBeneficiaries
-    // ManageEditions
   },
   props: ['items', 'loopRun', 'mintAllocations', 'mediaItem'],
   data: function () {

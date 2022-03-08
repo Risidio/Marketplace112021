@@ -1,7 +1,5 @@
 <template>
 <div v-if="pending">
-  <!-- <b-alert class="text-small text-black" style="" show>
-  </b-alert> -->
   <div style="font-size: 1.5rem;" variant="light" show>
    {{txMessage()}}
     <h6 class="mt-3 mb-3">This NFT is being updated live on Blockchain - <a :href="transactionUrl(pending.txId)" target="_blank"><span style="text-transform: capitalise;" class="cyanText"> Click here to view it's Progress</span></a></h6>
