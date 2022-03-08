@@ -39,9 +39,6 @@
         <b-tab title="Royalties">
           <ListBeneficiaries :loopRun="loopRun" class="mt-3" :item="items[0]"/>
         </b-tab>
-        <b-tab title="Transfer">
-          <TransferNft :loopRun="loopRun" :item="items[0]"/>
-        </b-tab>
         <b-tab title="Operator">
           <ApprovalFlow :loopRun="loopRun" :item="items[0]"/>
         </b-tab>
@@ -78,12 +75,8 @@ import MintingFlowV2 from './mint-setup/MintingFlowV2'
 import SellingFlow from './sell-setup/SellingFlow'
 import { APP_CONSTANTS } from '@/app-constants'
 import AcceptOffer from '@/views/marketplace/components/toolkit/AcceptOffer'
-// import ManageEditions from '@/views/marketplace/components/toolkit/editions/ManageEditions'
-import TransferNft from '@/views/marketplace/components/toolkit/TransferNft'
 import ApprovalFlow from '@/views/marketplace/components/toolkit/approvals/ApprovalFlow'
 import ListBeneficiaries from '@/views/marketplace/components/toolkit/ListBeneficiaries'
-// import OfferHistory from '@/views/marketplace/components/toolkit/offers/OfferHistory'
-// import BidHistory from '@/views/marketplace/components/toolkit/bids/BidHistory'
 
 const STX_CONTRACT_NAME_V2 = process.env.VUE_APP_STACKS_CONTRACT_NAME_V2
 
@@ -93,11 +86,7 @@ export default {
     MintingFlow,
     MintingFlowV2,
     SellingFlow,
-    // OfferHistory,
-    // BidHistory,
-    // RisidioPay,
     AcceptOffer,
-    TransferNft,
     ApprovalFlow,
     ListBeneficiaries
     // ManageEditions

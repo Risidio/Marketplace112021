@@ -3,21 +3,9 @@
   <div class="">
     <div>
       <div>
-<!--
-        <template #header>
-          <ItemDisplay :item="item" :loopRun="loopRun"/>
-        </template> -->
-        <!-- <div class=" mt-0">
-          <RoyaltyScreen :errorMessage="errorMessage" :item="item" @mintToken="mintTwentyTokens" @editBeneficiary="editBeneficiary" @removeBeneficiary="removeBeneficiary" @updateBeneficiary="updateBeneficiary" @addNewBeneficiary="addNewBeneficiary" :beneficiaries="beneficiaries" v-if="displayCard !== 102"/>
-          <AddBeneficiaryScreen :errorMessage="errorMessage" :eBen="eBen" @addBeneficiary="addBeneficiary" :beneficiaries="beneficiaries" :item="item" v-if="displayCard === 102"/>
-        </div> -->
-
         <div class="mintingFlowContainer">
             <h3> Mint Your Artwork</h3>
           <div class="mintingContainer">
-            <!-- <ItemDisplay :item="items" :loopRun="loopRun"/> -->
-            <!-- <MediaItemGeneral :classes="'item-image-preview'" :options="options" :mediaItem="getMediaItem()"/> -->
-            <!-- <MediaItemGeneral :classes="'minting-item-image-preview'" :options="options" :mediaItem="mediaItem"/> -->
             <div class="galleryItemMint">
               <MediaItemGeneral :classes="'item-image-preview'" :options="options" :mediaItem="mediaItem"/>
               <h2 v-if="items[0].name" class="nFTName">{{items[0].name}}</h2>
@@ -25,10 +13,6 @@
             </div>
           </div>
           <div cols="6" class="px-8">
-            <div>
-              <RoyaltyScreen :errorMessage="errorMessage" :item="item" @mintToken="mintTwentyTokens" @editBeneficiary="editBeneficiary" @removeBeneficiary="removeBeneficiary" @updateBeneficiary="updateBeneficiary" @addNewBeneficiary="addNewBeneficiary" :beneficiaries="beneficiaries" v-if="displayCard !== 102"/>
-              <!-- <AddBeneficiaryScreen :errorMessage="errorMessage" :eBen="eBen" @addBeneficiary="addBeneficiary" :beneficiaries="beneficiaries" :item="item" v-if="displayCard === 102"/> -->
-            </div>
               <p style="font-weight: bold; text-align: center; max-width: 400px; margin: auto"> Beware! Once minted, NFT information cannot be changed. Make sure your information is correct!</p>
           </div>
         </div>
@@ -41,19 +25,15 @@
 
 <script>
 import { APP_CONSTANTS } from '@/app-constants'
-import RoyaltyScreen from './minting-screens/RoyaltyScreen'
-import AddBeneficiaryScreen from './minting-screens/AddBeneficiaryScreen'
-import ItemDisplay from './minting-screens/ItemDisplay'
+
 import utils from '@/services/utils'
 import MediaItemGeneral from '@/views/marketplace/components/media/MediaItemGeneral'
 
 export default {
   name: 'MintingFlow',
   components: {
-    RoyaltyScreen,
     // ItemDisplay,
     MediaItemGeneral
-    // AddBeneficiaryScreen
   },
   props: ['items', 'loopRun', 'mintAllocations', 'mediaItem'],
   data () {

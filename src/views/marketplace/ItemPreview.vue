@@ -40,7 +40,7 @@
           </div>
         </div>
         <p v-if="item.description" class="pt-4 text-small" v-html="preserveWhiteSpace(item.description)"></p>
-        <MintInfo :item="item" :loopRun="loopRun"/>
+        <!-- <MintInfo :item="item" :loopRun="loopRun"/> -->
 
         <PendingTransactionInfo class="mt-5" v-if="pending && pending.txStatus === 'pending'" :pending="pending"/>
         <div style="display: none">
@@ -70,18 +70,16 @@ import { APP_CONSTANTS } from '@/app-constants'
 import ItemActionMenu from '@/views/marketplace/components/update/ItemActionMenu'
 import PendingTransactionInfo from '@/views/marketplace/components/toolkit/nft-history/PendingTransactionInfo'
 import NftHistory from '@/views/marketplace/components/toolkit/nft-history/NftHistory'
-import MintInfo from '@/views/marketplace/components/toolkit/mint-setup/MintInfo'
+// import MintInfo from '@/views/marketplace/components/toolkit/mint-setup/MintInfo'
 import MintingTools from '@/views/marketplace/components/toolkit/MintingTools'
 import moment from 'moment'
 
 export default {
   name: 'ItemPreview',
   components: {
-    // MediaItemGeneral,
     NftHistory,
     MintingTools,
     PendingTransactionInfo,
-    MintInfo,
     ItemActionMenu
   },
   data: function () {

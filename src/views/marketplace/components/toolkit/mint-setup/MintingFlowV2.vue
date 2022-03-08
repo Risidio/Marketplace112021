@@ -8,10 +8,6 @@
             <ItemDisplay :item="null" :loopRun="loopRun"/>
           </b-col>
           <b-col cols="8" class="px-5">
-            <div class="bg-dark mt-0">
-              <RoyaltyScreen :errorMessage="errorMessage" :item="item" @mintToken="mintToken" @editBeneficiary="editBeneficiary" @removeBeneficiary="removeBeneficiary" @updateBeneficiary="updateBeneficiary" @addNewBeneficiary="addNewBeneficiary" :beneficiaries="beneficiaries" v-if="displayCard !== 102"/>
-              <AddBeneficiaryScreen :errorMessage="errorMessage" :eBen="eBen" @addBeneficiary="addBeneficiary" :beneficiaries="beneficiaries" :item="item" v-if="displayCard === 102"/>
-            </div>
           </b-col>
         </b-row>
       </b-card>
@@ -23,16 +19,12 @@
 
 <script>
 import { APP_CONSTANTS } from '@/app-constants'
-import RoyaltyScreen from './minting-screens/RoyaltyScreen'
-import AddBeneficiaryScreen from './minting-screens/AddBeneficiaryScreen'
 import ItemDisplay from './minting-screens/ItemDisplay'
 
 export default {
   name: 'MintingFlowV2',
   components: {
-    RoyaltyScreen,
-    ItemDisplay,
-    AddBeneficiaryScreen
+    ItemDisplay
   },
   props: ['items', 'loopRun', 'mintAllocations'],
   data () {
