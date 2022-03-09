@@ -48,8 +48,8 @@
             <b-dropdown id="dropdown-1" text="Featured Collections" class="bold" variant="transparent" toggle-class="text-white" size="lg" style="padding:0px; height:55%; margin: auto 10px; font-weight: 600;">
               <b-dropdown-item v-for="(loopRun, index) in allLoopRuns" :key="index" ><span style="margin-top: -1rem" v-if="loopRun.status !== 'disabled'" class="pointer" @click="showCollection(loopRun)"><span @click="linkTo(loopRun)">{{loopRun.currentRun}}</span></span></b-dropdown-item>
             </b-dropdown>
-            <router-link class="nav-items text-black thin" to="/how-it-works" style="margin-left: auto;" id="howItWorks">How It Works</router-link>
-            <router-link class="nav-items text-black thin" to="/about">About Risidio </router-link>
+            <router-link class="nav-items thin" to="/how-it-works" style="margin-left: auto;" id="howItWorks">How It Works</router-link>
+            <router-link class="nav-items text-black1 thin" to="/about">About Risidio </router-link>
             <!-- <div @click.prevent="startLogin(); events();" id="login" class =" nav-items text-black">Login</div> -->
             <!-- <div @mouseover="isHidden = !isHidden" @blur="isHidden = !isHidden" class=" nav-items navBtn text-black" id="register" v-on:click="startRegister()"> Connect with Hiro Wallet <div v-show="isHidden" class="registerTooltip"> Click Register to download the Hiro Wallet extension and get started!</div></div> -->
             <div @mouseover="isHidden = !isHidden" @blur="isHidden = !isHidden" class=" nav-items navBtn text-black" id="register" v-on:click="startRegister()"> CONNECT WITH HIRO WALLET </div>
@@ -291,6 +291,7 @@ export default {
   color: #5FBDC1;
   cursor: pointer;
   outline: none;
+  font-weight:bold;
 }
 .navBtn:hover{
   color: white;
@@ -420,11 +421,21 @@ export default {
   .toggle-button{
     display:flex;
   }
+  .thin{
+    margin-top: 5px;
+  }
+  .bold{
+    margin-top: 10px;
+  }
+.text-black1{
+  margin-top: -12px;
+}
+
   .text-black{
     margin-top: -12px;
   }
   .navBtn{
-    margin-top: 12px;
+    margin-top: 14px;
   }
   .mainNavbar{
     flex-direction:column;

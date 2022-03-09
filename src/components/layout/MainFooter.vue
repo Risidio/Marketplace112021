@@ -60,10 +60,10 @@
       <!-- MOBILE DESIGN LAST ROW -->
       <div class="col-12 d-flex d-lg-none flex-column align-items-center footer__bottom-row">
         <div>
-          <!-- <a href="https://discord.gg/qvuxB9P"><img :src="discordLogo" alt="discord-logo"></a>
-          <a href="https://www.instagram.com/risidio_official/"><img :src="instagramLogo" alt="instagram-logo"></a>
-          <a href="https://twitter.com/Risidio1"><img :src="twitterLogo" alt="twitter-logo"></a>
-          <a href="https://www.youtube.com/channel/UCrMDxxhMvpeyErw7m92IIXA/featured"><img :src="youtubeLogo" alt="youtube-logo"></a> -->
+          <a href="https://discord.gg/nmKx5WkPaG" target="_blank"><img :src="discordLogo" alt="discord-logo"></a>
+          <a href="https://www.instagram.com/risidio_official/" target="_blank"><img :src="instagramLogo" alt="instagram-logo"></a>
+          <a href="https://twitter.com/Risidio1" target="_blank"><img :src="twitterLogo" alt="twitter-logo"></a>
+          <!--<a href="https://www.youtube.com/channel/UCrMDxxhMvpeyErw7m92IIXA/featured"><img :src="youtubeLogo" alt="youtube-logo"></a> -->
         </div>
         <div>
           &copy; &nbsp; Risidio Ltd. All right reserved.
