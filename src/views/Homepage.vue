@@ -36,15 +36,9 @@ export default {
     }
   },
   mounted () {
-    this.findAssets()
     this.fetchFullRegistry()
   },
   methods: {
-    findAssets () {
-      this.$store.dispatch('rpaySearchStore/findByProjectId', STX_CONTRACT_ADDRESS + '.' + STX_CONTRACT_NAME).then((results) => {
-        this.resultSet = results.filter(result => result.attributes.artworkFile.fileUrl !== null)
-      })
-    },
     sortCollection (loopRun) {
       console.log(loopRun)
       const data = {
@@ -67,7 +61,7 @@ export default {
       this.$store.dispatch('rpayProjectStore/fetchProjectsByStatus', '').then((projects) => {
         $self.projects = utils.sortResults(projects)
         console.log(projects)
-        this.sortCollection(projects[16])
+        this.sortCollection(projects.find((project) => project.contractId === 'ST22QPESFJ8XKJDWR1MHVXV2S4NBE44BA944NS4D2.indigenew100'))
         $self.projects.forEach((p) => {
           const application = this.$store.getters[APP_CONSTANTS.KEY_APPLICATION_FROM_REGISTRY_BY_CONTRACT_ID](p.contractId)
           p.application = application

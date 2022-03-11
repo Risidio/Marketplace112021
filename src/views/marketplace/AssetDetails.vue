@@ -2,30 +2,19 @@
 <div id="asset-details">
   <div v-if="!loading && gaiaAsset && loopRun">
     <AssetDetailsSectionV1 :gaiaAsset="gaiaAsset" :loopRun="loopRun"/>
-    <ArtistSection id="artist-section" :parentPage="'about'" :artistId="getArtistPrismicId()" />
-    <CharitySection :showButton="false" id="charity-section" :artistId="getArtistPrismicId()" />
-    <!-- <section id="number-one-section" class="">
-      <NumberOneSection />
-    </section> -->
   </div>
 </div>
 </template>
 
 <script>
 import AssetDetailsSectionV1 from '@/views/marketplace/components/gallery/AssetDetailsSectionV1'
-import ArtistSection from '@/components/asset-details/ArtistSection'
-import CharitySection from '@/components/asset-details/CharitySection'
-// import NumberOneSection from '@/components/asset-details/NumberOneSection'
 import { APP_CONSTANTS } from '@/app-constants'
 
 export default {
   name: 'AssetDetails',
   components: {
-    AssetDetailsSectionV1,
-    CharitySection,
-    ArtistSection
-    // ,
-    // NumberOneSection
+    AssetDetailsSectionV1
+
   },
   data: function () {
     return {

@@ -101,8 +101,7 @@
 
 <script>
 import { APP_CONSTANTS } from '@/app-constants'
-import GalleryNft from '@/views/marketplace/components/gallery/GalleryNft'
-import CollectionSidebar from '@/views/marketplace/components/gallery/CollectionSidebar'
+// import CollectionSidebar from '@/views/marketplace/components/gallery/CollectionSidebar'
 import utils from '@/services/utils'
 
 export default {

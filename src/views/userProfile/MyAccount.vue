@@ -144,25 +144,15 @@
 </template>
 
 <script>
-// import GalleryNft from '@/components/marketplace/GalleryNft'
-// import MyWalletNfts from '@/views/marketplace/components/gallery/MyWalletNfts'
+
 import MyPageableItems from '@/views/marketplace/components/gallery/MyPageableItems'
 import { APP_CONSTANTS } from '@/app-constants'
-// import RatesListing from '@/views/marketplace/components/toolkit/RatesListing'
 import utils from '@/services/utils'
-
-// import MySingleItem from '@/views/marketplace/components/gallery/MySingleItem'
-// const STX_CONTRACT_ADDRESS = process.env.VUE_APP_STACKS_CONTRACT_ADDRESS
-// const STX_CONTRACT_NAME = process.env.VUE_APP_STACKS_CONTRACT_NAME
-// const LOOP_RUN_DEF = process.env.VUE_APP_DEFAULT_LOOP_RUN
 
 export default {
   name: 'MyAccount',
   components: {
-    // MyWalletNfts
-    // MySingleItem
     MyPageableItems
-    // RatesListing
   },
   data () {
     return {

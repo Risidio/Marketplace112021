@@ -57,12 +57,10 @@
 
 <script>
 import { APP_CONSTANTS } from '@/app-constants'
-// import SellingOptions from './selling-screens/SellingOptions'
 
 export default {
   name: 'SellingFlow',
   components: {
-    // SellingOptions
   },
   props: ['contractAsset', 'attributes', 'item', 'loopRun'],
   data () {

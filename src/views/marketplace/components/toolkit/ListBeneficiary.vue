@@ -31,12 +31,7 @@
       <b-row v-else>
         <b-col>{{beneficiary.chainAddress}}</b-col>
       </b-row>
-      <!--
-      <b-row v-if="beneficiary.email">
-        <b-col md="3" sm="12">Email</b-col>
-        <b-col md="9" sm="12" class="">{{beneficiary.email}}</b-col>
-      </b-row>
-      -->
+
     </b-col>
   </b-row>
 </div>

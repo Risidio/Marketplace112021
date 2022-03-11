@@ -1,7 +1,6 @@
 <template>
 <div v-if="!loading">
   <div v-if="flowType === 1">
-    <PurchaseOfferLogin :offerData="offerData" @registerByEmail="registerByEmail" @registerByConnect="registerByConnect" @backStep="backStep"/>
   </div>
   <div v-else>
     <div >
@@ -20,7 +19,6 @@
 <script>
 import { APP_CONSTANTS } from '@/app-constants'
 import PurchaseBuyNow from './PurchaseBuyNow'
-import PurchaseOfferLogin from './PurchaseOfferLogin'
 
 const STX_CONTRACT_ADDRESS = process.env.VUE_APP_STACKS_CONTRACT_ADDRESS
 const STX_CONTRACT_NAME = process.env.VUE_APP_STACKS_CONTRACT_NAME
@@ -28,7 +26,6 @@ const STX_CONTRACT_NAME = process.env.VUE_APP_STACKS_CONTRACT_NAME
 export default {
   name: 'PurchaseFlow',
   components: {
-    PurchaseOfferLogin,
     PurchaseBuyNow
   },
   props: ['gaiaAsset', 'forceOfferFlow', 'loopRun'],
