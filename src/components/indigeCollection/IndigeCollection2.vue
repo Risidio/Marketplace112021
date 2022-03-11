@@ -47,7 +47,7 @@ import { APP_CONSTANTS } from '@/app-constants'
 // import MediaItemGeneral from '@/views/marketplace/components/media/MediaItemGeneral'
 export default {
   name: 'Indige-Collection-S2',
-  props: ['content', 'projects'],
+  props: ['content', 'projects', 'resultSet'],
   components: {
     // MediaItemGeneral
   },
@@ -56,10 +56,9 @@ export default {
       tab: 'unsold',
       currentRunAssets: [],
       loopRun: [],
-      resultSet: [],
       numberOfItems: 0,
       loading: true,
-      pageSize: 16
+      pageSize: 20
     }
   },
   mounted () {
@@ -75,24 +74,6 @@ export default {
     setPageSize () {
       this.pageSize += 10
       this.getAssets()
-    },
-    getAssets () {
-      this.$store.dispatch('rpayCategoryStore/fetchLoopRun', 'indigenew100').then((loopRun) => {
-        this.loopRun = loopRun
-        const data = {
-          contractId: loopRun.contractId,
-          asc: true,
-          runKey: loopRun.currentRunKey,
-          page: 0,
-          pageSize: this.pageSize
-        }
-        this.resultSet = null
-        this.$store.dispatch('rpayStacksContractStore/fetchTokensByContractId', data).then((result) => {
-          this.resultSet = result.gaiaAssets
-          this.numberOfItems = result.tokenCount
-          this.loading = false
-        })
-      })
     },
     assetUrl (item) {
       if (item.contractAsset) {

@@ -39,7 +39,7 @@
                                 alt="Tiger-BitStacks-By-Benny"
                                 class="collectionImage"/>
                                 <img
-                                src="https://res.cloudinary.com/risidio/image/upload/v1640003055/RisidioMarketplace/Tiger_BitStacks_By_Benny_d8rprd.png"
+                                src="https://res.cloudinary.com/risidio/image/upload/v1646910262/RisidioMarketplace/genesis-1_gxeluk.jpg"
                                 alt="Tiger-BitStacks-By-Benny"
                                 class="collectionImage collectionImageFront"/>
                               </div>

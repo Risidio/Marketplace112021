@@ -49,7 +49,7 @@ export default {
   components: {
     RatesListing
   },
-  props: ['contractAsset', 'gaiaAsset'],
+  props: ['contractAsset', 'gaiaAsset', 'listing'],
   data () {
     return {
       loading: true,

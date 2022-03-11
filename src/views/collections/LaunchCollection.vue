@@ -1,8 +1,8 @@
 <template>
     <div>
-        <LaunchCollection1 :content="content" :gaiaAssets="gaiaAssets"/>
+        <LaunchCollection1 :content="content" :numberOfItems="numberOfItems"/>
         <LaunchCollection2
-        :gaiaAssets="gaiaAssets"
+        :resultSet="resultSet"
         :filteredUnSoldLaunch="filteredUnSoldLaunch"
         :filteredLaunch="filteredLaunch"
         :content="content"/>
@@ -24,26 +24,41 @@ export default {
   },
   data () {
     return {
+      currentRunAssets: [],
+      loopRun: [],
+      resultSet: [],
+      numberOfItems: 0,
+      loading: true,
+      pageSize: 20
     }
   },
+  mounted () {
+    this.getAssets()
+  },
   methods: {
+    getAssets () {
+      this.$store.dispatch('rpayCategoryStore/fetchLoopRun', 'numberone_roots').then((loopRun) => {
+        this.loopRun = loopRun
+        const data = {
+          contractId: loopRun.contractId,
+          asc: true,
+          runKey: loopRun.currentRunKey,
+          page: 0,
+          pageSize: this.pageSize
+        }
+        this.resultSet = null
+        this.$store.dispatch('rpayStacksContractStore/fetchTokensByContractId', data).then((result) => {
+          this.resultSet = result.gaiaAssets
+          this.numberOfItems = result.tokenCount
+          this.loading = false
+        })
+      })
+    }
   },
   computed: {
     content () {
       const content = this.$store.getters[APP_CONSTANTS.KEY_CONTENT_LAUNCH_COLLECTION]
       return content
-    },
-    gaiaAssets () {
-      const assets = this.$store.getters[APP_CONSTANTS.KEY_GAIA_ASSETS].filter((assets) => assets.attributes.collection === 'launch_collection_t1/risidio')
-      return (assets) ? assets.reverse() : []
-    },
-    filteredLaunch () {
-      const filteredAssets = this.gaiaAssets.slice(0, 12)
-      return filteredAssets
-    },
-    filteredUnSoldLaunch () {
-      const unsoldLaunch = this.gaiaAssets.filter((assets) => assets.attributes.buyNowPrice > 0).slice(0, 12)
-      return unsoldLaunch
     }
   }
 }

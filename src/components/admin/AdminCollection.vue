@@ -67,13 +67,31 @@ export default {
   data () {
     return {
       currentRun: [],
-      currentRunAssets: []
+      currentRunAssets: [],
+      sipTokens: null,
+      sipToken: null,
+      loading: true
     }
   },
   mounted () {
-    this.currentRun = this.allLoopRuns[1]
+    this.getSipTenTokens()
+    this.currentRun = this.allLoopRuns.find((loopRun) => loopRun.contractId === 'ST1NXBK3K5YYMD6FD41MVNP3JS1GABZ8TRVX023PT.indige-btc')
   },
   methods: {
+    getSipTenTokens () {
+      this.$store.dispatch('rpayMarketGenFungStore/sipTenTokenFindBy').then((sipTenTokens) => {
+        console.log(sipTenTokens[1])
+        console.log('hi')
+        if (sipTenTokens) {
+          this.sipTenTokens = sipTenTokens
+          this.sipTenToken = sipTenTokens[2]
+          this.$notify({ type: 'success', title: 'Available Tokens', text: 'List NFT for x tokens' })
+        }
+        this.sipTokens = sipTenTokens
+        this.sipToken = sipTenTokens[2]
+        this.loading = false
+      })
+    },
     selectedCollection (selected) {
       this.currentRun = selected
       this.getAssets(selected)
@@ -93,29 +111,30 @@ export default {
         })
     },
     buyNFT (currentRun, nft) {
+      this.getSipTenTokens()
       console.log(currentRun)
       const data = {
         commissionContractAddress: currentRun.commissionContractId.split('.')[0],
         commissionContractName: currentRun.commissionContractId.split('.')[1],
+        tokenContractAddress: this.sipToken.contractId.split('.')[0],
+        tokenContractName: this.sipToken.contractId.split('.')[1],
         owner: currentRun.owner,
         nftIndex: nft.contractAsset.nftIndex,
         price: nft.contractAsset.listingInUstx.price,
         sendAsSky: true, // only applicable in local
-        contractAddress: nft.contractAsset.contractId.split('.')[0],
-        contractName: nft.contractAsset.contractId.split('.')[1],
-        functionName: 'buy-in-ustx',
-        assetName: nft.contractAsset.contractId.split('.')[1],
-        batchOption: 1
+        contractAddress: this.currentRun.contractId.split('.')[0],
+        contractName: this.currentRun.contractId.split('.')[1],
+        assetName: this.currentRun.contractId.split('.')[1],
+        sipTenToken: this.sipToken,
+        sipTenTokens: this.sipTokens
       }
       this.$store
-        .dispatch('rpayMarketStore/buyInUstx', data)
+        .dispatch('rpayMarketGenFungStore/buyInToken', data)
         .then(result => {
           this.result = result
-          this.flowType = 2
         })
         .catch(err => {
-          this.errorMessage = err
-          this.flowType = 3
+          console.log(err)
         })
     },
     listNFT (currentRun, nft) {

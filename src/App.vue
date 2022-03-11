@@ -27,13 +27,9 @@
   <!-- {{sig}} -->
 </div>
 </template>
-<script>
-// import SuccessModal from '@/components/utils/SuccessModal'
-// import WaitingModal from '@/components/utils/WaitingModal'
-// import RisidioPay from 'risidio-pay'
-import { APP_CONSTANTS } from '@/app-constants'
-// import MessageTicker from '@/views/marketplace/components/gallery/common/MessageTicker'
 
+<script>
+import { APP_CONSTANTS } from '@/app-constants'
 const RisidioPay = () => import('risidio-pay')
 
 export default {
@@ -55,7 +51,6 @@ export default {
   },
   mounted () {
     this.setupEventListener()
-    // this.resizeContainers()
     this.readPrismicContent()
   },
   methods: {
@@ -75,21 +70,6 @@ export default {
               $self.configured = true
             })
           }
-          /**
-          } else if (data.opcode === 'stx-transaction-finished') {
-            const txResult = $self.$store.getters[APP_CONSTANTS.KEY_TRANSACTION_DIALOG_MESSAGE]({ dKey: data.opcode, txId: data.txId })
-            $self.$store.commit('setModalMessage', txResult)
-          } else if (data.opcode === 'stx-transaction-sent') {
-            const txResult = $self.$store.getters[APP_CONSTANTS.KEY_TRANSACTION_DIALOG_MESSAGE]({ dKey: data.opcode, txId: data.txId })
-            $self.$store.commit('setModalMessage', txResult)
-          } else if (data.opcode === 'stx-transaction-error') {
-            const txResult = $self.$store.getters[APP_CONSTANTS.KEY_TRANSACTION_DIALOG_MESSAGE]({ dKey: data.opcode, txId: data.txId })
-            $self.$store.commit('setModalMessage', txResult)
-          } else if (data.opcode === 'configured-logged-in') {
-            $self.$store.commit('rpayAuthStore/setAuthResponse', data.session)
-            $self.$store.dispatch('rpayAuthStore/fetchMyAccount')
-          }
-          **/
         })
       }
     },

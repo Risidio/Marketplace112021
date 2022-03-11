@@ -5,7 +5,7 @@
   <div v-else>
     <div >
       <div v-if="contractAsset && contractAsset.listingInUstx" class="modall">
-        <PurchaseBuyNow :gaiaAsset="gaiaAsset" :contractAsset="contractAsset" :listingInUstx="contractAsset.listingInUstx" @buyNow="buyNow"/>
+        <PurchaseBuyNow :gaiaAsset="gaiaAsset" :contractAsset="contractAsset" :listingInUstx="contractAsset.listingInUstx" @buyNow="buyNow" :listing="listing"/>
         <div class="text-danger" v-html="errorMessage"></div>
       </div>
       <div v-else>
@@ -28,7 +28,7 @@ export default {
   components: {
     PurchaseBuyNow
   },
-  props: ['gaiaAsset', 'forceOfferFlow', 'loopRun'],
+  props: ['gaiaAsset', 'forceOfferFlow', 'loopRun', 'listing'],
   data () {
     return {
       errorMessage: null,
@@ -72,15 +72,19 @@ export default {
           contractName: contractAsset.contractId.split('.')[1],
           commissionContractAddress: this.loopRun.commissionContractId.split('.')[0],
           commissionContractName: this.loopRun.commissionContractId.split('.')[1],
+          tokenContractAddress: this.loopRun.commissionContractId.split('.')[0],
+          tokenContractName: this.loopRun.commissionContractId.split('.')[1],
           assetName: this.loopRun.assetName,
           owner: contractAsset.owner,
-          price: contractAsset.listingInUstx.price,
-          nftIndex: contractAsset.nftIndex
+          price: this.listing.result.value.value.price.value,
+          nftIndex: contractAsset.nftIndex,
+          sendAsSky: true
         }
-        this.$store.dispatch('rpayMarketStore/buyInUstx', buyNowData).then((result) => {
+        this.$store.dispatch('rpayMarketGenFungStore/buyInToken', buyNowData).then((result) => {
           this.result = result
           this.flowType = 2
         }).catch((err) => {
+          console.log(err)
           this.errorMessage = err
           this.flowType = 3
         })
