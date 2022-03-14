@@ -5,13 +5,13 @@
             <div class="artistContainer">
                 <h1 class="collectionName">The Launch Collection </h1>
                 <img @click="showArtistInfo()" alt="Collection Image"
-                src="https://res.cloudinary.com/risidio/image/upload/q_auto:eco/f_auto/RisidioMarketplace/Tiger_BitStacks_By_Benny_d8rprd.png"  class="circleImage"/>
-                <p class="collectionArtist show" id="artistName"> Benny </p>
+                src="https://res.cloudinary.com/risidio/image/upload/f_auto/RisidioMarketplace/genesis-1_gxeluk.jpg"  class="circleImage"/>
+                <p class="collectionArtist show" id="artistName"> Chemical X </p>
                 <div class="artistInfo" id="artistInfo">
                     <p @click="showArtistInfo()" class="close-btn" >x</p>
-                    <img alt="Collection Image" src="https://res.cloudinary.com/risidio/image/upload/q_auto:eco/f_auto/RisidioMarketplace/Tiger_BitStacks_By_Benny_d8rprd.png" class="circleImageInfo"/>
+                    <img alt="Collection Image" src="https://res.cloudinary.com/risidio/image/upload/f_auto/RisidioMarketplace/genesis-1_gxeluk.jpg" class="circleImageInfo"/>
                     <div>
-                        <p class="collectionInfo1"> Benny </p>
+                        <p class="collectionInfo1"> Chemical X </p>
                         <p class="collectionInfo2"> {{content.artistinfo[0].artistdescription[0].text}}</p>
                     </div>
                     <div class="icons">
@@ -39,15 +39,15 @@
         <div class="numbers">
             <div class="floorPrice">
                 <p> Floor Price</p>
-                <p> <span>2,583 STX</span></p>
+                <p> <span>0 STX</span></p>
             </div>
             <div class="owners">
                 <p> Owners </p>
-                <p> <span>20</span> </p>
+                <p> <span>1</span> </p>
             </div>
             <div class="items">
                 <p> Items</p>
-                <p> <span>{{gaiaAssets.length}}</span> </p>
+                <p> <span>{{numberOfItems}}</span> </p>
             </div>
         </div>
     </div>
@@ -57,7 +57,7 @@
 <script>
 export default {
   name: 'Launch-Collection-S1',
-  props: ['content', 'gaiaAssets'],
+  props: ['content', 'numberOfItems'],
   data () {
     return {
       background: 'https://res.cloudinary.com/risidio/image/upload/v1640097610/RisidioMarketplace/pexels-photo-1183992_myd1vf.jpg',

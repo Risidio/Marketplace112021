@@ -39,10 +39,10 @@
                     <b-button v-b-tooltip.hover="{ variant: 'light' }" :title="ttWalletHelp" class="w-100" style="height: 61px;" variant="outline-light"><a :href="webWalletLink" class="text-white" target="_blank">Get Stacks Web Wallet <b-icon class="ml-3" icon="arrow-up-right-square-fill"/></a></b-button>
                   </b-col>
                   <b-col class="priceSection" v-if="getSaleType() > 0">
-                    <p class="basePrice"> Price <span> STX  <span> {{(gaiaAsset.contractAsset.listingInUstx.price / 1.10).toFixed(0)}}</span></span></p>
-                    <p class="feePrice"> Fees <span>STX {{gaiaAsset.contractAsset.listingInUstx.price - (gaiaAsset.contractAsset.listingInUstx.price / 1.10).toFixed(0)}}</span></p>
+                    <p class="basePrice"> Price <span> STX  <span> {{listing.result.value.value.price.value}}</span></span></p>
+                    <p class="feePrice"> Fees <span>STX {{listing.result.value.value.price.value}}</span></p>
                     <hr/>
-                    <p class="fullPrice"><span> STX <span>{{gaiaAsset.contractAsset.listingInUstx.price}}</span></span></p>
+                    <p class="fullPrice"><span> STX <span>{{listing.result.value.value.price.value}}</span></span></p>
                   </b-col>
                   <b-col md="6" sm="6" class="mb-3 text-center" v-if="getSaleType() > 0">
                     <button class="button filled" :title="ttBiddingHelp" @click="openPurchaseDialog()" >{{salesButtonLabel}}</button>
@@ -58,12 +58,13 @@
       </b-col>
     </b-row>
   <b-modal id="asset-offer-modal" class="modal text-left">
-    <PurchaseFlow v-if="showRpay === 1" :gaiaAsset="gaiaAsset" :loopRun="loopRun" :forceOfferFlow="forceOfferFlow"/>
+    <PurchaseFlow v-if="showRpay === 1" :gaiaAsset="gaiaAsset" :loopRun="loopRun" :forceOfferFlow="forceOfferFlow" :listing="listing"/>
     <AssetUpdatesModal v-if="showRpay === 2" @registerForUpdates="registerForUpdates"/>
     <template #modal-header="{ close }">
       <div class=" text-warning w-100 d-flex justify-content-end">
         <b-button size="sm" variant="white" @click="close()"  class="m-0 p-1 text-dark" style="max-width: 30px !important; max-height: 30px !important;">
-          <img :src="cross" class="filter-black" alt="close" style="max-width: 20px !important; max-height: 20px !important;"/>
+          <!-- <img :src="cross" class="filter-black" alt="close" style="max-width: 20px !important; max-height: 20px !important;"/> -->
+          X
         </b-button>
       </div>
     </template>
@@ -109,7 +110,7 @@ export default {
     PurchaseFlow,
     MediaItemGeneral
   },
-  props: ['gaiaAsset', 'loopRun'],
+  props: ['gaiaAsset', 'loopRun', 'listing'],
   data: function () {
     return {
       showDownload: false,
@@ -251,8 +252,8 @@ export default {
       this.$bvModal.show('asset-offer-modal', { assetHash: this.assetHash })
     },
     getSaleType: function () {
-      if (this.gaiaAsset.contractAsset.listingInUstx) {
-        return this.gaiaAsset.contractAsset.listingInUstx.price
+      if (this.listing.result.value) {
+        return this.listing.result.value.value.price.value
       }
       return 0
     },

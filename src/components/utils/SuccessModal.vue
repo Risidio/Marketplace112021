@@ -10,7 +10,8 @@
     <template #modal-header="{ close }">
       <div class="text-black text-warning w-100 d-flex justify-content-end">
         <b-button size="sm" @click="close()"  class="m-0 p-1 text-dark" style="background: #fff; border:none; max-width: 30px !important; max-height: 30px !important;">
-          <img class="filter-black" :src="cross" alt="close" style="max-width: 20px !important; max-height: 20px !important;"/>
+          <!-- <img class="filter-black" :src="cross" alt="close" style="max-width: 20px !important; max-height: 20px !important;"/> -->
+          X
         </b-button>
       </div>
     </template>

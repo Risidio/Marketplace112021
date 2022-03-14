@@ -10,11 +10,11 @@
             </b-nav>
         </div>
         <div class="homeMarketItems">
-            <div class="galleryContainer" v-if="filteredLaunch.length > 0 && tab === 'all'">
-                <div v-for="(item, index) in filteredLaunch" :key="index" class="NFTbackgroundColour" >
+            <div class="galleryContainer" v-if="resultSet.length > 0 && tab === 'all'">
+                <div v-for="(item, index) in resultSet" :key="index" class="NFTbackgroundColour" >
                     <div class="">
-                        <b-link class="galleryNFTContainer" v-if="item && item.contractAsset && item.attributes">
-                            <MediaItemGeneral :classes="'nftGeneralView'" v-on="$listeners" :mediaItem="item.attributes"/>
+                        <b-link class="galleryNFTContainer" v-if="item && item.contractAsset" :to="assetUrl(item)">
+                            <img class="nftGeneralView" v-on="$listeners" :src="item.image"/>
                     <p class="nFTName"> {{!item.name ? "NFT" : item.name }} <span style="float: right;">{{item.contractAsset.saleData.buyNowOrStartingPrice}} STX</span>
                     <!-- <span>$ {{item.contractAsset.saleData.buyNowOrStartingPrice * 1.9}}</span></p> -->
                     <p class="nFTArtist">By <span>{{!item.artist ? "Anonymous" : item.artist }}</span> </p>
@@ -22,11 +22,11 @@
                     </div>
                 </div>
             </div>
-            <div class="galleryContainer" v-if="filteredUnSoldLaunch.length > 0 && tab === 'unsold'">
-                <div v-for="(item, index) in filteredUnSoldLaunch" :key="index" class="NFTbackgroundColour" >
+            <div class="galleryContainer" v-if="resultSet.length > 0 && tab === 'unsold'">
+                <div v-for="(item, index) in resultSet" :key="index" class="NFTbackgroundColour" >
                     <div class="">
-                        <b-link class="galleryNFTContainer" v-if="item && item.contractAsset && item.attributes">
-                            <MediaItemGeneral :classes="'nftGeneralView'" v-on="$listeners" :mediaItem="item.attributes"/>
+                        <b-link class="galleryNFTContainer" v-if="item && item.contractAsset" :to="assetUrl(item)">
+                            <img class="nftGeneralView" v-on="$listeners" :src="item.image"/>
                     <p class="nFTName"> {{!item.name ? "NFT" : item.name }} <span style="float: right;">{{item.contractAsset.saleData.buyNowOrStartingPrice}} STX</span>
                     <!-- <span>$ {{item.contractAsset.saleData.buyNowOrStartingPrice * 1.9}}</span></p> -->
                     <p class="nFTArtist">By <span>{{!item.artist ? "Anonymous" : item.artist }}</span> </p>
@@ -40,12 +40,11 @@
 </template>
 
 <script>
-import MediaItemGeneral from '@/views/marketplace/components/media/MediaItemGeneral'
+
 export default {
   name: 'Launch-Collection-S2',
-  props: ['content', 'gaiaAssets', 'filteredUnSoldLaunch', 'filteredLaunch'],
+  props: ['content', 'resultSet'],
   components: {
-    MediaItemGeneral
   },
   data () {
     return {
@@ -62,21 +61,10 @@ export default {
       document.getElementById('all').classList.remove('active')
       document.getElementById(tab).classList.add('active')
     },
-    findAssets () {
-      const data = {
-        contractId: 'ST22QPESFJ8XKJDWR1MHVXV2S4NBE44BA944NS4D2.test_collections7',
-        nftIndex: 2,
-        page: 0,
-        pageSize: 10,
-        stxAddress: 'ST22QPESFJ8XKJDWR1MHVXV2S4NBE44BA944NS4D2',
-        mine: 'ST22QPESFJ8XKJDWR1MHVXV2S4NBE44BA944NS4D2'
+    assetUrl (item) {
+      if (item.contractAsset) {
+        return '/nfts/' + item.contractAsset.contractId + '/' + item.contractAsset.nftIndex
       }
-      this.$store.dispatch('rpayStacksContractStore/fetchTokensByContractId', data).then((data) => {
-        console.log('Normal')
-        console.log(data)
-      }).catch((error) => {
-        console.log(error.message)
-      })
     }
   }
 }

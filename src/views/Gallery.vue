@@ -240,7 +240,7 @@ export default {
       this.$store.dispatch('rpayProjectStore/fetchProjectsByStatus', '').then((projects) => {
         $self.projects = utils.sortResults(projects)
         console.log(projects)
-        this.sortCollection(projects[16])
+        this.sortCollection(projects.find((project) => project.contractId === 'ST1NXBK3K5YYMD6FD41MVNP3JS1GABZ8TRVX023PT.indige-btc'))
         $self.projects.forEach((p) => {
           const application = this.$store.getters[APP_CONSTANTS.KEY_APPLICATION_FROM_REGISTRY_BY_CONTRACT_ID](p.contractId)
           p.application = application
@@ -475,12 +475,6 @@ transition: all smooth 2s ease-in-out;
 .grid-length-2{
   grid-column-end: span 2;
 }
-// .grid-length-3{
-//   grid-column-end: span 3;
-// }
-// .grid-length-4{
-//   grid-column-end: span 4;
-// }
 .grid-height-2{
   grid-row-end: span 3;
 }.grid-height-3{
