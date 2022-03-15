@@ -78,36 +78,6 @@
             </b-link>
             </div>
         </div>
-          <!-- <router-link to="/gallery" style="font: normal normal bold 11px/14px Montserrat; display: block; text-align: center; margin-top: 50px"><span style="color: #5FBDC1; ">Want More ? See The Gallery</span></router-link> -->
-        <!-- <div class="addNewContainer">
-          <router-link to="/create">
-            <p style="font-size: 150px; margin-top: 20px;font-weight: 300; color: grey;">&plus;</p>
-            <p style="font-weight: 500; margin-top: 30px;"> Add new NFT</p>
-            <p style="font-weight: 300;"> Do you have your own item and would like to add it to the marketplace? Mint it now!</p>
-          </router-link>
-          <div>
-            <p style="font-weight: 500;">Create a collection</p>
-            <p style="font-weight: 300;">create your own collection of artworks </p>
-          </div>
-        </div> -->
-        <!-- <div v-for="(item, index) in gaiaAssetNotMinted" :key="index"  >
-          <div v-if="!item.mintInfo" class="NFTbackgroundColour">
-            <div class="galleryNFTContainer">
-              <router-link v-bind:to="'/item-preview/' + item.assetHash + '/' + 0" ><img :src="item.image" class="nftGeneralView" style=""/></router-link>
-              <p style="font-size: 10px; padding: 0; margin: 0; float: right"> Not Minted </p>
-              <p class="nFTName"> {{item.name || 'Not named'}} </p>
-              <p class="nFTArtist">By <span style="font-weight:600">{{item.artist || 'Not named'}}</span></p>
-            </div>
-          </div>
-          <div v-else class="NFTbackgroundColour isNFT">
-            <div class="galleryNFTContainer">
-              <router-link v-bind:to="'/item-preview/' + item.assetHash + '/' + 0" ><img :src="item.image" class="nftGeneralView" style=""/></router-link>
-              <p style="font-size: 10px; padding: 0; margin: 0; float: right"> Minting In Progress </p>
-              <p class="nFTName"> {{item.name || 'Not named'}}</p>
-              <p class="nFTArtist">By <span style="font-weight:600">{{item.artist || 'Not named'}}</span></p>
-            </div>
-          </div>
-        </div> -->
       </div>
       <div v-else-if="saleItem.length === 0 && tab === 'Sale'">
         <div class="noNFT">
@@ -138,9 +108,6 @@
       </div>
     </div>
   </div>
-  <div v-else>
-    {{location.reload()}}
-  </div>
 </template>
 
 <script>
@@ -165,7 +132,6 @@ export default {
       tab: 'NFT',
       pageSize: 20,
       loopRun: null,
-      filteredAssets: [],
       numberOfItems: null,
       tokenCount: null,
       resultSet: [],
@@ -371,12 +337,12 @@ export default {
       const stxToBtc = tickerRates[0].stxPrice / tickerRates[0].last
       options.push({
         text: 'BTC',
-        value: utils.toDecimals(stxToBtc * profile.accountInfo.balance, 100000)
+        value: utils.toDecimals(stxToBtc * profile?.accountInfo?.balance, 100000)
       })
       const stxToETh = tickerRates[0].stxPrice / tickerRates[0].ethPrice
       options.push({
         text: 'ETH',
-        value: utils.toDecimals(stxToETh * profile.accountInfo.balance, 100000)
+        value: utils.toDecimals(stxToETh * profile?.accountInfo?.balance, 100000)
       })
       tickerRates.forEach((rate) => {
         options.push({

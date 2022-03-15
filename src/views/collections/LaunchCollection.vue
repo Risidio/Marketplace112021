@@ -3,8 +3,6 @@
         <LaunchCollection1 :content="content" :numberOfItems="numberOfItems"/>
         <LaunchCollection2
         :resultSet="resultSet"
-        :filteredUnSoldLaunch="filteredUnSoldLaunch"
-        :filteredLaunch="filteredLaunch"
         :content="content"/>
     </div>
 </template>
@@ -13,8 +11,7 @@
 import { APP_CONSTANTS } from '@/app-constants'
 import LaunchCollection1 from '@/components/launchCollection/LaunchCollection1.vue'
 import LaunchCollection2 from '@/components/launchCollection/LaunchCollection2.vue'
-const STX_CONTRACT_ADDRESS = process.env.VUE_APP_STACKS_CONTRACT_ADDRESS
-const STX_CONTRACT_NAME = process.env.VUE_APP_STACKS_CONTRACT_NAME
+import utils from '@/services/utils'
 
 export default {
   name: 'Launch-Collection',
@@ -33,26 +30,38 @@ export default {
     }
   },
   mounted () {
-    this.getAssets()
+    this.fetchFullRegistry()
   },
   methods: {
-    getAssets () {
-      this.$store.dispatch('rpayCategoryStore/fetchLoopRun', 'numberone_roots').then((loopRun) => {
-        this.loopRun = loopRun
-        const data = {
-          contractId: loopRun.contractId,
-          asc: true,
-          runKey: loopRun.currentRunKey,
-          page: 0,
-          pageSize: this.pageSize
-        }
-        this.resultSet = null
-        this.$store.dispatch('rpayStacksContractStore/fetchTokensByContractId', data).then((result) => {
-          this.resultSet = result.gaiaAssets
-          this.numberOfItems = result.tokenCount
-          this.loading = false
-        })
+    sortCollection (loopRun) {
+      const data = {
+        contractId: loopRun.contractId,
+        asc: true,
+        runKey: loopRun ? loopRun.currentRunKey : null,
+        page: 0,
+        pageSize: 30
+      }
+      this.resultSet = null
+      this.$store.dispatch('rpayStacksContractStore/fetchTokensByContractId', data).then((result) => {
+        console.log(result)
+        this.resultSet = result.gaiaAssets.slice(0, 12)
+        this.numberOfItems = result.tokenCount
+        this.loading = false
       })
+    },
+    fetchFullRegistry () {
+      const $self = this
+      this.$store.dispatch('rpayProjectStore/fetchProjectsByStatus', '').then((projects) => {
+        $self.projects = utils.sortResults(projects)
+        console.log(projects)
+        this.sortCollection(projects.find((project) => project.contractId === 'ST1NXBK3K5YYMD6FD41MVNP3JS1GABZ8TRVX023PT.thisisnumberone-roots'))
+        $self.projects.forEach((p) => {
+          const application = this.$store.getters[APP_CONSTANTS.KEY_APPLICATION_FROM_REGISTRY_BY_CONTRACT_ID](p.contractId)
+          p.application = application
+        })
+        $self.loaded = true
+      })
+      console.log('registry')
     }
   },
   computed: {

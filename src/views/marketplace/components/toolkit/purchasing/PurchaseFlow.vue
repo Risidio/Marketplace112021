@@ -68,17 +68,19 @@ export default {
         })
       } else {
         const buyNowData = {
-          contractAddress: contractAsset.contractId.split('.')[0],
-          contractName: contractAsset.contractId.split('.')[1],
-          commissionContractAddress: this.loopRun.commissionContractId.split('.')[0],
-          commissionContractName: this.loopRun.commissionContractId.split('.')[1],
-          tokenContractAddress: this.loopRun.commissionContractId.split('.')[0],
-          tokenContractName: this.loopRun.commissionContractId.split('.')[1],
-          assetName: this.loopRun.assetName,
+          // contractAddress: currentRun.contractId.split('.')[0],
+          // contractName: currentRun.contractId.split('.')[1],
+          // commissionContractAddress: commission.split('.')[0],
+          // commissionContractName: commission.split('.')[1],
+          tokenContractAddress: (contractAsset.listingInUstx.token) ? contractAsset.listingInUstx.token.split('.')[0] : null,
+          tokenContractName: (contractAsset.listingInUstx.token) ? contractAsset.listingInUstx.token.split('.')[1] : null,
           owner: contractAsset.owner,
-          price: this.listing.result.value.value.price.value,
           nftIndex: contractAsset.nftIndex,
-          sendAsSky: true
+          price: contractAsset.listingInUstx.price,
+          sendAsSky: true, // only applicable in local
+          // assetName: currentRun.assetName,
+          decimals: contractAsset.listingInUstx.decimals,
+          tokenAssetName: contractAsset.listingInUstx.name
         }
         this.$store.dispatch('rpayMarketGenFungStore/buyInToken', buyNowData).then((result) => {
           this.result = result

@@ -159,7 +159,7 @@ export default {
         contractName: this.item.contractAsset.contractId.split('.')[1],
         nftIndex: this.item.contractAsset.nftIndex
       }
-      this.$store.dispatch('rpayMarketStore/unlistInUstx', data).then((result) => {
+      this.$store.dispatch('rpayMarketGenFungStore/unlistInToken', data).then((result) => {
         this.result = result
       }).catch((error) => {
         console.log(error)

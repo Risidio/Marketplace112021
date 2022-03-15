@@ -3,7 +3,8 @@
         <IndigeCollection1 :content="content" :numberOfItems="numberOfItems"/>
         <IndigeCollection2
         :resultSet="resultSet"
-        :content="content"/>
+        :content="content"
+        :loopRun="loopRun"/>
     </div>
 </template>
 
@@ -34,26 +35,18 @@ export default {
   },
   methods: {
     sortCollection (loopRun) {
-      console.log(loopRun)
+      this.loopRun = loopRun
       const data = {
         contractId: loopRun.contractId,
         asc: true,
         runKey: loopRun ? loopRun.currentRunKey : null,
         page: 0,
-        pageSize: 60
+        pageSize: 51
       }
       this.resultSet = null
       this.$store.dispatch('rpayStacksContractStore/fetchTokensByContractId', data).then((result) => {
         console.log(result)
-        // this.resultSet = result.gaiaAssets.slice(0, 8)
-        this.resultSet = result.gaiaAssets
-        this.numberOfItems = result.tokenCount
-        this.loading = false
-      })
-      this.$store.dispatch('rpayMarketGenFungStore/getCommissionTokensByContract', data).then((result) => {
-        console.log(result)
-        // this.resultSet = result.gaiaAssets.slice(0, 8)
-        this.resultSet = result.gaiaAssets
+        this.resultSet = result.gaiaAssets.reverse().slice(0, 8)
         this.numberOfItems = result.tokenCount
         this.loading = false
       })
@@ -63,7 +56,7 @@ export default {
       this.$store.dispatch('rpayProjectStore/fetchProjectsByStatus', '').then((projects) => {
         $self.projects = utils.sortResults(projects)
         console.log(projects)
-        this.sortCollection(projects.find((project) => project.contractId === 'ST1NXBK3K5YYMD6FD41MVNP3JS1GABZ8TRVX023PT.indige-btc'))
+        this.sortCollection(projects.find((project) => project.contractId === 'ST1NXBK3K5YYMD6FD41MVNP3JS1GABZ8TRVX023PT.indige-mint'))
         $self.projects.forEach((p) => {
           const application = this.$store.getters[APP_CONSTANTS.KEY_APPLICATION_FROM_REGISTRY_BY_CONTRACT_ID](p.contractId)
           p.application = application

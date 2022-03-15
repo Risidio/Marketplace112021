@@ -10,7 +10,7 @@
             </b-nav>
         </div>
         <div class="homeMarketItems">
-            <div class="galleryContainer" v-if="resultSet.length > 0 && tab === 'all'">
+            <div class="galleryContainer" v-if="resultSet && resultSet.length > 0 && tab === 'all'">
                 <div v-for="(item, index) in resultSet" :key="index" class="NFTbackgroundColour" >
                     <div class="">
                       <b-link class="galleryNFTContainer" :to="assetUrl(item)">
@@ -23,7 +23,20 @@
                     </div>
                 </div>
             </div>
-            <div class="galleryContainer" v-if="resultSet.length > 0 && tab === 'unsold'">
+            <div class="galleryContainer" v-if="resultSet && resultSet.length > 0 && tab === 'unsold' && mintPasses === 0">
+                <div v-for="(item, index) in resultSet" :key="index" class="NFTbackgroundColour" >
+                    <div class="">
+                      <b-link class="galleryNFTContainer" :to="assetUrl(item)">
+                      <!-- <MediaItemGeneral :classes="'nftGeneralView'" v-on="$listeners" :mediaItem="item.attributes"/> -->
+                    <img alt="Collection Image" :src="'https://res.cloudinary.com/risidio/image/upload/f_auto/q_auto:low/indige-testing/' + item.image.split('/')[5]" class="nftGeneralView"/>
+                    <p class="nFTName"> {{!item.name ? "NFT " + index : item.name }} <span style="float: right;">{{item.contractAsset.listingInUstx.price}} STX</span></p>
+                    <!-- <span>$ {{item.contractAsset.saleData.buyNowOrStartingPrice * 1.9}}</span></p> -->
+                    <p class="nFTArtist">By <span>{{!item.artist ? "Indige" : item.artist }}</span> </p>
+                    </b-link>
+                    </div>
+                </div>
+            </div>
+            <div class="galleryContainer" v-else-if="resultSet && resultSet.length > 0 && tab === 'unsold' && mintPasses > 0">
                 <div v-for="(item, index) in resultSet" :key="index" class="NFTbackgroundColour" >
                     <div class="">
                       <b-link class="galleryNFTContainer" :to="assetUrl(item)">
@@ -38,6 +51,9 @@
             </div>
             <!-- <router-link to="/nft-marketplace/risidio/launch_collection_t1"><button class="button notFilledBlue"> See More </button></router-link> -->
             <button class="button notFilledBlue" @click="setPageSize()"> See More </button>
+            <p v-if="mintPassLoad">
+              loading your mintpass
+            </p>
         </div>
     </div>
 </template>
@@ -47,7 +63,7 @@ import { APP_CONSTANTS } from '@/app-constants'
 // import MediaItemGeneral from '@/views/marketplace/components/media/MediaItemGeneral'
 export default {
   name: 'Indige-Collection-S2',
-  props: ['content', 'projects', 'resultSet'],
+  props: ['content', 'loopRun', 'resultSet'],
   components: {
     // MediaItemGeneral
   },
@@ -55,16 +71,45 @@ export default {
     return {
       tab: 'unsold',
       currentRunAssets: [],
-      loopRun: [],
       numberOfItems: 0,
       loading: true,
-      pageSize: 20
+      pageSize: 20,
+      mintPasses: null,
+      mintPassMessage: '',
+      mintPassLoad: true
     }
   },
   mounted () {
-    this.getAssets()
+    this.fetchMintPass()
+  },
+  watch: {
+    'profile' () {
+      this.fetchMintPass()
+    }
   },
   methods: {
+    fetchMintPass () {
+      console.log('mintpass')
+      const data = {
+        stxAddress: this.profile.stxAddress,
+        contractAddress: this.loopRun.contractId.split('.')[0],
+        contractName: this.loopRun.contractId.split('.')[1],
+        currentRunKey: this.loopRun ? this.loopRun.currentRunKey : null
+      }
+      console.log(data)
+      this.$store.dispatch('rpayMarketStore/lookupMintPassBalance', data).then((result) => {
+        if (result && result.result.value > 0) {
+          this.mintPasses = Number(result.result.value)
+          this.mintPassMessage = 'Mint Pass Found'
+        } else {
+          this.mintPassMessage = 'Mint Pass Not Found'
+        }
+        console.log(result)
+      }).catch((error) => {
+        console.log(error)
+      })
+      this.mintPassLoad = false
+    },
     tabChange (tab) {
       this.tab = tab
       document.getElementById('unsold').classList.remove('active')
@@ -73,7 +118,6 @@ export default {
     },
     setPageSize () {
       this.pageSize += 10
-      this.getAssets()
     },
     assetUrl (item) {
       if (item.contractAsset) {
@@ -82,9 +126,9 @@ export default {
     }
   },
   computed: {
-    application () {
-      const application = this.$store.getters[APP_CONSTANTS.KEY_APPLICATION_FROM_REGISTRY_BY_CONTRACT_ID]('ST22QPESFJ8XKJDWR1MHVXV2S4NBE44BA944NS4D2.launch_collections_artw')
-      return application
+    profile () {
+      const profile = this.$store.getters['rpayAuthStore/getMyProfile']
+      return profile
     }
   }
 }

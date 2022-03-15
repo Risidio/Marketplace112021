@@ -11,11 +11,18 @@
       <div bg-variant="white" style="min-height: 250px" footer-tag="footer" v-if="minted">
         <!-- <SellingHeader :allowEdit="true"/> -->
             <div class="col-12 mb-5">
-              <div v-if="item.contractAsset.listingInUstx && item.contractAsset.listingInUstx.price === 0">
+              <div v-if="item.contractAsset.listingInUstx && (item.contractAsset.listingInUstx.price === 0 || item.contractAsset.listingInUstx.price === null)">
                 <p style="font-size: 12px; margin-top: 20px;"> Price</p>
                 <div class="buyNowInput">
-                  <label class="buyNowInputLabel">STX</label>
-                    <input min="0" type="number" v-model="buyNowOrStartingPrice" placeholder="STX"/>
+                  <label class="buyNowInputLabel" >
+                    {{tokenSymbol}} <img @click="showTokens()" class="token-arrow" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg">
+                    </label>
+                    <div v-show="show" class="token-dropdownMenu-container">
+                      <div v-for="(token, index) in sipTenTokens" :key="index">
+                        <p class="token-symbol" @click="selectedToken(token)">{{token.symbol}}</p>
+                      </div>
+                    </div>
+                    <input min="0" type="number" v-model="buyNowOrStartingPrice" :placeholder="tokenSymbol"/>
                 </div>
                 <!-- </b-input-group> -->
               </div>
@@ -50,8 +57,8 @@
 <div v-else>
   Waiting for asset.
 </div>
-<b-button v-if="item.contractAsset.listingInUstx && item.contractAsset.listingInUstx.price === 0" @click="listItem()" class="mintButton filled" style="position: absolute; margin: 5px 0px 0px 800px;">Submit</b-button>
-<b-button v-else-if="item.contractAsset.listingInUstx && item.contractAsset.listingInUstx.price !== 0" @click="delistItem()" class="mintButton filled" style="position: absolute; margin: 5px 0px 0px 800px;">Delist</b-button>
+<b-button v-if="item.contractAsset.listingInUstx && (item.contractAsset.listingInUstx.price === 0 || item.contractAsset.listingInUstx.price === null)" @click="listItem()" class="mintButton filled" style="position: absolute; margin: 5px 0px 0px 800px;">Submit</b-button>
+<b-button v-else-if="item.contractAsset.listingInUstx && item.contractAsset.listingInUstx.price > 0" @click="delistItem()" class="mintButton filled" style="position: absolute; margin: 5px 0px 0px 800px;">Delist</b-button>
 </div>
 </template>
 
@@ -68,21 +75,45 @@ export default {
       componentKey: 0,
       errorMessage: null,
       sellingMessage: null,
-      loading: true
+      loading: true,
+      sipTenTokens: null,
+      sipTenToken: null,
+      tokenContractId: null,
+      show: false,
+      tokenSymbol: 'STX'
     }
   },
   mounted () {
-    this.$store.dispatch('rpayStacksStore/fetchMacSkyWalletInfo').then(() => {
-      this.$store.commit('rpayStore/setDisplayCard', 100)
+    if (this.loopRun.marketplaceVersion > 2) {
+      this.$store.dispatch('rpayMarketGenFungStore/sipTenTokenFindBy').then((sipTenTokens) => {
+        if (sipTenTokens) {
+          this.sipTenTokens = sipTenTokens
+          this.sipTenToken = sipTenTokens[0]
+          this.tokenContractId = this.sipTenToken.contractId
+          this.$notify({ type: 'success', title: 'Available Tokens', text: 'List NFT for x tokens' })
+        }
+        this.loading = false
+      })
+    } else {
       this.loading = false
-    }).catch(() => {
-      this.loading = false
-      this.setPage()
-    })
+    }
   },
   methods: {
     minted () {
       return this.contractAsset
+    },
+    selectedToken (token) {
+      this.sipTenToken = token
+      this.tokenContractId = token.contractId
+      this.tokenSymbol = token.symbol
+    },
+    showTokens () {
+      const showToken = document.getElementsByClassName('token-dropdownMenu-container')[0]
+      const arrow = document.getElementsByClassName('token-arrow')[0]
+      arrow.classList.toggle('active')
+      showToken.classList.add('active')
+      this.show = !this.show
+      console.log(showToken)
     },
     updateAmount (amount) {
       this.contractAsset.saleData.buyNowOrStartingPrice = Number(amount)
@@ -96,10 +127,13 @@ export default {
         contractName: this.contractAsset.contractId.split('.')[1],
         commissionContractAddress: this.loopRun.commissionContractId.split('.')[0],
         commissionContractName: this.loopRun.commissionContractId.split('.')[1],
+        tokenContractAddress: this.tokenContractId.split('.')[0],
+        tokenContractName: this.tokenContractId.split('.')[1],
+        decimals: this.sipTenToken.decimals,
         nftIndex: this.contractAsset.nftIndex,
         price: Number(this.buyNowOrStartingPrice)
       }
-      this.$store.dispatch('rpayMarketStore/listInUstx', data).then((result) => {
+      this.$store.dispatch('rpayMarketGenFungStore/listInToken', data).then((result) => {
         this.result = result
       }).catch((error) => {
         console.log(error)
@@ -146,6 +180,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .buyNowInput{
+  position: relative;
   input{
     border-bottom-right-radius: 22px;
     border-top-right-radius: 22px;
@@ -167,5 +202,39 @@ export default {
   padding: 8px 20px;
   background: #FFF;
   color: #9c9c9c;
+}
+.token-dropdownMenu-container{
+  position: absolute;
+  // display: none;
+  background: #fff;
+  padding: 10px 23px;;
+  border: 1px solid #ccc;
+  left: 10px;
+  top: 35px;
+  z-index: 10;
+}
+// .token-dropdownMenu-container .active{
+//   display: flex;
+// }
+.token{
+  max-width: 200px;
+}
+.token-symbol{
+  color: #9c9c9c;
+  font-size: 11px;
+  cursor: pointer;
+  &:hover{
+    text-decoration: underline;
+    color: black;
+  }
+}
+.token-arrow{
+  margin-left: 10px;
+  margin-bottom: 2px;
+  transform: rotate(90deg);
+  cursor: pointer;
+}
+.token-arrow.active{
+  transform: rotate(180deg);
 }
 </style>

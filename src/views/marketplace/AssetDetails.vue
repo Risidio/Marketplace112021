@@ -1,7 +1,7 @@
 <template>
 <div id="asset-details">
   <div v-if="!loading && gaiaAsset && loopRun">
-    <AssetDetailsSectionV1 :gaiaAsset="gaiaAsset" :loopRun="loopRun" :listing="listing"/>
+    <AssetDetailsSectionV1 :gaiaAsset="gaiaAsset" :loopRun="loopRun"/>
   </div>
 </div>
 </template>
@@ -23,8 +23,7 @@ export default {
       loading: true,
       gaiaAsset: null,
       loopRun: null,
-      contractId: null,
-      listing: null
+      contractId: null
     }
   },
   mounted () {
@@ -47,12 +46,6 @@ export default {
         this.loading = false
       })
     }
-    this.$store.dispatch('rpayMarketGenFungStore/getListingInToken', { contractId: this.contractId, nftIndex: this.nftIndex, contractName: 'indige-btc', contractAddress: 'ST1NXBK3K5YYMD6FD41MVNP3JS1GABZ8TRVX023PT' }).then((result) => {
-      console.log(result)
-      this.listing = result
-    }).catch((error) => {
-      console.log(error)
-    })
   },
   methods: {
     parseRunKey (gaiaAsset) {
