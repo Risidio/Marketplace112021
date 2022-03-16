@@ -3,7 +3,7 @@
   <h6 class="text-black">NFT History</h6>
   <b-row class=" ">
     <b-col md="12" sm="12">
-      <b-table striped hover :items="values()" :fields="fields()" class="bg-light text-dark">
+      <b-table striped hover :items="values()" :fields="fields()" class="bg-light text-dark" small borderless>
         <template #cell(status)="data">
           <span v-show="data.value === 'expired'" v-b-tooltip.hover="{ variant: 'warning' }"  :title="getTitle(data)">
             <span @click="checkTx(data)"><b-icon :animation="getAnimation(data)" :class="getClass(data)" font-scale="1.5" :icon="getIcon(data)"/></span>

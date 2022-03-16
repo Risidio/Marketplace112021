@@ -100,15 +100,17 @@ export default {
         contractId: this.loopRun.contractId
       }
       if (this.currentRunKey) data.runKey = this.currentRunKey
-      if (process.env.VUE_APP_NETWORK === 'local') {
-        data.stxAddress = 'STFJEDEQB1Y1CQ7F04CS62DCS5MXZVSNXXN413ZG'
-      }
+      // if (process.env.VUE_APP_NETWORK === 'local') {
+      //   data.stxAddress = 'STFJEDEQB1Y1CQ7F04CS62DCS5MXZVSNXXN413ZG'
+      // }
       this.resultSet = null
       this.$store.dispatch('rpayStacksContractStore/fetchMyTokens', data).then((result) => {
         this.resultSet = result.gaiaAssets // this.resultSet.concat(results)
         this.tokenCount = result.tokenCount
         this.numberOfItems = result.gaiaAssets.length
         this.loading = false
+      }).catch((error) => {
+        console.log(error)
       })
     }
   },

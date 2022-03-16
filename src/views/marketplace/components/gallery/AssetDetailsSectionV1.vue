@@ -39,10 +39,10 @@
                     <b-button v-b-tooltip.hover="{ variant: 'light' }" :title="ttWalletHelp" class="w-100" style="height: 61px;" variant="outline-light"><a :href="webWalletLink" class="text-white" target="_blank">Get Stacks Web Wallet <b-icon class="ml-3" icon="arrow-up-right-square-fill"/></a></b-button>
                   </b-col>
                   <b-col class="priceSection" v-if="getSaleType() > 0">
-                    <p class="basePrice"> Price <span> STX  <span> {{listing.result.value.value.price.value}}</span></span></p>
-                    <p class="feePrice"> Fees <span>STX {{listing.result.value.value.price.value}}</span></p>
+                    <p class="basePrice"> Price <span> STX  <span> {{(gaiaAsset.contractAsset.listingInUstx.price / 1.10).toFixed(0)}}</span></span></p>
+                    <p class="feePrice"> Fees <span>STX {{gaiaAsset.contractAsset.listingInUstx.price - (gaiaAsset.contractAsset.listingInUstx.price / 1.10).toFixed(0)}}</span></p>
                     <hr/>
-                    <p class="fullPrice"><span> STX <span>{{listing.result.value.value.price.value}}</span></span></p>
+                    <p class="fullPrice"><span> STX <span>{{gaiaAsset.contractAsset.listingInUstx.price}}</span></span></p>
                   </b-col>
                   <b-col md="6" sm="6" class="mb-3 text-center" v-if="getSaleType() > 0">
                     <button class="button filled" :title="ttBiddingHelp" @click="openPurchaseDialog()" >{{salesButtonLabel}}</button>
@@ -110,7 +110,7 @@ export default {
     PurchaseFlow,
     MediaItemGeneral
   },
-  props: ['gaiaAsset', 'loopRun', 'listing'],
+  props: ['gaiaAsset', 'loopRun'],
   data: function () {
     return {
       showDownload: false,
@@ -252,8 +252,8 @@ export default {
       this.$bvModal.show('asset-offer-modal', { assetHash: this.assetHash })
     },
     getSaleType: function () {
-      if (this.listing.result.value) {
-        return this.listing.result.value.value.price.value
+      if (this.gaiaAsset.contractAsset.listingInUstx) {
+        return this.gaiaAsset.contractAsset.listingInUstx.price
       }
       return 0
     },

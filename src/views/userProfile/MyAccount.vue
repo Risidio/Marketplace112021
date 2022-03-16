@@ -78,36 +78,6 @@
             </b-link>
             </div>
         </div>
-          <!-- <router-link to="/gallery" style="font: normal normal bold 11px/14px Montserrat; display: block; text-align: center; margin-top: 50px"><span style="color: #5FBDC1; ">Want More ? See The Gallery</span></router-link> -->
-        <!-- <div class="addNewContainer">
-          <router-link to="/create">
-            <p style="font-size: 150px; margin-top: 20px;font-weight: 300; color: grey;">&plus;</p>
-            <p style="font-weight: 500; margin-top: 30px;"> Add new NFT</p>
-            <p style="font-weight: 300;"> Do you have your own item and would like to add it to the marketplace? Mint it now!</p>
-          </router-link>
-          <div>
-            <p style="font-weight: 500;">Create a collection</p>
-            <p style="font-weight: 300;">create your own collection of artworks </p>
-          </div>
-        </div> -->
-        <!-- <div v-for="(item, index) in gaiaAssetNotMinted" :key="index"  >
-          <div v-if="!item.mintInfo" class="NFTbackgroundColour">
-            <div class="galleryNFTContainer">
-              <router-link v-bind:to="'/item-preview/' + item.assetHash + '/' + 0" ><img :src="item.image" class="nftGeneralView" style=""/></router-link>
-              <p style="font-size: 10px; padding: 0; margin: 0; float: right"> Not Minted </p>
-              <p class="nFTName"> {{item.name || 'Not named'}} </p>
-              <p class="nFTArtist">By <span style="font-weight:600">{{item.artist || 'Not named'}}</span></p>
-            </div>
-          </div>
-          <div v-else class="NFTbackgroundColour isNFT">
-            <div class="galleryNFTContainer">
-              <router-link v-bind:to="'/item-preview/' + item.assetHash + '/' + 0" ><img :src="item.image" class="nftGeneralView" style=""/></router-link>
-              <p style="font-size: 10px; padding: 0; margin: 0; float: right"> Minting In Progress </p>
-              <p class="nFTName"> {{item.name || 'Not named'}}</p>
-              <p class="nFTArtist">By <span style="font-weight:600">{{item.artist || 'Not named'}}</span></p>
-            </div>
-          </div>
-        </div> -->
       </div>
       <div v-else-if="saleItem.length === 0 && tab === 'Sale'">
         <div class="noNFT">
@@ -138,9 +108,6 @@
       </div>
     </div>
   </div>
-  <div v-else>
-    {{location.reload()}}
-  </div>
 </template>
 
 <script>
@@ -165,7 +132,6 @@ export default {
       tab: 'NFT',
       pageSize: 20,
       loopRun: null,
-      filteredAssets: [],
       numberOfItems: null,
       tokenCount: null,
       resultSet: [],
@@ -177,11 +143,12 @@ export default {
     }
   },
   mounted () {
-    this.fetchLoopRun()
+    this.fetchFullRegistry()
+    // this.fetchLoopRun()
     const tickerRates = this.$store.getters[APP_CONSTANTS.KEY_TICKER_RATES]
     this.defaultRate = tickerRates[0].currency
     this.loading = false
-    this.fetchSaleItem()
+    // this.fetchSaleItem()
     this.setSTX()
     // this.yourSTX = this.profile.accountInfo.balance
     // let currentRunKey = 'indige5'
@@ -195,10 +162,25 @@ export default {
   watch: {
     '$route' () {
       this.loading = true
-      this.fetchLoopRun()
+      // this.fetchLoopRun()
     }
   },
   methods: {
+    fetchFullRegistry () {
+      const $self = this
+      this.$store.dispatch('rpayProjectStore/fetchProjectsByStatus', '').then((projects) => {
+        $self.projects = utils.sortResults(projects)
+        console.log(projects)
+        this.loopRun = projects.find((project) => project.contractId === 'ST1NXBK3K5YYMD6FD41MVNP3JS1GABZ8TRVX023PT.indige-mint')
+        this.fetchAllocations()
+        $self.projects.forEach((p) => {
+          const application = this.$store.getters[APP_CONSTANTS.KEY_APPLICATION_FROM_REGISTRY_BY_CONTRACT_ID](p.contractId)
+          p.application = application
+        })
+        $self.loaded = true
+      })
+      console.log('registry')
+    },
     viewInfo (pressed) {
       if (pressed === 1) {
         document.getElementById('walletDetails').classList.remove('hide')
@@ -222,7 +204,7 @@ export default {
       })
     },
     fetchLoopRun () {
-      let currentRunKey = 'indige5'
+      let currentRunKey = 'indige-mint'
       if (!currentRunKey) {
         currentRunKey = 'indige5'
       }
@@ -230,15 +212,16 @@ export default {
         this.loopRun = loopRun
         this.fetchAllocations()
         this.loading = true
+        console.log(loopRun)
       })
       const data = {
         // contractId: (this.loopRun) ? this.loopRun.contractId : STX_CONTRACT_ADDRESS + '.' + STX_CONTRACT_NAME,
-        runKey: 'indige5',
+        runKey: 'indige-mint',
         stxAddress: this.profile.stxAddress,
         asc: true,
         page: 0,
         pageSize: 50,
-        contractId: 'ST1NXBK3K5YYMD6FD41MVNP3JS1GABZ8TRVX023PT.indige5'
+        contractId: 'ST1NXBK3K5YYMD6FD41MVNP3JS1GABZ8TRVX023PT.indige-mint'
       }
       this.resultSet = null
       this.$store.dispatch('rpayStacksContractStore/fetchMyTokens', data).then((result) => {
@@ -259,7 +242,7 @@ export default {
         asc: true,
         page: 0,
         pageSize: 50,
-        contractId: 'ST1NXBK3K5YYMD6FD41MVNP3JS1GABZ8TRVX023PT.indige5'
+        contractId: 'ST1NXBK3K5YYMD6FD41MVNP3JS1GABZ8TRVX023PT.indige-mint'
       }
       this.$store.dispatch('rpayStacksContractStore/fetchMyTokens', data).then((result) => {
         try {
@@ -281,6 +264,26 @@ export default {
       const params = { stxAddress: this.profile.stxAddress, contractId: this.loopRun.contractId }
       this.$store.dispatch('rpayTransactionStore/fetchByContractIdAndFrom', params).then((results) => {
         this.allocations = results || []
+      }).catch((error) => {
+        console.log(error)
+      })
+      const data = {
+        // contractId: (this.loopRun) ? this.loopRun.contractId : STX_CONTRACT_ADDRESS + '.' + STX_CONTRACT_NAME,
+        runKey: 'indige-mint',
+        stxAddress: this.profile.stxAddress,
+        asc: true,
+        page: 0,
+        pageSize: 50,
+        contractId: 'ST1NXBK3K5YYMD6FD41MVNP3JS1GABZ8TRVX023PT.indige-mint'
+      }
+      this.$store.dispatch('rpayStacksContractStore/fetchMyTokens', data).then((result) => {
+        console.log(result)
+        this.resultSet = result.gaiaAssets // this.resultSet.concat(results)
+        this.tokenCount = result.tokenCount
+        this.numberOfItems = result.gaiaAssets.length
+        this.loading = true
+      }).catch((error) => {
+        console.log(error.message)
       })
     },
     setSTX () {
@@ -313,7 +316,7 @@ export default {
   },
   computed: {
     application () {
-      const application = this.$store.getters[APP_CONSTANTS.KEY_APPLICATION_FROM_REGISTRY_BY_CONTRACT_ID]('ST22QPESFJ8XKJDWR1MHVXV2S4NBE44BA944NS4D2.indigenew100')
+      const application = this.$store.getters[APP_CONSTANTS.KEY_APPLICATION_FROM_REGISTRY_BY_CONTRACT_ID]('ST1NXBK3K5YYMD6FD41MVNP3JS1GABZ8TRVX023PT.indige-mint')
       return application
     },
     showAdmin () {
@@ -371,12 +374,12 @@ export default {
       const stxToBtc = tickerRates[0].stxPrice / tickerRates[0].last
       options.push({
         text: 'BTC',
-        value: utils.toDecimals(stxToBtc * profile.accountInfo.balance, 100000)
+        value: utils.toDecimals(stxToBtc * profile?.accountInfo?.balance, 100000)
       })
       const stxToETh = tickerRates[0].stxPrice / tickerRates[0].ethPrice
       options.push({
         text: 'ETH',
-        value: utils.toDecimals(stxToETh * profile.accountInfo.balance, 100000)
+        value: utils.toDecimals(stxToETh * profile?.accountInfo?.balance, 100000)
       })
       tickerRates.forEach((rate) => {
         options.push({

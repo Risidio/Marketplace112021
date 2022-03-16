@@ -1,9 +1,9 @@
 import crypto from 'crypto'
-import dataUriToBuffer from 'data-uri-to-buffer'
 import {
   hexToCV,
   intToHexString, leftPadHexToLength
 } from '@stacks/transactions'
+import dataUriToBuffer from 'data-uri-to-buffer'
 import { c32address, c32addressDecode } from 'c32check'
 import { makeECPrivateKey, publicKeyToAddress, signECDSA, verifyECDSA, encryptECIES, decryptECIES } from '@stacks/encryption'
 import { SECP256K1Client } from 'jsontokens'
@@ -15,6 +15,39 @@ const ecurve = new EllipticCurve('secp256k1')
 const precision = 1000000
 
 const utils = {
+  fromOnChainAmount: function (amountMicroStx, gftPrecision) {
+    try {
+      amountMicroStx = parseInt(amountMicroStx, 16)
+      if (typeof amountMicroStx === 'string') {
+        amountMicroStx = Number(amountMicroStx)
+      }
+      if (amountMicroStx === 0) return 0
+      if (!gftPrecision) {
+        amountMicroStx = amountMicroStx / precision
+        return Math.round(amountMicroStx * precision) / precision
+      } else {
+        const newPrec = Math.pow(10, gftPrecision)
+        amountMicroStx = amountMicroStx / newPrec
+        return Math.round(amountMicroStx * newPrec) / newPrec
+      }
+    } catch {
+      return 0
+    }
+  },
+  toOnChainAmount: function (amount, gftPrecision) {
+    try {
+      if (!gftPrecision) {
+        amount = amount * precision
+        return Math.round(amount * precision) / precision
+      } else {
+        const newPrec = Math.pow(10, gftPrecision)
+        amount = amount * newPrec
+        return Math.round(amount * newPrec) / newPrec
+      }
+    } catch {
+      return 0
+    }
+  },
   sha256: function (message) {
     let encoded
     if (typeof message === 'string') {
@@ -103,6 +136,24 @@ const utils = {
     }
     return Math.round(amount * precision) / precision // amount.toFixed(2)
   },
+  fetchBase64FromImageUrl: function (url, document) {
+    return new Promise((resolve) => {
+      const img = new Image()
+      img.setAttribute('crossOrigin', 'anonymous')
+      img.onload = function () {
+        const canvas = document.createElement('canvas')
+        canvas.width = img.width
+        canvas.height = img.height
+        const ctx = canvas.getContext('2d')
+        ctx.drawImage(this, 0, 0)
+        const dataURL = canvas.toDataURL('image/png')
+        const mimeType = dataURL.substring(dataURL.indexOf(':') + 1, dataURL.indexOf(';')) // => image/png
+        const imageBuffer = dataUriToBuffer(dataURL)
+        resolve({ dataURL: dataURL, imageBuffer: imageBuffer, mimeType: mimeType })
+      }
+      img.src = url
+    })
+  },
   getFileExtension: function (filename, type) {
     if (filename && filename.lastIndexOf('.') > 0) {
       const index = filename.lastIndexOf('.')
@@ -166,6 +217,21 @@ const utils = {
       return 0
     }
   },
+  sortLoopRuns: function (loopRuns) {
+    loopRuns = loopRuns.sort(function compare (a, b) {
+      const nameA = a.currentRun.toUpperCase() // ignore upper and lowercase
+      const nameB = b.currentRun.toUpperCase() // ignore upper and lowercase
+      if (nameA > nameB) {
+        return 1
+      }
+      if (nameA < nameB) {
+        return -1
+      }
+      // names must be equal
+      return 0
+    })
+    return loopRuns
+  },
   sortResults: function (resultSet) {
     resultSet = resultSet.sort(function compare (a, b) {
       const nameA = a.title.toUpperCase() // ignore upper and lowercase
@@ -180,29 +246,6 @@ const utils = {
       return 0
     })
     return resultSet
-  },
-  /**
-  fromOnChainAmount: function (amountMicroStx) {
-    try {
-      amountMicroStx = parseInt(amountMicroStx, 16)
-      if (typeof amountMicroStx === 'string') {
-        amountMicroStx = Number(amountMicroStx)
-      }
-      if (amountMicroStx === 0) return 0
-      amountMicroStx = amountMicroStx / precision
-      return Math.round(amountMicroStx * precision) / precision
-    } catch {
-      return 0
-    }
-  },
-  **/
-  toOnChainAmount: function (amount) {
-    try {
-      amount = amount * precision
-      return Math.round(amount * precision) / precision
-    } catch {
-      return 0
-    }
   },
   audioToBase64: function (audioFile) {
     return new Promise((resolve) => {
@@ -277,24 +320,6 @@ const utils = {
       })
     })
   },
-  fetchBase64FromImageUrl: function (url, document) {
-    return new Promise((resolve) => {
-      const img = new Image()
-      img.setAttribute('crossOrigin', 'anonymous')
-      img.onload = function () {
-        const canvas = document.createElement('canvas')
-        canvas.width = img.width
-        canvas.height = img.height
-        const ctx = canvas.getContext('2d')
-        ctx.drawImage(this, 0, 0)
-        const dataURL = canvas.toDataURL('image/png')
-        const mimeType = dataURL.substring(dataURL.indexOf(':') + 1, dataURL.indexOf(';')) // => image/png
-        const imageBuffer = dataUriToBuffer(dataURL)
-        resolve({ dataURL: dataURL, imageBuffer: imageBuffer, mimeType: mimeType })
-      }
-      img.src = url
-    })
-  },
   readFileFromUrlToDataURL: function (url) {
     return new Promise((resolve) => {
       const request = new XMLHttpRequest()
@@ -314,12 +339,6 @@ const utils = {
       }
       request.send()
     })
-  },
-  getBase64FromImageUrl: function (dataURL) {
-    const imageBuffer = dataUriToBuffer(dataURL)
-    // const rawImage = dataURL.replace(/^data:image\/(png|jpg);base64,/, '')
-    const mimeType = dataURL.substring(dataURL.indexOf(':') + 1, dataURL.indexOf(';')) // => image/png
-    return { imageBuffer: imageBuffer, mimeType: mimeType }
   },
   stringToHex: function (str) {
     const arr = []
@@ -384,8 +403,6 @@ const utils = {
         buyNowOrStartingPrice: this.fromMicroAmount(res.value.data['amount-stx'].value.toNumber()),
         saleType: res.value.data['sale-type'].value.toNumber()
       }
-    } else if (method === 'get-base-token-uri') {
-      return td.decode(res.buffer)
     }
   }
 }

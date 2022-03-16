@@ -21,8 +21,7 @@ export default {
       showColls: true,
       projects: [],
       contractId: null,
-      makerUrlKey: null,
-      currentRunKey: null
+      makerUrlKey: null
     }
   },
   mounted () {

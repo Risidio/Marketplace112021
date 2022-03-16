@@ -47,7 +47,7 @@
           <p>
             Index: <input type='number' /><button
               class='mint-button'
-              @click='mintNFT(currentRun, nft)'
+              @click='mintNFT(currentRun)'
             >
               Mint
             </button>
@@ -70,12 +70,15 @@ export default {
       currentRunAssets: [],
       sipTokens: null,
       sipToken: null,
-      loading: true
+      loading: true,
+      commission: null,
+      tokenContractId: null,
+      commissions: null
     }
   },
   mounted () {
     this.getSipTenTokens()
-    this.currentRun = this.allLoopRuns.find((loopRun) => loopRun.contractId === 'ST1NXBK3K5YYMD6FD41MVNP3JS1GABZ8TRVX023PT.indige-btc')
+    this.currentRun = this.allLoopRuns.find((loopRun) => loopRun.contractId === 'ST1NXBK3K5YYMD6FD41MVNP3JS1GABZ8TRVX023PT.indige-mint')
   },
   methods: {
     getSipTenTokens () {
@@ -84,11 +87,11 @@ export default {
         console.log('hi')
         if (sipTenTokens) {
           this.sipTenTokens = sipTenTokens
-          this.sipTenToken = sipTenTokens[2]
+          this.sipTenToken = sipTenTokens[1]
           this.$notify({ type: 'success', title: 'Available Tokens', text: 'List NFT for x tokens' })
         }
         this.sipTokens = sipTenTokens
-        this.sipToken = sipTenTokens[2]
+        this.sipToken = sipTenTokens[1]
         this.loading = false
       })
     },
@@ -112,22 +115,25 @@ export default {
     },
     buyNFT (currentRun, nft) {
       this.getSipTenTokens()
+      const contractAsset = nft.contractAsset
       console.log(currentRun)
+      const commission = nft.contractAsset.listingInUstx.commission
       const data = {
-        commissionContractAddress: currentRun.commissionContractId.split('.')[0],
-        commissionContractName: currentRun.commissionContractId.split('.')[1],
-        tokenContractAddress: this.sipToken.contractId.split('.')[0],
-        tokenContractName: this.sipToken.contractId.split('.')[1],
-        owner: currentRun.owner,
-        nftIndex: nft.contractAsset.nftIndex,
-        price: nft.contractAsset.listingInUstx.price,
+        contractAddress: currentRun.contractId.split('.')[0],
+        contractName: currentRun.contractId.split('.')[1],
+        commissionContractAddress: commission.split('.')[0],
+        commissionContractName: commission.split('.')[1],
+        tokenContractAddress: (contractAsset.listingInUstx.token) ? contractAsset.listingInUstx.token.split('.')[0] : null,
+        tokenContractName: (contractAsset.listingInUstx.token) ? contractAsset.listingInUstx.token.split('.')[1] : null,
+        owner: contractAsset.owner,
+        nftIndex: contractAsset.nftIndex,
+        price: contractAsset.listingInUstx.price,
         sendAsSky: true, // only applicable in local
-        contractAddress: this.currentRun.contractId.split('.')[0],
-        contractName: this.currentRun.contractId.split('.')[1],
-        assetName: this.currentRun.contractId.split('.')[1],
-        sipTenToken: this.sipToken,
-        sipTenTokens: this.sipTokens
+        assetName: currentRun.assetName,
+        decimals: contractAsset.listingInUstx.decimals,
+        tokenAssetName: contractAsset.listingInUstx.name
       }
+      console.log(data)
       this.$store
         .dispatch('rpayMarketGenFungStore/buyInToken', data)
         .then(result => {
@@ -173,41 +179,44 @@ export default {
           this.errorMessage = 'Minting error: ' + err
         })
     },
-    mintNFT (currentRun, nft) {
+    mintNFT (currentRun) {
+      const commissionData = {
+        contractId: this.currentRun.contractId
+      }
+      this.$store.dispatch('rpayMarketGenFungStore/getCommissionTokensByContract', commissionData).then((commissions) => {
+        console.log(commissions)
+        if (commissions) {
+          this.tokenContractId = commissions[0].tokenContractId
+          this.commissions = commissions
+          this.commission = commissions[0]
+          this.$notify({ type: 'success', title: 'Mint Commission', text: 'Mint commission: ' + commissions.length })
+        }
+        this.loading = false
+      }).catch((error) => {
+        console.log(error)
+      })
+      const commission = this.commission
       const data = {
-        mintPrice: 10,
-        owner: currentRun.owner,
-        beneficiaries: [],
-        editions: 1,
-        editionCost: 0,
-        sendAsSky: true, // only applicable in local
-        contractAddress: currentRun.application.contractId.split('.')[0],
-        contractName: currentRun.application.contractId.split('.')[1],
-        functionName: 'mint-token',
+        contractAddress: currentRun.contractId.split('.')[0],
+        contractName: currentRun.contractId.split('.')[1],
         batchOption: 1
       }
-      this.$store
-        .dispatch('rpayPurchaseStore/cpsMintToken', data)
-        .then(result => {
-          const item = this.$store.getters[APP_CONSTANTS.KEY_MY_ITEM](
-            result.assetHash
-          )
-          if (result.txId) {
-            item.mintInfo = {
-              txId: result.txId,
-              txStatus: result.txStatus,
-              timestamp: result.timestamp
-            }
-            this.$store
-              .dispatch('rpayMyItemStore/quickSaveItem', item)
-              .then(item => {
-                this.$emit('update', item)
-              })
-          }
-        })
-        .catch(err => {
-          this.errorMessage = 'Minting error: ' + err
-        })
+      if (currentRun.marketplaceVersion === 3) {
+        if (!commission) {
+          this.$notify({ type: 'error', title: 'Select Tender', text: 'Please select the tender to use topay for minting' })
+          return
+        }
+        data.sipTenToken = commission.sipTenToken
+        data.mintPrice = commission.price
+        data.tokenContractAddress = commission.tokenContractId.split('.')[0]
+        data.tokenContractName = commission.tokenContractId.split('.')[1]
+        // data.postConditions = (data.sipTenToken.name === 'Test Wrapper') ? getGFTMintPostConds(data, this.profile.stxAddress) : null
+        this.marketplaceMint(data, 'rpayMarketGenFungStore/mintWithToken')
+        console.log(data)
+      } else {
+        data.mintPrice = this.loopRun.mintPrice
+        this.marketplaceMint(data, 'rpayPurchaseStore/cpsMintToken')
+      }
     }
   }
 }
