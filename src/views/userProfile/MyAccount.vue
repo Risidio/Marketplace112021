@@ -143,11 +143,12 @@ export default {
     }
   },
   mounted () {
-    this.fetchLoopRun()
+    this.fetchFullRegistry()
+    // this.fetchLoopRun()
     const tickerRates = this.$store.getters[APP_CONSTANTS.KEY_TICKER_RATES]
     this.defaultRate = tickerRates[0].currency
     this.loading = false
-    this.fetchSaleItem()
+    // this.fetchSaleItem()
     this.setSTX()
     // this.yourSTX = this.profile.accountInfo.balance
     // let currentRunKey = 'indige5'
@@ -161,10 +162,25 @@ export default {
   watch: {
     '$route' () {
       this.loading = true
-      this.fetchLoopRun()
+      // this.fetchLoopRun()
     }
   },
   methods: {
+    fetchFullRegistry () {
+      const $self = this
+      this.$store.dispatch('rpayProjectStore/fetchProjectsByStatus', '').then((projects) => {
+        $self.projects = utils.sortResults(projects)
+        console.log(projects)
+        this.loopRun = projects.find((project) => project.contractId === 'ST1NXBK3K5YYMD6FD41MVNP3JS1GABZ8TRVX023PT.indige-mint')
+        this.fetchAllocations()
+        $self.projects.forEach((p) => {
+          const application = this.$store.getters[APP_CONSTANTS.KEY_APPLICATION_FROM_REGISTRY_BY_CONTRACT_ID](p.contractId)
+          p.application = application
+        })
+        $self.loaded = true
+      })
+      console.log('registry')
+    },
     viewInfo (pressed) {
       if (pressed === 1) {
         document.getElementById('walletDetails').classList.remove('hide')
@@ -188,7 +204,7 @@ export default {
       })
     },
     fetchLoopRun () {
-      let currentRunKey = 'indige5'
+      let currentRunKey = 'indige-mint'
       if (!currentRunKey) {
         currentRunKey = 'indige5'
       }
@@ -196,15 +212,16 @@ export default {
         this.loopRun = loopRun
         this.fetchAllocations()
         this.loading = true
+        console.log(loopRun)
       })
       const data = {
         // contractId: (this.loopRun) ? this.loopRun.contractId : STX_CONTRACT_ADDRESS + '.' + STX_CONTRACT_NAME,
-        runKey: 'indige5',
+        runKey: 'indige-mint',
         stxAddress: this.profile.stxAddress,
         asc: true,
         page: 0,
         pageSize: 50,
-        contractId: 'ST1NXBK3K5YYMD6FD41MVNP3JS1GABZ8TRVX023PT.indige5'
+        contractId: 'ST1NXBK3K5YYMD6FD41MVNP3JS1GABZ8TRVX023PT.indige-mint'
       }
       this.resultSet = null
       this.$store.dispatch('rpayStacksContractStore/fetchMyTokens', data).then((result) => {
@@ -225,7 +242,7 @@ export default {
         asc: true,
         page: 0,
         pageSize: 50,
-        contractId: 'ST1NXBK3K5YYMD6FD41MVNP3JS1GABZ8TRVX023PT.indige5'
+        contractId: 'ST1NXBK3K5YYMD6FD41MVNP3JS1GABZ8TRVX023PT.indige-mint'
       }
       this.$store.dispatch('rpayStacksContractStore/fetchMyTokens', data).then((result) => {
         try {
@@ -247,6 +264,26 @@ export default {
       const params = { stxAddress: this.profile.stxAddress, contractId: this.loopRun.contractId }
       this.$store.dispatch('rpayTransactionStore/fetchByContractIdAndFrom', params).then((results) => {
         this.allocations = results || []
+      }).catch((error) => {
+        console.log(error)
+      })
+      const data = {
+        // contractId: (this.loopRun) ? this.loopRun.contractId : STX_CONTRACT_ADDRESS + '.' + STX_CONTRACT_NAME,
+        runKey: 'indige-mint',
+        stxAddress: this.profile.stxAddress,
+        asc: true,
+        page: 0,
+        pageSize: 50,
+        contractId: 'ST1NXBK3K5YYMD6FD41MVNP3JS1GABZ8TRVX023PT.indige-mint'
+      }
+      this.$store.dispatch('rpayStacksContractStore/fetchMyTokens', data).then((result) => {
+        console.log(result)
+        this.resultSet = result.gaiaAssets // this.resultSet.concat(results)
+        this.tokenCount = result.tokenCount
+        this.numberOfItems = result.gaiaAssets.length
+        this.loading = true
+      }).catch((error) => {
+        console.log(error.message)
       })
     },
     setSTX () {
@@ -279,7 +316,7 @@ export default {
   },
   computed: {
     application () {
-      const application = this.$store.getters[APP_CONSTANTS.KEY_APPLICATION_FROM_REGISTRY_BY_CONTRACT_ID]('ST22QPESFJ8XKJDWR1MHVXV2S4NBE44BA944NS4D2.indigenew100')
+      const application = this.$store.getters[APP_CONSTANTS.KEY_APPLICATION_FROM_REGISTRY_BY_CONTRACT_ID]('ST1NXBK3K5YYMD6FD41MVNP3JS1GABZ8TRVX023PT.indige-mint')
       return application
     },
     showAdmin () {
