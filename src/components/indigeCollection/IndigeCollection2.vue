@@ -16,40 +16,24 @@
         <div>
             <b-nav class="galleryNav" >
                 <div class="galleryNavContainer" >
-                <b-nav-item class="galleryNavItem active" id="unsold" @click="tabChange('unsold')">Unsold</b-nav-item>
-                <b-nav-item class="galleryNavItem" id="all" @click="tabChange('all')">All</b-nav-item>
+                <b-nav-item class="galleryNavItem active" id="Items" @click="tabChange('Items')">Items</b-nav-item>
+                <b-nav-item class="galleryNavItem" id="Activity" @click="tabChange('Activity')">Activity</b-nav-item>
                 <!-- <b-nav-item class="galleryNavItem" @click="tabChange('Your NFT')">Your NFT's</b-nav-item> -->
                 </div>
             </b-nav>
         </div>
         <div class="homeMarketItems">
-            <div class="galleryContainer" v-if="resultSet && resultSet.length > 0 && tab === 'all'">
-                <div v-for="(item, index) in resultSet" :key="index" class="NFTbackgroundColour" >
-                    <div class="">
-                      <b-link class="galleryNFTContainer" :to="assetUrl(item)">
-                        <!-- <MediaItemGeneral :classes="'nftGeneralView'" v-on="$listeners" :mediaItem="item.attributes"/> -->
-                        <img alt="Collection Image" :src="'https://res.cloudinary.com/risidio/image/upload/f_auto/q_auto:low/indige-testing/' + item.image.split('/')[5]" class="nftGeneralView"/>
-                        <p class="nFTName"> {{!item.name ? "NFT " + index : item.name }} <span style="float: right;">{{item.contractAsset.listingInUstx.price}} STX</span></p>
-                        <!-- <span>$ {{item.contractAsset.saleData.buyNowOrStartingPrice * 1.9}}</span></p> -->
-                        <p class="nFTArtist">By <span>{{!item.artist ? "Indige" : item.artist }}</span> </p>
-                      </b-link>
-                    </div>
-                </div>
+            <div v-if="resultSet && resultSet.length > 0 && tab === 'Activity'">
+              <div>
+                <MyPageableItems :loopRun="loopRun" :resultSet="resultSet"/>
+              </div>
             </div>
-            <div class="galleryContainer" v-if="resultSet && resultSet.length > 0 && tab === 'unsold' && mintPasses === 0">
-                <div v-for="(item, index) in resultSet" :key="index" class="NFTbackgroundColour" >
-                    <div class="">
-                      <b-link class="galleryNFTContainer" :to="assetUrl(item)">
-                      <!-- <MediaItemGeneral :classes="'nftGeneralView'" v-on="$listeners" :mediaItem="item.attributes"/> -->
-                    <img alt="Collection Image" :src="'https://res.cloudinary.com/risidio/image/upload/f_auto/q_auto:low/indige-testing/' + item.image.split('/')[5]" class="nftGeneralView"/>
-                    <p class="nFTName"> {{!item.name ? "NFT " + index : item.name }} <span style="float: right;">{{item.contractAsset.listingInUstx.price}} STX</span></p>
-                    <!-- <span>$ {{item.contractAsset.saleData.buyNowOrStartingPrice * 1.9}}</span></p> -->
-                    <p class="nFTArtist">By <span>{{!item.artist ? "Indige" : item.artist }}</span> </p>
-                    </b-link>
-                    </div>
-                </div>
+            <div class="galleryContainer" v-if="resultSet && resultSet.length > 0 && tab === 'Items' && mintPasses === 0">
+              <div>
+                <MyPageableItems :loopRun="loopRun" :resultSet="resultSet"/>
+              </div>
             </div>
-            <div class="galleryContainer" v-else-if="resultSet && resultSet.length > 0 && tab === 'unsold' && mintPasses > 0">
+            <div class="galleryContainer" v-else-if="resultSet && resultSet.length > 0 && tab === 'Items' && mintPasses > 0">
               <div class="pass-container">
                 <div class="mint-pass">
                   <p class="mintPlus" @click="openModal()"> &plus; </p>
@@ -57,19 +41,19 @@
                   <p class="mint-text-2"> You have a mintpass balance of {{mintPasses}}. Therefore, you may mint in this collection !</p>
                 </div>
               </div>
-                <div v-for="(item, index) in resultSet" :key="index" class="NFTbackgroundColour" >
+                <div v-for="(item, index) in resultSet.slice(0, 7)" :key="index" class="NFTbackgroundColour" >
                     <div class="">
                       <b-link class="galleryNFTContainer" :to="assetUrl(item)">
                       <!-- <MediaItemGeneral :classes="'nftGeneralView'" v-on="$listeners" :mediaItem="item.attributes"/> -->
                     <img alt="Collection Image" :src="'https://res.cloudinary.com/risidio/image/upload/f_auto/q_auto:low/indige-testing/' + item.image.split('/')[5]" class="nftGeneralView"/>
-                    <p class="nFTName"> {{!item.name ? "NFT " + index : item.name }} <span style="float: right;">{{item.contractAsset.listingInUstx.price}} STX</span></p>
+                    <p class="nFTName"> {{!item.name ? "NFT " + index : item.name }} <span style="float: right;">{{item.contractAsset.listingInUstx.price || 0}} STX</span></p>
                     <!-- <span>$ {{item.contractAsset.saleData.buyNowOrStartingPrice * 1.9}}</span></p> -->
                     <p class="nFTArtist">By <span>{{!item.artist ? "Indige" : item.artist }}</span> </p>
                     </b-link>
                     </div>
                 </div>
             </div>
-            <div class="galleryContainer" v-else-if="tab === 'unsold' && mintPasses > 0">
+            <div class="galleryContainer" v-else-if="tab === 'Items' && mintPasses > 0">
               <div class="mint-pass">
                 <p class="mintPlus" @click="openModal()"> &plus; </p>
                 <p class="mint-text-1"> Mint a new NFT</p>
@@ -87,17 +71,16 @@
 </template>
 
 <script>
-import { APP_CONSTANTS } from '@/app-constants'
-// import MediaItemGeneral from '@/views/marketplace/components/media/MediaItemGeneral'
+import MyPageableItems from '@/views/marketplace/components/gallery/MyPageableItems'
 export default {
   name: 'Indige-Collection-S2',
   props: ['content', 'loopRun', 'resultSet'],
   components: {
-    // MediaItemGeneral
+    MyPageableItems
   },
   data () {
     return {
-      tab: 'unsold',
+      tab: 'Items',
       currentRunAssets: [],
       numberOfItems: 0,
       loading: true,
@@ -146,8 +129,8 @@ export default {
     },
     tabChange (tab) {
       this.tab = tab
-      document.getElementById('unsold').classList.remove('active')
-      document.getElementById('all').classList.remove('active')
+      document.getElementById('Items').classList.remove('active')
+      document.getElementById('Activity').classList.remove('active')
       document.getElementById(tab).classList.add('active')
     },
     setPageSize () {
@@ -249,7 +232,7 @@ p{padding:0; margin:0;}
   margin: auto;
 }
 .homeMarketItems{
-  max-width: 1800px;
+  max-width: 1135px;
   margin: auto;
 }
 .pass-container{
@@ -358,7 +341,7 @@ p{padding:0; margin:0;}
   font: normal normal bold 11px/14px Montserrat;
 }
 }
-#unsold {
+#Items {
   margin-right: 20px;
 }
 

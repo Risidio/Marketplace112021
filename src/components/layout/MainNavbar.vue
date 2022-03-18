@@ -45,9 +45,15 @@
         </div>
          <div v-else class="navbar_links_not_logged">
             <router-link class="nav-items bold" to="/nft-marketplace" >Explore</router-link>
-            <b-dropdown id="dropdown-1" text="Featured Collections" class="bold" variant="transparent" toggle-class="text-white" size="lg" style="padding:0px; height:55%; margin: auto 10px; font-weight: 600;">
-              <b-dropdown-item v-for="(loopRun, index) in allLoopRuns" :key="index" ><span style="margin-top: -1rem" v-if="loopRun.status !== 'disabled'" class="pointer" @click="showCollection(loopRun)"><span @click="linkTo(loopRun)">{{loopRun.currentRun}}</span></span></b-dropdown-item>
-            </b-dropdown>
+            <div style="position: relative; margin-top: 2px;" @click="openMenu()">
+              <p class="nav-items bold" > Featured Collections <img class="arrow2" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></p>
+              <p class="featured" > Featured Collections <img style="margin-left: 8px;" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></p>
+              <div class="dropdownMenu">
+                <div v-for="(item, index) in allLoopRuns" :key="index" class="dropdownMenu-container">
+                  <p @click="linkTo(item)">{{item.currentRun}}</p>
+                </div>
+              </div>
+            </div>
             <router-link class="nav-items text-black thin" to="/how-it-works" style="margin-left: auto;" id="howItWorks">How It Works</router-link>
             <router-link class="nav-items text-black thin" to="/about">About Risidio </router-link>
             <!-- <div @click.prevent="startLogin(); events();" id="login" class =" nav-items text-black">Login</div> -->
@@ -162,7 +168,7 @@ export default {
   },
   computed: {
     allLoopRuns () {
-      const loopRuns = this.$store.getters[APP_CONSTANTS.GET_LOOP_RUNS]
+      const loopRuns = this.$store.getters[APP_CONSTANTS.GET_LOOP_RUNS].filter((loopRun) => loopRun.status === 'active')
       return loopRuns
     },
     content () {
@@ -328,12 +334,15 @@ export default {
 .dropdownMenu{
   position: absolute;
   background: white;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   display: none;
   flex-direction: column;
   width: 100%;
   border-radius: 5px;
   top: 0;
   z-index: 10;
+  max-height: 200px;
+  overflow-y: auto;
   p{
     font-size: 11px;
     padding: 5px 20px;
@@ -356,9 +365,11 @@ export default {
 }
 .featured{
   position: absolute;
+  background: white;
+  padding: 18px 10px 10px 10px;
   display: none;
-  top: 19px;
-  left: 19px;
+  top: 0;
+  left: 9px;
   font-size: 1.2rem;
   font-weight: bolder;
   z-index: 11;
