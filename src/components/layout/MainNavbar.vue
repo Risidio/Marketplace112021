@@ -297,6 +297,7 @@ export default {
   color: #5FBDC1;
   cursor: pointer;
   outline: none;
+  font-weight:bold;
 }
 .navBtn:hover{
   color: white;
@@ -431,11 +432,21 @@ export default {
   .toggle-button{
     display:flex;
   }
+  .thin{
+    margin-top: 5px;
+  }
+  .bold{
+    margin-top: 10px;
+  }
+.text-black1{
+  margin-top: -12px;
+}
+
   .text-black{
     margin-top: -12px;
   }
   .navBtn{
-    margin-top: 12px;
+    margin-top: 14px;
   }
   .mainNavbar{
     flex-direction:column;
