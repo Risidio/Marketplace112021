@@ -22,7 +22,7 @@
                         <p class="token-symbol" @click="selectedToken(token)">{{token.symbol}}</p>
                       </div>
                     </div>
-                    <input min="0" type="number" v-model="buyNowOrStartingPrice" :placeholder="tokenSymbol"/>
+                    <input  class="buyInput" min="0" type="number" v-model="buyNowOrStartingPrice" :placeholder="tokenSymbol"/>
                 </div>
                 <!-- </b-input-group> -->
               </div>
@@ -116,7 +116,7 @@ export default {
       console.log(showToken)
     },
     updateAmount (amount) {
-      this.contractAsset.saleData.buyNowOrStartingPrice = Number(amount)
+      this.contractAsset.listingInUstx.price = Number(amount)
     },
     listItem () {
       this.errorMessage = null
@@ -186,13 +186,21 @@ export default {
     border-top-right-radius: 22px;
     border: 1px solid #ccc;
     border-left: 0;
-    padding: 8px 5px 8px 20px;
+    padding: 8px 10px 8px 20px;
     font-size: 11px;
     font-weight: 300;
     margin-left: auto;
     text-align: right;
     width: 50%;
   }
+  input:focus{
+    outline: none;
+  }
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    // -webkit-appearance: none;
+    -webkit-margin-start: 10px;
+}
 }
 .buyNowInputLabel{
   border: 1px solid #ccc;

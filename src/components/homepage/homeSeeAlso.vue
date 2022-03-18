@@ -19,14 +19,14 @@
             </template>
             <vueper-slide v-for="(item, index) in gaiaAssets" :key="index" class="NFTbackgroundColour" >
               <template #content>
-                <div class="galleryNFTContainer">
-                  <router-link v-bind:to="'/nfts/' + item.contractId + '/' + item.contractAsset.nftIndex" >
-                  <img :src="'https://res.cloudinary.com/risidio/image/upload/f_auto/q_auto:low/indige-testing/' + item.image.split('/')[5]" class="nftGeneralView" style=""/>
-                  <p class="nFTName" style="margin-top: -5px;"> {{!item.name ? "NFT" : item.name }} <span>{{item.contractAsset.listingInUstx.price}} STX</span></p>
-                  <p class="nFTArtist">By <span style="font-weight:600"><span style="float: right; margin-right: 5px;">$ {{item.contractAsset.listingInUstx.price * 1.9}}</span></span></p>
-                  </router-link>
 
-                </div>
+                  <div>
+                    <router-link v-bind:to="'/nfts/' + item.contractId + '/' + item.contractAsset.nftIndex" >
+                    <img :src="'https://res.cloudinary.com/risidio/image/upload/f_auto/q_auto:low/indige-testing/' + item.image.split('/')[5]" class="nftGeneralView" style="margin-top: 15px;"/>
+                        <p class="nFTName" style="margin-top: -5px;"> {{!item.name ? "NFT" : item.name }} <span style="float: right;">{{item.contractAsset.listingInUstx.price || 0}} STX</span></p>
+                        <p class="nFTArtist">By <span>{{!item.properties.collection ? "Anonymous" : item.properties.collection }}</span><span style="float: right; font-weight: 300">{{changeCurrencyTag() || '£'}} {{changeCurrency(item.contractAsset.listingInUstx.price) || 0}}</span></p>
+                    </router-link>
+                  </div>
               </template>
           </vueper-slide>
         </vueper-slides>
@@ -37,6 +37,8 @@
 <script>
 import { VueperSlides, VueperSlide } from 'vueperslides'
 import 'vueperslides/dist/vueperslides.css'
+import { APP_CONSTANTS } from '@/app-constants'
+import utils from '@/services/utils'
 
 export default {
   name: 'homeSeeAlso',
@@ -70,11 +72,42 @@ export default {
           slideRatio: 1,
           arrows: false
         }
-      }
+      },
+      currencyPreference: null
     }
   },
+  mounted () {
+    this.currencyPreference = JSON.parse(localStorage.getItem('currencyPreferences'))
+  },
   methods: {
-
+    changeCurrency (price) {
+      if (this.currencyPreference) {
+        const tickerRates = this.$store.getters[APP_CONSTANTS.KEY_TICKER_RATES]
+        const rates = tickerRates.find((rate) => rate.currency === this.currencyPreference.text)
+        const nFTPrice = utils.toDecimals(rates.stxPrice * price)
+        return nFTPrice
+      } else {
+        const tickerRates = this.$store.getters[APP_CONSTANTS.KEY_TICKER_RATES]
+        const rates = tickerRates.find((rate) => rate.currency === 'GBP')
+        const nFTPrice = utils.toDecimals(rates.stxPrice * price)
+        return nFTPrice
+      }
+    },
+    changeCurrencyTag () {
+      if (this.currencyPreference.text === 'GBP') {
+        return '£'
+      } else if (this.currencyPreference.text === 'USD') {
+        return '$'
+      } else if (this.currencyPreference.text === 'CNY') {
+        return '¥'
+      } else if (this.currencyPreference.text === 'JPY') {
+        return '¥'
+      } else if (this.currencyPreference.text === 'EUR') {
+        return '€'
+      } else {
+        return this.currencyPreference.text || 'GBP'
+      }
+    }
   }
 }
 </script>

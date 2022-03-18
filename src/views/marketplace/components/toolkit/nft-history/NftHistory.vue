@@ -2,13 +2,13 @@
 <div v-if="events">
   <h6 class="text-black">NFT History</h6>
   <b-row class=" ">
-    <b-col md="12" sm="12">
-      <b-table striped hover :items="values()" :fields="fields()" class="bg-light text-dark" small borderless>
-        <template #cell(status)="data">
+    <b-col md="12" sm="10">
+      <b-table hover :items="values()" :fields="fields()" head-variant="light" responsive small borderless>
+        <template #cell(status)="data" >
           <span v-show="data.value === 'expired'" v-b-tooltip.hover="{ variant: 'warning' }"  :title="getTitle(data)">
             <span @click="checkTx(data)"><b-icon :animation="getAnimation(data)" :class="getClass(data)" font-scale="1.5" :icon="getIcon(data)"/></span>
           </span>
-          <span v-show="data.value !== 'expired'" v-b-tooltip.hover="{ variant: 'warning' }"  :title="getTitle(data)">
+          <span style="color: red" v-show="data.value !== 'expired'" v-b-tooltip.hover="{ variant: 'warning' }"  :title="getTitle(data)">
             <a class="mr-2" :href="transactionUrl(data)" target="_blank"><b-icon :animation="getAnimation(data)" :class="getClass(data)" font-scale="1.5" :icon="getIcon(data)"/></a>
           </span>
         </template>
@@ -18,7 +18,7 @@
             <span class="pointer" v-show="data.value.length > 0" @click.prevent="copy('from', data)"><b-icon icon="file-earmark"/></span>
           </div>
         </template>
-        <template #cell(event)="data">
+        <template #cell(event)="data" >
           <div :ref="'from_' + data.index">
             <span class="pointer mr-1" @click="checkTx(data)">{{data.value}}</span>
           </div>

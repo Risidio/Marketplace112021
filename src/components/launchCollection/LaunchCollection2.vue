@@ -3,14 +3,14 @@
         <div>
             <b-nav class="galleryNav" >
                 <div class="galleryNavContainer" >
-                <b-nav-item class="galleryNavItem active" id="unsold" @click="tabChange('unsold')">Unsold</b-nav-item>
-                <b-nav-item class="galleryNavItem" id="all" @click="tabChange('all')">All</b-nav-item>
+                <b-nav-item class="galleryNavItem active" id="items" @click="tabChange('items')">Items</b-nav-item>
+                <b-nav-item class="galleryNavItem" id="activity" @click="tabChange('Activity')">activity</b-nav-item>
                 <!-- <b-nav-item class="galleryNavItem" @click="tabChange('Your NFT')">Your NFT's</b-nav-item> -->
                 </div>
             </b-nav>
         </div>
         <div class="homeMarketItems">
-            <div class="galleryContainer" v-if="resultSet.length > 0 && tab === 'all'">
+            <div class="galleryContainer" v-if="resultSet.length > 0 && tab === 'activity'">
                 <div v-for="(item, index) in resultSet" :key="index" class="NFTbackgroundColour" >
                     <div class="">
                         <b-link class="galleryNFTContainer" v-if="item && item.contractAsset" :to="assetUrl(item)">
@@ -22,14 +22,13 @@
                     </div>
                 </div>
             </div>
-            <div class="galleryContainer" v-if="resultSet.length > 0 && tab === 'unsold'">
+            <div class="galleryContainer" v-if="resultSet.length > 0 && tab === 'items'">
                 <div v-for="(item, index) in resultSet" :key="index" class="NFTbackgroundColour" >
                     <div class="">
                         <b-link class="galleryNFTContainer" v-if="item && item.contractAsset" :to="assetUrl(item)">
-                            <img class="nftGeneralView" v-on="$listeners" :src="item.image"/>
-                    <p class="nFTName"> {{!item.name ? "NFT" : item.name }} <span style="float: right;">{{item.contractAsset.saleData.buyNowOrStartingPrice}} STX</span>
-                    <!-- <span>$ {{item.contractAsset.saleData.buyNowOrStartingPrice * 1.9}}</span></p> -->
-                    <p class="nFTArtist">By <span>{{!item.artist ? "Anonymous" : item.artist }}</span> </p>
+                        <img class="nftGeneralView" v-on="$listeners" :src="item.image"/>
+                      <p class="nFTName"> {{!item.name ? "NFT" : item.name }} <span style="float: right;">{{item.contractAsset.listingInUstx.price || 0}} STX</span></p>
+                      <p class="nFTArtist">By <span>{{!item.properties.collection ? "Anonymous" : item.properties.collection }}</span><span style="float: right; font-weight: 300">{{changeCurrencyTag() || '£'}} {{changeCurrency(item.contractAsset.listingInUstx.price) || 0}}</span></p>
                     </b-link>
                     </div>
                 </div>
@@ -40,6 +39,9 @@
 </template>
 
 <script>
+import MyPageableItems from '@/views/marketplace/components/gallery/MyPageableItems'
+import { APP_CONSTANTS } from '@/app-constants'
+import utils from '@/services/utils'
 
 export default {
   name: 'Launch-Collection-S2',
@@ -48,22 +50,51 @@ export default {
   },
   data () {
     return {
-      tab: 'unsold'
+      tab: 'items',
+      currencyPreference: null
     }
   },
   mounted () {
-    this.findAssets()
+    this.currencyPreference = JSON.parse(localStorage.getItem('currencyPreferences'))
   },
   methods: {
     tabChange (tab) {
       this.tab = tab
-      document.getElementById('unsold').classList.remove('active')
-      document.getElementById('all').classList.remove('active')
+      document.getElementById('items').classList.remove('active')
+      document.getElementById('activity').classList.remove('active')
       document.getElementById(tab).classList.add('active')
     },
     assetUrl (item) {
       if (item.contractAsset) {
         return '/nfts/' + item.contractAsset.contractId + '/' + item.contractAsset.nftIndex
+      }
+    },
+    changeCurrency (price) {
+      if (this.currencyPreference) {
+        const tickerRates = this.$store.getters[APP_CONSTANTS.KEY_TICKER_RATES]
+        const rates = tickerRates.find((rate) => rate.currency === this.currencyPreference.text)
+        const nFTPrice = utils.toDecimals(rates.stxPrice * price)
+        return nFTPrice
+      } else {
+        const tickerRates = this.$store.getters[APP_CONSTANTS.KEY_TICKER_RATES]
+        const rates = tickerRates.find((rate) => rate.currency === 'GBP')
+        const nFTPrice = utils.toDecimals(rates.stxPrice * price)
+        return nFTPrice
+      }
+    },
+    changeCurrencyTag () {
+      if (this.currencyPreference.text === 'GBP') {
+        return '£'
+      } else if (this.currencyPreference.text === 'USD') {
+        return '$'
+      } else if (this.currencyPreference.text === 'CNY') {
+        return '¥'
+      } else if (this.currencyPreference.text === 'JPY') {
+        return '¥'
+      } else if (this.currencyPreference.text === 'EUR') {
+        return '€'
+      } else {
+        return this.currencyPreference.text || 'GBP'
       }
     }
   }

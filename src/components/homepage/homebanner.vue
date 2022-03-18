@@ -267,6 +267,10 @@ export default {
   position: absolute;
   top: 50px;
   left: 20px;
+  cursor: pointer;
+  &:hover{
+    text-decoration: underline;
+  }
 }
 .secondaryBannerButton {
   width:40rem;

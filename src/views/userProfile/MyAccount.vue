@@ -31,9 +31,6 @@
                   <pre v-else class="figure" style="font: normal normal 300 15px/19px Montserrat;"><span style="color: rgba(81, 84, 161, 1); font: normal normal 600 12px/15px Montserrat;">{{yourSTX}}</span> {{currency || null}}</pre>
                   <select id="currency" name="currency" class="form-control"  @change="currencyChange($event.target.value)">
                     <option v-for="(rates, index) in rates" :key="index" :value="rates.text">{{rates.text}}</option>
-                    <!-- <option value="GBP">GBP</option>
-                    <option value="EUR">EUR</option>
-                    <option value="NOK">NOK</option> -->
                   </select>
               </div>
             </div>
@@ -60,23 +57,18 @@
       </div>
       <div v-if="tab === 'NFT' && loopRun" class="">
         <div>
-          <MyPageableItems :loopRun="loopRun"/>
+          <MyPageableItems :loopRun="loopRun" :resultSet="resultSet"/>
           <router-link to="/gallery" style="font: normal normal bold 11px/14px Montserrat; display: block; text-align: center; margin-top: 50px"><!--<span style="color: #5FBDC1; ">Want More ? See The Gallery</span>--></router-link>
         </div>
-
+        <div class="pagination-container">
+          <p v-if="tokenCount > 8 && resultSet.length < 8" @click="previousPage()"> &lt; Previous </p>
+          <p v-if="tokenCount > 8" @click="nextPage()">Next ></p>
+        </div>
       </div>
-      <div v-else-if="saleItem.length > 0 && tab === 'Sale'" class="galleryinfoContainer">
-
-        <div v-for="(item, index) in saleItem" :key="index" class="NFTbackgroundColour" >
-            <div class="">
-              <b-link class="galleryNFTContainer" v-bind:to="'/nft-preview/' + item.contractAsset.contractId + '/' + item.contractAsset.nftIndex">
-              <!-- <MediaItemGeneral :classes="'nftGeneralView'" v-on="$listeners" :mediaItem="item.attributes"/> -->
-              <img alt="Collection Image" :src="item.image" class="nftGeneralView"/>
-            <p class="nFTName" style="margin-top: 0;"> {{!item.name ? "NFT " + index : item.name }} <span style="float: right;">{{item.contractAsset.listingInUstx.price}} STX</span></p>
-            <!-- <span>$ {{item.contractAsset.saleData.buyNowOrStartingPrice * 1.9}}</span></p> -->
-            <p class="nFTArtist">By <span>{{!item.artist ? "Indige" : item.artist }}</span> </p>
-            </b-link>
-            </div>
+      <div v-else-if="saleItem.length > 0 && tab === 'Sale'" >
+        <div>
+          <MyPageableItems :loopRun="loopRun" :resultSet="saleItem"/>
+          <router-link to="/gallery" style="font: normal normal bold 11px/14px Montserrat; display: block; text-align: center; margin-top: 50px"><!--<span style="color: #5FBDC1; ">Want More ? See The Gallery</span>--></router-link>
         </div>
       </div>
       <div v-else-if="saleItem.length === 0 && tab === 'Sale'">
@@ -130,7 +122,8 @@ export default {
       currency: '',
       profileInfo: {},
       tab: 'NFT',
-      pageSize: 20,
+      pageSize: 8,
+      page: 0,
       loopRun: null,
       numberOfItems: null,
       tokenCount: null,
@@ -148,7 +141,7 @@ export default {
     const tickerRates = this.$store.getters[APP_CONSTANTS.KEY_TICKER_RATES]
     this.defaultRate = tickerRates[0].currency
     this.loading = false
-    // this.fetchSaleItem()
+    this.fetchSaleItem()
     this.setSTX()
     // this.yourSTX = this.profile.accountInfo.balance
     // let currentRunKey = 'indige5'
@@ -163,6 +156,12 @@ export default {
     '$route' () {
       this.loading = true
       // this.fetchLoopRun()
+    },
+    'resultSet' () {
+      this.fetchSaleItem()
+    },
+    'page' () {
+      this.fetchAllocations()
     }
   },
   methods: {
@@ -203,61 +202,20 @@ export default {
         this.$store.commit(APP_CONSTANTS.SET_WEB_WALLET_NEEDED)
       })
     },
-    fetchLoopRun () {
-      let currentRunKey = 'indige-mint'
-      if (!currentRunKey) {
-        currentRunKey = 'indige5'
+    nextPage () {
+      if (this.page === 0) {
+        this.page += 1
       }
-      this.$store.dispatch('rpayCategoryStore/fetchLoopRun', currentRunKey).then((loopRun) => {
-        this.loopRun = loopRun
-        this.fetchAllocations()
-        this.loading = true
-        console.log(loopRun)
-      })
-      const data = {
-        // contractId: (this.loopRun) ? this.loopRun.contractId : STX_CONTRACT_ADDRESS + '.' + STX_CONTRACT_NAME,
-        runKey: 'indige-mint',
-        stxAddress: this.profile.stxAddress,
-        asc: true,
-        page: 0,
-        pageSize: 50,
-        contractId: 'ST1NXBK3K5YYMD6FD41MVNP3JS1GABZ8TRVX023PT.indige-mint'
+      if (this.tokenCount < (this.page * 8)) {
+        this.page += 1
       }
-      this.resultSet = null
-      this.$store.dispatch('rpayStacksContractStore/fetchMyTokens', data).then((result) => {
-        console.log(result)
-        this.resultSet = result.gaiaAssets // this.resultSet.concat(results)
-        this.tokenCount = result.tokenCount
-        this.numberOfItems = result.gaiaAssets.length
-        this.loading = true
-      }).catch((error) => {
-        console.log(error.message)
-      })
+    },
+    previousPage () {
+      this.page -= 1
     },
     fetchSaleItem () {
-      const data = {
-        // contractId: (this.loopRun) ? this.loopRun.contractId : STX_CONTRACT_ADDRESS + '.' + STX_CONTRACT_NAME,
-        runKey: 'indige5',
-        stxAddress: this.profile.stxAddress,
-        asc: true,
-        page: 0,
-        pageSize: 50,
-        contractId: 'ST1NXBK3K5YYMD6FD41MVNP3JS1GABZ8TRVX023PT.indige-mint'
-      }
-      this.$store.dispatch('rpayStacksContractStore/fetchMyTokens', data).then((result) => {
-        try {
-          for (let i = 0; i <= result.gaiaAssets.length; i++) {
-            if (result.gaiaAssets[i].contractAsset.listingInUstx.price > 0) {
-              this.saleItem.push(result.gaiaAssets[i])
-              console.log(result)
-            }
-          }
-        } catch (error) {
-          console.log(error)
-        }
-      }).catch((error) => {
-        console.log(error.message)
-      })
+      console.log('saleItem')
+      if (this.resultSet && this.resultSet.length > 0) this.saleItem = this.resultSet.filter((nft) => nft.contractAsset.listingInUstx.price > 0)
     },
     fetchAllocations () {
       if (!this.loopRun) return
@@ -268,17 +226,15 @@ export default {
         console.log(error)
       })
       const data = {
-        // contractId: (this.loopRun) ? this.loopRun.contractId : STX_CONTRACT_ADDRESS + '.' + STX_CONTRACT_NAME,
         runKey: 'indige-mint',
         stxAddress: this.profile.stxAddress,
         asc: true,
-        page: 0,
-        pageSize: 50,
+        page: this.page,
+        pageSize: this.pageSize,
         contractId: 'ST1NXBK3K5YYMD6FD41MVNP3JS1GABZ8TRVX023PT.indige-mint'
       }
       this.$store.dispatch('rpayStacksContractStore/fetchMyTokens', data).then((result) => {
-        console.log(result)
-        this.resultSet = result.gaiaAssets // this.resultSet.concat(results)
+        this.resultSet = result.gaiaAssets.reverse() // this.resultSet.concat(results)
         this.tokenCount = result.tokenCount
         this.numberOfItems = result.gaiaAssets.length
         this.loading = true
@@ -372,15 +328,15 @@ export default {
       const profile = this.$store.getters[APP_CONSTANTS.KEY_PROFILE]
       const options = []
       const stxToBtc = tickerRates[0].stxPrice / tickerRates[0].last
-      options.push({
-        text: 'BTC',
-        value: utils.toDecimals(stxToBtc * profile?.accountInfo?.balance, 100000)
-      })
-      const stxToETh = tickerRates[0].stxPrice / tickerRates[0].ethPrice
-      options.push({
-        text: 'ETH',
-        value: utils.toDecimals(stxToETh * profile?.accountInfo?.balance, 100000)
-      })
+      // options.push({
+      //   text: 'BTC',
+      //   value: utils.toDecimals(stxToBtc * profile?.accountInfo?.balance, 100000)
+      // })
+      // const stxToETh = tickerRates[0].stxPrice / tickerRates[0].ethPrice
+      // options.push({
+      //   text: 'ETH',
+      //   value: utils.toDecimals(stxToETh * profile?.accountInfo?.balance, 100000)
+      // })
       tickerRates.forEach((rate) => {
         options.push({
           text: rate.currency,
@@ -403,7 +359,23 @@ export default {
   // padding: 0 100px;
   margin: 0 auto;
 }
-
+.pagination-container{
+  max-width: 300px;
+  margin: auto;
+  text-align: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  column-gap: 10px;
+  p{
+    font: normal normal bold 12px/15px Montserrat;
+    color: #50B1B5;
+    cursor: pointer;
+    &:hover{
+      text-decoration: underline;
+    }
+  }
+}
 .wantMore{
   display: block;
   text-align: center;

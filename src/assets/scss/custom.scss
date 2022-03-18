@@ -151,7 +151,7 @@ select {
 	border-radius: 20px;
 }
 .purpleBg {
-	background: #5154a1;
+	background-color: #5154a1;
 }
 .purpleText {
 	color: #5154a1;
@@ -481,7 +481,14 @@ select {
 	cursor: pointer;
 	transition: all 0.2s ease-in-out;
 }
-.NFTbackgroundColour:hover {
+.NFTbackgroundColour-buy {
+	background: rgba(80, 83, 159, 0.23);
+}
+.NFTbackgroundColour-collection {
+	background: rgba(53, 44, 154, 0.82);
+}
+.NFTbackgroundColour:hover,
+.NFTbackgroundColour-buy:hover {
 	.nftGeneralView,
 	.nftGeneralView-limited {
 		transform: scale(1.05);
@@ -613,7 +620,8 @@ select {
 	display: flex;
 	font-size: 20px;
 	width: 211px;
-	font-weight: 400;
+	font-size: clamp(14px, 20px, 20px);
+	font-weight: 300;
 	padding: 0;
 	margin: 20px 0 0 0;
 	text-overflow: ellipsis;
