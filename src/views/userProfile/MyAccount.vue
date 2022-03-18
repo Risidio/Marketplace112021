@@ -31,9 +31,6 @@
                   <pre v-else class="figure" style="font: normal normal 300 15px/19px Montserrat;"><span style="color: rgba(81, 84, 161, 1); font: normal normal 600 12px/15px Montserrat;">{{yourSTX}}</span> {{currency || null}}</pre>
                   <select id="currency" name="currency" class="form-control"  @change="currencyChange($event.target.value)">
                     <option v-for="(rates, index) in rates" :key="index" :value="rates.text">{{rates.text}}</option>
-                    <!-- <option value="GBP">GBP</option>
-                    <option value="EUR">EUR</option>
-                    <option value="NOK">NOK</option> -->
                   </select>
               </div>
             </div>
@@ -331,15 +328,15 @@ export default {
       const profile = this.$store.getters[APP_CONSTANTS.KEY_PROFILE]
       const options = []
       const stxToBtc = tickerRates[0].stxPrice / tickerRates[0].last
-      options.push({
-        text: 'BTC',
-        value: utils.toDecimals(stxToBtc * profile?.accountInfo?.balance, 100000)
-      })
-      const stxToETh = tickerRates[0].stxPrice / tickerRates[0].ethPrice
-      options.push({
-        text: 'ETH',
-        value: utils.toDecimals(stxToETh * profile?.accountInfo?.balance, 100000)
-      })
+      // options.push({
+      //   text: 'BTC',
+      //   value: utils.toDecimals(stxToBtc * profile?.accountInfo?.balance, 100000)
+      // })
+      // const stxToETh = tickerRates[0].stxPrice / tickerRates[0].ethPrice
+      // options.push({
+      //   text: 'ETH',
+      //   value: utils.toDecimals(stxToETh * profile?.accountInfo?.balance, 100000)
+      // })
       tickerRates.forEach((rate) => {
         options.push({
           text: rate.currency,

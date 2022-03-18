@@ -45,10 +45,9 @@
                     <div class="">
                       <b-link class="galleryNFTContainer" :to="assetUrl(item)">
                       <!-- <MediaItemGeneral :classes="'nftGeneralView'" v-on="$listeners" :mediaItem="item.attributes"/> -->
-                    <img alt="Collection Image" :src="'https://res.cloudinary.com/risidio/image/upload/f_auto/q_auto:low/indige-testing/' + item.image.split('/')[5]" class="nftGeneralView"/>
-                    <p class="nFTName"> {{!item.name ? "NFT " + index : item.name }} <span style="float: right;">{{item.contractAsset.listingInUstx.price || 0}} STX</span></p>
-                    <!-- <span>$ {{item.contractAsset.saleData.buyNowOrStartingPrice * 1.9}}</span></p> -->
-                    <p class="nFTArtist">By <span>{{!item.artist ? "Indige" : item.artist }}</span> </p>
+                      <img alt="Collection Image" :src="'https://res.cloudinary.com/risidio/image/upload/f_auto/q_auto:low/indige-testing/' + item.image.split('/')[5]" class="nftGeneralView"/>
+                      <p class="nFTName"> {{!item.name ? "NFT" : item.name }} <span style="float: right;">{{item.contractAsset.listingInUstx.price || 0}} STX</span></p>
+                      <p class="nFTArtist">By <span>{{!item.properties.collection ? "Anonymous" : item.properties.collection }}</span><span style="float: right; font-weight: 300">{{changeCurrencyTag() || '£'}} {{changeCurrency(item.contractAsset.listingInUstx.price) || 0}}</span></p>
                     </b-link>
                     </div>
                 </div>
@@ -72,6 +71,9 @@
 
 <script>
 import MyPageableItems from '@/views/marketplace/components/gallery/MyPageableItems'
+import { APP_CONSTANTS } from '@/app-constants'
+import utils from '@/services/utils'
+
 export default {
   name: 'Indige-Collection-S2',
   props: ['content', 'loopRun', 'resultSet'],
@@ -91,11 +93,13 @@ export default {
       commissions: null,
       commission: null,
       tokenContractId: null,
-      loadingLogo: '../../assets/img/loading-risid.gif'
+      loadingLogo: '../../assets/img/loading-risid.gif',
+      currencyPreference: null
     }
   },
   mounted () {
     this.fetchMintPass()
+    this.currencyPreference = JSON.parse(localStorage.getItem('currencyPreferences'))
   },
   watch: {
     'loopRun' () {
@@ -182,6 +186,34 @@ export default {
       data.tokenContractName = commission.tokenContractId.split('.')[1]
       console.log(data)
       this.$store.dispatch('rpayMarketGenFungStore/mintWithToken', data)
+    },
+    changeCurrency (price) {
+      if (this.currencyPreference) {
+        const tickerRates = this.$store.getters[APP_CONSTANTS.KEY_TICKER_RATES]
+        const rates = tickerRates.find((rate) => rate.currency === this.currencyPreference.text)
+        const nFTPrice = utils.toDecimals(rates.stxPrice * price)
+        return nFTPrice
+      } else {
+        const tickerRates = this.$store.getters[APP_CONSTANTS.KEY_TICKER_RATES]
+        const rates = tickerRates.find((rate) => rate.currency === 'GBP')
+        const nFTPrice = utils.toDecimals(rates.stxPrice * price)
+        return nFTPrice
+      }
+    },
+    changeCurrencyTag () {
+      if (this.currencyPreference.text === 'GBP') {
+        return '£'
+      } else if (this.currencyPreference.text === 'USD') {
+        return '$'
+      } else if (this.currencyPreference.text === 'CNY') {
+        return '¥'
+      } else if (this.currencyPreference.text === 'JPY') {
+        return '¥'
+      } else if (this.currencyPreference.text === 'EUR') {
+        return '€'
+      } else {
+        return this.currencyPreference.text || 'GBP'
+      }
     }
   },
   computed: {
