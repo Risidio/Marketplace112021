@@ -201,18 +201,18 @@ export default {
       }
     },
     changeCurrencyTag () {
-      if (this.currencyPreference.text === 'GBP') {
+      if (this.currencyPreference && this.currencyPreference.text === 'GBP') {
         return '£'
-      } else if (this.currencyPreference.text === 'USD') {
+      } else if (this.currencyPreference && this.currencyPreference.text === 'USD') {
         return '$'
-      } else if (this.currencyPreference.text === 'CNY') {
+      } else if (this.currencyPreference && this.currencyPreference.text === 'CNY') {
         return '¥'
-      } else if (this.currencyPreference.text === 'JPY') {
+      } else if (this.currencyPreference && this.currencyPreference.text === 'JPY') {
         return '¥'
-      } else if (this.currencyPreference.text === 'EUR') {
+      } else if (this.currencyPreference && this.currencyPreference.text === 'EUR') {
         return '€'
       } else {
-        return this.currencyPreference.text || 'GBP'
+        return '£'
       }
     }
   },
