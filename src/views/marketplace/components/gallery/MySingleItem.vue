@@ -71,10 +71,6 @@ export default {
         return false
       }
     },
-    updateImage (item) {
-      this.asset.image = item.image
-      this.image = item.image
-    },
     handler: function (e) {
       e.preventDefault()
     },

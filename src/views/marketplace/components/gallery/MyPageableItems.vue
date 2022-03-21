@@ -1,7 +1,7 @@
 <template>
      <div class="galleryinfoContainer" id="my-table" v-if="resultSet && resultSet.length > 0">
         <div v-for="(asset, index) of resultSet" :key="index">
-          <MySingleItem @updateImage="updateImage" :parent="'list-view'" :loopRun="loopRun" :asset="asset" :key="componentKey" class=""/>
+          <MySingleItem :parent="'list-view'" :loopRun="loopRun" :asset="asset" :key="componentKey" class=""/>
         </div>
       </div>
       <div v-else>

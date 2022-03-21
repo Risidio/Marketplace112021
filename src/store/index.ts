@@ -300,13 +300,13 @@ export default new Vuex.Store({
         dispatch('rpayAuthStore/fetchMyAccount').then(profile => {
           dispatch('rpayStacksContractStore/fetchFullRegistry')
           if (profile.loggedIn) {
-            const authHeaders = rootGetters[APP_CONSTANTS.KEY_AUTH_HEADERS]
-            axios.interceptors.request.use(function (config) {
-              config.headers.Authorization = authHeaders.headers.Authorization
-              config.headers.IdentityAddress = authHeaders.headers.IdentityAddress
-              config.headers.STX_ADDRESS = profile.stxAddress
-              return config
-            })
+            // const authHeaders = rootGetters[APP_CONSTANTS.KEY_AUTH_HEADERS]
+            // axios.interceptors.request.use(function (config) {
+            //   config.headers.Authorization = authHeaders.headers.Authorization
+            //   config.headers.IdentityAddress = authHeaders.headers.IdentityAddress
+            //   config.headers.STX_ADDRESS = profile.stxAddress
+            //   return config
+            // })
             const data = { stxAddress: 'STFJEDEQB1Y1CQ7F04CS62DCS5MXZVSNXXN413ZG', mine: true }
             if (process.env.VUE_APP_NETWORK !== 'local') {
               data.stxAddress = profile.stxAddress

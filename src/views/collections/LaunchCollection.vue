@@ -3,7 +3,8 @@
         <LaunchCollection1 :content="content" :numberOfItems="numberOfItems"/>
         <LaunchCollection2
         :resultSet="resultSet"
-        :content="content"/>
+        :content="content"
+        :loopRun="loopRun"/>
     </div>
 </template>
 
@@ -34,6 +35,7 @@ export default {
   },
   methods: {
     sortCollection (loopRun) {
+      this.loopRun = loopRun
       const data = {
         contractId: loopRun.contractId,
         asc: true,

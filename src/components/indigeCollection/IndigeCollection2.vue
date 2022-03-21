@@ -23,9 +23,25 @@
             </b-nav>
         </div>
         <div class="homeMarketItems">
-            <div v-if="resultSet && resultSet.length > 0 && tab === 'Activity'">
-              <div>
-                <MyPageableItems :loopRun="loopRun" :resultSet="resultSet"/>
+            <div v-if="stxTransaction && stxTransaction.length > 0 && tab === 'Activity'">
+              <h3 style="font-size: 13px; font-weight: 700;"> Transactions</h3>
+              <table class="transaction-table">
+                <tr><th>Date</th><th>Method Type</th><th>By</th><th>Fees</th></tr>
+                <tr class="transaction-data" v-for="(item, index) in stxTransaction" :key="index" @click="openTransaction(item)">
+                    <th>{{dayjs(item.burn_block_time_iso).format('DD/MM/YYYY')}}</th>
+                    <th v-if="item.contract_call && item.contract_call.function_name"> {{item.contract_call.function_name}}</th> <th v-else> Setup</th>
+                    <th>{{item.sender_address.substring(0, 30)}}...</th>
+                    <th>{{item.fee_rate ? `STX: ${item.fee_rate/1000000} ` : 'N/A'}}</th>
+                </tr>
+              </table>
+              <!-- <div v-for="(item, index) in stxTransaction" :key="index">
+                <p class="nFTName" v-if="item.contract_call && item.contract_call.function_name"> {{item.contract_call.function_name}} <span> {{item.contract_call.contract_id.split('.')[1]}} </span></p>
+              </div> -->
+            </div>
+            <div v-else-if="!stxTransaction && tab === 'Activity'">
+              <div class="pass-container">
+                <img src="@/assets/img/loading-risid.gif" style="margin-auto;" class="loading-image" alt="loading"/>
+                <p style="text-align: center;"> Hmm... Can't seem to find anything. Try to <span style="font-weight: 500; cursor: pointer; color: #5FBDC1;" @click="fetchStxData()"> refresh </span></p>
               </div>
             </div>
             <div class="galleryContainer" v-if="resultSet && resultSet.length > 0 && tab === 'Items' && mintPasses === 0">
@@ -73,6 +89,8 @@
 import MyPageableItems from '@/views/marketplace/components/gallery/MyPageableItems'
 import { APP_CONSTANTS } from '@/app-constants'
 import utils from '@/services/utils'
+import axios from 'axios'
+import dayjs from 'dayjs'
 
 export default {
   name: 'Indige-Collection-S2',
@@ -82,6 +100,7 @@ export default {
   },
   data () {
     return {
+      dayjs: dayjs,
       tab: 'Items',
       currentRunAssets: [],
       numberOfItems: 0,
@@ -94,7 +113,9 @@ export default {
       commission: null,
       tokenContractId: null,
       loadingLogo: '../../assets/img/loading-risid.gif',
-      currencyPreference: null
+      activityLoad: true,
+      currencyPreference: null,
+      stxTransaction: null
     }
   },
   mounted () {
@@ -104,9 +125,24 @@ export default {
   watch: {
     'loopRun' () {
       this.fetchMintPass()
+      this.fetchStxData()
+    },
+    'tab' () {
+      if (this.tab === 'Activity') this.fetchStxData()
     }
   },
   methods: {
+/* eslint-disable */
+    fetchStxData () {
+      axios.get(`https://stacks-node-api.testnet.stacks.co/extended/v1/address/${this.loopRun.contractId}/transactions?limit=30&offset=0&unanchored=false`).then((res) => {
+        console.log(res)
+        this.stxTransaction = res.data.results
+      }).catch((error) => {
+        console.log(error)
+      })
+      console.log('hi')
+    },
+    /* eslint-enable */
     fetchMintPass () {
       if (this.loopRun) {
         const data = {
@@ -130,6 +166,9 @@ export default {
           console.log(error)
         })
       }
+    },
+    openTransaction (item) {
+      window.open(`https://explorer.stacks.co/txid/${item.tx_id}`)
     },
     tabChange (tab) {
       this.tab = tab
@@ -230,6 +269,25 @@ export default {
   min-height: 50rem;
   padding: 20px;
 }
+.transaction-table{
+  width: 100%;
+  height: 200px;
+  overflow-y: auto;
+  font-size: 12px;
+  font-weight: 300;
+  .transaction-data{
+    th{
+      padding: 10px 5px;
+      font-size: 12px;
+      font-weight: 300;
+      border-bottom: 0.5px solid grey;
+    }
+    &:hover{
+      border-left: 2px solid blue;
+    }
+
+  }
+}
 .container{
     text-align: center;
     max-width: 800px;
@@ -249,11 +307,6 @@ export default {
 .loading-pass{
   text-align: center;
 }
-.loading-image{
-  width: 150px;
-  height: 100px;
-  margin: auto;
-}
 p{padding:0; margin:0;}
 .galleryContainer{
   display: grid;
@@ -266,10 +319,6 @@ p{padding:0; margin:0;}
 .homeMarketItems{
   max-width: 1135px;
   margin: auto;
-}
-.pass-container{
-  display: grid;
-  place-items: center;
 }
 .mint-pass{
   padding: 15px 35px;
