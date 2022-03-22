@@ -44,10 +44,17 @@
                 <p style="text-align: center;"> Hmm... Can't seem to find anything. Try to <span style="font-weight: 500; cursor: pointer; color: #5FBDC1;" @click="fetchStxData()"> refresh </span></p>
               </div>
             </div>
-            <div class="galleryContainer" v-if="resultSet && resultSet.length > 0 && tab === 'Items' && mintPasses === 0">
-              <div>
-                <MyPageableItems :loopRun="loopRun" :resultSet="resultSet"/>
-              </div>
+            <div class="galleryContainer" v-if="resultSet && resultSet.length > 0 && tab === 'Items' && (!mintPasses || mintPasses === 0)">
+                <div v-for="(item, index) in resultSet.slice(0, 8)" :key="index" class="NFTbackgroundColour" >
+                    <div class="">
+                      <b-link class="galleryNFTContainer" :to="assetUrl(item)">
+                      <!-- <MediaItemGeneral :classes="'nftGeneralView'" v-on="$listeners" :mediaItem="item.attributes"/> -->
+                      <img alt="Collection Image" :src="'https://res.cloudinary.com/risidio/image/upload/f_auto/q_auto:low/indige-testing/' + item.image.split('/')[5]" class="nftGeneralView"/>
+                      <p class="nFTName"> {{!item.name ? "NFT" : item.name }} <span style="float: right;">{{item.contractAsset.listingInUstx.price || 0}} STX</span></p>
+                      <p class="nFTArtist">By <span>{{!item.properties.collection ? "Anonymous" : item.properties.collection }}</span><span style="float: right; font-weight: 300">{{changeCurrencyTag() || '£'}} {{changeCurrency(item.contractAsset.listingInUstx.price) || 0}}</span></p>
+                    </b-link>
+                    </div>
+                </div>
             </div>
             <div class="galleryContainer" v-else-if="resultSet && resultSet.length > 0 && tab === 'Items' && mintPasses > 0">
               <div class="pass-container">
@@ -96,7 +103,7 @@ export default {
   name: 'Indige-Collection-S2',
   props: ['content', 'loopRun', 'resultSet'],
   components: {
-    MyPageableItems
+    // MyPageableItems
   },
   data () {
     return {
@@ -275,6 +282,9 @@ export default {
   overflow-y: auto;
   font-size: 12px;
   font-weight: 300;
+  tr:nth-child(even){
+    background-color: rgb(240, 240, 240);
+  }
   .transaction-data{
     th{
       padding: 10px 5px;
@@ -285,7 +295,6 @@ export default {
     &:hover{
       border-left: 2px solid blue;
     }
-
   }
 }
 .container{

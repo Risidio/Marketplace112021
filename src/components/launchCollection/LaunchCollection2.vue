@@ -15,10 +15,10 @@
               <table class="transaction-table">
                 <tr><th>Date</th><th>Method Type</th><th>By</th><th>Fees</th></tr>
                 <tr class="transaction-data" v-for="(item, index) in stxTransaction" :key="index" @click="openTransaction(item)">
-                    <th>{{dayjs(item.burn_block_time_iso).format('DD/MM/YYYY')}}</th>
-                    <th v-if="item.contract_call && item.contract_call.function_name"> {{item.contract_call.function_name}}</th> <th v-else> Setup</th>
-                    <th>{{item.sender_address.substring(0, 30)}}...</th>
-                    <th>{{item.fee_rate ? `STX: ${item.fee_rate/1000000} ` : 'N/A'}}</th>
+                  <th>{{dayjs(item.burn_block_time_iso).format('DD/MM/YYYY')}}</th>
+                  <th v-if="item.contract_call && item.contract_call.function_name"> {{item.contract_call.function_name}}</th> <th v-else> Setup</th>
+                  <th>{{item.sender_address.substring(0, 30)}}...</th>
+                  <th>{{item.fee_rate ? `STX: ${item.fee_rate/1000000} ` : 'N/A'}}</th>
                 </tr>
               </table>
               <!-- <div v-for="(item, index) in stxTransaction" :key="index">
@@ -223,25 +223,6 @@ export default {
 .launchS2{
     min-height: 50rem;
   padding: 20px;
-}
-.transaction-table{
-  width: 100%;
-  height: 200px;
-  overflow-y: auto;
-  font-size: 12px;
-  font-weight: 300;
-  .transaction-data{
-    th{
-      padding: 10px 5px;
-      font-size: 12px;
-      font-weight: 300;
-      border-bottom: 0.5px solid grey;
-    }
-    &:hover{
-      border-left: 2px solid blue;
-    }
-
-  }
 }
 .container{
     text-align: center;

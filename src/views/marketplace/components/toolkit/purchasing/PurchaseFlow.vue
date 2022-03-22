@@ -67,21 +67,23 @@ export default {
           this.webWalletNeeded = true
         })
       } else {
+        const commission = contractAsset.listingInUstx.commission
         const buyNowData = {
-          // contractAddress: currentRun.contractId.split('.')[0],
-          // contractName: currentRun.contractId.split('.')[1],
-          // commissionContractAddress: commission.split('.')[0],
-          // commissionContractName: commission.split('.')[1],
+          contractAddress: contractAsset.contractId.split('.')[0],
+          contractName: contractAsset.contractId.split('.')[1],
+          commissionContractAddress: commission.split('.')[0],
+          commissionContractName: commission.split('.')[1],
           tokenContractAddress: (contractAsset.listingInUstx.token) ? contractAsset.listingInUstx.token.split('.')[0] : null,
           tokenContractName: (contractAsset.listingInUstx.token) ? contractAsset.listingInUstx.token.split('.')[1] : null,
           owner: contractAsset.owner,
           nftIndex: contractAsset.nftIndex,
           price: contractAsset.listingInUstx.price,
           sendAsSky: true, // only applicable in local
-          // assetName: currentRun.assetName,
+          assetName: this.loopRun.assetName,
           decimals: contractAsset.listingInUstx.decimals,
           tokenAssetName: contractAsset.listingInUstx.name
         }
+        console.log(buyNowData)
         this.$store.dispatch('rpayMarketGenFungStore/buyInToken', buyNowData).then((result) => {
           this.result = result
           this.flowType = 2

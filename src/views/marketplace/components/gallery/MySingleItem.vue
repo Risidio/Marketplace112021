@@ -3,9 +3,9 @@
 <div class="NFTbackgroundColour NFTbackgroundColour-buy" >
   <div class="">
       <b-link class="galleryNFTContainer" :to="nextUrl">
-        <img class="nftGeneralView" :src="image" @error="imageError()"/>
-        <p style="margin-top: 0;" class="nFTName">{{this.asset.name}} <span>On Sale</span></p>
-        <p class="nFTArtist"> By: <span>{{asset.properties.collection}}</span></p>
+        <img class="nftGeneralView" :src="image || '@/assets/img/sticksnstones_logo'" @error="imageError()"/>
+        <p style="margin-top: 0;" class="nFTName">{{this.asset.name || 'Unknown'}} <span>On Sale</span></p>
+        <p class="nFTArtist"> By: <span>{{asset.properties.collection || 'Unknown'}}</span></p>
     </b-link>
     </div>
   </div>
@@ -14,9 +14,9 @@
   <div class="NFTbackgroundColour" >
   <div class="">
       <b-link class="galleryNFTContainer" :to="nextUrl">
-        <img class="nftGeneralView" :src="image" @error="imageError()"/>
-        <p style="margin-top: 0;" class="nFTName">{{this.asset.name}}</p>
-        <p class="nFTArtist"> By: <span>{{asset.properties.collection}}</span></p>
+        <img class="nftGeneralView" :src="image || '@/assets/img/sticksnstones_logo'" @error="imageError()"/>
+        <p style="margin-top: 0;" class="nFTName">{{this.asset.name || 'Unknown'}}</p>
+        <p class="nFTArtist"> By: <span>{{asset.properties.collection || 'Unknown'}}</span></p>
     </b-link>
     </div>
   </div>

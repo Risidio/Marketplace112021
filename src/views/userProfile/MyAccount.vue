@@ -61,7 +61,7 @@
           <router-link to="/gallery" style="font: normal normal bold 11px/14px Montserrat; display: block; text-align: center; margin-top: 50px"><!--<span style="color: #5FBDC1; ">Want More ? See The Gallery</span>--></router-link>
         </div>
         <div class="pagination-container">
-          <p v-if="tokenCount > 8 && resultSet.length < 8" @click="previousPage()"> &lt; Previous </p>
+          <p v-if="tokenCount > 8 && resultSet.length <= 8" @click="previousPage()"> &lt; Previous </p>
           <p v-if="tokenCount > 8" @click="nextPage()">Next ></p>
         </div>
       </div>
@@ -122,7 +122,7 @@ export default {
       currency: '',
       profileInfo: {},
       tab: 'NFT',
-      pageSize: 8,
+      pageSize: 40,
       page: 0,
       loopRun: null,
       numberOfItems: null,
@@ -178,7 +178,7 @@ export default {
         })
         $self.loaded = true
       })
-      console.log('registry')
+      // this.$store.dispatch('rpayStacksContractStore/fetchMyTokensCPSV2')
     },
     viewInfo (pressed) {
       if (pressed === 1) {
@@ -206,16 +206,18 @@ export default {
       if (this.page === 0) {
         this.page += 1
       }
-      if (this.tokenCount < (this.page * 8)) {
+      if ((this.page * 8) > this.tokenCount) {
+        console.log('incre page')
         this.page += 1
       }
+      console.log('page' + this.page)
     },
     previousPage () {
       this.page -= 1
     },
     fetchSaleItem () {
       console.log('saleItem')
-      if (this.resultSet && this.resultSet.length > 0) this.saleItem = this.resultSet.filter((nft) => nft.contractAsset.listingInUstx.price > 0)
+      if (this.resultSet && this.resultSet.length > 0) this.saleItem = this.resultSet.filter((nft) => nft.contractAsset && nft.contractAsset.listingInUstx && nft.contractAsset.listingInUstx.price > 0)
     },
     fetchAllocations () {
       if (!this.loopRun) return
@@ -226,14 +228,14 @@ export default {
         console.log(error)
       })
       const data = {
-        runKey: 'indige-mint',
+        // runKey: 'indige-mint',
         stxAddress: this.profile.stxAddress,
         asc: true,
         page: this.page,
-        pageSize: this.pageSize,
-        contractId: 'ST1NXBK3K5YYMD6FD41MVNP3JS1GABZ8TRVX023PT.indige-mint'
+        pageSize: this.pageSize
+        // contractId: 'ST1NXBK3K5YYMD6FD41MVNP3JS1GABZ8TRVX023PT.indige-mint'
       }
-      this.$store.dispatch('rpayStacksContractStore/fetchMyTokens', data).then((result) => {
+      this.$store.dispatch('rpayStacksContractStore/fetchMyTokensCPSV2', data).then((result) => {
         this.resultSet = result.gaiaAssets.reverse() // this.resultSet.concat(results)
         this.tokenCount = result.tokenCount
         this.numberOfItems = result.gaiaAssets.length

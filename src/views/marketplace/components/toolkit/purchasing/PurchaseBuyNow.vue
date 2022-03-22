@@ -31,7 +31,7 @@
       </b-col>
     </b-row> -->
     <b-col class="mt-5" cols="12" v-if="iAmOwner">
-      You own this NFT!
+      <p style="text-align: center;">You already own this NFT!</p>
     </b-col>
     <b-col class="mt-5" cols="12" v-else>
       <button class="button notFilledBlue" @click="$emit('buyNow')">BUY NOW</button>
