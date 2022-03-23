@@ -38,14 +38,6 @@
             <div class="galleryContainer" v-if="resultSet && resultSet.length > 0 && tab === 'Items' && (!mintPasses || mintPasses === 0)">
                 <div v-for="(item, index) in resultSet.slice(0, 8)" :key="index" class="NFTbackgroundColour" >
                     <ResultSet :item="item" />
-                    <!-- <div class="">
-                      <b-link class="galleryNFTContainer" :to="assetUrl(item)"> -->
-                      <!-- <MediaItemGeneral :classes="'nftGeneralView'" v-on="$listeners" :mediaItem="item.attributes"/> -->
-                      <!-- <img alt="Collection Image" :src="'https://res.cloudinary.com/risidio/image/upload/f_auto/q_auto:low/indige-testing/' + item.image.split('/')[5]" class="nftGeneralView"/>
-                      <p class="nFTName"> {{!item.name ? "NFT" : item.name }} <span style="float: right;">{{item.contractAsset.listingInUstx.price || 0}} STX</span></p>
-                      <p class="nFTArtist">By <span>{{!item.properties.collection ? "Anonymous" : item.properties.collection }}</span><span style="float: right; font-weight: 300">{{changeCurrencyTag() || '£'}} {{changeCurrency(item.contractAsset.listingInUstx.price) || 0}}</span></p>
-                    </b-link>
-                    </div> -->
                 </div>
             </div>
             <div class="galleryContainer" v-else-if="resultSet && resultSet.length > 0 && tab === 'Items' && mintPasses > 0">
@@ -58,14 +50,6 @@
               </div>
                 <div v-for="(item, index) in resultSet.slice(0, 7)" :key="index" class="NFTbackgroundColour" >
                     <ResultSet :item="item" />
-                    <!-- <div class=""> -->
-                      <!-- <b-link class="galleryNFTContainer" :to="assetUrl(item)"> -->
-                      <!-- <MediaItemGeneral :classes="'nftGeneralView'" v-on="$listeners" :mediaItem="item.attributes"/> -->
-                      <!-- <img alt="Collection Image" :src="'https://res.cloudinary.com/risidio/image/upload/f_auto/q_auto:low/indige-testing/' + item.image.split('/')[5]" class="nftGeneralView"/>
-                      <p class="nFTName"> {{!item.name ? "NFT" : item.name }} <span style="float: right;">{{item.contractAsset.listingInUstx.price || 0}} STX</span></p>
-                      <p class="nFTArtist">By <span>{{!item.properties.collection ? "Anonymous" : item.properties.collection }}</span><span style="float: right; font-weight: 300">{{changeCurrencyTag() || '£'}} {{changeCurrency(item.contractAsset.listingInUstx.price) || 0}}</span></p>
-                    </b-link>
-                    </div> -->
                 </div>
             </div>
             <div class="galleryContainer" v-else-if="tab === 'Items' && mintPasses > 0">
@@ -226,34 +210,6 @@ export default {
       data.tokenContractName = commission.tokenContractId.split('.')[1]
       console.log(data)
       this.$store.dispatch('rpayMarketGenFungStore/mintWithToken', data)
-    },
-    changeCurrency (price) {
-      if (this.currencyPreference) {
-        const tickerRates = this.$store.getters[APP_CONSTANTS.KEY_TICKER_RATES]
-        const rates = tickerRates.find((rate) => rate.currency === this.currencyPreference.text)
-        const nFTPrice = utils.toDecimals(rates.stxPrice * price)
-        return nFTPrice
-      } else {
-        const tickerRates = this.$store.getters[APP_CONSTANTS.KEY_TICKER_RATES]
-        const rates = tickerRates.find((rate) => rate.currency === 'GBP')
-        const nFTPrice = utils.toDecimals(rates.stxPrice * price)
-        return nFTPrice
-      }
-    },
-    changeCurrencyTag () {
-      if (this.currencyPreference && this.currencyPreference.text === 'GBP') {
-        return '£'
-      } else if (this.currencyPreference && this.currencyPreference.text === 'USD') {
-        return '$'
-      } else if (this.currencyPreference && this.currencyPreference.text === 'CNY') {
-        return '¥'
-      } else if (this.currencyPreference && this.currencyPreference.text === 'JPY') {
-        return '¥'
-      } else if (this.currencyPreference && this.currencyPreference.text === 'EUR') {
-        return '€'
-      } else {
-        return '£'
-      }
     }
   },
   computed: {
