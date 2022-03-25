@@ -63,7 +63,7 @@
               checking mint pass....<br/>
               <img class="loading-image" src="@/assets/img/loading-risid.gif"/>
             </p>
-            <!-- <router-link to="/nft-marketplace/risidio/launch_collection_t1"><button class="button notFilledBlue"> See More </button></router-link> -->
+            <!-- <router-link to="/nft-marketplace/risidio/numberone_roots"><button class="button notFilledBlue"> See More </button></router-link> -->
             <button class="button notFilledBlue" @click="setPageSize()"> See More </button>
         </div>
     </div>
@@ -324,6 +324,7 @@ p {
   overflow: auto; /* Enable scroll if needed */
   background-color: rgb(0, 0, 0); /* Fallback color */
   background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+  overflow-y: hidden;
 }
 /* Modal Content */
 .mint-modal-content {

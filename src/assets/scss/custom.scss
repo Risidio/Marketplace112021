@@ -723,6 +723,7 @@ select {
 	flex-wrap: wrap;
 	gap: 30px;
 	padding: 20px 50px;
+	overflow-y: hidden;
 	& > :nth-child(1) {
 		flex: 1 1 15%;
 	}

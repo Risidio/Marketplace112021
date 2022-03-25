@@ -42,7 +42,7 @@
                     </div>
                 </div>
             </div>
-            <router-link to="/nft-marketplace/risidio/launch_collection_t1"><button class="button notFilledBlue"> See More </button></router-link>
+            <router-link to="/nft-marketplace/risidio/numberone_roots"><button class="button notFilledBlue"> See More </button></router-link>
         </div>
     </div>
 </template>

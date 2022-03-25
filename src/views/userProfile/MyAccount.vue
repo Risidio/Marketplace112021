@@ -51,7 +51,6 @@
             <b-nav-item id="NFT" class="galleryNavItem active" @click="tabChange('NFT')">Your NFTs</b-nav-item>
             <b-nav-item id="Sale" class="galleryNavItem" @click="tabChange('Sale')">Your NFTs On Sale</b-nav-item>
             <b-nav-item id="Fav" class="galleryNavItem" @click="tabChange('Fav')">Your Favourites</b-nav-item>
-            <!-- <b-nav-item id="Fav" class="galleryNavItem" @click="tabChange('Fav')">Favourite NFTs</b-nav-item> -->
           </div>
         </b-nav>
       </div>
@@ -122,7 +121,7 @@ export default {
       currency: '',
       profileInfo: {},
       tab: 'NFT',
-      pageSize: 40,
+      pageSize: 50,
       page: 0,
       loopRun: null,
       numberOfItems: null,
@@ -178,7 +177,6 @@ export default {
         })
         $self.loaded = true
       })
-      // this.$store.dispatch('rpayStacksContractStore/fetchMyTokensCPSV2')
     },
     viewInfo (pressed) {
       if (pressed === 1) {

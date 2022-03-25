@@ -44,7 +44,7 @@ export default {
       console.log(this.$store.state.contentStore.content.searchWord)
     },
     openMarket () {
-      this.$router.push('/nft-marketplace/risidio/launch_collection_t1')
+      this.$router.push('/nft-marketplace/risidio/numberone_roots')
       console.log('routerOpen')
     }
   },
