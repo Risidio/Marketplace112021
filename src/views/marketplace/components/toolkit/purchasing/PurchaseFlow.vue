@@ -5,7 +5,7 @@
   <div v-else>
     <div >
       <div v-if="contractAsset && contractAsset.listingInUstx" class="modall">
-        <PurchaseBuyNow :gaiaAsset="gaiaAsset" :contractAsset="contractAsset" :listingInUstx="contractAsset.listingInUstx" @buyNow="buyNow" :listing="listing"/>
+        <PurchaseBuyNow :gaiaAsset="gaiaAsset" :contractAsset="contractAsset" :listingInUstx="contractAsset.listingInUstx" @buyNow="buyNow"/>
         <div class="text-danger" v-html="errorMessage"></div>
       </div>
       <div v-else>
@@ -28,7 +28,7 @@ export default {
   components: {
     PurchaseBuyNow
   },
-  props: ['gaiaAsset', 'forceOfferFlow', 'loopRun', 'listing'],
+  props: ['gaiaAsset', 'forceOfferFlow', 'loopRun'],
   data () {
     return {
       errorMessage: null,
@@ -73,8 +73,8 @@ export default {
           contractName: contractAsset.contractId.split('.')[1],
           commissionContractAddress: commission.split('.')[0],
           commissionContractName: commission.split('.')[1],
-          tokenContractAddress: (contractAsset.listingInUstx.token) ? contractAsset.listingInUstx.token.split('.')[0] : null,
-          tokenContractName: (contractAsset.listingInUstx.token) ? contractAsset.listingInUstx.token.split('.')[1] : null,
+          tokenContractAddress: contractAsset?.listingInUstx?.token.split('.')[0],
+          tokenContractName: contractAsset?.listingInUstx?.token.split('.')[1],
           owner: contractAsset.owner,
           nftIndex: contractAsset.nftIndex,
           price: contractAsset.listingInUstx.price,
@@ -88,7 +88,7 @@ export default {
           this.result = result
           this.flowType = 2
         }).catch((err) => {
-          console.log(err)
+          console.log(err.message)
           this.errorMessage = err
           this.flowType = 3
         })
