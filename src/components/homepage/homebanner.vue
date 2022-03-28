@@ -12,8 +12,10 @@
               :arrows-outside="showArrow"
               :touchable="touchableSlide"
               :gap="3"
-              bullets-outside
               :visible-slides="1"
+              :bullets="bullets"
+              :breakpoints="breakpoints"
+              bullets-outside
               >
                 <template v-if="showArrow == true" #arrow-left>
                   <img src="https://res.cloudinary.com/risidio/image/upload/v1637153014/RisidioMarketplace/Icon_ionic-md-arrow-dropleft-circle_zpgise.svg" alt="wallet" class="arrow"/>
@@ -160,6 +162,12 @@ export default {
   data: () => ({
     touchableSlide: false,
     showArrow: true,
+    bullets: false,
+    breakpoints: {
+      700: {
+        bullets: true
+      }
+    },
     slide: [
       {
         id: '1',

@@ -70,9 +70,6 @@
 </template>
 
 <script>
-import MyPageableItems from '@/views/marketplace/components/gallery/MyPageableItems'
-import { APP_CONSTANTS } from '@/app-constants'
-import utils from '@/services/utils'
 import axios from 'axios'
 import dayjs from 'dayjs'
 import StxTransaction from '../smallcomponents/StxTransaction.vue'

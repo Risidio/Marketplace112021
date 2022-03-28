@@ -6,8 +6,9 @@
       <tr class="transaction-data" v-for="(item, index) in events" :key="index">
           <th>{{dayjs(item.timestamp).format('DD/MM/YYYY')}}</th>
           <th> {{item.functionName ? item.functionName : 'Setup'}}</th>
-          <th>{{item.from.slice(0, 30)}}...</th>
+          <th class="stx-address">{{item.from}}</th>
           <th>{{item.amount ? `STX: ${item.amount} ` : 'N/A'}}</th>
+          <th class="stx-address">{{item.txStatus}}</th>
       </tr>
     </table>
 </div>
