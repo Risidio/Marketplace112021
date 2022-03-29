@@ -139,7 +139,7 @@
         </div>
     </div>
     <div class="searchB">
-      <!-- <HomeSearchBar/> -->
+      <HomeSearchBar/>
     </div>
   </section>
 </template>
@@ -156,8 +156,8 @@ export default {
 
   components: {
     VueperSlides,
-    VueperSlide
-    // HomeSearchBar
+    VueperSlide,
+    HomeSearchBar
   },
   data: () => ({
     touchableSlide: false,
@@ -227,7 +227,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.bannerContainer{
+.bannerContainer {
   height: 50rem;
   align-items: center;
   padding: 20px;
@@ -235,47 +235,44 @@ export default {
   // place-items: center;
   // margin-bottom: 5rem;
 }
-.if{
+.if {
   max-width: 1300px;
   margin: auto;
 }
-.slideText{
+.slideText {
   position: relative;
   margin-top: -30px;
-  h2{
+  h2 {
     margin-bottom: 1rem;
     letter-spacing: 1px;
     font: normal normal 300 30px/55px Montserrat;
   }
-  .slide-text-p{
+  .slide-text-p {
     font: normal normal 300 14px/18px Montserrat;
     max-width: 450px;
   }
 }
-.searchB{
+.searchB {
   display: relative;
-  margin-top: -25px;
-  margin-left: auto;
-  margin-right: auto;
-  max-width: 800px;
+  margin-top: -63px;
 }
 
-.bannerButtonContainer{
+.bannerButtonContainer {
   position: relative;
   margin: -30px auto 0;
 }
-.bannerButtonText{
+.bannerButtonText {
   font: normal normal bold 11px/14px Montserrat;
   position: absolute;
   top: 50px;
   left: 20px;
   cursor: pointer;
-  &:hover{
+  &:hover {
     text-decoration: underline;
   }
 }
 .secondaryBannerButton {
-  width:40rem;
+  width: 40rem;
   padding: 14.5px 5px;
   margin-bottom: 5px;
   font-size: 0.7em;
@@ -284,18 +281,18 @@ export default {
   text-align: center;
   background: lightgrey;
 }
-.secondaryBannerButton:hover{
-    background: rgba(255, 255, 255, 0.767);
-    color: lightseagreen;
+.secondaryBannerButton:hover {
+  background: rgba(255, 255, 255, 0.767);
+  color: lightseagreen;
 }
-.market_intro_h1{
+.market_intro_h1 {
   margin-bottom: 25px;
   color: white;
   font-weight: 200;
   font-size: clamp(2rem, 5rem, 7rem);
   word-wrap: break-word;
 }
-.market_intro{
+.market_intro {
   font-size: 0.7em;
   font-weight: 300;
   width: 100%;
@@ -303,17 +300,17 @@ export default {
   margin: auto;
   color: white;
 }
-.home-video{
+.home-video {
   width: 381px;
   height: 234px;
   border-radius: 15px;
-  margin:auto;
+  margin: auto;
   object-fit: cover;
 }
-.market_intro_Ex{
+.market_intro_Ex {
   font-size: 1.2em;
 }
-.banner{
+.banner {
   position: absolute;
   top: 0;
   left: 0;
@@ -324,14 +321,14 @@ export default {
   transform: rotate(180deg);
   margin-bottom: 50px;
 }
-.slideContainerNotLogged{
+.slideContainerNotLogged {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   align-items: center;
   margin: 0 auto 0 auto;
   justify-content: center;
-  background-color:rgba(255, 255, 255, 0.637);
+  background-color: rgba(255, 255, 255, 0.637);
   border-radius: 30px;
   gap: 100px;
   max-width: 1135px;
@@ -339,17 +336,18 @@ export default {
   padding: 20px;
 }
 
-.slideContainerNotLogged :nth-child(1){
+.slideContainerNotLogged :nth-child(1) {
   justify-self: center;
   align-self: center;
 }
-.slideContainerNotLogged :nth-child(2){
-  h1, p{
+.slideContainerNotLogged :nth-child(2) {
+  h1,
+  p {
     padding-bottom: 20px;
   }
 }
-.vueperslide{
-  background-color:rgba(255, 255, 255, 0.637);
+.vueperslide {
+  background-color: rgba(255, 255, 255, 0.637);
   border-radius: 30px;
 }
 
@@ -361,7 +359,8 @@ export default {
   margin-bottom: 25px;
   backdrop-filter: blur(2rem);
 }
-.loggedBanner, .blurBackground{
+.loggedBanner,
+.blurBackground {
   min-height: 400px;
   position: relative;
   z-index: 2;
@@ -369,61 +368,62 @@ export default {
   margin: 35px auto;
   border-radius: 30px;
 }
-.vueperslides__arrow .arrow{
+.vueperslides__arrow .arrow {
   width: 25px;
   height: 25px;
   color: white;
   position: relative;
 }
-.slideContainer{
+.slideContainer {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  height:100%;
+  height: 100%;
   padding: 25px 20px;
 }
-.slideContainer > *:nth-child(1){
+.slideContainer > *:nth-child(1) {
   margin: auto;
 }
-.slideContainer > *:nth-child(2){
+.slideContainer > *:nth-child(2) {
   margin: auto;
 }
-.button{margin-top: 20px;}
-.button:hover{
+.button {
+  margin-top: 20px;
+}
+.button:hover {
   background: rgba(95, 189, 193, 0.6);
 }
-.collectionImage{
+.collectionImage {
   display: block;
   width: 211px;
   height: 189px;
   border-radius: 10px;
   margin: auto;
-  box-shadow: 10px 10px 30px #0000002F;
+  box-shadow: 10px 10px 30px #0000002f;
   object-fit: cover;
 }
-.slideImage{
+.slideImage {
   position: relative;
 }
-.collectionImageBack{
+.collectionImageBack {
   position: relative;
   display: flex;
 }
-.collectionImageFront{
+.collectionImageFront {
   position: absolute;
   margin-left: auto;
   margin-right: auto;
   left: 0;
   right: 0;
   text-align: center;
-  transform: scale(1.15)
+  transform: scale(1.15);
 }
-@media only screen and (max-width:1290px) {
-    .vueperslides--fixed-height {
+@media only screen and (max-width: 1290px) {
+  .vueperslides--fixed-height {
     max-width: 85%;
   }
 }
-@media only screen and (max-width:1120px) {
-
+@media only screen and (max-width: 1120px) {
   .vueperslides--fixed-height {
     height: 50rem;
     // max-width: 95%;
@@ -431,71 +431,78 @@ export default {
     margin-right: auto;
     backdrop-filter: blur(2rem);
   }
-  .slideContainerNotLogged, .slideContainer{
+  .slideContainerNotLogged,
+  .slideContainer {
     text-align: center;
     gap: 50px;
   }
-  .button{margin: auto}
-  .bannerButtonContainer{
+  .button {
+    margin: auto;
+  }
+  .bannerButtonContainer {
     max-width: 300px;
-    display:grid;
+    display: grid;
     place-items: center;
     align-items: center;
     padding-bottom: 20px;
   }
-  .bannerButtonText{
+  .bannerButtonText {
     left: 60px;
     bottom: -30px;
   }
-  .bannerContainer{
+  .bannerContainer {
     min-height: 62rem;
   }
-  .banner{
+  .banner {
     min-height: 70rem;
   }
+  .searchB {
+    margin-top: -12px;
+  }
 }
-.notMobileHeader, .mobileHeader{
-    margin-bottom: 1rem;
-    letter-spacing: 1px;
-    font: normal normal 300 30px/55px Montserrat;
+.notMobileHeader,
+.mobileHeader {
+  margin-bottom: 1rem;
+  letter-spacing: 1px;
+  font: normal normal 300 30px/55px Montserrat;
 }
 .mobileHeader {
   display: none;
 }
-.notMobileHeader{
+.notMobileHeader {
   display: block;
 }
-@media only screen and (max-width: 720px){
+@media only screen and (max-width: 720px) {
   .vueperslides--fixed-height {
     max-width: 1135px;
   }
 }
 @media only screen and (max-width: 550px) {
-  .slideContainerNotLogged{
-    .mobileHeader{
+  .slideContainerNotLogged {
+    .mobileHeader {
       margin-bottom: 0;
     }
   }
-  .bannerButtonText{
+  .bannerButtonText {
     top: 100px;
   }
-  .slide-text-p{
+  .slide-text-p {
     margin-top: -80px;
   }
-  .button{
+  .button {
     margin-top: 30px;
   }
-  .mobileHeader{
+  .mobileHeader {
     display: block;
     margin-bottom: 35px;
   }
-  .notMobileHeader{
-    display:none;
+  .notMobileHeader {
+    display: none;
   }
-  .slideText-notLogged{
+  .slideText-notLogged {
     margin-top: 50px;
   }
-   .vueperslides--fixed-height {
+  .vueperslides--fixed-height {
     height: 60rem;
     // max-width: 85%;
     margin-left: auto;
@@ -503,20 +510,20 @@ export default {
     margin-bottom: 25px;
     backdrop-filter: blur(2rem);
   }
-  .collectionImage{
+  .collectionImage {
     width: 150px;
     height: 150px;
   }
-  .slideContainerNotLogged{
+  .slideContainerNotLogged {
     gap: 40px;
   }
-  .home-video{
+  .home-video {
     width: 300px;
   }
-    .bannerContainer{
-      height: 72rem;
+  .bannerContainer {
+    height: 72rem;
   }
-    .banner{
+  .banner {
     height: 80rem;
   }
 }

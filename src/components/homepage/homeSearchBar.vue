@@ -1,7 +1,7 @@
 <template>
 <div class="search_bar_container">
-  <div class="dropdown_container">
-    <div class="dropdown_selector" @click="showHidden()"> <span style="display:flex; margin: 9px auto; width: fit-content;">Search by <span style="color:#50B1B5; margin: 0 5px; font-size: 2.5rem;">▸</span></span>
+  <div :class="showSearchBar ? 'dropdown_container active' : 'dropdown_container'">
+    <div class="dropdown_selector" @click="showHidden()"> <strong class="search">Search by <span class="arrow">▸</span></strong>
       <div class="dropdown_option_container">
         <div class="dropdown_option" v-show="isHidden" value="All">All</div>
         <div class="dropdown_option" v-show="isHidden" value="Category">Category</div>
@@ -10,8 +10,8 @@
     </div>
     </div>
   </div>
-  <div>
-  <input class="search_input_box" type="text" placeholder=" Looking for something in particular? " @input="searchWord($event)"> <span class="searchIcon" v-on:click="openMarket()" >&#8981;</span>
+  <div class="icon_container">
+  <input :class="showSearchBar ? 'search_input_box active' : 'search_input_box'" type="text" placeholder=" Looking for something in particular? " @input="searchWord($event)"><span class="searchIcon" v-on:click="openSearchBar()" >&#8981;</span>
   </div>
 </div>
 </template>
@@ -27,7 +27,8 @@ export default {
     return {
       query: null,
       isHidden: false,
-      currentSearch: null
+      currentSearch: null,
+      showSearchBar: false
     }
   },
   methods: {
@@ -43,9 +44,9 @@ export default {
       console.log(e.target.value)
       console.log(this.$store.state.contentStore.content.searchWord)
     },
-    openMarket () {
-      this.$router.push('/nft-marketplace/risidio/numberone_roots')
-      console.log('routerOpen')
+    openSearchBar () {
+      this.showSearchBar = !this.showSearchBar
+      // this.$router.push('/nft-marketplace/risidio/launch_collection_t1')
     }
   },
   computed: {
@@ -57,25 +58,36 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.search_bar_container{
+.search_bar_container {
   display: flex;
   align-content: center;
   justify-content: center;
   z-index: 10;
   margin: auto;
 }
+.icon_container {
+  display: flex;
+  align-items: center;
+}
 
-.searchIcon{
-  position: absolute;
+.searchIcon {
   font-size: 3.5rem;
   margin-left: -4.5rem;
   margin-top: -0.3rem;
-  color: #50B1B5;
+  color: #50b1b5;
   transform: rotate(270deg);
+  border-radius: 50%;
   cursor: pointer;
+  width: 45px;
+  height: 45px;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
 }
 
-.dropdown_selector{
+.dropdown_selector {
   border-top-left-radius: 40px;
   border-bottom-left-radius: 40px;
   font: normal normal 300 11px/14px Montserrat;
@@ -86,19 +98,34 @@ export default {
   background: white;
   transition: 0.3s;
   box-shadow: 0px 3px 6px #00000029;
-  border: 1px solid #F5F5F5;
+  border: 1px solid #f5f5f5;
   text-align: center;
   z-index: 10;
 }
 
-.dropdown_selector:hover{
+.dropdown_selector:hover {
   transform: scale(1.05);
   transition: 0.3s;
   cursor: pointer;
   z-index: 10;
 }
+.arrow {
+  color: #50b1b5;
+  margin: 0 10px;
+  font-size: 1.7rem;
+  width: 9px;
+  height: 5px;
+  transform: rotate(90deg);
+}
+.search {
+  display: flex;
+  margin: 9px auto;
+  align-items: center;
+  justify-content: space-around;
+  font-weight: 600;
+}
 
-.search_input_box{
+.search_input_box {
   min-width: 500px;
   max-width: 1000px !important;
   border-top-right-radius: 40px;
@@ -108,33 +135,36 @@ export default {
   padding: 10px;
   background: white;
   box-shadow: 0px 3px 6px #00000029;
-  border: 1px solid #F5F5F5;
+  border: 1px solid #f5f5f5;
   font: normal normal 300 11px/14px Montserrat;
   z-index: 1;
-  }
+}
 
 ::-webkit-input-placeholder {
-   font: normal normal 300 11px/14px Montserrat;
+  font: normal normal 300 11px/14px Montserrat;
 }
 
-:-moz-placeholder { /* Firefox 18- */
-   font: normal normal 300 11px/14px Montserrat;
+:-moz-placeholder {
+  /* Firefox 18- */
+  font: normal normal 300 11px/14px Montserrat;
 }
 
-::-moz-placeholder {  /* Firefox 19+ */
-   font: normal normal 300 11px/14px Montserrat;
+::-moz-placeholder {
+  /* Firefox 19+ */
+  font: normal normal 300 11px/14px Montserrat;
 }
 
 :-ms-input-placeholder {
-   font: normal normal 300 11px/14px Montserrat;
+  font: normal normal 300 11px/14px Montserrat;
 }
 
-.dropdown_container{
+.dropdown_container {
   display: flex;
-  flex-direction: column;
   font: normal normal 300 16px/24px Montserrat;
+  justify-content: center;
+  align-items: center;
 }
-.dropdown_option_container{
+.dropdown_option_container {
   background: none;
   display: flex;
   flex-direction: column;
@@ -146,7 +176,7 @@ export default {
   z-index: 10;
   background: white;
 }
-.dropdown_option{
+.dropdown_option {
   padding: 10px;
   border: 1px solid grey;
   background: white;
@@ -156,11 +186,30 @@ export default {
   z-index: 10;
 }
 
-.dropdown_option:hover{
+.dropdown_option:hover {
   background: grey;
   border: 1px solid rgb(105, 105, 105);
   transition: 0.3s;
   z-index: 10;
 }
 
+@media only screen and (max-width: 720px) {
+  .dropdown_container {
+    display: none;
+    width: 125px;
+  }
+  .search_input_box {
+    display: none;
+    min-width: 200px;
+  }
+  .active {
+    display: block;
+  }
+  .searchIcon {
+    box-shadow: 0px 3px 6px #00000029;
+  }
+  .search_bar_container {
+    justify-content: flex-end;
+  }
+}
 </style>
