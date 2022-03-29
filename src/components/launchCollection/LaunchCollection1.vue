@@ -3,7 +3,7 @@
     <div class="background"/>
     <div class="launchS1">
             <div class="artistContainer">
-                <h1 class="collectionName">The Launch Collection </h1>
+                <h1 class="collectionName"> This is Number One Collection</h1>
                 <img @click="showArtistInfo()" alt="Collection Image"
                 src="https://res.cloudinary.com/risidio/image/upload/f_auto/RisidioMarketplace/genesis-1_gxeluk.jpg"  class="circleImage"/>
                 <p class="collectionArtist show" id="artistName"> Chemical X </p>

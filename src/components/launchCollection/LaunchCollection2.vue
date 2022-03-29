@@ -11,16 +11,7 @@
         </div>
         <div class="homeMarketItems">
             <div v-if="stxTransaction && stxTransaction.length > 0 && tab === 'activity'">
-              <h3 style="font-size: 13px; font-weight: 700;"> Transactions</h3>
-              <table class="transaction-table">
-                <tr><th>Date</th><th>Method Type</th><th>By</th><th>Fees</th></tr>
-                <tr class="transaction-data" v-for="(item, index) in stxTransaction" :key="index" @click="openTransaction(item)">
-                  <th>{{dayjs(item.burn_block_time_iso).format('DD/MM/YYYY')}}</th>
-                  <th v-if="item.contract_call && item.contract_call.function_name"> {{item.contract_call.function_name}}</th> <th v-else> Setup</th>
-                  <th>{{item.sender_address.substring(0, 30)}}...</th>
-                  <th>{{item.fee_rate ? `STX: ${item.fee_rate/1000000} ` : 'N/A'}}</th>
-                </tr>
-              </table>
+              <StxTransaction :stxTransaction="stxTransaction"/>
               <!-- <div v-for="(item, index) in stxTransaction" :key="index">
                 <p class="nFTName" v-if="item.contract_call && item.contract_call.function_name"> {{item.contract_call.function_name}} <span> {{item.contract_call.contract_id.split('.')[1]}} </span></p>
               </div> -->
@@ -42,13 +33,13 @@
                     </div>
                 </div>
             </div>
-            <router-link to="/nft-marketplace/risidio/launch_collection_t1"><button class="button notFilledBlue"> See More </button></router-link>
+            <router-link to="/nft-marketplace/risidio/numberone_roots"><button class="button notFilledBlue"> See More </button></router-link>
         </div>
     </div>
 </template>
 
 <script>
-import MyPageableItems from '@/views/marketplace/components/gallery/MyPageableItems'
+import StxTransaction from '../smallcomponents/StxTransaction.vue'
 import { APP_CONSTANTS } from '@/app-constants'
 import utils from '@/services/utils'
 import axios from 'axios'
@@ -58,6 +49,7 @@ export default {
   name: 'Launch-Collection-S2',
   props: ['content', 'loopRun', 'resultSet'],
   components: {
+    StxTransaction
   },
   data () {
     return {

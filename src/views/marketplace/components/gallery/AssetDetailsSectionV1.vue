@@ -58,7 +58,7 @@
       </b-col>
     </b-row>
   <b-modal id="asset-offer-modal" class="modal text-left">
-    <PurchaseFlow v-if="showRpay === 1" :gaiaAsset="gaiaAsset" :loopRun="loopRun" :forceOfferFlow="forceOfferFlow" :listing="listing"/>
+    <PurchaseFlow v-if="showRpay === 1" :gaiaAsset="gaiaAsset" :loopRun="loopRun" :forceOfferFlow="forceOfferFlow"/>
     <AssetUpdatesModal v-if="showRpay === 2" @registerForUpdates="registerForUpdates"/>
     <template #modal-header="{ close }">
       <div class=" text-warning w-100 d-flex justify-content-end">
