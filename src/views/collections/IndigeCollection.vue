@@ -2,7 +2,12 @@
     <div>
         <IndigeCollection1 :content="content" :numberOfItems="numberOfItems"/>
         <IndigeCollection2
+        :pageSize="pageSize"
         :resultSet="resultSet"
+        :page="page"
+        v-on:nextPage="page += 1"
+        v-on:previousPage="page -= 1"
+        :numberOfItems="numberOfItems"
         :content="content"
         :loopRun="loopRun"/>
     </div>
@@ -62,7 +67,11 @@ export default {
         })
         $self.loaded = true
       })
-      console.log('registry')
+    }
+  },
+  watch: {
+    'page' () {
+      this.fetchFullRegistry()
     }
   },
   computed: {
@@ -75,5 +84,4 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
 </style>

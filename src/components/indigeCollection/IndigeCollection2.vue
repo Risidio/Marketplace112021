@@ -36,7 +36,7 @@
               </div>
             </div>
             <div class="galleryContainer" v-if="resultSet && resultSet.length > 0 && tab === 'Items' && (!mintPasses || mintPasses === 0)">
-                <div v-for="(item, index) in resultSet.slice(0, 8)" :key="index" class="NFTbackgroundColour" >
+                <div v-for="(item, index) in resultSet" :key="index" class="NFTbackgroundColour" >
                     <ResultSet :item="item" />
                 </div>
             </div>
@@ -48,9 +48,9 @@
                   <p class="mint-text-2"> You have a mintpass balance of {{mintPasses}}. Therefore, you may mint in this collection !</p>
                 </div>
               </div>
-                <div v-for="(item, index) in resultSet.slice(0, 7)" :key="index" class="NFTbackgroundColour" >
-                    <ResultSet :item="item" />
-                </div>
+              <div v-for="(item, index) in resultSet.slice(0, 7)" :key="index" class="NFTbackgroundColour" >
+                  <ResultSet :item="item" />
+              </div>
             </div>
             <div class="galleryContainer" v-else-if="tab === 'Items' && mintPasses > 0">
               <div class="mint-pass">
@@ -59,12 +59,16 @@
                 <p class="mint-text-2"> You have a mintpass balance of {{mintPasses}}. Therefore, you may mint in this collection !</p>
               </div>
             </div>
+            <div class="pagination-container" v-if="tab === 'Items'">
+              <p v-if="numberOfItems > pageSize && page > 0 " v-on:click="$emit('previousPage')"> &lt; Previous </p>
+              <p v-if="numberOfItems > pageSize && numberOfItems !== pageSize * (page + 1)" v-on:click="$emit('nextPage')">Next ></p>
+            </div>
             <p v-if="mintPassLoad" class="loading-pass">
               checking mint pass....<br/>
               <img class="loading-image" src="@/assets/img/loading-risid.gif"/>
             </p>
             <!-- <router-link to="/nft-marketplace/risidio/launch_collection_t1"><button class="button notFilledBlue"> See More </button></router-link> -->
-            <button class="button notFilledBlue" @click="setPageSize()"> See More </button>
+            <button v-if="tab === 'Activity'" class="button notFilledBlue" @click="setPageSize()" :disabled="isDisabled ? true : false"> See More </button>
         </div>
     </div>
 </template>
@@ -80,7 +84,7 @@ import ResultSet from '../smallcomponents/ResultSet.vue'
 
 export default {
   name: 'Indige-Collection-S2',
-  props: ['content', 'loopRun', 'resultSet'],
+  props: ['content', 'loopRun', 'resultSet', 'page', 'numberOfItems', 'pageSize'],
   components: {
     // MyPageableItems
     StxTransaction,
@@ -91,9 +95,7 @@ export default {
       dayjs: dayjs,
       tab: 'Items',
       currentRunAssets: [],
-      numberOfItems: 0,
       loading: true,
-      pageSize: 20,
       mintPasses: null,
       mintPassMessage: '',
       mintPassLoad: true,
@@ -103,7 +105,9 @@ export default {
       loadingLogo: '../../assets/img/loading-risid.gif',
       activityLoad: true,
       currencyPreference: null,
-      stxTransaction: null
+      stxTransaction: [],
+      limit: 15,
+      isDisabled: false
     }
   },
   mounted () {
@@ -117,18 +121,22 @@ export default {
     },
     'tab' () {
       if (this.tab === 'Activity') this.fetchStxData()
+    },
+    'limit' () {
+      this.fetchStxData()
+      console.log('stxtran', this.stxTransaction)
     }
   },
   methods: {
 /* eslint-disable */
     fetchStxData () {
-      axios.get(`https://stacks-node-api.testnet.stacks.co/extended/v1/address/${this.loopRun.contractId}/transactions?limit=30&offset=0&unanchored=false`).then((res) => {
-        console.log(res)
+      axios.get(`https://stacks-node-api.testnet.stacks.co/extended/v1/address/${this.loopRun.contractId}/transactions?limit=${this.limit}&offset=0&unanchored=false`).then((res) => {
+        console.log('res', res)
         this.stxTransaction = res.data.results
       }).catch((error) => {
+        this.isDisabled = true
         console.log(error)
       })
-      console.log('hi')
     },
     /* eslint-enable */
     fetchMintPass () {
@@ -160,9 +168,6 @@ export default {
       document.getElementById('Items').classList.remove('active')
       document.getElementById('Activity').classList.remove('active')
       document.getElementById(tab).classList.add('active')
-    },
-    setPageSize () {
-      this.pageSize += 10
     },
     assetUrl (item) {
       if (item.contractAsset) {
@@ -210,6 +215,10 @@ export default {
       data.tokenContractName = commission.tokenContractId.split('.')[1]
       console.log(data)
       this.$store.dispatch('rpayMarketGenFungStore/mintWithToken', data)
+    },
+    setPageSize () {
+      this.limit += 15
+      console.log(this.limit)
     }
   },
   computed: {
@@ -277,6 +286,23 @@ p {
   max-width: 1135px;
   justify-content: center;
   margin: auto;
+}
+.pagination-container {
+  padding: 50px;
+  max-width: 300px;
+  margin: auto;
+  text-align: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  p {
+    font: normal normal bold 12px/15px Montserrat;
+    color: #50b1b5;
+    cursor: pointer;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
 }
 .homeMarketItems {
   max-width: 1135px;
