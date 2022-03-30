@@ -32,7 +32,7 @@ export default {
       resultSet: [],
       numberOfItems: 0,
       loading: true,
-      pageSize: 32,
+      pageSize: 8,
       page: 0
     }
   },
