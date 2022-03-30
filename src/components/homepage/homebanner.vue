@@ -139,7 +139,7 @@
         </div>
     </div>
     <div class="searchB">
-      <HomeSearchBar/>
+      <!-- <HomeSearchBar/> -->
     </div>
   </section>
 </template>
@@ -147,7 +147,7 @@
 <script>
 import { VueperSlides, VueperSlide } from 'vueperslides'
 import 'vueperslides/dist/vueperslides.css'
-import HomeSearchBar from './homeSearchBar.vue'
+// import HomeSearchBar from './homeSearchBar.vue'
 import { APP_CONSTANTS } from '@/app-constants'
 
 export default {
@@ -156,8 +156,8 @@ export default {
 
   components: {
     VueperSlides,
-    VueperSlide,
-    HomeSearchBar
+    VueperSlide
+    // HomeSearchBar
   },
   data: () => ({
     touchableSlide: false,
