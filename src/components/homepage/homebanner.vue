@@ -12,8 +12,10 @@
               :arrows-outside="showArrow"
               :touchable="touchableSlide"
               :gap="3"
-              bullets-outside
               :visible-slides="1"
+              :bullets="bullets"
+              :breakpoints="breakpoints"
+              bullets-outside
               >
                 <template v-if="showArrow == true" #arrow-left>
                   <img src="https://res.cloudinary.com/risidio/image/upload/v1637153014/RisidioMarketplace/Icon_ionic-md-arrow-dropleft-circle_zpgise.svg" alt="wallet" class="arrow"/>
@@ -47,7 +49,7 @@
                             <div class="slideText">
                               <h2 class="notMobileHeader">{{content.heroarea[1].herotitle[0].text}}</h2>
                               <p class="slide-text-p"> {{content.heroarea[1].herotext[0].text}}</p>
-                              <router-link to="/launch_collection_t1"><button class="button filled"> See The Collection </button></router-link>
+                              <router-link to="/numberone_roots"><button class="button filled"> See The Collection </button></router-link>
                             </div>
                         </div>
                           <div v-if="slide.id == 2" class = "slideContainer">
@@ -71,7 +73,7 @@
                             <div class="slideText">
                               <h2 class="notMobileHeader">The Indige Collection</h2>
                               <p class="slide-text-p"> {{content.heroarea[3].herotext[0].text}}</p>
-                              <router-link to="/indige5"><button class="button filled"> See The Collection </button></router-link>
+                              <router-link to="/indige_mint"><button class="button filled"> See The Collection </button></router-link>
                             </div>
                         </div>
                         <div v-if="slide.id == 3" class = "slideContainer">
@@ -120,12 +122,6 @@
 
             <div class="notLoggedCont">
               <h2 class="mobileHeader"> {{content.heroarea[0].herotitle[0].text}}</h2>
-              <!-- <iframe
-              style="border-radius: 10px;"
-              width="529px"
-              height="300px"
-              frameborder="0"
-              src="https://res.cloudinary.com/risidio/video/upload/v1639140586/RisidioMarketplace/Latest_Risidio_Video_by_Fizan_100721_5_r3o1or.mp4" type="video"/> -->
               <video class="home-video"
               src="https://res.cloudinary.com/risidio/video/upload/v1639140586/RisidioMarketplace/Latest_Risidio_Video_by_Fizan_100721_5_r3o1or.mp4"
               controls
@@ -133,7 +129,7 @@
 
             </div>
             <div class="slideText slideText-notLogged">
-              <h2 class="notMobileHeader"> {{content.heroarea[0].herotitle[0].text}}</h2>
+              <h2 class="notMobileHeader" style="margin-top: 50px;"> {{content.heroarea[0].herotitle[0].text}}</h2>
               <p class="slide-text-p">{{content.heroarea[0].herotext[0].text}}</p><br/>
               <div class="bannerButtonContainer">
                 <router-link to="/hiro-wallet" ><button class="button filled">Get Your Hiro Wallet To Start</button></router-link><br/>
@@ -166,6 +162,12 @@ export default {
   data: () => ({
     touchableSlide: false,
     showArrow: true,
+    bullets: false,
+    breakpoints: {
+      700: {
+        bullets: true
+      }
+    },
     slide: [
       {
         id: '1',

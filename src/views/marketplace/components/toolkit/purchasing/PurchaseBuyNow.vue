@@ -16,20 +16,6 @@
     <b-col cols="12" class=" ">
       <RatesListing :message="''" :amount="contractAsset.listingInUstx.price"/>
     </b-col>
-    <!-- <b-row class="text-small mt-5">
-      <b-col cols="3" class="text-right">
-        Transfer from:
-      </b-col>
-      <b-col cols="9">
-        <p class="stx-address">{{contractAsset.owner}}</p>
-      </b-col>
-      <b-col cols="3" class="text-right">
-        to
-      </b-col>
-      <b-col cols="9">
-        <p class="stx-address">{{profile.stxAddress}}</p>
-      </b-col>
-    </b-row> -->
     <b-col class="mt-5" cols="12" v-if="iAmOwner">
       <p style="text-align: center;">You already own this NFT!</p>
     </b-col>
@@ -49,7 +35,7 @@ export default {
   components: {
     RatesListing
   },
-  props: ['contractAsset', 'gaiaAsset', 'listing'],
+  props: ['contractAsset', 'gaiaAsset'],
   data () {
     return {
       loading: true,
@@ -71,9 +57,6 @@ export default {
       const profile = this.$store.getters['rpayAuthStore/getMyProfile']
       return profile
     },
-    // fbet () {
-    //   return this.$store.getters[APP_CONSTANTS.KEY_FORMATTED_BIDDING_END_TIME](this.contractAsset)
-    // },
     iAmOwner () {
       return this.contractAsset && this.contractAsset.owner === this.profile.stxAddress
     }

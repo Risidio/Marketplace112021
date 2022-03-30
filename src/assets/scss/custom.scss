@@ -723,6 +723,7 @@ select {
 	flex-wrap: wrap;
 	gap: 30px;
 	padding: 20px 50px;
+	overflow-y: hidden;
 	& > :nth-child(1) {
 		flex: 1 1 15%;
 	}
@@ -823,8 +824,21 @@ select {
 			font-weight: 300;
 			border-bottom: 0.5px solid grey;
 		}
+		.stx-address {
+			max-width: 10ch;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+		}
 		&:hover {
 			border-left: 2px solid blue;
+		}
+	}
+}
+@media only screen and (max-width: 700px) {
+	.transaction-data {
+		th {
+			width: 10px;
 		}
 	}
 }

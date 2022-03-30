@@ -6,8 +6,9 @@
         <tr class="transaction-data" v-for="(item, index) in stxTransaction" :key="index" @click="openTransaction(item)">
             <th>{{dayjs(item.burn_block_time_iso).format('DD/MM/YYYY')}}</th>
             <th v-if="item.contract_call && item.contract_call.function_name"> {{item.contract_call.function_name}}</th> <th v-else> Setup</th>
-            <th>{{item.sender_address.substring(0, 30)}}...</th>
+            <th class="stx-address">{{item.sender_address}}</th>
             <th>{{item.fee_rate ? `STX: ${item.fee_rate/1000000} ` : 'N/A'}}</th>
+            <th class="stx-address">{{item.tx_status}}</th>
         </tr>
         </table>
     </div>

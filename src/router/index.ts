@@ -22,6 +22,7 @@ const HowItWorks = () => import('@/views/HowItWorks.vue')
 const LaunchCollection = () => import('@/views/collections/LaunchCollection.vue')
 const IndigeCollection = () => import('@/views/collections/IndigeCollection.vue')
 const QandA = () => import('@/views/QandA.vue')
+const errorFour = () => import('@/views/FourOFour.vue')
 const AdminPage = () => import('@/views/AdminPage.vue')
 const MyAccount = () => import('@/views/userProfile/MyAccount.vue')
 
@@ -88,13 +89,13 @@ const routes: Array<RouteConfig> = [
     meta: { title: 'Hiro Wallet - Risidio' }
   },
   {
-    path: '/launch_collection_t1',
+    path: '/numberone_roots',
     name: 'launch-collection',
     components: { default: LaunchCollection, header: MainNavbar, footer: MainFooter },
     meta: { title: 'Launch Collection Featuring Benny' }
   },
   {
-    path: '/indige5',
+    path: '/indige_mint',
     name: 'indige-collecion',
     components: { default: IndigeCollection, header: MainNavbar, footer: MainFooter },
     meta: { title: 'The Indige Collection' }
@@ -137,6 +138,12 @@ const routes: Array<RouteConfig> = [
       requiresAuth: false,
       requiresAdmin: false,
       title: 'Item preview'
+    }
+  },
+  {
+    path: '*',
+    components: {
+      default: errorFour
     }
   }
 ]

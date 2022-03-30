@@ -22,7 +22,7 @@
         <div class="galleryContainer" v-else-if="activeLoopRuns && activeLoopRuns.length > 0 && tab === 'collections'">
           <div v-for="(item, index) in activeLoopRuns" :key="index" class="NFTbackgroundColour NFTbackgroundColour-collection">
             <div class="">
-                <b-link class="galleryNFTContainer" :to="assetUrl(item)" >
+                <b-link class="galleryNFTContainer" :to="item.currentRunKey" >
                   <img class="nftGeneralView" :src="item.image"/>
                   <p class="nFTName" style="color: white;"> {{!item.currentRun ? "Collection" : item.currentRun }} </p>
                   <p class="nFTArtist" style="color: white;">By <span>{{!item.makerName ? 'unknown' : item.makerName }}</span></p>

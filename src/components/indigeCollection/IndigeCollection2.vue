@@ -74,9 +74,6 @@
 </template>
 
 <script>
-import MyPageableItems from '@/views/marketplace/components/gallery/MyPageableItems'
-import { APP_CONSTANTS } from '@/app-constants'
-import utils from '@/services/utils'
 import axios from 'axios'
 import dayjs from 'dayjs'
 import StxTransaction from '../smallcomponents/StxTransaction.vue'
@@ -350,6 +347,7 @@ p {
   overflow: auto; /* Enable scroll if needed */
   background-color: rgb(0, 0, 0); /* Fallback color */
   background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+  overflow-y: hidden;
 }
 /* Modal Content */
 .mint-modal-content {
