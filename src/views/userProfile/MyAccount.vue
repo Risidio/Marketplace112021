@@ -61,7 +61,7 @@
         </div>
         <div class="pagination-container">
           <p v-if="tokenCount > 8 && resultSet.length <= 8" @click="previousPage()"> &lt; Previous </p>
-          <p v-if="tokenCount > 8" @click="nextPage()">Next ></p>
+          <p v-if="tokenCount > 8 && (page * pageSize) < tokenCount" @click="nextPage()">Next ></p>
         </div>
       </div>
       <div v-else-if="saleItem.length > 0 && tab === 'Sale'" >
@@ -121,7 +121,7 @@ export default {
       currency: '',
       profileInfo: {},
       tab: 'NFT',
-      pageSize: 50,
+      pageSize: 20,
       page: 0,
       loopRun: null,
       numberOfItems: null,
@@ -204,7 +204,7 @@ export default {
       if (this.page === 0) {
         this.page += 1
       }
-      if ((this.page * 8) > this.tokenCount) {
+      if ((this.page * this.pageSize) < this.tokenCount) {
         console.log('incre page')
         this.page += 1
       }
