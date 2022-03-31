@@ -18,16 +18,17 @@
 <div class="navbar_container">
    <img class="nav_banner" src="https://res.cloudinary.com/risidio/image/upload/v1633609222/RisidioMarketplace/gradienta-m_-1_v4hs5p.svg" alt="">
 </div>
-  <div class = "mainNavbar">
+<div class="nav-container">
+    <div class = "mainNavbar">
         <router-link class="risidioLogo" to="/"><img width="150px;" :src="logo" alt="risidio-logo" style="margin-left: -10px; margin-right: 20px;"/></router-link>
         <a href= "#" class = "toggle-button" v-on:click="mobileNavebar()">
           <span class="bar"></span>
           <span class="bar"></span>
           <span class="bar"></span>
         </a>
-        <div v-if="profile.loggedIn" class="navbar_links" style="margin-left: 19px">
+        <div v-if="profile.loggedIn" class="navbar_links">
             <router-link class="nav-items bold" to="/nft-marketplace" >Explore</router-link>
-            <div style="position: relative; margin-top: 2px;" @click="openMenu()" id="dropDown">
+            <div style="position: relative; margin-top: 2px;" @click="openMenu()" id="dropDown" class="dropDown">
               <p id="dropDown-1" class="nav-items bold" > Featured Collections <img class="arrow2" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></p>
               <p id="dropDown-2" class="featured" > Featured Collections <img style="margin-left: 8px;" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></p>
               <div id="dropDown-3" class="dropdownMenu">
@@ -36,9 +37,7 @@
                 </div>
               </div>
             </div>
-            <!-- <b-dropdown id="dropdown-1" text="Featured Collections" class="bold" variant="transparent" toggle-class="text-white" size="lg" style="padding:0px; height:55%; margin: auto 10px; font-weight: 600;">
-              <b-dropdown-item v-for="(loopRun, index) in allLoopRuns" :key="index" ><span style="margin-top: -1rem" v-if="loopRun.status !== 'disabled'" class="pointer" @click="showCollection(loopRun)"><span @click="linkTo(loopRun)">{{loopRun.currentRun}}</span></span></b-dropdown-item>
-            </b-dropdown> -->
+            <hr class="mobile-hr"/>
             <router-link class="nav-items thin" to="/how-it-works" style="margin-left: auto;">How It Works</router-link>
             <router-link class="nav-items text-black thin" to="/about">About Risidio </router-link>
             <router-link class="nav-items navBtn thin" to="/my-account"> My NFT's </router-link>
@@ -56,10 +55,9 @@
             </div>
             <router-link class="nav-items text-black thin" to="/how-it-works" style="margin-left: auto;" id="howItWorks">How It Works</router-link>
             <router-link class="nav-items text-black thin" to="/about">About Risidio </router-link>
-            <!-- <div @click.prevent="startLogin(); events();" id="login" class =" nav-items text-black">Login</div> -->
-            <!-- <div @mouseover="isHidden = !isHidden" @blur="isHidden = !isHidden" class=" nav-items navBtn text-black" id="register" v-on:click="startRegister()"> Connect with Hiro Wallet <div v-show="isHidden" class="registerTooltip"> Click Register to download the Hiro Wallet extension and get started!</div></div> -->
             <div @mouseover="isHidden = !isHidden" @blur="isHidden = !isHidden" class=" nav-items navBtn text-black" id="register" v-on:click="startRegister()"> CONNECT WITH HIRO WALLET </div>
         </div>
+  </div>
   </div>
 </div>
 </template>
@@ -158,12 +156,20 @@ export default {
       if (myProfile.loggedIn) {
         const navLogged = document.getElementsByClassName('navbar_links')[0]
         const mainNavbar = document.getElementsByClassName('mainNavbar')[0]
+        const featured = document.getElementsByClassName('dropDown')[0]
+        const hr = document.getElementsByClassName('mobile-hr')[0]
+        hr.classList.toggle('active')
+        featured.classList.toggle('active')
         mainNavbar.classList.toggle('active')
         navLogged.classList.toggle('active')
         console.log('active profile')
       } else {
         const mainNavbar = document.getElementsByClassName('mainNavbar')[0]
-        const notLogged = document.getElementsByClassName('navbar_links_not_logged')
+        const notLogged = document.getElementsByClassName('navbar_links_not_logged')[0]
+        const featured = document.getElementsByClassName('featured')[0]
+        const hr = document.getElementsByClassName('mobile-hr')[0]
+        hr.classList.toggle('active')
+        featured.classList.toggle('dropDown')
         mainNavbar.classList.toggle('active')
         notLogged.classList.toggle('active')
         console.log('active not profile')
@@ -241,11 +247,16 @@ export default {
 </script>
 
 <style lang="scss">
+.nav-container{
+  height: 100px;
+}
 .mainNavbar{
   display: flex;
-  margin: 20px 50px;
+  margin: 0 auto;
+  max-width: 1600px;
+  padding: 20px 20px;
+  position: relative;
 }
-.mainNavbar{}
 /* NAVBAR PADDING AND WIDTH */
 .nav_banner{
   position: absolute;
@@ -280,6 +291,9 @@ export default {
   width:90%;
   background-color: #fff;
   border-radius:10px;
+}
+.mobile-hr{
+  display: none;
 }
 .arrow2{
   margin-left: 8px;
@@ -392,6 +406,7 @@ export default {
   font-size: 1.2rem;
   font-weight: bolder;
   z-index: 11;
+  cursor: pointer;
 }
 .featured.show{
   display: flex;
@@ -456,15 +471,26 @@ export default {
   .bold{
     margin-top: 10px;
   }
-.text-black1{
-  margin-top: -12px;
-}
-
+  .text-black1{
+    margin-top: -12px;
+  }
+// .dropDown.active{
+//   right: 0;
+//   left: 0;
+//   margin: auto;
+// }
   .text-black{
     margin-top: -12px;
   }
   .navBtn{
     margin-top: 14px;
+  }
+  .mobile-hr.active{
+    display: block;
+    width: 100%;
+    color: grey;
+    background: rgba(255, 255, 255, 0.288);
+    height: 1px;
   }
   .mainNavbar{
     flex-direction:column;
@@ -486,24 +512,25 @@ export default {
   .navbar_links.active, .navbar_links_not_logged.active{
     display:flex;
     padding: 15px;
-    width:100%;
+    width: 100%;
     flex-direction: column;
-
+    margin: 0 auto;
   }
   .mainNavbar.active{
     position:absolute;
     left: 0;
     right: 0;
-    margin-left: auto;
-    margin-right: auto;
-    max-width: 800px;
+    // top: -20px;
+    // margin-left: auto;
+    // margin-right: auto;
+    margin: 0 20px;
+    max-width: 100%;
     z-index: 20;
     transition:all ease-in .1s;
     padding-top: 50px;
     background: linear-gradient(#261399,#13086c);
-    align-items: center;
+    // align-items: center;
     padding-bottom: 100px;
-    margin-top: -20px;
     .toggle-button{
       top: 6rem;
     }
@@ -526,7 +553,7 @@ export default {
       align-items: center;
     }
     .registerTooltip{
-      margin-top: 25px;
+      // margin-top: 25px;
       align-self: center;
     }
   }

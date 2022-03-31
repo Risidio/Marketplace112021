@@ -115,18 +115,19 @@
                 </vueper-slide>
               </vueper-slides>
             </div>
+            <div class="searchContainer-1">
+              <HomeSearchBar/>
+            </div>
         </div>
     </div>
     <div v-else>
         <div class="slideContainerNotLogged" >
-
             <div class="notLoggedCont">
               <h2 class="mobileHeader"> {{content.heroarea[0].herotitle[0].text}}</h2>
               <video class="home-video"
               src="https://res.cloudinary.com/risidio/video/upload/v1639140586/RisidioMarketplace/Latest_Risidio_Video_by_Fizan_100721_5_r3o1or.mp4"
               controls
               ></video>
-
             </div>
             <div class="slideText slideText-notLogged">
               <h2 class="notMobileHeader" style="margin-top: 50px;"> {{content.heroarea[0].herotitle[0].text}}</h2>
@@ -137,9 +138,9 @@
               </div>
             </div>
         </div>
-    </div>
-    <div class="searchB">
-      <!-- <HomeSearchBar/> -->
+        <div class="searchContainer-2">
+          <HomeSearchBar/>
+        </div>
     </div>
   </section>
 </template>
@@ -231,13 +232,16 @@ export default {
   height: 50rem;
   align-items: center;
   padding: 20px;
-  // display: grid;
-  // place-items: center;
-  // margin-bottom: 5rem;
 }
 .if {
   max-width: 1300px;
   margin: auto;
+}
+.searchContainer-1 {
+  margin-top: 85px;
+}
+.searchContainer-2 {
+  margin-top: 62px;
 }
 .slideText {
   position: relative;
@@ -251,10 +255,6 @@ export default {
     font: normal normal 300 14px/18px Montserrat;
     max-width: 450px;
   }
-}
-.searchB {
-  display: relative;
-  margin-top: -63px;
 }
 
 .bannerButtonContainer {
@@ -431,6 +431,15 @@ export default {
     margin-right: auto;
     backdrop-filter: blur(2rem);
   }
+  .slideContainerNotLogged {
+    flex-direction: column;
+  }
+  .searchContainer-1 {
+    margin-top: 120px;
+  }
+  .searchContainer-2 {
+    margin-top: 25px;
+  }
   .slideContainerNotLogged,
   .slideContainer {
     text-align: center;
@@ -451,13 +460,10 @@ export default {
     bottom: -30px;
   }
   .bannerContainer {
-    min-height: 62rem;
+    min-height: 75rem;
   }
   .banner {
-    min-height: 70rem;
-  }
-  .searchB {
-    margin-top: -12px;
+    min-height: 80rem;
   }
 }
 .notMobileHeader,
@@ -479,9 +485,16 @@ export default {
 }
 @media only screen and (max-width: 550px) {
   .slideContainerNotLogged {
+    flex-direction: column;
     .mobileHeader {
       margin-bottom: 0;
     }
+  }
+  .searchContainer-1 {
+    margin-top: 25px;
+  }
+  .searchContainer-2 {
+    margin-top: 32px;
   }
   .bannerButtonText {
     top: 100px;

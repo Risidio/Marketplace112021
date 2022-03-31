@@ -185,7 +185,7 @@ const gaiaAsset = {
 }
 const appDetails = {
   name: 'Risidio Marketplace - NFTs on Stacks!',
-  icon: origin + '/img/sticksnstones_logo.png'
+  icon: origin + '@/assets/img/risidio.svg'
 }
 
 const setup = function (data) {

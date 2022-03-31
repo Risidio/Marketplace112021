@@ -104,7 +104,7 @@ export default {
 }
 
 .dropdown_selector:hover {
-  transform: scale(1.05);
+  transform: scale(1.02);
   transition: 0.3s;
   cursor: pointer;
   z-index: 10;
@@ -197,6 +197,10 @@ export default {
   .dropdown_container {
     display: none;
     width: 125px;
+    z-index: 10;
+  }
+  .dropdown_selector {
+    width: auto;
   }
   .search_input_box {
     display: none;
@@ -206,7 +210,7 @@ export default {
     display: block;
   }
   .searchIcon {
-    box-shadow: 0px 3px 6px #00000029;
+    box-shadow: 0px 0px 3px #00000029;
   }
   .search_bar_container {
     justify-content: flex-end;
