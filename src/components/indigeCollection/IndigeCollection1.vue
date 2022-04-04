@@ -9,10 +9,10 @@
                 <p class="collectionArtistshow" id="artistName"> John Smith Gumbula </p>
                 <div class="artistInfo" id="artistInfo">
                     <p @click="showArtistInfo()" class="close-btn" >x</p>
-                    <img alt="Collection Image" src="https://res.cloudinary.com/risidio/image/upload/q_auto:eco/f_auto/RisidioMarketplace/unknown_fhqpon.png" class="circleImageInfo"/>
-                    <div>
+                    <!-- <img alt="Collection Image" src="https://res.cloudinary.com/risidio/image/upload/q_auto:eco/f_auto/RisidioMarketplace/unknown_fhqpon.png" class="circleImageInfo"/> -->
+                    <div class="collectionDiv">
                         <p class="collectionInfo1"> John Smith Gumbula </p>
-                        <p class="collectionInfo2"> {{content.artistinfo[0].artistdescription[0].text}}</p>
+                        <p class="collectionInfoDetail"> {{content.artistinfo[0].artistdescription[0].text}}</p>
                     </div>
                     <div class="icons">
                         <img class="icon" src="https://res.cloudinary.com/risidio/image/upload/v1640097848/RisidioMarketplace/facebook_ls2dko.svg"/>
@@ -37,10 +37,6 @@
             </div>
         </div>
         <div class="numbers">
-          <div class="volume">
-                <p> Volume</p>
-                <p> <span>2,837,483 STX</span></p>
-            </div>
             <div class="floorPrice">
                 <p> Floor Price</p>
                 <p> <span>2,583 STX</span></p>
@@ -105,7 +101,8 @@ export default {
 //   background-repeat: no-repeat;
     // background-position: center;
   padding: 20px;
-}
+
+  }
 .background{
     background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0)),
     url("https://res.cloudinary.com/risidio/image/upload/v1645092568/RisidioMarketplace/INDIGEWHALE_2_baclhi.jpg");
@@ -131,33 +128,44 @@ export default {
 }
 @media (max-width:611px){
 .indige-video{
+  margin-right: 60px;
   width: 300px;
   height: 200px;
+  margin-top: 30px;
   border-radius: 21px;
-  margin: auto;
+  position:absolute;
+  left: 45px;
 
-}
+  }
 
 }
 .whiteContainer{
 //   background-color:rgba(255, 255, 255, 0.637);
 //   backdrop-filter: blur(2rem);
   border-radius: 30px;
-  margin: -35px auto 25px auto;
+  margin: -35px auto 10px auto;
   padding: 20px 50px;
 }
 @media (max-width: 605px){
 .whiteContainer{
     border-radius: 30px;
-    margin: 35px auto 25px auto;
+    margin: 35px auto 0px auto;
 }
 
 }
 .collectionName{
     text-align: center;
-    font: normal normal 300 30px/45px Montserrat;
+    font: normal normal 300 40px/55px Montserrat;
     padding: 10px;
     color: White;
+}
+@media(max-width: 611px){
+    .collectionName{
+    text-align: center;
+    font: normal normal 300 30px/55px Montserrat;
+    padding: 10px;
+    color: White;
+}
 }
 .collectionArtist{
     display: none;
@@ -171,7 +179,7 @@ export default {
     display: inline-block;
     position:absolute;
     top:190px;
-    left:95px;
+    left:125px;
     margin-bottom: 10px;
     margin-top:20px ;
 }
@@ -190,19 +198,29 @@ export default {
     font: normal normal medium 17px/20px Montserrat;
     color: white;
 }
+.collectionInfoDetail{
+    font-size: 14px;
+    max-width: 575px;
+    margin: auto;
+    margin-top: 0px;
+    padding: 5px;
+    margin-bottom: 30px;
+    font: normal normal medium 17px/20px Montserrat;
+}
 .collectionInfo2{
     // font: normal normal normal 14px/20px Montserrat;
     font-size: 14px;
     max-width: 575px;
     margin: auto;
-    margin-bottom: 20px;
-    margin-top: 30px;
+    margin-top: 20px;
     padding: 5px;
+    margin-bottom: 30px;
 }
 .collectionInfo1{
     font: normal normal medium 17px/20px Montserrat;
     max-width: 450px;
     padding: 0 5px;
+    text-align: center;
 }
 .readMore{
     font: normal normal 700 14px/20px Montserrat;
@@ -210,6 +228,11 @@ export default {
     display: none;
     color: #50B1B5;
 }
+// @media(max-width: 611px){
+//     .readMore{
+//     padding-bottom: 200px;
+//     }
+// }
 .readMore.show{
     display: block;
 }
@@ -241,7 +264,7 @@ export default {
 .circleImage{
     display: inline-block;
     top:100px;
-    left: 130px;
+    left: 160px;
     width: 100px;
     height: 100px;
     border-radius: 50%;
@@ -281,23 +304,35 @@ export default {
 .artistInfo{
     display: none;
     position: absolute;
-    z-index: 20;
     left: 0;
     right: 0;
     margin: auto;
-    max-width: 655px;
+    z-index: 20;
+    max-width: 370px;
     top: 70px;
     background: white;
     border-radius: 20px;
     padding: 20px 30px;
     box-shadow: 0px 3px 15px #00000029;
 }
+@media (max-width: 611px)
+{
+    .artistInfo{
+    max-width: 370px;
+}
+}
 .artistInfo.show{
     display: flex;
-    left: -1000px;
+    left: -1100px;
     top:200px;
     flex-direction: row;
     gap: 10px;
+}
+@media(max-width:611px ){
+    .artistInfo.show{
+    right: -1100px;
+    }
+
 }
 .icons{
     position: absolute;
@@ -361,7 +396,7 @@ export default {
 }
 
 @media(max-width: 611px){
-  .floorPrice, .owners, .volume{
+  .floorPrice, .owners{
     border-right: none;
     max-width: 240px;
     padding: 5px;
