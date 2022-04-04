@@ -17,7 +17,8 @@ const contentStore = {
       emails: null,
       howItWorks: null,
       hiroWallet: null,
-      searchWord: null
+      searchWord: null,
+      dataResults: []
     },
     defaultArtist: 'chemicalx',
     waitingImage: 'https://images.prismic.io/dbid/c19ad445-eab4-4de9-9b5a-c10eb158dc5e_black_no1.png?auto=compress,format'
@@ -130,6 +131,9 @@ const contentStore = {
     },
     getHiroWallet: state => {
       return state.content.hiroWallet
+    },
+    getDataResults: state => {
+      return state.content.dataResults
     }
   },
   mutations: {
@@ -180,6 +184,9 @@ const contentStore = {
     },
     addHiroWallet (state, o) {
       state.content.hiroWallet = o
+    },
+    addDataResults (state, o) {
+      state.content.dataResults = o
     }
   },
   actions: {

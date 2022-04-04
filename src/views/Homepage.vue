@@ -1,7 +1,7 @@
 <template>
     <section class="homepage">
       <HomeBanner v-bind:profile='profile' :content="content"/>
-      <HomeMarket v-bind:profile='profile' :gaiaAssets="resultSet"/>
+      <HomeMarket v-bind:profile='profile' :gaiaAssets="resultSet.slice(0, 8)"/>
       <HomeInfo v-bind:profile='profile' :content="content"/>
       <HomeSeeAlso v-bind:profile='profile' :gaiaAssets="resultSet"/>
       <HomeBottomBanner v-bind:profile='profile' :content="content"/>
@@ -30,17 +30,16 @@ export default {
   },
   data () {
     return {
-      resultSet: [],
-      loading: true,
-      numberOfItems: null
+      resultSet: null,
+      loading: true
     }
   },
   mounted () {
-    this.fetchFullRegistry()
+    if (this.$store.getters['contentStore/getDataResults']) this.resultSet = this.$store.getters['contentStore/getDataResults'].gaiaAssets
+    if (!this.resultSet) this.fetchFullRegistry()
   },
   methods: {
     sortCollection (loopRun) {
-      console.log(loopRun)
       const data = {
         contractId: loopRun.contractId,
         asc: true,
@@ -48,11 +47,9 @@ export default {
         page: 0,
         pageSize: 30
       }
-      this.resultSet = null
       this.$store.dispatch('rpayStacksContractStore/fetchTokensByContractId', data).then((result) => {
-        console.log(result)
-        this.resultSet = result.gaiaAssets.slice(0, 8)
-        this.numberOfItems = result.tokenCount
+        this.resultSet = result.gaiaAssets
+        this.$store.commit('contentStore/addDataResults', result)
         this.loading = false
       })
     },
@@ -60,7 +57,6 @@ export default {
       const $self = this
       this.$store.dispatch('rpayProjectStore/fetchProjectsByStatus', '').then((projects) => {
         $self.projects = utils.sortResults(projects)
-        console.log(projects)
         this.sortCollection(projects.find((project) => project.contractId === 'ST1NXBK3K5YYMD6FD41MVNP3JS1GABZ8TRVX023PT.indige-mint'))
         $self.projects.forEach((p) => {
           const application = this.$store.getters[APP_CONSTANTS.KEY_APPLICATION_FROM_REGISTRY_BY_CONTRACT_ID](p.contractId)
@@ -68,7 +64,6 @@ export default {
         })
         $self.loaded = true
       })
-      console.log('registry')
     }
   },
   computed: {
@@ -85,5 +80,4 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
 </style>
