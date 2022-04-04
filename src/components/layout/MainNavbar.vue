@@ -38,7 +38,7 @@
               </div>
             </div>
             <hr class="mobile-hr"/>
-            <router-link class="nav-items thin" to="/how-it-works" style="margin-left: auto;">How It Works</router-link>
+            <router-link class="nav-items thin right" to="/how-it-works" id="howItWorks">How It Works</router-link>
             <router-link class="nav-items text-black thin" to="/about">About Risidio </router-link>
             <router-link class="nav-items navBtn thin" to="/my-account"> My NFT's </router-link>
         </div>
@@ -53,11 +53,12 @@
                 </div>
               </div>
             </div>
-            <router-link class="nav-items text-black thin" to="/how-it-works" style="margin-left: auto;" id="howItWorks">How It Works</router-link>
+            <hr class="mobile-hr"/>
+            <router-link class="nav-items text-black thin" to="/how-it-works" id="howItWorks">How It Works</router-link>
             <router-link class="nav-items text-black thin" to="/about">About Risidio </router-link>
             <div @mouseover="isHidden = !isHidden" @blur="isHidden = !isHidden" class=" nav-items navBtn text-black" id="register" v-on:click="startRegister()"> CONNECT WITH HIRO WALLET </div>
         </div>
-  </div>
+    </div>
   </div>
 </div>
 </template>
@@ -275,6 +276,10 @@ export default {
   display: flex;
   flex-direction: row;
   width: 100%;
+  &.right{
+    margin-left: auto;
+    background: black;
+  }
 }
 .toggle-button{
   position:absolute;
@@ -461,6 +466,9 @@ export default {
   }
 }
 }
+#howItWorks{
+  margin-left: auto;
+}
 @media only screen and (max-width: 1100px){
   .toggle-button{
     display:flex;
@@ -475,10 +483,13 @@ export default {
     margin-top: -12px;
   }
 // .dropDown.active{
-//   right: 0;
+  //   right: 0;
 //   left: 0;
 //   margin: auto;
 // }
+  #howItWorks{
+    margin-left: 0;
+  }
   .text-black{
     margin-top: -12px;
   }
@@ -505,10 +516,10 @@ export default {
     margin-right:auto;
     margin-top: 20px;
   }
-  .nav-items{
-    margin-left: auto;
-    margin-right: auto;
-  }
+  // .nav-items{
+  //   margin-left: auto;
+  //   margin-right: auto;
+  // }
   .navbar_links.active, .navbar_links_not_logged.active{
     display:flex;
     padding: 15px;

@@ -79,14 +79,6 @@ export default {
     profile () {
       const profile = this.$store.getters[APP_CONSTANTS.KEY_PROFILE]
       return profile
-    },
-    gaiaAssets () {
-      const assets = this.$store.getters[APP_CONSTANTS.KEY_GAIA_ASSETS]
-      return (assets) ? assets.reverse() : []
-    },
-    filterMarketAssets () {
-      const filterMarketAssets = this.gaiaAssets.slice(8, 18)
-      return (filterMarketAssets)
     }
   }
 }
