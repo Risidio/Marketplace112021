@@ -3,8 +3,8 @@
         <div class="mainGalleryContainer">
             <div class="mainGallerySidebar">
                 <div class="galleryCollections">
-                  <button class="collectionsButton" v-on:click="showCollections()">Collections <img class="arrow1" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></button>
-                  <div class="collectionsMenu" v-if="projects">
+                  <button class="collectionsButton" v-on:click="showCollections()">Collections <img class="arrow1 active" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></button>
+                  <div class="collectionsMenu active" v-if="projects">
                     <div v-for="(item, index) in projects" :key="index" class="collectionMenuContainer">
                       <input class="collectionItemRadio" type="radio" :id="item.title" name="radio" :value="index" @click="sortCollection(item)">
                       <label class="collectionItems">{{item.title}}</label>
@@ -49,10 +49,28 @@
                           <!-- <button @click="showSquare"> display</button> -->
                        <!-- </div>
                     </div>-->
-                        <input class="search" type="text" id="search" name="search" placeholder="Looking for anything in particular ?"><img class="view" src="https://res.cloudinary.com/risidio/image/upload/v1637238428/RisidioMarketplace/magnifying-search-lenses-tool_yaatpo.svg">
+                        <input class="search" type="text" id="search" name="search" placeholder="Looking for anything in particular ?" @change="searching($event.target.value)"><img class="view" src="https://res.cloudinary.com/risidio/image/upload/v1637238428/RisidioMarketplace/magnifying-search-lenses-tool_yaatpo.svg">
                 <!--</div>-->
-                <hr/>
-                <div v-if="resultSet && view !== 'squared'" class="galleryGrid">
+                <!--mobile search-->
+                <div class="mobiletop">
+                <div class="search-container">
+                      <input type="text" placeholder="Looking for anything in particular ?" name="search" @change="searching($event.target.value)" class="mobilesearch">
+                      <img class="mobileimage" src="https://res.cloudinary.com/risidio/image/upload/v1637238428/RisidioMarketplace/magnifying-search-lenses-tool_yaatpo.svg">
+                </div>
+                <div class="sorting">
+                 <div><h1 class="mobileview">View</h1></div>
+                  <div><h2 class="all">All</h2></div>
+                  <img class="mobilearrow1" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg">
+                  <div><h2 class="sort-by">Sort by</h2></div>
+                  <img class="mobilearrow2" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg">
+                  <a class="filter">Filter results</a>
+                  <img class="imagebar1" src="https://res.cloudinary.com/risidio/image/upload/v1649167477/RisidioMarketplace/imagebar1_px1ppz.png">
+                  <img class="imagebar2" src="https://res.cloudinary.com/risidio/image/upload/v1649167498/RisidioMarketplace/imagebar2_ohxsez.png">
+                </div>
+                </div>
+                <!-- End of moblie search-->
+                <hr class="hr1"/>
+                <div v-if="resultSet && view !== 'squared' && searched.length == 0" class="galleryGrid">
                   <div v-for="(item, index) in resultSet" :key="index" :id="index">
                     <div v-if="item.image" class="gallery-display" >
                       <img :id="'image' + index" :src="'https://res.cloudinary.com/risidio/image/upload/f_auto/q_auto:low/indige-testing/' + item.image.split('/')[5]"
@@ -60,7 +78,7 @@
                     </div>
                   </div>
                 </div>
-                <div v-if="resultSet && view == 'squared'" class="gallerySquare">
+                <div v-if="resultSet && view == 'squared' && searched.length == 0" class="gallerySquare">
                   <div v-for="(item, index) in resultSet" :key="index">
                     <div v-if="item.image" class="square-display" >
                       <b-link class="galleryNFTContainer" v-bind:to="'/nfts/' + item.contractAsset.contractId + '/' + item.contractAsset.nftIndex">
@@ -77,6 +95,55 @@
                     </div>
                   </div>
                 </div>
+                <div v-if="resultSet && view == 'squared' && searched.length > 0" class="gallerySquare">
+                  <div v-for="(item, index) in searched" :key="index">
+                    <div v-if="item.image" class="square-display" >
+                      <b-link class="galleryNFTContainer" v-bind:to="'/nfts/' + item.contractAsset.contractId + '/' + item.contractAsset.nftIndex">
+                      <img :src="'https://res.cloudinary.com/risidio/image/upload/f_auto/q_auto:low/indige-testing/' + item.image.split('/')[5]"
+                       alt="Risidio Gallery" class="square-display-img">
+                      <div class="rel">
+                        <div class="galleryHover">
+                          <p class="nFTName"> {{!item.name ? "NFT" : item.name }} <span style="float: right;">{{item.contractAsset.saleData.buyNowOrStartingPrice}} STX</span>
+                              <!-- <span>$ {{item.contractAsset.saleData.buyNowOrStartingPrice * 1.9}}</span></p> -->
+                          <p class="nFTArtist">By <span>{{!item.artist ? "Anonymous" : item.artist }}</span> </p>
+                        </div>
+                      </div>
+                      </b-link>
+                    </div>
+                  </div>
+                </div>
+                <!-- mobile version-->
+                <div v-if="resultSet && view !== 'squared' && searched.length == 0" class="mobilegalleryGrid">
+                  <div v-for="(item, index) in resultSet" :key="index" :id="index">
+                    <div class="search-container">
+                      <input type="text" placeholder="Search.." name="search" class="mobilesearch">
+                      <button type="submit"><i class="fa fa-search"></i></button>
+                </div>
+                    <div v-if="item.image" class="mobile-gallery-display" >
+                      <img :id="'image' + index" :src="'https://res.cloudinary.com/risidio/image/upload/f_auto/q_auto:low/indige-testing/' + item.image.split('/')[5]"
+                       alt="Risidio Gallery" class="mobile-gallery-display-img">
+                    </div>
+                  </div>
+                </div>
+                <div v-if="resultSet && view == 'squared' && searched.length == 0" class="mobilegallerySquare">
+                  <div v-for="(item, index) in resultSet" :key="index">
+                    <div v-if="item.image" class="mobile-square-display" >
+                      <b-link class="mobilegalleryNFTContainer" v-bind:to="'/nfts/' + item.contractAsset.contractId + '/' + item.contractAsset.nftIndex">
+                      <div><img :src="'https://res.cloudinary.com/risidio/image/upload/f_auto/q_auto:low/indige-testing/' + item.image.split('/')[5]"
+                       alt="Risidio Gallery" class="mobile-square-display-img">
+                       <h2 class="artwork">{{!item.name ? "NFT" : item.name }}</h2></div>
+                       <p class="mobilenFTArtist">By <span>{{!item.artist ? "Anonymous" : item.artist }}</span> </p>
+                      <!--<div class="rel">
+                        <div class="mobilegalleryHover">-->
+                         <div class="price">
+                           <!--<p class="mobilenFTName"> {{!item.name ? "NFT" : item.name }}</p>-->
+                         <p >{{item.contractAsset.saleData.buyNowOrStartingPrice}} STX</p>
+                              <!-- <span>$ {{item.contractAsset.saleData.buyNowOrStartingPrice * 1.9}}</span></p> -->
+                         </div>
+                      </b-link>
+                    </div>
+                  </div>
+                </div>
               </div>
         </div>
     </section>
@@ -84,8 +151,7 @@
 
 <script>
 import { APP_CONSTANTS } from '@/app-constants'
-import GalleryNft from '@/views/marketplace/components/gallery/GalleryNft'
-import CollectionSidebar from '@/views/marketplace/components/gallery/CollectionSidebar'
+// import CollectionSidebar from '@/views/marketplace/components/gallery/CollectionSidebar'
 import utils from '@/services/utils'
 
 export default {
@@ -98,11 +164,12 @@ export default {
     return {
       resultSet: [],
       loaded: true,
-      currentRunKey: 'launch_collection_t1',
+      currentRunKey: 'numberone_roots',
       types: 'all',
       numberOfItems: null,
       projects: [],
-      view: 'squared'
+      view: 'squared',
+      searched: []
       // placeHolderItems: []
     }
   },
@@ -135,6 +202,11 @@ export default {
           this.$router.push('/nft-marketplace/' + data.loopRun.makerUrlKey + '/' + data.loopRun.currentRunKey)
         }
       }
+    },
+    searching (input) {
+      const result = this.resultSet.filter((searchItem) => searchItem.name.includes(input))
+      this.searched = result
+      console.log(result)
     },
     changeView () {
       if (this.view === 'squared') {
@@ -203,7 +275,7 @@ export default {
         asc: true,
         runKey: loopRun ? loopRun.currentRunKey : null,
         page: 0,
-        pageSize: 30
+        pageSize: 28
       }
       this.resultSet = null
       this.$store.dispatch('rpayStacksContractStore/fetchTokensByContractId', data).then((result) => {
@@ -218,7 +290,7 @@ export default {
       this.$store.dispatch('rpayProjectStore/fetchProjectsByStatus', '').then((projects) => {
         $self.projects = utils.sortResults(projects)
         console.log(projects)
-        this.sortCollection(projects[16])
+        this.sortCollection(projects.find((project) => project.contractId === 'ST1NXBK3K5YYMD6FD41MVNP3JS1GABZ8TRVX023PT.indige-mint'))
         $self.projects.forEach((p) => {
           const application = this.$store.getters[APP_CONSTANTS.KEY_APPLICATION_FROM_REGISTRY_BY_CONTRACT_ID](p.contractId)
           p.application = application
@@ -245,6 +317,182 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.mobile-square-display{
+  width: 380px;
+  height: 157px;
+  background-color:#E4E4E4;
+  justify-content: space-evenly;
+  margin-top: 40px;
+  z-index: -10;
+  border-radius: 5%;
+  margin-left: -25px;
+  }
+.mobilegallerySquare{
+  width: 428px;
+  margin-top: -1050px;
+  justify-content: space-evenly;
+  row-gap: 40px;
+}
+.mobile-square-display-img{
+  width: 200px;
+  height: 179px;
+  z-index: 10;
+  margin-top: -10px;
+  border-radius: 8%;
+  object-fit: cover;
+ }
+  .artwork{
+    margin-left: 220px;
+    font-size: 20px;
+    margin-top: -130px;
+
+  }
+  .mobilenFTArtist{
+    margin-left: 220px;
+    margin-top: -10px;
+}
+.mobilesearch{
+  width: 105%;
+  margin-top: 20px;
+  margin-left: -20px;
+  //padding-right: 50px;
+  padding-left: 20px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-radius: 25px;
+  border:2px solid #f5f2f2;
+  font-size: 12px;
+  font-weight: 450;
+}
+ .mobileimage{
+   z-index: 10;
+   margin-left: 305px;
+   margin-top: -80px;
+ }
+  .mobiletop{
+    margin-top: 10px;
+  }
+  .search-container{
+    margin-right: 80px;
+    //margin-top: -20px;
+  }
+  .sorting{
+    margin-top: -20px;
+  }
+  .sort-by{
+    margin-top: -60px;
+    margin-left: 210px;
+    font-size: 13px;
+    font-weight: 700;
+  }
+  .mobileview{
+    font-size: 13px;
+    margin-top: 30px;
+    //margin-left: 10px;
+  }
+  .all{
+    font-size: 13px;
+    margin-top: -15px;
+    margin-left: 80px;
+    font-weight: 700;
+  }
+  .mobilearrow1{
+    margin-left: 150px;
+    margin-top: -75px;
+    transform: rotate(180deg);
+  }
+  .mobilearrow2{
+    margin-left: 310px;
+    margin-top: -75px;
+    transform: rotate(180deg);
+  }
+  .filter{
+    font-size: 13px;
+    font-weight: 800;
+    color: #5FBDC1;
+    margin-top: -20px;
+    margin-left: 230px;
+  }
+   .imagebar1{
+     margin-left: -20px;
+     width: 20px;
+     height: 20px;
+     margin-top: 10px;
+   }
+   .imagebar2{
+     margin-left: 20px;
+     width: 20px;
+     height: 20px;
+     margin-top: 10px;
+   }
+  .mobilenFTArtist span{
+   font-size: 14px;
+   font-weight: 600;
+   margin-top: -10px;
+  }
+  .price p{
+    margin-left: 220px;
+    font-size: 14px;
+
+  }
+ @media only screen and (min-width: 428px){
+  .mobile-gallery-display-img{
+    display: none;
+  }
+  .mobilegallerySquare{
+    display: none;
+  }
+  .mobilegalleryGrid{
+    display: none;
+  }
+  .search-container{
+    display: none;
+  }
+  .sorting{
+    display: none;
+  }
+  .mobiletop{
+    display: none;
+  }
+}
+@media only screen and (max-width: 428px){
+  .square-display-img{
+    display: none;
+  }
+  .collectionItems{
+    display: none;
+  }
+  .collectionItemRadio{
+    display: none;
+    }
+    .collectionMenuContainer{
+      display: none;
+    }
+    .collectionsMenu{
+      display: none;
+    }
+    .collectionsButton{
+      display: none;
+    }
+   .footer{
+      display: none;
+    }
+    .hr{
+      display: none;
+    }
+    .hr1{
+      display: none;
+    }
+    .search{
+      display: none;
+    }
+    .view{
+      display: none;
+    }
+    .mainGallerySidebar{
+      display: none;
+    }
+    }
 :root{
 
   --height: 0;
@@ -307,7 +555,9 @@ transition: all smooth 2s ease-in-out;
 .square-display-img{
   width: 211px;
   height: 189px;
-  object-fit: contain;
+  // background-size: cover;
+  object-fit: cover;
+  // object-fit: scale-down;
   box-shadow: 10px 10px 30px #0000002F;
   border-radius: 5px;
 }
@@ -331,6 +581,9 @@ transition: all smooth 2s ease-in-out;
   border-left: solid 0.5px rgb(196, 196, 196);
   border-radius: 0;
   font: normal normal 300 13px/16px Montserrat;
+}
+.search:active, .search:focus{
+  outline: none;
 }
 .mainGallerySidebar{
     background: #F5F5F5;
@@ -448,12 +701,6 @@ transition: all smooth 2s ease-in-out;
 .grid-length-2{
   grid-column-end: span 2;
 }
-// .grid-length-3{
-//   grid-column-end: span 3;
-// }
-// .grid-length-4{
-//   grid-column-end: span 4;
-// }
 .grid-height-2{
   grid-row-end: span 3;
 }.grid-height-3{
