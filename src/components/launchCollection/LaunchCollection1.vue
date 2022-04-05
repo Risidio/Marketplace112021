@@ -2,6 +2,7 @@
   <div>
     <div class="background"/>
     <div class="launchS1">
+        <div class="absolute-contain">
             <div class="artistContainer">
                 <h1 class="collectionName"> This is Number One Collection</h1>
                 <img @click="showArtistInfo()" alt="Collection Image"
@@ -9,7 +10,6 @@
                 <p class="collectionArtistshow" id="artistName"> Chemical X </p>
                 <div class="artistInfo" id="artistInfo">
                     <p @click="showArtistInfo()" class="close-btn" >x</p>
-                    <!-- <img alt="Collection Image" src="https://res.cloudinary.com/risidio/image/upload/f_auto/RisidioMarketplace/genesis-1_gxeluk.jpg" class="circleImageInfo"/> -->
                     <div>
                         <p class="collectionInfo1"> Chemical X </p>
                         <p class="collectionInfoDetail"> {{content.artistinfo[0].artistdescription[0].text}}</p>
@@ -21,16 +21,11 @@
                     </div>
                 </div>
             </div>
+        </div>
         <div class = "container">
-            <!-- <p class="collectionInfo">Catch news about the Indige Collection</p> -->
             <div class="whiteContainer">
-                <!-- <p class="contentTitle" >{{content.intro[0].contenttitle[0].text}}</p> -->
                 <p class="collectionInfo2">{{content.intro[0].beforereadmore[0].text}} </p>
                 <div class="extraContent" id="hiddenContent"> <p class="collectionInfo2">{{content.intro[0].afterreadmore[0].text}}</p>
-                <!-- <video class="indige-video"
-                src="https://res.cloudinary.com/risidio/video/upload/v1645180952/du_30.0/q_70:qmax_20/RisidioMarketplace/Video_JSG_Large_Mural_qajyum.mp4"
-                controls
-                ></video> -->
                 </div>
                 <p @click="showContent(1)" class="readMore show" id="readMore"> Read More </p>
                 <p @click="showContent(2)" class="readMore" id="hide"> Hide </p>
@@ -92,14 +87,14 @@ export default {
 
 <style lang="scss" scoped>
 .launchS1{
-  width: 100%;
+  min-height: 10rem;
   z-index: -10;
-//   margin-bottom: 50px;
-//   background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0)),
-//   url("https://res.cloudinary.com/risidio/image/upload/v1640097610/RisidioMarketplace/pexels-photo-1183992_myd1vf.jpg");
-//   background-repeat: no-repeat;
-//   object-fit: cover;
   padding: 20px;
+}
+.absolute-contain{
+    position: relative;
+    max-width: 1500px;
+    margin: auto;
 }
 .background{
     background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0)),
@@ -124,18 +119,13 @@ export default {
   margin:auto;
   object-fit: cover;
 }
+
 .whiteContainer{
 //   background-color:rgba(255, 255, 255, 0.637);
 //   backdrop-filter: blur(2rem);
   border-radius: 30px;
-  margin: -30px auto 10px auto;
-  padding: 20px 50px;
-}
-@media (max-width: 605px){
-.whiteContainer{
-    border-radius: 30px;
-    margin: 35px auto 0px auto;
-}
+  margin: -35px auto 10px auto;
+  padding: 20px 20px;
 }
 .collectionName{
     text-align: center;
@@ -143,14 +133,7 @@ export default {
     padding: 10px;
     color: White;
 }
-@media(max-width: 611px){
-    .collectionName{
-    text-align: center;
-    font: normal normal  300 20px/75px Montserrat;
-    padding: 10px;
-    color: White;
-}
-}
+
 .collectionArtist{
     display: none;
     font: normal normal medium 17px/20px Montserrat;
@@ -161,40 +144,19 @@ export default {
 }
 .collectionArtistshow{
     display: inline-block;
-    position:absolute;
+    position: absolute;
     top:190px;
     left:165px;
     margin-bottom: 10px;
     margin-top:20px ;
 }
-@media (max-width: 611px){
-  .collectionArtistshow {
-    display: inline-block;
-    left:155px;
-    padding-bottom: 10px;
-}
-}
+
 .contentTitle{
     font: normal normal normal 20px/24px Helvetica Neue;
 }
 .collectionInfo{
     font: normal normal medium 17px/20px Montserrat;
     color: white;
-}
-.collectionInfo2{
-    // font: normal normal normal 14px/20px Montserrat;
-    font-size: 14px;
-    max-width: 575px;
-    margin: auto;
-    margin-bottom: 20px;
-    margin-top: 30px;
-    padding: 5px;
-}
-.collectionInfo1{
-    font: normal normal medium 17px/20px Montserrat;
-    max-width: 450px;
-    padding: 0 5px;
-    text-align: center;
 }
 .collectionInfoDetail{
     font-size: 14px;
@@ -205,12 +167,32 @@ export default {
     margin-bottom: 30px;
     font: normal normal medium 17px/20px Montserrat;
 }
+.collectionInfo2{
+    // font: normal normal normal 14px/20px Montserrat;
+    font-size: 14px;
+    max-width: 575px;
+    margin: auto;
+    margin-top: 20px;
+    padding: 5px;
+    margin-bottom: 30px;
+}
+.collectionInfo1{
+    font: normal normal medium 17px/20px Montserrat;
+    max-width: 450px;
+    padding: 0 5px;
+    text-align: center;
+}
 .readMore{
     font: normal normal 700 14px/20px Montserrat;
     cursor: pointer;
     display: none;
     color: #50B1B5;
 }
+// @media(max-width: 611px){
+//     .readMore{
+//     padding-bottom: 200px;
+//     }
+// }
 .readMore.show{
     display: block;
 }
@@ -232,11 +214,9 @@ export default {
 }
 .artistContainer{
     position: absolute;
-    top: 130px;
+    top: -150px;
     left:0;
     right:0;
-    margin-left: auto;
-    margin-right: auto;
     transition: all smooth 2s ease-in-out;
 }
 .circleImage{
@@ -253,22 +233,7 @@ export default {
     object-fit: cover;
     cursor: pointer;
 }
-@media(max-width: 611px){
-.circleImage{
-   display: inline-block;
-    width: 100px;
-    left: 150px;
-    height: 100px;
-    border-radius: 50%;
-    // box-shadow: 10px 10px 30px #0000002F;
-    border: 2px solid white;
-    margin: auto;
-    object-fit: cover;
-    max-width: 242px;
-    margin-bottom: 25px;
-    cursor: pointer;
-    }
-}
+
 .circleImageInfo{
     width: 120px;
     height: 100px;
@@ -281,8 +246,7 @@ export default {
 .artistInfo{
     display: none;
     position: absolute;
-    left: 0;
-    right: 0;
+    left: 20px;
     margin: auto;
     z-index: 20;
     max-width: 370px;
@@ -292,36 +256,22 @@ export default {
     padding: 20px 30px;
     box-shadow: 0px 3px 15px #00000029;
 }
-@media (max-width: 611px)
-{
-    .artistInfo{
-    max-width: 370px;
-}
-}
 .artistInfo.show{
-    display: inline-block;
-    left: -1100px;
+    display: flex;
+    // left: -1100px;
     top:200px;
+    flex-direction: row;
     gap: 10px;
-    position: absolute;
-
-}
-@media(max-width:1024px ){
-    .artistInfo.show{
-    right: -1100px;
-    }
-
 }
 .icons{
-    position: absolute;
-    bottom: 25px;
-    right: 0;
-    left: 0;
-    margin: auto;
-    max-width: 200px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  position: absolute;
+  bottom: 25px; right: 0;
+  left: 0;
+  margin: auto;
+  max-width: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .icon{
     margin: 0 10px;
@@ -332,8 +282,9 @@ export default {
 .icon:hover{
     transform: scale(1.1)
 }
-.floorPrice, .owners{
+.floorPrice, .owners, .volume{
     border-right: solid 2px rgb(221, 221, 221);
+    padding: 5px;
 }
 .numbers{
     display: flex;
@@ -356,8 +307,36 @@ export default {
     }
 }
 
+@media(max-width:1200px ){
+  .whiteContainer{
+    border-radius: 30px;
+    margin: 50px auto 0 auto;
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .circleImage,
+  .artistInfo{
+    left: 0; right: 0;
+  }
+  .collectionArtistshow{
+    text-align: center;
+    right: 0; left: 0;
+  }
+}
 @media(max-width: 611px){
-     .numbers{
+  .indige-video{
+    margin-right: 60px;
+    width: 300px;
+    height: 200px;
+    margin-top: 30px;
+    border-radius: 21px;
+    position:absolute;
+    left: 45px;
+  }
+  .collectionName{
+    font: normal normal 300 30px/55px Montserrat;
+  }
+  .numbers{
     display: flex;
     flex-direction: column;
     max-width: 240px;
@@ -370,14 +349,15 @@ export default {
         font-weight: 600;
     }
   }
-}
-@media(max-width: 611px){
+  .artistInfo{
+    max-width: 370px;
+  }
   .floorPrice, .owners{
     border-right: none;
     max-width: 240px;
     padding: 5px;
     margin-top:10px;
     border-bottom: solid 2px rgb(221, 221, 221);
-}
+  }
 }
 </style>

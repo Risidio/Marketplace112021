@@ -2,6 +2,7 @@
 <div>
     <div class="background"/>
     <div class="launchS1">
+        <div class="absolute-contain">
             <div class="artistContainer">
                 <h1 class="collectionName">The Indige Collection </h1>
                 <img @click="showArtistInfo()" alt="Collection Image"
@@ -21,6 +22,7 @@
                     </div>
                 </div>
             </div>
+        </div>
         <div class = "container">
             <!-- <p class="collectionInfo">Catch news about the Indige Collection</p> -->
             <div class="whiteContainer">
@@ -92,21 +94,19 @@ export default {
 
 <style lang="scss" scoped>
 .launchS1{
-  width: 100%;
   min-height: 10rem;
   z-index: -10;
-//   margin-bottom: 50px;
-//   background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0)),
-//   url("https://res.cloudinary.com/risidio/image/upload/v1645092568/RisidioMarketplace/INDIGEWHALE_2_baclhi.jpg");
-//   background-repeat: no-repeat;
-    // background-position: center;
   padding: 20px;
-
-  }
+}
+.absolute-contain{
+    position: relative;
+    max-width: 1500px;
+    margin: auto;
+}
 .background{
     background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0)),
     url("https://res.cloudinary.com/risidio/image/upload/v1645092568/RisidioMarketplace/INDIGEWHALE_2_baclhi.jpg");
-    background-size: fit;
+    background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
     height: 165px;
@@ -126,32 +126,13 @@ export default {
   margin:auto;
   object-fit: cover;
 }
-@media (max-width:611px){
-.indige-video{
-  margin-right: 60px;
-  width: 300px;
-  height: 200px;
-  margin-top: 30px;
-  border-radius: 21px;
-  position:absolute;
-  left: 45px;
 
-  }
-
-}
 .whiteContainer{
 //   background-color:rgba(255, 255, 255, 0.637);
 //   backdrop-filter: blur(2rem);
   border-radius: 30px;
   margin: -35px auto 10px auto;
-  padding: 20px 50px;
-}
-@media (max-width: 605px){
-.whiteContainer{
-    border-radius: 30px;
-    margin: 35px auto 0px auto;
-}
-
+  padding: 20px 20px;
 }
 .collectionName{
     text-align: center;
@@ -159,14 +140,7 @@ export default {
     padding: 10px;
     color: White;
 }
-@media(max-width: 611px){
-    .collectionName{
-    text-align: center;
-    font: normal normal 300 30px/55px Montserrat;
-    padding: 10px;
-    color: White;
-}
-}
+
 .collectionArtist{
     display: none;
     font: normal normal medium 17px/20px Montserrat;
@@ -177,20 +151,13 @@ export default {
 }
 .collectionArtistshow{
     display: inline-block;
-    position:absolute;
+    position: absolute;
     top:190px;
     left:125px;
     margin-bottom: 10px;
     margin-top:20px ;
 }
-@media (max-width: 611px){
-  .collectionArtistshow {
-    display: inline-block;
-    left:110px;
-    margin-bottom: 40px;
-}
 
-}
 .contentTitle{
     font: normal normal normal 20px/24px Helvetica Neue;
 }
@@ -254,7 +221,7 @@ export default {
 }
 .artistContainer{
     position: absolute;
-    top: 130px;
+    top: -150px;
     left:0;
     right:0;
     margin-left: auto;
@@ -276,22 +243,6 @@ export default {
     cursor: pointer;
 }
 
-@media(max-width: 611px){
-.circleImage{
-   display: inline-block;
-    width: 100px;
-    left: 150px;
-    height: 100px;
-    border-radius: 50%;
-    // box-shadow: 10px 10px 30px #0000002F;
-    border: 2px solid white;
-    margin: auto;
-    object-fit: cover;
-    max-width: 242px;
-    margin-bottom: 25px;
-    cursor: pointer;
-    }
-}
 .circleImageInfo{
     width: 120px;
     height: 100px;
@@ -304,8 +255,7 @@ export default {
 .artistInfo{
     display: none;
     position: absolute;
-    left: 0;
-    right: 0;
+    left: 20px;
     margin: auto;
     z-index: 20;
     max-width: 370px;
@@ -315,24 +265,12 @@ export default {
     padding: 20px 30px;
     box-shadow: 0px 3px 15px #00000029;
 }
-@media (max-width: 611px)
-{
-    .artistInfo{
-    max-width: 370px;
-}
-}
 .artistInfo.show{
     display: flex;
-    left: -1100px;
+    // left: -1100px;
     top:200px;
     flex-direction: row;
     gap: 10px;
-}
-@media(max-width:1024px ){
-    .artistInfo.show{
-    right: -1100px;
-    }
-
 }
 .icons{
     position: absolute;
@@ -379,7 +317,29 @@ export default {
     }
 }
 
+@media(max-width:1200px ){
+  .whiteContainer{
+    border-radius: 30px;
+    margin: 50px auto 0 auto;
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .circleImage,
+  .artistInfo{
+    left: 0; right: 0;
+  }
+  .collectionArtistshow{
+    text-align: center;
+    right: 0; left: 0;
+  }
+}
 @media(max-width: 611px){
+  .indige-video{
+    width: 330px;
+  }
+  .collectionName{
+    font: normal normal 300 30px/55px Montserrat;
+  }
   .numbers{
     display: flex;
     flex-direction: column;
@@ -393,16 +353,15 @@ export default {
         font-weight: 600;
     }
   }
-}
-
-@media(max-width: 611px){
+  .artistInfo{
+    max-width: 370px;
+  }
   .floorPrice, .owners{
     border-right: none;
     max-width: 240px;
     padding: 5px;
     margin-top:10px;
     border-bottom: solid 2px rgb(221, 221, 221);
-}
-
+  }
 }
 </style>
