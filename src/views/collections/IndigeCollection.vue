@@ -7,6 +7,7 @@
         :page="page"
         v-on:nextPage="page += 1"
         v-on:previousPage="page -= 1"
+        @pageNumber="pageNumberChange"
         :numberOfItems="numberOfItems"
         :content="content"
         :loopRun="loopRun"/>
@@ -67,6 +68,10 @@ export default {
         })
         $self.loaded = true
       })
+    },
+    pageNumberChange (item) {
+      console.log('item', item)
+      this.page = item
     }
   },
   watch: {

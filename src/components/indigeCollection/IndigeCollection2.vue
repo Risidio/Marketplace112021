@@ -61,6 +61,7 @@
             </div>
             <div class="pagination-container" v-if="tab === 'Items'">
               <p v-if="numberOfItems > pageSize && page > 0 " v-on:click="$emit('previousPage')"> &lt; Previous </p>
+              <div v-for="(item, index) in pages" :key="index"><span v-on:click="$emit('pageNumber', index)">{{item}}</span></div>
               <p v-if="numberOfItems > pageSize && numberOfItems !== pageSize * (page + 1)" v-on:click="$emit('nextPage')">Next ></p>
             </div>
             <p v-if="mintPassLoad" class="loading-pass">
@@ -104,7 +105,8 @@ export default {
       currencyPreference: null,
       stxTransaction: [],
       limit: 15,
-      isDisabled: false
+      isDisabled: false,
+      pages: []
     }
   },
   mounted () {
@@ -121,11 +123,22 @@ export default {
     },
     'limit' () {
       this.fetchStxData()
-      console.log('stxtran', this.stxTransaction)
+    },
+    'numberOfItems' () {
+      this.getPageNumbers()
     }
   },
   methods: {
 /* eslint-disable */
+    getPageNumbers () {
+      let pageNumbers = this.numberOfItems / this.pageSize
+      let page = []
+      for (let i = 1; i <= pageNumbers; i++){
+        page.push(i)
+      }
+      console.log('pages', page)
+      this.pages = page
+    },
     fetchStxData () {
       axios.get(`https://stacks-node-api.testnet.stacks.co/extended/v1/address/${this.loopRun.contractId}/transactions?limit=${this.limit}&offset=0&unanchored=false`).then((res) => {
         console.log('res', res)
@@ -293,6 +306,20 @@ p {
   flex-direction: row;
   justify-content: space-around;
   p {
+    font: normal normal bold 12px/15px Montserrat;
+    color: #50b1b5;
+    cursor: pointer;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+  div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  }
+  span {
     font: normal normal bold 12px/15px Montserrat;
     color: #50b1b5;
     cursor: pointer;
