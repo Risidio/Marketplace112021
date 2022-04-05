@@ -2,7 +2,7 @@
     <div class="launchS2">
         <div>
             <b-nav class="galleryNav" >
-                <div class="galleryNavContainer" >
+                <div class="galleryNavContainer"  >
                 <b-nav-item class="galleryNavItem active" id="items" @click="tabChange('items')">Items</b-nav-item>
                 <b-nav-item class="galleryNavItem" id="activity" @click="tabChange('activity')">Activity</b-nav-item>
                 <!-- <b-nav-item class="galleryNavItem" @click="tabChange('Your NFT')">Your NFT's</b-nav-item> -->
@@ -214,7 +214,7 @@ export default {
 <style lang="scss" scoped>
 .launchS2{
     min-height: 50rem;
-  padding: 20px;
+    padding: 10px;
 }
 .container{
     text-align: center;
