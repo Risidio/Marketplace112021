@@ -306,7 +306,7 @@ export default {
     position: absolute;
 
 }
-@media(max-width:611px ){
+@media(max-width:1024px ){
     .artistInfo.show{
     right: -1100px;
     }
