@@ -51,7 +51,7 @@
                     </div>-->
                         <input class="search" type="text" id="search" name="search" placeholder="Looking for anything in particular ?" @change="searching($event.target.value)"><img class="view" src="https://res.cloudinary.com/risidio/image/upload/v1637238428/RisidioMarketplace/magnifying-search-lenses-tool_yaatpo.svg">
                 <!--</div>-->
-                <hr/>
+                <hr class="hr1"/>
                 <div v-if="resultSet && view !== 'squared' && searched.length == 0" class="galleryGrid">
                   <div v-for="(item, index) in resultSet" :key="index" :id="index">
                     <div v-if="item.image" class="gallery-display" >
@@ -94,7 +94,63 @@
                     </div>
                   </div>
                 </div>
+                </div>
+        <!-- mobile version-->
+            <div class="mobilemainGallery">
+              <div class="mobiletop">
+                <div class="search-container">
+                      <input type="text" placeholder="Looking for anything in particular ?" name="search" @change="searching($event.target.value)" class="mobilesearch">
+                      <img class="mobileimage" src="https://res.cloudinary.com/risidio/image/upload/v1637238428/RisidioMarketplace/magnifying-search-lenses-tool_yaatpo.svg">
+                </div>
+                <div class="sorting">
+                 <div><h1 class="mobileview">View</h1></div>
+                  <div>
+                    <h2 class="all">All</h2>
+                    <img class="mobilearrow1" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg">
+                  </div>
+                  <div>
+                    <h2 class="sort-by">Sort by</h2>
+                    <img class="mobilearrow2" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg">
+                  </div>
+                  <p class="filter">Filter results</p>
+                  <img class="imagebar1" src="https://res.cloudinary.com/risidio/image/upload/v1649167477/RisidioMarketplace/imagebar1_px1ppz.png">
+                  <img class="imagebar2" src="https://res.cloudinary.com/risidio/image/upload/v1649167498/RisidioMarketplace/imagebar2_ohxsez.png">
+                </div>
               </div>
+                <div v-if="resultSet && view !== 'squared' && searched.length == 0" class="mobilegalleryGrid">
+                  <div v-for="(item, index) in resultSet" :key="index" :id="index">
+                    <div class="search-container">
+                      <input type="text" placeholder="Search.." name="search" class="mobilesearch">
+                      <button type="submit"><i class="fa fa-search"></i></button>
+                </div>
+                    <div v-if="item.image" class="mobile-gallery-display" >
+                      <img :id="'image' + index" :src="'https://res.cloudinary.com/risidio/image/upload/f_auto/q_auto:low/indige-testing/' + item.image.split('/')[5]"
+                       alt="Risidio Gallery" class="mobile-gallery-display-img">
+                    </div>
+                  </div>
+                </div>
+                <div v-if="resultSet && view == 'squared' && searched.length == 0" class="mobilegallerySquare">
+                  <div v-for="(item, index) in resultSet" :key="index">
+                    <div v-if="item.image" class="mobile-square-display" >
+                      <b-link class="mobilegalleryNFTContainer" v-bind:to="'/nfts/' + item.contractAsset.contractId + '/' + item.contractAsset.nftIndex">
+                      <div>
+                        <img :src="'https://res.cloudinary.com/risidio/image/upload/f_auto/q_auto:low/indige-testing/' + item.image.split('/')[5]"
+                          alt="Risidio Gallery" class="mobile-square-display-img">
+                      </div>
+                        <h2 class="artwork">{{!item.name ? "NFT" : item.name }}</h2>
+                        <p class="mobilenFTArtist">By <span>{{!item.artist ? "Anonymous" : item.artist }}</span> </p>
+                      <!--<div class="rel">
+                        <div class="mobilegalleryHover">-->
+                         <div class="price">
+                           <!--<p class="mobilenFTName"> {{!item.name ? "NFT" : item.name }}</p>-->
+                         <p >{{item.contractAsset.saleData.buyNowOrStartingPrice}} STX</p>
+                              <!-- <span>$ {{item.contractAsset.saleData.buyNowOrStartingPrice * 1.9}}</span></p> -->
+                         </div>
+                      </b-link>
+                    </div>
+                  </div>
+                </div>
+          </div>
         </div>
     </section>
 </template>
@@ -267,7 +323,143 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-:root{
+.mobilemainGallery{
+ width: 100%;
+ max-width: 800px;
+ padding: 0 10px;
+}
+.mobile-square-display{
+  min-width: 222px;
+  height: 156px;
+  background-color:#E4E4E4;
+  justify-content: space-evenly;
+  margin-top: 40px;
+  z-index: -10;
+  border-radius: 10px;
+  // margin-left: 25px;
+  }
+.mobilegallerySquare{
+  max-width: 800px;
+  justify-content: space-evenly;
+  row-gap: 40px;
+}
+.mobile-square-display-img{
+  width: 193px;
+  height: 179px;
+  z-index: 10;
+  margin-top: -10px;
+  border-radius: 8%;
+  object-fit: cover;
+ }
+  .artwork{
+    margin-left: 220px;
+    font-size: 20px;
+    margin-top: -130px;
+
+  }
+  .mobilenFTArtist{
+    margin-left: 220px;
+    margin-top: -10px;
+}
+.mobilesearch{
+  width: 100%;
+  // margin: 20px auto 0 auto;
+  padding-left: 20px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-radius: 25px;
+  border:2px solid #f5f2f2;
+  font-size: 12px;
+  font-weight: 450;
+}
+ .mobileimage{
+   z-index: 10;
+   margin-left: 305px;
+   margin-top: -45px;
+ }
+  .mobiletop{
+    margin-top: 10px;
+  }
+  .search-container{
+    display: grid;
+    place-items: center;
+    margin: 10px 10px;
+  }
+  .sorting{
+    margin-top: -20px;
+  }
+  .sort-by{
+    margin-top: -60px;
+    margin-left: 210px;
+    font-size: 13px;
+    font-weight: 700;
+  }
+  .mobileview{
+    font-size: 13px;
+    margin-top: 30px;
+    margin-left: 20px;
+  }
+  .all{
+    font-size: 13px;
+    margin-top: -15px;
+    margin-left: 80px;
+    font-weight: 700;
+  }
+  .mobilearrow1{
+    margin-left: 150px;
+    margin-top: -75px;
+    transform: rotate(180deg);
+  }
+  .mobilearrow2{
+    margin-left: 310px;
+    margin-top: -75px;
+    transform: rotate(180deg);
+  }
+  .filter{
+    font-size: 13px;
+    font-weight: 800;
+    color: #5FBDC1;
+    margin-top: -20px;
+    text-align: right;
+  }
+   .imagebar1{
+     margin-left: 0px;
+     width: 20px;
+     height: 20px;
+     margin-top: 10px;
+   }
+   .imagebar2{
+     margin-left: 20px;
+     width: 20px;
+     height: 20px;
+     margin-top: 10px;
+   }
+  .mobilenFTArtist span{
+   font-size: 14px;
+   font-weight: 600;
+   margin-top: -10px;
+  }
+  .price p{
+    margin-left: 220px;
+    font-size: 14px;
+    }
+ @media only screen and (min-width: 580px){
+   .mobilemainGallery{
+     display: none;
+   }
+  }
+@media only screen and (max-width: 580px){
+  .mainGalleryBody{
+  display: none;
+ }
+ .mainGallerySidebar{
+      display: none;
+    }
+    .mainGalleryContainer{
+      display: none;
+    }
+    }
+   :root{
 
   --height: 0;
 }
@@ -278,12 +470,12 @@ export default {
 }
 .mainGalleryContainer .mainGallerySidebar{
     flex: 1 1 15%;
-    min-width: 150px;
+    min-width: 200px;
     max-width: 250px;
     box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
 }
 .mainGalleryContainer .mainGalleryBody{
-    flex: 1 1 85%;
+    flex: 1 1 65%;
     padding: 10px 50px;
     max-width: 1600px;
     // margin: auto;
@@ -335,26 +527,21 @@ transition: all smooth 2s ease-in-out;
   box-shadow: 10px 10px 30px #0000002F;
   border-radius: 5px;
 }
-.filter{
-  display: flex;
-  flex-direction: row;
-  flex-wrap:wrap;
-  width: 100%;
-}
-.filter >*:nth-child(1){
-    flex: 1 1 500px;
-    display: flex;
-}
-.filter >*:nth-child(2){
-    flex: 1 1 500px;
-}
 .search{
-  margin: 20px 0 0 35px;
-  padding: 10px 500px 10px 430px;
+  width: 85%;
+  margin-top: 20px;
+  margin-left: 30px;
+  padding-right: 50px;
+  //padding-left: 20px;
+  padding-top: 10px;
+  padding-bottom: 5px;
   border: 0;
-  border-left: solid 0.5px rgb(196, 196, 196);
-  border-radius: 0;
-  font: normal normal 300 13px/16px Montserrat;
+  //border-radius: 25px;
+  //border:2px solid #f5f2f2;
+  font-size: 12px;
+  font-weight: 450;
+  text-align: center;
+  z-index: -10;
 }
 .search:active, .search:focus{
   outline: none;
@@ -406,7 +593,7 @@ transition: all smooth 2s ease-in-out;
     display: block;
 }
 .arrow1, .arrow2{
-    margin-left: 80px;
+    margin-left: 20px;
     width: 12px;
     height: 12px;
     transform: rotate(90deg)
@@ -471,6 +658,10 @@ transition: all smooth 2s ease-in-out;
   display: block;
   width: 100%;
   margin: auto;
+}
+.view{
+  z-index: 10;
+  margin-left: -25px;
 }
 .grid-length-2{
   grid-column-end: span 2;
