@@ -70,7 +70,6 @@ export default {
       })
     },
     pageNumberChange (item) {
-      console.log('item', item)
       this.page = item
     }
   },

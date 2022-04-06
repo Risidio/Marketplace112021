@@ -14,7 +14,13 @@
             <div class="w-100">
               <div class="flex"><h1 class="text-black">{{gaiaAsset.name}}</h1>
               <div style="margin-left: auto;" class="d-flex">
-                <b-link router-tag="span" v-b-tooltip.hover="{ variant: 'light' }" :title='salesBadgeLabel' class="text-black" variant="outline-success"><b-icon class="ml-2" icon="question-circle"/></b-link>
+                <div v-b-hover="handleHover" @click="addToFav()" >
+                  <b-icon v-if="isHovered || isLiked" icon="heart-fill"  style="color: red"/>
+                  <b-icon v-else icon="heart" />
+                </div>
+                <b-link router-tag="span" v-b-tooltip.hover="{ variant: 'light' }" :title='salesBadgeLabel' class="text-black" variant="outline-success">
+                  <b-icon class="ml-2" icon="question-circle"/>
+                </b-link>
                 <div style="font-weight: 600; font-size: 1.2rem" class="text-center on-auction-text ml-3 py-3 px-4 bg-secondary text-white">
                   <div style="color: white;">{{salesBadgeLabel}}</div>
                   <!-- <div v-if="showEndTime()">{{biddingEndTime()}}</div> -->
@@ -124,7 +130,9 @@ export default {
       showHash: false,
       assetHash: null,
       txData: null,
-      socialmessage: 'This is number one, an art engine and decentralised marketplace'
+      socialmessage: 'This is number one, an art engine and decentralised marketplace',
+      isHovered: false,
+      isLiked: false
     }
   },
   watch: {
@@ -158,8 +166,35 @@ export default {
       const vid = document.getElementById('video-column')
       if (vid) this.videoHeight = vid.clientHeight
     }, this)
+    if (localStorage.getItem('addNFTToFavourite')) {
+      const likedArray = JSON.parse(localStorage.getItem('addNFTToFavourite'))
+      likedArray.map(item => {
+        if (item.nftIndex === this.gaiaAsset.nftIndex) {
+          this.isLiked = true
+        } else {
+          this.isLiked = false
+        }
+      })
+    }
   },
   methods: {
+    addToFav () {
+      let favorite = []
+      if (localStorage.getItem('addNFTToFavourite')) {
+        const favArray = JSON.parse(localStorage.getItem('addNFTToFavourite'))
+        if (this.isLiked) {
+          this.isLiked = false
+          favorite = favArray.filter(item => item.nftIndex !== this.gaiaAsset.nftIndex)
+        } else {
+          this.isLiked = true
+          favorite = [...favArray, this.gaiaAsset]
+        }
+      } else {
+        this.isLiked = true
+        favorite = [this.gaiaAsset]
+      }
+      localStorage.setItem('addNFTToFavourite', JSON.stringify(favorite))
+    },
     created () {
       if (this.gaiaAsset && this.gaiaAsset.mintInfo && this.gaiaAsset.mintInfo.timestamp) {
         return DateTime.fromMillis(this.gaiaAsset.mintInfo.timestamp).toLocaleString({ weekday: 'short', month: 'short', day: '2-digit', hour: '2-digit', minute: '2-digit' })
@@ -302,6 +337,9 @@ export default {
         this.$bvModal.hide('asset-offer-modal')
         this.$root.$emit('bv::show::modal', 'success-modal')
       })
+    },
+    handleHover (hovered) {
+      this.isHovered = hovered
     }
   },
   computed: {
@@ -435,31 +473,32 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-#threeCanvas{
-  display:block;
+#threeCanvas {
+  display: block;
 }
-.priceSection{
-  .basePrice, .feePrice{
+.priceSection {
+  .basePrice,
+  .feePrice {
     font: normal normal 300 12px/18px Montserrat;
-    span{
+    span {
       float: right;
       margin-left: auto;
-      span{
+      span {
         margin-left: 4px;
-        color: #5154A1;
+        color: #5154a1;
         font: normal normal bold 16px/19px Montserrat;
       }
     }
   }
 }
-.fullPrice{
+.fullPrice {
   font: normal normal 300 20px/29px Montserrat;
   float: right;
-  span{
+  span {
     font: normal normal 300 20px/29px Montserrat;
-    span{
+    span {
       font: normal normal bold 24px/29px Montserrat;
-      color:#5154A1;
+      color: #5154a1;
     }
   }
 }
@@ -473,10 +512,10 @@ export default {
   width: 100%; /* Full width */
   height: 100%; /* Full height */
   overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  background-color: rgb(0, 0, 0); /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
 }
-.close{
+.close {
   margin: auto;
   font-size: 30px;
 }
@@ -503,12 +542,12 @@ export default {
 #asset-offer-modal .modal-content {
   text-align: left !important;
 }
-.backBtn{
-  color: #170A6D;
+.backBtn {
+  color: #170a6d;
   font: normal normal bold 11px/14px Montserrat;
   margin-bottom: 30px;
 }
-.button{
+.button {
   width: 120px;
   padding: 0;
   display: grid;
@@ -517,14 +556,14 @@ export default {
   height: 43px;
   margin-top: 55px;
 }
-.editions{
-  background-color: #170A6D;
+.editions {
+  background-color: #170a6d;
   padding: 5px;
   align-items: center;
   display: grid;
   place-items: center;
 }
-.editions h2{
+.editions h2 {
   place-items: center;
   color: white;
   font-weight: 200;
