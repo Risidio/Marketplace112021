@@ -190,6 +190,7 @@ export default {
     },
     closeModel () {
       this.visible = false
+    },
     addToFav () {
       let favorite = []
       if (localStorage.getItem('addNFTToFavourite')) {
@@ -521,8 +522,8 @@ export default {
   top: 0;
   width: 100vw; /* Full width */
   height: 100vh; /* Full height */
-  background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  background-color: rgb(0, 0, 0); /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -544,18 +545,18 @@ export default {
 // }
 /* Modal Content */
 .modal-contentt {
- display:flex;
+  display: flex;
   flex-direction: column;
   width: 100vw;
   position: relative;
   margin: auto;
   // padding: 20px;
 }
-.modelImage{
+.modelImage {
   display: block;
   margin: auto;
   position: relative;
-  top:-20px;
+  top: -20px;
   max-width: 90%;
   max-height: 90vh;
 }
@@ -594,11 +595,12 @@ export default {
   display: grid;
   place-items: center;
 }
-.html, body {
- height: 100%;
- overflow: hidden;
+.html,
+body {
+  height: 100%;
+  overflow: hidden;
 }
-.editions h2{
+.editions h2 {
   place-items: center;
   color: white;
   font-weight: 200;
