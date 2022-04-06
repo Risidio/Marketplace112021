@@ -190,6 +190,7 @@ export default {
     },
     closeModel () {
       this.visible = false
+    },
     addToFav () {
       let favorite = []
       if (localStorage.getItem('addNFTToFavourite')) {
