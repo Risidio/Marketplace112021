@@ -511,18 +511,15 @@ export default {
   width: 100vw;
   position: relative;
   margin: auto;
-  padding: 20px;
+  // padding: 20px;
 }
 .modelImage{
-display: block;
-margin: auto;
-width: 100%;
-}
-.modelImage{
-position: relative;
-top:-20px;
-max-width: 600px;
-max-height: 850px;
+  display: block;
+  margin: auto;
+  position: relative;
+  top:-20px;
+  max-width: 90%;
+  max-height: 90vh;
 }
 .more-link {
   border: 1pt solid #fff;
