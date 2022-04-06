@@ -1,9 +1,17 @@
 <template>
 <section style="margin: auto; margin-top: 10rem; max-width: 1135px; padding: 0 20px;" id="asset-details-section" v-if="gaiaAsset && gaiaAsset.contractAsset" class="text-black">
-  <div class="backBtn"><router-link class="backBtn" :to="'/' + 'indige5'"><b-icon icon="chevron-left" shift-h="-3"></b-icon> Back </router-link></div>
+  <div >
+    <router-link class="backBtn" :to="'/' + 'indige5'">
+    <b-icon icon="chevron-left" shift-h="-3"></b-icon> Back </router-link></div>
     <b-row style="display: flex; margin: auto" :style="'min-height: ' + videoHeight + 'px'">
-      <b-col lg="6" sm="10" class="mb-5">
-        <div id="video-column" :style="dimensions">
+      <b-col lg="6" sm="10" class="mb-5" style="  max-height: 500px; ">
+          <div @click="closeModel" v-if="visible" class="boxMol">
+            <div class="modal-contentt">
+          <!-- <span class="closeBtn"  @click="closeModel">&times;</span> -->
+          <img class="modelImage" :src="gaiaAsset.image" >
+          </div>
+            </div>
+        <div @click="showModel()" id="video-column" :style="dimensions">
           <MediaItemGeneral :classes="'hash1-image'" v-on="$listeners" :options="videoOptions" :mediaItem="gaiaAsset"/>
           <div class="editions"> <h2>EDITION <span>{{gaiaAsset.contractAsset.tokenInfo.edition}}</span> / {{gaiaAsset.contractAsset.tokenInfo.maxEditions}}</h2></div>
         </div>
@@ -83,7 +91,6 @@
         <div class="mt-5"><a href="#" @click.prevent="back()"><b-icon icon="chevron-left"/> {{confirmOfferDialog[3].text}}</a></div>
       </b-col>
     </b-row>
-    <div></div>
     <template #modal-footer class="text-center">
       <div class="w-100">
       </div>
@@ -101,7 +108,6 @@ import AssetUpdatesModal from '@/views/marketplace/components/toolkit/purchasing
 import PurchaseFlow from '@/views/marketplace/components/toolkit/purchasing/PurchaseFlow'
 import MediaItemGeneral from '@/views/marketplace/components/media/MediaItemGeneral'
 import PendingTransactionInfo from '@/views/marketplace/components/toolkit/nft-history/PendingTransactionInfo'
-
 export default {
   name: 'AssetDetailsSectionV1',
   components: {
@@ -124,6 +130,7 @@ export default {
       showHash: false,
       assetHash: null,
       txData: null,
+      visible: false,
       socialmessage: 'This is number one, an art engine and decentralised marketplace'
     }
   },
@@ -160,6 +167,12 @@ export default {
     }, this)
   },
   methods: {
+    showModel () {
+      this.visible = true
+    },
+    closeModel () {
+      this.visible = false
+    },
     created () {
       if (this.gaiaAsset && this.gaiaAsset.mintInfo && this.gaiaAsset.mintInfo.timestamp) {
         return DateTime.fromMillis(this.gaiaAsset.mintInfo.timestamp).toLocaleString({ weekday: 'short', month: 'short', day: '2-digit', hour: '2-digit', minute: '2-digit' })
@@ -463,32 +476,54 @@ export default {
     }
   }
 }
-.modal {
-  display: none; /* Hidden by default */
+.boxMol {
   position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
-  padding-top: 100px; /* Location of the box */
+  z-index: 10; /* Sit on top */
   left: 0;
   top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
+  width: 100vw; /* Full width */
+  height: 100vh; /* Full height */
   background-color: rgb(0,0,0); /* Fallback color */
   background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-.close{
-  margin: auto;
-  font-size: 30px;
-}
+// .closeBtn{
+//   position: relative;
+//   font-size: 55px;
+//   left: 320px;
+//   top:-40px;
+// }
+
+// .closeBtn{
+//     position: absolute;
+//     top: -60px;
+//     right: 15px;
+//     color: #f1f1f1;
+//     font-size: 55px;
+//     font-weight: bold;
+// }
 /* Modal Content */
-.modal-content {
-  background-color: #fefefe;
+.modal-contentt {
+ display:flex;
+  flex-direction: column;
+  width: 100vw;
+  position: relative;
   margin: auto;
   padding: 20px;
-  border: 1px solid #888;
-  width: 63%;
 }
-
+.modelImage{
+display: block;
+margin: auto;
+width: 100%;
+}
+.modelImage{
+position: relative;
+top:-20px;
+max-width: 600px;
+max-height: 850px;
+}
 .more-link {
   border: 1pt solid #fff;
   padding: 3px 10px;
@@ -523,6 +558,10 @@ export default {
   align-items: center;
   display: grid;
   place-items: center;
+}
+.html, body {
+ height: 100%;
+ overflow: hidden;
 }
 .editions h2{
   place-items: center;
