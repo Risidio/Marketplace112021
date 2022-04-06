@@ -15,7 +15,7 @@
               <div class="flex"><h1 class="text-black">{{gaiaAsset.name}}</h1>
               <div style="margin-left: auto;" class="d-flex">
                 <div v-b-hover="handleHover" @click="addToFav()" >
-                  <b-icon v-if="isHovered || isLiked" icon="heart-fill"  style="color: red"/>
+                  <b-icon v-if="isHovered || isLiked" icon="heart-fill"  style="color: red; cursor: pointer;"/>
                   <b-icon v-else icon="heart" />
                 </div>
                 <b-link router-tag="span" v-b-tooltip.hover="{ variant: 'light' }" :title='salesBadgeLabel' class="text-black" variant="outline-success">
