@@ -96,23 +96,27 @@
                 </div>
                 </div>
         <!-- mobile version-->
-                <div class="mobilemainGallery">
-                <div class="mobiletop">
+            <div class="mobilemainGallery">
+              <div class="mobiletop">
                 <div class="search-container">
                       <input type="text" placeholder="Looking for anything in particular ?" name="search" @change="searching($event.target.value)" class="mobilesearch">
                       <img class="mobileimage" src="https://res.cloudinary.com/risidio/image/upload/v1637238428/RisidioMarketplace/magnifying-search-lenses-tool_yaatpo.svg">
                 </div>
                 <div class="sorting">
                  <div><h1 class="mobileview">View</h1></div>
-                  <div><h2 class="all">All</h2></div>
-                  <img class="mobilearrow1" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg">
-                  <div><h2 class="sort-by">Sort by</h2></div>
-                  <img class="mobilearrow2" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg">
-                  <a class="filter">Filter results</a>
+                  <div>
+                    <h2 class="all">All</h2>
+                    <img class="mobilearrow1" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg">
+                  </div>
+                  <div>
+                    <h2 class="sort-by">Sort by</h2>
+                    <img class="mobilearrow2" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg">
+                  </div>
+                  <p class="filter">Filter results</p>
                   <img class="imagebar1" src="https://res.cloudinary.com/risidio/image/upload/v1649167477/RisidioMarketplace/imagebar1_px1ppz.png">
                   <img class="imagebar2" src="https://res.cloudinary.com/risidio/image/upload/v1649167498/RisidioMarketplace/imagebar2_ohxsez.png">
                 </div>
-                </div>
+              </div>
                 <div v-if="resultSet && view !== 'squared' && searched.length == 0" class="mobilegalleryGrid">
                   <div v-for="(item, index) in resultSet" :key="index" :id="index">
                     <div class="search-container">
@@ -129,10 +133,12 @@
                   <div v-for="(item, index) in resultSet" :key="index">
                     <div v-if="item.image" class="mobile-square-display" >
                       <b-link class="mobilegalleryNFTContainer" v-bind:to="'/nfts/' + item.contractAsset.contractId + '/' + item.contractAsset.nftIndex">
-                      <div><img :src="'https://res.cloudinary.com/risidio/image/upload/f_auto/q_auto:low/indige-testing/' + item.image.split('/')[5]"
-                       alt="Risidio Gallery" class="mobile-square-display-img">
-                       <h2 class="artwork">{{!item.name ? "NFT" : item.name }}</h2></div>
-                       <p class="mobilenFTArtist">By <span>{{!item.artist ? "Anonymous" : item.artist }}</span> </p>
+                      <div>
+                        <img :src="'https://res.cloudinary.com/risidio/image/upload/f_auto/q_auto:low/indige-testing/' + item.image.split('/')[5]"
+                          alt="Risidio Gallery" class="mobile-square-display-img">
+                      </div>
+                        <h2 class="artwork">{{!item.name ? "NFT" : item.name }}</h2>
+                        <p class="mobilenFTArtist">By <span>{{!item.artist ? "Anonymous" : item.artist }}</span> </p>
                       <!--<div class="rel">
                         <div class="mobilegalleryHover">-->
                          <div class="price">
@@ -144,7 +150,7 @@
                     </div>
                   </div>
                 </div>
-                </div>
+          </div>
         </div>
     </section>
 </template>
@@ -320,25 +326,25 @@ export default {
 .mobilemainGallery{
  width: 100%;
  max-width: 800px;
+ padding: 0 10px;
 }
 .mobile-square-display{
-  min-width: 380px;
-  height: 157px;
+  min-width: 222px;
+  height: 156px;
   background-color:#E4E4E4;
   justify-content: space-evenly;
   margin-top: 40px;
   z-index: -10;
-  border-radius: 5%;
-  margin-left: 25px;
+  border-radius: 10px;
+  // margin-left: 25px;
   }
 .mobilegallerySquare{
   max-width: 800px;
-  //margin-top: -1050px;
   justify-content: space-evenly;
   row-gap: 40px;
 }
 .mobile-square-display-img{
-  width: 200px;
+  width: 193px;
   height: 179px;
   z-index: 10;
   margin-top: -10px;
@@ -356,10 +362,8 @@ export default {
     margin-top: -10px;
 }
 .mobilesearch{
-  width: 105%;
-  margin-top: 20px;
-  margin-left: 40px;
-  //padding-right: 50px;
+  width: 100%;
+  // margin: 20px auto 0 auto;
   padding-left: 20px;
   padding-top: 10px;
   padding-bottom: 10px;
@@ -371,17 +375,17 @@ export default {
  .mobileimage{
    z-index: 10;
    margin-left: 305px;
-   margin-top: -80px;
+   margin-top: -45px;
  }
   .mobiletop{
     margin-top: 10px;
   }
   .search-container{
-    margin-right: 80px;
-    //margin-top: -20px;
+    display: grid;
+    place-items: center;
+    margin: 10px 10px;
   }
   .sorting{
-    margin-left: 40px;
     margin-top: -20px;
   }
   .sort-by{
@@ -416,7 +420,7 @@ export default {
     font-weight: 800;
     color: #5FBDC1;
     margin-top: -20px;
-    margin-left: 230px;
+    text-align: right;
   }
    .imagebar1{
      margin-left: 0px;
@@ -439,12 +443,12 @@ export default {
     margin-left: 220px;
     font-size: 14px;
     }
- @media only screen and (min-width: 510px){
+ @media only screen and (min-width: 580px){
    .mobilemainGallery{
      display: none;
    }
   }
-@media only screen and (max-width: 510px){
+@media only screen and (max-width: 580px){
   .mainGalleryBody{
   display: none;
  }
@@ -466,7 +470,7 @@ export default {
 }
 .mainGalleryContainer .mainGallerySidebar{
     flex: 1 1 15%;
-    min-width: 150px;
+    min-width: 200px;
     max-width: 250px;
     box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
 }
@@ -522,19 +526,6 @@ transition: all smooth 2s ease-in-out;
   // object-fit: scale-down;
   box-shadow: 10px 10px 30px #0000002F;
   border-radius: 5px;
-}
-.filter{
-  display: flex;
-  flex-direction: row;
-  flex-wrap:wrap;
-  width: 100%;
-}
-.filter >*:nth-child(1){
-    flex: 1 1 500px;
-    display: flex;
-}
-.filter >*:nth-child(2){
-    flex: 1 1 500px;
 }
 .search{
   width: 85%;
@@ -602,7 +593,7 @@ transition: all smooth 2s ease-in-out;
     display: block;
 }
 .arrow1, .arrow2{
-    margin-left: 80px;
+    margin-left: 20px;
     width: 12px;
     height: 12px;
     transform: rotate(90deg)
