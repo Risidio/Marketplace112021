@@ -538,6 +538,10 @@ select {
 	justify-content: space-evenly;
 	row-gap: 40px;
 }
+.stop-scrolling {
+	height: 100%;
+	overflow: hidden;
+}
 .galleryItem {
 	display: flex;
 	// margin: 0 minmax(10px, 30px);

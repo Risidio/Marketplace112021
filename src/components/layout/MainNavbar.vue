@@ -1,6 +1,7 @@
 <template>
 <div >
 <!-- The Modal -->
+<div v-on:click="mobileNavebar()" :class="isLayer ? 'whiteBackground' : ''"></div>
 <div id="myModal" class="modal">
 
   <!-- Modal content -->
@@ -20,27 +21,35 @@
 </div>
 <div class="nav-container">
     <div class = "mainNavbar">
-        <router-link class="risidioLogo" to="/"><img width="150px;" :src="logo" alt="risidio-logo"/></router-link>
-        <a href= "#" class = "toggle-button" v-on:click="mobileNavebar()">
+        <router-link class="risidioLogo" to="/"><img v-on:click="mobileNavebar()" width="150px;" :src="logo" alt="risidio-logo"/></router-link>
+        <div class="toggle-button" v-on:click="mobileNavebar()">
           <span class="bar"></span>
           <span class="bar"></span>
           <span class="bar"></span>
-        </a>
+        </div>
         <div v-if="profile.loggedIn" class="navbar_links">
-            <router-link class="nav-items bold" to="/nft-marketplace" >Explore</router-link>
+          <div v-on:click="mobileNavebar()">
+            <router-link class="nav-items bold" to="/nft-marketplace">Explore</router-link>
+          </div>
             <div style="position: relative; margin-top: 2px;" @click="openMenu()" id="dropDown" class="dropDown">
               <p id="dropDown-1" class="nav-items bold" > Featured Collections <img class="arrow2" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></p>
               <p id="dropDown-2" class="featured" > Featured Collections <img style="margin-left: 8px;" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></p>
               <div id="dropDown-3" class="dropdownMenu">
                 <div id="dropDown-4" v-for="(item, index) in allLoopRuns" :key="index" class="dropdownMenu-container">
-                  <p @click="linkTo(item)">{{item.currentRun}}</p>
+                  <p @click="linkTo(item)" v-on:click="mobileNavebar()">{{item.currentRun}}</p>
                 </div>
               </div>
             </div>
             <hr class="mobile-hr"/>
-            <router-link class="nav-items thin right" to="/how-it-works" id="howItWorks">How It Works</router-link>
-            <router-link class="nav-items text-black thin" to="/about">About Risidio </router-link>
-            <router-link class="nav-items navBtn thin" to="/my-account"> My NFT's </router-link>
+            <div v-on:click="mobileNavebar()" class="nav-items">
+              <router-link class="nav-items thin right" to="/how-it-works" id="howItWorks">How It Works</router-link>
+            </div>
+            <div v-on:click="mobileNavebar()" class="nav-items">
+              <router-link class="nav-items text-black thin" to="/about">About Risidio </router-link>
+            </div>
+            <div v-on:click="mobileNavebar()" class="nav-items">
+              <router-link class="navBtn thin" to="/my-account"> My NFT's </router-link>
+            </div>
         </div>
          <div v-else class="navbar_links_not_logged">
             <router-link class="nav-items bold" to="/nft-marketplace" >Explore</router-link>
@@ -83,7 +92,8 @@ export default {
       logo: 'https://res.cloudinary.com/risidio/image/upload/v1633609248/RisidioMarketplace/Group_-1_fgpanq.svg',
       isHidden: false,
       loopRuns: [],
-      showColls: false
+      showColls: false,
+      isLayer: false
     }
   },
   created () {
@@ -95,7 +105,6 @@ export default {
       const four = document.getElementById('dropDown-4')
       const featured = document.getElementsByClassName('featured')[0]
       const dropDownMenu = document.getElementsByClassName('dropdownMenu')[0]
-      // console.log(e.target)
       if (e.target === x || e.target === one || e.target === two || e.target === three || e.target === four) {
       } else {
         featured.classList.remove('show')
@@ -136,7 +145,6 @@ export default {
         this.$emit('connect-login', myProfile)
       } else {
         this.$store.dispatch('rpayAuthStore/startLogin').then((profile) => {
-          console.log(profile)
           location.reload()
         }).catch(() => {
           this.$store.commit(APP_CONSTANTS.SET_WEB_WALLET_NEEDED)
@@ -153,7 +161,9 @@ export default {
       featured.classList.toggle('show')
     },
     mobileNavebar () {
+      this.isLayer = !this.isLayer
       const myProfile = this.$store.getters['rpayAuthStore/getMyProfile']
+      const body = document.getElementsByTagName('body')[0]
       if (myProfile.loggedIn) {
         const navLogged = document.getElementsByClassName('navbar_links')[0]
         const mainNavbar = document.getElementsByClassName('mainNavbar')[0]
@@ -163,7 +173,7 @@ export default {
         featured.classList.toggle('active')
         mainNavbar.classList.toggle('active')
         navLogged.classList.toggle('active')
-        console.log('active profile')
+        body.classList.toggle('stop-scrolling')
       } else {
         const mainNavbar = document.getElementsByClassName('mainNavbar')[0]
         const notLogged = document.getElementsByClassName('navbar_links_not_logged')[0]
@@ -173,7 +183,7 @@ export default {
         featured.classList.toggle('active')
         mainNavbar.classList.toggle('active')
         notLogged.classList.toggle('active')
-        console.log('active not profile')
+        body.classList.toggle('stop-scrolling')
       }
     },
     startRegister () {
@@ -248,10 +258,17 @@ export default {
 </script>
 
 <style lang="scss">
-.nav-container{
+.nav-container {
   height: 100px;
 }
-.mainNavbar{
+.whiteBackground {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: rgba(3, 3, 3, 0.56);
+  z-index: 19;
+}
+.mainNavbar {
   display: flex;
   margin: 0 auto;
   max-width: 1600px;
@@ -259,7 +276,7 @@ export default {
   position: relative;
 }
 /* NAVBAR PADDING AND WIDTH */
-.nav_banner{
+.nav_banner {
   position: absolute;
   top: 0px;
   left: 0px;
@@ -268,63 +285,65 @@ export default {
   object-fit: cover;
   z-index: -11;
 }
-.nav-start:hover{
+.nav-start:hover {
   color: white;
 }
-.risidioLogo{
+.risidioLogo {
   margin-right: 20px;
 }
-.navbar_links_not_logged, .navbar_links{
+.navbar_links_not_logged,
+.navbar_links {
   position: relative;
   display: flex;
   flex-direction: row;
   width: 100%;
-  &.right{
+  &.right {
     margin-left: auto;
     background: black;
   }
 }
-.toggle-button{
-  position:absolute;
+.toggle-button {
+  position: absolute;
   top: 3.7rem;
   right: 3.5rem;
-  display:none;
-  flex-direction:column;
+  display: none;
+  flex-direction: column;
   justify-content: space-between;
   width: 30px;
   height: 21px;
+  cursor: pointer;
 }
-.toggle-button .bar{
+.toggle-button .bar {
   height: 2px;
-  width:90%;
+  width: 90%;
   background-color: #fff;
-  border-radius:10px;
+  border-radius: 10px;
 }
-.mobile-hr{
+.mobile-hr {
   display: none;
 }
-.arrow2{
+.arrow2 {
   margin-left: 8px;
-  transform: rotate(180deg)
+  transform: rotate(180deg);
 }
-.nav-items{
+.nav-items {
   margin: auto 0;
   padding: 20px;
   font-size: 1.2rem;
   color: white;
   cursor: pointer;
 }
-.thin{
+.thin {
   font: normal normal 300 12px/15px Montserrat;
 }
-.bold{
+.bold {
   font: normal normal 600 12px/15px Montserrat;
 }
-.nav-items:hover{
+.nav-items:hover {
   color: white;
 }
 
-.navBtn{
+.navBtn {
   background: rgba(255, 255, 255, 0.247);
   padding: 15px 40px;
   border-radius: 50px;
@@ -333,21 +352,21 @@ export default {
   text-align: center;
   justify-items: center;
   align-items: center;
-  color: #5FBDC1;
+  color: #5fbdc1;
   cursor: pointer;
   outline: none;
-  font-weight:bold;
+  font-weight: bold;
 }
-.navBtn:hover{
+.navBtn:hover {
   color: white;
 }
-.navBtn:focus{
-  color:rgb(0, 255, 85);
+.navBtn:focus {
+  color: rgb(0, 255, 85);
 }
-.navBtn:hover{
+.navBtn:hover {
   background: rgba(227, 238, 238, 0.6);
 }
-.registerTooltip{
+.registerTooltip {
   margin-top: 25px;
   margin-left: -10.2rem;
   width: 20rem;
@@ -368,11 +387,11 @@ export default {
   width: 100%; /* Full width */
   height: 100%; /* Full height */
   overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  background-color: rgb(0, 0, 0); /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
   overflow-y: hidden;
 }
-.dropdownMenu{
+.dropdownMenu {
   position: absolute;
   background: white;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
@@ -384,27 +403,27 @@ export default {
   z-index: 10;
   max-height: 200px;
   overflow-y: auto;
-  p{
+  p {
     font-size: 11px;
     padding: 5px 20px;
     cursor: pointer;
   }
-  p:hover{
+  p:hover {
     text-decoration: underline;
-    color: #5FBDC1;
+    color: #5fbdc1;
   }
   // width: 100px;
   // height: 100px;
 }
-.dropdownMenu-container{
-  &:nth-child(1){
+.dropdownMenu-container {
+  &:nth-child(1) {
     margin-top: 50px;
   }
 }
-.dropdownMenu.show{
+.dropdownMenu.show {
   display: flex;
 }
-.featured{
+.featured {
   position: absolute;
   background: white;
   padding: 18px 10px 10px 10px;
@@ -416,7 +435,7 @@ export default {
   z-index: 11;
   cursor: pointer;
 }
-.featured.show{
+.featured.show {
   display: block;
 }
 /* Modal Content */
@@ -432,58 +451,59 @@ export default {
   height: 379px;
   text-align: center;
 
-/* The Close Button */
-.close {
-  color: #aaaaaa;
-  float: right;
-  font-size: 30px;
-  font-weight: bold;
-  text-align: right;
-  max-width: 30px;
-  margin-left: auto;
-}
+  /* The Close Button */
+  .close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 30px;
+    font-weight: bold;
+    text-align: right;
+    max-width: 30px;
+    margin-left: auto;
+  }
 
-.close:hover,
-.close:focus {
-  color: #000;
-  text-decoration: none;
-  cursor: pointer;
-}
-.button{
-  margin: 50px auto 0 auto;
-}
-.modalH3{
-  font: normal normal 300 30px/55px Montserrat;
-}
-.modalP, .modalP2{
-  font: normal normal normal 14px/18px Montserrat;
-  max-width: 460px;
-  margin: 5px auto;
-}
-.modalP3{
-  font: normal normal bold 11px/14px Montserrat;
-  padding: 5px;
-  cursor: pointer;
-  &:hover{
-    text-decoration: underline;
+  .close:hover,
+  .close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .button {
+    margin: 50px auto 0 auto;
+  }
+  .modalH3 {
+    font: normal normal 300 30px/55px Montserrat;
+  }
+  .modalP,
+  .modalP2 {
+    font: normal normal normal 14px/18px Montserrat;
+    max-width: 460px;
+    margin: 5px auto;
+  }
+  .modalP3 {
+    font: normal normal bold 11px/14px Montserrat;
+    padding: 5px;
+    cursor: pointer;
+    &:hover {
+      text-decoration: underline;
+    }
   }
 }
-}
-#howItWorks{
+#howItWorks {
   margin-left: auto;
 }
-@media only screen and (max-width: 1100px){
-  .risidioLogo{
+@media only screen and (max-width: 1100px) {
+  .risidioLogo {
     margin-right: 0;
   }
-  .toggle-button{
-    display:flex;
+  .toggle-button {
+    display: flex;
   }
-  .thin{
+  .thin {
     margin-top: 5px;
   }
   .dropdownMenu,
-  .featured{
+  .featured {
     top: 20px;
     max-width: 400px;
     left: 0;
@@ -491,90 +511,92 @@ export default {
     margin: auto;
     text-align: center;
   }
-  .bold{
+  .bold {
     margin-top: 10px;
   }
-  .text-black1{
+  .text-black1 {
     margin-top: -12px;
   }
-  #howItWorks{
+  #howItWorks {
     margin-left: 0;
     right: 0;
   }
-  .text-black{
+  .text-black {
     margin-top: -12px;
   }
-  .navBtn{
+  .navBtn {
     margin-top: 14px;
-    margin:14px 0;
+    margin: 14px 0;
   }
-  .mobile-hr.active{
+  .mobile-hr.active {
     display: block;
     width: 100%;
     color: grey;
     background: rgba(255, 255, 255, 0.288);
     height: 1px;
   }
-  .mainNavbar{
-    flex-direction:column;
+  .mainNavbar {
+    flex-direction: column;
     z-index: 1000;
   }
-  .navbar_links_not_logged, .navbar_links{
+  .navbar_links_not_logged,
+  .navbar_links {
     display: none;
   }
-  .login{
+  .login {
     min-width: 200px;
-    margin-left:auto;
-    margin-right:auto;
+    margin-left: auto;
+    margin-right: auto;
     margin-top: 20px;
   }
   // .nav-items{
   //   margin-left: auto;
   //   margin-right: auto;
   // }
-  .navbar_links.active, .navbar_links_not_logged.active{
+  .navbar_links.active,
+  .navbar_links_not_logged.active {
     overflow: hidden;
-    display:flex;
+    display: flex;
     padding: 15px;
     width: 100%;
     flex-direction: column;
     margin: 0 auto;
   }
-  .mainNavbar.active{
-    position:absolute;
+  .mainNavbar.active {
+    position: absolute;
     left: 0;
     right: 0;
     // margin: 0 20px;
     max-width: 100%;
     z-index: 20;
-    transition:all ease-in .1s;
+    transition: all ease-in 0.1s;
     padding-top: 50px;
-    background: linear-gradient(#261399,#13086c);
+    background: linear-gradient(#261399, #13086c);
     align-items: center;
     text-align: center;
     padding-bottom: 100px;
-    .toggle-button{
+    .toggle-button {
       top: 6rem;
     }
-    .toggle-button .bar{
+    .toggle-button .bar {
       display: none;
     }
-    .toggle-button .bar:first-child{
-      display:flex;
+    .toggle-button .bar:first-child {
+      display: flex;
       transform: rotate(45deg);
       margin-top: 10px;
     }
-    .toggle-button .bar:last-child{
-      display:flex;
+    .toggle-button .bar:last-child {
+      display: flex;
       transform: rotate(-45deg);
       margin-bottom: 10px;
     }
-    .navbar_links_not_logged{
+    .navbar_links_not_logged {
       display: flex;
       flex-direction: column;
       align-items: center;
     }
-    .registerTooltip{
+    .registerTooltip {
       // margin-top: 25px;
       align-self: center;
     }
