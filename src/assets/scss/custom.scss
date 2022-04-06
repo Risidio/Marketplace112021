@@ -535,10 +535,8 @@ select {
 	display: -ms-grid;
 	grid-template-columns: repeat(auto-fit, 255px);
 	-ms-grid-columns: repeat(auto-fit, 255px);
-	// justify-content: space-between;
 	justify-content: space-evenly;
 	row-gap: 40px;
-	// grid-gap: 20px 50px;
 }
 .galleryItem {
 	display: flex;

@@ -80,12 +80,17 @@
         </div>
       </div>
       <div v-else-if="tab === 'Fav'">
-        <div class="noNFT">
-        <h3> You do not have any favourite items</h3>
-          <div class="profileBtns">
-            <router-link class="button filled" to="/">Explore Gallery</router-link>
-            <!-- <router-link class="button notFilledBlue" to="/create">Mint Your Item</router-link> -->
+        <div v-if="favouriteNfts" class="favContainer">
+          <div v-for="(item, index) in favouriteNfts" :key="index" >
+            <MySingleItem :asset="item"/>
           </div>
+        </div>
+        <div v-else class="noNFT">
+          <h3> You do not have any favourite items</h3>
+        </div>
+        <div class="profileBtns">
+          <router-link class="button filled" to="/">Explore Gallery</router-link>
+          <!-- <router-link class="button notFilledBlue" to="/create">Mint Your Item</router-link> -->
         </div>
       </div>
       <div v-else>
@@ -106,11 +111,13 @@
 import MyPageableItems from '@/views/marketplace/components/gallery/MyPageableItems'
 import { APP_CONSTANTS } from '@/app-constants'
 import utils from '@/services/utils'
+import MySingleItem from '../marketplace/components/gallery/MySingleItem.vue'
 
 export default {
   name: 'MyAccount',
   components: {
-    MyPageableItems
+    MyPageableItems,
+    MySingleItem
   },
   data () {
     return {
@@ -131,7 +138,8 @@ export default {
       saleItem: [],
       // amount: null,
       defaultRate: null,
-      currencyPreference: null
+      currencyPreference: null,
+      favouriteNfts: []
     }
   },
   mounted () {
@@ -149,7 +157,6 @@ export default {
   created () {
     // this.amount = this.profile.accountInfo.balance
     this.currencyPreference = JSON.parse(localStorage.getItem('currencyPreferences'))
-    console.log(this.currencyPreference)
   },
   watch: {
     '$route' () {
@@ -161,6 +168,9 @@ export default {
     },
     'page' () {
       this.fetchAllocations()
+    },
+    'tab' () {
+      this.favouriteNfts = JSON.parse(localStorage.getItem('addNFTToFavourite'))
     }
   },
   methods: {
@@ -168,7 +178,6 @@ export default {
       const $self = this
       this.$store.dispatch('rpayProjectStore/fetchProjectsByStatus', '').then((projects) => {
         $self.projects = utils.sortResults(projects)
-        console.log(projects)
         this.loopRun = projects.find((project) => project.contractId === 'ST1NXBK3K5YYMD6FD41MVNP3JS1GABZ8TRVX023PT.indige-mint')
         this.fetchAllocations()
         $self.projects.forEach((p) => {
@@ -205,16 +214,13 @@ export default {
         this.page += 1
       }
       if ((this.page * this.pageSize) < this.tokenCount) {
-        console.log('incre page')
         this.page += 1
       }
-      console.log('page' + this.page)
     },
     previousPage () {
       this.page -= 1
     },
     fetchSaleItem () {
-      console.log('saleItem')
       if (this.resultSet && this.resultSet.length > 0) this.saleItem = this.resultSet.filter((nft) => nft.contractAsset && nft.contractAsset.listingInUstx && nft.contractAsset.listingInUstx.price > 0)
     },
     fetchAllocations () {
@@ -244,7 +250,6 @@ export default {
     },
     setSTX () {
       const getRate = this.rates.find((rate) => rate.text === this.currencyPreference.text)
-      console.log(this.currencyPreference.text)
       if (this.currencyPreference) this.yourSTX = getRate.value
       // if (this.currencyPreference) this.yourSTX = getRate.value
     },
@@ -264,7 +269,6 @@ export default {
       document.getElementById('Sale').classList.remove('active')
       document.getElementById('Fav').classList.remove('active')
       document.getElementById(tab).classList.add('active')
-      console.log(this.tab)
     },
     closeModal () {
       document.getElementById('linkModal').style.display = 'none'
@@ -350,16 +354,16 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.galleryContainerLimited{
+.galleryContainerLimited {
   max-width: 1135px;
   margin: auto;
 }
-.profile{
+.profile {
   max-width: 900px;
   // padding: 0 100px;
   margin: 0 auto;
 }
-.pagination-container{
+.pagination-container {
   max-width: 300px;
   margin: auto;
   text-align: center;
@@ -367,86 +371,93 @@ export default {
   flex-direction: row;
   justify-content: center;
   column-gap: 10px;
-  p{
+  p {
     font: normal normal bold 12px/15px Montserrat;
-    color: #50B1B5;
+    color: #50b1b5;
     cursor: pointer;
-    &:hover{
+    &:hover {
       text-decoration: underline;
     }
   }
 }
-.wantMore{
+.favContainer {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.wantMore {
   display: block;
   text-align: center;
   font-size: 1.5rem;
   font-weight: 500;
 }
-.profileItems{
+.profileItems {
   width: 15rem;
   height: 15rem;
 }
-.walletCurrency{
+.walletCurrency {
   display: flex;
   flex-wrap: wrap;
-  & > div:nth-child(1){
+  & > div:nth-child(1) {
     border-right: solid rgb(209, 209, 209) 2px;
   }
 }
-.walletCurrency >*{
+.walletCurrency > * {
   flex: 1 1 120px;
 }
-.filesContainer{
+.filesContainer {
   min-width: 100%;
   margin: 50px auto;
 }
-.viewContainer{
+.viewContainer {
   margin: 100px auto;
   padding: 20px;
   max-width: 1135px;
   height: 100%;
 
-  .galleryNav{
-  margin: auto;
-  margin-top: 50px;
-  margin-bottom: 70px;
-  width: 100%;
-  justify-items: center;
-  align-items: center;
-  border-bottom: solid rgba(128, 128, 128, 0.112) 1px;
-}
-.galleryNavContainer{
-  margin: auto;
-  margin-bottom: -1px;
-  // width: 50%;
-  display: flex;
-  flex-direction: row;
-}
+  .galleryNav {
+    margin: auto;
+    margin-top: 50px;
+    margin-bottom: 70px;
+    width: 100%;
+    justify-items: center;
+    align-items: center;
+    border-bottom: solid rgba(128, 128, 128, 0.112) 1px;
+  }
+  .galleryNavContainer {
+    margin: auto;
+    margin-bottom: -1px;
+    // width: 50%;
+    display: flex;
+    flex-direction: row;
+  }
 
-.galleryNavItem{
-  text-align: center;
-  width: fit-content;
-  padding: 10px;
-  margin: auto;
-  border: solid rgba(255, 255, 255, 0)  2px;
-  font-size: 12px;
-  font-weight: 500;
-  margin: 0 10px;
-}
-.galleryNavItem:focus{
-  color:red;
-}
+  .galleryNavItem {
+    text-align: center;
+    width: fit-content;
+    padding: 10px;
+    margin: auto;
+    border: solid rgba(255, 255, 255, 0) 2px;
+    font-size: 12px;
+    font-weight: 500;
+    margin: 0 10px;
+  }
+  .galleryNavItem:focus {
+    color: red;
+  }
 
-.galleryNavItem:hover, .galleryNavItem.active{
-  border-bottom: 2px solid #50B1B5;
+  .galleryNavItem:hover,
+  .galleryNavItem.active {
+    border-bottom: 2px solid #50b1b5;
+  }
 }
-}
-.yourItems{
+.yourItems {
   display: block;
   margin: 25px auto;
 }
 
-.profileContainer{
+.profileContainer {
   display: flex;
   // justify-content: space-between;
   margin-top: 2rem;
@@ -455,10 +466,10 @@ export default {
   margin: auto;
   gap: 20px;
 }
-.profileContainer > *{
-  flex: 1  1 500px;
+.profileContainer > * {
+  flex: 1 1 500px;
 }
-.profileImg{
+.profileImg {
   width: 149px;
   height: 149px;
   display: block;
@@ -468,7 +479,7 @@ export default {
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
 }
 
-.pencil{
+.pencil {
   background: white;
   color: lightseagreen;
   position: relative;
@@ -484,81 +495,81 @@ export default {
   font-size: 1.5rem;
   cursor: pointer;
 }
-.form-control{
+.form-control {
   max-width: 150px;
   margin: auto;
 }
-.usernameEdit{
+.usernameEdit {
   max-width: 500px;
   display: flex;
   flex-direction: row;
   background: rgb(243, 243, 243);
   border-radius: 20px;
   margin: 30px 0;
-  }
-  .usernameEdit > input {
-    background: rgb(243, 243, 243);
-    border-radius: 20px;
-    border: solid 1px rgb(235, 235, 235);
-    width: 90%;
-    padding: 5px;
-    padding-left: 15px;
-    outline: none;
-    font-weight: 200;
-    font-size: 1.2rem;
-  }
+}
+.usernameEdit > input {
+  background: rgb(243, 243, 243);
+  border-radius: 20px;
+  border: solid 1px rgb(235, 235, 235);
+  width: 90%;
+  padding: 5px;
+  padding-left: 15px;
+  outline: none;
+  font-weight: 200;
+  font-size: 1.2rem;
+}
 .usernameEdit > span {
   width: 10%;
   padding: 5px;
   color: lightseagreen;
 }
-.infoButton{
+.infoButton {
   position: absolute;
   z-index: 20;
   right: 150px;
   top: 100px;
 }
-.infoButton.hidden{
+.infoButton.hidden {
   display: none;
 }
-.noNFT{
+.noNFT {
   display: block;
   margin: auto;
   max-width: 100%;
   text-align: center;
-  &>:nth-child(1){
+  & > :nth-child(1) {
     margin: 50px 0;
     font-size: 40px;
     font-weight: 300;
   }
 
-// .profileBtns >:nth-child(1){
-//   background:#50B1B5;
-//   color: white;
-// }
-// .profileBtns >:nth-child(2){
-//   background:#50b2b523;
-//   color: #50B1B5;
-// }
+  // .profileBtns >:nth-child(1){
+  //   background:#50B1B5;
+  //   color: white;
+  // }
+  // .profileBtns >:nth-child(2){
+  //   background:#50b2b523;
+  //   color: #50B1B5;
+  // }
 }
-.profileBtns{
+.profileBtns {
   display: flex;
   justify-content: center;
   align-items: center;
   & > * {
     margin: 0 10px;
   }
-  & > *:hover{
+  & > *:hover {
     color: white;
   }
 }
 .hide {
   filter: blur(1rem);
 }
-.walletContainer{
+.walletContainer {
   position: relative;
 }
-.walletDetails{
+.walletDetails {
   position: relative;
   max-width: 416px;
   min-height: 272px;
@@ -576,97 +587,101 @@ export default {
   & > h2 {
     margin: 8px auto 0 auto;
     font: normal normal 600 12px/15px Montserrat;
-    color: #5154A1;
+    color: #5154a1;
   }
-  .profileBtns{
+  .profileBtns {
     display: flex;
     flex-direction: row;
     justify-content: center;
     width: auto;
     margin: 20px auto auto auto;
   }
-  .button{
-  padding: 15px 50px;
-  border-radius: 100px;
-  border: none;
-  background-color: rgb(235,231,232);
-  font-size: 11px;
-  font-weight:700;
-  color: rgb(222,146,123);
+  .button {
+    padding: 15px 50px;
+    border-radius: 100px;
+    border: none;
+    background-color: rgb(235, 231, 232);
+    font-size: 11px;
+    font-weight: 700;
+    color: rgb(222, 146, 123);
+  }
+  .notFilled {
+    display: block;
+    background-color: rgba(255, 255, 255, 0);
+    font-size: 14px;
+    margin: 0 0 0 auto;
+    border: none;
+    padding: 10px auto;
+    font-weight: 700;
+    color: black;
+    margin-left: auto;
+  }
+  .notFilled:hover {
+    background-color: rgba(255, 255, 255, 0);
+    color: black;
+  }
+  .button:hover {
+    color: rgb(235, 231, 232);
+    background-color: rgb(222, 146, 123);
+  }
 }
-.notFilled{
-  display: block;
-  background-color: rgba(255, 255, 255, 0);
-  font-size: 14px;
-  margin: 0 0 0 auto;
-  border: none;
-  padding: 10px auto;
-  font-weight:700;
-  color: black;
-  margin-left: auto;
-}
-.notFilled:hover{
-  background-color: rgba(255, 255, 255, 0);
-  color: black;
-}
-.button:hover{
-  color: rgb(235,231,232);
-  background-color: rgb(222,146,123);
-}
-}
-.profile-history{
-  margin: -20px 0; padding: 0 10px;
+.profile-history {
+  margin: -20px 0;
+  padding: 0 10px;
   font: normal normal bold 12px/15px Montserrat;
   text-decoration: underline;
-  color: #50B1B5;
-  cursor: pointer
+  color: #50b1b5;
+  cursor: pointer;
 }
-@media only screen and (max-width: 1050px){
-  .walletCurrency{
+@media only screen and (max-width: 1050px) {
+  .walletCurrency {
     flex-wrap: nowrap;
     flex-direction: column;
     max-width: 150px;
     margin: auto;
-    & > div:nth-child(1){
+    & > div:nth-child(1) {
       border-right: none;
       border-bottom: solid rgb(209, 209, 209) 2px;
     }
-    & > div:nth-child(2){
+    & > div:nth-child(2) {
       margin-top: 10px;
     }
     height: 100px;
   }
-  .usernameContainer{
+  .usernameContainer {
     max-width: 400px;
     margin: 40px auto 20px auto;
     border-radius: 14px;
-    background-color: #EFEFEF;
+    background-color: #efefef;
     padding: 10px 50px;
   }
-  .usernameEdit{
+  .usernameEdit {
     background: none;
     max-width: 300px;
     margin: 20px auto 50px auto;
-    input{
+    input {
       border: none;
-      background: none}
+      background: none;
+    }
   }
-  .profile-history{
+  .profile-history {
     text-align: center;
     margin-bottom: 10px;
   }
-  .walletDetails{
-    background: #EFEFEF;
+  .walletDetails {
+    background: #efefef;
   }
-  .walletDetails{
+  .walletDetails {
     margin: auto;
   }
-  .profileItems, .profileImg{
+  .profileItems,
+  .profileImg {
     margin: auto;
   }
 }
-@media only screen and (max-width: 1250px){
-  .profileItems, .profileImg{
+@media only screen and (max-width: 1250px) {
+  .profileItems,
+  .profileImg {
     margin: auto;
   }
 }

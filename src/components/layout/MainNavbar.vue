@@ -20,7 +20,7 @@
 </div>
 <div class="nav-container">
     <div class = "mainNavbar">
-        <router-link class="risidioLogo" to="/"><img width="150px;" :src="logo" alt="risidio-logo" style="margin-left: -10px; margin-right: 20px;"/></router-link>
+        <router-link class="risidioLogo" to="/"><img width="150px;" :src="logo" alt="risidio-logo"/></router-link>
         <a href= "#" class = "toggle-button" v-on:click="mobileNavebar()">
           <span class="bar"></span>
           <span class="bar"></span>
@@ -170,7 +170,7 @@ export default {
         const featured = document.getElementsByClassName('featured')[0]
         const hr = document.getElementsByClassName('mobile-hr')[0]
         hr.classList.toggle('active')
-        featured.classList.toggle('dropDown')
+        featured.classList.toggle('active')
         mainNavbar.classList.toggle('active')
         notLogged.classList.toggle('active')
         console.log('active not profile')
@@ -270,6 +270,9 @@ export default {
 }
 .nav-start:hover{
   color: white;
+}
+.risidioLogo{
+  margin-right: 20px;
 }
 .navbar_links_not_logged, .navbar_links{
   position: relative;
@@ -414,7 +417,7 @@ export default {
   cursor: pointer;
 }
 .featured.show{
-  display: flex;
+  display: block;
 }
 /* Modal Content */
 .hiro-modal-content {
@@ -470,11 +473,23 @@ export default {
   margin-left: auto;
 }
 @media only screen and (max-width: 1100px){
+  .risidioLogo{
+    margin-right: 0;
+  }
   .toggle-button{
     display:flex;
   }
   .thin{
     margin-top: 5px;
+  }
+  .dropdownMenu,
+  .featured{
+    top: 20px;
+    max-width: 400px;
+    left: 0;
+    right: 0;
+    margin: auto;
+    text-align: center;
   }
   .bold{
     margin-top: 10px;
@@ -482,19 +497,16 @@ export default {
   .text-black1{
     margin-top: -12px;
   }
-// .dropDown.active{
-  //   right: 0;
-//   left: 0;
-//   margin: auto;
-// }
   #howItWorks{
     margin-left: 0;
+    right: 0;
   }
   .text-black{
     margin-top: -12px;
   }
   .navBtn{
     margin-top: 14px;
+    margin:14px 0;
   }
   .mobile-hr.active{
     display: block;
@@ -521,6 +533,7 @@ export default {
   //   margin-right: auto;
   // }
   .navbar_links.active, .navbar_links_not_logged.active{
+    overflow: hidden;
     display:flex;
     padding: 15px;
     width: 100%;
@@ -531,16 +544,14 @@ export default {
     position:absolute;
     left: 0;
     right: 0;
-    // top: -20px;
-    // margin-left: auto;
-    // margin-right: auto;
-    margin: 0 20px;
+    // margin: 0 20px;
     max-width: 100%;
     z-index: 20;
     transition:all ease-in .1s;
     padding-top: 50px;
     background: linear-gradient(#261399,#13086c);
-    // align-items: center;
+    align-items: center;
+    text-align: center;
     padding-bottom: 100px;
     .toggle-button{
       top: 6rem;

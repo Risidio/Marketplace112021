@@ -125,9 +125,9 @@ export default {
       }
       return 'outline-light'
     },
-    itemPreview () {
-      return this.$route.name === 'item-preview'
-    },
+    // itemPreview () {
+    //   return this.$route.name === 'item-preview'
+    // },
     marketplace () {
       return this.$route.name === 'nft-marketplace' || this.$route.name === 'nft-collection'
     },
@@ -145,10 +145,10 @@ export default {
           return '/nfts/' + this.asset.assetHash + '/0'
         }
       } else {
-        if (this.contractAsset && this.contractAsset.tokenInfo) {
+        if (this.contractAsset && this.contractAsset.tokenInfo && this.contractAsset.owner === this.profile.stxAddress) {
           return '/nft-preview/' + this.contractAsset.contractId + '/' + this.contractAsset.nftIndex
         } else {
-          return '/item-preview/' + this.asset.assetHash + '/0'
+          return '/nfts/' + this.contractAsset.contractId + '/' + this.contractAsset.nftIndex
         }
       }
     },
