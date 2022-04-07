@@ -21,57 +21,34 @@
 </div>
 <div class="nav-container">
     <div class = "mainNavbar">
-<<<<<<< HEAD
         <router-link class="risidioLogo" to="/"><img v-on:click="isLayer ? mobileNavebar() : '' " width="150px;" :src="logo" alt="risidio-logo"/></router-link>
-=======
-        <router-link class="risidioLogo" to="/"><img  width="150px;" :src="logo" alt="risidio-logo"/></router-link>
->>>>>>> 18352e81d0c93a256b7b4d37e44d592eea27414a
         <div class="toggle-button" v-on:click="mobileNavebar()">
           <span class="bar"></span>
           <span class="bar"></span>
           <span class="bar"></span>
         </div>
         <div v-if="profile.loggedIn" class="navbar_links">
-<<<<<<< HEAD
           <div class="nav-items" v-on:click="isLayer ? mobileNavebar() : '' ">
-=======
-          <div class="nav-items">
->>>>>>> 18352e81d0c93a256b7b4d37e44d592eea27414a
-            <router-link class="nav-items bold" to="/nft-marketplace">Explore</router-link>
+            <router-link class="nav-links bold" to="/nft-marketplace">Explore</router-link>
           </div>
             <div style="position: relative; margin-top: 2px;" @click="openMenu()" id="dropDown" class="dropDown">
               <p id="dropDown-1" class="nav-items bold" > Featured Collections <img class="arrow2" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></p>
               <p id="dropDown-2" class="featured" > Featured Collections <img style="margin-left: 8px;" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></p>
               <div id="dropDown-3" class="dropdownMenu">
                 <div id="dropDown-4" v-for="(item, index) in allLoopRuns" :key="index" class="dropdownMenu-container">
-<<<<<<< HEAD
                   <p @click="linkTo(item)" v-on:click="isLayer ? mobileNavebar() : '' ">{{item.currentRun}}</p>
-=======
-                  <p @click="linkTo(item)" >{{item.currentRun}}</p>
->>>>>>> 18352e81d0c93a256b7b4d37e44d592eea27414a
                 </div>
               </div>
             </div>
             <hr class="mobile-hr"/>
-<<<<<<< HEAD
             <div v-on:click="isLayer ? mobileNavebar() : '' " class="nav-items" id="howItWorks">
-              <router-link class="nav-items thin right" to="/how-it-works" >How It Works</router-link>
+              <router-link class="nav-links thin right" to="/how-it-works" >How It Works</router-link>
             </div>
             <div v-on:click="isLayer ? mobileNavebar() : '' " class="nav-items">
-              <router-link class="nav-items text-black thin" to="/about">About Risidio </router-link>
+              <router-link class="nav-links text-black thin" to="/about">About Risidio </router-link>
             </div>
             <div v-on:click="isLayer ? mobileNavebar() : '' " class="nav-items">
-              <router-link class="nav-items navBtn thin" to="/my-account"> My NFT's </router-link>
-=======
-            <div class="nav-items" id="howItWorks">
-              <router-link class="nav-items thin right" to="/how-it-works" >How It Works</router-link>
-            </div>
-            <div  class="nav-items">
-              <router-link class="nav-items text-black thin" to="/about">About Risidio </router-link>
-            </div>
-            <div  class="nav-items">
               <router-link class="navBtn thin" to="/my-account"> My NFT's </router-link>
->>>>>>> 18352e81d0c93a256b7b4d37e44d592eea27414a
             </div>
         </div>
          <div v-else class="navbar_links_not_logged">
@@ -386,10 +363,16 @@ export default {
   color: white;
 }
 .navBtn:focus {
-  color: rgb(0, 255, 85);
+  color: #5fbdc1;
 }
 .navBtn:hover {
   background: rgba(227, 238, 238, 0.6);
+}
+.nav-links{
+  color: white;
+  &:hover{
+    color: white;
+  }
 }
 .registerTooltip {
   margin-top: 25px;
