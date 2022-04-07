@@ -17,6 +17,8 @@
               :breakpoints="breakpoints"
               bullets-outside
               >
+              <template>
+              </template>
                 <template v-if="showArrow == true" #arrow-left>
                   <img src="https://res.cloudinary.com/risidio/image/upload/v1637153014/RisidioMarketplace/Icon_ionic-md-arrow-dropleft-circle_zpgise.svg" alt="wallet" class="arrow"/>
                 </template>
@@ -25,8 +27,7 @@
                 </template>
                 <vueper-slide
                 v-for="(slide) in slide"
-                :key="slide.id"
-                >
+                :key="slide.id">
                     <template #content>
                         <div v-if="slide.id==1" class = "slideContainer">
                             <div class="slideImage">
@@ -227,7 +228,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .bannerContainer {
   height: 50rem;
   align-items: center;
@@ -349,8 +350,14 @@ export default {
 .vueperslide {
   background-color: rgba(255, 255, 255, 0.637);
   border-radius: 30px;
+  }
+  .vueperslides__bullet--active .default {
+    border-width: 6px;
+    border-color: white;
 }
-
+ .vueperslides__bullets .default{
+  background-color: #50B1B5;
+}
 .vueperslides--fixed-height {
   height: 287px;
   max-width: 1135px;
@@ -371,7 +378,7 @@ export default {
 .vueperslides__arrow .arrow {
   width: 25px;
   height: 25px;
-  color: white;
+  color: rgb(255, 255, 255);
   position: relative;
 }
 .slideContainer {
@@ -418,6 +425,7 @@ export default {
   text-align: center;
   transform: scale(1.15);
 }
+
 @media only screen and (max-width: 1290px) {
   .vueperslides--fixed-height {
     max-width: 85%;
@@ -472,6 +480,9 @@ export default {
   letter-spacing: 1px;
   font: normal normal 300 30px/55px Montserrat;
 }
+.bullets--bullet{
+  color: red;
+}
 .mobileHeader {
   display: none;
 }
@@ -479,7 +490,7 @@ export default {
   display: block;
 }
 @media only screen and (max-width: 720px) {
-  .vueperslides--fixed-height {
+.vueperslides--fixed-height {
     max-width: 1135px;
   }
 }
