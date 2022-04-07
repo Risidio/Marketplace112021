@@ -21,14 +21,14 @@
 </div>
 <div class="nav-container">
     <div class = "mainNavbar">
-        <router-link class="risidioLogo" to="/"><img v-on:click="mobileNavebar()" width="150px;" :src="logo" alt="risidio-logo"/></router-link>
+        <router-link class="risidioLogo" to="/"><img v-on:click="isLayer ? mobileNavebar() : '' " width="150px;" :src="logo" alt="risidio-logo"/></router-link>
         <div class="toggle-button" v-on:click="mobileNavebar()">
           <span class="bar"></span>
           <span class="bar"></span>
           <span class="bar"></span>
         </div>
         <div v-if="profile.loggedIn" class="navbar_links">
-          <div v-on:click="mobileNavebar()">
+          <div class="nav-items" v-on:click="isLayer ? mobileNavebar() : '' ">
             <router-link class="nav-items bold" to="/nft-marketplace">Explore</router-link>
           </div>
             <div style="position: relative; margin-top: 2px;" @click="openMenu()" id="dropDown" class="dropDown">
@@ -36,19 +36,19 @@
               <p id="dropDown-2" class="featured" > Featured Collections <img style="margin-left: 8px;" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></p>
               <div id="dropDown-3" class="dropdownMenu">
                 <div id="dropDown-4" v-for="(item, index) in allLoopRuns" :key="index" class="dropdownMenu-container">
-                  <p @click="linkTo(item)" v-on:click="mobileNavebar()">{{item.currentRun}}</p>
+                  <p @click="linkTo(item)" v-on:click="isLayer ? mobileNavebar() : '' ">{{item.currentRun}}</p>
                 </div>
               </div>
             </div>
             <hr class="mobile-hr"/>
-            <div v-on:click="mobileNavebar()" class="nav-items">
-              <router-link class="nav-items thin right" to="/how-it-works" id="howItWorks">How It Works</router-link>
+            <div v-on:click="isLayer ? mobileNavebar() : '' " class="nav-items" id="howItWorks">
+              <router-link class="nav-items thin right" to="/how-it-works" >How It Works</router-link>
             </div>
-            <div v-on:click="mobileNavebar()" class="nav-items">
+            <div v-on:click="isLayer ? mobileNavebar() : '' " class="nav-items">
               <router-link class="nav-items text-black thin" to="/about">About Risidio </router-link>
             </div>
-            <div v-on:click="mobileNavebar()" class="nav-items">
-              <router-link class="navBtn thin" to="/my-account"> My NFT's </router-link>
+            <div v-on:click="isLayer ? mobileNavebar() : '' " class="nav-items">
+              <router-link class="nav-items navBtn thin" to="/my-account"> My NFT's </router-link>
             </div>
         </div>
          <div v-else class="navbar_links_not_logged">
@@ -161,29 +161,31 @@ export default {
       featured.classList.toggle('show')
     },
     mobileNavebar () {
-      this.isLayer = !this.isLayer
       const myProfile = this.$store.getters['rpayAuthStore/getMyProfile']
       const body = document.getElementsByTagName('body')[0]
+      const mainNavbar = document.getElementsByClassName('mainNavbar')[0]
+      const hr = document.getElementsByClassName('mobile-hr')[0]
       if (myProfile.loggedIn) {
         const navLogged = document.getElementsByClassName('navbar_links')[0]
-        const mainNavbar = document.getElementsByClassName('mainNavbar')[0]
         const featured = document.getElementsByClassName('dropDown')[0]
-        const hr = document.getElementsByClassName('mobile-hr')[0]
         hr.classList.toggle('active')
         featured.classList.toggle('active')
         mainNavbar.classList.toggle('active')
         navLogged.classList.toggle('active')
         body.classList.toggle('stop-scrolling')
       } else {
-        const mainNavbar = document.getElementsByClassName('mainNavbar')[0]
         const notLogged = document.getElementsByClassName('navbar_links_not_logged')[0]
         const featured = document.getElementsByClassName('featured')[0]
-        const hr = document.getElementsByClassName('mobile-hr')[0]
         hr.classList.toggle('active')
         featured.classList.toggle('active')
         mainNavbar.classList.toggle('active')
         notLogged.classList.toggle('active')
         body.classList.toggle('stop-scrolling')
+      }
+      if (mainNavbar.classList.value === 'mainNavbar active') {
+        this.isLayer = true
+      } else {
+        this.isLayer = false
       }
     },
     startRegister () {
