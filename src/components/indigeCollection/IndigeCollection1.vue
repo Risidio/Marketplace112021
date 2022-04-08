@@ -8,17 +8,20 @@
                 <img @click="showArtistInfo()" alt="Collection Image"
                 src="https://res.cloudinary.com/risidio/image/upload/q_auto:eco/f_auto/RisidioMarketplace/unknown_fhqpon.png"  class="circleImage"/>
                 <p class="collectionArtistshow" id="artistName"> John Smith Gumbula </p>
+                <p class="collectionArtistshow1">
+                  Cultural Ambassador, Indige Founder, Chief Indige Officer & Risidio Chief Indigenous Officer.
+                </p>
                 <div class="artistInfo" id="artistInfo">
                     <p @click="showArtistInfo()" class="close-btn" >x</p>
                     <!-- <img alt="Collection Image" src="https://res.cloudinary.com/risidio/image/upload/q_auto:eco/f_auto/RisidioMarketplace/unknown_fhqpon.png" class="circleImageInfo"/> -->
                     <div class="collectionDiv">
                         <p class="collectionInfo1"> John Smith Gumbula </p>
+                        <p class="collectionInfo3"> Cultural Ambassador, Indige Founder, Chief Indige Officer & Risidio Chief Indigenous Officer. </p>
                         <p class="collectionInfoDetail"> {{content.artistinfo[0].artistdescription[0].text}}</p>
                     </div>
                     <div class="icons">
-                        <img class="icon" src="https://res.cloudinary.com/risidio/image/upload/v1640097848/RisidioMarketplace/facebook_ls2dko.svg"/>
-                        <img class="icon" src="https://res.cloudinary.com/risidio/image/upload/v1640102430/RisidioMarketplace/twitter-black-shape-svgrepo-com_pfxicm.svg"/>
-                        <img class="icon" src="https://res.cloudinary.com/risidio/image/upload/v1640102517/RisidioMarketplace/instagram-svgrepo-com_apkdhy.svg"/>
+                        <a href="https://twitter.com/jsgumbula" target="_blank"><img class="icon" src="https://res.cloudinary.com/risidio/image/upload/v1640102430/RisidioMarketplace/twitter-black-shape-svgrepo-com_pfxicm.svg"/></a>
+                        <a href=" https://www.instagram.com/johnsmithgumbula/" target="_blank"><img class="icon" src="https://res.cloudinary.com/risidio/image/upload/v1640102517/RisidioMarketplace/instagram-svgrepo-com_apkdhy.svg"/></a>
                     </div>
                 </div>
             </div>
@@ -62,7 +65,7 @@ export default {
   props: ['content', 'numberOfItems'],
   data () {
     return {
-      background: 'https://res.cloudinary.com/risidio/image/upload/v1645092568/RisidioMarketplace/INDIGEWHALE_2_baclhi.jpg',
+      background: 'https://res.cloudinary.com/risidio/image/upload/v1649414606/RisidioMarketplace/indige-15_raduat.jpg',
       showArtist: false
     }
   },
@@ -105,7 +108,7 @@ export default {
 }
 .background{
     background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0)),
-    url("https://res.cloudinary.com/risidio/image/upload/v1649412447/RisidioMarketplace/indige-15_jooqqn.jpg");
+    url("https://res.cloudinary.com/risidio/image/upload/v1649414606/RisidioMarketplace/indige-15_raduat.jpg");
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
@@ -150,14 +153,21 @@ export default {
 
 }
 .collectionArtistshow{
-    display: inline-block;
-    position: absolute;
-    top:190px;
-    left:125px;
-    margin-bottom: 10px;
-    margin-top:20px ;
+  display: inline-block;
+  position: absolute;
+  top:190px;
+  left:125px;
+  margin-bottom: 10px;
+  margin-top:20px ;
 }
-
+.collectionArtistshow1{
+  display: inline-block;
+  position: absolute;
+  left: 55px; top: 230px;
+  font-size: 13px; text-align:
+  center; max-width: 300px;
+  color: #2e638c; font-weight: 500;
+}
 .contentTitle{
     font: normal normal normal 20px/24px Helvetica Neue;
 }
@@ -175,19 +185,27 @@ export default {
     font: normal normal medium 17px/20px Montserrat;
 }
 .collectionInfo2{
-    // font: normal normal normal 14px/20px Montserrat;
-    font-size: 14px;
-    max-width: 575px;
-    margin: auto;
-    margin-top: 20px;
-    padding: 5px;
-    margin-bottom: 30px;
+  // font: normal normal normal 14px/20px Montserrat;
+  font-size: 14px;
+  max-width: 575px;
+  margin: auto;
+  margin-top: 20px;
+  padding: 5px;
+  margin-bottom: 30px;
 }
 .collectionInfo1{
-    font: normal normal medium 17px/20px Montserrat;
-    max-width: 450px;
-    padding: 0 5px;
-    text-align: center;
+  font: normal normal medium 17px/20px Montserrat;
+  max-width: 450px;
+  padding: 0 5px;
+  text-align: center;
+}
+.collectionInfo3{
+  font-size: 14px;
+  max-width: 450px;
+  padding: 0 5px;
+  text-align: center;
+  // margin-top: -10px;
+  color: #2e638c;
 }
 .readMore{
     font: normal normal 700 14px/20px Montserrat;
@@ -317,10 +335,10 @@ export default {
     }
 }
 
-@media(max-width:1200px ){
+@media(max-width: 1200px ){
   .whiteContainer{
     border-radius: 30px;
-    margin: 50px auto 0 auto;
+    margin: 100px auto 0 auto;
     padding-left: 0;
     padding-right: 0;
   }
@@ -328,9 +346,11 @@ export default {
   .artistInfo{
     left: 0; right: 0;
   }
-  .collectionArtistshow{
+  .collectionArtistshow, .collectionArtistshow1{
     text-align: center;
     right: 0; left: 0;
+    margin-left: auto;
+    margin-right: auto;
   }
 }
 @media(max-width: 611px){
