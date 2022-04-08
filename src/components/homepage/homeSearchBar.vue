@@ -72,7 +72,7 @@ export default {
 
 .searchIcon {
   font-size: 3.5rem;
-  margin-left: -4.5rem;
+  margin-left: -6rem;
   margin-top: -0.3rem;
   color: #50b1b5;
   transform: rotate(270deg);
@@ -109,9 +109,8 @@ export default {
   cursor: pointer;
   z-index: 10;
 }
-.arrow {
+.arrow2 {
   color: #50b1b5;
-  margin: 0 10px;
   font-size: 1.7rem;
   width: 9px;
   height: 5px;
@@ -119,9 +118,8 @@ export default {
 }
 .search {
   display: flex;
-  margin: 9px auto;
+  margin: 9px 15px;
   align-items: center;
-  justify-content: space-around;
   font-weight: 600;
 }
 
@@ -215,5 +213,8 @@ export default {
   .search_bar_container {
     justify-content: flex-end;
   }
+}
+@media only screen and (max-width: 720px){
+
 }
 </style>
