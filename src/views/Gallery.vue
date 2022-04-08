@@ -26,31 +26,36 @@
                 <hr class="hr"/> -->
             </div>
             <div class="mainGalleryBody">
-               <!-- <div class="filter">-->
-                   <!-- <div>
-                        <p class="view" @click="changeView()">View</p>
-                        <button class="collectionsButton"> Popular <img class="arrow2" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></button>
-                        <div class="galleryCategories">
+               <div class="filter">
+                   <div class="top-elements">
+                        <p class="viewcategory" @click="changeView()">View</p>
+                       <div> <button class="collectionsButton"> Popular <img class="arrow2" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></button></div>
+                       <!-- <div class="galleryCategories">
                             <a href="#">Category 1</a>
                             <a href="#">Category 2</a>
                             <a href="#">Category 3</a>
                             <a href="#">Category 4</a>
                             <a href="#">Category 5</a>
-                        </div>
-                        <button class="collectionsButton"> Sort by <img class="arrow2" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></button>
-                        <div class="galleryCategories">
+                        </div>-->
+                        <div class="vl"></div>
+                       <div> <button class="collectionsButton"> Sort by <img class="arrow2" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></button></div>
+                       <!-- <div class="galleryCategories">
                             <a href="#">Category 1</a>
                             <a href="#">Category 2</a>
                             <a href="#">Category 3</a>
                             <a href="#">Category 4</a>
                             <a href="#">Category 5</a>
-                        </div>
-                        <div>-->
+                        </div>-->
+                        <div class="vl"></div>
+                        <div>
                           <!-- <button @click="showSquare"> display</button> -->
-                       <!-- </div>
-                    </div>-->
-                        <input class="search" type="text" id="search" name="search" placeholder="Looking for anything in particular ?" @change="searching($event.target.value)"><img class="view" src="https://res.cloudinary.com/risidio/image/upload/v1637238428/RisidioMarketplace/magnifying-search-lenses-tool_yaatpo.svg">
-                <!--</div>-->
+                       </div>
+                    </div>
+                    <div class="search-elements">
+                        <input class="search" type="text" id="search" name="search" placeholder="Looking for anything in particular ?" @change="searching($event.target.value)">
+                        <img class="view" src="https://res.cloudinary.com/risidio/image/upload/v1637238428/RisidioMarketplace/magnifying-search-lenses-tool_yaatpo.svg">
+                      </div>
+                    </div>
                 <hr class="hr1"/>
                 <div v-if="resultSet && view !== 'squared' && searched.length == 0" class="galleryGrid">
                   <div v-for="(item, index) in resultSet" :key="index" :id="index">
@@ -112,7 +117,7 @@
                     <h2 class="sort-by">Sort by</h2>
                     <img class="mobilearrow2" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg">
                   </div>
-                  <p class="filter">Filter results</p>
+                  <p class="mobilefilter">Filter results</p>
                   <img class="imagebar1" src="https://res.cloudinary.com/risidio/image/upload/v1649167477/RisidioMarketplace/imagebar1_px1ppz.png">
                   <img class="imagebar2" src="https://res.cloudinary.com/risidio/image/upload/v1649167498/RisidioMarketplace/imagebar2_ohxsez.png">
                 </div>
@@ -323,6 +328,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.vl {
+  border-left: 1.5px solid rgb(203, 204, 203);
+  height: 30px;
+  margin-top: 30px;
+  margin-left: 12px;
+}
 .mobilemainGallery{
  width: 100%;
  max-width: 800px;
@@ -415,7 +426,7 @@ export default {
     margin-top: -75px;
     transform: rotate(180deg);
   }
-  .filter{
+  .mobilefilter{
     font-size: 13px;
     font-weight: 800;
     color: #5FBDC1;
@@ -443,12 +454,12 @@ export default {
     margin-left: 220px;
     font-size: 14px;
     }
- @media only screen and (min-width: 580px){
+ @media only screen and (min-width: 595px){
    .mobilemainGallery{
      display: none;
    }
   }
-@media only screen and (max-width: 580px){
+@media only screen and (max-width: 595px){
   .mainGalleryBody{
   display: none;
  }
@@ -459,7 +470,36 @@ export default {
       display: none;
     }
     }
-   :root{
+    @media only screen and (max-width: 795px){
+      .vl{
+        display: none;
+      }
+      .view{
+        margin-left: 0px;
+      }
+      .top-elements{
+        max-width: 100px;
+      }
+      .arrow2{
+        margin-left: -80px;
+      }
+    }
+    @media only screen and (max-width: 1000px){
+      .search{
+        max-width: 420px;
+      }
+    }
+    @media only screen and (max-width: 793px){
+      .search{
+        max-width: 320px;
+      }
+    }
+    @media only screen and (max-width: 695px){
+      .search{
+        max-width: 220px;
+      }
+    }
+    :root{
 
   --height: 0;
 }
@@ -527,21 +567,42 @@ transition: all smooth 2s ease-in-out;
   box-shadow: 10px 10px 30px #0000002F;
   border-radius: 5px;
 }
+.search-elements{
+  margin-top: -40px;
+}
+.top-elements{
+  max-width: 440px;
+  display: flex;
+}
+.search-elements{
+  min-width: 200px;
+   display: flex;
+   place-items: center;
+   margin: 10px 10px;
+}
 .search{
-  width: 85%;
-  margin-top: 20px;
-  margin-left: 30px;
-  padding-right: 50px;
-  //padding-left: 20px;
-  padding-top: 10px;
+  min-width: 220px;
+  width: 600px;
+  height: 50px;
+  margin-top: 10px;
+  margin-left: 10px;
+  //padding-left: 50px;
+  //margin-right: 70px;
+  //padding-left: 100px;
+  padding-right: 5px;
+  //padding-top: 10px;
   padding-bottom: 5px;
-  border: 0;
+  border: 0px;
   //border-radius: 25px;
   //border:2px solid #f5f2f2;
   font-size: 12px;
   font-weight: 450;
-  text-align: center;
-  z-index: -10;
+  text-align: left;
+  //z-index: 10;
+}
+.view{
+  margin-left: 20px;
+  margin-top: 10px;
 }
 .search:active, .search:focus{
   outline: none;
@@ -555,7 +616,7 @@ transition: all smooth 2s ease-in-out;
   min-height: 50px;
 }
 .collectionsButton{
-  margin: 20px 0 0 10px;
+  margin: 20px 0 0 15px;
   background-color: transparent;
   color: rgb(49, 49, 49);
   padding: 16px;
@@ -563,12 +624,15 @@ transition: all smooth 2s ease-in-out;
   border: none;
   cursor: pointer;
 }
-
-.view{
-  font: normal normal 300 13px/16px Montserrat;
-  margin: 5px 0 0 5px;
-  padding: 16px 0;
-  cursor: pointer;
+.filter{
+  display: flex;
+  flex-direction: row;
+  flex-wrap:wrap;
+  width: 100%;
+}
+.viewcategory{
+  margin-top: 32px;
+  margin-left: 28px;
 }
 .collectionsMenu, .galleryCategories{
   display: none;
@@ -593,10 +657,10 @@ transition: all smooth 2s ease-in-out;
     display: block;
 }
 .arrow1, .arrow2{
-    margin-left: 20px;
+    margin-left: 50px;
     width: 12px;
     height: 12px;
-    transform: rotate(90deg)
+    transform: rotate(180deg)
 }
 .arrow1.active, .arrow2.active{
     transform: rotate(180deg)
@@ -658,10 +722,6 @@ transition: all smooth 2s ease-in-out;
   display: block;
   width: 100%;
   margin: auto;
-}
-.view{
-  z-index: 10;
-  margin-left: -25px;
 }
 .grid-length-2{
   grid-column-end: span 2;
