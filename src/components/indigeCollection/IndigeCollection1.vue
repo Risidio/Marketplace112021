@@ -105,7 +105,7 @@ export default {
 }
 .background{
     background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0)),
-    url("https://res.cloudinary.com/risidio/image/upload/v1645092568/RisidioMarketplace/INDIGEWHALE_2_baclhi.jpg");
+    url("https://res.cloudinary.com/risidio/image/upload/v1649412447/RisidioMarketplace/indige-15_jooqqn.jpg");
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;

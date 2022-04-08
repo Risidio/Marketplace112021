@@ -1,7 +1,7 @@
 <template>
 <div class="search_bar_container">
   <div :class="showSearchBar ? 'dropdown_container active' : 'dropdown_container'">
-    <div class="dropdown_selector" @click="showHidden()"> <strong class="search">Search by <span class="arrow">▸</span></strong>
+    <div class="dropdown_selector" @click="showHidden()"> <strong class="search">Search by <img class="arrow2" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"/></strong>
       <div class="dropdown_option_container">
         <div class="dropdown_option" v-show="isHidden" value="All">All</div>
         <div class="dropdown_option" v-show="isHidden" value="Category">Category</div>
@@ -11,7 +11,7 @@
     </div>
   </div>
   <div class="icon_container">
-  <input :class="showSearchBar ? 'search_input_box active' : 'search_input_box'" type="text" placeholder=" Looking for something in particular? " @input="searchWord($event)"><span class="searchIcon" v-on:click="openSearchBar()" >&#8981;</span>
+    <input :class="showSearchBar ? 'search_input_box active' : 'search_input_box'" type="text" placeholder=" Looking for something in particular? " @input="searchWord($event)"><span class="searchIcon" v-on:click="openSearchBar()">&#8981;</span>
   </div>
 </div>
 </template>
