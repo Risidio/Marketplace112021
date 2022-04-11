@@ -89,7 +89,7 @@
                 </div>
                 <div>
                     <div>
-                        <div class="textConslide-con">
+                        <div class="textCon slide-con">
                         <img src='https://res.cloudinary.com/risidio/image/upload/v1637162045/RisidioMarketplace/009-coin_ojj2mp.svg'/>
                             <p style="font-size: 14px; font-weight: 700;"> {{content.needahand[0].buy[0].text}}  <br/></p>
                             <p class="homeInfoText">{{content.needahand[0].buytext[0].text}} </p>
