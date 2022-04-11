@@ -7,6 +7,44 @@
           <!-- <b-nav-item class="galleryNavItem" @click="tabChange('Your NFT')">Your NFT's</b-nav-item> -->
         </div>
       </b-nav>
+<div v-if="windowWidth < 600">
+    <div class="homeMarketItems">
+        <div class="galleryContainer" v-if="gaiaAssets && gaiaAssets.length > 0 && tab === 'discover' && shownAssets.length == 0">
+            <div v-for="(item, index) in gaiaAssets.slice(0,2)" :key="index" class="NFTbackgroundColour" >
+                <div class="">
+                    <b-link class="galleryNFTContainer" :to="assetUrl(item)" v-if="item && item.contractAsset">
+                  <img class="nftGeneralView" :src="'https://res.cloudinary.com/risidio/image/upload/f_auto/q_auto:low/indige-testing/' + item.image.split('/')[5]"/>
+                  <p class="nFTName"> {{!item.name ? "NFT" : item.name }} <span style="float: right;">{{item.contractAsset.listingInUstx.price || 0}} STX</span></p>
+                  <p class="nFTArtist">By <span>{{!item.properties.collection ? "Anonymous" : item.properties.collection }}</span><span style="float: right; font-weight: 300">{{changeCurrencyTag() || '£'}} {{changeCurrency(item.contractAsset.listingInUstx.price) || 0}}</span></p>
+                </b-link>
+                </div>
+            </div>
+        </div>
+        <div class="galleryContainer" v-else-if="activeLoopRuns && activeLoopRuns.length > 0 && tab === 'collections'">
+          <div v-for="(item, index) in activeLoopRuns" :key="index" class="NFTbackgroundColour NFTbackgroundColour-collection">
+            <div class="">
+                <b-link class="galleryNFTContainer" :to="item.currentRunKey" >
+                  <img class="nftGeneralView" :src="item.image"/>
+                  <p class="nFTName" style="color: white;"> {{!item.currentRun ? "Collection" : item.currentRun }} </p>
+                  <p class="nFTArtist" style="color: white;">By <span>{{!item.makerName ? 'unknown' : item.makerName }}</span></p>
+                </b-link>
+              </div>
+          </div>
+          <div class="NFTbackgroundColour NFTbackgroundColour-collection createCollection" >
+            <p class="title"> Your Collection </p>
+            <p class="text"> You have a good idea for a collection? Want to collaborate with use on that ? <br/> Awesome </p>
+            <button class="button notFilledBlue"> Get In Touch </button>
+          </div>
+        </div>
+        <div class="galleryContainer1" v-if="tab === 'collections' && !activeLoopRuns || activeLoopRuns.length === 0">
+          <div class="comingSoon">
+            <h1 style="margin: auto; text-align: center;">Coming soon!</h1>
+          </div>
+        </div>
+          <router-link style="color:white" class="routerL" to="/nft-marketplace"> <button class="button filled">See More Collectables</button></router-link>
+    </div>
+</div>
+<div v-else>
     <div class="homeMarketItems">
         <div class="galleryContainer" v-if="gaiaAssets && gaiaAssets.length > 0 && tab === 'discover' && shownAssets.length == 0">
             <div v-for="(item, index) in gaiaAssets" :key="index" class="NFTbackgroundColour" >
@@ -42,6 +80,8 @@
         </div>
           <router-link style="color:white" class="routerL" to="/nft-marketplace"> <button class="button filled">See More Collectables</button></router-link>
     </div>
+
+</div>
   </section>
 </template>
 
@@ -56,6 +96,7 @@ export default {
   },
   data () {
     return {
+      windowWidth: window.innerWidth,
       resultSet: [],
       loaded: false,
       placeHolderItems: [],
@@ -103,10 +144,9 @@ export default {
       })
     },
     checkScreen () {
-      this.shownAssets = this.mobileAssets
       this.windowWidth = window.innerWidth
-      if (this.windowWidth <= 600) {
-        this.shownAssets = this.mobileAssets
+      if (this.windowWidth < 600) {
+        this.mobileAssets = []
       } else if (this.windowWidth > 600) {
         this.shownAssets = []
       }

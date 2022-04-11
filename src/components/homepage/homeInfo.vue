@@ -6,24 +6,24 @@
         </div>
         <div v-if="windowWidth < 840">
         <vueper-slides
-          :infinite="false"
-          fixed-height="true"
-          :arrows="showArrow"
-          class="no-shadow"
-          :touchable="touchableSlide"
-          :gap="2"
-          :visible-slides="1"
-          :bullets="bullets"
-          :breakpoints="breakpoints"
-          bullets-outside>
-            <vueper-slide v-for="(slide) in slide"
-            :key="slide.id">
-            <template #content>
+              :infinite="false"
+              fixed-height="true"
+            :arrows="showArrow"
+              class="no-shadow"
+              :touchable="touchableSlide"
+              :gap="2"
+              :visible-slides="1"
+              :bullets="bullets"
+              :breakpoints="breakpoints"
+              bullets-outside>
+                <vueper-slide v-for="(slide) in slide"
+                :key="slide.id">
+                <template #content>
             <div v-if="profile.loggedIn">
             <div class="homeInfoContainer">
                 <div>
                     <div>
-                        <div v-if="slide.id==1"  class="textCon slide-con">
+                        <div v-if="slide.id==1"  class="textCon">
                             <img src='https://res.cloudinary.com/risidio/image/upload/v1637162044/RisidioMarketplace/002-distributed_ledger_b4tq2s.svg'/>
                             <p style="font-size: 14px; font-weight: 700;"> {{content.needahand[0].sell[0].text}}  <br/><br/></p>
                             <p class="homeInfoText">{{content.needahand[0].selltext[0].text}} </p><br/>
@@ -33,7 +33,7 @@
                 </div>
                 <div>
                     <div>
-                        <div v-if="slide.id==2"  class="textCon slide-con">
+                        <div v-if="slide.id==2"  class="textCon">
                         <img src='https://res.cloudinary.com/risidio/image/upload/v1637162045/RisidioMarketplace/009-coin_ojj2mp.svg'/>
                             <p style="font-size: 14px; font-weight: 700;"> {{content.needahand[0].buy[0].text}}  <br/></p>
                             <p class="homeInfoText">{{content.needahand[0].buytext[0].text}} </p>
@@ -47,7 +47,7 @@
             <div class="homeInfoContainer">
                 <div>
                     <div>
-                        <div class="textCon">
+                        <div v-if="slide.id==1"  class="textCon" >
                             <!-- <h1 class="oneTwoThreeFour">3</h1> -->
                             <img src='https://res.cloudinary.com/risidio/image/upload/v1637162044/RisidioMarketplace/002-distributed_ledger_b4tq2s.svg'/>
                             <p style="font-size: 14px; font-weight: 700;"> {{content.needahand[0].sell[0].text}}  <br/><br/></p>
@@ -58,7 +58,7 @@
                 </div>
                 <div>
                     <div>
-                        <div class="textCon">
+                        <div v-if="slide.id==2" class="textCon">
                             <!-- <h1 class="oneTwoThreeFour">4</h1> -->
                         <img src='https://res.cloudinary.com/risidio/image/upload/v1637162045/RisidioMarketplace/009-coin_ojj2mp.svg'/>
                             <p style="font-size: 14px; font-weight: 700;"> {{content.needahand[0].buy[0].text}}  <br/><br/></p>
@@ -79,7 +79,7 @@
             <div class="homeInfoContainer">
                 <div>
                     <div>
-                        <div class="textCon">
+                        <div class="textCon slide-con">
                             <img src='https://res.cloudinary.com/risidio/image/upload/v1637162044/RisidioMarketplace/002-distributed_ledger_b4tq2s.svg'/>
                             <p style="font-size: 14px; font-weight: 700;"> {{content.needahand[0].sell[0].text}}  <br/><br/></p>
                             <p class="homeInfoText">{{content.needahand[0].selltext[0].text}} </p><br/>
@@ -89,7 +89,7 @@
                 </div>
                 <div>
                     <div>
-                        <div class="textCon">
+                        <div class="textCon slide-con">
                         <img src='https://res.cloudinary.com/risidio/image/upload/v1637162045/RisidioMarketplace/009-coin_ojj2mp.svg'/>
                             <p style="font-size: 14px; font-weight: 700;"> {{content.needahand[0].buy[0].text}}  <br/></p>
                             <p class="homeInfoText">{{content.needahand[0].buytext[0].text}} </p>
@@ -206,9 +206,6 @@ export default {
         color: white;
     }
 }
-.slide-con{
-  margin-top: 70px;
-}
 .button{
     margin: 50px auto;
 }
@@ -238,12 +235,15 @@ export default {
         color: white;
     }
 }
-.vueperslide {
-  background-color:transparent;
-  }
 .vueperslides--fixed-height{
   height: 450px;
 }
+.slide-con{
+  margin-top: 70px;
+}
+.vueperslide {
+  background-color:transparent;
+  }
 //@media only screen and(max-width :1100px)
 //{
   //  .homeText h2{
