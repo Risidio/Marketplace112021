@@ -3,7 +3,7 @@
     <img src="@/assets/img/risidio.svg" alt="risidio logo" class="error-logo-risid"/>
     <img src="@/assets/img/404.png" alt="404-image" class="error-logo-error"/>
     <h2>SOMETHING IS MISSING</h2>
-    <router-link to="/"><button class="button notFilledBlue">Back</button></router-link>
+    <router-link to="/"><button class="button1 notFilledBlue">Back</button></router-link>
   </div>
 </template>
 
@@ -27,9 +27,13 @@ export default {
   width: 100%;
   max-height: 400px;
 }
-.button{
+.button1{
   margin: 50px auto;
+  font-size: 12px;
   font-weight: 700;
-  padding: 15 40px;
+  text-align: center;
+  padding: 10px 30px;
+  border: none;
+  border-radius: 50px;
 }
 </style>
