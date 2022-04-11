@@ -1,24 +1,29 @@
 <template>
     <section class="homeInfo">
-        <div class="homeText">
+                <div class="homeText">
             <h1 style="font: normal normal bold 17px/20px Montserrat;">{{content.needahand[0].needtitle[0].text}} </h1>
             <h2 style="font: normal normal 200 40px/49px Montserrat;"> {{content.needahand[0].needtitle2[0].text}} </h2>
         </div>
+        <div v-if="windowWidth < 840">
+        <vueper-slides
+          :infinite="false"
+          fixed-height="true"
+          :arrows="showArrow"
+          class="no-shadow"
+          :touchable="touchableSlide"
+          :gap="2"
+          :visible-slides="1"
+          :bullets="bullets"
+          :breakpoints="breakpoints"
+          bullets-outside>
+            <vueper-slide v-for="(slide) in slide"
+            :key="slide.id">
+            <template #content>
             <div v-if="profile.loggedIn">
             <div class="homeInfoContainer">
-                <!-- <div>
-                    <div>
-                        <div class="textCon">
-                            <img src='https://res.cloudinary.com/risidio/image/upload/v1637162043/RisidioMarketplace/Groupe_17296_smc1up.svg'/>
-                            <p style="font-size: 16px; font-weight: 700;"> {{content.needahand[0].upload[0].text}}  <br/><br/></p>
-                            <p class="homeInfoText"> {{content.needahand[0].uploadtext[0].text}}</p>
-                            <router-link style="width:200px; margin:auto; text-align: center; padding: auto" class='button notFilled' to="/create"> <span style="margin: auto" class="notFilledButtonText">Upload</span> </router-link>
-                        </div>
-                    </div>
-                </div> -->
                 <div>
                     <div>
-                        <div class="textCon">
+                        <div v-if="slide.id==1"  class="textCon slide-con">
                             <img src='https://res.cloudinary.com/risidio/image/upload/v1637162044/RisidioMarketplace/002-distributed_ledger_b4tq2s.svg'/>
                             <p style="font-size: 14px; font-weight: 700;"> {{content.needahand[0].sell[0].text}}  <br/><br/></p>
                             <p class="homeInfoText">{{content.needahand[0].selltext[0].text}} </p><br/>
@@ -28,7 +33,7 @@
                 </div>
                 <div>
                     <div>
-                        <div class="textCon">
+                        <div v-if="slide.id==2"  class="textCon slide-con">
                         <img src='https://res.cloudinary.com/risidio/image/upload/v1637162045/RisidioMarketplace/009-coin_ojj2mp.svg'/>
                             <p style="font-size: 14px; font-weight: 700;"> {{content.needahand[0].buy[0].text}}  <br/></p>
                             <p class="homeInfoText">{{content.needahand[0].buytext[0].text}} </p>
@@ -40,28 +45,6 @@
         </div>
         <div v-else>
             <div class="homeInfoContainer">
-                <!-- <div>
-                    <div>
-                    <div class="textCon">
-                         <h1 class="oneTwoThreeFour">1</h1>
-                        <img src='https://res.cloudinary.com/risidio/image/upload/v1633609788/RisidioMarketplace/006-wallet_uy3myg.svg'/>
-                        <p style="font-size: 16px; font-weight: 700;"> {{content.needahand[0].connect[0].text}}  <br/><br/></p>
-                        <p class="homeInfoText"> {{content.needahand[0].connecttext[0].text}}</p>
-                        <button class='button notFilled' @click="startLogin"> Connect A Web Wallet to Begin!</button>
-                    </div>
-                </div>
-                </div> -->
-                <!-- <div> -->
-                    <!-- <div> -->
-                        <!-- <div class="textCon"> -->
-                            <!-- <h1 class="oneTwoThreeFour">2</h1> -->
-                            <!-- <img src='https://res.cloudinary.com/risidio/image/upload/v1637162043/RisidioMarketplace/Groupe_17296_smc1up.svg'/>
-                            <p style="font-size: 16px; font-weight: 700;"> {{content.needahand[0].upload[0].text}}  <br/><br/></p>
-                            <p class="homeInfoText"> {{content.needahand[0].uploadtext[0].text}}</p> -->
-                        <!-- <button class='button notFilled'> Upload </button> -->
-                        <!-- </div> -->
-                    <!-- </div> -->
-                <!-- </div> -->
                 <div>
                     <div>
                         <div class="textCon">
@@ -88,15 +71,79 @@
                 <button v-if="!profile.loggedIn" class='button notFilled' v-on:click="startLogin()"> Connect with Hiro Wallet </button>
                 <!-- <button style=" margin: 50px auto; width:30vw; max-height: 50vw" class='button notFilled' @click="startLogin"> <span style="margin:auto">Connect A Web Wallet to Get Started!</span> </button> -->
         </div>
+                  </template>
+             </vueper-slide>
+         </vueper-slides>
+         </div>
+         <div v-else>
+            <div class="homeInfoContainer">
+                <div>
+                    <div>
+                        <div class="textCon">
+                            <img src='https://res.cloudinary.com/risidio/image/upload/v1637162044/RisidioMarketplace/002-distributed_ledger_b4tq2s.svg'/>
+                            <p style="font-size: 14px; font-weight: 700;"> {{content.needahand[0].sell[0].text}}  <br/><br/></p>
+                            <p class="homeInfoText">{{content.needahand[0].selltext[0].text}} </p><br/>
+                            <router-link style="width:200px; margin:auto; text-align: center; padding: auto" class='button notFilled' to="/my-account"> <span style="margin: auto"  class="notFilledButtonText">My NFTs</span> </router-link>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div>
+                        <div class="textCon">
+                        <img src='https://res.cloudinary.com/risidio/image/upload/v1637162045/RisidioMarketplace/009-coin_ojj2mp.svg'/>
+                            <p style="font-size: 14px; font-weight: 700;"> {{content.needahand[0].buy[0].text}}  <br/></p>
+                            <p class="homeInfoText">{{content.needahand[0].buytext[0].text}} </p>
+                            <router-link style="width:200px; margin:auto; text-align: center; padding: auto" class='button notFilled' to="/nft-marketplace"> <span style="margin: auto" class="notFilledButtonText">Gallery</span> </router-link>
+                        </div>
+                    </div>
+                </div>
+            </div>
+         </div>
     </section>
 </template>
 
 <script>
 import { APP_CONSTANTS } from '@/app-constants'
+import { VueperSlides, VueperSlide } from 'vueperslides'
+import 'vueperslides/dist/vueperslides.css'
 export default {
   name: 'HomeInfo',
   props: ['profile', 'content'],
+  components: {
+    VueperSlides,
+    VueperSlide
+    // HomeSearchBar
+  },
+  data: () => ({
+    windowWidth: window.innerWidth,
+    touchableSlide: false,
+    showArrow: true,
+    bullets: false,
+    breakpoints: {
+      840: {
+        bullets: true
+      }
+    },
+    slide: [
+      {
+        id: '1'
 
+      },
+      {
+        id: '2'
+      }
+    ],
+    return: {
+      resultSet: [],
+      loaded: false,
+      rand: 1
+      // touchableSlide: false
+    }
+  }),
+  created () {
+    window.addEventListener('resize', this.checkScreen)
+    this.checkScreen()
+  },
   methods: {
     startLogin () {
       // this.$emit('updateEventCode', { eventCode: 'connect-login' })
@@ -111,6 +158,20 @@ export default {
           this.$store.commit(APP_CONSTANTS.SET_WEB_WALLET_NEEDED)
           window.open('https://www.hiro.so/wallet', '_blank')
         })
+      }
+    },
+    startRegister () {
+      window.open('https://www.hiro.so/wallet', '_blank')
+    },
+    checkScreen () {
+      console.log('c')
+      this.windowWidth = window.innerWidth
+      if (this.windowWidth < 840) {
+        this.touchableSlide = true
+        this.showArrow = false
+      } else if (this.windowWidth > 840) {
+        this.touchableSlide = true
+        this.showArrow = true
       }
     }
   }
@@ -145,6 +206,9 @@ export default {
         color: white;
     }
 }
+.slide-con{
+  margin-top: 70px;
+}
 .button{
     margin: 50px auto;
 }
@@ -173,6 +237,12 @@ export default {
         margin:auto;
         color: white;
     }
+}
+.vueperslide {
+  background-color:transparent;
+  }
+.vueperslides--fixed-height{
+  height: 450px;
 }
 //@media only screen and(max-width :1100px)
 //{
