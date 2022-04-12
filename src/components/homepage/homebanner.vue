@@ -58,15 +58,15 @@
                             <h2 class="mobileHeader"> The Indige Collection</h2>
                               <div class="collectionImageBack">
                                 <img
-                                src="https://res.cloudinary.com/risidio/image/upload/f_auto/q_auto:good/RisidioMarketplace/MUSHROOMS_12_vjlr5b.jpg"
+                                src="@/assets/img/indigeImages/indige-40.jpg"
                                 alt="Image-from-Indige"
                                 class="collectionImage"/>
                                 <img
-                                src="https://res.cloudinary.com/risidio/image/upload/f_auto/q_auto:good/RisidioMarketplace/JOHN_PAINTINGS_01_bma7pe.jpg"
+                                src="@/assets/img/indigeImages/indige-60.jpg"
                                 alt="Image-from-Indige"
                                 class="collectionImage collectionImageFront"/>
                                 <img
-                                src="https://res.cloudinary.com/risidio/image/upload/f_auto/q_auto:good/indige/indige-36_ablyca.jpg"
+                                src="@/assets/img/indigeImages/indige.jpg"
                                 alt="Image-from-Indige"
                                 class="collectionImage"/>
                               </div>

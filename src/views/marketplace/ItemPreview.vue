@@ -127,9 +127,9 @@ export default {
   },
   methods: {
     moment: function (val) {
-      const month = moment(this.item.updated).format('MMMM')
-      const day = moment(this.item.updated).format('Do')
-      const year = moment(this.item.updated).format('YYYY')
+      const month = moment(this.item?.updated).format('MMMM')
+      const day = moment(this.item?.updated).format('Do')
+      const year = moment(this.item?.updated).format('YYYY')
       if (val === 1) {
         return (month)
       } else if (val === 2) {

@@ -141,7 +141,6 @@ export default {
     },
     fetchStxData () {
       axios.get(`https://stacks-node-api.testnet.stacks.co/extended/v1/address/${this.loopRun.contractId}/transactions?limit=${this.limit}&offset=0&unanchored=false`).then((res) => {
-        console.log('res', res)
         this.stxTransaction = res.data.results
       }).catch((error) => {
         this.isDisabled = true
@@ -152,12 +151,11 @@ export default {
     fetchMintPass () {
       if (this.loopRun) {
         const data = {
-          stxAddress: this.profile.stxAddress,
-          contractAddress: this.loopRun.contractId.split('.')[0],
-          contractName: this.loopRun.contractId.split('.')[1],
+          stxAddress: this?.profile?.stxAddress,
+          contractAddress: this?.loopRun?.contractId?.split('.')[0],
+          contractName: this?.loopRun?.contractId?.split('.')[1],
           currentRunKey: null
         }
-        console.log(data)
         this.$store.dispatch('rpayMarketStore/lookupMintPassBalance', data).then((result) => {
           if (result && result.result.value > 0) {
             this.mintPasses = Number(result.result.value)
@@ -167,10 +165,12 @@ export default {
             this.mintPassMessage = 'Mint Pass Not Found'
             this.mintPassLoad = false
           }
-          console.log(result)
         }).catch((error) => {
           console.log(error)
+          this.mintPassMessage = 'Mint Pass Not Found'
+          this.mintPassLoad = false
         })
+        if (this.mintPasses == null) this.mintPassLoad = false
       }
     },
     tabChange (tab) {

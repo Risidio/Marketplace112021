@@ -33,7 +33,7 @@
                     </div>
                 </div>
             </div>
-            <router-link to="/nft-marketplace/risidio/numberone_roots"><button class="button notFilledBlue"> See More </button></router-link>
+            <button v-if="tab === 'activity'" class="button notFilledBlue" @click="setPageSize()" :disabled="isDisabled ? true : false"> See More </button>
         </div>
     </div>
 </template>
@@ -82,6 +82,9 @@ export default {
     },
     'tab' () {
       if (this.tab === 'activity') this.fetchStxData()
+    },
+    'limit' () {
+      this.fetchStxData()
     }
   },
   methods: {
@@ -128,9 +131,6 @@ export default {
     },
     openTransaction (item) {
       window.open(`https://explorer.stacks.co/txid/${item.tx_id}`)
-    },
-    setPageSize () {
-      this.pageSize += 10
     },
     assetUrl (item) {
       if (item.contractAsset) {
@@ -206,6 +206,10 @@ export default {
       } else {
         return '£'
       }
+    },
+    setPageSize () {
+      this.limit += 15
+      console.log(this.limit)
     }
   }
 }

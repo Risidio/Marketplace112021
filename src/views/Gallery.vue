@@ -35,7 +35,7 @@
                   <div v-for="(item, index) in resultSet" :key="index">
                     <div v-if="item.image" class="square-display" >
                       <b-link class="galleryNFTContainer" v-bind:to="'/nfts/' + item.contractAsset.contractId + '/' + item.contractAsset.nftIndex">
-                      <img :src="'https://res.cloudinary.com/risidio/image/upload/f_auto/q_auto:low/indige-testing/' + item.image.split('/')[5]"
+                      <img :src="item.image"
                        alt="Risidio Gallery" class="square-display-img">
                       <div class="rel">
                         <div class="galleryHover">
@@ -51,7 +51,7 @@
                   <div v-for="(item, index) in searched" :key="index">
                     <div v-if="item.image" class="square-display" >
                       <b-link class="galleryNFTContainer" v-bind:to="'/nfts/' + item.contractAsset.contractId + '/' + item.contractAsset.nftIndex">
-                      <img :src="'https://res.cloudinary.com/risidio/image/upload/f_auto/q_auto:low/indige-testing/' + item.image.split('/')[5]"
+                      <img :src="item.image"
                        alt="Risidio Gallery" class="square-display-img">
                       <div class="rel">
                         <div class="galleryHover">
@@ -92,7 +92,7 @@
                     <div v-if="item.image" class="mobile-square-display" >
                       <b-link class="mobilegalleryNFTContainer" v-bind:to="'/nfts/' + item.contractAsset.contractId + '/' + item.contractAsset.nftIndex">
                       <div>
-                        <img :src="'https://res.cloudinary.com/risidio/image/upload/f_auto/q_auto:low/indige-testing/' + item.image.split('/')[5]"
+                        <img :src="item.image"
                           alt="Risidio Gallery" class="mobile-square-display-img">
                       </div>
                         <h2 class="artwork">{{!item.name ? "NFT" : item.name }}</h2>

@@ -61,7 +61,7 @@
         </div>
           <div class="pagination-container" v-if="tab === 'NFT'">
             <p v-if="numberOfItems > pageSize && page > 0 " v-on:click="previousPage()"> &lt; Previous </p>
-            <div v-for="(item, index) in pages" :key="index"><span v-on:click="$emit('pageNumber', index)">{{item}}</span></div>
+            <div v-for="(item, index) in pages" :key="index"><span v-on:click="pageNumberChange(index)">{{item}}</span></div>
             <p v-if="numberOfItems > pageSize && numberOfItems !== pageSize * (page + 1)" v-on:click="nextPage()">Next ></p>
           </div>
       </div>
@@ -80,19 +80,15 @@
           </div>
         </div>
       </div>
-      <div v-else-if="tab === 'Fav'">
-        <div v-if="favouriteNfts" class="favContainer">
-          <div v-for="(item, index) in favouriteNfts" :key="index" >
-            <MySingleItem :asset="item"/>
-          </div>
-        </div>
-        <div v-else class="noNFT">
-          <h3> You do not have any favourite items</h3>
-        </div>
+      <div v-else-if="tab === 'Fav' && favouriteNfts">
+            <MyPageableItems :loopRun="loopRun" :resultSet="favouriteNfts"/>
         <div class="profileBtns">
           <router-link class="button filled" to="/">Explore Gallery</router-link>
           <!-- <router-link class="button notFilledBlue" to="/create">Mint Your Item</router-link> -->
         </div>
+      </div>
+      <div v-else-if="tab === 'Fav' && !favouriteNfts" class="noNFT">
+        <h3> You do not have any favourite items</h3>
       </div>
       <div v-else>
         <div class="noNFT">
@@ -112,13 +108,13 @@
 import MyPageableItems from '@/views/marketplace/components/gallery/MyPageableItems'
 import { APP_CONSTANTS } from '@/app-constants'
 import utils from '@/services/utils'
-import MySingleItem from '../marketplace/components/gallery/MySingleItem.vue'
+// import MySingleItem from '../marketplace/components/gallery/MySingleItem.vue'
 
 export default {
   name: 'MyAccount',
   components: {
-    MyPageableItems,
-    MySingleItem
+    MyPageableItems
+    // MySingleItem
   },
   data () {
     return {
@@ -137,7 +133,6 @@ export default {
       resultSet: [],
       allocations: [],
       saleItem: [],
-      // amount: null,
       defaultRate: null,
       currencyPreference: null,
       favouriteNfts: []
@@ -146,10 +141,10 @@ export default {
   mounted () {
     this.fetchFullRegistry()
     // this.fetchLoopRun()
+    this.calcRates()
     const tickerRates = this.$store.getters[APP_CONSTANTS.KEY_TICKER_RATES]
     this.defaultRate = tickerRates[0].currency
     this.loading = false
-    this.fetchSaleItem()
     this.setSTX()
     // this.yourSTX = this.profile.accountInfo.balance
     // let currentRunKey = 'indige5'
@@ -164,11 +159,12 @@ export default {
       this.loading = true
       // this.fetchLoopRun()
     },
-    'resultSet' () {
-      this.fetchSaleItem()
+    'profile' () {
+      this.calRates()
     },
     'numberOfItems' () {
       this.getPageNumbers()
+      this.getSaleData()
     },
     'page' () {
       this.fetchAllocations()
@@ -182,7 +178,7 @@ export default {
       const $self = this
       this.$store.dispatch('rpayProjectStore/fetchProjectsByStatus', '').then((projects) => {
         $self.projects = utils.sortResults(projects)
-        this.loopRun = projects.find((project) => project.contractId === 'ST1NXBK3K5YYMD6FD41MVNP3JS1GABZ8TRVX023PT.indige-mint')
+        this.loopRun = projects.find((project) => project.contractId === 'ST1NXBK3K5YYMD6FD41MVNP3JS1GABZ8TRVX023PT.indige-art')
         this.fetchAllocations()
         $self.projects.forEach((p) => {
           const application = this.$store.getters[APP_CONSTANTS.KEY_APPLICATION_FROM_REGISTRY_BY_CONTRACT_ID](p.contractId)
@@ -231,28 +227,16 @@ export default {
     previousPage () {
       this.page -= 1
     },
-    fetchSaleItem () {
-      if (this.resultSet && this.resultSet.length > 0) this.saleItem = this.resultSet.filter((nft) => nft.contractAsset && nft.contractAsset.listingInUstx && nft.contractAsset.listingInUstx.price > 0)
-    },
     fetchAllocations () {
       if (!this.loopRun) return
-      const params = { stxAddress: this.profile.stxAddress, contractId: this.loopRun.contractId }
-      this.$store.dispatch('rpayTransactionStore/fetchByContractIdAndFrom', params).then((results) => {
-        this.allocations = results || []
-      }).catch((error) => {
-        console.log(error)
-      })
       const data = {
-        // runKey: 'indige-mint',
         stxAddress: this.profile.stxAddress,
         asc: true,
         page: this.page,
         pageSize: this.pageSize
-        // contractId: 'ST1NXBK3K5YYMD6FD41MVNP3JS1GABZ8TRVX023PT.indige-mint'
       }
       this.$store.dispatch('rpayStacksContractStore/fetchMyTokensCPSV2', data).then((result) => {
-        this.resultSet = result.gaiaAssets.reverse() // this.resultSet.concat(results)
-        // this.tokenCount = result.tokenCount
+        this.resultSet = result.gaiaAssets.filter((res) => res.contractId !== null)
         this.numberOfItems = result.tokenCount
         this.loading = true
       }).catch((error) => {
@@ -271,12 +255,23 @@ export default {
       this.yourSTX = getRate.value
       const object = JSON.stringify(getRate)
       localStorage.setItem('currencyPreferences', object)
-      // e.current.value
+    },
+    getSaleData () {
+      const data = {
+        stxAddress: this.profile.stxAddress,
+        asc: true,
+        page: 0,
+        pageSize: this.numberOfItems
+      }
+      this.$store.dispatch('rpayStacksContractStore/fetchMyTokensCPSV2', data).then((result) => {
+        this.saleItem = result.gaiaAssets.filter((nft) => nft.contractAsset && nft.contractAsset.listingInUstx && nft.contractAsset.listingInUstx.price > 0)
+      }).catch((error) => {
+        console.log(error.message)
+      })
     },
     tabChange (tab) {
       this.tab = tab
       document.getElementById('NFT').classList.remove('active')
-      // document.getElementById('Item').classList.remove('active')
       document.getElementById('Sale').classList.remove('active')
       document.getElementById('Fav').classList.remove('active')
       document.getElementById(tab).classList.add('active')
@@ -287,7 +282,7 @@ export default {
   },
   computed: {
     application () {
-      const application = this.$store.getters[APP_CONSTANTS.KEY_APPLICATION_FROM_REGISTRY_BY_CONTRACT_ID]('ST1NXBK3K5YYMD6FD41MVNP3JS1GABZ8TRVX023PT.indige-mint')
+      const application = this.$store.getters[APP_CONSTANTS.KEY_APPLICATION_FROM_REGISTRY_BY_CONTRACT_ID]('ST1NXBK3K5YYMD6FD41MVNP3JS1GABZ8TRVX023PT.indige-art')
       return application
     },
     showAdmin () {
@@ -343,19 +338,10 @@ export default {
       const profile = this.$store.getters[APP_CONSTANTS.KEY_PROFILE]
       const options = []
       const stxToBtc = tickerRates[0].stxPrice / tickerRates[0].last
-      // options.push({
-      //   text: 'BTC',
-      //   value: utils.toDecimals(stxToBtc * profile?.accountInfo?.balance, 100000)
-      // })
-      // const stxToETh = tickerRates[0].stxPrice / tickerRates[0].ethPrice
-      // options.push({
-      //   text: 'ETH',
-      //   value: utils.toDecimals(stxToETh * profile?.accountInfo?.balance, 100000)
-      // })
       tickerRates.forEach((rate) => {
         options.push({
           text: rate.currency,
-          value: utils.toDecimals(rate.stxPrice * profile.accountInfo.balance)
+          value: utils.toDecimals(rate.stxPrice * profile?.accountInfo?.balance)
         })
       })
       return options

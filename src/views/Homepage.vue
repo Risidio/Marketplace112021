@@ -1,10 +1,16 @@
 <template>
-    <section class="homepage">
+    <section v-if="!loading" class="homepage">
       <HomeBanner v-bind:profile='profile' :content="content"/>
       <HomeMarket v-bind:profile='profile' :gaiaAssets="resultSet.slice(0, 8)"/>
       <HomeInfo v-bind:profile='profile' :content="content"/>
       <HomeSeeAlso v-bind:profile='profile' :gaiaAssets="resultSet"/>
       <HomeBottomBanner v-bind:profile='profile' :content="content"/>
+    </section>
+    <section v-else style="display: grid; place-items: center;">
+      <div >
+        <img src="@/assets/img/loading-risid.gif" alt="loading">
+        <p style="text-align: center;"> loading... </p>
+      </div>
     </section>
 </template>
 
@@ -34,9 +40,12 @@ export default {
       loading: true
     }
   },
+  watch: {
+  },
   mounted () {
     if (this.$store.getters['contentStore/getDataResults']) this.resultSet = this.$store.getters['contentStore/getDataResults'].gaiaAssets
     if (!this.resultSet) this.fetchFullRegistry()
+    else this.loading = false
   },
   methods: {
     sortCollection (loopRun) {
@@ -49,9 +58,9 @@ export default {
       }
       this.$store.dispatch('rpayStacksContractStore/fetchTokensByContractId', data).then((result) => {
         this.resultSet = result.gaiaAssets
-        this.$store.commit('contentStore/addDataResults', result)
-        this.loading = false
+        if (result) this.$store.commit('contentStore/addDataResults', result)
       })
+      this.loading = false
     },
     fetchFullRegistry () {
       const $self = this

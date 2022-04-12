@@ -4,7 +4,7 @@
     <a @click="$router.go(-1)" class="backBtn" >
     <b-icon icon="chevron-left" shift-h="-3"></b-icon> Back </a></div>
     <b-row style="display: flex; margin: auto" :style="'min-height: ' + videoHeight + 'px'">
-      <b-col lg="6" sm="10" class="mb-5" style="  max-height: 500px; ">
+      <b-col lg="4" sm="10" class="mb-5" style="  max-height: 500px; ">
           <div @click="closeModel" v-if="visible" class="boxMol">
             <div class="modal-contentt">
           <!-- <span class="closeBtn"  @click="closeModel">&times;</span> -->
@@ -16,7 +16,7 @@
           <div class="editions"> <h2>EDITION <span>{{gaiaAsset.contractAsset.tokenInfo.edition}}</span> / {{gaiaAsset.contractAsset.tokenInfo.maxEditions}}</h2></div>
         </div>
       </b-col>
-      <b-col lg="6" sm="10">
+      <b-col lg="8" sm="10">
         <b-row align-v="stretch" :style="'height: ' + videoHeight - 100 + 'px'">
           <b-col md="12" align-self="end" :key="componentKey">
             <div class="w-100">
