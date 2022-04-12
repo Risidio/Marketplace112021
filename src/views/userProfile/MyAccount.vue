@@ -59,10 +59,11 @@
           <MyPageableItems :loopRun="loopRun" :resultSet="resultSet"/>
           <router-link to="/gallery" style="font: normal normal bold 11px/14px Montserrat; display: block; text-align: center; margin-top: 50px"><!--<span style="color: #5FBDC1; ">Want More ? See The Gallery</span>--></router-link>
         </div>
-        <div class="pagination-container">
-          <p v-if="tokenCount > 8 && resultSet.length <= 8" @click="previousPage()"> &lt; Previous </p>
-          <p v-if="tokenCount > 8 && (page * pageSize) < tokenCount" @click="nextPage()">Next ></p>
-        </div>
+          <div class="pagination-container" v-if="tab === 'NFT'">
+            <p v-if="numberOfItems > pageSize && page > 0 " v-on:click="previousPage()"> &lt; Previous </p>
+            <div v-for="(item, index) in pages" :key="index"><span v-on:click="$emit('pageNumber', index)">{{item}}</span></div>
+            <p v-if="numberOfItems > pageSize && numberOfItems !== pageSize * (page + 1)" v-on:click="nextPage()">Next ></p>
+          </div>
       </div>
       <div v-else-if="saleItem.length > 0 && tab === 'Sale'" >
         <div>
@@ -128,7 +129,7 @@ export default {
       currency: '',
       profileInfo: {},
       tab: 'NFT',
-      pageSize: 20,
+      pageSize: 8,
       page: 0,
       loopRun: null,
       numberOfItems: null,
@@ -165,6 +166,9 @@ export default {
     },
     'resultSet' () {
       this.fetchSaleItem()
+    },
+    'numberOfItems' () {
+      this.getPageNumbers()
     },
     'page' () {
       this.fetchAllocations()
@@ -209,13 +213,20 @@ export default {
         this.$store.commit(APP_CONSTANTS.SET_WEB_WALLET_NEEDED)
       })
     },
+    getPageNumbers () {
+      const pageNumbers = this.numberOfItems / this.pageSize
+      const page = []
+      for (let i = 1; i <= pageNumbers; i++) {
+        page.push(i)
+      }
+      console.log('pages', page)
+      this.pages = page
+    },
+    pageNumberChange (item) {
+      this.page = item
+    },
     nextPage () {
-      if (this.page === 0) {
-        this.page += 1
-      }
-      if ((this.page * this.pageSize) < this.tokenCount) {
-        this.page += 1
-      }
+      this.page += 1
     },
     previousPage () {
       this.page -= 1
@@ -241,8 +252,8 @@ export default {
       }
       this.$store.dispatch('rpayStacksContractStore/fetchMyTokensCPSV2', data).then((result) => {
         this.resultSet = result.gaiaAssets.reverse() // this.resultSet.concat(results)
-        this.tokenCount = result.tokenCount
-        this.numberOfItems = result.gaiaAssets.length
+        // this.tokenCount = result.tokenCount
+        this.numberOfItems = result.tokenCount
         this.loading = true
       }).catch((error) => {
         console.log(error.message)
@@ -364,14 +375,28 @@ export default {
   margin: 0 auto;
 }
 .pagination-container {
+  padding: 50px;
   max-width: 300px;
   margin: auto;
   text-align: center;
   display: flex;
   flex-direction: row;
-  justify-content: center;
-  column-gap: 10px;
+  justify-content: space-around;
   p {
+    font: normal normal bold 12px/15px Montserrat;
+    color: #50b1b5;
+    cursor: pointer;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+  div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  }
+  span {
     font: normal normal bold 12px/15px Montserrat;
     color: #50b1b5;
     cursor: pointer;

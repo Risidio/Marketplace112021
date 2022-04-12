@@ -3,7 +3,7 @@
 <div class="NFTbackgroundColour NFTbackgroundColour-buy" >
   <div class="">
       <b-link class="galleryNFTContainer" :to="nextUrl">
-        <img class="nftGeneralView" :src="image || '@/assets/img/sticksnstones_logo'" @error="imageError()"/>
+        <img class="nftGeneralView" :src="asset.image || '@/assets/img/sticksnstones_logo'" @error="imageError()"/>
         <p style="margin-top: 0;" class="nFTName">{{this.asset.name || 'Unknown'}} <span>On Sale</span></p>
         <p class="nFTArtist"> By: <span>{{asset.properties.collection || 'Unknown'}}</span></p>
     </b-link>
@@ -14,7 +14,7 @@
   <div class="NFTbackgroundColour" >
   <div class="">
       <b-link class="galleryNFTContainer" :to="nextUrl">
-        <img class="nftGeneralView" :src="image || '@/assets/img/sticksnstones_logo'" @error="imageError()"/>
+        <img class="nftGeneralView" :src="asset.image || '@/assets/img/sticksnstones_logo'" @error="imageError()"/>
         <p style="margin-top: 0;" class="nFTName">{{this.asset.name || 'Unknown'}}</p>
         <p class="nFTArtist"> By: <span>{{asset.properties.collection || 'Unknown'}}</span></p>
     </b-link>
@@ -26,7 +26,6 @@
 <script>
 import { DateTime } from 'luxon'
 import { APP_CONSTANTS } from '@/app-constants'
-// import PunkConnect from './PunkConnect'
 
 // noinspection JSUnusedGlobalSymbols
 export default {
@@ -39,7 +38,8 @@ export default {
     return {
       image: null,
       newWidth: '100%',
-      newHeight: null
+      newHeight: null,
+      errorImg: '@/assets/img/sticksnstones_logo'
     }
   },
   mounted () {
@@ -75,7 +75,7 @@ export default {
       e.preventDefault()
     },
     imageError () {
-      this.image = this.asset.attributes.artworkFile.fileUrl
+      this.image = this.errorImg
     },
     created () {
       if (this.asset && this.asset.mintInfo && this.asset.mintInfo.timestamp) {

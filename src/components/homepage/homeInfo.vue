@@ -23,7 +23,7 @@
             <div class="homeInfoContainer">
                 <div>
                     <div>
-                        <div v-if="slide.id==1"  class="textCon">
+                        <div v-if="slide.id==1"  class="textCon slide-con">
                             <img src='https://res.cloudinary.com/risidio/image/upload/v1637162044/RisidioMarketplace/002-distributed_ledger_b4tq2s.svg'/>
                             <p style="font-size: 14px; font-weight: 700;"> {{content.needahand[0].sell[0].text}}  <br/><br/></p>
                             <p class="homeInfoText">{{content.needahand[0].selltext[0].text}} </p><br/>
@@ -33,7 +33,7 @@
                 </div>
                 <div>
                     <div>
-                        <div v-if="slide.id==2"  class="textCon">
+                        <div v-if="slide.id==2" class="textCon slide-con">
                         <img src='https://res.cloudinary.com/risidio/image/upload/v1637162045/RisidioMarketplace/009-coin_ojj2mp.svg'/>
                             <p style="font-size: 14px; font-weight: 700;"> {{content.needahand[0].buy[0].text}}  <br/></p>
                             <p class="homeInfoText">{{content.needahand[0].buytext[0].text}} </p>
@@ -47,7 +47,7 @@
             <div class="homeInfoContainer">
                 <div>
                     <div>
-                        <div v-if="slide.id==1"  class="textCon" >
+                        <div v-if="slide.id==1"  class="textCon slide-con-not-logged" >
                             <!-- <h1 class="oneTwoThreeFour">3</h1> -->
                             <img src='https://res.cloudinary.com/risidio/image/upload/v1637162044/RisidioMarketplace/002-distributed_ledger_b4tq2s.svg'/>
                             <p style="font-size: 14px; font-weight: 700;"> {{content.needahand[0].sell[0].text}}  <br/><br/></p>
@@ -58,7 +58,7 @@
                 </div>
                 <div>
                     <div>
-                        <div v-if="slide.id==2" class="textCon">
+                        <div v-if="slide.id==2" class="textCon slide-con-not-logged">
                             <!-- <h1 class="oneTwoThreeFour">4</h1> -->
                         <img src='https://res.cloudinary.com/risidio/image/upload/v1637162045/RisidioMarketplace/009-coin_ojj2mp.svg'/>
                             <p style="font-size: 14px; font-weight: 700;"> {{content.needahand[0].buy[0].text}}  <br/><br/></p>
@@ -69,12 +69,11 @@
                 </div>
             </div>
                 <button v-if="!profile.loggedIn" class='button notFilled' v-on:click="startLogin()"> Connect with Hiro Wallet </button>
-                <!-- <button style=" margin: 50px auto; width:30vw; max-height: 50vw" class='button notFilled' @click="startLogin"> <span style="margin:auto">Connect A Web Wallet to Get Started!</span> </button> -->
         </div>
                   </template>
              </vueper-slide>
          </vueper-slides>
-         </div>
+        </div>
          <div v-else>
             <div class="homeInfoContainer">
                 <div>
@@ -180,17 +179,17 @@ export default {
 
 <style lang="scss" scoped>
 .oneTwoThreeFour{
-    color: white;
-    font-size: 5rem;
-    font-weight: 200;
-    margin-bottom: 5rem;
+  color: white;
+  font-size: 5rem;
+  font-weight: 200;
+  margin-bottom: 5rem;
 }
 .homeInfo{
-    min-height: 800px;
-    background: transparent linear-gradient(180deg, rgba(54, 24, 165, 0.925) 0%, rgb(16, 29, 92) 100%) 0% 0% no-repeat padding-box;
-    padding: 10rem 1rem;
-    color: white;
-    text-align: center;
+  min-height: 800px;
+  background: transparent linear-gradient(180deg, rgba(54, 24, 165, 0.925) 0%, rgb(16, 29, 92) 100%) 0% 0% no-repeat padding-box;
+  padding: 10rem 1rem;
+  color: white;
+  text-align: center;
 }
 .homeText > * {
   color:white;
@@ -198,42 +197,41 @@ export default {
   margin: 10px auto
 }
 .textCon{
-    min-height: 30px;
-    & button{
-        margin: auto;
-    }
-    & a:hover {
-        color: white;
-    }
+  min-height: 30px;
+  & button{
+    margin: auto;
+  }
+  & a:hover {
+    color: white;
+  }
 }
 .button{
-    margin: 50px auto;
+  margin: 50px auto;
 }
 
 .homeInfoContainer{
-    // margin-top: 100px;
-    max-width: 1135px;
-    margin: auto;
-    display: flex;
-    flex-wrap: wrap;
+  max-width: 1135px;
+  margin: auto;
+  display: flex;
+  flex-wrap: wrap;
 }
 .homeInfoContainer > * {
-    flex-direction: row;
-    flex: 1 1 400px;
-    text-align: center;
-    img{
-        border-radius: 10px;
-        display: block;
-        margin:20px auto;
-        max-width: 100%;
-        max-height: 300px;
-    }
-    p{
-        font: normal normal 300 14px/18px Montserrat;
-        display: block;
-        margin:auto;
-        color: white;
-    }
+  flex-direction: row;
+  flex: 1 1 400px;
+  text-align: center;
+  img{
+    border-radius: 10px;
+    display: block;
+    margin:20px auto;
+    max-width: 100%;
+    max-height: 300px;
+  }
+  p{
+    font: normal normal 300 14px/18px Montserrat;
+    display: block;
+    margin:auto;
+    color: white;
+  }
 }
 .vueperslides--fixed-height{
   height: 450px;
@@ -241,21 +239,15 @@ export default {
 .slide-con{
   margin-top: 70px;
 }
+.slide-con-not-logged{
+  margin-top: 40px;
+}
 .vueperslide {
   background-color:transparent;
-  }
-//@media only screen and(max-width :1100px)
-//{
-  //  .homeText h2{
-    //    font-weight:700;
-        //color: red;
-   // }
- //   .button{
-  //      margin-top: 100px;
-  //  }
-//}
+}
+
 .homeInfoText{
-    max-width: 275px;
-    padding-bottom: 50px;
+  max-width: 275px;
+  padding-bottom: 50px;
 }
 </style>
