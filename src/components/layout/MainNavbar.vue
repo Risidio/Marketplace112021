@@ -118,7 +118,7 @@ export default {
   },
   methods: {
     linkTo (data) {
-      this.$router.replace(data.currentRunKey)
+      this.$router.push(`/${data.currentRunKey}`)
     },
     showCollection (loopRun) {
       this.$emit('update', { opcode: 'show-collection', loopRun: loopRun })
