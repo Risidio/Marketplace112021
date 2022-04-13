@@ -77,6 +77,7 @@ export default {
     }
   },
   mounted () {
+    console.log('image', this.gaiaAssets)
     this.currencyPreference = JSON.parse(localStorage.getItem('currencyPreferences'))
   },
   methods: {
@@ -113,16 +114,16 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.seeAlso{
-    min-height: 40rem;
-    margin: 0 5% 10px 5%;
-    h2{
-        font: normal normal 300 37px/45px Montserrat;
-        margin: 100px 20px 50px 20px;
-        text-align: center;
-    }
+.seeAlso {
+  min-height: 40rem;
+  margin: 0 5% 10px 5%;
+  h2 {
+    font: normal normal 300 37px/45px Montserrat;
+    margin: 100px 20px 50px 20px;
+    text-align: center;
+  }
 }
-.seeAlsoContainer{
+.seeAlsoContainer {
   max-width: 1200px;
   margin: auto;
   min-height: 200px;
@@ -134,40 +135,39 @@ export default {
   margin-right: auto;
   margin-bottom: 50px;
 }
-.vueperslide{
-  background-color:rgba(226, 226, 226, 0.8);
+.vueperslide {
+  background-color: rgba(226, 226, 226, 0.8);
   min-height: 319px;
   border-radius: 30px;
 }
-.vueperslides__arrow .arrow{
+.vueperslides__arrow .arrow {
   width: 23px;
   height: 23px;
 }
-.galleryItem{
+.galleryItem {
   display: block;
   margin: 0 auto;
   max-width: 255px;
 }
-.galleryContainer{
+.galleryContainer {
   margin: auto;
   width: 100%;
 }
-.NFTbackgroundColour{
+.NFTbackgroundColour {
   max-width: 255px;
   max-height: 319px;
 }
-@media only screen and (max-width: 1400px){
-  .seeAlsoContainer{
+@media only screen and (max-width: 1400px) {
+  .seeAlsoContainer {
     max-width: 1000px;
     margin: auto;
     min-height: 200px;
-}
-@media only screen and (max-width: 1150px){
-.vueperslides--fixed-height {
-  height: 380px;
-  max-width: 90%;
-}
-}
-
+  }
+  @media only screen and (max-width: 1150px) {
+    .vueperslides--fixed-height {
+      height: 380px;
+      max-width: 90%;
+    }
+  }
 }
 </style>
