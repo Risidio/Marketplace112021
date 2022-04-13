@@ -35,11 +35,7 @@
               </div>
             </div>
             <div class="profileBtns">
-              <!-- <router-link  to="/create"><button class="button">Mint an NFT</button></router-link > -->
               <router-link  to="/"><button class="button" @click="logout">Disconnect</button></router-link >
-              <!-- <RatesListing :amount="profile.accountInfo.balance"/> -->
-              <!-- <router-link class="profileBtn mintBtn" to="/create">Mint an NFT</router-link>
-              <router-link  class="profileBtn logoutBtn" to="/">Disconnect</router-link > -->
             </div>
           </div>
         </div>

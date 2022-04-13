@@ -2,6 +2,9 @@
 <div id="asset-details">
   <div v-if="!loading && gaiaAsset && loopRun">
     <AssetDetailsSectionV1 :gaiaAsset="gaiaAsset" :loopRun="loopRun"/>
+    <div class="container">
+      <NFTHistory :loopRun="loopRun" :nftIndex="gaiaAsset.nftIndex" :assetHash="gaiaAsset.tokenInfo ? gaiaAsset.tokenInfo.assetHash : null"/>
+    </div>
   </div>
 </div>
 </template>
@@ -9,12 +12,13 @@
 <script>
 import AssetDetailsSectionV1 from '@/views/marketplace/components/gallery/AssetDetailsSectionV1'
 import { APP_CONSTANTS } from '@/app-constants'
+import NFTHistory from '@/views/marketplace/components/toolkit/nft-history/NftHistory.vue'
 
 export default {
   name: 'AssetDetails',
   components: {
-    AssetDetailsSectionV1
-
+    AssetDetailsSectionV1,
+    NFTHistory
   },
   data: function () {
     return {
@@ -83,5 +87,11 @@ export default {
 *{ color: black}
 #asset-details{
   min-height: 100px;
+}
+.container{
+  margin-top: 50px;
+  max-width: 1100px;
+  margin-bottom: 50px;
+  /* padding: 20px; */
 }
 </style>
