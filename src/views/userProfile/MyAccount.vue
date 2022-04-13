@@ -1,16 +1,19 @@
 <template>
   <div class="viewContainer" v-if="loading === true">
+    <div class="btn-div" v-if="transaction">
+      <a @click="transaction = false" class="backBtn" ><b-icon class="icon-button" icon="chevron-left" shift-h="-3"></b-icon> Back </a>
+    </div>
     <div class="profileContainer">
       <div class="profile">
           <div class="profileItems">
             <img class="profileImg" src="https://res.cloudinary.com/risidio/image/upload/v1637580392/RisidioMarketplace/depositphotos_137014128-stock-illustration-user-profile-icon_splob8.jpg" alt="">
             <p title='edit your profile' style="width: 25px; -webkit-transform: scaleX(-1);transform: scaleX(-1);" class="pencil">&#9998;</p>
           </div>
-          <div class="usernameContainer">
+          <div v-if="!transaction" class="usernameContainer">
             <div class="usernameEdit" >
               <input type="text" placeholder="Username"><span style="width: 35px; -webkit-transform: scaleX(-1);transform: scaleX(-1);" title='edit your profile' class="">&#9998;</span>
             </div>
-            <router-link to="/user-transaction"><p class="profile-history" >View Transaction History</p></router-link>
+            <p  class="profile-history" @click="viewTransaction()" >View Transaction History</p>
           </div>
         </div>
         <div class="walletContainer">
@@ -40,7 +43,7 @@
           </div>
         </div>
     </div>
-    <div class="galleryContainerLimited">
+    <div v-if="!transaction" class="galleryContainerLimited">
       <div>
         <b-nav class="galleryNav" >
           <div class="galleryNavContainer" >
@@ -96,12 +99,16 @@
         </div>
       </div>
     </div>
+    <div v-else>
+        <UserTransaction :loopRun="loopRun"/>
+    </div>
   </div>
 </template>
 
 <script>
 
 import MyPageableItems from '@/views/marketplace/components/gallery/MyPageableItems'
+import UserTransaction from './UserTransaction.vue'
 import { APP_CONSTANTS } from '@/app-constants'
 import utils from '@/services/utils'
 // import MySingleItem from '../marketplace/components/gallery/MySingleItem.vue'
@@ -109,7 +116,8 @@ import utils from '@/services/utils'
 export default {
   name: 'MyAccount',
   components: {
-    MyPageableItems
+    MyPageableItems,
+    UserTransaction
     // MySingleItem
   },
   data () {
@@ -131,7 +139,8 @@ export default {
       saleItem: [],
       defaultRate: null,
       currencyPreference: null,
-      favouriteNfts: []
+      favouriteNfts: [],
+      transaction: false
     }
   },
   mounted () {
@@ -182,6 +191,9 @@ export default {
         })
         $self.loaded = true
       })
+    },
+    viewTransaction () {
+      this.transaction = true
     },
     viewInfo (pressed) {
       if (pressed === 1) {
@@ -413,6 +425,14 @@ export default {
 .walletCurrency > * {
   flex: 1 1 120px;
 }
+.backBtn {
+  display: flex;
+  color: #170a6d;
+  font: normal normal bold 11px/14px Montserrat;
+  cursor: pointer;
+  position: absolute;
+  top: -20px;
+}
 .filesContainer {
   min-width: 100%;
   margin: 50px auto;
@@ -422,42 +442,7 @@ export default {
   padding: 20px;
   max-width: 1135px;
   height: 100%;
-
-  .galleryNav {
-    margin: auto;
-    margin-top: 50px;
-    margin-bottom: 70px;
-    width: 100%;
-    justify-items: center;
-    align-items: center;
-    border-bottom: solid rgba(128, 128, 128, 0.112) 1px;
-  }
-  .galleryNavContainer {
-    margin: auto;
-    margin-bottom: -1px;
-    // width: 50%;
-    display: flex;
-    flex-direction: row;
-  }
-
-  .galleryNavItem {
-    text-align: center;
-    width: fit-content;
-    padding: 10px;
-    margin: auto;
-    border: solid rgba(255, 255, 255, 0) 2px;
-    font-size: 12px;
-    font-weight: 500;
-    margin: 0 10px;
-  }
-  .galleryNavItem:focus {
-    color: red;
-  }
-
-  .galleryNavItem:hover,
-  .galleryNavItem.active {
-    border-bottom: 2px solid #50b1b5;
-  }
+  position: relative;
 }
 .yourItems {
   display: block;
