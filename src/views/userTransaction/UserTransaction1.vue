@@ -1,16 +1,13 @@
 <template>
+    <div class="launchS1">
   <div class="viewContainer" v-if="loading === true">
-    <div class="profileContainer">
+       <div class="btn-div"><a @click="$router.go(-1)" class="backBtn" >
+    <b-icon class="icon-button" icon="chevron-left" shift-h="-3"></b-icon> Back </a></div>
+        <div class="profileContainer">
       <div class="profile">
           <div class="profileItems">
             <img class="profileImg" src="https://res.cloudinary.com/risidio/image/upload/v1637580392/RisidioMarketplace/depositphotos_137014128-stock-illustration-user-profile-icon_splob8.jpg" alt="">
             <p title='edit your profile' style="width: 25px; -webkit-transform: scaleX(-1);transform: scaleX(-1);" class="pencil">&#9998;</p>
-          </div>
-          <div class="usernameContainer">
-            <div class="usernameEdit" >
-              <input type="text" placeholder="Username"><span style="width: 35px; -webkit-transform: scaleX(-1);transform: scaleX(-1);" title='edit your profile' class="">&#9998;</span>
-            </div>
-            <router-link to="/user-transaction"><p class="profile-history" >View Transaction History</p></router-link>
           </div>
         </div>
         <div class="walletContainer">
@@ -24,7 +21,7 @@
             <div class="walletCurrency">
               <div>
                 <p style="font: normal normal 300 12px/15px Montserrat;">Credit Remaining:</p>
-                <pre id="stxInfo" style="font: normal normal 300 15px/19px Montserrat;"> <span style="color: rgba(81, 84, 161, 1); font: normal normal 600 12px/15px Montserrat;" v-if="profile && profile.accountInfo">{{profile.accountInfo.balance || 5}}</span>  STX</pre>
+                <pre id="stxInfo" style="font: normal normal 300 15px/19px Montserrat;"> <span style="color: rgba(81, 84, 161, 1); font: normal normal 600 12px/15px Montserrat;" v-if="profile && profile.accountInfo">{{profile.accountInfo.balance || 9}}</span>  STX</pre>
               </div>
               <div>
                   <pre v-if="currencyPreference && currencyPreference.text" class="figure" style="font: normal normal 300 15px/19px Montserrat;"><span style="color: rgba(81, 84, 161, 1); font: normal normal 600 12px/15px Montserrat;">{{yourSTX}}</span> {{currency ? currency : currencyPreference.text || null}}</pre>
@@ -35,82 +32,25 @@
               </div>
             </div>
             <div class="profileBtns">
+              <!-- <router-link  to="/create"><button class="button">Mint an NFT</button></router-link > -->
               <router-link  to="/"><button class="button" @click="logout">Disconnect</button></router-link >
+              <!-- <RatesListing :amount="profile.accountInfo.balance"/> -->
+              <!-- <router-link class="profileBtn mintBtn" to="/create">Mint an NFT</router-link>
+              <router-link  class="profileBtn logoutBtn" to="/">Disconnect</router-link > -->
             </div>
           </div>
         </div>
     </div>
-    <div class="galleryContainerLimited">
-      <div>
-        <b-nav class="galleryNav" >
-          <div class="galleryNavContainer" >
-            <b-nav-item id="NFT" class="galleryNavItem active" @click="tabChange('NFT')">Your NFTs</b-nav-item>
-            <b-nav-item id="Sale" class="galleryNavItem" @click="tabChange('Sale')">Your NFTs On Sale</b-nav-item>
-            <b-nav-item id="Fav" class="galleryNavItem" @click="tabChange('Fav')">Your Favourites</b-nav-item>
-          </div>
-        </b-nav>
-      </div>
-      <div v-if="tab === 'NFT' && loopRun" class="">
-        <div>
-          <MyPageableItems :loopRun="loopRun" :resultSet="resultSet"/>
-          <router-link to="/gallery" style="font: normal normal bold 11px/14px Montserrat; display: block; text-align: center; margin-top: 50px"><!--<span style="color: #5FBDC1; ">Want More ? See The Gallery</span>--></router-link>
-        </div>
-          <div class="pagination-container" v-if="tab === 'NFT'">
-            <p v-if="numberOfItems > pageSize && page > 0 " v-on:click="previousPage()"> &lt; Previous </p>
-            <div v-for="(item, index) in pages" :key="index"><span v-on:click="pageNumberChange(index)">{{item}}</span></div>
-            <p v-if="numberOfItems > pageSize && numberOfItems !== pageSize * (page + 1)" v-on:click="nextPage()">Next ></p>
-          </div>
-      </div>
-      <div v-else-if="saleItem.length > 0 && tab === 'Sale'" >
-        <div>
-          <MyPageableItems :loopRun="loopRun" :resultSet="saleItem"/>
-          <router-link to="/gallery" style="font: normal normal bold 11px/14px Montserrat; display: block; text-align: center; margin-top: 50px"><!--<span style="color: #5FBDC1; ">Want More ? See The Gallery</span>--></router-link>
-        </div>
-      </div>
-      <div v-else-if="saleItem.length === 0 && tab === 'Sale'">
-        <div class="noNFT">
-          <h3> You do not own any items on sale</h3>
-          <div class="profileBtns">
-            <router-link class="button filled" to="/">Explore Gallery</router-link>
-            <!-- <router-link class="button notFilledBlue" to="/create">Mint Your Item</router-link> -->
-          </div>
-        </div>
-      </div>
-      <div v-else-if="tab === 'Fav' && favouriteNfts">
-            <MyPageableItems :loopRun="loopRun" :resultSet="favouriteNfts"/>
-        <div class="profileBtns">
-          <router-link class="button filled" to="/">Explore Gallery</router-link>
-          <!-- <router-link class="button notFilledBlue" to="/create">Mint Your Item</router-link> -->
-        </div>
-      </div>
-      <div v-else-if="tab === 'Fav' && !favouriteNfts" class="noNFT">
-        <h3> You do not have any favourite items</h3>
-      </div>
-      <div v-else>
-        <div class="noNFT">
-        <h3> You do not own any Items yet</h3>
-          <div class="profileBtns">
-            <router-link class="button filled" to="/">Explore Gallery</router-link>
-            <!-- <router-link class="button notFilledBlue" to="/create">Mint Your Item</router-link> -->
-          </div>
-        </div>
-      </div>
-    </div>
   </div>
+    </div>
 </template>
 
 <script>
-
-import MyPageableItems from '@/views/marketplace/components/gallery/MyPageableItems'
 import { APP_CONSTANTS } from '@/app-constants'
 import utils from '@/services/utils'
-// import MySingleItem from '../marketplace/components/gallery/MySingleItem.vue'
-
 export default {
-  name: 'MyAccount',
+  name: 'UserTrasaction1',
   components: {
-    MyPageableItems
-    // MySingleItem
   },
   data () {
     return {
@@ -121,7 +61,7 @@ export default {
       currency: '',
       profileInfo: {},
       tab: 'NFT',
-      pageSize: 8,
+      pageSize: 20,
       page: 0,
       loopRun: null,
       numberOfItems: null,
@@ -129,6 +69,7 @@ export default {
       resultSet: [],
       allocations: [],
       saleItem: [],
+      // amount: null,
       defaultRate: null,
       currencyPreference: null,
       favouriteNfts: []
@@ -137,10 +78,10 @@ export default {
   mounted () {
     this.fetchFullRegistry()
     // this.fetchLoopRun()
-    this.calcRates()
     const tickerRates = this.$store.getters[APP_CONSTANTS.KEY_TICKER_RATES]
     this.defaultRate = tickerRates[0].currency
     this.loading = false
+    this.fetchSaleItem()
     this.setSTX()
     // this.yourSTX = this.profile.accountInfo.balance
     // let currentRunKey = 'indige5'
@@ -155,12 +96,8 @@ export default {
       this.loading = true
       // this.fetchLoopRun()
     },
-    'profile' () {
-      this.calRates()
-    },
-    'numberOfItems' () {
-      this.getPageNumbers()
-      this.getSaleData()
+    'resultSet' () {
+      this.fetchSaleItem()
     },
     'page' () {
       this.fetchAllocations()
@@ -205,35 +142,40 @@ export default {
         this.$store.commit(APP_CONSTANTS.SET_WEB_WALLET_NEEDED)
       })
     },
-    getPageNumbers () {
-      const pageNumbers = this.numberOfItems / this.pageSize
-      const page = []
-      for (let i = 1; i <= pageNumbers; i++) {
-        page.push(i)
-      }
-      console.log('pages', page)
-      this.pages = page
-    },
-    pageNumberChange (item) {
-      this.page = item
-    },
     nextPage () {
-      this.page += 1
+      if (this.page === 0) {
+        this.page += 1
+      }
+      if ((this.page * this.pageSize) < this.tokenCount) {
+        this.page += 1
+      }
     },
     previousPage () {
       this.page -= 1
     },
+    fetchSaleItem () {
+      if (this.resultSet && this.resultSet.length > 0) this.saleItem = this.resultSet.filter((nft) => nft.contractAsset && nft.contractAsset.listingInUstx && nft.contractAsset.listingInUstx.price > 0)
+    },
     fetchAllocations () {
       if (!this.loopRun) return
+      const params = { stxAddress: this.profile.stxAddress, contractId: this.loopRun.contractId }
+      this.$store.dispatch('rpayTransactionStore/fetchByContractIdAndFrom', params).then((results) => {
+        this.allocations = results || []
+      }).catch((error) => {
+        console.log(error)
+      })
       const data = {
+        // runKey: 'indige-mint',
         stxAddress: this.profile.stxAddress,
         asc: true,
         page: this.page,
         pageSize: this.pageSize
+        // contractId: 'ST1NXBK3K5YYMD6FD41MVNP3JS1GABZ8TRVX023PT.indige-mint'
       }
       this.$store.dispatch('rpayStacksContractStore/fetchMyTokensCPSV2', data).then((result) => {
-        this.resultSet = result.gaiaAssets.filter((res) => res.contractId !== null)
-        this.numberOfItems = result.tokenCount
+        this.resultSet = result.gaiaAssets.reverse() // this.resultSet.concat(results)
+        this.tokenCount = result.tokenCount
+        this.numberOfItems = result.gaiaAssets.length
         this.loading = true
       }).catch((error) => {
         console.log(error.message)
@@ -251,23 +193,12 @@ export default {
       this.yourSTX = getRate.value
       const object = JSON.stringify(getRate)
       localStorage.setItem('currencyPreferences', object)
-    },
-    getSaleData () {
-      const data = {
-        stxAddress: this.profile.stxAddress,
-        asc: true,
-        page: 0,
-        pageSize: this.numberOfItems
-      }
-      this.$store.dispatch('rpayStacksContractStore/fetchMyTokensCPSV2', data).then((result) => {
-        this.saleItem = result.gaiaAssets.filter((nft) => nft.contractAsset && nft.contractAsset.listingInUstx && nft.contractAsset.listingInUstx.price > 0)
-      }).catch((error) => {
-        console.log(error.message)
-      })
+      // e.current.value
     },
     tabChange (tab) {
       this.tab = tab
       document.getElementById('NFT').classList.remove('active')
+      document.getElementById('Item').classList.remove('active')
       document.getElementById('Sale').classList.remove('active')
       document.getElementById('Fav').classList.remove('active')
       document.getElementById(tab).classList.add('active')
@@ -278,7 +209,7 @@ export default {
   },
   computed: {
     application () {
-      const application = this.$store.getters[APP_CONSTANTS.KEY_APPLICATION_FROM_REGISTRY_BY_CONTRACT_ID]('ST1NXBK3K5YYMD6FD41MVNP3JS1GABZ8TRVX023PT.indige-art')
+      const application = this.$store.getters[APP_CONSTANTS.KEY_APPLICATION_FROM_REGISTRY_BY_CONTRACT_ID]('ST1NXBK3K5YYMD6FD41MVNP3JS1GABZ8TRVX023PT.indige-mint')
       return application
     },
     showAdmin () {
@@ -333,11 +264,20 @@ export default {
       const tickerRates = this.$store.getters[APP_CONSTANTS.KEY_TICKER_RATES]
       const profile = this.$store.getters[APP_CONSTANTS.KEY_PROFILE]
       const options = []
-      const stxToBtc = tickerRates[0].stxPrice / tickerRates[0].last
+      // const stxToBtc = tickerRates[0].stxPrice / tickerRates[0].last
+      // options.push({
+      //   text: 'BTC',
+      //   value: utils.toDecimals(stxToBtc * profile?.accountInfo?.balance, 100000)
+      // })
+      // const stxToETh = tickerRates[0].stxPrice / tickerRates[0].ethPrice
+      // options.push({
+      //   text: 'ETH',
+      //   value: utils.toDecimals(stxToETh * profile?.accountInfo?.balance, 100000)
+      // })
       tickerRates.forEach((rate) => {
         options.push({
           text: rate.currency,
-          value: utils.toDecimals(rate.stxPrice * profile?.accountInfo?.balance)
+          value: utils.toDecimals(rate.stxPrice * profile.accountInfo.balance)
         })
       })
       return options
@@ -351,34 +291,22 @@ export default {
   max-width: 1135px;
   margin: auto;
 }
+.launchS1{
+}
 .profile {
   max-width: 900px;
   // padding: 0 100px;
   margin: 0 auto;
 }
 .pagination-container {
-  padding: 50px;
   max-width: 300px;
   margin: auto;
   text-align: center;
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: center;
+  column-gap: 10px;
   p {
-    font: normal normal bold 12px/15px Montserrat;
-    color: #50b1b5;
-    cursor: pointer;
-    &:hover {
-      text-decoration: underline;
-    }
-  }
-  div {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-  }
-  span {
     font: normal normal bold 12px/15px Montserrat;
     color: #50b1b5;
     cursor: pointer;
@@ -418,10 +346,11 @@ export default {
   margin: 50px auto;
 }
 .viewContainer {
-  margin: 100px auto;
+  margin: 50px auto;
   padding: 20px;
   max-width: 1135px;
   height: 100%;
+  position: relative;
 
   .galleryNav {
     margin: auto;
@@ -481,11 +410,41 @@ export default {
   height: 149px;
   display: block;
   margin: auto;
+  margin-top:30px;
   border-radius: 50%;
   object-fit: cover;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
 }
+.backBtn {
+  display: flex;
+  color: #170a6d;
+  font: normal normal bold 11px/14px Montserrat;
+  cursor: pointer;
+  left: -80px;
+  top: 10px;
+  position:absolute;
 
+  }
+ @media(max-width: 1632px){
+    .backBtn {
+  display: flex;
+  position:absolute;
+  left: 10px;;
+  }
+  }
+  @media(max-width: 700px){
+    .backBtn {
+  display: flex;
+  position:absolute;
+  }
+  }
+.btn-div{
+  margin-top:40px;
+  }
+// .icon-button{
+//   margin-top:50px;
+
+// }
 .pencil {
   background: white;
   color: lightseagreen;
@@ -612,6 +571,7 @@ export default {
     font-weight: 700;
     color: rgb(222, 146, 123);
   }
+
   .notFilled {
     display: block;
     background-color: rgba(255, 255, 255, 0);
