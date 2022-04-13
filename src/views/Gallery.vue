@@ -135,7 +135,9 @@
                   <div v-else  class="imageGrid">
                     <div v-for="(item, index) in resultSet" :key="index">
                       <div>
+                        <b-link class="galleryNFTContainer" v-bind:to="'/nfts/' + item.contractAsset.contractId + '/' + item.contractAsset.nftIndex">
                         <img :src="item.image" alt="Risidio Gallery" class="mobile-square-display-img">
+                        </b-link>
                       </div>
                     </div>
                   </div>
@@ -164,7 +166,7 @@ export default {
       view: 'squared',
       searched: [],
       grid: false,
-      filterToggle: false,
+      filterToggle: true,
       collectionToggle: false
     }
   },
@@ -223,7 +225,7 @@ export default {
       const $self = this
       this.$store.dispatch('rpayProjectStore/fetchProjectsByStatus', '').then((projects) => {
         $self.projects = utils.sortResults(projects)
-        this.sortCollection(projects.find((project) => project.contractId === 'ST1NXBK3K5YYMD6FD41MVNP3JS1GABZ8TRVX023PT.indige-mint'))
+        this.sortCollection(projects.find((project) => project.contractId === 'ST1NXBK3K5YYMD6FD41MVNP3JS1GABZ8TRVX023PT.loopbomb-stx-t1'))
         $self.projects.forEach((p) => {
           const application = this.$store.getters[APP_CONSTANTS.KEY_APPLICATION_FROM_REGISTRY_BY_CONTRACT_ID](p.contractId)
           p.application = application
@@ -451,6 +453,9 @@ export default {
   }
   .arrow2 {
     margin-left: -80px;
+  }
+  .mainGallery{
+    margin-bottom: 100px;
   }
 }
 @media only screen and (max-width: 1000px) {
