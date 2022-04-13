@@ -577,8 +577,8 @@ export default {
 .backBtn {
   color: #170a6d;
   font: normal normal bold 11px/14px Montserrat;
-  margin-bottom: 30px;
   cursor: pointer;
+  position: relative;
 }
 .button {
   width: 120px;
