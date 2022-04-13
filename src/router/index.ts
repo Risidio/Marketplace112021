@@ -25,6 +25,7 @@ const QandA = () => import('@/views/QandA.vue')
 const errorFour = () => import('@/views/FourOFour.vue')
 const AdminPage = () => import('@/views/AdminPage.vue')
 const MyAccount = () => import('@/views/userProfile/MyAccount.vue')
+const UserTransaction = () => import('@/views/collections/UserTransaction.vue')
 
 Vue.use(VueRouter)
 
@@ -56,6 +57,12 @@ const routes: Array<RouteConfig> = [
     path: '/my-account',
     name: 'my-account',
     components: { default: MyAccount, header: MainNavbar, footer: MainFooter },
+    meta: { title: 'Your Account - Risidio' }
+  },
+  {
+    path: '/user-transaction',
+    name: 'user-transaction',
+    components: { default: UserTransaction, header: MainNavbar, footer: MainFooter },
     meta: { title: 'Your Account - Risidio' }
   },
   {
