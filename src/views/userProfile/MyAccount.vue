@@ -146,7 +146,6 @@ export default {
   mounted () {
     this.fetchFullRegistry()
     // this.fetchLoopRun()
-    this.calcRates()
     const tickerRates = this.$store.getters[APP_CONSTANTS.KEY_TICKER_RATES]
     this.defaultRate = tickerRates[0].currency
     this.loading = false
@@ -183,7 +182,7 @@ export default {
       const $self = this
       this.$store.dispatch('rpayProjectStore/fetchProjectsByStatus', '').then((projects) => {
         $self.projects = utils.sortResults(projects)
-        this.loopRun = projects.find((project) => project.contractId === 'ST1NXBK3K5YYMD6FD41MVNP3JS1GABZ8TRVX023PT.indige-art')
+        this.loopRun = projects.find((project) => project.contractId === 'ST1NXBK3K5YYMD6FD41MVNP3JS1GABZ8TRVX023PT.indige-mint')
         this.fetchAllocations()
         $self.projects.forEach((p) => {
           const application = this.$store.getters[APP_CONSTANTS.KEY_APPLICATION_FROM_REGISTRY_BY_CONTRACT_ID](p.contractId)

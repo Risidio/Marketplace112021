@@ -95,7 +95,7 @@ const routes: Array<RouteConfig> = [
     meta: { title: 'Launch Collection Featuring Benny' }
   },
   {
-    path: '/indige_art',
+    path: '/indige_mirror',
     name: 'indige-collecion',
     components: { default: IndigeCollection, header: MainNavbar, footer: MainFooter },
     meta: { title: 'The Indige Collection' }
