@@ -12,8 +12,8 @@
           </div>
             </div>
         <div @click="showModel()" id="video-column" :style="dimensions" style="position: relative;">
-          <div style="font-weight: 600; font-size: 0.9rem" :class="['text-center', 'on-auction-text', 'ml-3', 'py-3', 'px-4','text-white','label-button', { 'bg-secondary': salesBadgeLabel === 'not on sale'}, { 'bg-secondary2': salesBadgeLabel === 'on sale'}]">
-                  <div style="color: white;">{{salesBadgeLabel}}</div>
+          <div style="font-weight: 600; font-size: 1.0rem" :class="[ 'on-auction-text','text-white','label-button', { 'bg-secondary': salesBadgeLabel === 'not on sale'}, { 'bg-secondary2': salesBadgeLabel === 'on sale'}]">
+                  <div style="color: white; text-align: center;">{{salesBadgeLabel}}</div>
                 </div>
           <MediaItemGeneral :classes="'hash1-image'" v-on="$listeners" :options="videoOptions" :mediaItem="gaiaAsset"/>
           <div class="editions"> <h2>EDITION <span>{{gaiaAsset.contractAsset.tokenInfo.edition}}</span> / {{gaiaAsset.contractAsset.tokenInfo.maxEditions}}</h2></div>
@@ -567,16 +567,16 @@ export default {
 }
 .bg-secondary {
   width: 85px;
-  height: 30px;
+  height: 28px;
   background-color: #5154A1 !important;
   position: relative;
 }
 .bg-secondary::after {
   content: '';
   position: absolute;
-  top: 0px;
+  top: -1px;
   left: 84px;
-  width: 40px;
+  width: 43px;
   height: 30px;
   background: #5154A1;
   clip-path: polygon(52% 52%, 0 0, 0 100%);
@@ -604,7 +604,7 @@ export default {
   top: 15px;
   left: 0px;
   position:absolute;
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   font-weight: 600;
   color: white;
 }
