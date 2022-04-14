@@ -11,7 +11,10 @@
           <img class="modelImage" :src="gaiaAsset.image" >
           </div>
             </div>
-        <div @click="showModel()" id="video-column" :style="dimensions">
+        <div @click="showModel()" id="video-column" :style="dimensions" style="position: relative;">
+          <div style="font-weight: 600; font-size: 0.9rem" :class="['text-center', 'on-auction-text', 'ml-3', 'py-3', 'px-4','text-white','label-button', { 'bg-secondary': salesBadgeLabel === 'not on sale'}, { 'bg-secondary2': salesBadgeLabel === 'on sale'}]">
+                  <div style="color: white;">{{salesBadgeLabel}}</div>
+                </div>
           <MediaItemGeneral :classes="'hash1-image'" v-on="$listeners" :options="videoOptions" :mediaItem="gaiaAsset"/>
           <div class="editions"> <h2>EDITION <span>{{gaiaAsset.contractAsset.tokenInfo.edition}}</span> / {{gaiaAsset.contractAsset.tokenInfo.maxEditions}}</h2></div>
         </div>
@@ -29,10 +32,6 @@
                 <b-link router-tag="span" v-b-tooltip.hover="{ variant: 'light' }" :title='salesBadgeLabel' class="text-black" variant="outline-success">
                   <b-icon class="ml-2" icon="question-circle"/>
                 </b-link>
-                <div style="font-weight: 600; font-size: 1.2rem" class="text-center on-auction-text ml-3 py-3 px-4 bg-secondary text-white">
-                  <div style="color: white;">{{salesBadgeLabel}}</div>
-                  <!-- <div v-if="showEndTime()">{{biddingEndTime()}}</div> -->
-                </div>
               </div>
               </div>
               <div>
@@ -565,6 +564,49 @@ export default {
   padding: 3px 10px;
   text-align: center;
   font-size: 1.2rem;
+}
+.bg-secondary {
+  width: 85px;
+  height: 30px;
+  background-color: #5154A1 !important;
+  position: relative;
+}
+.bg-secondary::after {
+  content: '';
+  position: absolute;
+  top: 0px;
+  left: 84px;
+  width: 40px;
+  height: 30px;
+  background: #5154A1;
+  clip-path: polygon(52% 52%, 0 0, 0 100%);
+}
+.bg-secondary2 {
+  width: 85px;
+  height: 30px;
+  background-color:#F25F5C !important;
+  position: relative;
+}
+.bg-secondary2::after {
+  content: '';
+  position: absolute;
+  top: 0px;
+  left: 84px;
+  width: 40px;
+  height: 30px;
+  background: #F25F5C;
+  clip-path: polygon(52% 52%, 0 0, 0 100%);
+
+}
+.label-button{
+  display: inline-block;
+  padding: 5px 10px;
+  top: 15px;
+  left: 0px;
+  position:absolute;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: white;
 }
 .on-auction-text {
   text-transform: capitalize;
