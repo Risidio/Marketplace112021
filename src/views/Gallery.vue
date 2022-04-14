@@ -65,7 +65,6 @@
                   </div>
                 </div>
                 </div>
-        <!-- mobile version-->
             <div class="mobilemainGallery">
               <div class="mobiletop">
                 <div>
