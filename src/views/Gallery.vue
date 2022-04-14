@@ -170,6 +170,11 @@ export default {
   },
   mounted () {
     this.fetchFullRegistry()
+    if (JSON.parse(localStorage.getItem('gridPrefrence')) === true) {
+      this.grid = true
+    } else {
+      this.grid = false
+    }
   },
   methods: {
     update (data) {
@@ -236,6 +241,7 @@ export default {
     },
     changeGrid () {
       this.grid = !this.grid
+      localStorage.setItem('gridPrefrence', JSON.stringify(this.grid))
     },
     toggleFilter () {
       this.filterToggle = !this.filterToggle
