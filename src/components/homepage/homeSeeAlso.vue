@@ -25,7 +25,10 @@
                     <!-- <img :src="'https://res.cloudinary.com/risidio/image/upload/f_auto/q_auto:low/indige-testing/' + item.image.split('/')[5]" class="nftGeneralView" style="margin-top: 15px;"/> -->
                     <img :src="item.image" class="nftGeneralView" style="margin-top: 15px;"/>
                       <p class="nFTName" style="margin-top: -5px;"> {{!item.name ? "NFT" : item.name }} <span style="float: right;">{{item.contractAsset.listingInUstx ? item.contractAsset.listingInUstx.price : 0}} STX</span></p>
-                      <p class="nFTArtist">By <span>{{!item.properties.collection ? "Anonymous" : item.properties.collection }}</span><span style="float: right; font-weight: 300">{{changeCurrencyTag() || '£'}} {{changeCurrency(item.contractAsset.listingInUstx.price) || 0}}</span></p>
+                      <p class="nFTArtist">By
+                      <span>{{!item.properties.collection ? "Anonymous" : item.properties.collection }}</span>
+                      <span style="float: right; font-weight: 300">{{changeCurrencyTag() || '£'}} {{ item.contractAsset.listingInUstx ? changeCurrency(item.contractAsset.listingInUstx.price) : 0}}</span>
+                      </p>
                     </router-link>
                   </div>
               </template>
@@ -78,11 +81,11 @@ export default {
     }
   },
   mounted () {
-    console.log('image', this.gaiaAssets)
     this.currencyPreference = JSON.parse(localStorage.getItem('currencyPreferences'))
   },
   methods: {
     changeCurrency (price) {
+      if (!price) return 0
       if (this.currencyPreference) {
         const tickerRates = this.$store.getters[APP_CONSTANTS.KEY_TICKER_RATES]
         const rates = tickerRates.find((rate) => rate.currency === this.currencyPreference.text)

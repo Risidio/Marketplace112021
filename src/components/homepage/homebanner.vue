@@ -203,7 +203,6 @@ export default {
         this.$emit('connect-login', myProfile)
       } else {
         this.$store.dispatch('rpayAuthStore/startLogin').then((profile) => {
-          console.log(profile)
           location.reload()
         }).catch(() => {
           this.$store.commit(APP_CONSTANTS.SET_WEB_WALLET_NEEDED)
@@ -350,13 +349,13 @@ export default {
 .vueperslide {
   background-color: rgba(255, 255, 255, 0.637);
   border-radius: 30px;
-  }
-  .vueperslides__bullet--active .default {
-    border-width: 6px;
-    border-color: white;
 }
- .vueperslides__bullets .default{
-  background-color: #50B1B5;
+.vueperslides__bullet--active .default {
+  border-width: 6px;
+  border-color: white;
+}
+.vueperslides__bullets .default {
+  background-color: #50b1b5;
 }
 .vueperslides--fixed-height {
   height: 287px;
@@ -480,7 +479,7 @@ export default {
   letter-spacing: 1px;
   font: normal normal 300 30px/55px Montserrat;
 }
-.bullets--bullet{
+.bullets--bullet {
   color: red;
 }
 .mobileHeader {
@@ -490,7 +489,7 @@ export default {
   display: block;
 }
 @media only screen and (max-width: 720px) {
-.vueperslides--fixed-height {
+  .vueperslides--fixed-height {
     max-width: 1135px;
   }
 }

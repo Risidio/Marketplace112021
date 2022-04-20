@@ -151,7 +151,6 @@ export default {
         this.$emit('connect-login', myProfile)
       } else {
         this.$store.dispatch('rpayAuthStore/startLogin').then((profile) => {
-          console.log(profile)
           location.reload()
         }).catch(() => {
           this.$store.commit(APP_CONSTANTS.SET_WEB_WALLET_NEEDED)
@@ -163,7 +162,6 @@ export default {
       window.open('https://www.hiro.so/wallet', '_blank')
     },
     checkScreen () {
-      console.log('c')
       this.windowWidth = window.innerWidth
       if (this.windowWidth < 840) {
         this.touchableSlide = true
@@ -178,38 +176,40 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.oneTwoThreeFour{
+.oneTwoThreeFour {
   color: white;
   font-size: 5rem;
   font-weight: 200;
   margin-bottom: 5rem;
 }
-.homeInfo{
+.homeInfo {
   min-height: 800px;
-  background: transparent linear-gradient(180deg, rgba(54, 24, 165, 0.925) 0%, rgb(16, 29, 92) 100%) 0% 0% no-repeat padding-box;
+  background: transparent
+    linear-gradient(180deg, rgba(54, 24, 165, 0.925) 0%, rgb(16, 29, 92) 100%)
+    0% 0% no-repeat padding-box;
   padding: 10rem 1rem;
   color: white;
   text-align: center;
 }
 .homeText > * {
-  color:white;
+  color: white;
   max-width: 800px;
-  margin: 10px auto
+  margin: 10px auto;
 }
-.textCon{
+.textCon {
   min-height: 30px;
-  & button{
+  & button {
     margin: auto;
   }
   & a:hover {
     color: white;
   }
 }
-.button{
+.button {
   margin: 50px auto;
 }
 
-.homeInfoContainer{
+.homeInfoContainer {
   max-width: 1135px;
   margin: auto;
   display: flex;
@@ -219,34 +219,34 @@ export default {
   flex-direction: row;
   flex: 1 1 400px;
   text-align: center;
-  img{
+  img {
     border-radius: 10px;
     display: block;
-    margin:20px auto;
+    margin: 20px auto;
     max-width: 100%;
     max-height: 300px;
   }
-  p{
+  p {
     font: normal normal 300 14px/18px Montserrat;
     display: block;
-    margin:auto;
+    margin: auto;
     color: white;
   }
 }
-.vueperslides--fixed-height{
+.vueperslides--fixed-height {
   height: 450px;
 }
-.slide-con{
+.slide-con {
   margin-top: 70px;
 }
-.slide-con-not-logged{
+.slide-con-not-logged {
   margin-top: 40px;
 }
 .vueperslide {
-  background-color:transparent;
+  background-color: transparent;
 }
 
-.homeInfoText{
+.homeInfoText {
   max-width: 275px;
   padding-bottom: 50px;
 }

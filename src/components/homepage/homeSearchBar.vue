@@ -41,8 +41,6 @@ export default {
     searchWord (e) {
       this.currentSearch = e.target.value
       this.$store.state.contentStore.content.searchWord = this.currentSearch
-      console.log(e.target.value)
-      console.log(this.$store.state.contentStore.content.searchWord)
     },
     openSearchBar () {
       this.showSearchBar = !this.showSearchBar
@@ -214,7 +212,6 @@ export default {
     justify-content: flex-end;
   }
 }
-@media only screen and (max-width: 720px){
-
+@media only screen and (max-width: 720px) {
 }
 </style>
