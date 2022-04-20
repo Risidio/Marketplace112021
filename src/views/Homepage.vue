@@ -1,7 +1,7 @@
 <template>
     <section v-if="!loading" class="homepage">
       <HomeBanner v-bind:profile='profile' :content="content"/>
-      <HomeMarket v-bind:profile='profile' :gaiaAssets="resultSet.slice(0, 8)"/>
+      <HomeMarket v-bind:profile='profile' :gaiaAssets="resultSet"/>
       <HomeInfo v-bind:profile='profile' :content="content"/>
       <HomeSeeAlso v-bind:profile='profile' :gaiaAssets="resultSet"/>
       <HomeBottomBanner v-bind:profile='profile' :content="content"/>

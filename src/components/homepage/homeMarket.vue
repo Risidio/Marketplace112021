@@ -47,7 +47,7 @@
 <div v-else>
     <div class="homeMarketItems">
         <div class="galleryContainer" v-if="gaiaAssets && gaiaAssets.length > 0 && tab === 'discover' && shownAssets.length == 0">
-            <div v-for="(item, index) in gaiaAssets" :key="index" class="NFTbackgroundColour" >
+            <div v-for="(item, index) in gaiaAssets.slice(0, 8)" :key="index" class="NFTbackgroundColour" >
                 <div class="">
                     <b-link class="galleryNFTContainer" :to="assetUrl(item)" v-if="item && item.contractAsset">
                   <!-- <img class="nftGeneralView" :src="'https://res.cloudinary.com/risidio/image/upload/f_auto/q_auto:low/indige-testing/' + item.image.split('/')[5]"/> -->
@@ -112,7 +112,7 @@ export default {
   mounted () {
     window.addEventListener('mouse-move', this.checkScreen)
     this.currencyPreference = JSON.parse(localStorage.getItem('currencyPreferences'))
-    this.mobileAssets = this.gaiaAssets.slice(0, 2)
+    this.mobileAssets = this.gaiaAssets
     this.findAssets()
   },
   created () {
@@ -125,7 +125,6 @@ export default {
       document.getElementById('discover').classList.remove('active')
       document.getElementById('collections').classList.remove('active')
       document.getElementById(tab).classList.add('active')
-      console.log(this.tab)
     },
     showCollections () {
       const collection = document.getElementsByClassName('collectionsMenu')[0]
@@ -158,6 +157,7 @@ export default {
       }
     },
     changeCurrency (price) {
+      if (!price) return 0
       if (this.currencyPreference) {
         const tickerRates = this.$store.getters[APP_CONSTANTS.KEY_TICKER_RATES]
         const rates = tickerRates.find((rate) => rate.currency === this.currencyPreference.text)
@@ -197,13 +197,16 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-p{padding:0; margin:0;}
-.homeMarket{
+p {
+  padding: 0;
+  margin: 0;
+}
+.homeMarket {
   width: 90%;
   min-height: 80rem;
   margin: 10px auto 70px auto;
 }
-.galleryContainer{
+.galleryContainer {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(255px, max-content));
   gap: 20px;
@@ -211,37 +214,37 @@ p{padding:0; margin:0;}
   justify-content: center;
   margin: auto;
 }
-.homeMarketItems{
+.homeMarketItems {
   max-width: 1800px;
   margin: auto;
 }
-.comingSoon{
+.comingSoon {
   display: grid;
   place-items: center;
   max-width: 400px;
   margin: auto;
 }
-.button{
+.button {
   margin: 50px auto;
   font: normal normal bold 11px/14px Montserrat;
 }
-.createCollection{
+.createCollection {
   text-align: center;
-  .title{
+  .title {
     margin-top: 35px;
     color: white;
     font: normal normal medium 14px/18px Montserrat;
   }
-  .text{
+  .text {
     color: white;
     font: normal normal normal 12px/20px Montserrat;
   }
-  button{
+  button {
     padding: 15px 40px;
-    background: rgba(255, 255, 255, 0.20);
+    background: rgba(255, 255, 255, 0.2);
     transition: all 0.5s ease-in-out;
 
-    &:hover{
+    &:hover {
       transform: scale(1.1);
     }
   }

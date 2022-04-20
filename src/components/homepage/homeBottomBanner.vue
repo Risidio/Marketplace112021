@@ -38,7 +38,6 @@ export default {
         this.$emit('connect-login', myProfile)
       } else {
         this.$store.dispatch('rpayAuthStore/startLogin').then((profile) => {
-          console.log(profile)
           location.reload()
         }).catch(() => {
           this.$store.commit(APP_CONSTANTS.SET_WEB_WALLET_NEEDED)
@@ -51,62 +50,62 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.homeBottomBanner{
-    width:100%;
-    margin: auto;
-    min-height: 500px;
-    // max-height: 50vh;
-    background: url(https://res.cloudinary.com/risidio/image/upload/v1633609373/RisidioMarketplace/Group_-304_ofssmk.svg)no-repeat center center;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
+.homeBottomBanner {
+  width: 100%;
+  margin: auto;
+  min-height: 500px;
+  // max-height: 50vh;
+  background: url(https://res.cloudinary.com/risidio/image/upload/v1633609373/RisidioMarketplace/Group_-304_ofssmk.svg)
+    no-repeat center center;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 }
-.homeBottomContainer{
-    display:flex;
-    flex-direction: column;
-    margin: auto auto;
-    padding-top: 100px;
-    text-align: center;
-    max-width: 800px;
-    height: 40rem;
+.homeBottomContainer {
+  display: flex;
+  flex-direction: column;
+  margin: auto auto;
+  padding-top: 100px;
+  text-align: center;
+  max-width: 800px;
+  height: 40rem;
 }
-.homeBottomContainer h2{
-    font-size: 40px;
-    font-weight: 200;
-    margin-bottom: 50px;
-    color: white;
+.homeBottomContainer h2 {
+  font-size: 40px;
+  font-weight: 200;
+  margin-bottom: 50px;
+  color: white;
 }
-.homeBottomContainer h3{
-    font-size: 17px;
-    color: white;
-    margin-bottom: 50px;
+.homeBottomContainer h3 {
+  font-size: 17px;
+  color: white;
+  margin-bottom: 50px;
 }
-.button{
+.button {
   width: 180px;
   padding: 15px;
   text-align: center;
   display: grid;
   place-items: center;
 }
-.buttonCont{
-    display: flex;
-    justify-content: center;
-    &>*{
-        margin-left: 10px;
-        margin-right: 10px;
-    }
-    & a:hover{
-      color: white;
-    }
+.buttonCont {
+  display: flex;
+  justify-content: center;
+  & > * {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+  & a:hover {
+    color: white;
+  }
 }
-@media only screen and (max-width: 520px){
-  .homeBottomContainer h2{
+@media only screen and (max-width: 520px) {
+  .homeBottomContainer h2 {
     font-size: 30px;
   }
-  .homeBottomContainer h3{
+  .homeBottomContainer h3 {
     font-size: 13px;
   }
 }
-
 </style>

@@ -218,7 +218,6 @@ export default {
       }
       this.resultSet = null
       this.$store.dispatch('rpayStacksContractStore/fetchTokensByContractId', data).then((result) => {
-        console.log(result)
         this.resultSet = result.gaiaAssets
         this.numberOfItems = result.tokenCount
         this.loading = false
@@ -459,7 +458,7 @@ export default {
   .arrow2 {
     margin-left: -80px;
   }
-  .mainGallery{
+  .mainGallery {
     margin-bottom: 100px;
   }
 }
