@@ -68,7 +68,8 @@ export default {
       loadingLogo: '../../assets/img/loading-risid.gif',
       activityLoad: true,
       currencyPreference: null,
-      stxTransaction: null
+      stxTransaction: null,
+      isDisabled: false
     }
   },
   mounted () {
@@ -91,23 +92,21 @@ export default {
 /* eslint-disable */
     fetchStxData () {
       axios.get(`https://stacks-node-api.testnet.stacks.co/extended/v1/address/${this.loopRun.contractId}/transactions?limit=30&offset=0&unanchored=false`).then((res) => {
-        console.log(res)
         this.stxTransaction = res.data.results
       }).catch((error) => {
+        this.isDisabled = true
         console.log(error)
       })
-      console.log('hi')
     },
     /* eslint-enable */
     fetchMintPass () {
       if (this.loopRun) {
         const data = {
-          stxAddress: this.profile.stxAddress,
-          contractAddress: this.loopRun.contractId.split('.')[0],
-          contractName: this.loopRun.contractId.split('.')[1],
+          stxAddress: this.loopRun.stxAddress,
+          contractAddress: this.loopRun.contractId?.split('.')[0],
+          contractName: this.loopRun.contractId?.split('.')[1],
           currentRunKey: null
         }
-        console.log(data)
         this.$store.dispatch('rpayMarketStore/lookupMintPassBalance', data).then((result) => {
           if (result && result.result.value > 0) {
             this.mintPasses = Number(result.result.value)
@@ -117,7 +116,6 @@ export default {
             this.mintPassMessage = 'Mint Pass Not Found'
             this.mintPassLoad = false
           }
-          console.log(result)
         }).catch((error) => {
           console.log(error)
         })
@@ -146,13 +144,11 @@ export default {
       modal.style.display = 'none'
     },
     startMint () {
-      console.log('mint')
       const commissionData = {
         contractId: this.loopRun.contractId
       }
       this.$store.dispatch('rpayMarketGenFungStore/getCommissionTokensByContract', commissionData).then((commissions) => {
         if (commissions) {
-          console.log(commissions)
           this.tokenContractId = commissions[0].tokenContractId
           this.commissions = commissions
           this.commission = commissions[0]
@@ -176,7 +172,6 @@ export default {
       data.mintPrice = commission.price
       data.tokenContractAddress = commission.tokenContractId.split('.')[0]
       data.tokenContractName = commission.tokenContractId.split('.')[1]
-      console.log(data)
       this.$store.dispatch('rpayMarketGenFungStore/mintWithToken', data)
     },
     changeCurrency (price) {
@@ -209,36 +204,38 @@ export default {
     },
     setPageSize () {
       this.limit += 15
-      console.log(this.limit)
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-.launchS2{
-    min-height: 50rem;
+.launchS2 {
+  min-height: 50rem;
+  padding: 10px;
+}
+.container {
+  text-align: center;
+  max-width: 800px;
+  h1 {
+    font: normal normal 300 40px/55px Montserrat;
     padding: 10px;
+  }
+  :nth-child(2) {
+    font: normal normal bolder 17px/20px Montserrat;
+    padding: 10px;
+  }
+  :nth-child(3) {
+    font: normal normal normal 14px/20px Montserrat;
+    padding: 10px;
+  }
 }
-.container{
-    text-align: center;
-    max-width: 800px;
-    h1{
-        font: normal normal 300 40px/55px Montserrat;
-        padding: 10px;
-    }
-    :nth-child(2){
-        font: normal normal bolder 17px/20px Montserrat;
-        padding: 10px;
-    }
-    :nth-child(3){
-        font: normal normal normal 14px/20px Montserrat;
-        padding: 10px;
-    }
+p {
+  padding: 0;
+  margin: 0;
 }
-p{padding:0; margin:0;}
 
-.galleryContainer{
+.galleryContainer {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(255px, max-content));
   gap: 20px;
@@ -246,7 +243,7 @@ p{padding:0; margin:0;}
   justify-content: center;
   margin: auto;
 }
-.homeMarketItems{
+.homeMarketItems {
   max-width: 1135px;
   margin: auto;
 }
@@ -264,11 +261,10 @@ p{padding:0; margin:0;}
 //   min-width: 300px;
 //   max-height: 400px;
 // }
-.button{
+.button {
   margin: 50px auto 50px auto;
 }
 #unsold {
   margin-right: 20px;
 }
-
 </style>
