@@ -101,6 +101,10 @@ const routes: Array<RouteConfig> = [
   //   meta: { title: 'The Indige Collection' }
   // },
   {
+    path: '/indige_mirror/',
+    redirect: './indige_mirror/0'
+  },
+  {
     path: '/indige_mirror/:page',
     name: 'indige-collecion',
     components: { default: IndigeCollection, header: MainNavbar, footer: MainFooter },
