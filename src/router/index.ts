@@ -65,11 +65,11 @@ const routes: Array<RouteConfig> = [
     meta: { title: 'How it Works - Risidio' }
   },
   {
-    path: '/explore/',
-    redirect: './explore/ST1NXBK3K5YYMD6FD41MVNP3JS1GABZ8TRVX023PT.rmart-t1'
+    path: '/nft-marketplace/',
+    redirect: './nft-marketplace/ST1NXBK3K5YYMD6FD41MVNP3JS1GABZ8TRVX023PT.rmart-t1'
   },
   {
-    path: '/explore/:title',
+    path: '/nft-marketplace/:title',
     name: 'gallery',
     components: { default: Gallery, header: MainNavbar, footer: MainFooter },
     meta: { title: 'Marketplace for NFTs by the Number One Team Secured by Bitcoin' }

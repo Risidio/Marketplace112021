@@ -6,7 +6,7 @@
                   <button class="collectionsButton" v-on:click="showCollections()">Collections <img class="arrow1 active" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></button>
                   <div class="collectionsMenu active" v-if="projects">
                     <div v-for="(item, index) in projects" :key="index" class="collectionMenuContainer">
-                      <input @click="$router.push('/explore/' + item.contractId)" class="collectionItemRadio" type="radio" :id="item.title"
+                      <input @click="$router.push('/nft-marketplace/' + item.contractId)" class="collectionItemRadio" type="radio" :id="item.title"
                       name="radio" :value="index"
                       :checked="$route.params.title === item.contractId ? true : false"
                       >
