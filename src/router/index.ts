@@ -94,8 +94,18 @@ const routes: Array<RouteConfig> = [
     components: { default: LaunchCollection, header: MainNavbar, footer: MainFooter },
     meta: { title: 'Launch Collection Featuring Benny' }
   },
+  // {
+  //   path: '/indige_mirror/',
+  //   name: 'indige-collecion',
+  //   components: { default: IndigeCollection, header: MainNavbar, footer: MainFooter },
+  //   meta: { title: 'The Indige Collection' }
+  // },
   {
-    path: '/indige_mirror',
+    path: '/indige_mirror/',
+    redirect: './indige_mirror/0'
+  },
+  {
+    path: '/indige_mirror/:page',
     name: 'indige-collecion',
     components: { default: IndigeCollection, header: MainNavbar, footer: MainFooter },
     meta: { title: 'The Indige Collection' }
