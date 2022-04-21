@@ -60,9 +60,11 @@
               </div>
             </div>
             <div class="pagination-container" v-if="tab === 'Items'">
-              <p v-if="numberOfItems > pageSize && page > 0 " v-on:click="$emit('previousPage')"> &lt; Previous </p>
-              <div v-for="(item, index) in pages" :key="index"><span v-on:click="$emit('pageNumber', index)">{{item}}</span></div>
-              <p v-if="numberOfItems > pageSize && numberOfItems !== pageSize * (page + 1)" v-on:click="$emit('nextPage')">Next ></p>
+              <router-link v-if="page > 0" :to="'/indige_mirror/' + (page - 1)">&lt; Previous</router-link>
+              <div v-for="(item, index) in pages" :key="index">
+                <router-link :to="'/indige_mirror/' + item">{{item}}</router-link>
+              </div>
+              <router-link v-if="numberOfItems > pageSize && page !== Math.floor(numberOfItems / pageSize)" :to="'/indige_mirror/' + (page + 1) "> Next ></router-link>
             </div>
             <p v-if="mintPassLoad" class="loading-pass">
               checking mint pass....<br/>
@@ -82,7 +84,7 @@ import ResultSet from '../smallcomponents/ResultSet.vue'
 
 export default {
   name: 'Indige-Collection-S2',
-  props: ['content', 'loopRun', 'resultSet', 'page', 'numberOfItems', 'pageSize'],
+  props: ['content', 'loopRun', 'resultSet', 'numberOfItems', 'pageSize'],
   components: {
     // MyPageableItems
     StxTransaction,
@@ -106,7 +108,8 @@ export default {
       stxTransaction: [],
       limit: 15,
       isDisabled: false,
-      pages: []
+      pages: [],
+      page: parseInt(this.$route.params.page)
     }
   },
   mounted () {
@@ -126,6 +129,9 @@ export default {
     },
     'numberOfItems' () {
       this.getPageNumbers()
+    },
+    '$route' () {
+      this.page = parseInt(this.$route.params.page)
     }
   },
   methods: {
@@ -133,10 +139,9 @@ export default {
     getPageNumbers () {
       let pageNumbers = this.numberOfItems / this.pageSize
       let page = []
-      for (let i = 1; i <= pageNumbers; i++){
+      for (let i = 0; i <= pageNumbers; i++){
         page.push(i)
       }
-      console.log('pages', page)
       this.pages = page
     },
     fetchStxData () {
@@ -193,13 +198,11 @@ export default {
       modal.style.display = 'none'
     },
     startMint () {
-      console.log('mint')
       const commissionData = {
         contractId: this.loopRun.contractId
       }
       this.$store.dispatch('rpayMarketGenFungStore/getCommissionTokensByContract', commissionData).then((commissions) => {
         if (commissions) {
-          console.log(commissions)
           this.tokenContractId = commissions[0].tokenContractId
           this.commissions = commissions
           this.commission = commissions[0]
@@ -223,12 +226,10 @@ export default {
       data.mintPrice = commission.price
       data.tokenContractAddress = commission.tokenContractId.split('.')[0]
       data.tokenContractName = commission.tokenContractId.split('.')[1]
-      console.log(data)
       this.$store.dispatch('rpayMarketGenFungStore/mintWithToken', data)
     },
     setPageSize () {
       this.limit += 15
-      console.log(this.limit)
     }
   },
   computed: {
@@ -319,7 +320,7 @@ p {
     align-items: center;
     justify-content: center;
   }
-  span {
+  a {
     font: normal normal bold 12px/15px Montserrat;
     color: #50b1b5;
     cursor: pointer;
@@ -327,6 +328,9 @@ p {
       text-decoration: underline;
     }
   }
+}
+.router-link-exact-active {
+  text-decoration: underline;
 }
 .homeMarketItems {
   max-width: 1135px;
