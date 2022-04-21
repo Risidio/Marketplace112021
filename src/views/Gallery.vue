@@ -36,7 +36,7 @@
                     <div v-if="item.image" class="square-display" >
                       <b-link class="galleryNFTContainer" v-bind:to="'/nfts/' + item.contractAsset.contractId + '/' + item.contractAsset.nftIndex">
                       <img :src="item.image"
-                       alt="Risidio Gallery" class="square-display-img">
+                       alt="Risidio Gallery" class="square-display-img" loading="lazy">
                       <div class="rel">
                         <div class="galleryHover">
                           <p class="nFTName"> {{!item.name ? "NFT" : item.name }} <span style="float: right;">{{item.contractAsset.saleData.buyNowOrStartingPrice}} STX</span>
@@ -52,7 +52,7 @@
                     <div v-if="item.image" class="square-display" >
                       <b-link class="galleryNFTContainer" v-bind:to="'/nfts/' + item.contractAsset.contractId + '/' + item.contractAsset.nftIndex">
                       <img :src="item.image"
-                       alt="Risidio Gallery" class="square-display-img">
+                       alt="Risidio Gallery" class="square-display-img" loading="lazy">
                       <div class="rel">
                         <div class="galleryHover">
                           <p class="nFTName"> {{!item.name ? "NFT" : item.name }} <span style="float: right;">{{item.contractAsset.saleData.buyNowOrStartingPrice}} STX</span>
@@ -120,7 +120,7 @@
                         <b-link class="mobilegalleryNFTContainer" v-bind:to="'/nfts/' + item.contractAsset.contractId + '/' + item.contractAsset.nftIndex">
                         <div>
                           <img :src="item.image"
-                            alt="Risidio Gallery" class="mobile-square-display-img">
+                            alt="Risidio Gallery" class="mobile-square-display-img" loading="lazy">
                         </div>
                           <h2 class="artwork">{{!item.name ? "NFT" : item.name }}</h2>
                           <p class="mobilenFTArtist">By <span>{{!item.artist ? "Anonymous" : item.artist }}</span> </p>
@@ -135,7 +135,7 @@
                     <div v-for="(item, index) in resultSet" :key="index">
                       <div>
                         <b-link class="galleryNFTContainer" v-bind:to="'/nfts/' + item.contractAsset.contractId + '/' + item.contractAsset.nftIndex">
-                        <img :src="item.image" alt="Risidio Gallery" class="mobile-square-display-img">
+                        <img :src="item.image" alt="Risidio Gallery" class="mobile-square-display-img" loading="lazy">
                         </b-link>
                       </div>
                     </div>
@@ -214,7 +214,7 @@ export default {
         asc: true,
         runKey: loopRun ? loopRun.currentRunKey : null,
         page: 0,
-        pageSize: 28
+        pageSize: 100
       }
       this.resultSet = null
       this.$store.dispatch('rpayStacksContractStore/fetchTokensByContractId', data).then((result) => {
