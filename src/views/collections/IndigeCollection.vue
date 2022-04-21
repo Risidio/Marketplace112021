@@ -4,10 +4,6 @@
         <IndigeCollection2
         :pageSize="pageSize"
         :resultSet="resultSet"
-        :page="page"
-        v-on:nextPage="page += 1"
-        v-on:previousPage="page -= 1"
-        @pageNumber="pageNumberChange"
         :numberOfItems="numberOfItems"
         :content="content"
         :loopRun="loopRun"/>
@@ -33,8 +29,7 @@ export default {
       resultSet: [],
       numberOfItems: 0,
       loading: true,
-      pageSize: 8,
-      page: 0
+      pageSize: 8
     }
   },
   mounted () {
@@ -47,7 +42,7 @@ export default {
         contractId: loopRun.contractId,
         asc: true,
         runKey: loopRun ? loopRun.currentRunKey : null,
-        page: this.page,
+        page: this.$route.params.page,
         pageSize: this.pageSize
       }
       this.resultSet = null
@@ -74,7 +69,7 @@ export default {
     }
   },
   watch: {
-    'page' () {
+    '$route' () {
       this.fetchFullRegistry()
     }
   },

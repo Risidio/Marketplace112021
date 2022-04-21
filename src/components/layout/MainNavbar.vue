@@ -118,7 +118,7 @@ export default {
   },
   methods: {
     linkTo (data) {
-      this.$router.push(`/${data.currentRunKey}`)
+      this.$router.push(`/${data.currentRunKey}/0`)
     },
     showCollection (loopRun) {
       this.$emit('update', { opcode: 'show-collection', loopRun: loopRun })
@@ -368,9 +368,9 @@ export default {
 .navBtn:hover {
   background: rgba(227, 238, 238, 0.6);
 }
-.nav-links{
+.nav-links {
   color: white;
-  &:hover{
+  &:hover {
     color: white;
   }
 }
