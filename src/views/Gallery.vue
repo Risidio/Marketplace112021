@@ -477,6 +477,43 @@ export default {
     max-width: 220px;
   }
 }
+@media only screen and (max-width: 450px){
+  .artwork{
+    font-size: 12px;
+  }
+  .mobilenFTArtist{
+    font-size: 12px;
+  }
+  .mobilenFTArtist span{
+    font-size: 12px;
+  }
+  .price p{
+    font-size: 12px;
+  }
+}
+@media only screen and (max-width: 365px){
+  .mobileimage{
+    margin-left: 200px;
+    //margin-right: 20px;
+  }
+  .mobilearrow1{
+   margin-left: 120px;
+  }
+  .mobilearrow2{
+  margin-left: 275px;
+  }
+}
+@media only screen and (max-width: 320px){
+ .mobilenFTArtist span{
+    font-size: 10px;
+  }
+  .sort-by{
+    margin-left: 150px;
+  }
+  .mobilearrow2{
+  margin-left: 215px;
+  }
+}
 :root {
   --height: 0;
 }

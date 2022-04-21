@@ -550,4 +550,35 @@ export default {
     height: 80rem;
   }
 }
+@media only screen and (max-width: 370px)
+  {
+   .vueperslides--fixed-height {
+    height: 60rem;
+    // max-width: 85%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 25px;
+    backdrop-filter: blur(2rem);
+  }
+  .collectionImage {
+    width: 110px;
+    height: 110px;
+    margin-right: auto;
+  }
+  }
+  @media only screen and (max-width: 285px)
+  {
+   .vueperslides--fixed-height {
+    height: 60rem;
+    // max-width: 85%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 25px;
+    backdrop-filter: blur(2rem);
+  }
+  .collectionImage {
+    width: 90px;
+    height: 90px;
+  }
+  }
 </style>
