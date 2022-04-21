@@ -65,7 +65,11 @@ const routes: Array<RouteConfig> = [
     meta: { title: 'How it Works - Risidio' }
   },
   {
-    path: '/nft-marketplace',
+    path: '/nft-marketplace/',
+    redirect: './nft-marketplace/ST1NXBK3K5YYMD6FD41MVNP3JS1GABZ8TRVX023PT.rmart-t1'
+  },
+  {
+    path: '/nft-marketplace/:title',
     name: 'gallery',
     components: { default: Gallery, header: MainNavbar, footer: MainFooter },
     meta: { title: 'Marketplace for NFTs by the Number One Team Secured by Bitcoin' }
@@ -94,12 +98,6 @@ const routes: Array<RouteConfig> = [
     components: { default: LaunchCollection, header: MainNavbar, footer: MainFooter },
     meta: { title: 'Launch Collection Featuring Benny' }
   },
-  // {
-  //   path: '/indige_mirror/',
-  //   name: 'indige-collecion',
-  //   components: { default: IndigeCollection, header: MainNavbar, footer: MainFooter },
-  //   meta: { title: 'The Indige Collection' }
-  // },
   {
     path: '/indige_mirror/',
     redirect: './indige_mirror/0'
