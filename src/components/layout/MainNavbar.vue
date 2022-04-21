@@ -29,7 +29,7 @@
         </div>
         <div v-if="profile.loggedIn" class="navbar_links">
           <div class="nav-items" v-on:click="isLayer ? mobileNavebar() : '' ">
-            <router-link class="nav-links bold" to="/nft-marketplace">Explore</router-link>
+            <router-link class="nav-links bold" to="/explore">Explore</router-link>
           </div>
             <div style="position: relative; margin-top: 2px;" @click="openMenu()" id="dropDown" class="dropDown">
               <p id="dropDown-1" class="nav-items bold" > Featured Collections <img class="arrow2" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></p>
