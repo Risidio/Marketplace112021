@@ -35,39 +35,9 @@
                     </div>
                 <hr class="hr1"/>
                 <div v-if="resultSet && view == 'squared' && searched.length == 0" class="gallerySquare">
-                  <div v-for="(item, index) in resultSet" :key="index">
-                    <div v-if="item.image" class="square-display" >
-                      <b-link class="galleryNFTContainer" v-bind:to="'/nfts/' + item.contractAsset.contractId + '/' + item.contractAsset.nftIndex">
-                      <img :src="item.image"
-                       alt="Risidio Gallery" class="square-display-img" loading="lazy">
-                      <div class="rel">
-                        <div class="galleryHover">
-                          <p class="nFTName"> {{!item.name ? "NFT" : item.name }} <span style="float: right;">{{item.contractAsset.saleData.buyNowOrStartingPrice}} STX</span>
-                          <p class="nFTArtist">By <span>{{!item.artist ? "Anonymous" : item.artist }}</span> </p>
-                        </div>
-                      </div>
-                      </b-link>
-                    </div>
-                  </div>
+                  <DefaultNFT v-bind:gaiaAssets="resultSet"/>
                 </div>
-                <div v-if="resultSet && view == 'squared' && searched.length > 0" class="gallerySquare">
-                  <div v-for="(item, index) in searched" :key="index">
-                    <div v-if="item.image" class="square-display" >
-                      <b-link class="galleryNFTContainer" v-bind:to="'/nfts/' + item.contractAsset.contractId + '/' + item.contractAsset.nftIndex">
-                      <img :src="item.image"
-                       alt="Risidio Gallery" class="square-display-img" loading="lazy">
-                      <div class="rel">
-                        <div class="galleryHover">
-                          <p class="nFTName"> {{!item.name ? "NFT" : item.name }} <span style="float: right;">{{item.contractAsset.saleData.buyNowOrStartingPrice}} STX</span>
-                              <!-- <span>$ {{item.contractAsset.saleData.buyNowOrStartingPrice * 1.9}}</span></p> -->
-                          <p class="nFTArtist">By <span>{{!item.artist ? "Anonymous" : item.artist }}</span> </p>
-                        </div>
-                      </div>
-                      </b-link>
-                    </div>
-                  </div>
-                </div>
-                </div>
+            </div>
             <div class="mobilemainGallery">
               <div class="mobiletop">
                 <div>
@@ -116,34 +86,20 @@
                   </div>
                 </div>
               </div>
-                <div v-if="resultSet && view == 'squared' && searched.length == 0" class="mobilegallerySquare">
-                  <div v-if="!grid">
-                    <div v-for="(item, index) in resultSet" :key="index">
-                      <div v-if="item.image" class="mobile-square-display" >
-                        <b-link class="mobilegalleryNFTContainer" v-bind:to="'/nfts/' + item.contractAsset.contractId + '/' + item.contractAsset.nftIndex">
-                        <div>
-                          <img :src="item.image"
-                            alt="Risidio Gallery" class="mobile-square-display-img" loading="lazy">
-                        </div>
-                          <h2 class="artwork">{{!item.name ? "NFT" : item.name }}</h2>
-                          <p class="mobilenFTArtist">By <span>{{!item.artist ? "Anonymous" : item.artist }}</span> </p>
-                          <div class="price">
-                          <p >{{item.contractAsset.saleData.buyNowOrStartingPrice}} STX</p>
-                          </div>
-                        </b-link>
-                      </div>
-                    </div>
-                  </div>
-                  <div v-else  class="imageGrid">
-                    <div v-for="(item, index) in resultSet" :key="index">
-                      <div>
-                        <b-link class="galleryNFTContainer" v-bind:to="'/nfts/' + item.contractAsset.contractId + '/' + item.contractAsset.nftIndex">
-                        <img :src="item.image" alt="Risidio Gallery" class="mobile-square-display-img" loading="lazy">
-                        </b-link>
-                      </div>
+              <div v-if="resultSet && view == 'squared' && searched.length == 0" class="mobilegallerySquare">
+                <div v-if="!grid">
+                  <MobileNFT v-bind:resultSet="resultSet"/>
+                </div>
+                <div v-else  class="imageGrid">
+                  <div v-for="(item, index) in resultSet" :key="index">
+                    <div>
+                      <b-link class="galleryNFTContainer" v-bind:to="'/nfts/' + item.contractAsset.contractId + '/' + item.contractAsset.nftIndex">
+                      <img :src="item.image" alt="Risidio Gallery" class="mobile-square-display-img" loading="lazy">
+                      </b-link>
                     </div>
                   </div>
                 </div>
+              </div>
           </div>
         </div>
     </section>
@@ -152,10 +108,14 @@
 <script>
 import { APP_CONSTANTS } from '@/app-constants'
 import utils from '@/services/utils'
+import DefaultNFT from '../components/smallcomponents/DefaultNFT.vue'
+import MobileNFT from '../components/smallcomponents/MobileNFT.vue'
 
 export default {
   name: 'Gallery',
   components: {
+    DefaultNFT,
+    MobileNFT
   },
   data () {
     return {
@@ -280,16 +240,6 @@ export default {
   max-width: 800px;
   padding: 0 10px;
 }
-.mobile-square-display {
-  min-width: 222px;
-  height: 156px;
-  background-color: #e4e4e4;
-  justify-content: space-evenly;
-  margin-top: 40px;
-  z-index: -10;
-  border-radius: 10px;
-  // margin-left: 25px;
-}
 .mobilegallerySquare {
   max-width: 800px;
   justify-content: space-evenly;
@@ -345,15 +295,6 @@ export default {
   justify-content: flex-end;
   padding-bottom: 10px;
   cursor: pointer;
-}
-.artwork {
-  margin-left: 220px;
-  font-size: 20px;
-  margin-top: -130px;
-}
-.mobilenFTArtist {
-  margin-left: 220px;
-  margin-top: -10px;
 }
 .mobilesearch {
   width: 100%;
@@ -428,15 +369,6 @@ export default {
   width: 40px;
   cursor: pointer;
 }
-.mobilenFTArtist span {
-  font-size: 14px;
-  font-weight: 600;
-  margin-top: -10px;
-}
-.price p {
-  margin-left: 220px;
-  font-size: 14px;
-}
 @media only screen and (min-width: 595px) {
   .mobilemainGallery {
     display: none;
@@ -485,41 +417,24 @@ export default {
     max-width: 220px;
   }
 }
-@media only screen and (max-width: 450px){
-  .artwork{
-    font-size: 12px;
-  }
-  .mobilenFTArtist{
-    font-size: 12px;
-  }
-  .mobilenFTArtist span{
-    font-size: 12px;
-  }
-  .price p{
-    font-size: 12px;
-  }
-}
-@media only screen and (max-width: 365px){
-  .mobileimage{
+@media only screen and (max-width: 365px) {
+  .mobileimage {
     margin-left: 200px;
     //margin-right: 20px;
   }
-  .mobilearrow1{
-   margin-left: 120px;
+  .mobilearrow1 {
+    margin-left: 120px;
   }
-  .mobilearrow2{
-  margin-left: 275px;
+  .mobilearrow2 {
+    margin-left: 275px;
   }
 }
-@media only screen and (max-width: 320px){
- .mobilenFTArtist span{
-    font-size: 10px;
-  }
-  .sort-by{
+@media only screen and (max-width: 320px) {
+  .sort-by {
     margin-left: 150px;
   }
-  .mobilearrow2{
-  margin-left: 215px;
+  .mobilearrow2 {
+    margin-left: 215px;
   }
 }
 :root {
@@ -546,9 +461,6 @@ export default {
   position: relative;
   display: grid;
   display: -ms-grid;
-  grid-template-columns: repeat(auto-fit, 255px);
-  -ms-grid-columns: repeat(auto-fit, 255px);
-  // justify-content: space-between;
   justify-content: space-evenly;
   row-gap: 40px;
   transition: all smooth 2s ease-in-out;

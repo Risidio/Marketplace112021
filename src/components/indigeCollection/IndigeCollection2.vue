@@ -36,9 +36,7 @@
               </div>
             </div>
             <div class="galleryContainer" v-if="resultSet && resultSet.length > 0 && tab === 'Items' && (!mintPasses || mintPasses === 0)">
-                <div v-for="(item, index) in resultSet" :key="index" class="NFTbackgroundColour" >
-                    <ResultSet :item="item" />
-                </div>
+                <DefaultNFT v-bind:gaiaAssets="resultSet"/>
             </div>
             <div class="galleryContainer" v-else-if="resultSet && resultSet.length > 0 && tab === 'Items' && mintPasses > 0">
               <div class="pass-container">
@@ -48,9 +46,7 @@
                   <p class="mint-text-2"> You have a mintpass balance of {{mintPasses}}. Therefore, you may mint in this collection !</p>
                 </div>
               </div>
-              <div v-for="(item, index) in resultSet.slice(0, 7)" :key="index" class="NFTbackgroundColour" >
-                  <ResultSet :item="item" />
-              </div>
+              <DefaultNFT v-bind:gaiaAssets="resultSet"/>
             </div>
             <div class="galleryContainer" v-else-if="tab === 'Items' && mintPasses > 0">
               <div class="mint-pass">
@@ -80,7 +76,7 @@
 import axios from 'axios'
 import dayjs from 'dayjs'
 import StxTransaction from '../smallcomponents/StxTransaction.vue'
-import ResultSet from '../smallcomponents/ResultSet.vue'
+import DefaultNFT from '../smallcomponents/DefaultNFT.vue'
 
 export default {
   name: 'Indige-Collection-S2',
@@ -88,7 +84,7 @@ export default {
   components: {
     // MyPageableItems
     StxTransaction,
-    ResultSet
+    DefaultNFT
   },
   data () {
     return {
