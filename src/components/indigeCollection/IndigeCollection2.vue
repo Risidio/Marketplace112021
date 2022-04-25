@@ -66,7 +66,6 @@
 <script>
 import axios from 'axios'
 import StxTransaction from '../smallcomponents/StxTransaction.vue'
-import ResultSet from '../smallcomponents/ResultSet.vue'
 import Pagination from '../smallcomponents/Pagination.vue'
 import DefaultNFT from '../smallcomponents/DefaultNFT.vue'
 
