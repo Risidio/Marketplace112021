@@ -25,9 +25,6 @@
         <div class="homeMarketItems">
             <div v-if="stxTransaction && stxTransaction.length > 0 && tab === 'Activity'">
               <StxTransaction :stxTransaction="stxTransaction"/>
-              <!-- <div v-for="(item, index) in stxTransaction" :key="index">
-                <p class="nFTName" v-if="item.contract_call && item.contract_call.function_name"> {{item.contract_call.function_name}} <span> {{item.contract_call.contract_id.split('.')[1]}} </span></p>
-              </div> -->
             </div>
             <div v-else-if="!stxTransaction && tab === 'Activity'">
               <div class="pass-container">
@@ -59,13 +56,7 @@
                 <p class="mint-text-2"> You have a mintpass balance of {{mintPasses}}. Therefore, you may mint in this collection !</p>
               </div>
             </div>
-            <div class="pagination-container" v-if="tab === 'Items'">
-              <router-link v-if="page > 0" :to="'/indige_mirror/' + (page - 1)">&lt; Previous</router-link>
-              <div v-for="(item, index) in pages" :key="index">
-                <router-link :to="'/indige_mirror/' + item">{{item}}</router-link>
-              </div>
-              <router-link v-if="numberOfItems > pageSize && page !== Math.floor(numberOfItems / pageSize)" :to="'/indige_mirror/' + (page + 1) "> Next ></router-link>
-            </div>
+              <Pagination :pageSize="pageSize" :numberOfItems="numberOfItems" v-if="tab === 'Items'"/>
             <p v-if="mintPassLoad" class="loading-pass">
               checking mint pass....<br/>
               <img class="loading-image" src="@/assets/img/loading-risid.gif"/>
@@ -78,23 +69,21 @@
 
 <script>
 import axios from 'axios'
-import dayjs from 'dayjs'
 import StxTransaction from '../smallcomponents/StxTransaction.vue'
 import ResultSet from '../smallcomponents/ResultSet.vue'
+import Pagination from '../smallcomponents/Pagination.vue'
 
 export default {
   name: 'Indige-Collection-S2',
   props: ['content', 'loopRun', 'resultSet', 'numberOfItems', 'pageSize'],
   components: {
-    // MyPageableItems
+    Pagination,
     StxTransaction,
     ResultSet
   },
   data () {
     return {
-      dayjs: dayjs,
       tab: 'Items',
-      currentRunAssets: [],
       loading: true,
       mintPasses: null,
       mintPassMessage: '',
@@ -102,14 +91,10 @@ export default {
       commissions: null,
       commission: null,
       tokenContractId: null,
-      loadingLogo: '../../assets/img/loading-risid.gif',
-      activityLoad: true,
       currencyPreference: null,
       stxTransaction: [],
       limit: 15,
-      isDisabled: false,
-      pages: [],
-      page: parseInt(this.$route.params.page)
+      isDisabled: false
     }
   },
   mounted () {
@@ -126,24 +111,10 @@ export default {
     },
     'limit' () {
       this.fetchStxData()
-    },
-    'numberOfItems' () {
-      this.getPageNumbers()
-    },
-    '$route' () {
-      this.page = parseInt(this.$route.params.page)
     }
   },
   methods: {
 /* eslint-disable */
-    getPageNumbers () {
-      let pageNumbers = this.numberOfItems / this.pageSize
-      let page = []
-      for (let i = 0; i <= pageNumbers; i++){
-        page.push(i)
-      }
-      this.pages = page
-    },
     fetchStxData () {
       axios.get(`https://stacks-node-api.testnet.stacks.co/extended/v1/address/${this.loopRun.contractId}/transactions?limit=${this.limit}&offset=0&unanchored=false`).then((res) => {
         this.stxTransaction = res.data.results
@@ -297,40 +268,6 @@ p {
   max-width: 1135px;
   justify-content: center;
   margin: auto;
-}
-.pagination-container {
-  padding: 50px;
-  max-width: 300px;
-  margin: auto;
-  text-align: center;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  p {
-    font: normal normal bold 12px/15px Montserrat;
-    color: #50b1b5;
-    cursor: pointer;
-    &:hover {
-      text-decoration: underline;
-    }
-  }
-  div {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-  }
-  a {
-    font: normal normal bold 12px/15px Montserrat;
-    color: #50b1b5;
-    cursor: pointer;
-    &:hover {
-      text-decoration: underline;
-    }
-  }
-}
-.router-link-exact-active {
-  text-decoration: underline;
 }
 .homeMarketItems {
   max-width: 1135px;
