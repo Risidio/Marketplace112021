@@ -21,6 +21,31 @@
             </div>
             <button v-if="tab === 'Transaction'" class="button notFilledBlue" @click="loadMore()" :disabled="isDisabled ? true : false"> See More </button>
         </div>
+            <div class="homeMarketItems">
+            <div v-if="transactionData && transactionData.length > 0 && tab === 'Selling'">
+              <StxTransaction2 :StxTransaction2="fetchResult"/>
+            </div>
+            <div v-else-if="!transactionData && tab === 'Selling' && activityLoad">
+              <div class="pass-container">
+                <img src="@/assets/img/loading-risid.gif" style="margin-auto;" class="loading-image" alt="loading"/>
+                <p style="text-align: center;"> Hmm... Can't seem to find anything. Try to <span style="font-weight: 500; cursor: pointer; color: #5FBDC1;" @click="fetchStxData()"> refresh </span></p>
+              </div>
+            </div>
+            <button v-if="tab === 'Selling'" class="button notFilledBlue" @click="loadMore()" :disabled="isDisabled ? true : false"> See More </button>
+        </div>
+          <div class="homeMarketItems">
+            <div v-if="transactionData && transactionData.length > 0 && tab === 'Buying'">
+              <StxTransaction2 :StxTransaction2="fetchResult1"/>
+            </div>
+            <div v-else-if="!transactionData && tab === 'Buying' && activityLoad">
+              <div class="pass-container">
+                <img src="@/assets/img/loading-risid.gif" style="margin-auto;" class="loading-image" alt="loading"/>
+                <p style="text-align: center;"> Hmm... Can't seem to find anything. Try to <span style="font-weight: 500; cursor: pointer; color: #5FBDC1;" @click="fetchStxData()"> refresh </span></p>
+              </div>
+            </div>
+            <button v-if="tab === 'Buying'" class="button notFilledBlue" @click="loadMore()" :disabled="isDisabled ? true : false"> See More </button>
+        </div>
+
     </div>
 </template>
 
@@ -28,7 +53,6 @@
 import axios from 'axios'
 import dayjs from 'dayjs'
 import StxTransaction2 from '@/components/smallcomponents/StxTransaction2.vue'
-
 export default {
   name: 'UserTrasaction',
   props: ['loopRun'],
@@ -44,7 +68,8 @@ export default {
       activityLoad: true,
       limit: 15,
       isDisabled: false,
-      transactionData: []
+      transactionData: [],
+      fetchResult: []
     }
   },
   mounted () {
@@ -55,7 +80,12 @@ export default {
       this.fetchStxData()
     },
     'tab' () {
-      if (!this.transactionData) this.fetchStxData()
+      if (this.tab === 'Selling') {
+        this.fetchResult = this.transactionDataa.filter(item => item.contract_call.function_name === 'list-in-token')
+      }
+      if (this.tab === 'Buying') {
+        this.fetchResult1 = this.transactionDataa.filter(item => item.contract_call.function_name === 'buy-in-token')
+      }
     },
     'limit' () {
       this.fetchStxData()
@@ -65,6 +95,14 @@ export default {
     fetchStxData () {
       axios.get(`https://stacks-node-api.testnet.stacks.co/extended/v1/address/ST112ZVZ2YQSW74BQ65VST84806RV5ZZZTW0261CV/transactions?limit=${this.limit}`).then((res) => {
         this.transactionData = res.data.results
+        this.activityLoad = false
+      }).catch((error) => {
+        this.isDisabled = true
+        console.log(error)
+        console.log('err')
+      })
+      axios.get('https://stacks-node-api.testnet.stacks.co/extended/v1/address/ST112ZVZ2YQSW74BQ65VST84806RV5ZZZTW0261CV/transactions?limit=37').then((res) => {
+        this.transactionDataa = res.data.results
         this.activityLoad = false
       }).catch((error) => {
         this.isDisabled = true
