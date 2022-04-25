@@ -13,8 +13,8 @@
             </div>
         <div @click="showModel()" id="video-column" :style="dimensions" style="position: relative;">
           <div style="font-weight: 600; font-size: 1.0rem" :class="[ 'on-auction-text','text-white','label-button', { 'bg-secondary': salesBadgeLabel === 'not on sale'}, { 'bg-secondary2': salesBadgeLabel === 'on sale'}]">
-                  <div style="color: white; text-align: center;">{{salesBadgeLabel}}</div>
-                </div>
+              <div class="sale-banner">{{salesBadgeLabel}}</div>
+            </div>
           <MediaItemGeneral :classes="'hash1-image'" v-on="$listeners" :options="videoOptions" :mediaItem="gaiaAsset"/>
           <div class="editions"> <h2>EDITION <span>{{gaiaAsset.contractAsset.tokenInfo.edition}}</span> / {{gaiaAsset.contractAsset.tokenInfo.maxEditions}}</h2></div>
         </div>
@@ -527,21 +527,9 @@ export default {
   align-items: center;
   justify-content: center;
 }
-// .closeBtn{
-//   position: relative;
-//   font-size: 55px;
-//   left: 320px;
-//   top:-40px;
-// }
-
-// .closeBtn{
-//     position: absolute;
-//     top: -60px;
-//     right: 15px;
-//     color: #f1f1f1;
-//     font-size: 55px;
-//     font-weight: bold;
-// }
+.sale-banner {
+  color: white;
+}
 /* Modal Content */
 .modal-contentt {
   display: flex;
@@ -566,10 +554,11 @@ export default {
   font-size: 1.2rem;
 }
 .bg-secondary {
-  width: 85px;
+  width: 84px;
   height: 28px;
   background-color: #5154A1 !important;
   position: relative;
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
 }
 .bg-secondary::after {
   content: '';
@@ -586,6 +575,7 @@ export default {
   height: 30px;
   background-color:#F25F5C !important;
   position: relative;
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
 }
 .bg-secondary2::after {
   content: '';
@@ -596,7 +586,6 @@ export default {
   height: 30px;
   background: #F25F5C;
   clip-path: polygon(52% 52%, 0 0, 0 100%);
-
 }
 .label-button{
   display: inline-block;
