@@ -334,6 +334,7 @@ export default {
   font-size: 1.2rem;
   color: white;
   cursor: pointer;
+  border-bottom: 3px solid transparent;
 }
 .thin {
   font: normal normal 300 12px/15px Montserrat;
@@ -373,6 +374,7 @@ export default {
   &:hover {
     color: white;
   }
+  border-bottom: 3px solid transparent;
 }
 .registerTooltip {
   margin-top: 25px;
@@ -499,6 +501,14 @@ export default {
 }
 #howItWorks {
   margin-left: auto;
+}
+.nav-links:hover {
+  border-bottom: 1px solid white;
+  //color: #5fbdc1;
+}
+.nav-items a.nav-links:hover, .nav-items a.nav-links.router-link-active {
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 @media only screen and (max-width: 1100px) {
   .risidioLogo {
