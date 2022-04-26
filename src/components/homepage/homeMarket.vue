@@ -26,7 +26,7 @@
   <div v-else>
     <div class="homeMarketItems">
       <div v-if="gaiaAssets && gaiaAssets.length > 0 && tab === 'discover' && shownAssets.length == 0">
-        <DefaultNFT v-bind:gaiaAssets="gaiaAssets"/>
+        <DefaultNFT v-bind:gaiaAssets="gaiaAssets.slice(0, 8)"/>
       </div>
       <div v-else-if="activeLoopRuns && activeLoopRuns.length > 0 && tab === 'collections'">
         <CollectionsDisplay v-bind:activeLoopRuns="activeLoopRuns" />
