@@ -1,6 +1,6 @@
 <template>
 <div class="galleryContainer" >
-  <div v-for="(item, index) in gaiaAssets.slice(0, 8)" :key="index" class="NFTbackgroundColour">
+  <div v-for="(item, index) in gaiaAssets" :key="index" class="NFTbackgroundColour">
     <div class="">
       <b-link class="galleryNFTContainer" :to="assetUrl(item)" v-if="item && item.contractAsset">
         <img class="nftGeneralView" :src="item.image"/>

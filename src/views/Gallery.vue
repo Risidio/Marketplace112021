@@ -60,8 +60,8 @@
                  </div>
                 </div>
                 <div class="search-container">
-                      <input type="text" placeholder="Looking for anything in particular ?" name="search" @change="searching($event.target.value)" class="mobilesearch">
-                      <img class="mobileimage" src="https://res.cloudinary.com/risidio/image/upload/v1637238428/RisidioMarketplace/magnifying-search-lenses-tool_yaatpo.svg">
+                  <input type="text" placeholder="Looking for anything in particular ?" name="search" @change="searching($event.target.value)" class="mobilesearch">
+                  <img class="mobileimage" src="https://res.cloudinary.com/risidio/image/upload/v1637238428/RisidioMarketplace/magnifying-search-lenses-tool_yaatpo.svg">
                 </div>
                 <div class="sorting">
                  <div><h1 class="mobileview">View</h1></div>
@@ -177,7 +177,7 @@ export default {
         asc: true,
         runKey: loopRun ? loopRun.currentRunKey : null,
         page: 0,
-        pageSize: 100
+        pageSize: 24
       }
       this.resultSet = null
       this.$store.dispatch('rpayStacksContractStore/fetchTokensByContractId', data).then((result) => {
