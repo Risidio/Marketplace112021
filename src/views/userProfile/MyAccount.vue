@@ -251,14 +251,15 @@ export default {
       })
     },
     setSTX () {
-      const getRate = this.rates.find((rate) => rate.text === this.currencyPreference.text)
+      let getRate = null
+      if (this.currencyPreference) getRate = this.rates.find((rate) => rate.text === this.currencyPreference.text)
       if (this.currencyPreference) this.yourSTX = getRate.value
       // if (this.currencyPreference) this.yourSTX = getRate.value
     },
     currencyChange (currency) {
       this.yourSTX = this.profile.accountInfo.balance || 55
       this.currency = currency
-      const getRate = this.rates.find((rate) => rate.text === currency)
+      const getRate = this.rates.find((rate) => rate?.text === currency)
       this.yourSTX = getRate.value
       const object = JSON.stringify(getRate)
       localStorage.setItem('currencyPreferences', object)
