@@ -191,16 +191,20 @@ export default {
 
 @media only screen and (max-width: 720px) {
   .dropdown_container {
-    display: none;
+    //display: none;
     width: 125px;
     z-index: 10;
+    align-items: center;
   }
   .dropdown_selector {
     width: auto;
+    align-items: center;
   }
   .search_input_box {
-    display: none;
-    min-width: 200px;
+    //display: none;
+    min-width: 400px;
+    align-items: center;
+    text-align: center;
   }
   .active {
     display: block;
@@ -209,9 +213,87 @@ export default {
     box-shadow: 0px 0px 3px #00000029;
   }
   .search_bar_container {
-    justify-content: flex-end;
+    justify-content: center;
   }
 }
-@media only screen and (max-width: 720px) {
+@media only screen and (max-width: 570px) {
+  .dropdown_container {
+    width: 75px;
+    z-index: 10;
+    align-items: center;
+  }
+  .dropdown_selector {
+    width: 150px;
+    align-items: center;
+  }
+  .search_input_box {
+    min-width: 300px;
+    align-items: center;
+    text-align: center;
+  }
+  .search_bar_container {
+    justify-content: center;
+    margin-left: 10px;
+  }
+}
+@media only screen and (max-width: 445px) {
+  .dropdown_container {
+    width: 60px;
+    z-index: 10;
+    align-items: center;
+  }
+  .dropdown_selector {
+    width: 100px;
+    align-items: center;
+  }
+  .search_input_box {
+    width: 230px;
+    align-items: center;
+    text-align: center;
+  }
+  .search_bar_container {
+    justify-content: center;
+    margin-left: 10px;
+  }
+}
+@media only screen and (max-width: 380px) {
+  .dropdown_container {
+    width: 40px;
+    z-index: 10;
+    align-items: center;
+  }
+  .dropdown_selector {
+    width: 80px;
+    align-items: center;
+  }
+  .search_input_box {
+    min-width: 200px;
+    align-items: center;
+    text-align: center;
+  }
+  .search_bar_container {
+    justify-content: center;
+    margin-left: 10px;
+  }
+}
+@media only screen and (max-width: 290px) {
+  .dropdown_container {
+    width: 40px;
+    z-index: 10;
+    align-items: center;
+  }
+  .dropdown_selector {
+    width: 80px;
+    align-items: center;
+  }
+  .search_input_box {
+    width: 60px;
+    align-items: center;
+    text-align: center;
+  }
+  .search_bar_container {
+    justify-content: center;
+    margin-left: 10px;
+  }
 }
 </style>
