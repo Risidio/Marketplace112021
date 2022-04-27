@@ -20,7 +20,6 @@
               <div >Your NFTs</div>
               <div v-on:click="topFunction()"><router-link to="/my-account">All Your Nft's</router-link></div>
               <!-- <div v-on:click="topFunction()"><router-link to="/create">Add an NFT</router-link></div> -->
-              <div v-on:click="topFunction()"><router-link to="/qa">FAQ</router-link></div>
               <div>
                 <router-link
                 v-if="profile.stxAddress == ('ST112ZVZ2YQSW74BQ65VST84806RV5ZZZTW0261CV')
