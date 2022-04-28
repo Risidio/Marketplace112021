@@ -191,20 +191,17 @@ export default {
 
 @media only screen and (max-width: 720px) {
   .dropdown_container {
-    //display: none;
-    width: 125px;
+    display: none;
+    width: 130px;
     z-index: 10;
-    align-items: center;
   }
   .dropdown_selector {
     width: auto;
-    align-items: center;
   }
   .search_input_box {
-    //display: none;
-    min-width: 400px;
-    align-items: center;
-    text-align: center;
+    display: none;
+    min-width: 450px;
+    max-width: 700px;
   }
   .active {
     display: block;
@@ -213,87 +210,151 @@ export default {
     box-shadow: 0px 0px 3px #00000029;
   }
   .search_bar_container {
-    justify-content: center;
+    justify-content: flex-end;
+    margin-right: 40px;
   }
 }
-@media only screen and (max-width: 570px) {
+@media only screen and (max-width: 630px) {
   .dropdown_container {
-    width: 75px;
+    display: none;
+    width: 130px;
     z-index: 10;
-    align-items: center;
   }
   .dropdown_selector {
-    width: 150px;
-    align-items: center;
+    width: auto;
   }
   .search_input_box {
+    display: none;
+    min-width: 350px;
+    //max-width: 700px;
+  }
+  .active {
+    display: block;
+  }
+  .searchIcon {
+    box-shadow: 0px 0px 3px #00000029;
+  }
+  .search_bar_container {
+    justify-content: flex-end;
+    margin-right: 30px;
+  }
+}
+@media only screen and (max-width: 560px) {
+  .dropdown_container {
+    display: none;
+    width: 130px;
+    z-index: 10;
+  }
+  .dropdown_selector {
+    width: auto;
+  }
+  .search_input_box {
+    display: none;
     min-width: 300px;
-    align-items: center;
-    text-align: center;
+    //max-width: 700px;
+  }
+  .active {
+    display: block;
+  }
+  .searchIcon {
+    box-shadow: 0px 0px 3px #00000029;
   }
   .search_bar_container {
-    justify-content: center;
-    margin-left: 10px;
+    justify-content: flex-end;
+    margin-right: 30px;
   }
 }
-@media only screen and (max-width: 445px) {
+@media only screen and (max-width: 490px){
+  .search_bar_container {
+    justify-content: flex-end;
+    margin-right: 30px;
+  }
+}
+@media only screen and (max-width: 470px) {
   .dropdown_container {
-    width: 60px;
+    display: none;
+    width: 130px;
     z-index: 10;
-    align-items: center;
   }
   .dropdown_selector {
-    width: 100px;
-    align-items: center;
+    width: auto;
   }
   .search_input_box {
-    width: 230px;
-    align-items: center;
-    text-align: center;
+    display: none;
+    min-width: 250px;
+    //max-width: 700px;
+  }
+  .active {
+    display: block;
+  }
+  .searchIcon {
+    box-shadow: 0px 0px 3px #00000029;
   }
   .search_bar_container {
-    justify-content: center;
-    margin-left: 10px;
+    justify-content: flex-end;
+    margin-right: 30px;
   }
 }
-@media only screen and (max-width: 380px) {
+@media only screen and (max-width: 375px){
+  .search_bar_container {
+    justify-content: flex-end;
+    margin-right: 10px;
+  }
+}
+@media only screen and (max-width: 425px) {
   .dropdown_container {
-    width: 40px;
+    display: none;
+    width: 130px;
     z-index: 10;
-    align-items: center;
   }
   .dropdown_selector {
-    width: 80px;
-    align-items: center;
+    width: auto;
   }
   .search_input_box {
+    display: none;
     min-width: 200px;
-    align-items: center;
-    text-align: center;
+    //max-width: 700px;
+  }
+  .active {
+    display: block;
+  }
+  .searchIcon {
+    box-shadow: 0px 0px 3px #00000029;
   }
   .search_bar_container {
-    justify-content: center;
-    margin-left: 10px;
+    justify-content: flex-end;
+    margin-right: 10px;
   }
 }
-@media only screen and (max-width: 290px) {
+@media only screen and (max-width: 350px) {
   .dropdown_container {
-    width: 40px;
+    display: none;
+    width: 100px;
     z-index: 10;
-    align-items: center;
   }
   .dropdown_selector {
-    width: 80px;
-    align-items: center;
+    width: auto;
   }
   .search_input_box {
-    width: 60px;
-    align-items: center;
-    text-align: center;
+    display: none;
+    min-width: 180px;
+    //max-width: 700px;
+  }
+  .active {
+    display: block;
+  }
+  .searchIcon {
+    box-shadow: 0px 0px 3px #00000029;
   }
   .search_bar_container {
-    justify-content: center;
-    margin-left: 10px;
+    justify-content: flex-end;
+    margin-right: 15px;
+  }
+}
+@media only screen and (max-width: 290px){
+  .search_bar_container {
+    justify-content: flex-end;
+    margin-right: 0px;
   }
 }
 </style>

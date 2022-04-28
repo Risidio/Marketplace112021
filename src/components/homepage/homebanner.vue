@@ -547,7 +547,7 @@ export default {
     height: 72rem;
   }
   .banner {
-    height: 80rem;
+    height: 86rem;
   }
 }
 @media only screen and (max-width: 370px)
