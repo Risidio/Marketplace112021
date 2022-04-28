@@ -1,7 +1,7 @@
 <template>
   <div class="viewContainer" v-if="loading === true">
     <div class="btn-div" v-if="transaction">
-      <a @click="transaction = false" class="backBtn" ><b-icon class="icon-button" icon="chevron-left" shift-h="-3"></b-icon> Back </a>
+      <router-link class="backBtn" :to="'/my-account/nft'"><b-icon class="icon-button" icon="chevron-left" shift-h="-3"></b-icon> Back</router-link>
     </div>
     <div class="profileContainer">
       <div class="profile">
@@ -47,30 +47,30 @@
       <div>
         <b-nav class="galleryNav" >
           <div class="galleryNavContainer" >
-            <b-nav-item id="NFT" class="galleryNavItem active" @click="tabChange('NFT')">Your NFTs</b-nav-item>
-            <b-nav-item id="Sale" class="galleryNavItem" @click="tabChange('Sale')">Your NFTs On Sale</b-nav-item>
-            <b-nav-item id="Fav" class="galleryNavItem" @click="tabChange('Fav')">Your Favourites</b-nav-item>
+            <router-link class="galleryNavItem" :to="'/my-account/nft'">Your NFTs</router-link>
+            <router-link class="galleryNavItem" :to="'/my-account/sale'">Your NFTs On Sale</router-link>
+            <router-link class="galleryNavItem" :to="'/my-account/fav'">Your Favourites</router-link>
           </div>
         </b-nav>
       </div>
-      <div v-if="tab === 'NFT' && loopRun" class="">
+      <div v-if="tab === 'nft' && loopRun" class="">
         <div>
           <MyPageableItems :loopRun="loopRun" :resultSet="resultSet"/>
           <router-link to="/gallery" style="font: normal normal bold 11px/14px Montserrat; display: block; text-align: center; margin-top: 50px"><!--<span style="color: #5FBDC1; ">Want More ? See The Gallery</span>--></router-link>
         </div>
-          <div class="pagination-container" v-if="tab === 'NFT'">
+          <div class="pagination-container" v-if="tab === 'nft'">
             <p v-if="numberOfItems > pageSize && page > 0 " v-on:click="previousPage()"> &lt; Previous </p>
             <div v-for="(item, index) in pages" :key="index"><span v-on:click="pageNumberChange(index)">{{item}}</span></div>
             <p v-if="numberOfItems > pageSize && numberOfItems !== pageSize * (page + 1)" v-on:click="nextPage()">Next ></p>
           </div>
       </div>
-      <div v-else-if="saleItem.length > 0 && tab === 'Sale'" >
+      <div v-else-if="saleItem.length > 0 && tab === 'sale'" >
         <div>
           <MyPageableItems :loopRun="loopRun" :resultSet="saleItem"/>
           <router-link to="/gallery" style="font: normal normal bold 11px/14px Montserrat; display: block; text-align: center; margin-top: 50px"><!--<span style="color: #5FBDC1; ">Want More ? See The Gallery</span>--></router-link>
         </div>
       </div>
-      <div v-else-if="saleItem.length === 0 && tab === 'Sale'">
+      <div v-else-if="saleItem.length === 0 && tab === 'sale'">
         <div class="noNFT">
           <h3> You do not own any items on sale</h3>
           <div class="profileBtns">
@@ -79,14 +79,14 @@
           </div>
         </div>
       </div>
-      <div v-else-if="tab === 'Fav' && favouriteNfts">
+      <div v-else-if="tab === 'fav' && favouriteNfts">
             <MyPageableItems :loopRun="loopRun" :resultSet="favouriteNfts"/>
         <div class="profileBtns">
           <router-link class="button filled" to="/">Explore Gallery</router-link>
           <!-- <router-link class="button notFilledBlue" to="/create">Mint Your Item</router-link> -->
         </div>
       </div>
-      <div v-else-if="tab === 'Fav' && !favouriteNfts" class="noNFT">
+      <div v-else-if="tab === 'fav' && !favouriteNfts" class="noNFT">
         <h3> You do not have any favourite items</h3>
       </div>
       <div v-else>
@@ -128,7 +128,7 @@ export default {
       yourSTX: null,
       currency: '',
       profileInfo: {},
-      tab: 'NFT',
+      tab: this.$route.params.nftSection,
       pageSize: 8,
       page: 0,
       loopRun: null,
@@ -160,8 +160,12 @@ export default {
   },
   watch: {
     '$route' () {
+      const accountParams = this.$route.params.nftSection
       this.loading = true
-      // this.fetchLoopRun()
+      if (accountParams === 'nft') {
+        this.transaction = false
+      }
+      this.tab = accountParams
     },
     'profile' () {
       this.calRates()
@@ -193,6 +197,7 @@ export default {
     },
     viewTransaction () {
       this.transaction = true
+      this.$router.push('/my-account/transaction')
     },
     viewInfo (pressed) {
       if (pressed === 1) {
@@ -277,13 +282,6 @@ export default {
       }).catch((error) => {
         console.log(error.message)
       })
-    },
-    tabChange (tab) {
-      this.tab = tab
-      document.getElementById('NFT').classList.remove('active')
-      document.getElementById('Sale').classList.remove('active')
-      document.getElementById('Fav').classList.remove('active')
-      document.getElementById(tab).classList.add('active')
     },
     closeModal () {
       document.getElementById('linkModal').style.display = 'none'
@@ -625,6 +623,9 @@ export default {
   text-decoration: underline;
   color: #50b1b5;
   cursor: pointer;
+}
+.router-link-exact-active {
+  border-bottom: 2px solid #50b1b5;
 }
 @media only screen and (max-width: 1050px) {
   .walletCurrency {
