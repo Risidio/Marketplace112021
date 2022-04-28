@@ -103,8 +103,8 @@ const routes: Array<RouteConfig> = [
     redirect: './indige_mirror/0'
   },
   {
-    path: '/indige_mirror1/',
-    redirect: './indige_mirror1/0'
+    path: '/risidio_indige/',
+    redirect: './risidio_indige/0'
   },
   {
     path: '/indige_mirror/:page',
@@ -113,7 +113,7 @@ const routes: Array<RouteConfig> = [
     meta: { title: 'The Indige Collection' }
   },
   {
-    path: '/indige_mirror1/:page',
+    path: '/risidio_indige/:page',
     name: 'indige-collecion',
     components: { default: IndigeCollection, header: MainNavbar, footer: MainFooter },
     meta: { title: 'The Indige Collection' }
