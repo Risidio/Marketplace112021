@@ -180,10 +180,13 @@ export default {
         console.log(error)
       })
       const commission = this.commission
+      console.log(commission)
       const data = {
         contractAddress: this.loopRun.contractId.split('.')[0],
         contractName: this.loopRun.contractId.split('.')[1],
-        batchOption: 1
+        batchOption: 1,
+        sendAsSky: true,
+        functionName: 'mint-with'
       }
       if (!commission) {
         this.$notify({ type: 'error', title: 'Select Tender', text: 'Please select the tender to use topay for minting' })
@@ -194,6 +197,9 @@ export default {
       data.tokenContractAddress = commission.tokenContractId.split('.')[0]
       data.tokenContractName = commission.tokenContractId.split('.')[1]
       this.$store.dispatch('rpayMarketGenFungStore/mintWithToken', data)
+        .catch((error) => {
+          console.log(error)
+        })
     },
     setPageSize () {
       this.limit += 15

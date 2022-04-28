@@ -1,5 +1,5 @@
 <template>
-<section style="margin: auto; margin-top: 10rem; max-width: 1135px; padding: 0 20px;" id="asset-details-section" v-if="gaiaAsset && gaiaAsset.contractAsset" class="text-black">
+<section style="margin: auto; margin-top: 10rem; max-width: 1135px; padding: 20px 20px;" id="asset-details-section" v-if="gaiaAsset && gaiaAsset.contractAsset" class="text-black">
   <div >
     <a @click="$router.go(-1)" class="backBtn" >
     <b-icon icon="chevron-left" shift-h="-3"></b-icon> Back </a></div>
@@ -44,7 +44,7 @@
                 </div>
               </div>
               <PendingTransactionInfo v-if="pending && pending.txStatus === 'pending'" :pending="pending"/>
-              <div style="margin-top: 50px" v-else>
+              <div v-else>
                 <b-row v-if="getSaleType() === 0">
                 </b-row>
                 <b-row v-else>
@@ -61,9 +61,9 @@
                     <button class="button filled" :title="ttBiddingHelp" @click="openPurchaseDialog()" >{{salesButtonLabel}}</button>
                   </b-col>
                 </b-row>
-                <h3 class="mt-5" >NFT Description:</h3>
-               <div v-if="gaiaAsset.description" class="mt-2 w-100 text-black" v-html="preserveWhiteSpace(gaiaAsset.description)">
-              </div>
+               <p class="mt-5" style="font-size: 14px; margin-top: 50px;" v-if="gaiaAsset.description" v-html="preserveWhiteSpace(gaiaAsset.description)"></p>
+               <hr style="margin-bottom: 30px;"/>
+                <NFTHistory v-if="loopRun" :loopRun="loopRun" :nftIndex="gaiaAsset.nftIndex" :assetHash="gaiaAsset.tokenInfo ? gaiaAsset.tokenInfo.assetHash : null"/>
               </div>
             </div>
           </b-col>
@@ -113,13 +113,16 @@ import AssetUpdatesModal from '@/views/marketplace/components/toolkit/purchasing
 import PurchaseFlow from '@/views/marketplace/components/toolkit/purchasing/PurchaseFlow'
 import MediaItemGeneral from '@/views/marketplace/components/media/MediaItemGeneral'
 import PendingTransactionInfo from '@/views/marketplace/components/toolkit/nft-history/PendingTransactionInfo'
+import NFTHistory from '@/views/marketplace/components/toolkit/nft-history/NftHistory.vue'
+
 export default {
   name: 'AssetDetailsSectionV1',
   components: {
     PendingTransactionInfo,
     AssetUpdatesModal,
     PurchaseFlow,
-    MediaItemGeneral
+    MediaItemGeneral,
+    NFTHistory
   },
   props: ['gaiaAsset', 'loopRun'],
   data: function () {

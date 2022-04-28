@@ -54,6 +54,10 @@ const routes: Array<RouteConfig> = [
   },
   {
     path: '/my-account',
+    redirect: '/my-account/nft'
+  },
+  {
+    path: '/my-account/:nftSection',
     name: 'my-account',
     components: { default: MyAccount, header: MainNavbar, footer: MainFooter },
     meta: { title: 'Your Account - Risidio' }
@@ -103,7 +107,17 @@ const routes: Array<RouteConfig> = [
     redirect: './indige_mirror/0'
   },
   {
+    path: '/risidio_indige/',
+    redirect: './risidio_indige/0'
+  },
+  {
     path: '/indige_mirror/:page',
+    name: 'indige-collecion',
+    components: { default: IndigeCollection, header: MainNavbar, footer: MainFooter },
+    meta: { title: 'The Indige Collection' }
+  },
+  {
+    path: '/risidio_indige/:page',
     name: 'indige-collecion',
     components: { default: IndigeCollection, header: MainNavbar, footer: MainFooter },
     meta: { title: 'The Indige Collection' }
