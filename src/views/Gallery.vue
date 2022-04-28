@@ -20,10 +20,20 @@
                <div class="filter">
                    <div class="top-elements">
                         <p class="viewcategory" @click="changeView()">View</p>
-                       <div> <button class="collectionsButton"> Popular <img class="arrow2" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></button></div>
-                        <div class="vl"></div>
-                       <div> <button class="collectionsButton"> Sort by <img class="arrow2" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></button></div>
-                        <div class="vl"></div>
+                       <div> <button class="collectionsButton" @click="showHidden1()"> Popular <img class="arrow2" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></button></div>
+                                <div class="dropdown_option_container2">
+                               <div class="dropdown_option" v-show="isHiddenn" value="All">Popular by</div>
+                               <div class="dropdown_option" v-show="isHiddenn" value="Category">Popular by</div>
+                               <div class="dropdown_option" v-show="isHiddenn" value="Category">Popular by</div>
+                               <div class="dropdown_option" v-show="isHiddenn" value="Category">Popular by</div>
+                        </div>
+                       <div> <button class="collectionsButton" @click="showHidden()"> Sort by <img class="arrow2" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></button></div>
+                        <div class="dropdown_option_container">
+                               <div class="dropdown_option" v-show="isHidden" value="All">Sort by price</div>
+                               <div class="dropdown_option" v-show="isHidden" value="Category">Sort by price</div>
+                               <div class="dropdown_option" v-show="isHidden" value="Category">sort by price</div>
+                               <div class="dropdown_option" v-show="isHidden" value="Category">Sort by price</div>
+                        </div>
                         <div>
                           <!-- <button @click="showSquare"> display</button> -->
                        </div>
@@ -35,9 +45,40 @@
                     </div>
                 <hr class="hr1"/>
                 <div v-if="resultSet && view == 'squared' && searched.length == 0" class="gallerySquare">
-                  <DefaultNFT v-bind:gaiaAssets="resultSet"/>
+                                  <div v-for="(item, index) in resultSet" :key="index">
+                    <div v-if="item.image" class="square-display" >
+                      <b-link class="galleryNFTContainer" v-bind:to="'/nfts/' + item.contractAsset.contractId + '/' + item.contractAsset.nftIndex">
+                      <img :src="item.image"
+                       alt="Risidio Gallery" class="square-display-img" loading="lazy">
+                      <div class="rel">
+                        <div class="galleryHover">
+                          <p class="nFTName"> {{!item.name ? "NFT" : item.name }} <span style="float: right;">{{item.contractAsset.saleData.buyNowOrStartingPrice}} STX</span>
+                          <p class="nFTArtist">By <span>{{!item.artist ? "Anonymous" : item.artist }}</span> </p>
+                        </div>
+                      </div>
+                      </b-link>
+                    </div>
+                  </div>
                 </div>
-            </div>
+                <div v-if="resultSet && view == 'squared' && searched.length > 0" class="gallerySquare">
+                  <div v-for="(item, index) in searched" :key="index">
+                    <div v-if="item.image" class="square-display" >
+                      <b-link class="galleryNFTContainer" v-bind:to="'/nfts/' + item.contractAsset.contractId + '/' + item.contractAsset.nftIndex">
+                      <img :src="item.image"
+                       alt="Risidio Gallery" class="square-display-img" loading="lazy">
+                      <div class="rel">
+                        <div class="galleryHover">
+                          <p class="nFTName"> {{!item.name ? "NFT" : item.name }} <span style="float: right;">{{item.contractAsset.saleData.buyNowOrStartingPrice}} STX</span>
+                              <!-- <span>$ {{item.contractAsset.saleData.buyNowOrStartingPrice * 1.9}}</span></p> -->
+                          <p class="nFTArtist">By <span>{{!item.artist ? "Anonymous" : item.artist }}</span> </p>
+                        </div>
+                      </div>
+                      </b-link>
+                    </div>
+                  </div>
+                </div>
+                </div>
+                </div>
             <div class="mobilemainGallery">
               <div class="mobiletop">
                 <div>
@@ -60,19 +101,27 @@
                  </div>
                 </div>
                 <div class="search-container">
-                  <input type="text" placeholder="Looking for anything in particular ?" name="search" @change="searching($event.target.value)" class="mobilesearch">
-                  <img class="mobileimage" src="https://res.cloudinary.com/risidio/image/upload/v1637238428/RisidioMarketplace/magnifying-search-lenses-tool_yaatpo.svg">
+                      <input type="text" placeholder="Looking for anything in particular ?" name="search" @change="searching($event.target.value)" class="mobilesearch">
+                      <img class="mobileimage" src="https://res.cloudinary.com/risidio/image/upload/v1637238428/RisidioMarketplace/magnifying-search-lenses-tool_yaatpo.svg">
                 </div>
                 <div class="sorting">
                  <div><h1 class="mobileview">View</h1></div>
                   <div>
-                    <h2 class="all">All</h2>
+                     <h2 class="all" @click="showHiddenP()">All</h2></div>
                     <img class="mobilearrow1" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg">
-                  </div>
-                  <div>
-                    <h2 class="sort-by">Sort by</h2>
+                                <div class="dropdown_option_container4">
+                               <div class="dropdown_option1" v-show="isHiddenP" value="Category">All by</div>
+                               <div class="dropdown_option1" v-show="isHiddenp" value="Category">All by</div>
+                               <div class="dropdown_option1" v-show="isHiddenP" value="Category">All by</div>
+                               </div>
+                    <div><h2 class="sort-by" @click="showHiddenM()">Sort by</h2></div>
                     <img class="mobilearrow2" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg">
-                  </div>
+                          <div class="dropdown_option_container3">
+                               <div class="dropdown_option1" v-show="isHiddenM" value="All">Popular by</div>
+                               <div class="dropdown_option1" v-show="isHiddenM" value="Category">Popular by</div>
+                               <div class="dropdown_option1" v-show="isHiddenM" value="Category">Popular by</div>
+                               <div class="dropdown_option1" v-show="isHiddenM" value="Category">Popular by</div>
+                               </div>
                   <p class="mobilefilter">Filter results</p>
                   <div>
                     <div v-if="grid" v-on:click="changeGrid()" class="gridDisplayOptions">
@@ -86,36 +135,44 @@
                   </div>
                 </div>
               </div>
-              <div v-if="resultSet && view == 'squared' && searched.length == 0" class="mobilegallerySquare">
-                <div v-if="!grid">
-                  <MobileNFT v-bind:resultSet="resultSet"/>
-                </div>
-                <div v-else  class="imageGrid">
-                  <div v-for="(item, index) in resultSet" :key="index">
-                    <div>
-                      <b-link class="galleryNFTContainer" v-bind:to="'/nfts/' + item.contractAsset.contractId + '/' + item.contractAsset.nftIndex">
-                      <img :src="item.image" alt="Risidio Gallery" class="mobile-square-display-img" loading="lazy">
-                      </b-link>
+                              <div v-if="resultSet && view == 'squared' && searched.length == 0" class="mobilegallerySquare">
+                  <div v-if="!grid">
+                    <div v-for="(item, index) in resultSet" :key="index">
+                      <div v-if="item.image" class="mobile-square-display" >
+                        <b-link class="mobilegalleryNFTContainer" v-bind:to="'/nfts/' + item.contractAsset.contractId + '/' + item.contractAsset.nftIndex">
+                        <div>
+                          <img :src="item.image"
+                            alt="Risidio Gallery" class="mobile-square-display-img" loading="lazy">
+                        </div>
+                          <h2 class="artwork">{{!item.name ? "NFT" : item.name }}</h2>
+                          <p class="mobilenFTArtist">By <span>{{!item.artist ? "Anonymous" : item.artist }}</span> </p>
+                          <div class="price">
+                          <p >{{item.contractAsset.saleData.buyNowOrStartingPrice}} STX</p>
+                          </div>
+                        </b-link>
+                      </div>
+                    </div>
+                  </div>
+                  <div v-else  class="imageGrid">
+                    <div v-for="(item, index) in resultSet" :key="index">
+                      <div>
+                        <b-link class="galleryNFTContainer" v-bind:to="'/nfts/' + item.contractAsset.contractId + '/' + item.contractAsset.nftIndex">
+                        <img :src="item.image" alt="Risidio Gallery" class="mobile-square-display-img" loading="lazy">
+                        </b-link>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-          </div>
-        </div>
     </section>
 </template>
 
 <script>
 import { APP_CONSTANTS } from '@/app-constants'
 import utils from '@/services/utils'
-import DefaultNFT from '../components/smallcomponents/DefaultNFT.vue'
-import MobileNFT from '../components/smallcomponents/MobileNFT.vue'
-
 export default {
   name: 'Gallery',
   components: {
-    DefaultNFT,
-    MobileNFT
   },
   data () {
     return {
@@ -127,6 +184,10 @@ export default {
       projects: [],
       view: 'squared',
       searched: [],
+      isHidden: false,
+      isHiddenn: false,
+      isHiddenM: false,
+      isHiddenP: false,
       grid: false,
       filterToggle: true,
       collectionToggle: false
@@ -151,6 +212,18 @@ export default {
           this.$router.push('/nft-marketplace/' + data.loopRun.makerUrlKey + '/' + data.loopRun.currentRunKey)
         }
       }
+    },
+    showHidden () {
+      this.isHidden = !this.isHidden
+    },
+    showHidden1 () {
+      this.isHiddenn = !this.isHiddenn
+    },
+    showHiddenM () {
+      this.isHiddenM = !this.isHiddenM
+    },
+    showHiddenP () {
+      this.isHiddenP = !this.isHiddenP
     },
     searching (input) {
       const result = this.resultSet.filter((searchItem) => searchItem.name.includes(input))
@@ -177,7 +250,7 @@ export default {
         asc: true,
         runKey: loopRun ? loopRun.currentRunKey : null,
         page: 0,
-        pageSize: 24
+        pageSize: 100
       }
       this.resultSet = null
       this.$store.dispatch('rpayStacksContractStore/fetchTokensByContractId', data).then((result) => {
@@ -240,6 +313,25 @@ export default {
   max-width: 800px;
   padding: 0 10px;
 }
+.mobile-square-display {
+  min-width: 222px;
+  height: 156px;
+  background-color: #e4e4e4;
+  justify-content: space-evenly;
+  margin-top: 40px;
+  z-index: -10;
+  border-radius: 10px;
+  // margin-left: 25px;
+}
+.artwork {
+  margin-left: 220px;
+  font-size: 20px;
+  margin-top: -130px;
+}
+.mobilenFTArtist {
+  margin-left: 220px;
+  margin-top: -10px;
+}
 .mobilegallerySquare {
   max-width: 800px;
   justify-content: space-evenly;
@@ -276,7 +368,7 @@ export default {
   z-index: 19;
   background: #f5f5f5;
   width: 245px;
-  height: 801px;
+  height: 121;
   padding: 20px;
 }
 .collectionsMenuSide {
@@ -319,6 +411,15 @@ export default {
   display: grid;
   place-items: center;
   margin: 10px 10px;
+}
+.mobilenFTArtist span {
+  font-size: 14px;
+  font-weight: 600;
+  margin-top: -10px;
+}
+.price p {
+  margin-left: 220px;
+  font-size: 14px;
 }
 .sorting {
   margin-top: -20px;
@@ -385,6 +486,93 @@ export default {
     display: none;
   }
 }
+.dropdown_selector {
+  border-top-left-radius: 40px;
+  border-bottom-left-radius: 40px;
+  font: normal normal 300 11px/14px Montserrat;
+  height: 50px;
+  width: 155px;
+  padding: 9px;
+  outline: none;
+  background: white;
+  transition: 0.3s;
+  box-shadow: 0px 3px 6px #00000029;
+  border: 1px solid #f5f5f5;
+  text-align: center;
+  z-index: 10;
+}
+.dropdown_option_container {
+    position: absolute;
+  background: none;
+  display: flex;
+  flex-direction: column;
+  align-content: flex-start;
+  justify-content: flex-start;
+  margin-top: 60px;
+  width: 140px;
+  margin-left: 250px;
+  z-index: 10;
+  background: white;
+}
+.dropdown_option_container2 {
+    position: absolute;
+  background: none;
+  display: flex;
+  flex-direction: column;
+  align-content: flex-start;
+  justify-content: flex-start;
+  margin-top: 60px;
+  width: 140px;
+  margin-left: 75px;
+  z-index: 10;
+  background: white;
+  border-radius:3px;
+
+}
+.dropdown_option_container3 {
+  position: absolute;
+  background: none;
+  display: flex;
+  flex-direction: column;
+  align-content: flex-start;
+  justify-content: flex-start;
+  margin-top: -38px;
+  width: 140px;
+  margin-left: 190px;
+  z-index: 10;
+  background: white;
+}
+.dropdown_option_container4 {
+  position: absolute;
+  background: none;
+  display: flex;
+  flex-direction: column;
+  align-content: flex-start;
+  justify-content: flex-start;
+  margin-top: -38px;
+  width: 140px;
+  margin-left: 35px;
+  z-index: 10;
+  background: white;
+}
+.dropdown_option {
+  padding: 5px;
+  background: #ffffff;
+  margin: 1px;
+  transition: 0.3s;
+  z-index: 10;
+  font-size:1.2rem;
+  text-align:center;
+}
+.dropdown_option1 {
+  padding: 5px;
+  background: #ffffff;
+  margin: 1px;
+  transition: 0.3s;
+  z-index: 10;
+  font-size:1.2rem;
+  text-align:center;
+}
 @media only screen and (max-width: 795px) {
   .vl {
     display: none;
@@ -417,33 +605,58 @@ export default {
     max-width: 220px;
   }
 }
-@media only screen and (max-width: 365px) {
-  .mobileimage {
+@media only screen and (max-width: 450px){
+  .artwork{
+    font-size: 12px;
+  }
+  .mobilenFTArtist{
+    font-size: 12px;
+  }
+  .mobilenFTArtist span{
+    font-size: 12px;
+  }
+  .price p{
+    font-size: 12px;
+  }
+}
+@media only screen and (max-width: 365px){
+  .mobileimage{
     margin-left: 200px;
     //margin-right: 20px;
   }
-  .mobilearrow1 {
-    margin-left: 120px;
+  .mobilearrow1{
+   margin-left: 120px;
   }
-  .mobilearrow2 {
-    margin-left: 275px;
+ .mobilearrow2{
+  margin-left: 275px;
   }
 }
-@media only screen and (max-width: 320px) {
-  .sort-by {
+@media only screen and (max-width: 320px){
+ .mobilenFTArtist span{
+    font-size: 10px;
+  }
+  .sort-by{
     margin-left: 150px;
   }
-  .mobilearrow2 {
-    margin-left: 215px;
+ .mobilearrow2{
+  margin-left: 215px;
   }
 }
 :root {
   --height: 0;
+    grid-template-columns: repeat(auto-fit, 255px);
+  -ms-grid-columns: repeat(auto-fit, 255px);
+  // justify-content: space-between;
 }
 .mainGalleryContainer {
   display: flex;
-  flex-wrap: wrap;
   min-height: 500px;
+}
+@media only screen and (max-width: 600px ){
+  .mainGalleryContainer {
+    display: none;
+  min-height: 500px;
+}
 }
 .mainGalleryContainer .mainGallerySidebar {
   flex: 1 1 15%;
@@ -461,6 +674,8 @@ export default {
   position: relative;
   display: grid;
   display: -ms-grid;
+   grid-template-columns: repeat(auto-fit, 255px);
+  -ms-grid-columns: repeat(auto-fit, 255px);
   justify-content: space-evenly;
   row-gap: 40px;
   transition: all smooth 2s ease-in-out;
@@ -552,6 +767,7 @@ export default {
 }
 .mainGallerySidebar {
   background: #f5f5f5;
+  min-height: 100vh;
 }
 .galleryCollections,
 .galleryCategory {
