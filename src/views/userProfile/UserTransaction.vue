@@ -55,7 +55,7 @@ import dayjs from 'dayjs'
 import StxTransaction2 from '@/components/smallcomponents/StxTransaction2.vue'
 export default {
   name: 'UserTrasaction',
-  props: ['loopRun'],
+  props: ['loopRun', 'profile'],
   components: {
     StxTransaction2
   },
@@ -69,11 +69,20 @@ export default {
       limit: 15,
       isDisabled: false,
       transactionData: [],
-      fetchResult: []
+      fetchResult: [],
+      fetchResult1: []
     }
   },
   mounted () {
     this.fetchStxData()
+    axios.get(`https://stacks-node-api.testnet.stacks.co/extended/v1/address/${this.profile.stxAddress}/transactions?limit=37`).then((res) => {
+      this.transactionDataa = res.data.results
+      this.activityLoad = false
+    }).catch((error) => {
+      this.isDisabled = true
+      console.log(error)
+      console.log('err')
+    })
   },
   watch: {
     'loopRun' () {
@@ -81,10 +90,10 @@ export default {
     },
     'tab' () {
       if (this.tab === 'selling') {
-        this.fetchResult = this.transactionDataa.filter(item => item.contract_call.function_name === 'list-in-token')
+        this.fetchResult = this.transactionDataa.filter(item => item.contract_call?.function_name === 'list-in-token')
       }
       if (this.tab === 'buying') {
-        this.fetchResult1 = this.transactionDataa.filter(item => item.contract_call.function_name === 'buy-in-token')
+        this.fetchResult1 = this.transactionDataa.filter(item => item.contract_call?.function_name === 'buy-in-token')
       }
     },
     'limit' () {
@@ -96,16 +105,8 @@ export default {
   },
   methods: {
     fetchStxData () {
-      axios.get(`https://stacks-node-api.testnet.stacks.co/extended/v1/address/ST112ZVZ2YQSW74BQ65VST84806RV5ZZZTW0261CV/transactions?limit=${this.limit}`).then((res) => {
+      axios.get(`https://stacks-node-api.testnet.stacks.co/extended/v1/address/${this.profile.stxAddress}/transactions?limit=${this.limit}`).then((res) => {
         this.transactionData = res.data.results
-        this.activityLoad = false
-      }).catch((error) => {
-        this.isDisabled = true
-        console.log(error)
-        console.log('err')
-      })
-      axios.get('https://stacks-node-api.testnet.stacks.co/extended/v1/address/ST112ZVZ2YQSW74BQ65VST84806RV5ZZZTW0261CV/transactions?limit=37').then((res) => {
-        this.transactionDataa = res.data.results
         this.activityLoad = false
       }).catch((error) => {
         this.isDisabled = true
@@ -118,10 +119,6 @@ export default {
     }
   },
   computed: {
-    profile () {
-      const profile = this.$store.getters['rpayAuthStore/getMyProfile']
-      return profile
-    }
   }
 }
 </script>

@@ -100,7 +100,7 @@
       </div>
     </div>
     <div v-else>
-        <UserTransaction :loopRun="loopRun"/>
+        <UserTransaction :loopRun="loopRun" :profile="profile"/>
     </div>
   </div>
 </template>
