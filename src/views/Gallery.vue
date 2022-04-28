@@ -368,7 +368,7 @@ export default {
   z-index: 19;
   background: #f5f5f5;
   width: 245px;
-  height: 2700px;
+  height: 121;
   padding: 20px;
 }
 .collectionsMenuSide {
@@ -526,6 +526,8 @@ export default {
   margin-left: 75px;
   z-index: 10;
   background: white;
+  border-radius:3px;
+
 }
 .dropdown_option_container3 {
   position: absolute;
@@ -535,7 +537,7 @@ export default {
   align-content: flex-start;
   justify-content: flex-start;
   margin-top: -38px;
-  width: 120px;
+  width: 140px;
   margin-left: 190px;
   z-index: 10;
   background: white;
@@ -548,16 +550,14 @@ export default {
   align-content: flex-start;
   justify-content: flex-start;
   margin-top: -38px;
-  width: 120px;
+  width: 140px;
   margin-left: 35px;
   z-index: 10;
   background: white;
 }
 .dropdown_option {
   padding: 5px;
-  border: 0.5px solid grey;
-  background: white;
-  border-radius: 0px;
+  background: #ffffff;
   margin: 1px;
   transition: 0.3s;
   z-index: 10;
@@ -565,15 +565,12 @@ export default {
   text-align:center;
 }
 .dropdown_option1 {
-  padding-top: 2px;
-  padding-bottom: 2px;
-  border: 0.5px solid grey;
-  background: white;
-  border-radius: 0px;
+  padding: 5px;
+  background: #ffffff;
   margin: 1px;
   transition: 0.3s;
   z-index: 10;
-  font-size:1.0rem;
+  font-size:1.2rem;
   text-align:center;
 }
 @media only screen and (max-width: 795px) {
@@ -770,6 +767,7 @@ export default {
 }
 .mainGallerySidebar {
   background: #f5f5f5;
+  min-height: 100vh;
 }
 .galleryCollections,
 .galleryCategory {
