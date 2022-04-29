@@ -1,6 +1,6 @@
 <template>
 <div class = "Htitle">
-  <div class = "container">
+  <div class = "containerr">
      <img class="banner" src="https://res.cloudinary.com/risidio/image/upload/v1633609373/RisidioMarketplace/Group_-304_ofssmk.svg" alt="">
       <h1>{{content.aboutsection0[0].abouttitle[0].text}}</h1>
       <p>{{content.aboutsection0[0].abouttext[0].text}}</p>
@@ -30,11 +30,10 @@ export default {
   height: 37rem;
   object-fit: cover;
   z-index: -10;
-  transform: rotate(180deg);
   color:white;
 }
 
-.container {
+.containerr {
   min-width: 100%;
   padding: 50px;
   align-items: center;
@@ -43,14 +42,14 @@ export default {
   margin-top: -35px;
   min-height: 400px;
 }
-.container h1{
+.containerr h1{
   margin-top: 40px;
   font-family: inherit;
   font-size: 40px;
   font-weight: 300;
   color: white;
 }
-.container p{
+.containerr p{
   font-size: 1em;
   font-weight: 300;
   padding: 20px 0;
@@ -58,7 +57,7 @@ export default {
   max-width: 600px;
   margin: auto;
 }
-.container button{
+.containerr button{
   margin: auto;
 }
 a, a:after, a:hover{
