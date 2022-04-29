@@ -167,6 +167,7 @@ export default {
         this.transaction = false
       }
       this.tab = accountParams
+      this.page = this.$route.params.page
     },
     'profile' () {
       this.calRates()
@@ -242,7 +243,7 @@ export default {
       const data = {
         stxAddress: this.profile.stxAddress,
         asc: true,
-        page: this.page,
+        page: this.$route.params.page,
         pageSize: this.pageSize
       }
       this.$store.dispatch('rpayStacksContractStore/fetchMyTokensCPSV2', data).then((result) => {

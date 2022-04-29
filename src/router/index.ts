@@ -54,10 +54,14 @@ const routes: Array<RouteConfig> = [
   },
   {
     path: '/my-account',
-    redirect: '/my-account/nft'
+    redirect: '/my-account/nft/0'
   },
   {
     path: '/my-account/:nftSection',
+    redirect: '/my-account/:nftSection/0'
+  },
+  {
+    path: '/my-account/:nftSection/:page',
     name: 'my-account',
     components: { default: MyAccount, header: MainNavbar, footer: MainFooter },
     meta: { title: 'Your Account - Risidio' }
