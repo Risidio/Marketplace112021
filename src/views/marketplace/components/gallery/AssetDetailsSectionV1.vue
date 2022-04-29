@@ -177,14 +177,10 @@ export default {
     }, this)
     if (localStorage.getItem('addNFTToFavourite')) {
       const likedArray = JSON.parse(localStorage.getItem('addNFTToFavourite'))
-      console.log('item', this.gaiaAsset)
-      likedArray.map(item => {
-        if (item.contractId === this.gaiaAsset.contractId) {
-          this.isLiked = true
-        } else {
-          this.isLiked = false
-        }
-      })
+      const likedItem = likedArray.filter((item) => { return item.contractId === this.gaiaAsset.contractId && item.nftIndex === this.gaiaAsset.nftIndex })
+      if (likedItem.length !== 0) {
+        this.isLiked = true
+      }
     }
   },
   methods: {
