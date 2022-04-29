@@ -33,7 +33,10 @@
                   <pre v-if="currencyPreference && currencyPreference.text" class="figure" style="font: normal normal 300 15px/19px Montserrat;"><span style="color: rgba(81, 84, 161, 1); font: normal normal 600 12px/15px Montserrat;">{{yourSTX}}</span> {{currency ? currency : currencyPreference.text || null}}</pre>
                   <pre v-else class="figure" style="font: normal normal 300 15px/19px Montserrat;"><span style="color: rgba(81, 84, 161, 1); font: normal normal 600 12px/15px Montserrat;">{{yourSTX}}</span> {{currency || null}}</pre>
                   <select id="currency" name="currency" class="form-control"  @change="currencyChange($event.target.value)">
-                    <option v-for="(rates, index) in rates" :key="index" :value="rates.text">{{rates.text}}</option>
+                    <option v-if="currencyPreference" :value="currencyPreference.text">{{currencyPreference.text}}</option>
+                    <option v-for="(rates, index) in rates.filter((rates) => rates.text !== currencyPreference.text)" :key="index" :value="rates.text">
+                      {{rates.text}}
+                    </option>
                   </select>
               </div>
             </div>
@@ -58,11 +61,7 @@
           <MyPageableItems :loopRun="loopRun" :resultSet="resultSet"/>
           <router-link to="/gallery" style="font: normal normal bold 11px/14px Montserrat; display: block; text-align: center; margin-top: 50px"><!--<span style="color: #5FBDC1; ">Want More ? See The Gallery</span>--></router-link>
         </div>
-          <div class="pagination-container" v-if="tab === 'nft'">
-            <p v-if="numberOfItems > pageSize && page > 0 " v-on:click="previousPage()"> &lt; Previous </p>
-            <div v-for="(item, index) in pages" :key="index"><span v-on:click="pageNumberChange(index)">{{item}}</span></div>
-            <p v-if="numberOfItems > pageSize && numberOfItems !== pageSize * (page + 1)" v-on:click="nextPage()">Next ></p>
-          </div>
+          <Pagination :pageSize="pageSize" :numberOfItems="numberOfItems"/>
       </div>
       <div v-else-if="saleItem.length > 0 && tab === 'sale'" >
         <div>
@@ -80,7 +79,7 @@
         </div>
       </div>
       <div v-else-if="tab === 'fav' && favouriteNfts">
-            <MyPageableItems :loopRun="loopRun" :resultSet="favouriteNfts"/>
+          <MyPageableItems :loopRun="loopRun" :resultSet="favouriteNfts"/>
         <div class="profileBtns">
           <router-link class="button filled" to="/">Explore Gallery</router-link>
           <!-- <router-link class="button notFilledBlue" to="/create">Mint Your Item</router-link> -->
@@ -108,6 +107,7 @@
 <script>
 
 import MyPageableItems from '@/views/marketplace/components/gallery/MyPageableItems'
+import Pagination from '@/components/smallcomponents/Pagination.vue'
 import UserTransaction from './UserTransaction.vue'
 import { APP_CONSTANTS } from '@/app-constants'
 import utils from '@/services/utils'
@@ -117,7 +117,8 @@ export default {
   name: 'MyAccount',
   components: {
     MyPageableItems,
-    UserTransaction
+    UserTransaction,
+    Pagination
     // MySingleItem
   },
   data () {

@@ -1,17 +1,17 @@
 <template>
   <div class="pagination-container">
-    <router-link v-if="page > 0" :to="'/indige_mirror/' + (page - 1)">&lt; Previous</router-link>
+    <router-link v-if="page > 0" :to="'/' + loopRun.currentRunKey + '/' + (page - 1)">&lt; Previous</router-link>
     <div v-for="(item, index) in pages" :key="index">
-      <router-link :to="'/indige_mirror/' + item">{{item}}</router-link>
+      <router-link :to="'/' + loopRun.currentRunKey + '/' + item">{{item}}</router-link>
     </div>
-    <router-link v-if="numberOfItems > pageSize && page !== Math.floor(numberOfItems / pageSize)" :to="'/indige_mirror/' + (page + 1) "> Next ></router-link>
+    <router-link v-if="numberOfItems > pageSize && page !== Math.floor(numberOfItems / pageSize)" :to="'/' + loopRun.currentRunKey + '/' + (page + 1) "> Next ></router-link>
   </div>
 </template>
 
 <script>
 export default {
   name: 'Pagination',
-  props: ['pageSize', 'numberOfItems'],
+  props: ['pageSize', 'numberOfItems', 'loopRun'],
   data () {
     return {
       pages: [],

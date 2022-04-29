@@ -48,18 +48,10 @@ export default {
   },
   methods: {
     parseRunKey (gaiaAsset) {
-      if (gaiaAsset && gaiaAsset.properties && gaiaAsset.properties.collectionId) {
-        if (gaiaAsset.properties.collectionId.indexOf('/') > -1) {
-          return gaiaAsset.properties.collectionId.split('/')[1]
-        } else {
-          return gaiaAsset.properties.collectionId
-        }
-      }
-      const runKey = this.$store.getters[APP_CONSTANTS.KEY_RUN_KEY_FROM_META_DATA_URL](gaiaAsset.contractAsset)
-      if (runKey && runKey.indexOf('.json') === -1) {
-        return runKey
-      }
-      return process.env.VUE_APP_DEFAULT_LOOP_RUN
+      const loopRuns = this.$store.getters[APP_CONSTANTS.GET_LOOP_RUNS].filter((loopRun) => loopRun.contractId === gaiaAsset.contractId)
+      const runKey = loopRuns[0].currentRunKey
+      console.log(loopRuns)
+      return runKey
     },
     getArtistPrismicId () {
       const artistId = this.$store.getters[APP_CONSTANTS.KEY_CONTENT_ARTIST_ID](this.gaiaAsset.artist)

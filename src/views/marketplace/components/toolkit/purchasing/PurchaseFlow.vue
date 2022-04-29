@@ -79,7 +79,7 @@ export default {
           nftIndex: contractAsset.nftIndex,
           price: contractAsset.listingInUstx.price,
           sendAsSky: true, // only applicable in local
-          assetName: 'indige',
+          assetName: this.loopRun.assetName,
           decimals: contractAsset.listingInUstx.decimals,
           tokenAssetName: contractAsset.listingInUstx.name
         }

@@ -52,7 +52,7 @@
                 <p class="mint-text-2"> You have a mintpass balance of {{mintPasses}}. Therefore, you may mint in this collection !</p>
               </div>
             </div>
-              <Pagination :pageSize="pageSize" :numberOfItems="numberOfItems" v-if="tab === 'Items'"/>
+              <Pagination :pageSize="pageSize" :numberOfItems="numberOfItems" :loopRun="loopRun" v-if="tab === 'Items'"/>
             <p v-if="mintPassLoad" class="loading-pass">
               checking mint pass....<br/>
               <img class="loading-image" src="@/assets/img/loading-risid.gif"/>
