@@ -97,12 +97,14 @@ p{
 }
 .vueperslide {
   background-color:rgb(11, 11, 116);
+  border-radius: 0;
 }
 .vueperslides--fixed-height {
   // min-width: 500px;
   max-width: 1000px;
   height: 500px;
   margin: auto;
+  border-radius: 0;
   // padding: 0 50px;
   // padding: 100px 15px;
 }

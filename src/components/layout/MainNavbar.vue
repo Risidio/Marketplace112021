@@ -145,7 +145,7 @@ export default {
         this.$emit('connect-login', myProfile)
       } else {
         this.$store.dispatch('rpayAuthStore/startLogin').then((profile) => {
-          location.reload()
+          // location.reload()
         }).catch(() => {
           this.$store.commit(APP_CONSTANTS.SET_WEB_WALLET_NEEDED)
           // window.open('https://www.hiro.so/wallet', '_blank')

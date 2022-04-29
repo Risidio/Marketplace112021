@@ -41,7 +41,7 @@
               </div>
             </div>
             <div class="profileBtns">
-              <router-link  to="/"><button class="button" @click="logout">Disconnect</button></router-link >
+              <button class="button" @click="logout">Disconnect</button>
             </div>
           </div>
         </div>
@@ -623,7 +623,7 @@ export default {
   color: #50b1b5;
   cursor: pointer;
 }
-.router-link-exact-active {
+.router-link-active {
   border-bottom: 2px solid #50b1b5;
 }
 @media only screen and (max-width: 1050px) {
