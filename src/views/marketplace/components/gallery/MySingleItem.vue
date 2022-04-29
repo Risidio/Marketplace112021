@@ -5,7 +5,7 @@
       <b-link class="galleryNFTContainer" :to="nextUrl">
         <img class="nftGeneralView" :src="asset.image || errorImg"/>
         <p style="margin-top: 0;" class="nFTName">{{this.asset.name || 'Unknown'}} <span>On Sale</span></p>
-        <p class="nFTArtist"> By: <span>{{asset.properties.collection || 'Unknown'}}</span></p>
+        <p class="nFTArtist"> By: <span>{{asset.properties ? asset.properties.collection : 'Unknown'}}</span></p>
     </b-link>
     </div>
   </div>
@@ -16,7 +16,7 @@
       <b-link class="galleryNFTContainer" :to="nextUrl">
         <img class="nftGeneralView" :src="asset.image || errorImg"/>
         <p style="margin-top: 0;" class="nFTName">{{this.asset.name || 'Unknown'}}</p>
-        <p class="nFTArtist"> By: <span>{{asset.properties.collection || 'Unknown'}}</span></p>
+        <p class="nFTArtist"> By: <span>{{asset.properties ? asset.properties.collection : 'Unknown'}}</span></p>
     </b-link>
     </div>
   </div>
