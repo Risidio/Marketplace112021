@@ -139,7 +139,7 @@ export default {
       saleItem: [],
       defaultRate: null,
       currencyPreference: null,
-      favouriteNfts: [],
+      favouriteNfts: JSON.parse(localStorage.getItem('addNFTToFavourite')),
       transaction: false
     }
   },
@@ -176,9 +176,6 @@ export default {
     },
     'page' () {
       this.fetchAllocations()
-    },
-    'tab' () {
-      this.favouriteNfts = JSON.parse(localStorage.getItem('addNFTToFavourite'))
     }
   },
   methods: {
