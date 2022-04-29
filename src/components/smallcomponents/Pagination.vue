@@ -27,6 +27,7 @@ export default {
   },
   mounted () {
     console.log(this.$route)
+    this.getPageNumbers()
   },
   watch: {
     '$route' () {

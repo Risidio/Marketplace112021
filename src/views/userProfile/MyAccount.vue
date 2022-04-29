@@ -34,7 +34,7 @@
                   <pre v-else class="figure" style="font: normal normal 300 15px/19px Montserrat;"><span style="color: rgba(81, 84, 161, 1); font: normal normal 600 12px/15px Montserrat;">{{yourSTX}}</span> {{currency || null}}</pre>
                   <select id="currency" name="currency" class="form-control"  @change="currencyChange($event.target.value)">
                     <option v-if="currencyPreference" :value="currencyPreference.text">{{currencyPreference.text}}</option>
-                    <option v-for="(rates, index) in rates.filter((rates) => rates.text !== currencyPreference.text)" :key="index" :value="rates.text">
+                    <option v-for="(rates, index) in rates" :key="index" :value="rates.text">
                       {{rates.text}}
                     </option>
                   </select>
