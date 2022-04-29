@@ -177,13 +177,10 @@ export default {
     }, this)
     if (localStorage.getItem('addNFTToFavourite')) {
       const likedArray = JSON.parse(localStorage.getItem('addNFTToFavourite'))
-      likedArray.map(item => {
-        if (item.nftIndex === this.gaiaAsset.nftIndex) {
-          this.isLiked = true
-        } else {
-          this.isLiked = false
-        }
-      })
+      const likedItem = likedArray.filter((item) => { return item.contractId === this.gaiaAsset.contractId && item.nftIndex === this.gaiaAsset.nftIndex })
+      if (likedItem.length !== 0) {
+        this.isLiked = true
+      }
     }
   },
   methods: {
@@ -559,43 +556,43 @@ export default {
 .bg-secondary {
   width: 84px;
   height: 28px;
-  background-color: #5154A1 !important;
+  background-color: #5154a1 !important;
   position: relative;
   box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
 }
 .bg-secondary::after {
-  content: '';
+  content: "";
   position: absolute;
   top: -1px;
   left: 84px;
   width: 43px;
   height: 30px;
-  background: #5154A1;
+  background: #5154a1;
   clip-path: polygon(52% 52%, 0 0, 0 100%);
 }
 .bg-secondary2 {
   width: 85px;
   height: 30px;
-  background-color:#F25F5C !important;
+  background-color: #f25f5c !important;
   position: relative;
   box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
 }
 .bg-secondary2::after {
-  content: '';
+  content: "";
   position: absolute;
   top: 0px;
   left: 84px;
   width: 40px;
   height: 30px;
-  background: #F25F5C;
+  background: #f25f5c;
   clip-path: polygon(52% 52%, 0 0, 0 100%);
 }
-.label-button{
+.label-button {
   display: inline-block;
   padding: 5px 10px;
   top: 15px;
   left: 0px;
-  position:absolute;
+  position: absolute;
   font-size: 1.2rem;
   font-weight: 600;
   color: white;
