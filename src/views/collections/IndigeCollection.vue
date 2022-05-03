@@ -6,7 +6,7 @@
         :resultSet="resultSet"
         :numberOfItems="numberOfItems"
         :content="content"
-        :loopRun="loopRun"/>
+        :loopRun="allLoopRuns[0]"/>
     </div>
 </template>
 
@@ -77,6 +77,10 @@ export default {
     content () {
       const content = this.$store.getters[APP_CONSTANTS.KEY_CONTENT_INDIGE_COLLECTION]
       return content
+    },
+    allLoopRuns () {
+      const loopRuns = this.$store.getters[APP_CONSTANTS.GET_LOOP_RUNS].filter((loopRun) => loopRun.contractId === 'ST1NXBK3K5YYMD6FD41MVNP3JS1GABZ8TRVX023PT.risidio-indige')
+      return loopRuns
     }
   }
 }

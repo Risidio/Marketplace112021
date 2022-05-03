@@ -79,14 +79,13 @@
                 </div>
                 <div class="sorting">
                  <div><h1 class="mobileview">View</h1></div>
-                  <div>
-                     <h2 class="all" @click="showHiddenP()">All</h2></div>
+                  <div><h2 class="all" @click="showHiddenP()">All</h2></div>
                     <img class="mobilearrow1" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg">
-                                <div class="dropdown_option_container4">
-                               <div class="dropdown_option1" v-show="isHiddenP" value="Category">All by</div>
-                               <div class="dropdown_option1" v-show="isHiddenp" value="Category">All by</div>
-                               <div class="dropdown_option1" v-show="isHiddenP" value="Category">All by</div>
-                               </div>
+                      <div class="dropdown_option_container4">
+                        <div class="dropdown_option1" v-show="isHiddenP" value="Category">All by</div>
+                        <div class="dropdown_option1" v-show="isHiddenP" value="Category">All by</div>
+                        <div class="dropdown_option1" v-show="isHiddenP" value="Category">All by</div>
+                      </div>
                     <div><h2 class="sort-by" @click="showHiddenM()">Sort by</h2></div>
                     <img class="mobilearrow2" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg">
                           <div class="dropdown_option_container3">
@@ -108,6 +107,7 @@
                   </div>
                 </div>
               </div>
+
                <div v-if="resultSet && view == 'squared' && searched.length == 0" class="mobilegallerySquare">
                   <div v-if="!grid">
                     <MobileNFT :resultSet="resultSet"/>

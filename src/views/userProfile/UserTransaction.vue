@@ -168,7 +168,7 @@ export default {
 .button {
   margin: 50px auto 50px auto;
 }
-.router-link-exact-active {
+.router-link-active {
   border-bottom: 2px solid #50b1b5;
 }
 </style>

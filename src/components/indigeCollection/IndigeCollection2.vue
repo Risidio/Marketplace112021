@@ -32,10 +32,10 @@
                 <p style="text-align: center;"> Hmm... Can't seem to find anything. Try to <span style="font-weight: 500; cursor: pointer; color: #5FBDC1;" @click="fetchStxData()"> refresh </span></p>
               </div>
             </div>
-            <div class="galleryContainer" v-if="resultSet && resultSet.length > 0 && tab === 'Items' && (!mintPasses || mintPasses === 0)">
+            <div class="" v-if="resultSet && resultSet.length > 0 && tab === 'Items' && (!mintPasses || mintPasses === 0)">
                 <DefaultNFT v-bind:gaiaAssets="resultSet"/>
             </div>
-            <div class="galleryContainer" v-else-if="resultSet && resultSet.length > 0 && tab === 'Items' && mintPasses > 0">
+            <div class="" v-else-if="resultSet && resultSet.length > 0 && tab === 'Items' && mintPasses > 0">
               <div class="pass-container">
                 <div class="mint-pass">
                   <p class="mintPlus" @click="openModal()"> &plus; </p>
@@ -52,7 +52,7 @@
                 <p class="mint-text-2"> You have a mintpass balance of {{mintPasses}}. Therefore, you may mint in this collection !</p>
               </div>
             </div>
-              <Pagination :pageSize="pageSize" :numberOfItems="numberOfItems" v-if="tab === 'Items'"/>
+              <Pagination :pageSize="pageSize" :numberOfItems="numberOfItems" :loopRun="loopRun" v-if="tab === 'Items'"/>
             <p v-if="mintPassLoad" class="loading-pass">
               checking mint pass....<br/>
               <img class="loading-image" src="@/assets/img/loading-risid.gif"/>
@@ -267,6 +267,7 @@ p {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(255px, max-content));
   gap: 20px;
+  flex-wrap: wrap;
   max-width: 1135px;
   justify-content: center;
   margin: auto;

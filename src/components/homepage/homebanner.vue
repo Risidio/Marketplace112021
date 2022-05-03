@@ -469,9 +469,7 @@ export default {
   .bannerContainer {
     min-height: 75rem;
   }
-  .banner {
-    min-height: 80rem;
-  }
+
 }
 .notMobileHeader,
 .mobileHeader {
@@ -547,7 +545,7 @@ export default {
     height: 72rem;
   }
   .banner {
-    height: 80rem;
+    height: 86rem;
   }
 }
 @media only screen and (max-width: 370px)
