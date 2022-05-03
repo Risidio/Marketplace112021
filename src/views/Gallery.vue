@@ -44,14 +44,14 @@
                       </div>
                     </div>
                 <hr class="hr1"/>
-                <div v-if="resultSet && view == 'squared' && searched.length == 0">
-                  <SquareNFT :resultSet="resultSet"/>
+                  <div v-if="resultSet && view == 'squared' && searched.length == 0">
+                    <SquareNFT :resultSet="resultSet"/>
+                  </div>
+                  <div v-if="resultSet && view == 'squared' && searched.length > 0">
+                    <SquareNFT :resultSet="searched"/>
+                  </div>
                 </div>
-                <div v-if="resultSet && view == 'squared' && searched.length > 0">
-                  <SquareNFT :resultSet="searched"/>
-                </div>
-                </div>
-                </div>
+              </div>
             <div class="mobilemainGallery">
               <div class="mobiletop">
                 <div>
@@ -74,8 +74,8 @@
                  </div>
                 </div>
                 <div class="search-container">
-                      <input type="text" placeholder="Looking for anything in particular ?" name="search" @change="searching($event.target.value)" class="mobilesearch">
-                      <img class="mobileimage" src="https://res.cloudinary.com/risidio/image/upload/v1637238428/RisidioMarketplace/magnifying-search-lenses-tool_yaatpo.svg">
+                  <input type="text" placeholder="Looking for anything in particular ?" name="search" @change="searching($event.target.value)" class="mobilesearch">
+                  <img class="mobileimage" src="https://res.cloudinary.com/risidio/image/upload/v1637238428/RisidioMarketplace/magnifying-search-lenses-tool_yaatpo.svg">
                 </div>
                 <div class="sorting">
                  <div><h1 class="mobileview">View</h1></div>
@@ -154,7 +154,18 @@ export default {
       isHiddenP: false,
       grid: false,
       filterToggle: true,
-      collectionToggle: false
+      collectionToggle: false,
+      defQuery: {
+        query: null,
+        allCollections: 'one',
+        onSale: false,
+        onAuction: false,
+        editions: false,
+        createdBefore: null,
+        createdAfter: null,
+        sortField: 'name',
+        sortDir: 'sortDown'
+      }
     }
   },
   mounted () {
@@ -166,17 +177,6 @@ export default {
     }
   },
   methods: {
-    update (data) {
-      if (data.opcode === 'show-uploads') {
-        this.showUploads = true
-      } else if (data.opcode === 'show-collection') {
-        this.showUploads = false
-        this.loopRun = data.loopRun
-        if (this.$route.path !== '/nft-marketplace/' + data.loopRun.makerUrlKey + '/' + data.loopRun.currentRunKey) {
-          this.$router.push('/nft-marketplace/' + data.loopRun.makerUrlKey + '/' + data.loopRun.currentRunKey)
-        }
-      }
-    },
     showHidden () {
       this.isHidden = !this.isHidden
     },
@@ -189,9 +189,29 @@ export default {
     showHiddenP () {
       this.isHiddenP = !this.isHiddenP
     },
-    searching (input) {
-      const result = this.resultSet.filter((searchItem) => searchItem.name.includes(input))
-      this.searched = result
+    searching (query) {
+      this.defQuery.query = query
+      let queryStr = '?'
+      if (this.defQuery.query) queryStr += 'sortDir=' + this.defQuery.sortDir + '&'
+      if (this.defQuery.query) queryStr += 'query=' + this.defQuery.query + '&'
+      if (this.defQuery.edition) queryStr += 'edition=' + this.defQuery.edition + '&'
+      if (this.defQuery.onSale) queryStr += 'onSale=true&'
+      if (this.defQuery.claims) queryStr += 'claims=' + this.defQuery.claims + '&'
+      if (this.defQuery.editions) queryStr += 'editions=true&'
+      if (this.defQuery.sortField) queryStr += 'sortField=' + this.defQuery.sortField + '&'
+      const data = {
+        // runKey: (this.loopRun) ? this.loopRun.currentRunKey : null,
+        query: queryStr,
+        page: 0,
+        pageSize: 50
+      }
+      this.resultSet = []
+      this.$store.dispatch('rpayStacksContractStore/fetchTokensByFilters', data).then((result) => {
+        this.resultSet = result.gaiaAssets
+        this.tokenCount = result.tokenCount
+        this.numberOfItems = result.tokenCount
+        this.loading = false
+      })
     },
     showCollections () {
       const collection = document.getElementsByClassName('collectionsMenu')[0]
