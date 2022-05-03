@@ -53,12 +53,12 @@
         </div>
          <div v-else class="navbar_links_not_logged">
             <router-link class="nav-items bold" to="/nft-marketplace" >Explore</router-link>
-            <div style="position: relative; margin-top: 2px;" @click="openMenu()" id="dropDown">
-              <p class="nav-items bold" > Featured Collections <img class="arrow2" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></p>
-              <p class="featured" > Featured Collections <img style="margin-left: 8px;" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></p>
-              <div class="dropdownMenu">
-                <div v-for="(item, index) in allLoopRuns" :key="index" class="dropdownMenu-container">
-                  <p @click="linkTo(item)">{{item.currentRun}}</p>
+            <div style="position: relative; margin-top: 2px;" @click="openMenu()" id="dropDown" class="dropDown">
+              <p id="dropDown-1" class="nav-items bold" > Featured Collections <img class="arrow2" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></p>
+              <p id="dropDown-2" class="featured" > Featured Collections <img style="margin-left: 8px;" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></p>
+              <div id="dropDown-3" class="dropdownMenu">
+                <div id="dropDown-4" v-for="(item, index) in allLoopRuns" :key="index" class="dropdownMenu-container">
+                  <p @click="linkTo(item)" v-on:click="isLayer ? mobileNavebar() : '' ">{{item.currentRun}}</p>
                 </div>
               </div>
             </div>
