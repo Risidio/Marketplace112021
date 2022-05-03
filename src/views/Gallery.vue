@@ -44,38 +44,11 @@
                       </div>
                     </div>
                 <hr class="hr1"/>
-                <div v-if="resultSet && view == 'squared' && searched.length == 0" class="gallerySquare">
-                                  <div v-for="(item, index) in resultSet" :key="index">
-                    <div v-if="item.image" class="square-display" >
-                      <b-link class="galleryNFTContainer" v-bind:to="'/nfts/' + item.contractAsset.contractId + '/' + item.contractAsset.nftIndex">
-                      <img :src="item.image"
-                       alt="Risidio Gallery" class="square-display-img" loading="lazy">
-                      <div class="rel">
-                        <div class="galleryHover">
-                          <p class="nFTName"> {{!item.name ? "NFT" : item.name }} <span style="float: right;">{{item.contractAsset.saleData.buyNowOrStartingPrice}} STX</span>
-                          <p class="nFTArtist">By <span>{{!item.artist ? "Anonymous" : item.artist }}</span> </p>
-                        </div>
-                      </div>
-                      </b-link>
-                    </div>
-                  </div>
+                <div v-if="resultSet && view == 'squared' && searched.length == 0">
+                  <SquareNFT :resultSet="resultSet"/>
                 </div>
-                <div v-if="resultSet && view == 'squared' && searched.length > 0" class="gallerySquare">
-                  <div v-for="(item, index) in searched" :key="index">
-                    <div v-if="item.image" class="square-display" >
-                      <b-link class="galleryNFTContainer" v-bind:to="'/nfts/' + item.contractAsset.contractId + '/' + item.contractAsset.nftIndex">
-                      <img :src="item.image"
-                       alt="Risidio Gallery" class="square-display-img" loading="lazy">
-                      <div class="rel">
-                        <div class="galleryHover">
-                          <p class="nFTName"> {{!item.name ? "NFT" : item.name }} <span style="float: right;">{{item.contractAsset.saleData.buyNowOrStartingPrice}} STX</span>
-                              <!-- <span>$ {{item.contractAsset.saleData.buyNowOrStartingPrice * 1.9}}</span></p> -->
-                          <p class="nFTArtist">By <span>{{!item.artist ? "Anonymous" : item.artist }}</span> </p>
-                        </div>
-                      </div>
-                      </b-link>
-                    </div>
-                  </div>
+                <div v-if="resultSet && view == 'squared' && searched.length > 0">
+                  <SquareNFT :resultSet="searched"/>
                 </div>
                 </div>
                 </div>
@@ -135,23 +108,9 @@
                   </div>
                 </div>
               </div>
-                              <div v-if="resultSet && view == 'squared' && searched.length == 0" class="mobilegallerySquare">
+               <div v-if="resultSet && view == 'squared' && searched.length == 0" class="mobilegallerySquare">
                   <div v-if="!grid">
-                    <div v-for="(item, index) in resultSet" :key="index">
-                      <div v-if="item.image" class="mobile-square-display" >
-                        <b-link class="mobilegalleryNFTContainer" v-bind:to="'/nfts/' + item.contractAsset.contractId + '/' + item.contractAsset.nftIndex">
-                        <div>
-                          <img :src="item.image"
-                            alt="Risidio Gallery" class="mobile-square-display-img" loading="lazy">
-                        </div>
-                          <h2 class="artwork">{{!item.name ? "NFT" : item.name }}</h2>
-                          <p class="mobilenFTArtist">By <span>{{!item.artist ? "Anonymous" : item.artist }}</span> </p>
-                          <div class="price">
-                          <p >{{item.contractAsset.saleData.buyNowOrStartingPrice}} STX</p>
-                          </div>
-                        </b-link>
-                      </div>
-                    </div>
+                    <MobileNFT :resultSet="resultSet"/>
                   </div>
                   <div v-else  class="imageGrid">
                     <div v-for="(item, index) in resultSet" :key="index">
@@ -170,9 +129,14 @@
 <script>
 import { APP_CONSTANTS } from '@/app-constants'
 import utils from '@/services/utils'
+import MobileNFT from '../components/smallcomponents/MobileNFT.vue'
+import SquareNFT from '@/components/smallcomponents/SquareNFT.vue'
+
 export default {
   name: 'Gallery',
   components: {
+    MobileNFT,
+    SquareNFT
   },
   data () {
     return {
@@ -502,7 +466,7 @@ export default {
   z-index: 10;
 }
 .dropdown_option_container {
-    position: absolute;
+  position: absolute;
   background: none;
   display: flex;
   flex-direction: column;
@@ -515,7 +479,7 @@ export default {
   background: white;
 }
 .dropdown_option_container2 {
-    position: absolute;
+  position: absolute;
   background: none;
   display: flex;
   flex-direction: column;
@@ -526,8 +490,7 @@ export default {
   margin-left: 75px;
   z-index: 10;
   background: white;
-  border-radius:3px;
-
+  border-radius: 3px;
 }
 .dropdown_option_container3 {
   position: absolute;
@@ -561,8 +524,8 @@ export default {
   margin: 1px;
   transition: 0.3s;
   z-index: 10;
-  font-size:1.2rem;
-  text-align:center;
+  font-size: 1.2rem;
+  text-align: center;
 }
 .dropdown_option1 {
   padding: 5px;
@@ -570,8 +533,8 @@ export default {
   margin: 1px;
   transition: 0.3s;
   z-index: 10;
-  font-size:1.2rem;
-  text-align:center;
+  font-size: 1.2rem;
+  text-align: center;
 }
 @media only screen and (max-width: 795px) {
   .vl {
@@ -605,46 +568,46 @@ export default {
     max-width: 220px;
   }
 }
-@media only screen and (max-width: 450px){
-  .artwork{
+@media only screen and (max-width: 450px) {
+  .artwork {
     font-size: 12px;
   }
-  .mobilenFTArtist{
+  .mobilenFTArtist {
     font-size: 12px;
   }
-  .mobilenFTArtist span{
+  .mobilenFTArtist span {
     font-size: 12px;
   }
-  .price p{
+  .price p {
     font-size: 12px;
   }
 }
-@media only screen and (max-width: 365px){
-  .mobileimage{
+@media only screen and (max-width: 365px) {
+  .mobileimage {
     margin-left: 200px;
     //margin-right: 20px;
   }
-  .mobilearrow1{
-   margin-left: 120px;
+  .mobilearrow1 {
+    margin-left: 120px;
   }
- .mobilearrow2{
-  margin-left: 275px;
+  .mobilearrow2 {
+    margin-left: 275px;
   }
 }
-@media only screen and (max-width: 320px){
- .mobilenFTArtist span{
+@media only screen and (max-width: 320px) {
+  .mobilenFTArtist span {
     font-size: 10px;
   }
-  .sort-by{
+  .sort-by {
     margin-left: 150px;
   }
- .mobilearrow2{
-  margin-left: 215px;
+  .mobilearrow2 {
+    margin-left: 215px;
   }
 }
 :root {
   --height: 0;
-    grid-template-columns: repeat(auto-fit, 255px);
+  grid-template-columns: repeat(auto-fit, 255px);
   -ms-grid-columns: repeat(auto-fit, 255px);
   // justify-content: space-between;
 }
@@ -652,11 +615,11 @@ export default {
   display: flex;
   min-height: 500px;
 }
-@media only screen and (max-width: 600px ){
+@media only screen and (max-width: 600px) {
   .mainGalleryContainer {
     display: none;
-  min-height: 500px;
-}
+    min-height: 500px;
+  }
 }
 .mainGalleryContainer .mainGallerySidebar {
   flex: 1 1 15%;
@@ -669,60 +632,6 @@ export default {
   padding: 10px 50px;
   max-width: 1600px;
   // margin: auto;
-}
-.gallerySquare {
-  position: relative;
-  display: grid;
-  display: -ms-grid;
-   grid-template-columns: repeat(auto-fit, 255px);
-  -ms-grid-columns: repeat(auto-fit, 255px);
-  justify-content: space-evenly;
-  row-gap: 40px;
-  transition: all smooth 2s ease-in-out;
-}
-.rel {
-  position: relative;
-}
-.galleryHover {
-  display: none;
-  position: absolute;
-  bottom: 0;
-  background: #ffffff28 0% 0% no-repeat padding-box;
-  box-shadow: 10px 10px 30px #0000002f;
-  border-radius: 5px;
-  opacity: 1;
-  backdrop-filter: blur(30px);
-  -webkit-backdrop-filter: blur(30px);
-  padding: 4px 16px;
-  .nFTName,
-  .nFTArtist {
-    width: 180px;
-  }
-  .nFTName {
-    font-size: 20px;
-    margin-top: 10px;
-    span {
-      font-size: 13px;
-    }
-  }
-  .nFTArtist {
-    font-size: 13px;
-  }
-}
-
-.square-display:hover {
-  .galleryHover {
-    display: block;
-  }
-}
-.square-display-img {
-  width: 211px;
-  height: 189px;
-  // background-size: cover;
-  object-fit: cover;
-  // object-fit: scale-down;
-  box-shadow: 10px 10px 30px #0000002f;
-  border-radius: 5px;
 }
 .search-elements {
   margin-top: -40px;
