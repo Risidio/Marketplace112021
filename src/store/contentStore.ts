@@ -17,7 +17,7 @@ const contentStore = {
       emails: null,
       howItWorks: null,
       hiroWallet: null,
-      searchWord: null,
+      searchWord: 'hi',
       dataResults: []
     },
     defaultArtist: 'chemicalx',
@@ -39,6 +39,9 @@ const contentStore = {
         'text-align': 'center',
         border: '1pt solid #ccc'
       }
+    },
+    getSearch: state => {
+      return state.content.searchWord
     },
     getCharityByArtistId: state => id => {
       try {

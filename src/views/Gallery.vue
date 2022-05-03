@@ -39,7 +39,7 @@
                        </div>
                     </div>
                     <div class="search-elements">
-                        <input class="search" type="text" id="search" name="search" placeholder="Looking for anything in particular ?" @change="searching($event.target.value)">
+                        <input class="search" type="text" id="search" name="search" placeholder="Looking for anything in particular ?" :value="currentSearch"  @change="searching($event.target.value)">
                         <img class="view" src="https://res.cloudinary.com/risidio/image/upload/v1637238428/RisidioMarketplace/magnifying-search-lenses-tool_yaatpo.svg">
                       </div>
                     </div>
@@ -74,7 +74,7 @@
                  </div>
                 </div>
                 <div class="search-container">
-                  <input type="text" placeholder="Looking for anything in particular ?" name="search" @change="searching($event.target.value)" class="mobilesearch">
+                  <input type="text" placeholder="Looking for anything in particular ?" name="search" :value="currentSearch" @change="searching($event.target.value)" class="mobilesearch">
                   <img class="mobileimage" src="https://res.cloudinary.com/risidio/image/upload/v1637238428/RisidioMarketplace/magnifying-search-lenses-tool_yaatpo.svg">
                 </div>
                 <div class="sorting">
@@ -155,6 +155,7 @@ export default {
       grid: false,
       filterToggle: true,
       collectionToggle: false,
+      fetched: null,
       defQuery: {
         query: null,
         allCollections: 'one',
@@ -165,16 +166,28 @@ export default {
         createdAfter: null,
         sortField: 'name',
         sortDir: 'sortDown'
-      }
+      },
+      currentSearch: null
     }
   },
-  mounted () {
-    this.fetchFullRegistry()
+  watch: {
+    '$route' () {
+      this.fetchFullRegistry()
+    },
+    'fetched' () {
+      if (this.currentSearch) this.searching(this.currentSearch)
+    }
+  },
+  async mounted () {
+    await this.fetchFullRegistry()
     if (JSON.parse(localStorage.getItem('gridPrefrence')) === true) {
       this.grid = true
     } else {
       this.grid = false
     }
+    this.currentSearch = this.$store.getters['contentStore/getSearch']
+    // const content = this.$store.getters['contentStore/getSearch']
+    // if (content) this.searching(content)
   },
   methods: {
     showHidden () {
@@ -190,6 +203,7 @@ export default {
       this.isHiddenP = !this.isHiddenP
     },
     searching (query) {
+      this.currentSearch = query
       this.defQuery.query = query
       let queryStr = '?'
       if (this.defQuery.query) queryStr += 'sortDir=' + this.defQuery.sortDir + '&'
@@ -211,6 +225,20 @@ export default {
         this.tokenCount = result.tokenCount
         this.numberOfItems = result.tokenCount
         this.loading = false
+      }).catch((error) => {
+        const data = {
+          // runKey: (this.loopRun) ? this.loopRun.currentRunKey : null,
+          // query: queryStr,
+          page: 0,
+          pageSize: 50
+        }
+        this.$store.dispatch('rpayStacksContractStore/fetchTokensByFilters', data).then((result) => {
+          this.resultSet = result.gaiaAssets
+          this.tokenCount = result.tokenCount
+          this.numberOfItems = result.tokenCount
+          this.loading = false
+        })
+        console.log(error)
       })
     },
     showCollections () {
@@ -228,11 +256,11 @@ export default {
       categories.classList.toggle('active')
       arrow.classList.toggle('active')
     },
-    sortCollection (loopRun) {
+    sortCollection () {
       const data = {
         contractId: this.$route.params.title,
         asc: true,
-        runKey: loopRun ? loopRun.currentRunKey : null,
+        runKey: null,
         page: 0,
         pageSize: 100
       }
@@ -241,6 +269,7 @@ export default {
         this.resultSet = result.gaiaAssets
         this.numberOfItems = result.tokenCount
         this.loading = false
+        this.fetched = 1
       })
       this.filterToggle = !this.filterToggle
     },
@@ -248,7 +277,7 @@ export default {
       const $self = this
       this.$store.dispatch('rpayProjectStore/fetchProjectsByStatus', '').then((projects) => {
         $self.projects = utils.sortResults(projects)
-        this.sortCollection(projects.find((project) => project.contractId === 'ST1NXBK3K5YYMD6FD41MVNP3JS1GABZ8TRVX023PT.loopbomb-stx-t1'))
+        this.sortCollection()
         $self.projects.forEach((p) => {
           const application = this.$store.getters[APP_CONSTANTS.KEY_APPLICATION_FROM_REGISTRY_BY_CONTRACT_ID](p.contractId)
           p.application = application
@@ -265,11 +294,6 @@ export default {
     },
     toggleFilter () {
       this.filterToggle = !this.filterToggle
-    }
-  },
-  watch: {
-    '$route' () {
-      this.fetchFullRegistry()
     }
   },
   computed: {

@@ -10,9 +10,9 @@
     </div>
     </div>
   </div>
-  <div class="icon_container">
-    <input :class="showSearchBar ? 'search_input_box active' : 'search_input_box'" type="text" placeholder=" Looking for something in particular? " @input="searchWord($event)"><span class="searchIcon" v-on:click="openSearchBar()">&#8981;</span>
-  </div>
+  <form @submit="doSearch($event)" class="icon_container">
+    <input :class="showSearchBar ? 'search_input_box active' : 'search_input_box'" type="text" placeholder=" Looking for something in particular?" ref="search" @input="searchWord($event)"><span class="searchIcon" v-on:click="openSearchBar()">&#8981;</span>
+  </form>
 </div>
 </template>
 
@@ -32,8 +32,13 @@ export default {
     }
   },
   methods: {
-    doSearch () {
-      this.$emit('set-filter', { query: this.query, filter: 'text-search' })
+    doSearch (e) {
+      e.preventDefault()
+      const searched = this.$refs.search.value
+      console.log(this.$refs.search.value)
+      this.$store.state.contentStore.content.searchWord = searched
+      this.$router.push('/nft-marketplace')
+      // this.$emit('set-filter', { query: this.query, filter: 'text-search' })
     },
     showHidden () {
       this.isHidden = !this.isHidden
@@ -44,7 +49,6 @@ export default {
     },
     openSearchBar () {
       this.showSearchBar = !this.showSearchBar
-      // this.$router.push('/nft-marketplace/risidio/launch_collection_t1')
     }
   },
   computed: {
