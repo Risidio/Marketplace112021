@@ -507,7 +507,7 @@ export default {
   z-index: 10;
 }
 .dropdown_option_container {
-    position: absolute;
+  position: absolute;
   background: none;
   display: flex;
   flex-direction: column;
@@ -519,9 +519,9 @@ export default {
   margin-left: 260px;
   z-index: 10;
   background: white;
-    border-color: white;
-  border-style: solid;
+  border-color: white;
   border-radius:8px;
+  border-top-style: none;
       p:hover {
     text-decoration: underline;
     color: #5fbdc1;
@@ -541,8 +541,8 @@ export default {
   background: white;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   border-color: white;
-  border-style: solid;
   border-radius:8px;
+  border-top-style: none;
   // box-shadow: 2px 2px #E4E4E4 ;
     p:hover {
     text-decoration: underline;
