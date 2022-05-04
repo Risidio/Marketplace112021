@@ -5,6 +5,8 @@
                 <div class="galleryCollections">
                   <button class="collectionsButton" v-on:click="showCollections()">Collections <img class="arrow1 active" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></button>
                   <div class="collectionsMenu active" v-if="projects">
+                    <input class="collectionItemRadio" type="radio" @click="$router.push('/nft-marketplace/' + 'all')" name="radio">
+                    <label class="collectionItems">All</label>
                     <div v-for="(item, index) in projects" :key="index" class="collectionMenuContainer">
                       <input @click="$router.push('/nft-marketplace/' + item.contractId)" class="collectionItemRadio" type="radio" :id="item.title"
                       name="radio" :value="index"
@@ -169,12 +171,17 @@ export default {
         sortField: 'name',
         sortDir: 'sortDown'
       },
-      currentSearch: null
+      currentSearch: null,
+      pageSize: 50
     }
   },
   watch: {
     '$route' () {
-      this.fetchFullRegistry()
+      if (this.$route.params.title === 'all') {
+        this.fetchAll()
+      } else {
+        this.fetchFullRegistry()
+      }
     },
     'fetched' () {
       if (this.currentSearch) this.searching(this.currentSearch)
@@ -245,6 +252,18 @@ export default {
           this.loading = false
         })
         console.log(error)
+      })
+    },
+    fetchAll () {
+      const data = {
+        page: 0,
+        pageSize: this.pageSize
+      }
+      this.$store.dispatch('rpayStacksContractStore/fetchTokensByFilters', data).then((result) => {
+        this.resultSet = result.gaiaAssets
+        this.numberOfItems = result.tokenCount
+        this.loading = false
+        console.log(this.resultSet)
       })
     },
     showCollections () {
@@ -838,7 +857,7 @@ export default {
   // box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
 }
 
-.collectionMenuContainer .collectionItems {
+.collectionMenuContainer .collectionItems, .collectionItems {
   margin-top: 5px;
   font-size: 11px;
 }
