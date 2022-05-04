@@ -48,11 +48,15 @@
                       </div>
                     </div>
                 <hr class="hr1"/>
-                  <div v-if="resultSet && view == 'squared' && searched.length == 0">
+                  <div v-if="resultSet && view == 'squared' && searched.length == 0 && !loading">
                     <SquareNFT :resultSet="resultSet"/>
                   </div>
-                  <div v-if="resultSet && view == 'squared' && searched.length > 0">
+                  <div v-if="resultSet && view == 'squared' && searched.length > 0 && !loading">
                     <SquareNFT :resultSet="searched"/>
+                  </div>
+                <div style="display: grid; place-items: center;" v-else-if="loading">
+                  <img :src="loadingImage" alt="loading" />
+                    <p> loading...</p>
                   </div>
                 </div>
               </div>
@@ -135,6 +139,7 @@ import { APP_CONSTANTS } from '@/app-constants'
 import utils from '@/services/utils'
 import MobileNFT from '../components/smallcomponents/MobileNFT.vue'
 import SquareNFT from '@/components/smallcomponents/SquareNFT.vue'
+import loadingImage from '@/assets/img/loading-risid.gif'
 
 export default {
   name: 'Gallery',
@@ -145,6 +150,7 @@ export default {
   data () {
     return {
       resultSet: [],
+      loadingImage: loadingImage,
       loaded: true,
       currentRunKey: 'numberone_roots',
       types: 'all',
@@ -172,7 +178,8 @@ export default {
         sortDir: 'sortDown'
       },
       currentSearch: null,
-      pageSize: 50
+      pageSize: 50,
+      loading: true
     }
   },
   watch: {
@@ -216,6 +223,7 @@ export default {
       this.isHiddenM = false
     },
     searching (query) {
+      this.loading = true
       this.currentSearch = query
       this.defQuery.query = query
       let queryStr = '?'
@@ -282,6 +290,7 @@ export default {
       arrow.classList.toggle('active')
     },
     sortCollection () {
+      this.loading = true
       const data = {
         contractId: this.$route.params.title,
         asc: true,
