@@ -92,12 +92,12 @@
                       </div>
                     <div><h2 class="sort-by" @click="showHiddenM()">Sort by</h2></div>
                     <img class="mobilearrow2" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg">
-                          <div class="dropdown_option_container3">
-                               <div class="dropdown_option1" v-show="isHiddenM" value="All">Popular by</div>
-                               <div class="dropdown_option1" v-show="isHiddenM" value="Category">Popular by</div>
-                               <div class="dropdown_option1" v-show="isHiddenM" value="Category">Popular by</div>
-                               <div class="dropdown_option1" v-show="isHiddenM" value="Category">Popular by</div>
-                               </div>
+                      <div class="dropdown_option_container3">
+                        <div class="dropdown_option1" v-show="isHiddenM" value="All">Popular by</div>
+                        <div class="dropdown_option1" v-show="isHiddenM" value="Category">Popular by</div>
+                        <div class="dropdown_option1" v-show="isHiddenM" value="Category">Popular by</div>
+                        <div class="dropdown_option1" v-show="isHiddenM" value="Category">Popular by</div>
+                      </div>
                   <p class="mobilefilter">Filter results</p>
                   <div>
                     <div v-if="grid" v-on:click="changeGrid()" class="gridDisplayOptions">
@@ -398,8 +398,10 @@ export default {
   position: absolute;
   top: 100px;
   left: 0px;
+  bottom: 0;
   z-index: 19;
   background: #f5f5f5;
+  height: 100vh;
   width: 245px;
   height: 121;
   padding: 20px;
