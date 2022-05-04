@@ -20,54 +20,40 @@
                <div class="filter">
                    <div class="top-elements">
                         <p class="viewcategory" @click="changeView()">View</p>
-                       <div> <button class="collectionsButton"> Popular <img class="arrow2" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></button></div>
-                        <div class="vl"></div>
-                       <div> <button class="collectionsButton"> Sort by <img class="arrow2" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></button></div>
-                        <div class="vl"></div>
+                       <div> <button class="collectionsButton" @click="showHidden1()"> Popular <img class="arrow2" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></button></div>
+                                <div class="dropdown_option_container2">
+                                <div class="dropdown_option_down" style=" font-size:1.4rem; " v-show="isHiddenn"  @click="showHidden1()"> Popular <img  class="arrow3" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></div>
+                               <p class="dropdown_option" v-show="isHiddenn" value="All">Popular by</p>
+                               <p class="dropdown_option" v-show="isHiddenn" value="Category">Popular by</p>
+                               <p class="dropdown_option" v-show="isHiddenn" value="Category">Popular by</p>
+                               <p class="dropdown_option" v-show="isHiddenn" value="Category">Popular by</p>
+                               </div>
+                       <div> <button class="collectionsButton" @click="showHidden()"> Sort by <img class="arrow2" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></button></div>
+                        <div class="dropdown_option_container">
+                         <div class="dropdown_option_down" style=" font-size:1.4rem; " v-show="isHidden"  @click="showHidden()"> Sort by <img  class="arrow3" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></div>
+                               <p class="dropdown_option" v-show="isHidden" value="All">Sort by price</p>
+                               <p class="dropdown_option" v-show="isHidden" value="Category">Sort by price</p>
+                               <p class="dropdown_option" v-show="isHidden" value="Category">sort by price</p>
+                               <p class="dropdown_option" v-show="isHidden" value="Category">Sort by price</p>
+                        </div>
                         <div>
                           <!-- <button @click="showSquare"> display</button> -->
                        </div>
                     </div>
                     <div class="search-elements">
-                        <input class="search" type="text" id="search" name="search" placeholder="Looking for anything in particular ?" @change="searching($event.target.value)">
+                        <input class="search" type="text" id="search" name="search" placeholder="Looking for anything in particular ?" :value="currentSearch"  @change="searching($event.target.value)">
                         <img class="view" src="https://res.cloudinary.com/risidio/image/upload/v1637238428/RisidioMarketplace/magnifying-search-lenses-tool_yaatpo.svg">
                       </div>
                     </div>
                 <hr class="hr1"/>
-                <div v-if="resultSet && view == 'squared' && searched.length == 0" class="gallerySquare">
-                  <div v-for="(item, index) in resultSet" :key="index">
-                    <div v-if="item.image" class="square-display" >
-                      <b-link class="galleryNFTContainer" v-bind:to="'/nfts/' + item.contractAsset.contractId + '/' + item.contractAsset.nftIndex">
-                      <img :src="item.image"
-                       alt="Risidio Gallery" class="square-display-img" loading="lazy">
-                      <div class="rel">
-                        <div class="galleryHover">
-                          <p class="nFTName"> {{!item.name ? "NFT" : item.name }} <span style="float: right;">{{item.contractAsset.saleData.buyNowOrStartingPrice}} STX</span>
-                          <p class="nFTArtist">By <span>{{!item.artist ? "Anonymous" : item.artist }}</span> </p>
-                        </div>
-                      </div>
-                      </b-link>
-                    </div>
+                  <div v-if="resultSet && view == 'squared' && searched.length == 0">
+                    <SquareNFT :resultSet="resultSet"/>
+                  </div>
+                  <div v-if="resultSet && view == 'squared' && searched.length > 0">
+                    <SquareNFT :resultSet="searched"/>
                   </div>
                 </div>
-                <div v-if="resultSet && view == 'squared' && searched.length > 0" class="gallerySquare">
-                  <div v-for="(item, index) in searched" :key="index">
-                    <div v-if="item.image" class="square-display" >
-                      <b-link class="galleryNFTContainer" v-bind:to="'/nfts/' + item.contractAsset.contractId + '/' + item.contractAsset.nftIndex">
-                      <img :src="item.image"
-                       alt="Risidio Gallery" class="square-display-img" loading="lazy">
-                      <div class="rel">
-                        <div class="galleryHover">
-                          <p class="nFTName"> {{!item.name ? "NFT" : item.name }} <span style="float: right;">{{item.contractAsset.saleData.buyNowOrStartingPrice}} STX</span>
-                              <!-- <span>$ {{item.contractAsset.saleData.buyNowOrStartingPrice * 1.9}}</span></p> -->
-                          <p class="nFTArtist">By <span>{{!item.artist ? "Anonymous" : item.artist }}</span> </p>
-                        </div>
-                      </div>
-                      </b-link>
-                    </div>
-                  </div>
-                </div>
-                </div>
+              </div>
             <div class="mobilemainGallery">
               <div class="mobiletop">
                 <div>
@@ -90,19 +76,26 @@
                  </div>
                 </div>
                 <div class="search-container">
-                      <input type="text" placeholder="Looking for anything in particular ?" name="search" @change="searching($event.target.value)" class="mobilesearch">
-                      <img class="mobileimage" src="https://res.cloudinary.com/risidio/image/upload/v1637238428/RisidioMarketplace/magnifying-search-lenses-tool_yaatpo.svg">
+                  <input type="text" placeholder="Looking for anything in particular ?" name="search" :value="currentSearch" @change="searching($event.target.value)" class="mobilesearch">
+                  <img class="mobileimage" src="https://res.cloudinary.com/risidio/image/upload/v1637238428/RisidioMarketplace/magnifying-search-lenses-tool_yaatpo.svg">
                 </div>
                 <div class="sorting">
                  <div><h1 class="mobileview">View</h1></div>
-                  <div>
-                    <h2 class="all">All</h2>
+                  <div><h2 class="all" @click="showHiddenP()">All</h2></div>
                     <img class="mobilearrow1" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg">
-                  </div>
-                  <div>
-                    <h2 class="sort-by">Sort by</h2>
+                      <div class="dropdown_option_container4">
+                        <div class="dropdown_option1" v-show="isHiddenP" value="Category">All by</div>
+                        <div class="dropdown_option1" v-show="isHiddenP" value="Category">All by</div>
+                        <div class="dropdown_option1" v-show="isHiddenP" value="Category">All by</div>
+                      </div>
+                    <div><h2 class="sort-by" @click="showHiddenM()">Sort by</h2></div>
                     <img class="mobilearrow2" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg">
-                  </div>
+                          <div class="dropdown_option_container3">
+                               <div class="dropdown_option1" v-show="isHiddenM" value="All">Popular by</div>
+                               <div class="dropdown_option1" v-show="isHiddenM" value="Category">Popular by</div>
+                               <div class="dropdown_option1" v-show="isHiddenM" value="Category">Popular by</div>
+                               <div class="dropdown_option1" v-show="isHiddenM" value="Category">Popular by</div>
+                               </div>
                   <p class="mobilefilter">Filter results</p>
                   <div>
                     <div v-if="grid" v-on:click="changeGrid()" class="gridDisplayOptions">
@@ -116,23 +109,10 @@
                   </div>
                 </div>
               </div>
-                <div v-if="resultSet && view == 'squared' && searched.length == 0" class="mobilegallerySquare">
+
+               <div v-if="resultSet && view == 'squared' && searched.length == 0" class="mobilegallerySquare">
                   <div v-if="!grid">
-                    <div v-for="(item, index) in resultSet" :key="index">
-                      <div v-if="item.image" class="mobile-square-display" >
-                        <b-link class="mobilegalleryNFTContainer" v-bind:to="'/nfts/' + item.contractAsset.contractId + '/' + item.contractAsset.nftIndex">
-                        <div>
-                          <img :src="item.image"
-                            alt="Risidio Gallery" class="mobile-square-display-img" loading="lazy">
-                        </div>
-                          <h2 class="artwork">{{!item.name ? "NFT" : item.name }}</h2>
-                          <p class="mobilenFTArtist">By <span>{{!item.artist ? "Anonymous" : item.artist }}</span> </p>
-                          <div class="price">
-                          <p >{{item.contractAsset.saleData.buyNowOrStartingPrice}} STX</p>
-                          </div>
-                        </b-link>
-                      </div>
-                    </div>
+                    <MobileNFT :resultSet="resultSet"/>
                   </div>
                   <div v-else  class="imageGrid">
                     <div v-for="(item, index) in resultSet" :key="index">
@@ -144,18 +124,21 @@
                     </div>
                   </div>
                 </div>
-          </div>
-        </div>
+              </div>
     </section>
 </template>
 
 <script>
 import { APP_CONSTANTS } from '@/app-constants'
 import utils from '@/services/utils'
+import MobileNFT from '../components/smallcomponents/MobileNFT.vue'
+import SquareNFT from '@/components/smallcomponents/SquareNFT.vue'
 
 export default {
   name: 'Gallery',
   components: {
+    MobileNFT,
+    SquareNFT
   },
   data () {
     return {
@@ -167,34 +150,102 @@ export default {
       projects: [],
       view: 'squared',
       searched: [],
+      isHidden: false,
+      isHiddenn: false,
+      isHiddenM: false,
+      isHiddenP: false,
       grid: false,
       filterToggle: true,
-      collectionToggle: false
+      collectionToggle: false,
+      fetched: null,
+      defQuery: {
+        query: null,
+        allCollections: 'one',
+        onSale: false,
+        onAuction: false,
+        editions: false,
+        createdBefore: null,
+        createdAfter: null,
+        sortField: 'name',
+        sortDir: 'sortDown'
+      },
+      currentSearch: null
     }
   },
-  mounted () {
-    this.fetchFullRegistry()
+  watch: {
+    '$route' () {
+      this.fetchFullRegistry()
+    },
+    'fetched' () {
+      if (this.currentSearch) this.searching(this.currentSearch)
+    }
+  },
+  async mounted () {
+    await this.fetchFullRegistry()
     if (JSON.parse(localStorage.getItem('gridPrefrence')) === true) {
       this.grid = true
     } else {
       this.grid = false
     }
+    this.currentSearch = this.$store.getters['contentStore/getSearch']
+    // const content = this.$store.getters['contentStore/getSearch']
+    // if (content) this.searching(content)
   },
   methods: {
-    update (data) {
-      if (data.opcode === 'show-uploads') {
-        this.showUploads = true
-      } else if (data.opcode === 'show-collection') {
-        this.showUploads = false
-        this.loopRun = data.loopRun
-        if (this.$route.path !== '/nft-marketplace/' + data.loopRun.makerUrlKey + '/' + data.loopRun.currentRunKey) {
-          this.$router.push('/nft-marketplace/' + data.loopRun.makerUrlKey + '/' + data.loopRun.currentRunKey)
-        }
-      }
+    showHidden () {
+      this.isHidden = !this.isHidden
+      this.isHiddenn = false
     },
-    searching (input) {
-      const result = this.resultSet.filter((searchItem) => searchItem.name.includes(input))
-      this.searched = result
+    showHidden1 () {
+      this.isHiddenn = !this.isHiddenn
+      this.isHidden = false
+    },
+    showHiddenM () {
+      this.isHiddenM = !this.isHiddenM
+      this.isHiddenP = false
+    },
+    showHiddenP () {
+      this.isHiddenP = !this.isHiddenP
+      this.isHiddenM = false
+    },
+    searching (query) {
+      this.currentSearch = query
+      this.defQuery.query = query
+      let queryStr = '?'
+      if (this.defQuery.query) queryStr += 'sortDir=' + this.defQuery.sortDir + '&'
+      if (this.defQuery.query) queryStr += 'query=' + this.defQuery.query + '&'
+      if (this.defQuery.edition) queryStr += 'edition=' + this.defQuery.edition + '&'
+      if (this.defQuery.onSale) queryStr += 'onSale=true&'
+      if (this.defQuery.claims) queryStr += 'claims=' + this.defQuery.claims + '&'
+      if (this.defQuery.editions) queryStr += 'editions=true&'
+      if (this.defQuery.sortField) queryStr += 'sortField=' + this.defQuery.sortField + '&'
+      const data = {
+        // runKey: (this.loopRun) ? this.loopRun.currentRunKey : null,
+        query: queryStr,
+        page: 0,
+        pageSize: 50
+      }
+      this.resultSet = []
+      this.$store.dispatch('rpayStacksContractStore/fetchTokensByFilters', data).then((result) => {
+        this.resultSet = result.gaiaAssets
+        this.tokenCount = result.tokenCount
+        this.numberOfItems = result.tokenCount
+        this.loading = false
+      }).catch((error) => {
+        const data = {
+          // runKey: (this.loopRun) ? this.loopRun.currentRunKey : null,
+          // query: queryStr,
+          page: 0,
+          pageSize: 50
+        }
+        this.$store.dispatch('rpayStacksContractStore/fetchTokensByFilters', data).then((result) => {
+          this.resultSet = result.gaiaAssets
+          this.tokenCount = result.tokenCount
+          this.numberOfItems = result.tokenCount
+          this.loading = false
+        })
+        console.log(error)
+      })
     },
     showCollections () {
       const collection = document.getElementsByClassName('collectionsMenu')[0]
@@ -211,11 +262,11 @@ export default {
       categories.classList.toggle('active')
       arrow.classList.toggle('active')
     },
-    sortCollection (loopRun) {
+    sortCollection () {
       const data = {
         contractId: this.$route.params.title,
         asc: true,
-        runKey: loopRun ? loopRun.currentRunKey : null,
+        runKey: null,
         page: 0,
         pageSize: 100
       }
@@ -224,6 +275,7 @@ export default {
         this.resultSet = result.gaiaAssets
         this.numberOfItems = result.tokenCount
         this.loading = false
+        this.fetched = 1
       })
       this.filterToggle = !this.filterToggle
     },
@@ -231,7 +283,7 @@ export default {
       const $self = this
       this.$store.dispatch('rpayProjectStore/fetchProjectsByStatus', '').then((projects) => {
         $self.projects = utils.sortResults(projects)
-        this.sortCollection(projects.find((project) => project.contractId === 'ST1NXBK3K5YYMD6FD41MVNP3JS1GABZ8TRVX023PT.loopbomb-stx-t1'))
+        this.sortCollection()
         $self.projects.forEach((p) => {
           const application = this.$store.getters[APP_CONSTANTS.KEY_APPLICATION_FROM_REGISTRY_BY_CONTRACT_ID](p.contractId)
           p.application = application
@@ -248,11 +300,6 @@ export default {
     },
     toggleFilter () {
       this.filterToggle = !this.filterToggle
-    }
-  },
-  watch: {
-    '$route' () {
-      this.fetchFullRegistry()
     }
   },
   computed: {
@@ -290,6 +337,15 @@ export default {
   border-radius: 10px;
   // margin-left: 25px;
 }
+.artwork {
+  margin-left: 220px;
+  font-size: 20px;
+  margin-top: -130px;
+}
+.mobilenFTArtist {
+  margin-left: 220px;
+  margin-top: -10px;
+}
 .mobilegallerySquare {
   max-width: 800px;
   justify-content: space-evenly;
@@ -326,7 +382,7 @@ export default {
   z-index: 19;
   background: #f5f5f5;
   width: 245px;
-  height: 801px;
+  height: 121;
   padding: 20px;
 }
 .collectionsMenuSide {
@@ -345,15 +401,6 @@ export default {
   justify-content: flex-end;
   padding-bottom: 10px;
   cursor: pointer;
-}
-.artwork {
-  margin-left: 220px;
-  font-size: 20px;
-  margin-top: -130px;
-}
-.mobilenFTArtist {
-  margin-left: 220px;
-  margin-top: -10px;
 }
 .mobilesearch {
   width: 100%;
@@ -378,6 +425,15 @@ export default {
   display: grid;
   place-items: center;
   margin: 10px 10px;
+}
+.mobilenFTArtist span {
+  font-size: 14px;
+  font-weight: 600;
+  margin-top: -10px;
+}
+.price p {
+  margin-left: 220px;
+  font-size: 14px;
 }
 .sorting {
   margin-top: -20px;
@@ -428,15 +484,6 @@ export default {
   width: 40px;
   cursor: pointer;
 }
-.mobilenFTArtist span {
-  font-size: 14px;
-  font-weight: 600;
-  margin-top: -10px;
-}
-.price p {
-  margin-left: 220px;
-  font-size: 14px;
-}
 @media only screen and (min-width: 595px) {
   .mobilemainGallery {
     display: none;
@@ -452,6 +499,99 @@ export default {
   .mainGalleryContainer {
     display: none;
   }
+}
+.dropdown_selector {
+  border-top-left-radius: 40px;
+  border-bottom-left-radius: 40px;
+  font: normal normal 300 11px/14px Montserrat;
+  height: 50px;
+  width: 155px;
+  padding: 9px;
+  outline: none;
+  background: white;
+  transition: 0.3s;
+  box-shadow: 0px 3px 6px #00000029;
+  border: 1px solid #f5f5f5;
+  text-align: center;
+  z-index: 10;
+}
+.dropdown_option_container {
+  position: absolute;
+  background: none;
+  display: flex;
+  flex-direction: column;
+  align-content: flex-start;
+  justify-content: flex-start;
+  margin-top: 26px;
+  width: 140px;
+  margin-left: 260px;
+  z-index: 10;
+  background: white;
+    border-color: white;
+  border-style: solid;
+  border-radius:8px;
+      p:hover {
+    text-decoration: underline;
+    color: #5fbdc1;
+  }
+}
+.dropdown_option_container2 {
+  position: absolute;
+  background: none;
+  display: flex;
+  flex-direction: column;
+  align-content: flex-start;
+  justify-content: flex-start;
+  margin-top: 26px;
+  width: 140px;
+  margin-left: 85px;
+  z-index: 10;
+  background: white;
+  border-radius: 3px;
+}
+.dropdown_option_container3 {
+  position: absolute;
+  background: none;
+  display: flex;
+  flex-direction: column;
+  align-content: flex-start;
+  justify-content: flex-start;
+  margin-top: -38px;
+  width: 140px;
+  margin-left: 170px;
+  z-index: 10;
+  background: white;
+}
+.dropdown_option_container4 {
+  position: absolute;
+  background: none;
+  display: flex;
+  flex-direction: column;
+  align-content: flex-start;
+  justify-content: flex-start;
+  margin-top: -38px;
+  width: 140px;
+  margin-left: 25px;
+  z-index: 10;
+  background: white;
+}
+.dropdown_option {
+  padding: 5px;
+  background: #ffffff;
+  margin: 1px;
+  transition: 0.3s;
+  z-index: 10;
+  font-size: 1.2rem;
+  text-align: center;
+}
+.dropdown_option1 {
+  padding: 5px;
+  background: #ffffff;
+  margin: 1px;
+  transition: 0.3s;
+  z-index: 10;
+  font-size: 1.2rem;
+  text-align: center;
 }
 @media only screen and (max-width: 795px) {
   .vl {
@@ -485,50 +625,58 @@ export default {
     max-width: 220px;
   }
 }
-@media only screen and (max-width: 450px){
-  .artwork{
+@media only screen and (max-width: 450px) {
+  .artwork {
     font-size: 12px;
   }
-  .mobilenFTArtist{
+  .mobilenFTArtist {
     font-size: 12px;
   }
-  .mobilenFTArtist span{
+  .mobilenFTArtist span {
     font-size: 12px;
   }
-  .price p{
+  .price p {
     font-size: 12px;
   }
 }
-@media only screen and (max-width: 365px){
-  .mobileimage{
+@media only screen and (max-width: 365px) {
+  .mobileimage {
     margin-left: 200px;
     //margin-right: 20px;
   }
-  .mobilearrow1{
-   margin-left: 120px;
+  .mobilearrow1 {
+    margin-left: 120px;
   }
-  .mobilearrow2{
-  margin-left: 275px;
+  .mobilearrow2 {
+    margin-left: 275px;
   }
 }
-@media only screen and (max-width: 320px){
- .mobilenFTArtist span{
+@media only screen and (max-width: 320px) {
+  .mobilenFTArtist span {
     font-size: 10px;
   }
-  .sort-by{
+  .sort-by {
     margin-left: 150px;
   }
-  .mobilearrow2{
-  margin-left: 215px;
+  .mobilearrow2 {
+    margin-left: 215px;
   }
 }
 :root {
   --height: 0;
+  grid-template-columns: repeat(auto-fit, 255px);
+  -ms-grid-columns: repeat(auto-fit, 255px);
+  // justify-content: space-between;
 }
 .mainGalleryContainer {
   display: flex;
-  flex-wrap: wrap;
   min-height: 500px;
+}
+@media only screen and (max-width: 600px) {
+  .mainGalleryContainer {
+    display: none;
+    min-height: 500px;
+  }
 }
 .mainGalleryContainer .mainGallerySidebar {
   flex: 1 1 15%;
@@ -541,61 +689,6 @@ export default {
   padding: 10px 50px;
   max-width: 1600px;
   // margin: auto;
-}
-.gallerySquare {
-  position: relative;
-  display: grid;
-  display: -ms-grid;
-  grid-template-columns: repeat(auto-fit, 255px);
-  -ms-grid-columns: repeat(auto-fit, 255px);
-  // justify-content: space-between;
-  justify-content: space-evenly;
-  row-gap: 40px;
-  transition: all smooth 2s ease-in-out;
-}
-.rel {
-  position: relative;
-}
-.galleryHover {
-  display: none;
-  position: absolute;
-  bottom: 0;
-  background: #ffffff28 0% 0% no-repeat padding-box;
-  box-shadow: 10px 10px 30px #0000002f;
-  border-radius: 5px;
-  opacity: 1;
-  backdrop-filter: blur(30px);
-  -webkit-backdrop-filter: blur(30px);
-  padding: 4px 16px;
-  .nFTName,
-  .nFTArtist {
-    width: 180px;
-  }
-  .nFTName {
-    font-size: 20px;
-    margin-top: 10px;
-    span {
-      font-size: 13px;
-    }
-  }
-  .nFTArtist {
-    font-size: 13px;
-  }
-}
-
-.square-display:hover {
-  .galleryHover {
-    display: block;
-  }
-}
-.square-display-img {
-  width: 211px;
-  height: 189px;
-  // background-size: cover;
-  object-fit: cover;
-  // object-fit: scale-down;
-  box-shadow: 10px 10px 30px #0000002f;
-  border-radius: 5px;
 }
 .search-elements {
   margin-top: -40px;
@@ -640,6 +733,7 @@ export default {
 }
 .mainGallerySidebar {
   background: #f5f5f5;
+  min-height: 100vh;
 }
 .galleryCollections,
 .galleryCategory {
@@ -706,6 +800,11 @@ export default {
   width: 12px;
   height: 12px;
   transform: rotate(180deg);
+}
+.arrow3 {
+  margin-left: 50px;
+  width: 12px;
+  height: 12px;
 }
 .arrow1.active,
 .arrow2.active {

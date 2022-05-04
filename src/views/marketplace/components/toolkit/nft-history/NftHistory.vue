@@ -52,7 +52,7 @@ const subscribeApiNews = function (that) {
 }
 
 export default {
-  name: 'NFTHistroy',
+  name: 'NFTHistory',
   components: {
   },
   props: ['nftIndex', 'assetHash', 'loopRun'],
@@ -69,7 +69,7 @@ export default {
     clearInterval(this.timer)
     unsubscribeApiNews()
   },
-  mounted () {
+  async mounted () {
     let methos = 'fetchNFTEvents'
     let arg0 = this.nftIndex
     if (this.nftIndex < 0) {
@@ -133,6 +133,8 @@ export default {
             }
           })
         }
+      }).catch((error) => {
+        console.log(error)
       })
     },
     updateCacheByHash () {

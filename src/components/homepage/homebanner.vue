@@ -469,9 +469,6 @@ export default {
   .bannerContainer {
     min-height: 75rem;
   }
-  .banner {
-    min-height: 80rem;
-  }
 }
 .notMobileHeader,
 .mobileHeader {

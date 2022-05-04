@@ -30,9 +30,6 @@
       </div>
     </div>
   </div>
-  <!-- <p> {{content.aboutsection3[0].abouttext[0].text}} <br><br>
-      {{content.aboutsection3[0].abouttext1[0].text}}<br><br>
-      {{content.aboutsection3[0].abouttext2[0].text}} </p>-->
 </div>
 </div>
 </template>

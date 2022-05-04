@@ -1,7 +1,7 @@
 <template>
   <div class="viewContainer" v-if="loading === true">
     <div class="btn-div" v-if="transaction">
-      <a @click="transaction = false" class="backBtn" ><b-icon class="icon-button" icon="chevron-left" shift-h="-3"></b-icon> Back </a>
+      <router-link class="backBtn" :to="'/my-account/nft'"><b-icon class="icon-button" icon="chevron-left" shift-h="-3"></b-icon> Back</router-link>
     </div>
     <div class="profileContainer">
       <div class="profile">
@@ -33,12 +33,15 @@
                   <pre v-if="currencyPreference && currencyPreference.text" class="figure" style="font: normal normal 300 15px/19px Montserrat;"><span style="color: rgba(81, 84, 161, 1); font: normal normal 600 12px/15px Montserrat;">{{yourSTX}}</span> {{currency ? currency : currencyPreference.text || null}}</pre>
                   <pre v-else class="figure" style="font: normal normal 300 15px/19px Montserrat;"><span style="color: rgba(81, 84, 161, 1); font: normal normal 600 12px/15px Montserrat;">{{yourSTX}}</span> {{currency || null}}</pre>
                   <select id="currency" name="currency" class="form-control"  @change="currencyChange($event.target.value)">
-                    <option v-for="(rates, index) in rates" :key="index" :value="rates.text">{{rates.text}}</option>
+                    <option v-if="currencyPreference" :value="currencyPreference.text">{{currencyPreference.text}}</option>
+                    <option v-for="(rates, index) in rates" :key="index" :value="rates.text">
+                      {{rates.text}}
+                    </option>
                   </select>
               </div>
             </div>
             <div class="profileBtns">
-              <router-link  to="/"><button class="button" @click="logout">Disconnect</button></router-link >
+              <button class="button" @click="logout">Disconnect</button>
             </div>
           </div>
         </div>
@@ -47,30 +50,26 @@
       <div>
         <b-nav class="galleryNav" >
           <div class="galleryNavContainer" >
-            <b-nav-item id="NFT" class="galleryNavItem active" @click="tabChange('NFT')">Your NFTs</b-nav-item>
-            <b-nav-item id="Sale" class="galleryNavItem" @click="tabChange('Sale')">Your NFTs On Sale</b-nav-item>
-            <b-nav-item id="Fav" class="galleryNavItem" @click="tabChange('Fav')">Your Favourites</b-nav-item>
+            <router-link class="galleryNavItem" :to="'/my-account/nft'">Your NFTs</router-link>
+            <router-link class="galleryNavItem" :to="'/my-account/sale'">Your NFTs On Sale</router-link>
+            <router-link class="galleryNavItem" :to="'/my-account/fav'">Your Favourites</router-link>
           </div>
         </b-nav>
       </div>
-      <div v-if="tab === 'NFT' && loopRun" class="">
+      <div v-if="tab === 'nft' && loopRun" class="">
         <div>
           <MyPageableItems :loopRun="loopRun" :resultSet="resultSet"/>
           <router-link to="/gallery" style="font: normal normal bold 11px/14px Montserrat; display: block; text-align: center; margin-top: 50px"><!--<span style="color: #5FBDC1; ">Want More ? See The Gallery</span>--></router-link>
         </div>
-          <div class="pagination-container" v-if="tab === 'NFT'">
-            <p v-if="numberOfItems > pageSize && page > 0 " v-on:click="previousPage()"> &lt; Previous </p>
-            <div v-for="(item, index) in pages" :key="index"><span v-on:click="pageNumberChange(index)">{{item}}</span></div>
-            <p v-if="numberOfItems > pageSize && numberOfItems !== pageSize * (page + 1)" v-on:click="nextPage()">Next ></p>
-          </div>
+          <Pagination :pageSize="pageSize" :numberOfItems="numberOfItems"/>
       </div>
-      <div v-else-if="saleItem.length > 0 && tab === 'Sale'" >
+      <div v-else-if="saleItem.length > 0 && tab === 'sale'" >
         <div>
           <MyPageableItems :loopRun="loopRun" :resultSet="saleItem"/>
           <router-link to="/gallery" style="font: normal normal bold 11px/14px Montserrat; display: block; text-align: center; margin-top: 50px"><!--<span style="color: #5FBDC1; ">Want More ? See The Gallery</span>--></router-link>
         </div>
       </div>
-      <div v-else-if="saleItem.length === 0 && tab === 'Sale'">
+      <div v-else-if="saleItem.length === 0 && tab === 'sale'">
         <div class="noNFT">
           <h3> You do not own any items on sale</h3>
           <div class="profileBtns">
@@ -79,14 +78,14 @@
           </div>
         </div>
       </div>
-      <div v-else-if="tab === 'Fav' && favouriteNfts">
-            <MyPageableItems :loopRun="loopRun" :resultSet="favouriteNfts"/>
+      <div v-else-if="tab === 'fav' && favouriteNfts">
+          <MyPageableItems :loopRun="loopRun" :resultSet="favouriteNfts"/>
         <div class="profileBtns">
           <router-link class="button filled" to="/">Explore Gallery</router-link>
           <!-- <router-link class="button notFilledBlue" to="/create">Mint Your Item</router-link> -->
         </div>
       </div>
-      <div v-else-if="tab === 'Fav' && !favouriteNfts" class="noNFT">
+      <div v-else-if="tab === 'fav' && !favouriteNfts" class="noNFT">
         <h3> You do not have any favourite items</h3>
       </div>
       <div v-else>
@@ -100,7 +99,7 @@
       </div>
     </div>
     <div v-else>
-        <UserTransaction :loopRun="loopRun"/>
+        <UserTransaction :loopRun="loopRun" :profile="profile"/>
     </div>
   </div>
 </template>
@@ -108,6 +107,7 @@
 <script>
 
 import MyPageableItems from '@/views/marketplace/components/gallery/MyPageableItems'
+import Pagination from '@/components/smallcomponents/Pagination.vue'
 import UserTransaction from './UserTransaction.vue'
 import { APP_CONSTANTS } from '@/app-constants'
 import utils from '@/services/utils'
@@ -117,7 +117,8 @@ export default {
   name: 'MyAccount',
   components: {
     MyPageableItems,
-    UserTransaction
+    UserTransaction,
+    Pagination
     // MySingleItem
   },
   data () {
@@ -128,7 +129,7 @@ export default {
       yourSTX: null,
       currency: '',
       profileInfo: {},
-      tab: 'NFT',
+      tab: this.$route.params.nftSection,
       pageSize: 8,
       page: 0,
       loopRun: null,
@@ -139,7 +140,7 @@ export default {
       saleItem: [],
       defaultRate: null,
       currencyPreference: null,
-      favouriteNfts: [],
+      favouriteNfts: JSON.parse(localStorage.getItem('addNFTToFavourite')),
       transaction: false
     }
   },
@@ -160,8 +161,13 @@ export default {
   },
   watch: {
     '$route' () {
+      const accountParams = this.$route.params.nftSection
       this.loading = true
-      // this.fetchLoopRun()
+      if (accountParams === 'nft') {
+        this.transaction = false
+      }
+      this.tab = accountParams
+      this.page = this.$route.params.page
     },
     'profile' () {
       this.calRates()
@@ -172,9 +178,6 @@ export default {
     },
     'page' () {
       this.fetchAllocations()
-    },
-    'tab' () {
-      this.favouriteNfts = JSON.parse(localStorage.getItem('addNFTToFavourite'))
     }
   },
   methods: {
@@ -182,7 +185,7 @@ export default {
       const $self = this
       this.$store.dispatch('rpayProjectStore/fetchProjectsByStatus', '').then((projects) => {
         $self.projects = utils.sortResults(projects)
-        this.loopRun = projects.find((project) => project.contractId === 'ST1NXBK3K5YYMD6FD41MVNP3JS1GABZ8TRVX023PT.indige-mint')
+        this.loopRun = projects.find((project) => project.contractId === 'ST1NXBK3K5YYMD6FD41MVNP3JS1GABZ8TRVX023PT.risidio-indige')
         this.fetchAllocations()
         $self.projects.forEach((p) => {
           const application = this.$store.getters[APP_CONSTANTS.KEY_APPLICATION_FROM_REGISTRY_BY_CONTRACT_ID](p.contractId)
@@ -193,6 +196,7 @@ export default {
     },
     viewTransaction () {
       this.transaction = true
+      this.$router.push('/my-account/transaction')
     },
     viewInfo (pressed) {
       if (pressed === 1) {
@@ -239,11 +243,12 @@ export default {
       const data = {
         stxAddress: this.profile.stxAddress,
         asc: true,
-        page: this.page,
+        page: this.$route.params.page,
         pageSize: this.pageSize
       }
       this.$store.dispatch('rpayStacksContractStore/fetchMyTokensCPSV2', data).then((result) => {
         this.resultSet = result.gaiaAssets.filter((res) => res.contractId !== null)
+        console.log(result)
         this.numberOfItems = result.tokenCount
         this.loading = true
       }).catch((error) => {
@@ -251,14 +256,15 @@ export default {
       })
     },
     setSTX () {
-      const getRate = this.rates.find((rate) => rate.text === this.currencyPreference.text)
+      let getRate = null
+      if (this.currencyPreference) getRate = this.rates.find((rate) => rate.text === this.currencyPreference.text)
       if (this.currencyPreference) this.yourSTX = getRate.value
       // if (this.currencyPreference) this.yourSTX = getRate.value
     },
     currencyChange (currency) {
       this.yourSTX = this.profile.accountInfo.balance || 55
       this.currency = currency
-      const getRate = this.rates.find((rate) => rate.text === currency)
+      const getRate = this.rates.find((rate) => rate?.text === currency)
       this.yourSTX = getRate.value
       const object = JSON.stringify(getRate)
       localStorage.setItem('currencyPreferences', object)
@@ -275,13 +281,6 @@ export default {
       }).catch((error) => {
         console.log(error.message)
       })
-    },
-    tabChange (tab) {
-      this.tab = tab
-      document.getElementById('NFT').classList.remove('active')
-      document.getElementById('Sale').classList.remove('active')
-      document.getElementById('Fav').classList.remove('active')
-      document.getElementById(tab).classList.add('active')
     },
     closeModal () {
       document.getElementById('linkModal').style.display = 'none'
@@ -623,6 +622,9 @@ export default {
   text-decoration: underline;
   color: #50b1b5;
   cursor: pointer;
+}
+.router-link-active {
+  border-bottom: 2px solid #50b1b5;
 }
 @media only screen and (max-width: 1050px) {
   .walletCurrency {

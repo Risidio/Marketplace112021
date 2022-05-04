@@ -1,5 +1,5 @@
 <template>
-<section style="margin: auto; margin-top: 10rem; max-width: 1135px; padding: 0 20px;" id="asset-details-section" v-if="gaiaAsset && gaiaAsset.contractAsset" class="text-black">
+<section style="margin: auto; margin-top: 10rem; max-width: 1135px; padding: 20px 20px;" id="asset-details-section" v-if="gaiaAsset && gaiaAsset.contractAsset" class="text-black">
   <div >
     <a @click="$router.go(-1)" class="backBtn" >
     <b-icon icon="chevron-left" shift-h="-3"></b-icon> Back </a></div>
@@ -13,8 +13,8 @@
             </div>
         <div @click="showModel()" id="video-column" :style="dimensions" style="position: relative;">
           <div style="font-weight: 600; font-size: 1.0rem" :class="[ 'on-auction-text','text-white','label-button', { 'bg-secondary': salesBadgeLabel === 'not on sale'}, { 'bg-secondary2': salesBadgeLabel === 'on sale'}]">
-                  <div style="color: white; text-align: center;">{{salesBadgeLabel}}</div>
-                </div>
+              <div class="sale-banner">{{salesBadgeLabel}}</div>
+            </div>
           <MediaItemGeneral :classes="'hash1-image'" v-on="$listeners" :options="videoOptions" :mediaItem="gaiaAsset"/>
           <div class="editions"> <h2>EDITION <span>{{gaiaAsset.contractAsset.tokenInfo.edition}}</span> / {{gaiaAsset.contractAsset.tokenInfo.maxEditions}}</h2></div>
         </div>
@@ -44,7 +44,7 @@
                 </div>
               </div>
               <PendingTransactionInfo v-if="pending && pending.txStatus === 'pending'" :pending="pending"/>
-              <div style="margin-top: 50px" v-else>
+              <div v-else>
                 <b-row v-if="getSaleType() === 0">
                 </b-row>
                 <b-row v-else>
@@ -61,9 +61,9 @@
                     <button class="button filled" :title="ttBiddingHelp" @click="openPurchaseDialog()" >{{salesButtonLabel}}</button>
                   </b-col>
                 </b-row>
-                <h3 class="mt-5" >NFT Description:</h3>
-               <div v-if="gaiaAsset.description" class="mt-2 w-100 text-black" v-html="preserveWhiteSpace(gaiaAsset.description)">
-              </div>
+               <p class="mt-5" style="font-size: 14px; margin-top: 50px;" v-if="gaiaAsset.description" v-html="preserveWhiteSpace(gaiaAsset.description)"></p>
+               <hr style="margin-bottom: 30px;"/>
+                <NFTHistory v-if="loopRun" :loopRun="loopRun" :nftIndex="gaiaAsset.nftIndex" :assetHash="gaiaAsset.tokenInfo ? gaiaAsset.tokenInfo.assetHash : null"/>
               </div>
             </div>
           </b-col>
@@ -113,13 +113,16 @@ import AssetUpdatesModal from '@/views/marketplace/components/toolkit/purchasing
 import PurchaseFlow from '@/views/marketplace/components/toolkit/purchasing/PurchaseFlow'
 import MediaItemGeneral from '@/views/marketplace/components/media/MediaItemGeneral'
 import PendingTransactionInfo from '@/views/marketplace/components/toolkit/nft-history/PendingTransactionInfo'
+import NFTHistory from '@/views/marketplace/components/toolkit/nft-history/NftHistory.vue'
+
 export default {
   name: 'AssetDetailsSectionV1',
   components: {
     PendingTransactionInfo,
     AssetUpdatesModal,
     PurchaseFlow,
-    MediaItemGeneral
+    MediaItemGeneral,
+    NFTHistory
   },
   props: ['gaiaAsset', 'loopRun'],
   data: function () {
@@ -174,13 +177,10 @@ export default {
     }, this)
     if (localStorage.getItem('addNFTToFavourite')) {
       const likedArray = JSON.parse(localStorage.getItem('addNFTToFavourite'))
-      likedArray.map(item => {
-        if (item.nftIndex === this.gaiaAsset.nftIndex) {
-          this.isLiked = true
-        } else {
-          this.isLiked = false
-        }
-      })
+      const likedItem = likedArray.filter((item) => { return item.contractId === this.gaiaAsset.contractId && item.nftIndex === this.gaiaAsset.nftIndex })
+      if (likedItem.length !== 0) {
+        this.isLiked = true
+      }
     }
   },
   methods: {
@@ -527,21 +527,9 @@ export default {
   align-items: center;
   justify-content: center;
 }
-// .closeBtn{
-//   position: relative;
-//   font-size: 55px;
-//   left: 320px;
-//   top:-40px;
-// }
-
-// .closeBtn{
-//     position: absolute;
-//     top: -60px;
-//     right: 15px;
-//     color: #f1f1f1;
-//     font-size: 55px;
-//     font-weight: bold;
-// }
+.sale-banner {
+  color: white;
+}
 /* Modal Content */
 .modal-contentt {
   display: flex;
@@ -566,44 +554,45 @@ export default {
   font-size: 1.2rem;
 }
 .bg-secondary {
-  width: 85px;
+  width: 84px;
   height: 28px;
-  background-color: #5154A1 !important;
+  background-color: #5154a1 !important;
   position: relative;
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
 }
 .bg-secondary::after {
-  content: '';
+  content: "";
   position: absolute;
   top: -1px;
   left: 84px;
   width: 43px;
   height: 30px;
-  background: #5154A1;
+  background: #5154a1;
   clip-path: polygon(52% 52%, 0 0, 0 100%);
 }
 .bg-secondary2 {
   width: 85px;
   height: 30px;
-  background-color:#F25F5C !important;
+  background-color: #f25f5c !important;
   position: relative;
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
 }
 .bg-secondary2::after {
-  content: '';
+  content: "";
   position: absolute;
   top: 0px;
   left: 84px;
   width: 40px;
   height: 30px;
-  background: #F25F5C;
+  background: #f25f5c;
   clip-path: polygon(52% 52%, 0 0, 0 100%);
-
 }
-.label-button{
+.label-button {
   display: inline-block;
   padding: 5px 10px;
   top: 15px;
   left: 0px;
-  position:absolute;
+  position: absolute;
   font-size: 1.2rem;
   font-weight: 600;
   color: white;

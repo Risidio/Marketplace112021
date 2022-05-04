@@ -1,11 +1,11 @@
 <template>
-<div v-if="asset && asset.contractAsset.listingInUstx && asset.contractAsset.listingInUstx.price > 0">
+<div v-if="asset && asset.contractAsset && asset.contractAsset.listingInUstx && asset.contractAsset.listingInUstx.price > 0">
 <div class="NFTbackgroundColour NFTbackgroundColour-buy" >
   <div class="">
       <b-link class="galleryNFTContainer" :to="nextUrl">
-        <img class="nftGeneralView" :src="asset.image || '@/assets/img/sticksnstones_logo'" @error="imageError()"/>
+        <img class="nftGeneralView" :src="asset.image || errorImg"/>
         <p style="margin-top: 0;" class="nFTName">{{this.asset.name || 'Unknown'}} <span>On Sale</span></p>
-        <p class="nFTArtist"> By: <span>{{asset.properties.collection || 'Unknown'}}</span></p>
+        <p class="nFTArtist"> By: <span>{{asset.properties ? asset.properties.collection : 'Unknown'}}</span></p>
     </b-link>
     </div>
   </div>
@@ -14,9 +14,9 @@
   <div class="NFTbackgroundColour" >
   <div class="">
       <b-link class="galleryNFTContainer" :to="nextUrl">
-        <img class="nftGeneralView" :src="asset.image || '@/assets/img/sticksnstones_logo'" @error="imageError()"/>
+        <img class="nftGeneralView" :src="asset.image || errorImg"/>
         <p style="margin-top: 0;" class="nFTName">{{this.asset.name || 'Unknown'}}</p>
-        <p class="nFTArtist"> By: <span>{{asset.properties.collection || 'Unknown'}}</span></p>
+        <p class="nFTArtist"> By: <span>{{asset.properties ? asset.properties.collection : 'Unknown'}}</span></p>
     </b-link>
     </div>
   </div>
@@ -26,6 +26,7 @@
 <script>
 import { DateTime } from 'luxon'
 import { APP_CONSTANTS } from '@/app-constants'
+import LOGO from '@/assets/img/sticksnstones_logo.png'
 
 // noinspection JSUnusedGlobalSymbols
 export default {
@@ -39,7 +40,7 @@ export default {
       image: null,
       newWidth: '100%',
       newHeight: null,
-      errorImg: '@/assets/img/sticksnstones_logo'
+      errorImg: LOGO
     }
   },
   mounted () {

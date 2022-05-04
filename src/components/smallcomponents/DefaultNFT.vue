@@ -1,12 +1,15 @@
 <template>
-  <div class="">
-      <b-link class="galleryNFTContainer" to="/indige_mirror">
-      <!-- <MediaItemGeneral :classes="'nftGeneralView'" v-on="$listeners" :mediaItem="item.attributes"/> -->
-      <img alt="Collection Image" :src="item.image || image" class="nftGeneralView" loading="lazy"/>
-      <p class="nFTName"> {{!item.name ? "NFT" : item.name }} <span style="float: right;">{{item.contractAsset && item.contractAsset.listingInUstx && item.contractAsset.listingInUstx.price || 0}} STX</span></p>
-      <p class="nFTArtist">By <span>{{!item.properties.collection ? "Anonymous" : item.properties.collection }}</span><span style="float: right; font-weight: 300">{{changeCurrencyTag() || '£'}} {{changeCurrency(item.contractAsset && item.contractAsset.listingInUstx && item.contractAsset.listingInUstx.price) || 0}}</span></p>
-  </b-link>
+<div class="galleryContainer" >
+  <div v-for="(item, index) in gaiaAssets" :key="index" class="NFTbackgroundColour">
+    <div class="">
+      <b-link class="galleryNFTContainer" :to="assetUrl(item)" v-if="item && item.contractAsset">
+        <img class="nftGeneralView" :src="item.image"/>
+        <p class="nFTName"> {{!item.name ? "NFT" : artName(item.name) }} <span style="float: right;">{{item.contractAsset && item.contractAsset.listingInUstx && item.contractAsset.listingInUstx.price || 0}} STX</span></p>
+        <p class="nFTArtist">By <span>{{!item.properties.collection ? "Anonymous" : item.properties.collection }}</span><span style="float: right; font-weight: 300">{{changeCurrencyTag() || '£'}} {{changeCurrency(item.contractAsset && item.contractAsset.listingInUstx && item.contractAsset.listingInUstx.price) || 0}}</span></p>
+      </b-link>
+    </div>
   </div>
+</div>
 </template>
 
 <script>
@@ -14,14 +17,11 @@ import { APP_CONSTANTS } from '@/app-constants'
 import utils from '@/services/utils'
 
 export default {
-  name: 'ResultSet',
-  props: {
-    item: Object
-  },
+  name: 'DefaultNFT',
+  props: ['gaiaAssets'],
   data () {
     return {
-      currencyPreference: null,
-      image: '@/assets/img/indigeImages/indige-40.jpg'
+      currencyPreference: null
     }
   },
   mounted () {
@@ -33,7 +33,15 @@ export default {
         return '/nfts/' + item.contractAsset.contractId + '/' + item.contractAsset.nftIndex
       }
     },
+    artName (name) {
+      if (name.length > 15) {
+        return `${name.slice(0, 15)}...`
+      } else {
+        return name
+      }
+    },
     changeCurrency (price) {
+      if (!price) return 0
       if (this.currencyPreference) {
         const tickerRates = this.$store.getters[APP_CONSTANTS.KEY_TICKER_RATES]
         const rates = tickerRates.find((rate) => rate.currency === this.currencyPreference.text)
@@ -66,4 +74,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+p {
+  margin: 0;
+  padding: 0;
+}
 </style>

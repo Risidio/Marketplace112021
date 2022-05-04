@@ -25,9 +25,6 @@
         <div class="homeMarketItems">
             <div v-if="stxTransaction && stxTransaction.length > 0 && tab === 'Activity'">
               <StxTransaction :stxTransaction="stxTransaction"/>
-              <!-- <div v-for="(item, index) in stxTransaction" :key="index">
-                <p class="nFTName" v-if="item.contract_call && item.contract_call.function_name"> {{item.contract_call.function_name}} <span> {{item.contract_call.contract_id.split('.')[1]}} </span></p>
-              </div> -->
             </div>
             <div v-else-if="!stxTransaction && tab === 'Activity'">
               <div class="pass-container">
@@ -35,12 +32,10 @@
                 <p style="text-align: center;"> Hmm... Can't seem to find anything. Try to <span style="font-weight: 500; cursor: pointer; color: #5FBDC1;" @click="fetchStxData()"> refresh </span></p>
               </div>
             </div>
-            <div class="galleryContainer" v-if="resultSet && resultSet.length > 0 && tab === 'Items' && (!mintPasses || mintPasses === 0)">
-                <div v-for="(item, index) in resultSet" :key="index" class="NFTbackgroundColour" >
-                    <ResultSet :item="item" />
-                </div>
+            <div class="" v-if="resultSet && resultSet.length > 0 && tab === 'Items' && (!mintPasses || mintPasses === 0)">
+                <DefaultNFT v-bind:gaiaAssets="resultSet"/>
             </div>
-            <div class="galleryContainer" v-else-if="resultSet && resultSet.length > 0 && tab === 'Items' && mintPasses > 0">
+            <div class="" v-else-if="resultSet && resultSet.length > 0 && tab === 'Items' && mintPasses > 0">
               <div class="pass-container">
                 <div class="mint-pass">
                   <p class="mintPlus" @click="openModal()"> &plus; </p>
@@ -48,9 +43,7 @@
                   <p class="mint-text-2"> You have a mintpass balance of {{mintPasses}}. Therefore, you may mint in this collection !</p>
                 </div>
               </div>
-              <div v-for="(item, index) in resultSet.slice(0, 7)" :key="index" class="NFTbackgroundColour" >
-                  <ResultSet :item="item" />
-              </div>
+              <DefaultNFT v-bind:gaiaAssets="resultSet"/>
             </div>
             <div class="galleryContainer" v-else-if="tab === 'Items' && mintPasses > 0">
               <div class="mint-pass">
@@ -59,13 +52,7 @@
                 <p class="mint-text-2"> You have a mintpass balance of {{mintPasses}}. Therefore, you may mint in this collection !</p>
               </div>
             </div>
-            <div class="pagination-container" v-if="tab === 'Items'">
-              <router-link v-if="page > 0" :to="'/indige_mirror/' + (page - 1)">&lt; Previous</router-link>
-              <div v-for="(item, index) in pages" :key="index">
-                <router-link :to="'/indige_mirror/' + item">{{item}}</router-link>
-              </div>
-              <router-link v-if="numberOfItems > pageSize && page !== Math.floor(numberOfItems / pageSize)" :to="'/indige_mirror/' + (page + 1) "> Next ></router-link>
-            </div>
+              <Pagination :pageSize="pageSize" :numberOfItems="numberOfItems" :loopRun="loopRun" v-if="tab === 'Items'"/>
             <p v-if="mintPassLoad" class="loading-pass">
               checking mint pass....<br/>
               <img class="loading-image" src="@/assets/img/loading-risid.gif"/>
@@ -78,23 +65,21 @@
 
 <script>
 import axios from 'axios'
-import dayjs from 'dayjs'
 import StxTransaction from '../smallcomponents/StxTransaction.vue'
-import ResultSet from '../smallcomponents/ResultSet.vue'
+import Pagination from '../smallcomponents/Pagination.vue'
+import DefaultNFT from '../smallcomponents/DefaultNFT.vue'
 
 export default {
   name: 'Indige-Collection-S2',
   props: ['content', 'loopRun', 'resultSet', 'numberOfItems', 'pageSize'],
   components: {
-    // MyPageableItems
+    Pagination,
     StxTransaction,
-    ResultSet
+    DefaultNFT
   },
   data () {
     return {
-      dayjs: dayjs,
       tab: 'Items',
-      currentRunAssets: [],
       loading: true,
       mintPasses: null,
       mintPassMessage: '',
@@ -102,14 +87,10 @@ export default {
       commissions: null,
       commission: null,
       tokenContractId: null,
-      loadingLogo: '../../assets/img/loading-risid.gif',
-      activityLoad: true,
       currencyPreference: null,
       stxTransaction: [],
       limit: 15,
-      isDisabled: false,
-      pages: [],
-      page: parseInt(this.$route.params.page)
+      isDisabled: false
     }
   },
   mounted () {
@@ -126,24 +107,10 @@ export default {
     },
     'limit' () {
       this.fetchStxData()
-    },
-    'numberOfItems' () {
-      this.getPageNumbers()
-    },
-    '$route' () {
-      this.page = parseInt(this.$route.params.page)
     }
   },
   methods: {
 /* eslint-disable */
-    getPageNumbers () {
-      let pageNumbers = this.numberOfItems / this.pageSize
-      let page = []
-      for (let i = 0; i <= pageNumbers; i++){
-        page.push(i)
-      }
-      this.pages = page
-    },
     fetchStxData () {
       axios.get(`https://stacks-node-api.testnet.stacks.co/extended/v1/address/${this.loopRun.contractId}/transactions?limit=${this.limit}&offset=0&unanchored=false`).then((res) => {
         this.stxTransaction = res.data.results
@@ -213,10 +180,13 @@ export default {
         console.log(error)
       })
       const commission = this.commission
+      console.log(commission)
       const data = {
         contractAddress: this.loopRun.contractId.split('.')[0],
         contractName: this.loopRun.contractId.split('.')[1],
-        batchOption: 1
+        batchOption: 1,
+        sendAsSky: true,
+        functionName: 'mint-with'
       }
       if (!commission) {
         this.$notify({ type: 'error', title: 'Select Tender', text: 'Please select the tender to use topay for minting' })
@@ -227,6 +197,9 @@ export default {
       data.tokenContractAddress = commission.tokenContractId.split('.')[0]
       data.tokenContractName = commission.tokenContractId.split('.')[1]
       this.$store.dispatch('rpayMarketGenFungStore/mintWithToken', data)
+        .catch((error) => {
+          console.log(error)
+        })
     },
     setPageSize () {
       this.limit += 15
@@ -294,43 +267,10 @@ p {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(255px, max-content));
   gap: 20px;
+  flex-wrap: wrap;
   max-width: 1135px;
   justify-content: center;
   margin: auto;
-}
-.pagination-container {
-  padding: 50px;
-  max-width: 300px;
-  margin: auto;
-  text-align: center;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  p {
-    font: normal normal bold 12px/15px Montserrat;
-    color: #50b1b5;
-    cursor: pointer;
-    &:hover {
-      text-decoration: underline;
-    }
-  }
-  div {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-  }
-  a {
-    font: normal normal bold 12px/15px Montserrat;
-    color: #50b1b5;
-    cursor: pointer;
-    &:hover {
-      text-decoration: underline;
-    }
-  }
-}
-.router-link-exact-active {
-  text-decoration: underline;
 }
 .homeMarketItems {
   max-width: 1135px;

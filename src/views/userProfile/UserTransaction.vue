@@ -3,24 +3,49 @@
         <div>
             <b-nav class="galleryNav" >
                 <div class="galleryNavContainer" >
-                <b-nav-item class="galleryNavItem active" id="Transaction" @click="tabChange('Transaction')">All Transaction</b-nav-item>
-                <b-nav-item class="galleryNavItem" id="Selling" @click="tabChange('Selling')">Selling</b-nav-item>
-                <b-nav-item class="galleryNavItem" id="Buying" @click="tabChange('Buying')">Buying</b-nav-item>
+                <router-link class="galleryNavItem" :to="'/my-account/transaction'">All Transaction</router-link>
+                <router-link class="galleryNavItem" :to="'/my-account/selling'">Selling</router-link>
+                <router-link class="galleryNavItem" :to="'/my-account/buying'">Buying</router-link>
                 </div>
             </b-nav>
         </div>
         <div class="homeMarketItems">
-            <div v-if="transactionData && transactionData.length > 0 && tab === 'Transaction'">
+            <div v-if="transactionData && transactionData.length > 0 && tab === 'transaction'">
               <StxTransaction2 :StxTransaction2="transactionData"/>
             </div>
-            <div v-else-if="!transactionData && tab === 'Transaction' && activityLoad">
+            <div v-else-if="!transactionData && tab === 'transaction' && activityLoad">
               <div class="pass-container">
                 <img src="@/assets/img/loading-risid.gif" style="margin-auto;" class="loading-image" alt="loading"/>
                 <p style="text-align: center;"> Hmm... Can't seem to find anything. Try to <span style="font-weight: 500; cursor: pointer; color: #5FBDC1;" @click="fetchStxData()"> refresh </span></p>
               </div>
             </div>
-            <button v-if="tab === 'Transaction'" class="button notFilledBlue" @click="loadMore()" :disabled="isDisabled ? true : false"> See More </button>
+            <button v-if="tab === 'transaction'" class="button notFilledBlue" @click="loadMore()" :disabled="isDisabled ? true : false"> See More </button>
         </div>
+            <div class="homeMarketItems">
+            <div v-if="transactionData && transactionData.length > 0 && tab === 'selling'">
+              <StxTransaction2 :StxTransaction2="fetchResult"/>
+            </div>
+            <div v-else-if="!transactionData && tab === 'selling' && activityLoad">
+              <div class="pass-container">
+                <img src="@/assets/img/loading-risid.gif" style="margin-auto;" class="loading-image" alt="loading"/>
+                <p style="text-align: center;"> Hmm... Can't seem to find anything. Try to <span style="font-weight: 500; cursor: pointer; color: #5FBDC1;" @click="fetchStxData()"> refresh </span></p>
+              </div>
+            </div>
+            <button v-if="tab === 'selling'" class="button notFilledBlue" @click="loadMore()" :disabled="isDisabled ? true : false"> See More </button>
+        </div>
+          <div class="homeMarketItems">
+            <div v-if="transactionData && transactionData.length > 0 && tab === 'buying'">
+              <StxTransaction2 :StxTransaction2="fetchResult1"/>
+            </div>
+            <div v-else-if="!transactionData && tab === 'buying' && activityLoad">
+              <div class="pass-container">
+                <img src="@/assets/img/loading-risid.gif" style="margin-auto;" class="loading-image" alt="loading"/>
+                <p style="text-align: center;"> Hmm... Can't seem to find anything. Try to <span style="font-weight: 500; cursor: pointer; color: #5FBDC1;" @click="fetchStxData()"> refresh </span></p>
+              </div>
+            </div>
+            <button v-if="tab === 'buying'" class="button notFilledBlue" @click="loadMore()" :disabled="isDisabled ? true : false"> See More </button>
+        </div>
+
     </div>
 </template>
 
@@ -28,42 +53,59 @@
 import axios from 'axios'
 import dayjs from 'dayjs'
 import StxTransaction2 from '@/components/smallcomponents/StxTransaction2.vue'
-
 export default {
   name: 'UserTrasaction',
-  props: ['loopRun'],
+  props: ['loopRun', 'profile'],
   components: {
     StxTransaction2
   },
   data () {
     return {
       dayjs: dayjs,
-      tab: 'Transaction',
+      tab: this.$route.params.nftSection,
       loading: true,
       loadingLogo: '../../assets/img/loading-risid.gif',
       activityLoad: true,
       limit: 15,
       isDisabled: false,
-      transactionData: []
+      transactionData: [],
+      fetchResult: [],
+      fetchResult1: []
     }
   },
   mounted () {
     this.fetchStxData()
+    axios.get(`https://stacks-node-api.testnet.stacks.co/extended/v1/address/${this.profile.stxAddress}/transactions?limit=37`).then((res) => {
+      this.transactionDataa = res.data.results
+      this.activityLoad = false
+    }).catch((error) => {
+      this.isDisabled = true
+      console.log(error)
+      console.log('err')
+    })
   },
   watch: {
     'loopRun' () {
       this.fetchStxData()
     },
     'tab' () {
-      if (!this.transactionData) this.fetchStxData()
+      if (this.tab === 'selling') {
+        this.fetchResult = this.transactionDataa.filter(item => item.contract_call?.function_name === 'list-in-token')
+      }
+      if (this.tab === 'buying') {
+        this.fetchResult1 = this.transactionDataa.filter(item => item.contract_call?.function_name === 'buy-in-token')
+      }
     },
     'limit' () {
       this.fetchStxData()
+    },
+    '$route' () {
+      this.tab = this.$route.params.nftSection
     }
   },
   methods: {
     fetchStxData () {
-      axios.get(`https://stacks-node-api.testnet.stacks.co/extended/v1/address/ST112ZVZ2YQSW74BQ65VST84806RV5ZZZTW0261CV/transactions?limit=${this.limit}`).then((res) => {
+      axios.get(`https://stacks-node-api.testnet.stacks.co/extended/v1/address/${this.profile.stxAddress}/transactions?limit=${this.limit}`).then((res) => {
         this.transactionData = res.data.results
         this.activityLoad = false
       }).catch((error) => {
@@ -72,22 +114,11 @@ export default {
         console.log('err')
       })
     },
-    tabChange (tab) {
-      this.tab = tab
-      document.getElementById('Transaction').classList.remove('active')
-      document.getElementById('Selling').classList.remove('active')
-      document.getElementById('Buying').classList.remove('active')
-      document.getElementById(tab).classList.add('active')
-    },
     loadMore () {
       this.limit += 15
     }
   },
   computed: {
-    profile () {
-      const profile = this.$store.getters['rpayAuthStore/getMyProfile']
-      return profile
-    }
   }
 }
 </script>
@@ -137,5 +168,7 @@ export default {
 .button {
   margin: 50px auto 50px auto;
 }
-
+.router-link-active {
+  border-bottom: 2px solid #50b1b5;
+}
 </style>

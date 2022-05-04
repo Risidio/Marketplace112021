@@ -9,6 +9,7 @@ html {
 	/* 1rem = 10px */
 	font-size: 62.5%;
 }
+
 body {
 	/* default font-size set back to 16px */
 	font-size: 2rem;
@@ -29,6 +30,7 @@ body h1 {
 	margin-bottom: 0;
 	font-family: Montserrat, Arial, Helvetica, sans-serif !important;
 }
+
 body h2 {
 	color: black;
 	font-size: 2.7rem;
@@ -36,18 +38,21 @@ body h2 {
 	margin-bottom: 15px;
 	font-family: Montserrat, Arial, Helvetica, sans-serif !important;
 }
+
 body h3 {
 	color: black;
 	font-size: 2.4rem;
 	font-weight: 400;
 	font-family: Montserrat, Arial, Helvetica, sans-serif !important;
 }
+
 body h4 {
 	color: black;
 	font-size: 2.1rem;
 	font-weight: 300;
 	font-family: Montserrat, Arial, Helvetica, sans-serif !important;
 }
+
 body p {
 	color: black;
 	font-size: 1.6rem;
@@ -55,6 +60,7 @@ body p {
 	margin-bottom: 10px;
 	font-family: Montserrat, Arial, Helvetica, sans-serif !important;
 }
+
 body h1 a {
 	color: black;
 	font-size: 3rem;
@@ -62,9 +68,11 @@ body h1 a {
 	margin-bottom: 0;
 	font-family: Montserrat, Arial, Helvetica, sans-serif !important;
 }
+
 body h1 a:hover {
 	font-family: Montserrat, Arial, Helvetica, sans-serif !important;
 }
+
 body h2 a {
 	color: black;
 	font-size: 2rem;
@@ -72,6 +80,7 @@ body h2 a {
 	margin-bottom: 0;
 	font-family: Montserrat, Arial, Helvetica, sans-serif !important;
 }
+
 // body h2 a:hover {
 
 // }
@@ -79,6 +88,7 @@ body a {
 	// color: black;
 	font-family: Montserrat, Arial, Helvetica, sans-serif !important;
 }
+
 body a:hover {
 	text-decoration: none !important;
 }
@@ -87,13 +97,16 @@ input {
 	font-weight: 700;
 	font-family: Montserrat, Arial, Helvetica, sans-serif !important;
 }
+
 select {
 	font-weight: 700;
 	font-family: Montserrat, Arial, Helvetica, sans-serif !important;
 }
+
 ::-webkit-scrollbar {
 	width: 10px;
 }
+
 /* Track */
 ::-webkit-scrollbar-track {
 	background: #fff;
@@ -109,39 +122,49 @@ select {
 ::-webkit-scrollbar-thumb:hover {
 	background: #555;
 }
+
 .navbar-dark .navbar-nav .nav-link {
 	color: #fff !important;
 }
+
 .no-scroll {
 	overflow: hidden;
 }
+
 @media only screen and (max-width: 475px) {
 	.no-scroll {
 		position: fixed;
 	}
 }
+
 .cyanText {
 	color: #50b1b5;
 }
+
 .cyanBg {
 	background: #50b1b5;
 	border: none;
 }
+
 .cyanBg:hover {
 	background: auto;
 }
+
 .greyBg {
 	background: #ebebeb;
 	color: black;
 	border: none;
 }
+
 .greyBg:hover {
 	background: rgb(87, 87, 87);
 }
+
 .nftBuyNowSection {
 	display: flex;
 	flex-direction: row;
 }
+
 .nftsBuyButton {
 	border: none;
 	font-weight: 600;
@@ -150,18 +173,22 @@ select {
 	height: 40px;
 	border-radius: 20px;
 }
+
 .purpleBg {
 	background-color: #5154a1;
 }
+
 .purpleText {
 	color: #5154a1;
 	font-weight: 700;
 	font-size: 2rem;
 }
+
 .buyNowTextPadding {
 	margin: auto 5px;
 	// margin: 5px;
 }
+
 // .btn {
 //   font-size: 1.7rem;
 //   padding: 7px 30px;
@@ -198,6 +225,7 @@ select {
 .input-group-append {
 	text-align: center;
 }
+
 .input-group-append .input-group-text {
 	width: 60px;
 	color: #000;
@@ -206,6 +234,7 @@ select {
 	border-radius: 0px;
 	border: 0pt solid #000;
 }
+
 .input-group-prepend .input-group-text {
 	width: 60px;
 	color: #000;
@@ -221,6 +250,7 @@ select {
 	padding: 20px;
 	margin: 10px auto;
 }
+
 .modal-content {
 	min-height: 200px;
 	color: rgb(7, 0, 0);
@@ -229,21 +259,26 @@ select {
 	background: #f5f5f5 0% 0% no-repeat padding-box;
 	// box-shadow: 0px 3px 6px #00000029 inset;
 }
+
 .modal-header {
 	text-align: right;
 	color: #000;
 	border: none !important;
 }
+
 .modal-footer {
 	display: none !important;
 }
+
 .footer-text {
 	font-size: 2rem;
 	font-weight: 500;
 }
+
 .btn:focus {
 	box-shadow: none !important;
 }
+
 // .btn {
 //   width: 150px;
 //   white-space: 'nowrap';
@@ -254,37 +289,47 @@ select {
 	padding: 4px 10px;
 	white-space: nowrap;
 }
+
 .bg-black {
 	background-color: #000;
 }
+
 .text-danger {
 	font-size: 0.9rem;
 }
+
 .text-big {
 	font-size: 2.5rem;
 }
+
 .text-xxsmall {
 	font-size: 0.75rem;
 }
+
 .text-preview {
 	font-size: 1.2rem;
 	font-weight: 500;
 }
+
 .text-bold {
 	font-size: 1.3rem;
 	font-weight: 600;
 }
+
 .text-underline {
 	text-decoration: underline;
 }
+
 .text-small {
 	font-size: 1.2rem;
 	font-weight: 300;
 }
+
 .tooltip-inner {
 	font-size: 1.4rem;
 	font-weight: 300;
 }
+
 .cover-image {
 	min-height: 300px;
 	height: auto;
@@ -298,9 +343,11 @@ select {
 	opacity: 1;
 	text-align: center;
 }
+
 .dashed-line {
 	border: 1pt dashed rgb(146, 146, 38);
 }
+
 .upload-preview {
 	padding: 10px;
 	height: auto;
@@ -309,66 +356,80 @@ select {
 	box-shadow: 0px 6px 9px #00000029;
 	border-radius: 0px;
 }
+
 .hundred-vh {
 	min-height: 100vh !important;
 }
+
 .center {
 	margin: auto;
 	width: 70%;
 	border: 0px solid green;
 	padding: 10px;
 }
+
 @media only screen and (max-width: 900px) {
 	.center {
 		width: 85%;
 	}
 }
+
 .center-section {
 	margin: auto;
 	width: 90%;
 	border: 0px solid green;
 	padding: 50px 10px;
 }
+
 @media only screen and (max-width: 900px) {
 	.center-section {
 		width: 85%;
 	}
 }
+
 .filter-black {
-	filter: invert(100%) sepia(79%) saturate(2476%) hue-rotate(86deg)
-		brightness(118%) contrast(119%);
+	filter: invert(100%) sepia(79%) saturate(2476%) hue-rotate(86deg) brightness(118%) contrast(119%);
 }
+
 .text-description {
 	font-size: 1.4rem;
 	font-family: "Montserrat";
 }
+
 .text-bio {
 	font-size: 1.4rem;
 	font-family: "Montserrat";
 }
+
 .text-artist {
 	font-size: 1.2rem;
 	font-weight: 300;
 }
+
 .text-action {
 	font-size: 1.4rem;
 	font-weight: 500;
 }
+
 .text-artwork {
 	font-size: 1.6rem;
 	font-weight: 500;
 }
+
 .text-address {
 	font-size: 1.2rem;
 	font-weight: 300;
 }
+
 .text-splash {
 	font-size: 1.2rem;
 	font-weight: 300;
 }
+
 .text-translucent {
 	opacity: 0.3;
 }
+
 .vjs-big-play-button {
 	width: 50px !important;
 	height: 50px !important;
@@ -376,28 +437,35 @@ select {
 	background-color: #222 !important;
 	opacity: 0.7;
 }
+
 .inline-link {
 	color: #2255a4;
 	text-decoration: underline;
 }
+
 .tabs {
 	border-radius: 0 !important;
 }
+
 .nav-tabs .nav-link {
 	border-radius: 0 !important;
 }
+
 .tab {
 	border-radius: 0 !important;
 }
+
 .alert {
 	border-radius: 0 !important;
 }
+
 // .badge {
 //   border-radius: 0 !important;
 // }
 .vue-notification-template {
 	background: none;
 }
+
 .r-notifs {
 	padding: 5px !important;
 	margin: 5px !important;
@@ -405,43 +473,53 @@ select {
 	background: $success !important;
 	color: #000 !important;
 }
+
 .success {
 	background: $success !important;
 	color: #000 !important;
 }
+
 .error {
 	background: $danger !important;
 	color: #fff !important;
 }
+
 .danger {
 	background: $danger !important;
 	color: #fff !important;
 }
+
 .warning {
 	background: $warning !important;
 }
+
 .center {
 	margin: auto;
 	width: 70%;
 	border: 0px solid green;
 	padding: 10px;
 }
+
 .pointer {
 	cursor: pointer;
 }
+
 .avatar-image {
 	max-width: 100%;
 	border-radius: 0%;
 }
+
 .hash1-image {
 	width: 100%;
 	min-height: auto;
 	border-radius: 0%;
 	// object-fit: contain;
 }
+
 #asset-details .hash1-image {
 	border: none;
 }
+
 .galleryNav {
 	margin: auto;
 	margin-bottom: 40px;
@@ -450,12 +528,14 @@ select {
 	align-items: center;
 	border-bottom: solid rgba(128, 128, 128, 0.112) 1px;
 }
+
 .galleryNavContainer {
 	margin: auto;
 	max-width: 1200px;
 	display: flex;
 	flex-direction: row;
 }
+
 .galleryNavItem {
 	font-size: 12px;
 	font-weight: 500;
@@ -464,10 +544,12 @@ select {
 	margin: auto;
 	border: solid rgba(255, 255, 255, 0) 2px;
 }
+
 .galleryNavItem:hover,
 .galleryNavItem.active {
 	border-bottom: 2px solid #50b1b5;
 }
+
 .NFTbackgroundColour {
 	background: rgba(129, 129, 129, 0.12);
 	display: grid;
@@ -481,20 +563,25 @@ select {
 	cursor: pointer;
 	transition: all 0.2s ease-in-out;
 }
+
 .NFTbackgroundColour-buy {
 	background: rgba(80, 83, 159, 0.23);
 }
+
 .NFTbackgroundColour-collection {
 	background: rgba(53, 44, 154, 0.82);
 }
+
 .NFTbackgroundColour:hover,
 .NFTbackgroundColour-buy:hover {
+
 	.nftGeneralView,
 	.nftGeneralView-limited {
 		transform: scale(1.05);
 		box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 	}
 }
+
 .galleryNav {
 	margin: auto;
 	margin-top: 50px;
@@ -504,6 +591,7 @@ select {
 	align-items: center;
 	border-bottom: solid rgba(128, 128, 128, 0.112) 1px;
 }
+
 .galleryNavContainer {
 	margin: auto;
 	margin-bottom: -1px;
@@ -520,23 +608,27 @@ select {
 	font-size: 12px;
 	font-weight: 500;
 }
-.galleryNavItem:focus {
-	color: red;
-}
+
+// .galleryNavItem:focus {
+// 	color: red;
+// }
 
 .galleryNavItem:hover,
 .galleryNavItem.active {
 	border-bottom: 2px solid #50b1b5;
 }
+
 .pass-container {
 	display: grid;
 	place-items: center;
 }
+
 .loading-image {
 	width: 150px;
 	height: 100px;
 	margin: auto;
 }
+
 .nftGeneralView {
 	transition: all 0.2s ease-in-out;
 	width: 211px;
@@ -547,7 +639,9 @@ select {
 	// z-index: 1;
 	margin-bottom: 1rem;
 	box-shadow: 10px 10px 30px #0000002f;
+	background: transparent url('../img/sticksnstones_logo.png') center no-repeat;
 }
+
 .nftGeneralView-limited {
 	transition: all 0.2s ease-in-out;
 	width: 211px;
@@ -559,10 +653,12 @@ select {
 	margin-bottom: 1rem;
 	box-shadow: 10px 10px 30px #0000002f;
 }
+
 .yourNFTsView {
 	max-width: 10px;
 	max-height: 10px;
 }
+
 .galleryinfoContainer {
 	display: grid;
 	display: -ms-grid;
@@ -571,10 +667,12 @@ select {
 	justify-content: space-evenly;
 	row-gap: 40px;
 }
+
 .stop-scrolling {
 	height: 100%;
 	overflow: hidden;
 }
+
 .galleryItem {
 	display: flex;
 	// margin: 0 minmax(10px, 30px);
@@ -584,12 +682,15 @@ select {
 	background: rgba(129, 129, 129, 0.12) 0% 0% no-repeat;
 	transition: all smooth 2s ease-in-out;
 }
+
 .galleryItem.isNFT {
 	background: rgba(80, 177, 181, 0.12) 0% 0% no-repeat padding-box;
 }
+
 .galleryItem.onSale {
 	background: rgba(81, 84, 161, 0.23) 0% 0% no-repeat padding-box;
 }
+
 .itemImg {
 	display: block;
 	width: 270px;
@@ -600,6 +701,7 @@ select {
 	box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.18);
 	border-radius: 5px;
 	transition: all smooth 2s ease-in-out;
+
 	&:hover {
 		transition: all smooth 2s;
 		box-shadow: rgba(0, 0, 0, 0.3) 0px 10px 15px;
@@ -619,12 +721,14 @@ select {
 	margin: 2rem;
 	// margin: auto;
 }
+
 .item-image {
 	height: auto;
 	width: 100%;
 	border: 0pt solid $danger;
 	align-items: center;
 }
+
 .item-image-preview {
 	width: 260px;
 	height: 230px;
@@ -635,6 +739,7 @@ select {
 	margin: auto;
 	// box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.18);
 	align-items: center;
+
 	&:hover {
 		transition: all smooth 2s;
 		// box-shadow: rgba(0, 0, 0, 0.589) 0px 10px 15px;
@@ -642,6 +747,7 @@ select {
 		transform: scale(1.01);
 	}
 }
+
 .minting-item-image-preview {
 	display: flex;
 	width: auto;
@@ -653,12 +759,14 @@ select {
 	margin: auto;
 	box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.18);
 	align-items: center;
+
 	&:hover {
 		transition: all smooth 2s;
 		box-shadow: rgba(0, 36, 70, 0.61) 0px 25px 20px -20px;
 		transform: scale(1.01);
 	}
 }
+
 .nFTName {
 	display: flex;
 	font-size: 20px;
@@ -670,6 +778,7 @@ select {
 	text-overflow: ellipsis;
 	overflow: hidden;
 	white-space: nowrap;
+
 	span {
 		display: grid;
 		display: -ms-grid;
@@ -678,6 +787,7 @@ select {
 		font-size: 0.7em;
 	}
 }
+
 .nFTArtist {
 	font-size: 14px;
 	font-weight: 400;
@@ -686,10 +796,12 @@ select {
 	text-overflow: ellipsis;
 	overflow: hidden;
 	white-space: nowrap;
+
 	span {
 		font-weight: 600;
 	}
 }
+
 .nFTCoverImg {
 	height: 215px;
 	width: 230px;
@@ -697,9 +809,11 @@ select {
 	border-radius: 10px;
 	margin-bottom: 110px;
 }
+
 .nft-display-image {
 	width: 100%;
 }
+
 .item-action-menu {
 	background-color: transparent;
 	position: absolute;
@@ -708,6 +822,7 @@ select {
 	margin: 0;
 	padding: 0px 5px;
 }
+
 .item-action-menu .btn {
 	margin: 0;
 	padding: 0px 5px;
@@ -718,6 +833,7 @@ select {
 	border-radius: 0px;
 	color: #fff;
 }
+
 .addNewContainer {
 	display: flex;
 	flex-direction: column;
@@ -726,23 +842,28 @@ select {
 	padding: 20px;
 	max-height: 370px;
 	width: 280px;
+
 	p {
 		font: normal normal 300 12px/18px Montserrat;
 		padding: 0;
 		margin: 0;
 	}
-	& > * {
+
+	&>* {
 		padding: 20px;
 		border-radius: 26px;
 		background: rgba(129, 129, 129, 0.12) 0% 0% no-repeat;
 	}
-	& > *:nth-child(1) {
+
+	&>*:nth-child(1) {
 		flex: 1 1 65%;
 	}
-	& > *:nth-child(2) {
+
+	&>*:nth-child(2) {
 		flex: 1 1 35%;
 	}
 }
+
 // .rSaleModals{
 //   padding: 10px;
 //   width: 80vw;
@@ -759,13 +880,16 @@ select {
 	gap: 30px;
 	padding: 20px 50px;
 	overflow-y: hidden;
-	& > :nth-child(1) {
+
+	&> :nth-child(1) {
 		flex: 1 1 15%;
 	}
-	& > :nth-child(2) {
+
+	&> :nth-child(2) {
 		flex: 1 1 65%;
 	}
 }
+
 .mintButton {
 	display: flex;
 	margin-top: 20px;
@@ -776,18 +900,23 @@ select {
 	font: normal normal bold 11px/14px Montserrat;
 	font-weight: 500;
 }
+
 .flex {
 	display: flex;
 }
+
 .prismic-image {
 	max-width: 550px;
 }
-#my-nft-tabs >>> .nav-link.active {
+
+#my-nft-tabs>>>.nav-link.active {
 	color: #000 !important;
 }
-#my-nft-tabs >>> .nav-link {
+
+#my-nft-tabs>>>.nav-link {
 	color: #fff !important;
 }
+
 .threeToggleButton {
 	padding: 15px;
 	border-radius: 100px;
@@ -797,6 +926,7 @@ select {
 	font-size: 12px;
 	font-weight: 800;
 }
+
 .button {
 	display: flex;
 	margin-top: 20px;
@@ -807,6 +937,7 @@ select {
 	font: normal normal bold 11px/14px Montserrat;
 	font-weight: 500;
 }
+
 .cancel-button {
 	display: flex;
 	padding: 15px 30px;
@@ -820,6 +951,7 @@ select {
 	color: #de927b;
 	cursor: pointer;
 }
+
 .cancel-button:hover,
 .cancel-button:active,
 .cancel-button:focus {
@@ -827,31 +959,38 @@ select {
 	text-decoration: underline;
 	color: #de927b;
 }
+
 .notFilled {
 	color: rgba(95, 189, 193, 1);
 	background: rgba(255, 255, 255, 0.2);
 }
+
 .notFilledBlue {
 	color: rgba(95, 189, 193, 1);
 	background: rgba(80, 177, 181, 0.1);
 }
+
 .filled {
 	background: rgba(80, 177, 181, 1);
 	color: rgb(255, 255, 255);
+
 	&:hover {
 		// background: rgb(13, 79, 202);
 		background: rgba(95, 189, 193, 0.5);
 	}
 }
+
 .transaction-table {
 	width: 100%;
 	height: 200px;
 	overflow-y: auto;
 	font-size: 12px;
 	font-weight: 300;
+
 	tr:nth-child(even) {
 		background-color: rgb(240, 240, 240);
 	}
+
 	.transaction-data {
 		th {
 			padding: 10px 5px;
@@ -859,17 +998,20 @@ select {
 			font-weight: 300;
 			border-bottom: 0.5px solid grey;
 		}
+
 		.stx-address {
 			max-width: 10ch;
 			overflow: hidden;
 			text-overflow: ellipsis;
 			white-space: nowrap;
 		}
+
 		&:hover {
 			border-left: 2px solid blue;
 		}
 	}
 }
+
 @media only screen and (max-width: 700px) {
 	.transaction-data {
 		th {

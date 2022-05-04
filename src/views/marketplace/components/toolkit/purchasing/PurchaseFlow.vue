@@ -77,7 +77,7 @@ export default {
           tokenContractName: contractAsset?.listingInUstx?.token.split('.')[1],
           owner: contractAsset.owner,
           nftIndex: contractAsset.nftIndex,
-          price: contractAsset.listingInUstx.price + 0.0001,
+          price: contractAsset.listingInUstx.price,
           sendAsSky: true, // only applicable in local
           assetName: this.loopRun.assetName,
           decimals: contractAsset.listingInUstx.decimals,
