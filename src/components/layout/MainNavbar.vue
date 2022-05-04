@@ -52,19 +52,25 @@
             </div>
         </div>
          <div v-else class="navbar_links_not_logged">
-            <router-link class="nav-items bold" to="/nft-marketplace" >Explore</router-link>
-            <div style="position: relative; margin-top: 2px;" @click="openMenu()" id="dropDown" class="dropDown">
-              <p id="dropDown-1" class="nav-items bold" > Featured Collections <img class="arrow2" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></p>
-              <p id="dropDown-2" class="featured" > Featured Collections <img style="margin-left: 8px;" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></p>
-              <div id="dropDown-3" class="dropdownMenu">
-                <div id="dropDown-4" v-for="(item, index) in allLoopRuns" :key="index" class="dropdownMenu-container">
-                  <p @click="linkTo(item)" v-on:click="isLayer ? mobileNavebar() : '' ">{{item.currentRun}}</p>
+           <div class="nav-items" v-on:click="isLayer ? mobileNavebar() : '' ">
+            <router-link class="bold nav-bar" to="/nft-marketplace" >Explore</router-link>
+           </div>
+            <div style="position: relative; margin-top: 2px;" @click="openMenu()" id="dropDown">
+              <p class="nav-items bold" > Featured Collections <img class="arrow2" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></p>
+              <p class="featured" > Featured Collections <img style="margin-left: 8px;" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></p>
+              <div class="dropdownMenu">
+                <div v-for="(item, index) in allLoopRuns" :key="index" class="dropdownMenu-container">
+                  <p @click="linkTo(item)">{{item.currentRun}}</p>
                 </div>
               </div>
             </div>
             <hr class="mobile-hr"/>
-            <router-link class="nav-items text-black thin" to="/how-it-works" id="howItWorks">How It Works</router-link>
-            <router-link class="nav-items text-black thin" to="/about">About Risidio </router-link>
+            <div v-on:click="isLayer ? mobileNavebar() : '' " class="nav-items" id="howItWorks">
+            <router-link class="text-black thin nav-bar" to="/how-it-works" id="howItWorks">How It Works</router-link>
+            </div>
+             <div v-on:click="isLayer ? mobileNavebar() : '' " class="nav-items">
+            <router-link class="text-black thin nav-bar" to="/about">About Risidio </router-link>
+             </div>
             <div @mouseover="isHidden = !isHidden" @blur="isHidden = !isHidden" class=" nav-items navBtn text-black" id="register" v-on:click="startRegister()"> CONNECT WITH HIRO WALLET </div>
         </div>
     </div>
@@ -502,11 +508,26 @@ export default {
 #howItWorks {
   margin-left: auto;
 }
+.nav-bar{
+ border-bottom: 3px solid transparent;
+  color: white;
+  &:hover {
+    color: white;
+  }
+}
+.nav-bar:hover {
+  border-bottom: 1px solid white;
+  //color: #5fbdc1;
+}
 .nav-links:hover {
   border-bottom: 1px solid white;
   //color: #5fbdc1;
 }
 .nav-items a.nav-links:hover, .nav-items a.nav-links.router-link-active {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.nav-items a.nav-bar:hover, .nav-items a.nav-bar.router-link-active {
   text-decoration: underline;
   text-underline-offset: 3px;
 }
