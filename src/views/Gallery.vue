@@ -5,10 +5,10 @@
                 <div class="galleryCollections">
                   <button class="collectionsButton" v-on:click="showCollections()">Collections <img class="arrow1 active" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></button>
                   <div class="collectionsMenu active" v-if="projects">
-                    <input class="collectionItemRadio" type="radio" @click="$router.push('/nft-marketplace/' + 'all')" name="radio">
+                    <input class="collectionItemRadio" type="radio" @click="$router.push('/nft-marketplace/' + 'all' + '/' + '0')" name="radio">
                     <label class="collectionItems">All</label>
                     <div v-for="(item, index) in projects" :key="index" class="collectionMenuContainer">
-                      <input @click="$router.push('/nft-marketplace/' + item.contractId)" class="collectionItemRadio" type="radio" :id="item.title"
+                      <input @click="$router.push('/nft-marketplace/' + item.contractId + '/' + '0')" class="collectionItemRadio" type="radio" :id="item.title"
                       name="radio" :value="index"
                       :checked="$route.params.title === item.contractId ? true : false"
                       >
@@ -50,6 +50,7 @@
                 <hr class="hr1"/>
                   <div v-if="resultSet && view == 'squared' && searched.length == 0">
                     <SquareNFT :resultSet="resultSet"/>
+                    <Pagination :pageSize="pageSize" :numberOfItems="numberOfItems"/>
                   </div>
                   <div v-if="resultSet && view == 'squared' && searched.length > 0">
                     <SquareNFT :resultSet="searched"/>
@@ -135,12 +136,14 @@ import { APP_CONSTANTS } from '@/app-constants'
 import utils from '@/services/utils'
 import MobileNFT from '../components/smallcomponents/MobileNFT.vue'
 import SquareNFT from '@/components/smallcomponents/SquareNFT.vue'
+import Pagination from '@/components/smallcomponents/Pagination.vue'
 
 export default {
   name: 'Gallery',
   components: {
     MobileNFT,
-    SquareNFT
+    SquareNFT,
+    Pagination
   },
   data () {
     return {
@@ -230,7 +233,7 @@ export default {
         // runKey: (this.loopRun) ? this.loopRun.currentRunKey : null,
         query: queryStr,
         page: 0,
-        pageSize: 50
+        pageSize: 10
       }
       this.resultSet = []
       this.$store.dispatch('rpayStacksContractStore/fetchTokensByFilters', data).then((result) => {
@@ -242,8 +245,8 @@ export default {
         const data = {
           // runKey: (this.loopRun) ? this.loopRun.currentRunKey : null,
           // query: queryStr,
-          page: 0,
-          pageSize: 50
+          page: this.$route.params.page,
+          pageSize: 10
         }
         this.$store.dispatch('rpayStacksContractStore/fetchTokensByFilters', data).then((result) => {
           this.resultSet = result.gaiaAssets
@@ -256,7 +259,7 @@ export default {
     },
     fetchAll () {
       const data = {
-        page: 0,
+        page: this.$route.params.page,
         pageSize: this.pageSize
       }
       this.$store.dispatch('rpayStacksContractStore/fetchTokensByFilters', data).then((result) => {
@@ -286,8 +289,8 @@ export default {
         contractId: this.$route.params.title,
         asc: true,
         runKey: null,
-        page: 0,
-        pageSize: 100
+        page: this.$route.params.page,
+        pageSize: 10
       }
       this.resultSet = null
       this.$store.dispatch('rpayStacksContractStore/fetchTokensByContractId', data).then((result) => {
@@ -546,10 +549,10 @@ export default {
   margin-left: 260px;
   z-index: 10;
   background: white;
-    border-color: white;
+  border-color: white;
   border-style: solid;
-  border-radius:8px;
-      p:hover {
+  border-radius: 8px;
+  p:hover {
     text-decoration: underline;
     color: #5fbdc1;
   }
@@ -857,7 +860,8 @@ export default {
   // box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
 }
 
-.collectionMenuContainer .collectionItems, .collectionItems {
+.collectionMenuContainer .collectionItems,
+.collectionItems {
   margin-top: 5px;
   font-size: 11px;
 }
