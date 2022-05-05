@@ -516,7 +516,7 @@ export default {
 .infoButton {
   position: absolute;
   z-index: 20;
-  right: 150px;
+  right: 125px;
   top: 100px;
 }
 .infoButton.hidden {
@@ -547,7 +547,6 @@ export default {
   justify-content: center;
   align-items: center;
   & > * {
-    margin: 0 10px;
   }
   & > *:hover {
     color: white;
