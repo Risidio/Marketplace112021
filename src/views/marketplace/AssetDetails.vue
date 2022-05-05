@@ -49,7 +49,7 @@ export default {
   methods: {
     parseRunKey (gaiaAsset) {
       const loopRuns = this.$store.getters[APP_CONSTANTS.GET_LOOP_RUNS].filter((loopRun) => loopRun.contractId === gaiaAsset.contractId)
-      const runKey = loopRuns[0].currentRunKey
+      const runKey = loopRuns[0]?.currentRunKey
       console.log(loopRuns)
       return runKey
     },

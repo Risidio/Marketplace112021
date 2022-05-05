@@ -17,7 +17,7 @@
         </b-row>
       </b-container>
     </main>
-    <router-view v-else style="min-height: 99vh;" />
+    <router-view v-else style="min-height: 10vh;" />
     <router-view name="footer"/>
     <!-- <notifications :duration="10000" classes="r-notifs" position="bottom left" width="50%"/> -->
     <!-- <WaitingModal/>
