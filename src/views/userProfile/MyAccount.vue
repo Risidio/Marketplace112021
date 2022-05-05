@@ -516,8 +516,16 @@ export default {
 .infoButton {
   position: absolute;
   z-index: 20;
-  right: 125px;
+  right: 150px;
   top: 100px;
+}
+@media only screen and (max-width: 475px){
+  .infoButton {
+  position: absolute;
+  z-index: 20;
+  right: 115px;
+  top: 100px;
+}
 }
 .infoButton.hidden {
   display: none;
