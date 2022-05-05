@@ -63,13 +63,13 @@
                 </b-row>
                <p class="mt-5" style="font-size: 14px; margin-top: 50px;" v-if="gaiaAsset.description" v-html="preserveWhiteSpace(gaiaAsset.description)"></p>
                <hr style="margin-bottom: 30px;"/>
-                <NFTHistory v-if="loopRun" :loopRun="loopRun" :nftIndex="gaiaAsset.nftIndex" :assetHash="gaiaAsset.tokenInfo ? gaiaAsset.tokenInfo.assetHash : null"/>
               </div>
             </div>
           </b-col>
         </b-row>
       </b-col>
     </b-row>
+      <NFTHistory v-if="loopRun" :loopRun="loopRun" :nftIndex="gaiaAsset.nftIndex" :assetHash="gaiaAsset.tokenInfo ? gaiaAsset.tokenInfo.assetHash : null"/>
   <b-modal id="asset-offer-modal" class="modal text-left">
     <PurchaseFlow v-if="showRpay === 1" :gaiaAsset="gaiaAsset" :loopRun="loopRun" :forceOfferFlow="forceOfferFlow"/>
     <AssetUpdatesModal v-if="showRpay === 2" @registerForUpdates="registerForUpdates"/>
