@@ -872,6 +872,9 @@ export default {
   margin-top: 5px;
   font-size: 11px;
 }
+.collectionItems::first-letter{
+  text-transform: capitalize;
+}
 .galleryGrid {
   display: grid;
   grid-auto-flow: dense;
