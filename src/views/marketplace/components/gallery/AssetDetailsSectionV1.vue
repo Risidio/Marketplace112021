@@ -22,8 +22,8 @@
       <b-col lg="8" sm="10">
         <b-row align-v="stretch" :style="'height: ' + videoHeight - 100 + 'px'">
           <b-col md="12" align-self="end" :key="componentKey">
-            <div class="w-100">
-              <div class="flex"><h1 class="text-black">{{gaiaAsset.name}}</h1>
+            <div class="w-100 details">
+             <div class="flex"><h1 class="text-black">{{gaiaAsset.name}}</h1>
               <div style="margin-left: auto;" class="d-flex">
                 <div v-b-hover="handleHover" @click="addToFav()" >
                   <b-icon v-if="isHovered || isLiked" icon="heart-fill"  style="color: red; cursor: pointer;"/>
@@ -640,5 +640,47 @@ body {
 }
 .editions h2 span {
   font-weight: 500;
+}
+@media only screen and (max-width: 992px)
+{
+  .details{
+    margin-top: 620px;
+  }
+}
+@media only screen and (max-width: 850px)
+{
+  .details{
+    margin-top: 480px;
+  }
+}
+@media only screen and (max-width: 750px)
+{
+  .details{
+    margin-top: 350px;
+  }
+}
+@media only screen and (max-width: 650px)
+{
+  .details{
+    margin-top: 230px;
+  }
+}
+@media only screen and (max-width: 580px)
+{
+  .details{
+    margin-top: 250px;
+  }
+}
+@media only screen and (max-width: 500px)
+{
+  .details{
+    margin-top: 150px;
+  }
+}
+@media only screen and (max-width: 440px)
+{
+  .details{
+    margin-top: 50px;
+  }
 }
 </style>
