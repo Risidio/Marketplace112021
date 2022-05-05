@@ -126,7 +126,7 @@ export default {
 <style lang="scss" scoped>
 .launchS2 {
   min-height: 50rem;
-  padding: 0 20px;
+  padding: 0 10px;
   margin-top: 50px;
 }
 .transaction-table {
