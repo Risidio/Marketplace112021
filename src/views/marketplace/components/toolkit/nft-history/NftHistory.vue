@@ -1,16 +1,31 @@
 <template>
-<div v-if="events">
-  <h6 class="text-black">NFT History</h6>
-    <table class="transaction-table">
-      <tr><th>Date</th><th>Event</th><th>From</th><th>Amount</th></tr>
-      <tr class="transaction-data" v-for="(item, index) in events" :key="index">
-          <th>{{dayjs(item.timestamp).format('DD/MM/YYYY')}}</th>
+<div class="history-container scroll" v-if="events">
+  <h6 class="text-black"> <b>NFT History</b></h6>
+  <hr class="text-black"/>
+  <div class="scroll">
+    <div  v-for="(item, index) in events" :key="index">
+      <div class="history-sub-container">
+        <p class="stx-address small">{{dayjs(item.timestamp).format('DD.MM.YYYY')}} &nbsp;</p>
+        <p class="stx-address small" style="min-width: 50px;">&nbsp; {{dayjs(item.timestamp).format('hh:mm')}} &nbsp;</p>
+        <p class="stx-address small" style="min-width: 150px;">&nbsp; <b>{{item.from.slice(0, 5) + "..." + item.from.slice(-3)}}</b></p>
+        <p class="stx-address small" style="min-width: 150px;">&nbsp; {{item.functionName ? item.functionName : 'Setup'}}</p>
+        <p v-if="item.amount" class="stx-address small" style="margin-left: auto;">STX: <span class="blue">{{item.amount}}</span> <span class="light">= {{changeCurrencyTag() || '£'}} {{changeCurrency(item.amount || 0)}}</span></p>
+        <p v-else class="stx-address small" style="margin-left: auto;"> N/A </p>
+      </div>
+      <hr style="min-width: 450px;"/>
+    </div>
+  </div>
+    <!-- <table class="transaction-table ">
+      <tr><th>NFT History</th></tr>
+      <tr class="history-sub-container" v-for="(item, index) in events" :key="index">
+          <th >{{dayjs(item.timestamp).format('DD.MM.YYYY')}} {{dayjs(item.timestamp).format('hh:mm')}} &nbsp;</th>
           <th> {{item.functionName ? item.functionName : 'Setup'}}</th>
-          <th class="stx-address">{{item.from}}</th>
-          <th>{{item.amount ? `STX: ${item.amount} ` : 'N/A'}}</th>
+          <th class="stx-address"><b>{{item.from.slice(0, 5) + "..." + item.from.slice(-3)}}</b></th>
+          <th v-if="item.amount" class="stx-address small" style="margin-left: auto;">STX: <span class="blue">{{item.amount}}</span> <span class="light">= £ 50</span></th>
           <th class="stx-address">{{item.txStatus}}</th>
       </tr>
     </table>
+      <hr style="width: 100%;"/> -->
 </div>
 </template>
 
@@ -19,6 +34,10 @@ import { DateTime } from 'luxon'
 import SockJS from 'sockjs-client'
 import dayjs from 'dayjs'
 import Stomp from '@stomp/stompjs'
+import LocalizedFormat from 'dayjs/plugin/localizedFormat'
+import { APP_CONSTANTS } from '@/app-constants'
+import utils from '@/services/utils'
+dayjs.extend(LocalizedFormat)
 
 let socket = null
 let stompClient = null
@@ -61,8 +80,8 @@ export default {
       events: null,
       timer: null,
       dayjs: dayjs,
-      previouslyPending: false
-
+      previouslyPending: false,
+      currencyPreference: null
     }
   },
   beforeDestroy () {
@@ -70,6 +89,7 @@ export default {
     unsubscribeApiNews()
   },
   async mounted () {
+    this.currencyPreference = JSON.parse(localStorage.getItem('currencyPreferences'))
     let methos = 'fetchNFTEvents'
     let arg0 = this.nftIndex
     if (this.nftIndex < 0) {
@@ -257,6 +277,35 @@ export default {
         }
       })
       return mapped
+    },
+    changeCurrency (price) {
+      if (!price) return 0
+      if (this.currencyPreference) {
+        const tickerRates = this.$store.getters[APP_CONSTANTS.KEY_TICKER_RATES]
+        const rates = tickerRates.find((rate) => rate.currency === this.currencyPreference.text)
+        const nFTPrice = utils.toDecimals(rates.stxPrice * price)
+        return nFTPrice
+      } else {
+        const tickerRates = this.$store.getters[APP_CONSTANTS.KEY_TICKER_RATES]
+        const rates = tickerRates.find((rate) => rate.currency === 'GBP')
+        const nFTPrice = utils.toDecimals(rates.stxPrice * price)
+        return nFTPrice
+      }
+    },
+    changeCurrencyTag () {
+      if (this.currencyPreference && this.currencyPreference.text === 'GBP') {
+        return '£'
+      } else if (this.currencyPreference && this.currencyPreference.text === 'USD') {
+        return '$'
+      } else if (this.currencyPreference && this.currencyPreference.text === 'CNY') {
+        return '¥'
+      } else if (this.currencyPreference && this.currencyPreference.text === 'JPY') {
+        return '¥'
+      } else if (this.currencyPreference && this.currencyPreference.text === 'EUR') {
+        return '€'
+      } else {
+        return '£'
+      }
     }
   },
   computed: {
@@ -264,9 +313,46 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
+.history-container{
+  background: rgba(129, 129, 129, 0.05);
+  padding: 100px 15px;
+  border-radius: 26px;
+  margin: 5vw 10px;
+  >*{
+    max-width: 735px;
+    margin: auto;
+  }
+}
+.small{
+  font-size: 12px;
+}
+.text-black{
+  margin-bottom: 10px;
+}
+.history-sub-container {
+  display: flex;
+  p{
+    margin: 0;
+    padding: 0;
+  }
+  .blue{
+    color: #5FBDC1;
+    font-weight: bold;
+  }
+  .light{
+    font-size: 10px;
+    color: #777777;
+  }
+}
+.scroll{
+  // width: 700px;
+  overflow-x: auto;
+  white-space: nowrap;
+}
 .flasher {
   border-bottom: 2pt solid #FFCE00;
   padding: 0px;
 }
+
 </style>

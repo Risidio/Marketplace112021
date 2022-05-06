@@ -522,6 +522,14 @@ export default {
   right: 150px;
   top: 100px;
 }
+@media only screen and (max-width: 475px){
+  .infoButton {
+  position: absolute;
+  z-index: 20;
+  right: 115px;
+  top: 100px;
+}
+}
 .infoButton.hidden {
   display: none;
 }
@@ -550,7 +558,6 @@ export default {
   justify-content: center;
   align-items: center;
   & > * {
-    margin: 0 10px;
   }
   & > *:hover {
     color: white;

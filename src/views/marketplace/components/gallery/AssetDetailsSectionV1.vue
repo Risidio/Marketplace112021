@@ -4,7 +4,7 @@
     <a @click="$router.go(-1)" class="backBtn" >
     <b-icon icon="chevron-left" shift-h="-3"></b-icon> Back </a></div>
     <b-row style="display: flex; margin: auto" :style="'min-height: ' + videoHeight + 'px'">
-      <b-col lg="4" sm="10" class="mb-5" style="  max-height: 500px; ">
+      <b-col lg="4" sm="10" class="mb-5" style="  max-height: 500px;">
           <div @click="closeModel" v-if="visible" class="boxMol">
             <div class="modal-contentt">
           <!-- <span class="closeBtn"  @click="closeModel">&times;</span> -->
@@ -63,13 +63,13 @@
                 </b-row>
                <p class="mt-5" style="font-size: 14px; margin-top: 50px;" v-if="gaiaAsset.description" v-html="preserveWhiteSpace(gaiaAsset.description)"></p>
                <hr style="margin-bottom: 30px;"/>
-                <NFTHistory v-if="loopRun" :loopRun="loopRun" :nftIndex="gaiaAsset.nftIndex" :assetHash="gaiaAsset.tokenInfo ? gaiaAsset.tokenInfo.assetHash : null"/>
               </div>
             </div>
           </b-col>
         </b-row>
       </b-col>
     </b-row>
+      <NFTHistory v-if="loopRun" :loopRun="loopRun" :nftIndex="gaiaAsset.nftIndex" :assetHash="gaiaAsset.tokenInfo ? gaiaAsset.tokenInfo.assetHash : null"/>
   <b-modal id="asset-offer-modal" class="modal text-left">
     <PurchaseFlow v-if="showRpay === 1" :gaiaAsset="gaiaAsset" :loopRun="loopRun" :forceOfferFlow="forceOfferFlow"/>
     <AssetUpdatesModal v-if="showRpay === 2" @registerForUpdates="registerForUpdates"/>

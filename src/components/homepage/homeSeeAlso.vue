@@ -6,7 +6,7 @@
             class="no-shadow"
             :visible-slides="4"
             :gap="2"
-            :slide-ratio="1 / 4"
+            :slide-ratio="1/3"
             :dragging-distance="211"
             :breakpoints="breakpoints"
             fixed-height="true"
@@ -128,7 +128,7 @@ export default {
   }
 }
 .seeAlsoContainer {
-  max-width: 1200px;
+  max-width: 1170px;
   margin: auto;
   min-height: 200px;
 }

@@ -5,6 +5,8 @@
                 <div class="galleryCollections">
                   <button class="collectionsButton" v-on:click="showCollections()">Collections <img class="arrow1 active" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></button>
                   <div class="collectionsMenu active" v-if="projects">
+                    <input class="collectionItemRadio" type="radio" @click="$router.push('/nft-marketplace/' + 'all' + '/' + '0')" name="radio">
+                    <label class="collectionItems">All</label>
                     <div v-for="(item, index) in projects" :key="index" class="collectionMenuContainer">
                     <!--  <input @click="$router.push('/nft-marketplace/' + item.contractId)" class="collectionItemRadio" type="radio" :id="item.title"
                       name="radio" :value="index"
@@ -47,11 +49,18 @@
                       </div>
                     </div>
                 <hr class="hr1"/>
-                  <div v-if="resultSet && view == 'squared' && searched.length == 0">
+                  <div v-if="resultSet && view == 'squared' && searched.length == 0 && !loading">
+                    <p>{{error}}</p>
                     <SquareNFT :resultSet="resultSet"/>
+                    <Pagination :pageSize="pageSize" :numberOfItems="numberOfItems"/>
                   </div>
-                  <div v-if="resultSet && view == 'squared' && searched.length > 0">
+                  <div v-if="resultSet && view == 'squared' && searched.length > 0 && !loading">
                     <SquareNFT :resultSet="searched"/>
+                    <Pagination :pageSize="pageSize" :numberOfItems="numberOfItems"/>
+                  </div>
+                <div style="display: grid; place-items: center;" v-else-if="loading">
+                  <img :src="loadingImage" alt="loading" />
+                    <p> loading...</p>
                   </div>
                 </div>
               </div>
@@ -91,12 +100,12 @@
                       </div>
                     <div><h2 class="sort-by" @click="showHiddenM()">Sort by</h2></div>
                     <img class="mobilearrow2" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg">
-                          <div class="dropdown_option_container3">
-                               <div class="dropdown_option1" v-show="isHiddenM" value="All">Popular by</div>
-                               <div class="dropdown_option1" v-show="isHiddenM" value="Category">Popular by</div>
-                               <div class="dropdown_option1" v-show="isHiddenM" value="Category">Popular by</div>
-                               <div class="dropdown_option1" v-show="isHiddenM" value="Category">Popular by</div>
-                               </div>
+                      <div class="dropdown_option_container3">
+                        <div class="dropdown_option1" v-show="isHiddenM" value="All">Popular by</div>
+                        <div class="dropdown_option1" v-show="isHiddenM" value="Category">Popular by</div>
+                        <div class="dropdown_option1" v-show="isHiddenM" value="Category">Popular by</div>
+                        <div class="dropdown_option1" v-show="isHiddenM" value="Category">Popular by</div>
+                      </div>
                   <p class="mobilefilter">Filter results</p>
                   <div>
                     <div v-if="grid" v-on:click="changeGrid()" class="gridDisplayOptions">
@@ -134,16 +143,20 @@ import { APP_CONSTANTS } from '@/app-constants'
 import utils from '@/services/utils'
 import MobileNFT from '../components/smallcomponents/MobileNFT.vue'
 import SquareNFT from '@/components/smallcomponents/SquareNFT.vue'
+import Pagination from '@/components/smallcomponents/Pagination.vue'
+import loadingImage from '@/assets/img/loading-risid.gif'
 
 export default {
   name: 'Gallery',
   components: {
     MobileNFT,
-    SquareNFT
+    SquareNFT,
+    Pagination
   },
   data () {
     return {
       resultSet: [],
+      loadingImage: loadingImage,
       loaded: true,
       currentRunKey: 'numberone_roots',
       types: 'all',
@@ -170,12 +183,19 @@ export default {
         sortField: 'name',
         sortDir: 'sortDown'
       },
-      currentSearch: null
+      currentSearch: null,
+      pageSize: 50,
+      loading: true,
+      error: ''
     }
   },
   watch: {
     '$route' () {
-      this.fetchFullRegistry()
+      if (this.$route.params.title === 'all') {
+        this.fetchAll()
+      } else {
+        this.fetchFullRegistry()
+      }
     },
     'fetched' () {
       if (this.currentSearch) this.searching(this.currentSearch)
@@ -210,6 +230,9 @@ export default {
       this.isHiddenM = false
     },
     searching (query) {
+      this.loading = true
+      this.$router.push('/nft-marketplace/' + 'all' + '/&query=' + query)
+      this.error = ''
       this.currentSearch = query
       this.defQuery.query = query
       let queryStr = '?'
@@ -224,7 +247,7 @@ export default {
         // runKey: (this.loopRun) ? this.loopRun.currentRunKey : null,
         query: queryStr,
         page: 0,
-        pageSize: 50
+        pageSize: this.pageSize
       }
       this.resultSet = []
       this.$store.dispatch('rpayStacksContractStore/fetchTokensByFilters', data).then((result) => {
@@ -236,8 +259,8 @@ export default {
         const data = {
           // runKey: (this.loopRun) ? this.loopRun.currentRunKey : null,
           // query: queryStr,
-          page: 0,
-          pageSize: 50
+          page: this.$route.params.page,
+          pageSize: this.pageSize
         }
         this.$store.dispatch('rpayStacksContractStore/fetchTokensByFilters', data).then((result) => {
           this.resultSet = result.gaiaAssets
@@ -246,6 +269,19 @@ export default {
           this.loading = false
         })
         console.log(error)
+        this.error = 'Could not find anything matching your search word ' + query
+      })
+    },
+    fetchAll () {
+      const data = {
+        page: this.$route.params.page,
+        pageSize: this.pageSize
+      }
+      this.$store.dispatch('rpayStacksContractStore/fetchTokensByFilters', data).then((result) => {
+        this.resultSet = result.gaiaAssets
+        this.numberOfItems = result.tokenCount
+        this.loading = false
+        console.log(this.resultSet)
       })
     },
     showCollections () {
@@ -264,12 +300,13 @@ export default {
       arrow.classList.toggle('active')
     },
     sortCollection () {
+      this.loading = true
       const data = {
         contractId: this.$route.params.title,
         asc: true,
         runKey: null,
-        page: 0,
-        pageSize: 100
+        page: this.$route.params.page,
+        pageSize: this.pageSize
       }
       this.resultSet = null
       this.$store.dispatch('rpayStacksContractStore/fetchTokensByContractId', data).then((result) => {
@@ -380,8 +417,10 @@ export default {
   position: absolute;
   top: 100px;
   left: 0px;
+  bottom: 0;
   z-index: 19;
   background: #f5f5f5;
+  height: 100vh;
   width: 245px;
   height: 121;
   padding: 20px;
@@ -523,14 +562,15 @@ export default {
   flex-direction: column;
   align-content: flex-start;
   justify-content: flex-start;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   margin-top: 26px;
   width: 140px;
   margin-left: 260px;
   z-index: 10;
   background: white;
-    border-color: white;
-  border-style: solid;
+  border-color: white;
   border-radius:8px;
+  border-top-style: none;
       p:hover {
     text-decoration: underline;
     color: #5fbdc1;
@@ -548,7 +588,15 @@ export default {
   margin-left: 85px;
   z-index: 10;
   background: white;
-  border-radius: 3px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  border-color: white;
+  border-radius:8px;
+  border-top-style: none;
+  // box-shadow: 2px 2px #E4E4E4 ;
+    p:hover {
+    text-decoration: underline;
+    color: #5fbdc1;
+  }
 }
 .dropdown_option_container3 {
   position: absolute;
@@ -562,6 +610,8 @@ export default {
   margin-left: 170px;
   z-index: 10;
   background: white;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+
 }
 .dropdown_option_container4 {
   position: absolute;
@@ -845,6 +895,9 @@ export default {
 }
 .collectionMenuContainer label{
   margin-left: 32px;
+
+.collectionMenuContainer .collectionItems,
+.collectionItems {
   margin-top: 5px;
   font-size: 11px;
   border-bottom: 3px solid transparent;

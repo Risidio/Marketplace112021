@@ -3,7 +3,7 @@
   <div v-for="(item, index) in gaiaAssets" :key="index" class="NFTbackgroundColour">
     <div class="">
       <b-link class="galleryNFTContainer" :to="assetUrl(item)" v-if="item && item.contractAsset">
-        <img class="nftGeneralView" :src="item.image"/>
+        <img class="nftGeneralView" :src="item.image" :onload="loaded = true" :ref="index"/>
         <p class="nFTName"> {{!item.name ? "NFT" : artName(item.name) }} <span style="float: right;">{{item.contractAsset && item.contractAsset.listingInUstx && item.contractAsset.listingInUstx.price || 0}} STX</span></p>
         <p class="nFTArtist">By <span>{{!item.properties.collection ? "Anonymous" : item.properties.collection }}</span><span style="float: right; font-weight: 300">{{changeCurrencyTag() || '£'}} {{changeCurrency(item.contractAsset && item.contractAsset.listingInUstx && item.contractAsset.listingInUstx.price) || 0}}</span></p>
       </b-link>
@@ -15,13 +15,16 @@
 <script>
 import { APP_CONSTANTS } from '@/app-constants'
 import utils from '@/services/utils'
+import loadingImage from '@/assets/img/sticksnstones_logo.png'
 
 export default {
   name: 'DefaultNFT',
   props: ['gaiaAssets'],
   data () {
     return {
-      currencyPreference: null
+      currencyPreference: null,
+      loadingImage: loadingImage,
+      loaded: false
     }
   },
   mounted () {

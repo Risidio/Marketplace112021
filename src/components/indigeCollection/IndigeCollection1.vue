@@ -338,7 +338,7 @@ export default {
 @media(max-width: 1200px ){
   .whiteContainer{
     border-radius: 30px;
-    margin: 100px auto 0 auto;
+    margin: 120px auto 0 auto;
     padding-left: 0;
     padding-right: 0;
   }

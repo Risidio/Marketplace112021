@@ -17,7 +17,7 @@ const contentStore = {
       emails: null,
       howItWorks: null,
       hiroWallet: null,
-      searchWord: 'hi',
+      searchWord: '',
       dataResults: []
     },
     defaultArtist: 'chemicalx',
