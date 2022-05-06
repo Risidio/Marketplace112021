@@ -1,27 +1,37 @@
 {
-  "name": "Risidio Marketplace",
-  "short_name": "Risidio",
-  "description": "Risidio - building the user owned Internet with Stacks - Smart Contracts on Bitcoin",
-  "start_url": "/",
-  "icons": [{
-    "src": "./favicon.ico",
-    "sizes": "16x16",
-    "type": "image/png"
-  },{
-    "src": "./favicon.ico",
-    "sizes": "512x512",
-    "type": "image/png"
-  },{
-    "src": "./favicon.ico",
-    "sizes": "32x32",
-    "type": "image/png"
-  },{
-    "src": "./favicon.ico",
-    "sizes": "192x192",
-    "type": "image/png"
-  }],
-  "background_color": "#000000",
-  "display": "fullscreen",
-  "orientation": "portrait",
-  "theme_color": "#ffffff"
+	"name": "Risidio Marketplace",
+	"short_name": "Risidio",
+	"description": "Risidio - building the user owned Internet with Stacks - Smart Contracts on Bitcoin",
+	"start_url": "/",
+	"icons": [
+		{
+			"src": "./risidio-16.png",
+			"sizes": "16x16",
+			"type": "image/png"
+		},
+		{
+			"src": "./risidio-512.png",
+			"sizes": "512x512",
+			"type": "image/png"
+		},
+		{
+			"src": "./risidio-32.png",
+			"sizes": "32x32",
+			"type": "image/png"
+		},
+		{
+			"src": "./risidio-64.png",
+			"sizes": "64x64",
+			"type": "image/png"
+		},
+		{
+			"src": "./risidio-256.png",
+			"sizes": "256x256",
+			"type": "image/png"
+		}
+	],
+	"background_color": "#000000",
+	"display": "fullscreen",
+	"orientation": "portrait",
+	"theme_color": "#ffffff"
 }

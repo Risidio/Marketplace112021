@@ -48,12 +48,16 @@
                       </div>
                     </div>
                 <hr class="hr1"/>
-                  <div v-if="resultSet && view == 'squared' && searched.length == 0">
+                  <div v-if="resultSet && view == 'squared' && searched.length == 0 && !loading">
                     <SquareNFT :resultSet="resultSet"/>
                     <Pagination :pageSize="pageSize" :numberOfItems="numberOfItems"/>
                   </div>
-                  <div v-if="resultSet && view == 'squared' && searched.length > 0">
+                  <div v-if="resultSet && view == 'squared' && searched.length > 0 && !loading">
                     <SquareNFT :resultSet="searched"/>
+                  </div>
+                <div style="display: grid; place-items: center;" v-else-if="loading">
+                  <img :src="loadingImage" alt="loading" />
+                    <p> loading...</p>
                   </div>
                 </div>
               </div>
@@ -93,12 +97,12 @@
                       </div>
                     <div><h2 class="sort-by" @click="showHiddenM()">Sort by</h2></div>
                     <img class="mobilearrow2" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg">
-                          <div class="dropdown_option_container3">
-                               <div class="dropdown_option1" v-show="isHiddenM" value="All">Popular by</div>
-                               <div class="dropdown_option1" v-show="isHiddenM" value="Category">Popular by</div>
-                               <div class="dropdown_option1" v-show="isHiddenM" value="Category">Popular by</div>
-                               <div class="dropdown_option1" v-show="isHiddenM" value="Category">Popular by</div>
-                               </div>
+                      <div class="dropdown_option_container3">
+                        <div class="dropdown_option1" v-show="isHiddenM" value="All">Popular by</div>
+                        <div class="dropdown_option1" v-show="isHiddenM" value="Category">Popular by</div>
+                        <div class="dropdown_option1" v-show="isHiddenM" value="Category">Popular by</div>
+                        <div class="dropdown_option1" v-show="isHiddenM" value="Category">Popular by</div>
+                      </div>
                   <p class="mobilefilter">Filter results</p>
                   <div>
                     <div v-if="grid" v-on:click="changeGrid()" class="gridDisplayOptions">
@@ -137,6 +141,7 @@ import utils from '@/services/utils'
 import MobileNFT from '../components/smallcomponents/MobileNFT.vue'
 import SquareNFT from '@/components/smallcomponents/SquareNFT.vue'
 import Pagination from '@/components/smallcomponents/Pagination.vue'
+import loadingImage from '@/assets/img/loading-risid.gif'
 
 export default {
   name: 'Gallery',
@@ -148,6 +153,7 @@ export default {
   data () {
     return {
       resultSet: [],
+      loadingImage: loadingImage,
       loaded: true,
       currentRunKey: 'numberone_roots',
       types: 'all',
@@ -175,7 +181,8 @@ export default {
         sortDir: 'sortDown'
       },
       currentSearch: null,
-      pageSize: 50
+      pageSize: 50,
+      loading: true
     }
   },
   watch: {
@@ -219,6 +226,7 @@ export default {
       this.isHiddenM = false
     },
     searching (query) {
+      this.loading = true
       this.currentSearch = query
       this.defQuery.query = query
       let queryStr = '?'
@@ -285,6 +293,7 @@ export default {
       arrow.classList.toggle('active')
     },
     sortCollection () {
+      this.loading = true
       const data = {
         contractId: this.$route.params.title,
         asc: true,
@@ -401,8 +410,10 @@ export default {
   position: absolute;
   top: 100px;
   left: 0px;
+  bottom: 0;
   z-index: 19;
   background: #f5f5f5;
+  height: 100vh;
   width: 245px;
   height: 121;
   padding: 20px;
@@ -544,15 +555,16 @@ export default {
   flex-direction: column;
   align-content: flex-start;
   justify-content: flex-start;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   margin-top: 26px;
   width: 140px;
   margin-left: 260px;
   z-index: 10;
   background: white;
   border-color: white;
-  border-style: solid;
-  border-radius: 8px;
-  p:hover {
+  border-radius:8px;
+  border-top-style: none;
+      p:hover {
     text-decoration: underline;
     color: #5fbdc1;
   }
@@ -569,7 +581,15 @@ export default {
   margin-left: 85px;
   z-index: 10;
   background: white;
-  border-radius: 3px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  border-color: white;
+  border-radius:8px;
+  border-top-style: none;
+  // box-shadow: 2px 2px #E4E4E4 ;
+    p:hover {
+    text-decoration: underline;
+    color: #5fbdc1;
+  }
 }
 .dropdown_option_container3 {
   position: absolute;
@@ -583,6 +603,8 @@ export default {
   margin-left: 170px;
   z-index: 10;
   background: white;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+
 }
 .dropdown_option_container4 {
   position: absolute;
@@ -864,6 +886,9 @@ export default {
 .collectionItems {
   margin-top: 5px;
   font-size: 11px;
+}
+.collectionItems::first-letter{
+  text-transform: capitalize;
 }
 .galleryGrid {
   display: grid;

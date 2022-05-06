@@ -578,4 +578,50 @@ export default {
     height: 90px;
   }
   }
+  @media only screen and (max-width: 1120px){
+    .banner{
+      height: 80rem;
+    }
+  }
+   @media only screen and (max-width: 550px){
+    .banner{
+      height: 86rem;
+    }
+    .searchContainer-2{
+      margin-top: 120px;
+    }
+    .bannerButtonText{
+      margin-top: -20px;
+    }
+  }
+  @media only screen and (max-width: 480px){
+   .searchContainer-2{
+      margin-top: 110px;
+    }
+  }
+  @media only screen and (max-width: 410px){
+   .searchContainer-2{
+      margin-top: 90px;
+    }
+  }
+  @media only screen and (max-width: 360px){
+   .searchContainer-2{
+      margin-top: 70px;
+    }
+  }
+  @media only screen and (max-width: 350px){
+   .searchContainer-2{
+      margin-top: 60px;
+    }
+  }
+   @media only screen and (max-width: 310px){
+   .searchContainer-2{
+      margin-top: 30px;
+    }
+  }
+  @media only screen and (max-width: 375px){
+   .bannerButtonText{
+      margin-right: 60px;
+    }
+  }
 </style>
