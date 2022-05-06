@@ -13,15 +13,15 @@
     </div>
     <router-link v-if="numberOfItems > pageSize && page !== Math.floor(numberOfItems / pageSize)" :to="'/' + $route.name + '/' + $route.params.nftSection + '/' + (page + 1)"> Next ></router-link>
   </div>
-  <div v-else-if="$route.name === 'gallery'" class="pagination-container">
+  <div v-else-if="$route.name === 'gallery' && numberOfItems >= pageSize" class="pagination-container">
     <router-link v-if="page > 0" :to="'/nft-marketplace/' + $route.params.title + '/' + (page - 1)">&lt; Previous</router-link>
-    <div v-if="page > Math.floor(numberOfItems / pageSize) / 2">
+    <div v-if="page > 1">
       <router-link :to="'/nft-marketplace/' + $route.params.title + '/' + 0">0 ...</router-link>
     </div>
     <div v-for="(item, index) in pages.slice(0, 3)" :key="index">
      <router-link :to="'/nft-marketplace/' + $route.params.title + '/' + item">{{item}}</router-link>
     </div>
-    <div v-if="page < Math.floor(numberOfItems / pageSize) / 2 && pages.length > 3">
+    <div v-if="page < Math.floor(numberOfItems / pageSize) - 1 && pages.length > 3">
       <router-link :to="'/nft-marketplace/' + $route.params.title + '/' + Math.floor(numberOfItems / pageSize)">... {{Math.floor(numberOfItems / pageSize)}}</router-link>
     </div>
     <router-link v-if="numberOfItems > pageSize && page !== Math.floor(numberOfItems / pageSize)" :to=" '/nft-marketplace/' + $route.params.title + '/' +  (page + 1) "> Next ></router-link>
@@ -79,7 +79,7 @@ export default {
 <style lang="scss" scoped>
 .pagination-container {
   padding: 50px;
-  max-width: 300px;
+  max-width: 400px;
   margin: auto;
   text-align: center;
   display: flex;
