@@ -1,17 +1,30 @@
 <template>
-  <div v-if="$route.name !== 'my-account'" class="pagination-container">
+  <div v-if="loopRun" class="pagination-container">
     <router-link v-if="page > 0" :to="'/' + loopRun.currentRunKey + '/' + (page - 1)">&lt; Previous</router-link>
     <div v-for="(item, index) in pages" :key="index">
       <router-link :to="'/' + loopRun.currentRunKey + '/' + item">{{item}}</router-link>
     </div>
     <router-link v-if="numberOfItems > pageSize && page !== Math.floor(numberOfItems / pageSize)" :to="'/' + loopRun.currentRunKey + '/' + (page + 1) "> Next ></router-link>
   </div>
-  <div v-else class="pagination-container">
+  <div v-else-if="$route.name === 'my-account'" class="pagination-container">
     <router-link v-if="page > 0" :to="'/' + $route.name + '/' + $route.params.nftSection + (page - 1)">&lt; Previous</router-link>
     <div v-for="(item, index) in pages" :key="index">
       <router-link :to="'/' + $route.name + '/' + $route.params.nftSection + '/' + item">{{item}}</router-link>
     </div>
     <router-link v-if="numberOfItems > pageSize && page !== Math.floor(numberOfItems / pageSize)" :to="'/' + $route.name + '/' + $route.params.nftSection + '/' + (page + 1)"> Next ></router-link>
+  </div>
+  <div v-else-if="$route.name === 'gallery'" class="pagination-container">
+    <router-link v-if="page > 0" :to="'/nft-marketplace/' + $route.params.title + '/' + (page - 1)">&lt; Previous</router-link>
+    <div v-if="page > Math.floor(numberOfItems / pageSize) / 2">
+      <router-link :to="'/nft-marketplace/' + $route.params.title + '/' + 0">0 ...</router-link>
+    </div>
+    <div v-for="(item, index) in pages.slice(0, 3)" :key="index">
+     <router-link :to="'/nft-marketplace/' + $route.params.title + '/' + item">{{item}}</router-link>
+    </div>
+    <div v-if="page < Math.floor(numberOfItems / pageSize) / 2 && pages.length > 3">
+      <router-link :to="'/nft-marketplace/' + $route.params.title + '/' + Math.floor(numberOfItems / pageSize)">... {{Math.floor(numberOfItems / pageSize)}}</router-link>
+    </div>
+    <router-link v-if="numberOfItems > pageSize && page !== Math.floor(numberOfItems / pageSize)" :to=" '/nft-marketplace/' + $route.params.title + '/' +  (page + 1) "> Next ></router-link>
   </div>
 </template>
 
@@ -22,15 +35,17 @@ export default {
   data () {
     return {
       pages: [],
-      page: parseInt(this.$route.params.page)
+      page: parseInt(this.$route.params.page),
+      lastPage: false
     }
   },
   mounted () {
-    console.log(this.$route)
     this.getPageNumbers()
+    this.lastPage = Math.floor(this.numberOfItems / this.pageSize)
   },
   watch: {
     '$route' () {
+      this.getPageNumbers()
       this.page = parseInt(this.$route.params.page)
     },
     'numberOfItems' () {
@@ -39,12 +54,23 @@ export default {
   },
   methods: {
     getPageNumbers () {
-      const pageNumbers = this.numberOfItems / this.pageSize
-      const page = []
-      for (let i = 0; i <= pageNumbers; i++) {
-        page.push(i)
+      const pages = []
+      const currentPage = this.$route.params.page > 0 ? this.$route.params.page - 1 : this.$route.params.page
+      const lastPage = Math.floor(this.numberOfItems / this.pageSize)
+
+      if (currentPage === lastPage) {
+        for (let i = currentPage; i >= 0; i--) {
+          pages.push(i)
+          this.lastPage = true
+        }
+        this.pages = pages
+      } else {
+        for (let i = currentPage; i <= lastPage; i++) {
+          pages.push(i)
+          this.lastPage = false
+        }
+        this.pages = pages
       }
-      this.pages = page
     }
   }
 }
@@ -80,6 +106,7 @@ export default {
     &:hover {
       text-decoration: underline;
     }
+    align-self: center;
   }
 }
 .router-link-exact-active {
