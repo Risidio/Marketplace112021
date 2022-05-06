@@ -21,26 +21,23 @@
             <div class="mainGalleryBody">
                <div class="filter">
                    <div class="top-elements">
-                        <p class="viewcategory" @click="changeView()">View</p>
-                       <div> <button class="collectionsButton" @click="showHidden1()"> Popular <img class="arrow2" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></button></div>
-                                <div class="dropdown_option_container2">
-                                <div class="dropdown_option_down" style=" font-size:1.4rem; " v-show="isHiddenn"  @click="showHidden1()"> Popular <img  class="arrow3" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></div>
-                               <p class="dropdown_option" v-show="isHiddenn" value="All">Popular by</p>
-                               <p class="dropdown_option" v-show="isHiddenn" value="Category">Popular by</p>
-                               <p class="dropdown_option" v-show="isHiddenn" value="Category">Popular by</p>
-                               <p class="dropdown_option" v-show="isHiddenn" value="Category">Popular by</p>
-                               </div>
-                       <div> <button class="collectionsButton" @click="showHidden()"> Sort by <img class="arrow2" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></button></div>
-                        <div class="dropdown_option_container">
-                         <div class="dropdown_option_down" style=" font-size:1.4rem; " v-show="isHidden"  @click="showHidden()"> Sort by <img  class="arrow3" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></div>
-                               <p class="dropdown_option" v-show="isHidden" value="All">Sort by price</p>
-                               <p class="dropdown_option" v-show="isHidden" value="Category">Sort by price</p>
-                               <p class="dropdown_option" v-show="isHidden" value="Category">sort by price</p>
-                               <p class="dropdown_option" v-show="isHidden" value="Category">Sort by price</p>
+                    <p class="viewcategory" @click="changeView()">View</p>
+                      <div class="dropdown_option_container" ref="popularMenu"> <button class="collectionsButton" @click="popular = !popular, sort = false"> Popular <img class="arrow2" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></button>
+                        <div @click="popular = false" v-show="popular" class="dropdown_option_show" >
+                          <p @click="filter()" class="dropdown_option" value="All">Popular <span class="blue">&#8593;</span></p>
+                          <p @click="filter()" class="dropdown_option" value="Category">Popular <span class="blue">&#8595;</span></p>
+                          <p @click="filter()" class="dropdown_option" value="Category">Date <span class="blue">&#8593;</span></p>
+                          <p @click="filter()" class="dropdown_option" value="Category">Date <span class="blue">&#8595;</span></p>
                         </div>
-                        <div>
-                          <!-- <button @click="showSquare"> display</button> -->
-                       </div>
+                      </div>
+                      <div class="dropdown_option_container" ref="sortMenu"> <button class="collectionsButton" @click="sort = !sort, popular = false"> Sort by <img class="arrow2" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></button>
+                        <div @click="sort = false" v-show="sort" class="dropdown_option_show" >
+                          <p @click="filter()" class="dropdown_option" value="All">Price <span class="blue">&#8593;</span></p>
+                          <p @click="filter()" class="dropdown_option" value="Category">Price <span class="blue">&#8595;</span></p>
+                          <p @click="filter()" class="dropdown_option" value="Category">Alphabetical <span class="blue">&#8593;</span></p>
+                          <p @click="filter()" class="dropdown_option" value="Category">Alphabetical <span class="blue">&#8595;</span></p>
+                        </div>
+                      </div>
                     </div>
                     <div class="search-elements">
                         <input class="search" type="text" id="search" name="search" placeholder="Looking for anything in particular ?" :value="currentSearch"  @change="searching($event.target.value)">
@@ -93,17 +90,17 @@
                   <div><h2 class="all" @click="showHiddenP()">All</h2></div>
                     <img class="mobilearrow1" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg">
                       <div class="dropdown_option_container4">
-                        <div class="dropdown_option1" v-show="isHiddenP" value="Category">All by</div>
-                        <div class="dropdown_option1" v-show="isHiddenP" value="Category">All by</div>
-                        <div class="dropdown_option1" v-show="isHiddenP" value="Category">All by</div>
+                        <div class="dropdown_option1" value="Category">All by</div>
+                        <div class="dropdown_option1" value="Category">All by</div>
+                        <div class="dropdown_option1" value="Category">All by</div>
                       </div>
                     <div><h2 class="sort-by" @click="showHiddenM()">Sort by</h2></div>
                     <img class="mobilearrow2" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg">
                       <div class="dropdown_option_container3">
-                        <div class="dropdown_option1" v-show="isHiddenM" value="All">Popular by</div>
-                        <div class="dropdown_option1" v-show="isHiddenM" value="Category">Popular by</div>
-                        <div class="dropdown_option1" v-show="isHiddenM" value="Category">Popular by</div>
-                        <div class="dropdown_option1" v-show="isHiddenM" value="Category">Popular by</div>
+                        <div class="dropdown_option1" value="All">Popular by</div>
+                        <div class="dropdown_option1" value="Category">Popular by</div>
+                        <div class="dropdown_option1" value="Category">Popular by</div>
+                        <div class="dropdown_option1" value="Category">Popular by</div>
                       </div>
                   <p class="mobilefilter">Filter results</p>
                   <div>
@@ -118,7 +115,6 @@
                   </div>
                 </div>
               </div>
-
                <div v-if="resultSet && view == 'squared' && searched.length == 0" class="mobilegallerySquare">
                   <div v-if="!grid">
                     <MobileNFT :resultSet="resultSet"/>
@@ -161,12 +157,11 @@ export default {
       types: 'all',
       numberOfItems: null,
       projects: [],
+      thisEvent: 'hi',
       view: 'squared',
       searched: [],
-      isHidden: false,
-      isHiddenn: false,
-      isHiddenM: false,
-      isHiddenP: false,
+      popular: false,
+      sort: false,
       grid: false,
       filterToggle: true,
       collectionToggle: false,
@@ -198,7 +193,16 @@ export default {
     },
     'fetched' () {
       if (this.currentSearch) this.searching(this.currentSearch)
+    },
+    'thisEvent' () {
+      this.close(this.thisEvent)
     }
+  },
+  created () {
+    const $self = this
+    window.addEventListener('click', function (e) {
+      $self.close(e)
+    })
   },
   async mounted () {
     await this.fetchFullRegistry()
@@ -212,21 +216,9 @@ export default {
     // if (content) this.searching(content)
   },
   methods: {
-    showHidden () {
-      this.isHidden = !this.isHidden
-      this.isHiddenn = false
-    },
-    showHidden1 () {
-      this.isHiddenn = !this.isHiddenn
-      this.isHidden = false
-    },
-    showHiddenM () {
-      this.isHiddenM = !this.isHiddenM
-      this.isHiddenP = false
-    },
-    showHiddenP () {
-      this.isHiddenP = !this.isHiddenP
-      this.isHiddenM = false
+    close (e) {
+      if (!this.$refs.popularMenu.contains(e.target)) this.popular = false
+      if (!this.$refs.sortMenu.contains(e.target)) this.sort = false
     },
     searching (query) {
       this.loading = true
@@ -270,6 +262,10 @@ export default {
         console.log(error)
         this.error = 'Could not find anything matching your search word ' + query
       })
+    },
+    filter () {
+      this.popular = false
+      this.sort = false
     },
     fetchAll () {
       const data = {
@@ -517,6 +513,7 @@ export default {
   color: #5fbdc1;
   cursor: pointer;
 }
+.blue {color: #5fbdc1; font-weight: bolder;}
 .gridDisplayOptions {
   display: flex;
   justify-content: space-between;
@@ -539,100 +536,31 @@ export default {
     display: none;
   }
 }
-.dropdown_selector {
-  border-top-left-radius: 40px;
-  border-bottom-left-radius: 40px;
-  font: normal normal 300 11px/14px Montserrat;
-  height: 50px;
-  width: 155px;
-  padding: 9px;
-  outline: none;
-  background: white;
-  transition: 0.3s;
-  box-shadow: 0px 3px 6px #00000029;
-  border: 1px solid #f5f5f5;
-  text-align: center;
-  z-index: 10;
-}
-.dropdown_option_container {
+.dropdown_option_container{ position: relative; }
+.dropdown_option_show{
   position: absolute;
-  background: none;
-  display: flex;
-  flex-direction: column;
-  align-content: flex-start;
-  justify-content: flex-start;
-  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-  margin-top: 26px;
-  width: 140px;
-  margin-left: 260px;
   z-index: 10;
-  background: white;
-  border-color: white;
-  border-radius:8px;
-  border-top-style: none;
-      p:hover {
-    text-decoration: underline;
-    color: #5fbdc1;
+  top: 60px;
+  width: 100%;
+  background: #ffffff;
+  padding: 10px 15px;
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  text-align: left;
+  p{
+    cursor: pointer;
+    &:hover{
+      text-decoration: underline;
+      color: #5fbdc1;
+    }
   }
-}
-.dropdown_option_container2 {
-  position: absolute;
-  background: none;
-  display: flex;
-  flex-direction: column;
-  align-content: flex-start;
-  justify-content: flex-start;
-  margin-top: 26px;
-  width: 140px;
-  margin-left: 85px;
-  z-index: 10;
-  background: white;
-  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-  border-color: white;
-  border-radius:8px;
-  border-top-style: none;
-  // box-shadow: 2px 2px #E4E4E4 ;
-    p:hover {
-    text-decoration: underline;
-    color: #5fbdc1;
-  }
-}
-.dropdown_option_container3 {
-  position: absolute;
-  background: none;
-  display: flex;
-  flex-direction: column;
-  align-content: flex-start;
-  justify-content: flex-start;
-  margin-top: -38px;
-  width: 140px;
-  margin-left: 170px;
-  z-index: 10;
-  background: white;
-  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-
-}
-.dropdown_option_container4 {
-  position: absolute;
-  background: none;
-  display: flex;
-  flex-direction: column;
-  align-content: flex-start;
-  justify-content: flex-start;
-  margin-top: -38px;
-  width: 140px;
-  margin-left: 25px;
-  z-index: 10;
-  background: white;
 }
 .dropdown_option {
   padding: 5px;
   background: #ffffff;
   margin: 1px;
-  transition: 0.3s;
   z-index: 10;
   font-size: 1.2rem;
-  text-align: center;
 }
 .dropdown_option1 {
   padding: 5px;
@@ -744,6 +672,7 @@ export default {
   margin-top: -40px;
 }
 .top-elements {
+  position: relative;
   max-width: 440px;
   display: flex;
 }
@@ -759,19 +688,12 @@ export default {
   height: 50px;
   margin-top: 10px;
   margin-left: 10px;
-  //padding-left: 50px;
-  //margin-right: 70px;
-  //padding-left: 100px;
   padding-right: 5px;
-  //padding-top: 10px;
   padding-bottom: 5px;
   border: 0px;
-  //border-radius: 25px;
-  //border:2px solid #f5f2f2;
   font-size: 12px;
   font-weight: 450;
   text-align: left;
-  //z-index: 10;
 }
 .view {
   margin-left: 20px;
