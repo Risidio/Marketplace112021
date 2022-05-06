@@ -8,10 +8,12 @@
                     <input class="collectionItemRadio" type="radio" @click="$router.push('/nft-marketplace/' + 'all' + '/' + '0')" name="radio">
                     <label class="collectionItems">All</label>
                     <div v-for="(item, index) in projects" :key="index" class="collectionMenuContainer">
-                      <input @click="$router.push('/nft-marketplace/' + item.contractId + '/' + '0')" class="collectionItemRadio" type="radio" :id="item.title"
+                    <!--  <input @click="$router.push('/nft-marketplace/' + item.contractId)" class="collectionItemRadio" type="radio" :id="item.title"
                       name="radio" :value="index"
-                      :checked="$route.params.title === item.contractId ? true : false">
-                      <label class="collectionItems">{{item.title}}</label>
+                      :checked="$route.params.title === item.contractId ? true : false"
+                      >-->
+                      <label class="collectionItems"  @click="$router.push('/nft-marketplace/' + item.contractId)"
+                      :checked="$route.params.title === item.contractId ? true : false">{{item.title}}</label>
                     </div>
                   </div>
                 </div>
@@ -837,6 +839,7 @@ export default {
   a:hover {
     font-weight: 500;
     color: #5fbdc1;
+    text-decoration: underline;
   }
 }
 .galleryCollections .collectionsMenu.active,
@@ -876,6 +879,7 @@ export default {
 .collectionMenuContainer {
   display: flex;
   align-items: center;
+  border-bottom: 3px solid transparent;
 }
 .collectionItemRadio {
   width: 20px;
@@ -886,14 +890,27 @@ export default {
   border-radius: 50%;
   // box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
 }
+.collectionItems::first-letter{
+  text-transform: capitalize;
+}
+.collectionMenuContainer label{
+  margin-left: 32px;
 
 .collectionMenuContainer .collectionItems,
 .collectionItems {
   margin-top: 5px;
   font-size: 11px;
+  border-bottom: 3px solid transparent;
 }
-.collectionItems::first-letter{
-  text-transform: capitalize;
+.collectionMenuContainer label:hover{
+  text-decoration: underline;
+  font-weight: 500;
+  color: #5fbdc1;
+  cursor: pointer;
+  //border-bottom: 3px solid white;
+}
+.collectionMenuContainer label:focus{
+  border-bottom: 2px solid #50b1b5;
 }
 .galleryGrid {
   display: grid;
