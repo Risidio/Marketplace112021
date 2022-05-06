@@ -48,11 +48,13 @@
                     </div>
                 <hr class="hr1"/>
                   <div v-if="resultSet && view == 'squared' && searched.length == 0 && !loading">
+                    <p>{{error}}</p>
                     <SquareNFT :resultSet="resultSet"/>
                     <Pagination :pageSize="pageSize" :numberOfItems="numberOfItems"/>
                   </div>
                   <div v-if="resultSet && view == 'squared' && searched.length > 0 && !loading">
                     <SquareNFT :resultSet="searched"/>
+                    <Pagination :pageSize="pageSize" :numberOfItems="numberOfItems"/>
                   </div>
                 <div style="display: grid; place-items: center;" v-else-if="loading">
                   <img :src="loadingImage" alt="loading" />
@@ -181,7 +183,8 @@ export default {
       },
       currentSearch: null,
       pageSize: 50,
-      loading: true
+      loading: true,
+      error: ''
     }
   },
   watch: {
@@ -226,6 +229,8 @@ export default {
     },
     searching (query) {
       this.loading = true
+      this.$router.push('/nft-marketplace/' + 'all' + '/&query=' + query)
+      this.error = ''
       this.currentSearch = query
       this.defQuery.query = query
       let queryStr = '?'
@@ -240,7 +245,7 @@ export default {
         // runKey: (this.loopRun) ? this.loopRun.currentRunKey : null,
         query: queryStr,
         page: 0,
-        pageSize: 10
+        pageSize: this.pageSize
       }
       this.resultSet = []
       this.$store.dispatch('rpayStacksContractStore/fetchTokensByFilters', data).then((result) => {
@@ -253,7 +258,7 @@ export default {
           // runKey: (this.loopRun) ? this.loopRun.currentRunKey : null,
           // query: queryStr,
           page: this.$route.params.page,
-          pageSize: 10
+          pageSize: this.pageSize
         }
         this.$store.dispatch('rpayStacksContractStore/fetchTokensByFilters', data).then((result) => {
           this.resultSet = result.gaiaAssets
@@ -262,6 +267,7 @@ export default {
           this.loading = false
         })
         console.log(error)
+        this.error = 'Could not find anything matching your search word ' + query
       })
     },
     fetchAll () {
@@ -298,7 +304,7 @@ export default {
         asc: true,
         runKey: null,
         page: this.$route.params.page,
-        pageSize: 10
+        pageSize: this.pageSize
       }
       this.resultSet = null
       this.$store.dispatch('rpayStacksContractStore/fetchTokensByContractId', data).then((result) => {
