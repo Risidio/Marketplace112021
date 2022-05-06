@@ -22,7 +22,7 @@
                <div class="filter">
                    <div class="top-elements">
                     <p class="viewcategory" @click="changeView()">View</p>
-                      <div class="dropdown_option_container" ref="popularMenu"> <button class="collectionsButton" @click="popular = !popular, sort = false"> Popular <img class="arrow2" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></button>
+                      <div class="dropdown_option_container" ref="popularMenu"> <button class="collectionsButton" @click="popular = !popular"> Popular <img class="arrow2" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></button>
                         <div @click="popular = false" v-show="popular" class="dropdown_option_show" >
                           <p @click="filter()" class="dropdown_option" value="All">Popular <span class="blue">&#8593;</span></p>
                           <p @click="filter()" class="dropdown_option" value="Category">Popular <span class="blue">&#8595;</span></p>
@@ -30,7 +30,7 @@
                           <p @click="filter()" class="dropdown_option" value="Category">Date <span class="blue">&#8595;</span></p>
                         </div>
                       </div>
-                      <div class="dropdown_option_container" ref="sortMenu"> <button class="collectionsButton" @click="sort = !sort, popular = false"> Sort by <img class="arrow2" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></button>
+                      <div class="dropdown_option_container" ref="sortMenu"> <button class="collectionsButton" @click="sort = !sort"> Sort by <img class="arrow2" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></button>
                         <div @click="sort = false" v-show="sort" class="dropdown_option_show" >
                           <p @click="filter()" class="dropdown_option" value="All">Price <span class="blue">&#8593;</span></p>
                           <p @click="filter()" class="dropdown_option" value="Category">Price <span class="blue">&#8595;</span></p>
@@ -90,17 +90,17 @@
                   <div><h2 class="all" @click="showHiddenP()">All</h2></div>
                     <img class="mobilearrow1" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg">
                       <div class="dropdown_option_container4">
+                        <!-- <div class="dropdown_option1" value="Category">All by</div>
                         <div class="dropdown_option1" value="Category">All by</div>
-                        <div class="dropdown_option1" value="Category">All by</div>
-                        <div class="dropdown_option1" value="Category">All by</div>
+                        <div class="dropdown_option1" value="Category">All by</div> -->
                       </div>
                     <div><h2 class="sort-by" @click="showHiddenM()">Sort by</h2></div>
                     <img class="mobilearrow2" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg">
                       <div class="dropdown_option_container3">
-                        <div class="dropdown_option1" value="All">Popular by</div>
+                        <!-- <div class="dropdown_option1" value="All">Popular by</div>
                         <div class="dropdown_option1" value="Category">Popular by</div>
                         <div class="dropdown_option1" value="Category">Popular by</div>
-                        <div class="dropdown_option1" value="Category">Popular by</div>
+                        <div class="dropdown_option1" value="Category">Popular by</div> -->
                       </div>
                   <p class="mobilefilter">Filter results</p>
                   <div>
