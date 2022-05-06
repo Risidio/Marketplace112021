@@ -402,7 +402,10 @@ export default {
   justify-content: center;
   flex-wrap: wrap;
 }
-
+.galleryNavContainer{
+  width: 400px;
+  justify-content: space-between;
+}
 .wantMore {
   display: block;
   text-align: center;

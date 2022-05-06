@@ -36,7 +36,7 @@
               <p id="dropDown-2" class="featured" > Featured Collections <img style="margin-left: 8px;" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></p>
               <div id="dropDown-3" class="dropdownMenu">
                 <div id="dropDown-4" v-for="(item, index) in allLoopRuns" :key="index" class="dropdownMenu-container">
-                  <p @click="linkTo(item)" v-on:click="isLayer ? mobileNavebar() : '' ">{{item.currentRun}}</p>
+                <p @click="linkTo(item)" v-on:click="isLayer ? mobileNavebar() : '' ">{{item.currentRun}}</p>
                 </div>
               </div>
             </div>

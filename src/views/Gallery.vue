@@ -551,14 +551,15 @@ export default {
   flex-direction: column;
   align-content: flex-start;
   justify-content: flex-start;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   margin-top: 26px;
   width: 140px;
   margin-left: 260px;
   z-index: 10;
   background: white;
-    border-color: white;
-  border-style: solid;
+  border-color: white;
   border-radius:8px;
+  border-top-style: none;
       p:hover {
     text-decoration: underline;
     color: #5fbdc1;
@@ -576,7 +577,15 @@ export default {
   margin-left: 85px;
   z-index: 10;
   background: white;
-  border-radius: 3px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  border-color: white;
+  border-radius:8px;
+  border-top-style: none;
+  // box-shadow: 2px 2px #E4E4E4 ;
+    p:hover {
+    text-decoration: underline;
+    color: #5fbdc1;
+  }
 }
 .dropdown_option_container3 {
   position: absolute;
@@ -590,6 +599,8 @@ export default {
   margin-left: 170px;
   z-index: 10;
   background: white;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+
 }
 .dropdown_option_container4 {
   position: absolute;
@@ -870,6 +881,9 @@ export default {
 .collectionMenuContainer .collectionItems, .collectionItems {
   margin-top: 5px;
   font-size: 11px;
+}
+.collectionItems::first-letter{
+  text-transform: capitalize;
 }
 .galleryGrid {
   display: grid;
