@@ -63,7 +63,6 @@
             <div class="mobilemainGallery">
               <div class="mobiletop">
                 <div>
-                  <p class="showFilter" v-on:click="toggleFilter()">Show Filter</p>
                 </div>
                 <div>
                   <div v-if="filterToggle" class="toggleFilterContainer">
@@ -102,7 +101,8 @@
                         <div class="dropdown_option1" v-show="isHiddenM" value="Category">Popular by</div>
                         <div class="dropdown_option1" v-show="isHiddenM" value="Category">Popular by</div>
                       </div>
-                  <p class="mobilefilter">Filter results</p>
+                  <p class="mobilefilter" v-on:click="toggleFilter()">Show Filter</p>
+
                   <div>
                     <div v-if="grid" v-on:click="changeGrid()" class="gridDisplayOptions">
                       <img  src="../assets/img/gridDisplay.svg">
@@ -410,9 +410,8 @@ export default {
   bottom: 0;
   z-index: 19;
   background: #f5f5f5;
-  height: 100vh;
+  min-height: 100vh;
   width: 245px;
-  height: 121;
   padding: 20px;
 }
 .collectionsMenuSide {
