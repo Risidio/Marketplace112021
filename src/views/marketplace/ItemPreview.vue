@@ -1,11 +1,12 @@
 <template>
-<section style="height: 100%" class="itemPreviewSection" id="section-minting">
+<section style="height: 20%" class="itemPreviewSection" id="section-minting">
   <div class="nFTInfo">
     <p class="lastUpdate">Last Update</p>
     <p class="spanDate">{{moment(1)}}</p>
      <p class="spanDate1">{{moment(2)}}</p>
       <p class="spanDate">{{moment(3)}}</p>
   </div>
+  <div v-if="windowWidth > 1020">
   <b-container class="my-5 pt-5" v-if="!item || !loopRun">
     <h1>{{message}}</h1>
   </b-container>
@@ -61,7 +62,50 @@
       </div>
     </div>
   </div>
+</div>
+<div v-else>
+  <b-container class="my-5 pt-5" v-if="!item || !loopRun">
+    <h1>{{message}}</h1>
+  </b-container>
+  <div class="itemPreviewBody" v-else>
+      <div class="backBtn"><router-link class="backBtn" to="/my-account"><b-icon icon="chevron-left" shift-h="-3"></b-icon> Back </router-link></div>
+    <div :key="componentKey" class="itemPreviewContainer" >
+      <div class = "itemPreviewSubContainerM">
+            <div class="mb-2 justify-content-between" style="text-align: center; margin-top: 130px;">
+            <h2 class="font: normal normal normal 38px/41px Montserrat;">{{mintedMessage}}</h2>
+          </div>
+        <div class="NFTbackgroundColour">
+          <img :src="item.image" class="nftGeneralView" :options="options"/>
+          <h2 style="margin-top: 0;" class="nFTName" v-if="item.name" >{{item.name}}</h2>
+          <p style="margin: 0; justify-self: flex-start; align-self: start;" class="nFTArtist" v-if="item.properties.collection">By: <span>{{item.properties.collection}}</span></p>
+        </div>
+        <div v-if="!item.contractAsset">
+          <button class="button filled" @click="startMinting()">Mint<span v-if="loopRun && loopRun.batchSize > 1"> Next {{loopRun.batchSize}}</span></button>
+        </div>
+        <div v-else-if="item.contractAsset.listingInUstx && item.contractAsset.listingInUstx.price > 0">
+        <b-link  :to="assetUrl(item)"><b-button class="button notFilledBlue">View On Market</b-button></b-link>
+         <button class="cancel-button" @click="delistItem()">Delist item</button>
+        </div>
+        <div v-else>
+         <b-button style="display: grid; place-items: center; padding: 15px 80px;" class="button filled" @click="openSaleDataDialog()">Sell</b-button>
+        </div>
+        <!-- <div class="text-left text-small mt-3">
+          <b-link :to="'/my-nfts/' + loopRun.currentRunKey"><b-icon icon="chevron-left"/> Back</b-link>
+        </div> -->
+      </div>
+      <div class="itemPreviewContainerDetails">
+        <p v-if="item.description" class="pt-4 text-small" v-html="preserveWhiteSpace(item.description)"></p>
+        <!-- <MintInfo :item="item" :loopRun="loopRun"/> -->
 
+        <PendingTransactionInfo class="mt-5" v-if="pending && pending.txStatus === 'pending'" :pending="pending"/>
+        <div style="display: none">
+          <MintingTools class="w-100" :items="[item]" :loopRun="loopRun" @update="update" :mediaItem="getMediaItem()"/>
+        </div>
+          <NftHistory class="" @update="update" @setPending="setPending" :loopRun="loopRun" :nftIndex="(item.contractAsset) ? item.contractAsset.nftIndex : -1" :assetHash="item.assetHash"/>
+      </div>
+    </div>
+  </div>
+</div>
 </section>
 </template>
 
@@ -84,6 +128,7 @@ export default {
   },
   data: function () {
     return {
+      windowWidth: window.innerWidth,
       showHash: false,
       contractId: null,
       componentKey: 0,
@@ -97,6 +142,10 @@ export default {
       showRpay: false,
       tab: 'Info'
     }
+  },
+  created () {
+    window.addEventListener('resize', this.checkScreen)
+    this.checkScreen()
   },
   mounted () {
     this.loading = false
@@ -139,6 +188,9 @@ export default {
       } else {
         return (null)
       }
+    },
+    checkScreen () {
+      this.windowWidth = window.innerWidth
     },
     dimensions: function () {
       if (this.dims) {
@@ -350,9 +402,9 @@ export default {
   border: none !important;
   background-color: transparent !important;
 }
-.button{
-  margin-top: 20px;
-}
+// .button{
+//   margin-top: 20px;
+// }
 .itemPreviewSection{
   max-width: 1135px;
   display: block;
@@ -364,6 +416,9 @@ export default {
 .galleryNavItem:hover, .galleryNavItem.active{
   border-bottom: 2px solid #50B1B5;
 }
+.galleryNavMItem:hover, .galleryNavMItem.active{
+  border-bottom: 2px solid #50B1B5;
+}
 .nFTInfo{
   position: absolute;
   background-color: #5154A1;
@@ -371,7 +426,7 @@ export default {
   padding: 10px 0 10px 30px;
   width: 130px; height: 82px;
   right: 0;
-  top: 175px;
+  top: 130px;
   border-top-left-radius: 4px;
   border-bottom-left-radius: 4px;
   .lastUpdate{
@@ -393,11 +448,43 @@ export default {
     margin: 0;
   }
 }
+.button{
+  margin: 20px auto 0 auto;
+}
+@media only screen and (max-width: 1020px) {
+  .nFTInfo{
+    margin-top: 50px;
+    top: 245px;
+    width: 120px; height: 82px;
+
+  }
+  .itemPreviewContainer >*:nth-child(2){
+  flex: 1 1 600px;
+ }
+.NFTbackgroundColour{
+  margin: auto;
+  margin-top: 50px;
+  }
+.button{
+  margin-top:85px;
+  }
+  .history-container{
+
+  }
+
+}
 .NFTbackgroundColour{
   margin: auto;
 }
+
 .itemPreviewSubContainer{
   max-width: 500px;
+}
+.itemPreviewSubContainerM{
+  max-width: 500px;
+  max-height:610px;
+  background:#E4E4E4;
+  border-radius: 20px;
 }
 .backBtn{
   color: #170A6D;
@@ -413,7 +500,6 @@ export default {
   column-gap: 100px;
 }
 .itemPreviewContainer >*:nth-child(2){
-  margin: 0 auto;
   flex: 1 1 600px;
 }
 .itemPreviewContainer >*:nth-child(1){
@@ -422,9 +508,6 @@ export default {
 }
 .itemPreviewContainerDetails{
   max-width: 900px;
-}
-
-.button{
-  margin: 20px auto 0 auto;
+  margin-top:50px;
 }
 </style>
