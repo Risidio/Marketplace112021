@@ -5,14 +5,13 @@
                 <div class="galleryCollections">
                   <button class="collectionsButton" v-on:click="showCollections()">Collections <img class="arrow1 active" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></button>
                   <div class="collectionsMenu active" v-if="projects">
-                    <input class="collectionItemRadio" type="radio" @click="$router.push('/nft-marketplace/' + 'all' + '/' + '0')" name="radio">
-                    <label class="collectionItems">All</label>
+                    <label @click="$router.push('/nft-marketplace/' + 'all' + '/' + '0')" class="collectionItems">All</label>
                     <div v-for="(item, index) in projects" :key="index" class="collectionMenuContainer">
                     <!--  <input @click="$router.push('/nft-marketplace/' + item.contractId)" class="collectionItemRadio" type="radio" :id="item.title"
                       name="radio" :value="index"
                       :checked="$route.params.title === item.contractId ? true : false"
                       >-->
-                      <label class="collectionItems"  @click="$router.push('/nft-marketplace/' + item.contractId)"
+                      <label class="collectionItems"  @click="$router.push('/nft-marketplace/' + item.contractId + '/0')"
                       :checked="$route.params.title === item.contractId ? true : false">{{item.title}}</label>
                     </div>
                   </div>
@@ -893,16 +892,16 @@ export default {
 .collectionItems::first-letter{
   text-transform: capitalize;
 }
-.collectionMenuContainer label{
+.galleryCollections label{
   margin-left: 32px;
-
+}
 .collectionMenuContainer .collectionItems,
 .collectionItems {
   margin-top: 5px;
   font-size: 11px;
   border-bottom: 3px solid transparent;
 }
-.collectionMenuContainer label:hover{
+.galleryCollections label:hover{
   text-decoration: underline;
   font-weight: 500;
   color: #5fbdc1;
