@@ -74,10 +74,10 @@ const routes: Array<RouteConfig> = [
   },
   {
     path: '/nft-marketplace/',
-    redirect: './nft-marketplace/ST1NXBK3K5YYMD6FD41MVNP3JS1GABZ8TRVX023PT.rmart-t1'
+    redirect: './nft-marketplace/ST1NXBK3K5YYMD6FD41MVNP3JS1GABZ8TRVX023PT.rmart-t1/0'
   },
   {
-    path: '/nft-marketplace/:title',
+    path: '/nft-marketplace/:title/:page',
     name: 'gallery',
     components: { default: Gallery, header: MainNavbar, footer: MainFooter },
     meta: { title: 'Marketplace for NFTs by the Number One Team Secured by Bitcoin' }
