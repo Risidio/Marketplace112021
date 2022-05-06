@@ -4,7 +4,7 @@
             <h1 style="font: normal normal bold 17px/20px Montserrat;">{{content.needahand[0].needtitle[0].text}} </h1>
             <h2 style="font: normal normal 200 40px/49px Montserrat;"> {{content.needahand[0].needtitle2[0].text}} </h2>
         </div>
-        <div v-if="windowWidth < 840">
+   <div v-if="windowWidth < 840">
         <vueper-slides
               :infinite="false"
               fixed-height="true"
@@ -73,7 +73,7 @@
                   </template>
              </vueper-slide>
          </vueper-slides>
-        </div>
+    </div>
          <div v-else>
             <div class="homeInfoContainer">
                 <div>
