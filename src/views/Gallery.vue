@@ -10,8 +10,7 @@
                     <div v-for="(item, index) in projects" :key="index" class="collectionMenuContainer">
                       <input @click="$router.push('/nft-marketplace/' + item.contractId + '/' + '0')" class="collectionItemRadio" type="radio" :id="item.title"
                       name="radio" :value="index"
-                      :checked="$route.params.title === item.contractId ? true : false"
-                      >
+                      :checked="$route.params.title === item.contractId ? true : false">
                       <label class="collectionItems">{{item.title}}</label>
                     </div>
                   </div>
@@ -64,6 +63,7 @@
             <div class="mobilemainGallery">
               <div class="mobiletop">
                 <div>
+                  <p class="showFilter" v-on:click="toggleFilter()">Show Filter</p>
                 </div>
                 <div>
                   <div v-if="filterToggle" class="toggleFilterContainer">
@@ -102,8 +102,7 @@
                         <div class="dropdown_option1" v-show="isHiddenM" value="Category">Popular by</div>
                         <div class="dropdown_option1" v-show="isHiddenM" value="Category">Popular by</div>
                       </div>
-                  <p class="mobilefilter" v-on:click="toggleFilter()">Show Filter</p>
-
+                  <p class="mobilefilter">Filter results</p>
                   <div>
                     <div v-if="grid" v-on:click="changeGrid()" class="gridDisplayOptions">
                       <img  src="../assets/img/gridDisplay.svg">
@@ -413,8 +412,9 @@ export default {
   bottom: 0;
   z-index: 19;
   background: #f5f5f5;
-  min-height: 100vh;
+  height: 100vh;
   width: 245px;
+  height: 121;
   padding: 20px;
 }
 .collectionsMenuSide {
