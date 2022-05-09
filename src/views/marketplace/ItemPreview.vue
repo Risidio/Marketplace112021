@@ -101,8 +101,8 @@
         <div style="display: none">
           <MintingTools class="w-100" :items="[item]" :loopRun="loopRun" @update="update" :mediaItem="getMediaItem()"/>
         </div>
-          <NftHistory class="" @update="update" @setPending="setPending" :loopRun="loopRun" :nftIndex="(item.contractAsset) ? item.contractAsset.nftIndex : -1" :assetHash="item.assetHash"/>
       </div>
+      <NftHistory @update="update" @setPending="setPending" :loopRun="loopRun" :nftIndex="(item.contractAsset) ? item.contractAsset.nftIndex : -1" :assetHash="item.assetHash"/>
     </div>
   </div>
 </div>
