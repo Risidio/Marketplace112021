@@ -35,13 +35,11 @@ export default {
   data () {
     return {
       pages: [],
-      page: parseInt(this.$route.params.page),
-      lastPage: false
+      page: parseInt(this.$route.params.page)
     }
   },
   mounted () {
     this.getPageNumbers()
-    this.lastPage = Math.floor(this.numberOfItems / this.pageSize)
   },
   watch: {
     '$route' () {
@@ -61,13 +59,11 @@ export default {
       if (currentPage === lastPage) {
         for (let i = currentPage; i >= 0; i--) {
           pages.push(i)
-          this.lastPage = true
         }
         this.pages = pages
       } else {
         for (let i = currentPage; i <= lastPage; i++) {
           pages.push(i)
-          this.lastPage = false
         }
         this.pages = pages
       }
