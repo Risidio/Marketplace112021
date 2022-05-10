@@ -5,14 +5,11 @@
                 <div class="galleryCollections">
                   <button class="collectionsButton" v-on:click="showCollections()">Collections <img class="arrow1 active" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></button>
                   <div class="collectionsMenu active" v-if="allLoopRuns">
-                    <label @click="$router.push('/nft-marketplace/' + 'all' + '/' + '0')" class="collectionItems">All</label>
+                    <div class="collectionMenuContainer">
+                      <router-link :to="'/nft-marketplace/all/0'">All</router-link>
+                    </div>
                     <div v-for="(item, index) in allLoopRuns" :key="index" class="collectionMenuContainer">
-                    <!--  <input @click="$router.push('/nft-marketplace/' + item.contractId)" class="collectionItemRadio" type="radio" :id="item.title"
-                      name="radio" :value="index"
-                      :checked="$route.params.title === item.contractId ? true : false"
-                      >-->
-                      <label class="collectionItems"  @click="$router.push('/nft-marketplace/' + item.contractId + '/0')"
-                      :checked="$route.params.title === item.contractId ? true : false">{{item.currentRun}}</label>
+                      <router-link :to="'/nft-marketplace/' + item.contractId + '/0'">{{item.currentRun}}</router-link>
                     </div>
                   </div>
                 </div>
@@ -512,13 +509,17 @@ export default {
   color: #5fbdc1;
   cursor: pointer;
 }
-.blue {color: #5fbdc1; font-weight: bolder;}
+.blue {
+  color: #5fbdc1;
+  font-weight: bolder;
+}
 .gridDisplayOptions {
   display: flex;
   justify-content: space-between;
   width: 40px;
   cursor: pointer;
 }
+
 @media only screen and (min-width: 595px) {
   .mobilemainGallery {
     display: none;
@@ -535,8 +536,10 @@ export default {
     display: none;
   }
 }
-.dropdown_option_container{ position: relative; }
-.dropdown_option_show{
+.dropdown_option_container {
+  position: relative;
+}
+.dropdown_option_show {
   position: absolute;
   z-index: 10;
   top: 60px;
@@ -546,9 +549,9 @@ export default {
   border-radius: 10px;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   text-align: left;
-  p{
+  p {
     cursor: pointer;
-    &:hover{
+    &:hover {
       text-decoration: underline;
       color: #5fbdc1;
     }
@@ -749,14 +752,17 @@ export default {
   z-index: 1;
   a {
     margin-left: 35px;
-    font-size: 15px;
     color: black;
-    padding: 12px 16px;
+    padding: 12px 0px;
     text-decoration: none;
     display: block;
     background: transparent;
+    font-size: 11px;
   }
-  a:hover {
+  a:hover,
+  a:active,
+  a:focus,
+  .router-link-active {
     font-weight: 500;
     color: #5fbdc1;
     text-decoration: underline;
@@ -810,10 +816,10 @@ export default {
   border-radius: 50%;
   // box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
 }
-.collectionItems::first-letter{
+.collectionItems::first-letter {
   text-transform: capitalize;
 }
-.galleryCollections label{
+.galleryCollections label {
   margin-left: 32px;
 }
 .collectionMenuContainer .collectionItems,
@@ -822,15 +828,15 @@ export default {
   font-size: 11px;
   border-bottom: 3px solid transparent;
 }
-.galleryCollections label:hover{
+.galleryCollections label:hover {
   text-decoration: underline;
   font-weight: 500;
   color: #5fbdc1;
   cursor: pointer;
   //border-bottom: 3px solid white;
 }
-.collectionMenuContainer label:focus{
-  border-bottom: 2px solid #50b1b5;
+.collectionMenuContainer label:focus {
+  // border-bottom: 2px solid #50b1b5;
 }
 .galleryGrid {
   display: grid;
@@ -849,4 +855,5 @@ export default {
   width: 100%;
   margin: auto;
 }
+
 </style>
