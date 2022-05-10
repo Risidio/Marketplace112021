@@ -98,7 +98,7 @@
                      <div class="dropdown_option_container" ref="sortMMenu"> <button class="collectionsButtonM" @click="sortM = !sortM"> sort by <img class="" src=""></button>
                         <div @click="sortM = false" v-show="sortM" class="dropdown_option_showM" >
                           <p @click="filter()" class="dropdown_option" value="All">Sort by <span class="blue">&#8593;</span></p>
-                          <p @click="filter()" class="dropdown_option" value="Category">sort by <span class="blue">&#8595;</span></p>
+                          <p @click="filter()" class="dropdown_option" value="Category">Sort by <span class="blue">&#8595;</span></p>
                           <p @click="filter()" class="dropdown_option" value="Category">Date <span class="blue">&#8593;</span></p>
                           <p @click="filter()" class="dropdown_option" value="Category">Date <span class="blue">&#8595;</span></p>
                         </div>
@@ -215,6 +215,11 @@ export default {
       this.grid = false
     }
     this.currentSearch = this.$store.getters['contentStore/getSearch']
+    if (this.$route.params.title === 'all') {
+      this.fetchAll()
+    } else {
+      this.fetchFullRegistry()
+    }
     // const content = this.$store.getters['contentStore/getSearch']
     // if (content) this.searching(content)
   },
@@ -226,8 +231,9 @@ export default {
       if (!this.$refs.sortMMenu.contains(e.target)) this.sortM = false
     },
     searching (query) {
+      this.$store.state.contentStore.content.searchWord = query
       this.loading = true
-      this.$router.push('/nft-marketplace/' + 'all' + '/&query=' + query)
+      this.$router.push('/nft-marketplace/' + 'all' + '/0')
       this.error = ''
       this.currentSearch = query
       this.defQuery.query = query
