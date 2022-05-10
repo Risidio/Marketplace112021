@@ -63,7 +63,7 @@
             <div class="mobilemainGallery">
               <div class="mobiletop">
                 <div>
-                  <p class="showFilter" v-on:click="toggleFilter()">Show Filter</p>
+                  <p class="showFilter" v-on:click="toggleFilter()"></p>
                 </div>
                 <div>
                   <div v-if="filterToggle" class="toggleFilterContainer">
@@ -87,22 +87,23 @@
                 </div>
                 <div class="sorting">
                  <div><h1 class="mobileview">View</h1></div>
-                  <div><h2 class="all" @click="showHiddenP()">All</h2></div>
-                    <img class="mobilearrow1" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg">
-                      <div class="dropdown_option_container4">
-                        <!-- <div class="dropdown_option1" value="Category">All by</div>
-                        <div class="dropdown_option1" value="Category">All by</div>
-                        <div class="dropdown_option1" value="Category">All by</div> -->
+                     <div class="dropdown_option_container" ref="allMenu"> <button class="collectionsButtonM" @click="all = !all"> All <img class="" src=""></button>
+                        <div @click="all = false" v-show="all" class="dropdown_option_showM" >
+                          <p @click="filter()" class="dropdown_option" value="All">All <span class="blue">&#8593;</span></p>
+                          <p @click="filter()" class="dropdown_option" value="Category">All <span class="blue">&#8595;</span></p>
+                          <p @click="filter()" class="dropdown_option" value="Category">Date <span class="blue">&#8593;</span></p>
+                          <p @click="filter()" class="dropdown_option" value="Category">Date <span class="blue">&#8595;</span></p>
+                        </div>
                       </div>
-                    <div><h2 class="sort-by" @click="showHiddenM()">Sort by</h2></div>
-                    <img class="mobilearrow2" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg">
-                      <div class="dropdown_option_container3">
-                        <!-- <div class="dropdown_option1" value="All">Popular by</div>
-                        <div class="dropdown_option1" value="Category">Popular by</div>
-                        <div class="dropdown_option1" value="Category">Popular by</div>
-                        <div class="dropdown_option1" value="Category">Popular by</div> -->
+                     <div class="dropdown_option_container" ref="sortMMenu"> <button class="collectionsButtonM" @click="sortM = !sortM"> sort by <img class="" src=""></button>
+                        <div @click="sortM = false" v-show="sortM" class="dropdown_option_showM" >
+                          <p @click="filter()" class="dropdown_option" value="All">Sort by <span class="blue">&#8593;</span></p>
+                          <p @click="filter()" class="dropdown_option" value="Category">sort by <span class="blue">&#8595;</span></p>
+                          <p @click="filter()" class="dropdown_option" value="Category">Date <span class="blue">&#8593;</span></p>
+                          <p @click="filter()" class="dropdown_option" value="Category">Date <span class="blue">&#8595;</span></p>
+                        </div>
                       </div>
-                  <p class="mobilefilter">Filter results</p>
+                  <p class="mobilefilter"  v-on:click="toggleFilter()">Filter results</p>
                   <div>
                     <div v-if="grid" v-on:click="changeGrid()" class="gridDisplayOptions">
                       <img  src="../assets/img/gridDisplay.svg">
@@ -162,6 +163,8 @@ export default {
       searched: [],
       popular: false,
       sort: false,
+      sortM: false,
+      all: false,
       grid: false,
       filterToggle: true,
       collectionToggle: false,
@@ -219,6 +222,8 @@ export default {
     close (e) {
       if (!this.$refs.popularMenu.contains(e.target)) this.popular = false
       if (!this.$refs.sortMenu.contains(e.target)) this.sort = false
+      if (!this.$refs.allMenu.contains(e.target)) this.all = false
+      if (!this.$refs.sortMMenu.contains(e.target)) this.sortM = false
     },
     searching (query) {
       this.loading = true
@@ -266,6 +271,8 @@ export default {
     filter () {
       this.popular = false
       this.sort = false
+      this.all = false
+      this.sortM = false
     },
     fetchAll () {
       const data = {
@@ -504,7 +511,7 @@ export default {
   font-size: 13px;
   font-weight: 800;
   color: #5fbdc1;
-  margin-top: -20px;
+  margin-top: -32px;
   text-align: right;
 }
 .showFilter {
@@ -536,11 +543,33 @@ export default {
     display: none;
   }
 }
-.dropdown_option_container{ position: relative; }
+.dropdown_option_container{
+   position: relative;
+   display: inline-block; }
 .dropdown_option_show{
   position: absolute;
   z-index: 10;
   top: 60px;
+  left: 30px;;
+  width: 100%;
+  background: #ffffff;
+  padding: 10px 15px;
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  text-align: left;
+  p{
+    cursor: pointer;
+    &:hover{
+      text-decoration: underline;
+      color: #5fbdc1;
+    }
+  }
+}
+.dropdown_option_showM{
+  position: absolute;
+  z-index: 10;
+  top: 40px;
+  left: 30px;;
   width: 100%;
   background: #ffffff;
   padding: 10px 15px;
@@ -722,6 +751,16 @@ export default {
   border: none;
   cursor: pointer;
 }
+.collectionsButtonM {
+  margin: 0px 0 0 55px;
+  background-color: transparent;
+  color: rgb(49, 49, 49);
+  padding: 16px;
+  font: normal normal 600 14px/18px Montserrat;
+  border: none;
+  cursor: pointer;
+}
+
 .filterCollection {
   background-color: transparent;
   color: rgb(49, 49, 49);
