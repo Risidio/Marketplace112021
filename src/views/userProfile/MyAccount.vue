@@ -673,6 +673,9 @@ export default {
   }
   .walletDetails {
     background: #efefef;
+    .button {
+    margin-top: 20px;
+  }
   }
   .walletDetails {
     margin: auto;
