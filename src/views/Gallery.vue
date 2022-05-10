@@ -513,11 +513,6 @@ export default {
   color: #5fbdc1;
   margin-top: -32px;
   text-align: right;
-}
-.showFilter {
-  font-size: 13px;
-  font-weight: 800;
-  color: #5fbdc1;
   cursor: pointer;
 }
 .blue {color: #5fbdc1; font-weight: bolder;}
