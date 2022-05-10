@@ -44,15 +44,18 @@
         <div class="numbers">
             <div class="floorPrice">
                 <p> Floor Price</p>
-                <p> <span>{{floorPrice}} STX</span></p>
+                <p v-if="!loadingFloor"> <span class="blue">{{floorPrice || 'N/A'}} </span>STX</p>
+                <img class="loading-small" v-else alt="loading" :src="loadingImage">
             </div>
             <div class="owners">
                 <p> Owners </p>
-                <p> <span>{{owners}}</span> </p>
+                <p v-if="!loadingOwners"> <span class="blue">{{owners || 'N/A'}}</span> </p>
+                <img class="loading-small" v-else alt="loading" :src="loadingImage">
             </div>
             <div class="items">
                 <p> Items</p>
-                <p> <span>{{numberOfItems}}</span> </p>
+                <p v-if="!loadingItems"> <span class="blue">{{numberOfItems || 'N/A'}}</span> </p>
+                <img class="loading-small" v-else alt="loading" :src="loadingImage">
             </div>
         </div>
     </div>
@@ -60,8 +63,7 @@
 </template>
 
 <script>
-import { APP_CONSTANTS } from '@/app-constants'
-import utils from '@/services/utils'
+import loadingImage from '@/assets/img/loading2.gif'
 
 export default {
   name: 'Indige-Collection-S1',
@@ -69,12 +71,16 @@ export default {
   data () {
     return {
       background: 'https://res.cloudinary.com/risidio/image/upload/v1649414606/RisidioMarketplace/indige-15_raduat.jpg',
+      loadingImage: loadingImage,
       showArtist: false,
       resultSet: [],
       numberOfItems: null,
       loading: false,
       floorPrice: null,
-      owners: null
+      owners: null,
+      loadingOwners: true,
+      loadingFloor: true,
+      loadingItems: true
     }
   },
   watch: {
@@ -106,6 +112,7 @@ export default {
       }
     },
     sortCollection (loopRun) {
+      this.loadingItems = true
       const data = {
         contractId: loopRun.contractId,
         asc: true,
@@ -119,18 +126,22 @@ export default {
         this.getFloorPrice()
         this.getOwners()
         this.loading = false
+        this.loadingItems = false
       })
     },
     getFloorPrice () {
+      this.loadingFloor = true
       const price = []
       this.resultSet.map((item) => {
-        if (item.contractAsset.listingInUstx !== null && item.contractAsset.listingInUstx.price !== null) {
+        if (item.contractAsset.listingInUstx && item.contractAsset.listingInUstx.price !== null) {
           price.push(item.contractAsset.listingInUstx.price)
         }
       })
       this.floorPrice = Math.min(...price)
+      this.loadingFloor = false
     },
     getOwners () {
+      this.loadingOwners = true
       const owner = []
       this.resultSet.map((item) => {
         if (!owner.includes(item.contractAsset.owner)) {
@@ -138,6 +149,7 @@ export default {
         }
       })
       this.owners = owner.length
+      this.loadingOwners = false
     }
   }
 }
@@ -153,6 +165,10 @@ export default {
   position: relative;
   max-width: 1500px;
   margin: auto;
+}
+.loading-small{
+  max-width: 100px;
+  margin: 0;
 }
 .background {
   background-image: linear-gradient(
@@ -267,6 +283,7 @@ export default {
   display: none;
   color: #50b1b5;
 }
+.blue{color: #50b1b5}
 // @media(max-width: 611px){
 //     .readMore{
 //     padding-bottom: 200px;
