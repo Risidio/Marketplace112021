@@ -4,15 +4,15 @@
             <div class="mainGallerySidebar">
                 <div class="galleryCollections">
                   <button class="collectionsButton" v-on:click="showCollections()">Collections <img class="arrow1 active" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></button>
-                  <div class="collectionsMenu active" v-if="projects">
+                  <div class="collectionsMenu active" v-if="allLoopRuns">
                     <label @click="$router.push('/nft-marketplace/' + 'all' + '/' + '0')" class="collectionItems">All</label>
-                    <div v-for="(item, index) in projects" :key="index" class="collectionMenuContainer">
+                    <div v-for="(item, index) in allLoopRuns" :key="index" class="collectionMenuContainer">
                     <!--  <input @click="$router.push('/nft-marketplace/' + item.contractId)" class="collectionItemRadio" type="radio" :id="item.title"
                       name="radio" :value="index"
                       :checked="$route.params.title === item.contractId ? true : false"
                       >-->
                       <label class="collectionItems"  @click="$router.push('/nft-marketplace/' + item.contractId + '/0')"
-                      :checked="$route.params.title === item.contractId ? true : false">{{item.title}}</label>
+                      :checked="$route.params.title === item.contractId ? true : false">{{item.currentRun}}</label>
                     </div>
                   </div>
                 </div>
@@ -73,9 +73,9 @@
                    <div class="collectionOption">
                     <button class="filterCollection" v-on:click="toggleCollections()">Collections <img :class="collectionToggle ? 'arrow1 active' : 'arrow1'" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></button>
                     <div :class="collectionToggle ? 'collectionsMenuSide active' : 'collectionsMenuSide'">
-                      <div v-for="(item, index) in projects" :key="index" class="collectionMenuContainer">
-                        <input class="collectionItemRadio" type="radio" :id="item.title" name="radio" :value="index" @click="sortCollection(item)">
-                        <label class="collectionItems">{{item.title}}</label>
+                      <div v-for="(item, index) in allLoopRuns" :key="index" class="collectionMenuContainer">
+                        <input class="collectionItemRadio" type="radio" :id="item.currentRun" name="radio" :value="index" @click="sortCollection(item)">
+                        <label class="collectionItems">{{item.currentRun}}</label>
                       </div>
                     </div>
                   </div>
@@ -314,15 +314,14 @@ export default {
     },
     fetchFullRegistry () {
       const $self = this
-      this.$store.dispatch('rpayProjectStore/fetchProjectsByStatus', '').then((projects) => {
-        $self.projects = utils.sortResults(projects)
-        this.sortCollection()
-        $self.projects.forEach((p) => {
-          const application = this.$store.getters[APP_CONSTANTS.KEY_APPLICATION_FROM_REGISTRY_BY_CONTRACT_ID](p.contractId)
-          p.application = application
-        })
-        $self.loaded = true
+      this.sortCollection()
+      $self.projects.forEach((p) => {
+        const application = this.$store.getters[APP_CONSTANTS.KEY_APPLICATION_FROM_REGISTRY_BY_CONTRACT_ID](p.contractId)
+        p.application = application
       })
+      $self.loaded = true
+      // this.$store.dispatch('rpayProjectStore/fetchProjectsByStatus', 'active').then((projects) => {
+      //   $self.projects = utils.sortResults(projects)
     },
     setCurrentRunKey (result) {
       this.currentRunKey = result
@@ -337,7 +336,7 @@ export default {
   },
   computed: {
     allLoopRuns () {
-      const loopRuns = this.$store.getters[APP_CONSTANTS.GET_LOOP_RUNS]
+      const loopRuns = this.$store.getters[APP_CONSTANTS.GET_LOOP_RUNS].filter((loopRun) => loopRun.status === 'active')
       return loopRuns
     },
     application () {
