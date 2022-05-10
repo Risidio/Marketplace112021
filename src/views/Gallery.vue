@@ -87,7 +87,7 @@
                 </div>
                 <div class="sorting">
                  <div><h1 class="mobileview">View</h1></div>
-                     <div class="dropdown_option_container" ref="allMenu"> <button class="collectionsButtonM" @click="all = !all"> All <img class="" src=""></button>
+                     <div class="dropdown_option_container" ref="allMenu"> <button class="collectionsButtonM" @click="all = !all"> All <img class="arrow2" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></button>
                         <div @click="all = false" v-show="all" class="dropdown_option_showM" >
                           <p @click="filter()" class="dropdown_option" value="All">All <span class="blue">&#8593;</span></p>
                           <p @click="filter()" class="dropdown_option" value="Category">All <span class="blue">&#8595;</span></p>
@@ -95,7 +95,7 @@
                           <p @click="filter()" class="dropdown_option" value="Category">Date <span class="blue">&#8595;</span></p>
                         </div>
                       </div>
-                     <div class="dropdown_option_container" ref="sortMMenu"> <button class="collectionsButtonM" @click="sortM = !sortM"> sort by <img class="" src=""></button>
+                     <div class="dropdown_option_container" ref="sortMMenu"> <button class="collectionsButtonM" @click="sortM = !sortM"> sort by <img class="arrow2" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></button>
                         <div @click="sortM = false" v-show="sortM" class="dropdown_option_showM" >
                           <p @click="filter()" class="dropdown_option" value="All">Sort by <span class="blue">&#8593;</span></p>
                           <p @click="filter()" class="dropdown_option" value="Category">Sort by <span class="blue">&#8595;</span></p>
@@ -809,7 +809,7 @@ export default {
 }
 .arrow1,
 .arrow2 {
-  margin-left: 50px;
+  margin-left: 30px;
   width: 12px;
   height: 12px;
   transform: rotate(180deg);
