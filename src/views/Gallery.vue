@@ -4,12 +4,12 @@
             <div class="mainGallerySidebar">
                 <div class="galleryCollections">
                   <button class="collectionsButton" v-on:click="showCollections()">Collections <img class="arrow1 active" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></button>
-                  <div class="collectionsMenu active" v-if="projects">
+                  <div class="collectionsMenu active" v-if="allLoopRuns">
                     <div class="collectionMenuContainer">
                       <router-link :to="'/nft-marketplace/all/0'">All</router-link>
                     </div>
-                    <div v-for="(item, index) in projects" :key="index" class="collectionMenuContainer">
-                      <router-link :to="'/nft-marketplace/' + item.contractId + '/0'">{{item.title}}</router-link>
+                    <div v-for="(item, index) in allLoopRuns" :key="index" class="collectionMenuContainer">
+                      <router-link :to="'/nft-marketplace/' + item.contractId + '/0'">{{item.currentRunKey}}</router-link>
                     </div>
                   </div>
                 </div>
@@ -520,9 +520,7 @@ export default {
   width: 40px;
   cursor: pointer;
 }
-.router-link-active {
-  border-bottom: 2px solid #50b1b5;
-}
+
 @media only screen and (min-width: 595px) {
   .mobilemainGallery {
     display: none;
@@ -762,7 +760,10 @@ export default {
     background: transparent;
     font-size: 11px;
   }
-  a:hover {
+  a:hover,
+  a:active,
+  a:focus,
+  .router-link-active {
     font-weight: 500;
     color: #5fbdc1;
     text-decoration: underline;
@@ -836,7 +837,7 @@ export default {
   //border-bottom: 3px solid white;
 }
 .collectionMenuContainer label:focus {
-  border-bottom: 2px solid #50b1b5;
+  // border-bottom: 2px solid #50b1b5;
 }
 .galleryGrid {
   display: grid;
@@ -855,4 +856,5 @@ export default {
   width: 100%;
   margin: auto;
 }
+
 </style>
