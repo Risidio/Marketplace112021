@@ -44,11 +44,11 @@
         <div class="numbers">
             <div class="floorPrice">
                 <p> Floor Price</p>
-                <p> <span>2,583 STX</span></p>
+                <p> <span>{{floorPrice}} STX</span></p>
             </div>
             <div class="owners">
                 <p> Owners </p>
-                <p> <span>20</span> </p>
+                <p> <span>{{owners}}</span> </p>
             </div>
             <div class="items">
                 <p> Items</p>
@@ -60,13 +60,27 @@
 </template>
 
 <script>
+import { APP_CONSTANTS } from '@/app-constants'
+import utils from '@/services/utils'
+
 export default {
   name: 'Indige-Collection-S1',
-  props: ['content', 'numberOfItems'],
+  props: ['content', 'project'],
   data () {
     return {
       background: 'https://res.cloudinary.com/risidio/image/upload/v1649414606/RisidioMarketplace/indige-15_raduat.jpg',
-      showArtist: false
+      showArtist: false,
+      resultSet: [],
+      numberOfItems: null,
+      loading: false,
+      floorPrice: null,
+      owners: null
+    }
+  },
+  watch: {
+    'project' () {
+      console.log('project')
+      this.sortCollection(this.project)
     }
   },
   methods: {
@@ -90,101 +104,141 @@ export default {
         document.getElementById('artistInfo').classList.remove('show')
         document.getElementById('artistName').classList.add('show')
       }
+    },
+    sortCollection (loopRun) {
+      const data = {
+        contractId: loopRun.contractId,
+        asc: true,
+        runKey: loopRun ? loopRun.currentRunKey : null,
+        page: 0,
+        pageSize: 10000
+      }
+      this.$store.dispatch('rpayStacksContractStore/fetchTokensByContractId', data).then((result) => {
+        this.resultSet = result.gaiaAssets
+        this.numberOfItems = result.tokenCount
+        this.getFloorPrice()
+        this.getOwners()
+        this.loading = false
+      })
+    },
+    getFloorPrice () {
+      const price = []
+      this.resultSet.map((item) => {
+        if (item.contractAsset.listingInUstx !== null && item.contractAsset.listingInUstx.price !== null) {
+          price.push(item.contractAsset.listingInUstx.price)
+        }
+      })
+      this.floorPrice = Math.min(...price)
+    },
+    getOwners () {
+      const owner = []
+      this.resultSet.map((item) => {
+        if (!owner.includes(item.contractAsset.owner)) {
+          owner.push(item.contractAsset.owner)
+        }
+      })
+      this.owners = owner.length
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-.launchS1{
+.launchS1 {
   min-height: 10rem;
   z-index: -10;
   padding: 20px;
 }
-.absolute-contain{
-    position: relative;
-    max-width: 1500px;
-    margin: auto;
+.absolute-contain {
+  position: relative;
+  max-width: 1500px;
+  margin: auto;
 }
-.background{
-    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0)),
+.background {
+  background-image: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.75),
+      rgba(0, 0, 0, 0)
+    ),
     url("https://res.cloudinary.com/risidio/image/upload/v1649414606/RisidioMarketplace/indige-15_raduat.jpg");
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    height: 165px;
-    position: relative;
-    object-fit: cover;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 165px;
+  position: relative;
+  object-fit: cover;
 }
-.container{
-    padding-top: -2px;
-    text-align: center;
-    max-width: 700px;
-    min-height: 100px;
+.container {
+  padding-top: -2px;
+  text-align: center;
+  max-width: 700px;
+  min-height: 100px;
 }
-.indige-video{
+.indige-video {
   width: 430px;
   height: 200px;
   border-radius: 21px;
-  margin:auto;
+  margin: auto;
   object-fit: cover;
 }
 
-.whiteContainer{
-//   background-color:rgba(255, 255, 255, 0.637);
-//   backdrop-filter: blur(2rem);
+.whiteContainer {
+  //   background-color:rgba(255, 255, 255, 0.637);
+  //   backdrop-filter: blur(2rem);
   border-radius: 30px;
   margin: -35px auto 10px auto;
   padding: 20px 20px;
 }
-.collectionName{
-    text-align: center;
-    font: normal normal 300 40px/55px Montserrat;
-    padding: 10px;
-    color: White;
+.collectionName {
+  text-align: center;
+  font: normal normal 300 40px/55px Montserrat;
+  padding: 10px;
+  color: White;
 }
 
-.collectionArtist{
-    display: none;
-    font: normal normal medium 17px/20px Montserrat;
-    padding: 10px;
-    // color: white;
-    text-align: center;
-
+.collectionArtist {
+  display: none;
+  font: normal normal medium 17px/20px Montserrat;
+  padding: 10px;
+  // color: white;
+  text-align: center;
 }
-.collectionArtistshow{
+.collectionArtistshow {
   display: inline-block;
   position: absolute;
-  top:190px;
-  left:125px;
+  top: 190px;
+  left: 125px;
   margin-bottom: 10px;
-  margin-top:20px ;
+  margin-top: 20px;
 }
-.collectionArtistshow1{
+.collectionArtistshow1 {
   display: inline-block;
   position: absolute;
-  left: 55px; top: 230px;
-  font-size: 13px; text-align:
-  center; max-width: 300px;
-  color: #2e638c; font-weight: 500;
+  left: 55px;
+  top: 230px;
+  font-size: 13px;
+  text-align: center;
+  max-width: 300px;
+  color: #2e638c;
+  font-weight: 500;
 }
-.contentTitle{
-    font: normal normal normal 20px/24px Helvetica Neue;
+.contentTitle {
+  font: normal normal normal 20px/24px Helvetica Neue;
 }
-.collectionInfo{
-    font: normal normal medium 17px/20px Montserrat;
-    color: white;
+.collectionInfo {
+  font: normal normal medium 17px/20px Montserrat;
+  color: white;
 }
-.collectionInfoDetail{
-    font-size: 14px;
-    max-width: 575px;
-    margin: auto;
-    margin-top: 0px;
-    padding: 5px;
-    margin-bottom: 30px;
-    font: normal normal medium 17px/20px Montserrat;
+.collectionInfoDetail {
+  font-size: 14px;
+  max-width: 575px;
+  margin: auto;
+  margin-top: 0px;
+  padding: 5px;
+  margin-bottom: 30px;
+  font: normal normal medium 17px/20px Montserrat;
 }
-.collectionInfo2{
+.collectionInfo2 {
   // font: normal normal normal 14px/20px Montserrat;
   font-size: 14px;
   max-width: 575px;
@@ -193,13 +247,13 @@ export default {
   padding: 5px;
   margin-bottom: 30px;
 }
-.collectionInfo1{
+.collectionInfo1 {
   font: normal normal medium 17px/20px Montserrat;
   max-width: 450px;
   padding: 0 5px;
   text-align: center;
 }
-.collectionInfo3{
+.collectionInfo3 {
   font-size: 14px;
   max-width: 450px;
   padding: 0 5px;
@@ -207,180 +261,186 @@ export default {
   // margin-top: -10px;
   color: #2e638c;
 }
-.readMore{
-    font: normal normal 700 14px/20px Montserrat;
-    cursor: pointer;
-    display: none;
-    color: #50B1B5;
+.readMore {
+  font: normal normal 700 14px/20px Montserrat;
+  cursor: pointer;
+  display: none;
+  color: #50b1b5;
 }
 // @media(max-width: 611px){
 //     .readMore{
 //     padding-bottom: 200px;
 //     }
 // }
-.readMore.show{
-    display: block;
+.readMore.show {
+  display: block;
 }
-.close-btn{
-    position: absolute;
-    right: 30px;
-    top: 10px;
-    color: #707070;
-    cursor: pointer;
-    &:hover{
-        transform: scale(1.1)
-    }
-}
-.extraContent{
-    display: none;
-}
-.extraContent.show{
-    display: block;
-}
-.artistContainer{
-    position: absolute;
-    top: -150px;
-    left:0;
-    right:0;
-    margin-left: auto;
-    margin-right: auto;
-    transition: all smooth 2s ease-in-out;
-}
-.circleImage{
-    display: inline-block;
-    top:100px;
-    left: 160px;
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    position: absolute;
-    // box-shadow: 10px 10px 30px #0000002F;
-    border: 2px solid white;
-    margin: auto;
-    object-fit: cover;
-    cursor: pointer;
-}
-
-.circleImageInfo{
-    width: 120px;
-    height: 100px;
-    border-radius: 50%;
-    object-fit: cover;
-}
-.circleImage:hover{
+.close-btn {
+  position: absolute;
+  right: 30px;
+  top: 10px;
+  color: #707070;
+  cursor: pointer;
+  &:hover {
     transform: scale(1.1);
+  }
 }
-.artistInfo{
-    display: none;
-    position: absolute;
-    left: 20px;
-    margin: auto;
-    z-index: 20;
-    max-width: 370px;
-    top: 70px;
-    background: white;
-    border-radius: 20px;
-    padding: 20px 30px;
-    box-shadow: 0px 3px 15px #00000029;
+.extraContent {
+  display: none;
 }
-.artistInfo.show{
-    display: flex;
-    // left: -1100px;
-    top:200px;
-    flex-direction: row;
-    gap: 10px;
+.extraContent.show {
+  display: block;
 }
-.icons{
-    position: absolute;
-    bottom: 25px;
-    right: 0;
-    left: 0;
-    margin: auto;
-    max-width: 200px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.artistContainer {
+  position: absolute;
+  top: -150px;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  transition: all smooth 2s ease-in-out;
 }
-.icon{
-    margin: 0 10px;
-    width: 20px;
-    height: 18px;
-    cursor: pointer
-}
-.icon:hover{
-    transform: scale(1.1)
-}
-.floorPrice, .owners, .volume{
-    border-right: solid 2px rgb(221, 221, 221);
-    padding: 5px;
-}
-.numbers{
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    max-width: 611px;
-    background:#F9F9F9;
-    border-radius: 25px;
-    justify-content: sa;
-    margin: auto;
-    padding: 15px 20px;
-    align-items: center;
-    font: normal normal 300 16px/19px Montserrat;
-    &>*{
-        flex: 1 1 50px;
-        text-align: center;
-    }
-    span{
-        font-weight: 600;
-    }
+.circleImage {
+  display: inline-block;
+  top: 100px;
+  left: 160px;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  position: absolute;
+  // box-shadow: 10px 10px 30px #0000002F;
+  border: 2px solid white;
+  margin: auto;
+  object-fit: cover;
+  cursor: pointer;
 }
 
-@media(max-width: 1200px ){
-  .whiteContainer{
+.circleImageInfo {
+  width: 120px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.circleImage:hover {
+  transform: scale(1.1);
+}
+.artistInfo {
+  display: none;
+  position: absolute;
+  left: 20px;
+  margin: auto;
+  z-index: 20;
+  max-width: 370px;
+  top: 70px;
+  background: white;
+  border-radius: 20px;
+  padding: 20px 30px;
+  box-shadow: 0px 3px 15px #00000029;
+}
+.artistInfo.show {
+  display: flex;
+  // left: -1100px;
+  top: 200px;
+  flex-direction: row;
+  gap: 10px;
+}
+.icons {
+  position: absolute;
+  bottom: 25px;
+  right: 0;
+  left: 0;
+  margin: auto;
+  max-width: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.icon {
+  margin: 0 10px;
+  width: 20px;
+  height: 18px;
+  cursor: pointer;
+}
+.icon:hover {
+  transform: scale(1.1);
+}
+.floorPrice,
+.owners,
+.volume {
+  border-right: solid 2px rgb(221, 221, 221);
+  padding: 5px;
+}
+.numbers {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  max-width: 611px;
+  background: #f9f9f9;
+  border-radius: 25px;
+  justify-content: sa;
+  margin: auto;
+  padding: 15px 20px;
+  align-items: center;
+  font: normal normal 300 16px/19px Montserrat;
+  & > * {
+    flex: 1 1 50px;
+    text-align: center;
+  }
+  span {
+    font-weight: 600;
+  }
+}
+
+@media (max-width: 1200px) {
+  .whiteContainer {
     border-radius: 30px;
     margin: 120px auto 0 auto;
     padding-left: 0;
     padding-right: 0;
   }
   .circleImage,
-  .artistInfo{
-    left: 0; right: 0;
+  .artistInfo {
+    left: 0;
+    right: 0;
   }
-  .collectionArtistshow, .collectionArtistshow1{
+  .collectionArtistshow,
+  .collectionArtistshow1 {
     text-align: center;
-    right: 0; left: 0;
+    right: 0;
+    left: 0;
     margin-left: auto;
     margin-right: auto;
   }
 }
-@media(max-width: 611px){
-  .indige-video{
+@media (max-width: 611px) {
+  .indige-video {
     width: 330px;
   }
-  .collectionName{
+  .collectionName {
     font: normal normal 300 30px/55px Montserrat;
   }
-  .numbers{
+  .numbers {
     display: flex;
     flex-direction: column;
     max-width: 240px;
     font: normal normal 300 16px/19px Montserrat;
-    &>*{
-        flex: 1 1 50px;
-        text-align: center;
+    & > * {
+      flex: 1 1 50px;
+      text-align: center;
     }
-    span{
-        font-weight: 600;
+    span {
+      font-weight: 600;
     }
   }
-  .artistInfo{
+  .artistInfo {
     max-width: 370px;
   }
-  .floorPrice, .owners{
+  .floorPrice,
+  .owners {
     border-right: none;
     max-width: 240px;
     padding: 5px;
-    margin-top:10px;
+    margin-top: 10px;
     border-bottom: solid 2px rgb(221, 221, 221);
   }
 }

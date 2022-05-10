@@ -1,6 +1,6 @@
 <template>
     <div>
-        <IndigeCollection1 :content="content" :numberOfItems="numberOfItems"/>
+        <IndigeCollection1 :content="content" :project="project"/>
         <IndigeCollection2
         :pageSize="pageSize"
         :resultSet="resultSet"
@@ -29,7 +29,8 @@ export default {
       resultSet: [],
       numberOfItems: 0,
       loading: true,
-      pageSize: 8
+      pageSize: 8,
+      project: null
     }
   },
   mounted () {
@@ -61,6 +62,7 @@ export default {
           const application = this.$store.getters[APP_CONSTANTS.KEY_APPLICATION_FROM_REGISTRY_BY_CONTRACT_ID](p.contractId)
           p.application = application
         })
+        this.project = projects.find((project) => project.contractId === 'ST1NXBK3K5YYMD6FD41MVNP3JS1GABZ8TRVX023PT.risidio-indige')
         $self.loaded = true
       })
     },
