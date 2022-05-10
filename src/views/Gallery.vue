@@ -122,7 +122,7 @@
                   </div>
                   <div v-else  class="imageGrid">
                     <div v-for="(item, index) in resultSet" :key="index">
-                      <div>
+                      <div class="MobileNFTG">
                         <b-link class="galleryNFTContainer" v-bind:to="'/nfts/' + item.contractAsset.contractId + '/' + item.contractAsset.nftIndex">
                         <img :src="item.image" alt="Risidio Gallery" class="mobile-square-display-img" loading="lazy">
                         </b-link>
@@ -404,6 +404,9 @@ export default {
   margin-top: -10px;
   border-radius: 8%;
   object-fit: cover;
+}
+.MobileNFTG{
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 }
 .imageGrid {
   display: flex;
@@ -753,7 +756,7 @@ export default {
   cursor: pointer;
 }
 .collectionsButtonM {
-  margin: 0px 0 0 55px;
+  margin: 0px 0 0 45px;
   background-color: transparent;
   color: rgb(49, 49, 49);
   padding: 16px;
@@ -809,7 +812,7 @@ export default {
 }
 .arrow1,
 .arrow2 {
-  margin-left: 30px;
+  margin-left: 15px;
   width: 12px;
   height: 12px;
   transform: rotate(180deg);

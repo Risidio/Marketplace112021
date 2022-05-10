@@ -46,6 +46,7 @@ export default {
   margin-top: -10px;
   border-radius: 8%;
   object-fit: cover;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 }
 .artwork {
   margin-left: 220px;
