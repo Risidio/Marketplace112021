@@ -1,12 +1,12 @@
 <template>
 <div class="search_bar_container">
   <div :class="showSearchBar ? 'dropdown_container active' : 'dropdown_container'">
-    <div class="dropdown_selector" @click="showHidden()"> <strong class="search">Search by <img class="arrow2" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"/></strong>
-      <div class="dropdown_option_container">
-        <div class="dropdown_option" v-show="isHidden" value="All">All</div>
-        <div class="dropdown_option" v-show="isHidden" value="Category">Category</div>
-        <div class="dropdown_option" v-show="isHidden" value="Category">Category</div>
-        <div class="dropdown_option" v-show="isHidden" value="Category">Category</div>
+    <div class="dropdown_selector" @click="isHidden = !isHidden" ref="dropDown"> <strong class="search">Search by <img class="arrow2" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"/></strong>
+      <div class="dropdown_option_container" v-show="isHidden">
+        <div class="dropdown_option" value="All"><p>All</p></div>
+        <div class="dropdown_option" value="Category"><p>IndigeNFT</p></div>
+        <!-- <div class="dropdown_option" value="Category">Category</div> -->
+        <!-- <div class="dropdown_option" value="Category">Category</div> -->
     </div>
     </div>
   </div>
@@ -31,7 +31,18 @@ export default {
       showSearchBar: false
     }
   },
+  created () {
+    const $self = this
+    window.addEventListener('click', function (e) {
+      $self.close(e)
+    })
+  },
   methods: {
+    close (e) {
+      if (!this.$refs.dropDown.contains(e.target)) {
+        this.isHidden = false
+      }
+    },
     doSearch (e) {
       e.preventDefault()
       const searched = this.$refs.search.value
@@ -175,20 +186,29 @@ export default {
   margin-left: -5px;
   z-index: 10;
   background: white;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
 .dropdown_option {
   padding: 10px;
-  border: 1px solid grey;
+  // border: 1px solid grey;
   background: white;
   border-radius: 0px;
   margin: 2px;
   transition: 0.3s;
   z-index: 10;
+  p{
+    font-size: 12px;
+    margin: 0;
+
+  }
 }
 
 .dropdown_option:hover {
-  background: grey;
-  border: 1px solid rgb(105, 105, 105);
+  // background: rgba(128, 128, 128, 0.2);
+  p{
+    text-decoration: underline;
+    color: #50b1b5;
+  }
   transition: 0.3s;
   z-index: 10;
 }

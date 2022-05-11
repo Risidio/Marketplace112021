@@ -59,21 +59,21 @@
       <div v-if="tab === 'nft' && loopRun" class="">
         <div>
           <MyPageableItems :loopRun="loopRun" :resultSet="resultSet"/>
-          <router-link to="/gallery" style="font: normal normal bold 11px/14px Montserrat; display: block; text-align: center; margin-top: 50px"><!--<span style="color: #5FBDC1; ">Want More ? See The Gallery</span>--></router-link>
+          <router-link to='/nft-marketplace/' style="font: normal normal bold 11px/14px Montserrat; display: block; text-align: center; margin-top: 50px"><!--<span style="color: #5FBDC1; ">Want More ? See The Gallery</span>--></router-link>
         </div>
           <Pagination :pageSize="pageSize" :numberOfItems="numberOfItems"/>
       </div>
       <div v-else-if="saleItem.length > 0 && tab === 'sale'" >
         <div>
           <MyPageableItems :loopRun="loopRun" :resultSet="saleItem"/>
-          <router-link to="/gallery" style="font: normal normal bold 11px/14px Montserrat; display: block; text-align: center; margin-top: 50px"><!--<span style="color: #5FBDC1; ">Want More ? See The Gallery</span>--></router-link>
+          <router-link to='/nft-marketplace/' style="font: normal normal bold 11px/14px Montserrat; display: block; text-align: center; margin-top: 50px"><!--<span style="color: #5FBDC1; ">Want More ? See The Gallery</span>--></router-link>
         </div>
       </div>
       <div v-else-if="saleItem.length === 0 && tab === 'sale'">
         <div class="noNFT">
           <h3> You do not own any items on sale</h3>
           <div class="profileBtns">
-            <router-link class="button filled" to="/">Explore Gallery</router-link>
+            <router-link class="button filled" to='/nft-marketplace/'>Explore Gallery</router-link>
             <!-- <router-link class="button notFilledBlue" to="/create">Mint Your Item</router-link> -->
           </div>
         </div>
@@ -81,7 +81,7 @@
       <div v-else-if="tab === 'fav' && favouriteNfts">
           <MyPageableItems :loopRun="loopRun" :resultSet="favouriteNfts"/>
         <div class="profileBtns">
-          <router-link class="button filled" to="/">Explore Gallery</router-link>
+          <router-link class="button filled" to='/nft-marketplace/'>Explore Gallery</router-link>
           <!-- <router-link class="button notFilledBlue" to="/create">Mint Your Item</router-link> -->
         </div>
       </div>
@@ -92,7 +92,7 @@
         <div class="noNFT">
         <h3> You do not own any Items yet</h3>
           <div class="profileBtns">
-            <router-link class="button filled" to="/">Explore Gallery</router-link>
+            <router-link class="button filled" to='/nft-marketplace/'>Explore Gallery</router-link>
             <!-- <router-link class="button notFilledBlue" to="/create">Mint Your Item</router-link> -->
           </div>
         </div>
@@ -673,6 +673,9 @@ export default {
   }
   .walletDetails {
     background: #efefef;
+    .button {
+    margin-top: 20px;
+  }
   }
   .walletDetails {
     margin: auto;

@@ -4,15 +4,12 @@
             <div class="mainGallerySidebar">
                 <div class="galleryCollections">
                   <button class="collectionsButton" v-on:click="showCollections()">Collections <img class="arrow1 active" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></button>
-                  <div class="collectionsMenu active" v-if="projects">
-                    <label @click="$router.push('/nft-marketplace/' + 'all' + '/' + '0')" class="collectionItems">All</label>
-                    <div v-for="(item, index) in projects" :key="index" class="collectionMenuContainer">
-                    <!--  <input @click="$router.push('/nft-marketplace/' + item.contractId)" class="collectionItemRadio" type="radio" :id="item.title"
-                      name="radio" :value="index"
-                      :checked="$route.params.title === item.contractId ? true : false"
-                      >-->
-                      <label class="collectionItems"  @click="$router.push('/nft-marketplace/' + item.contractId + '/0')"
-                      :checked="$route.params.title === item.contractId ? true : false">{{item.title}}</label>
+                  <div class="collectionsMenu active" v-if="allLoopRuns">
+                    <div class="collectionMenuContainer">
+                      <router-link :to="'/nft-marketplace/all/0'">All</router-link>
+                    </div>
+                    <div v-for="(item, index) in allLoopRuns" :key="index" class="collectionMenuContainer">
+                      <router-link :to="'/nft-marketplace/' + item.contractId + '/0'">{{item.currentRun}}</router-link>
                     </div>
                   </div>
                 </div>
@@ -94,9 +91,9 @@
                    <div class="collectionOption">
                     <button class="filterCollection" v-on:click="toggleCollections()">Collections <img :class="collectionToggle ? 'arrow1 active' : 'arrow1'" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></button>
                     <div :class="collectionToggle ? 'collectionsMenuSide active' : 'collectionsMenuSide'">
-                      <div v-for="(item, index) in projects" :key="index" class="collectionMenuContainer">
-                        <input class="collectionItemRadio" type="radio" :id="item.title" name="radio" :value="index" @click="sortCollection(item)">
-                        <label class="collectionItems">{{item.title}}</label>
+                      <div v-for="(item, index) in allLoopRuns" :key="index" class="collectionMenuContainer">
+                        <input class="collectionItemRadio" type="radio" :id="item.currentRun" name="radio" :value="index" @click="sortCollection(item)">
+                        <label class="collectionItems">{{item.currentRun}}</label>
                       </div>
                     </div>
                   </div>
@@ -324,15 +321,14 @@ export default {
     },
     fetchFullRegistry () {
       const $self = this
-      this.$store.dispatch('rpayProjectStore/fetchProjectsByStatus', '').then((projects) => {
-        $self.projects = utils.sortResults(projects)
-        this.sortCollection()
-        $self.projects.forEach((p) => {
-          const application = this.$store.getters[APP_CONSTANTS.KEY_APPLICATION_FROM_REGISTRY_BY_CONTRACT_ID](p.contractId)
-          p.application = application
-        })
-        $self.loaded = true
+      this.sortCollection()
+      $self.projects.forEach((p) => {
+        const application = this.$store.getters[APP_CONSTANTS.KEY_APPLICATION_FROM_REGISTRY_BY_CONTRACT_ID](p.contractId)
+        p.application = application
       })
+      $self.loaded = true
+      // this.$store.dispatch('rpayProjectStore/fetchProjectsByStatus', 'active').then((projects) => {
+      //   $self.projects = utils.sortResults(projects)
     },
     setCurrentRunKey (result) {
       this.currentRunKey = result
@@ -347,7 +343,7 @@ export default {
   },
   computed: {
     allLoopRuns () {
-      const loopRuns = this.$store.getters[APP_CONSTANTS.GET_LOOP_RUNS]
+      const loopRuns = this.$store.getters[APP_CONSTANTS.GET_LOOP_RUNS].filter((loopRun) => loopRun.status === 'active')
       return loopRuns
     },
     application () {
@@ -521,13 +517,17 @@ export default {
   text-align: right;
   cursor: pointer;
 }
-.blue {color: #5fbdc1; font-weight: bolder;}
+.blue {
+  color: #5fbdc1;
+  font-weight: bolder;
+}
 .gridDisplayOptions {
   display: flex;
   justify-content: space-between;
   width: 40px;
   cursor: pointer;
 }
+
 @media only screen and (min-width: 595px) {
   .mobilemainGallery {
     display: none;
@@ -583,9 +583,9 @@ export default {
   border-radius: 10px;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   text-align: left;
-  p{
+  p {
     cursor: pointer;
-    &:hover{
+    &:hover {
       text-decoration: underline;
       color: #5fbdc1;
     }
@@ -798,14 +798,17 @@ export default {
   z-index: 1;
   a {
     margin-left: 35px;
-    font-size: 15px;
     color: black;
-    padding: 12px 16px;
+    padding: 12px 0px;
     text-decoration: none;
     display: block;
     background: transparent;
+    font-size: 11px;
   }
-  a:hover {
+  a:hover,
+  a:active,
+  a:focus,
+  .router-link-active {
     font-weight: 500;
     color: #5fbdc1;
     text-decoration: underline;
@@ -859,10 +862,10 @@ export default {
   border-radius: 50%;
   // box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
 }
-.collectionItems::first-letter{
+.collectionItems::first-letter {
   text-transform: capitalize;
 }
-.galleryCollections label{
+.galleryCollections label {
   margin-left: 32px;
 }
 .collectionMenuContainer .collectionItems,
@@ -871,15 +874,15 @@ export default {
   font-size: 11px;
   border-bottom: 3px solid transparent;
 }
-.galleryCollections label:hover{
+.galleryCollections label:hover {
   text-decoration: underline;
   font-weight: 500;
   color: #5fbdc1;
   cursor: pointer;
   //border-bottom: 3px solid white;
 }
-.collectionMenuContainer label:focus{
-  border-bottom: 2px solid #50b1b5;
+.collectionMenuContainer label:focus {
+  // border-bottom: 2px solid #50b1b5;
 }
 .galleryGrid {
   display: grid;
@@ -898,4 +901,5 @@ export default {
   width: 100%;
   margin: auto;
 }
+
 </style>
