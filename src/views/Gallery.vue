@@ -548,7 +548,7 @@ export default {
    position: relative;
    display: inline-block;
    top:-25px;
-   left: 15px; }
+   left: 25px; }
    .dropdown_option_container{
    position: relative;
    display: inline-block;
