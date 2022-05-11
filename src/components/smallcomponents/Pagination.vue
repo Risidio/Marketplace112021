@@ -1,14 +1,14 @@
 <template>
   <div v-if="loopRun" class="pagination-container">
     <button :disabled="page > 0 ? false : true" @click="$router.push('/' + loopRun.currentRunKey + '/' + (page - 1))">&#60;</button>
-    <div v-for="(item, index) in pages.slice(0, 5)" :key="index">
+    <div v-for="(item, index) in pages" :key="index">
       <router-link :to="'/' + loopRun.currentRunKey + '/' + item">{{item}}</router-link>
     </div>
     <button :disabled="numberOfItems > pageSize && page !== Math.floor(numberOfItems / pageSize) ? false : true" @click="$router.push('/' + loopRun.currentRunKey + '/' + (page + 1) )">&#62;</button>
   </div>
   <div v-else-if="$route.name === 'my-account'" class="pagination-container">
     <button :disabled="page > 0 ? false : true" @click="$router.push('/' + $route.name + '/' + $route.params.nftSection + (page - 1))">&#60;</button>
-    <div v-for="(item, index) in pages.slice(0, 5)" :key="index">
+    <div v-for="(item, index) in pages" :key="index">
       <router-link :to="'/' + $route.name + '/' + $route.params.nftSection + '/' + item">{{item}}</router-link>
     </div>
     <button :disabled="numberOfItems > pageSize && page !== Math.floor(numberOfItems / pageSize) ? false : true" @click="$router.push('/' + $route.name + '/' + $route.params.nftSection + '/' + (page + 1))">&#62;</button>
@@ -18,7 +18,7 @@
     <div v-if="page >= 4">
       <router-link :to="'/nft-marketplace/' + $route.params.title + '/' + 0">0 ...</router-link>
     </div>
-    <div v-for="(item, index) in pages.slice(0, 5)" :key="index">
+    <div v-for="(item, index) in pages" :key="index">
      <router-link :to="'/nft-marketplace/' + $route.params.title + '/' + item">{{item}}</router-link>
     </div>
     <div v-if="page <= Math.floor(numberOfItems / pageSize) - 4 && pages.length > 3">
