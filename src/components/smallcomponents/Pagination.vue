@@ -65,9 +65,10 @@ export default {
         for (let i = 0; i <= lastPage; i++) {
           pages.push(i)
         }
-        this.pages = pages
+        this.pages = pages.slice(0, 5)
       } else if (currentPage >= 4 && currentPage <= lastPage - 4 && currentPage !== lastPage) {
-        for (let i = currentPage - 2; i <= currentPage + 2; i++) {
+        const nextTwo = (currentPage + 2) < lastPage ? (currentPage + 2) : lastPage
+        for (let i = currentPage - 2; i <= nextTwo; i++) {
           pages.push(i)
         }
         this.pages = pages
