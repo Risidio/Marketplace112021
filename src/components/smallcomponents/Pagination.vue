@@ -55,8 +55,7 @@ export default {
       const pages = []
       const currentPage = parseInt(this.$route.params.page)
       const lastPage = Math.floor(this.numberOfItems / this.pageSize)
-      console.log('current', currentPage)
-      console.log('pages', pages)
+
       if (currentPage > lastPage - 4 && lastPage > 4) {
         for (let i = lastPage - 4; i <= lastPage; i++) {
           pages.push(i)
