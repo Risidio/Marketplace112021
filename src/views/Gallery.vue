@@ -62,9 +62,30 @@
               </div>
             <div class="mobilemainGallery">
               <div class="mobiletop">
-                <div>
-                  <p class="showFilter" v-on:click="toggleFilter()"></p>
+                <div class="search-container">
+                  <input type="text" placeholder="Looking for anything in particular ?" name="search" :value="currentSearch" @change="searching($event.target.value)" class="mobilesearch">
+                  <img class="mobileimage" src="https://res.cloudinary.com/risidio/image/upload/v1637238428/RisidioMarketplace/magnifying-search-lenses-tool_yaatpo.svg">
                 </div>
+                <div class="sorting">
+                 <div><h1 class="mobileview">View</h1></div>
+                     <div class="dropdown_option_containerM" ref="allMenu"> <button class="collectionsButtonM" @click="all = !all"> All <img class="arrow2" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></button>
+                        <div @click="all = false" v-show="all" class="dropdown_option_showM" >
+                          <p @click="filter()" class="dropdown_option" value="All">All <span class="blue">&#8593;</span></p>
+                          <p @click="filter()" class="dropdown_option" value="Category">All <span class="blue">&#8595;</span></p>
+                          <p @click="filter()" class="dropdown_option" value="Category">Date <span class="blue">&#8593;</span></p>
+                          <p @click="filter()" class="dropdown_option" value="Category">Date <span class="blue">&#8595;</span></p>
+                        </div>
+                      </div>
+                     <div class="dropdown_option_containerM" ref="sortMMenu"> <button class="collectionsButtonM" @click="sortM = !sortM"> sort by <img class="arrow2" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></button>
+                        <div @click="sortM = false" v-show="sortM" class="dropdown_option_showM" >
+                          <p @click="filter()" class="dropdown_option" value="All">Sort by <span class="blue">&#8593;</span></p>
+                          <p @click="filter()" class="dropdown_option" value="Category">Sort by <span class="blue">&#8595;</span></p>
+                          <p @click="filter()" class="dropdown_option" value="Category">Date <span class="blue">&#8593;</span></p>
+                          <p @click="filter()" class="dropdown_option" value="Category">Date <span class="blue">&#8595;</span></p>
+                        </div>
+                      </div>
+                   </div>
+                <p class="mobilefilter"  v-on:click="toggleFilter()">Filter results</p>
                 <div>
                   <div v-if="filterToggle" class="toggleFilterContainer">
                   <div class="crossIcon">
@@ -81,29 +102,6 @@
                   </div>
                  </div>
                 </div>
-                <div class="search-container">
-                  <input type="text" placeholder="Looking for anything in particular ?" name="search" :value="currentSearch" @change="searching($event.target.value)" class="mobilesearch">
-                  <img class="mobileimage" src="https://res.cloudinary.com/risidio/image/upload/v1637238428/RisidioMarketplace/magnifying-search-lenses-tool_yaatpo.svg">
-                </div>
-                <div class="sorting">
-                 <div><h1 class="mobileview">View</h1></div>
-                     <div class="dropdown_option_container" ref="allMenu"> <button class="collectionsButtonM" @click="all = !all"> All <img class="arrow2" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></button>
-                        <div @click="all = false" v-show="all" class="dropdown_option_showM" >
-                          <p @click="filter()" class="dropdown_option" value="All">All <span class="blue">&#8593;</span></p>
-                          <p @click="filter()" class="dropdown_option" value="Category">All <span class="blue">&#8595;</span></p>
-                          <p @click="filter()" class="dropdown_option" value="Category">Date <span class="blue">&#8593;</span></p>
-                          <p @click="filter()" class="dropdown_option" value="Category">Date <span class="blue">&#8595;</span></p>
-                        </div>
-                      </div>
-                     <div class="dropdown_option_container" ref="sortMMenu"> <button class="collectionsButtonM" @click="sortM = !sortM"> sort by <img class="arrow2" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></button>
-                        <div @click="sortM = false" v-show="sortM" class="dropdown_option_showM" >
-                          <p @click="filter()" class="dropdown_option" value="All">Sort by <span class="blue">&#8593;</span></p>
-                          <p @click="filter()" class="dropdown_option" value="Category">Sort by <span class="blue">&#8595;</span></p>
-                          <p @click="filter()" class="dropdown_option" value="Category">Date <span class="blue">&#8593;</span></p>
-                          <p @click="filter()" class="dropdown_option" value="Category">Date <span class="blue">&#8595;</span></p>
-                        </div>
-                      </div>
-                  <p class="mobilefilter"  v-on:click="toggleFilter()">Filter results</p>
                   <div>
                     <div v-if="grid" v-on:click="changeGrid()" class="gridDisplayOptions">
                       <img  src="../assets/img/gridDisplay.svg">
@@ -113,9 +111,8 @@
                       <img src="https://res.cloudinary.com/risidio/image/upload/v1649167477/RisidioMarketplace/imagebar1_px1ppz.png">
                       <img src="https://res.cloudinary.com/risidio/image/upload/v1649167498/RisidioMarketplace/imagebar2_ohxsez.png">
                     </div>
-                  </div>
                 </div>
-              </div>
+            </div>
                <div v-if="resultSet && view == 'squared' && searched.length == 0" class="mobilegallerySquare">
                   <div v-if="!grid">
                     <MobileNFT :resultSet="resultSet"/>
@@ -547,9 +544,15 @@ export default {
     display: none;
   }
 }
-.dropdown_option_container{
+.dropdown_option_containerM{
    position: relative;
-   display: inline-block; }
+   display: inline-block;
+   top:-25px;
+   left: 15px; }
+   .dropdown_option_container{
+   position: relative;
+   display: inline-block;
+ }
 .dropdown_option_show{
   position: absolute;
   z-index: 10;
@@ -572,7 +575,7 @@ export default {
 .dropdown_option_showM{
   position: absolute;
   z-index: 10;
-  top: 40px;
+  top: 30px;
   left: 30px;;
   width: 100%;
   background: #ffffff;
@@ -759,7 +762,9 @@ export default {
   margin: 0px 0 0 45px;
   background-color: transparent;
   color: rgb(49, 49, 49);
-  padding: 16px;
+  padding-right: 16px;
+  padding-bottom: 16px;
+  padding-left: 16px;
   font: normal normal 600 14px/18px Montserrat;
   border: none;
   cursor: pointer;
