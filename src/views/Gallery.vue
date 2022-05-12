@@ -1,5 +1,6 @@
 <template>
     <section class="mainGallery">
+    <div v-on:click="toggleFilter()" :class="isLayer ? 'overlay' : ''"></div>
         <div class="mainGalleryContainer">
             <div class="mainGallerySidebar">
                 <div class="galleryCollections">
@@ -91,9 +92,11 @@
                    <div class="collectionOption">
                     <button class="filterCollection" v-on:click="toggleCollections()">Collections <img :class="collectionToggle ? 'arrow1 active' : 'arrow1'" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></button>
                     <div :class="collectionToggle ? 'collectionsMenuSide active' : 'collectionsMenuSide'">
-                      <div v-for="(item, index) in allLoopRuns" :key="index" class="collectionMenuContainer">
-                        <input class="collectionItemRadio" type="radio" :id="item.currentRun" name="radio" :value="index" @click="sortCollection(item)">
-                        <label class="collectionItems">{{item.currentRun}}</label>
+                      <div class="collectionMenuContainer" v-on:click="toggleFilter()">
+                        <router-link :to="'/nft-marketplace/all/0'">All</router-link>
+                      </div>
+                      <div v-for="(item, index) in allLoopRuns" :key="index" class="collectionMenuContainer" v-on:click="toggleFilter()">
+                        <router-link :to="'/nft-marketplace/' + item.contractId + '/0'">{{item.currentRun}}</router-link>
                       </div>
                     </div>
                   </div>
@@ -160,7 +163,7 @@ export default {
       sortM: false,
       all: false,
       grid: false,
-      filterToggle: true,
+      filterToggle: false,
       collectionToggle: false,
       fetched: null,
       defQuery: {
@@ -177,7 +180,8 @@ export default {
       currentSearch: null,
       pageSize: 50,
       loading: true,
-      error: ''
+      error: '',
+      isLayer: false
     }
   },
   watch: {
@@ -317,7 +321,6 @@ export default {
         this.loading = false
         this.fetched = 1
       })
-      this.filterToggle = !this.filterToggle
     },
     fetchFullRegistry () {
       const $self = this
@@ -338,7 +341,11 @@ export default {
       localStorage.setItem('gridPrefrence', JSON.stringify(this.grid))
     },
     toggleFilter () {
+      console.log('toggled')
+      const body = document.getElementsByTagName('body')[0]
+      body.classList.toggle('stop-scrolling')
       this.filterToggle = !this.filterToggle
+      this.isLayer = !this.isLayer
     }
   },
   computed: {
@@ -376,6 +383,13 @@ export default {
   border-radius: 10px;
   // margin-left: 25px;
 }
+.overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: rgba(3, 3, 3, 0.56);
+  z-index: 19;
+}
 .artwork {
   margin-left: 220px;
   font-size: 20px;
@@ -398,7 +412,7 @@ export default {
   border-radius: 8%;
   object-fit: cover;
 }
-.MobileNFTG{
+.MobileNFTG {
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 }
 .imageGrid {
@@ -439,6 +453,22 @@ export default {
     padding: 3px 0px 0px 10px;
     font-size: 12px;
   }
+  a {
+    color: black;
+    padding: 12px 0px;
+    text-decoration: none;
+    display: block;
+    background: transparent;
+    font-size: 11px;
+  }
+  a:hover,
+  a:active,
+  a:focus,
+  .router-link-active {
+    font-weight: 500;
+    color: #5fbdc1;
+    text-decoration: underline;
+  }
 }
 .crossIcon {
   display: flex;
@@ -463,12 +493,12 @@ export default {
   margin-top: -45px;
 }
 .mobiletop {
-  margin-top: 10px;
+  padding-top: 10px;
 }
 .search-container {
   display: grid;
   place-items: center;
-  margin: 10px 10px;
+  padding: 10px 10px;
 }
 .mobilenFTArtist span {
   font-size: 14px;
@@ -527,6 +557,10 @@ export default {
   width: 40px;
   cursor: pointer;
 }
+.router-link-exact-active {
+  text-decoration: underline;
+  color: #50b1b5;
+}
 
 @media only screen and (min-width: 595px) {
   .mobilemainGallery {
@@ -544,39 +578,40 @@ export default {
     display: none;
   }
 }
-.dropdown_option_containerM{
-   position: relative;
-   display: inline-block;
-   top:-25px;
-   left: 25px; }
-   .dropdown_option_container{
-   position: relative;
-   display: inline-block;
- }
-.dropdown_option_show{
+.dropdown_option_containerM {
+  position: relative;
+  display: inline-block;
+  top: -25px;
+  left: 25px;
+}
+.dropdown_option_container {
+  position: relative;
+  display: inline-block;
+}
+.dropdown_option_show {
   position: absolute;
   z-index: 10;
   top: 60px;
-  left: 30px;;
+  left: 30px;
   width: 100%;
   background: #ffffff;
   padding: 10px 15px;
   border-radius: 10px;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   text-align: left;
-  p{
+  p {
     cursor: pointer;
-    &:hover{
+    &:hover {
       text-decoration: underline;
       color: #5fbdc1;
     }
   }
 }
-.dropdown_option_showM{
+.dropdown_option_showM {
   position: absolute;
   z-index: 10;
   top: 30px;
-  left: 30px;;
+  left: 30px;
   width: 100%;
   background: #ffffff;
   padding: 10px 15px;
@@ -778,7 +813,7 @@ export default {
   cursor: pointer;
 }
 .collectionOption {
-  border-top: 1px lightgray solid;
+  border-bottom: 1px lightgray solid;
 }
 .filter {
   display: flex;
@@ -901,5 +936,4 @@ export default {
   width: 100%;
   margin: auto;
 }
-
 </style>
