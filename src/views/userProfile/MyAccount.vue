@@ -113,6 +113,7 @@
       fixed-height="true"
       :visible-slides="1"
       bullets-outside
+      @slide="logEvents($event)"
       >
         <vueper-slide v-for="(slide) in slide" :key="slide.id">
           <template #content>
@@ -123,7 +124,7 @@
                   <MyPageableItems v-if="slide.id==1" :loopRun="loopRun" :resultSet="resultSet"/>
                   <router-link to='/nft-marketplace/' style="font: normal normal bold 11px/14px Montserrat; display: block; text-align: center; margin-top: 50px"><!--<span style="color: #5FBDC1; ">Want More ? See The Gallery</span>--></router-link>
                 </div>
-              <!-- <Pagination :pageSize="pageSize" :numberOfItems="numberOfItems"/> -->
+                <Pagination :pageSize="pageSize" :numberOfItems="numberOfItems"/>
               </div>
               <div v-else-if="saleItem.length > 0 && slide.id==2" >
                 <h4 class="galleryNavItemM" style="text-align: center;">Your NFT's On Sale</h4>
@@ -389,6 +390,16 @@ export default {
     },
     closeModal () {
       document.getElementById('linkModal').style.display = 'none'
+    },
+    logEvents (params) {
+      const index = params.currentSlide.index
+      if (index === 0) {
+        this.$router.push('/my-account/nft')
+      } else if (index === 1) {
+        this.$router.push('/my-account/sale')
+      } else if (index === 2) {
+        this.$router.push('/my-account/fav')
+      }
     }
     // setSliderHeight () {
     //   let height = 320
