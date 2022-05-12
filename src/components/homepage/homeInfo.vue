@@ -8,7 +8,7 @@
         <vueper-slides
               :infinite="false"
               fixed-height="true"
-            :arrows="showArrow"
+              :arrows="showArrow"
               class="no-shadow"
               :touchable="touchableSlide"
               :gap="2"
@@ -16,9 +16,9 @@
               :bullets="bullets"
               :breakpoints="breakpoints"
               bullets-outside>
-                <vueper-slide v-for="(slide) in slide"
-                :key="slide.id">
-                <template #content>
+              <vueper-slide v-for="(slide) in slide"
+              :key="slide.id">
+              <template #content>
             <div v-if="profile.loggedIn">
             <div class="homeInfoContainer">
                 <div>

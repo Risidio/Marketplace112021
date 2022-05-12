@@ -108,7 +108,6 @@
 </div>
 </section>
 </template>
-
 <script>
 import { APP_CONSTANTS } from '@/app-constants'
 import ItemActionMenu from '@/views/marketplace/components/update/ItemActionMenu'
