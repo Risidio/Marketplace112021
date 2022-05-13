@@ -394,11 +394,11 @@ export default {
     logEvents (params) {
       const index = params.currentSlide.index
       if (index === 0) {
-        this.$router.push('/my-account/nft')
+        this.$router.push('/my-account/nft#pagination')
       } else if (index === 1) {
-        this.$router.push('/my-account/sale')
+        this.$router.push('/my-account/sale#pagination')
       } else if (index === 2) {
-        this.$router.push('/my-account/fav')
+        this.$router.push('/my-account/fav#pagination')
       }
     }
     // setSliderHeight () {
