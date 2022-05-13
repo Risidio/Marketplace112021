@@ -1,30 +1,30 @@
 <template>
   <div v-if="loopRun" class="pagination-container">
-    <button :disabled="page > 0 ? false : true" @click="$router.push('/' + loopRun.currentRunKey + '/' + (page - 1))">&#60;</button>
+    <button :disabled="page > 0 ? false : true" @click="$router.push('/' + loopRun.currentRunKey + '/' + (page - 1) + '#pagination')">&#60;</button>
     <div v-for="(item, index) in pages" :key="index">
-      <router-link :to="'/' + loopRun.currentRunKey + '/' + item">{{item}}</router-link>
+      <router-link :to="'/' + loopRun.currentRunKey + '/' + item + '#pagination'">{{item}}</router-link>
     </div>
-    <button :disabled="numberOfItems > pageSize && page !== Math.floor(numberOfItems / pageSize) ? false : true" @click="$router.push('/' + loopRun.currentRunKey + '/' + (page + 1) )">&#62;</button>
+    <button :disabled="numberOfItems > pageSize && page !== Math.floor(numberOfItems / pageSize) ? false : true" @click="$router.push('/' + loopRun.currentRunKey + '/' + (page + 1) + '#pagination')">&#62;</button>
   </div>
   <div v-else-if="$route.name === 'my-account'" class="pagination-container">
-    <button :disabled="page > 0 ? false : true" @click="$router.push('/' + $route.name + '/' + $route.params.nftSection + (page - 1))">&#60;</button>
+    <button :disabled="page > 0 ? false : true" @click="$router.push('/' + $route.name + '/' + $route.params.nftSection + (page - 1) + '#pagination')">&#60;</button>
     <div v-for="(item, index) in pages" :key="index">
-      <router-link :to="'/' + $route.name + '/' + $route.params.nftSection + '/' + item">{{item}}</router-link>
+      <router-link :to="'/' + $route.name + '/' + $route.params.nftSection + '/' + item + '#pagination'">{{item}}</router-link>
     </div>
-    <button :disabled="numberOfItems > pageSize && page !== Math.floor(numberOfItems / pageSize) ? false : true" @click="$router.push('/' + $route.name + '/' + $route.params.nftSection + '/' + (page + 1))">&#62;</button>
+    <button :disabled="numberOfItems > pageSize && page !== Math.floor(numberOfItems / pageSize) ? false : true" @click="$router.push('/' + $route.name + '/' + $route.params.nftSection + '/' + (page + 1) + '#pagination')">&#62;</button>
   </div>
   <div v-else-if="$route.name === 'gallery' && numberOfItems >= pageSize" class="pagination-container">
-    <button :disabled="page > 0 ? false : true" @click="$router.push('/nft-marketplace/' + $route.params.title + '/' + (page - 1))">&#60;</button>
+    <button :disabled="page > 0 ? false : true" @click="$router.push('/nft-marketplace/' + $route.params.title + '/' + (page - 1) + '#pagination')">&#60;</button>
     <div v-if="page >= 4">
-      <router-link :to="'/nft-marketplace/' + $route.params.title + '/' + 0">0 ...</router-link>
+      <router-link :to="'/nft-marketplace/' + $route.params.title + '/' + 0 + '#pagination'">0 ...</router-link>
     </div>
     <div v-for="(item, index) in pages" :key="index">
-     <router-link :to="'/nft-marketplace/' + $route.params.title + '/' + item">{{item}}</router-link>
+     <router-link :to="'/nft-marketplace/' + $route.params.title + '/' + item + '#pagination'">{{item}}</router-link>
     </div>
     <div v-if="page <= Math.floor(numberOfItems / pageSize) - 4 && pages.length > 3">
-      <router-link :to="'/nft-marketplace/' + $route.params.title + '/' + Math.floor(numberOfItems / pageSize)">... {{Math.floor(numberOfItems / pageSize)}}</router-link>
+      <router-link :to="'/nft-marketplace/' + $route.params.title + '/' + Math.floor(numberOfItems / pageSize) + '#pagination'">... {{Math.floor(numberOfItems / pageSize)}}</router-link>
     </div>
-    <button :disabled="numberOfItems > pageSize && page !== Math.floor(numberOfItems / pageSize) ? false : true" @click="$router.push('/nft-marketplace/' + $route.params.title + '/' +  (page + 1))">&#62;</button>
+    <button :disabled="numberOfItems > pageSize && page !== Math.floor(numberOfItems / pageSize) ? false : true" @click="$router.push('/nft-marketplace/' + $route.params.title + '/' +  (page + 1) + '#pagination')">&#62;</button>
   </div>
 </template>
 
