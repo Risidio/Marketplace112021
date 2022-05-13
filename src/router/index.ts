@@ -108,7 +108,7 @@ const routes: Array<RouteConfig> = [
   },
   {
     path: '/indige_mirror/',
-    redirect: './indige_mirror/0'
+    redirect: './risidio_indige/0'
   },
   {
     path: '/risidio_indige/',
@@ -181,9 +181,11 @@ const router = new VueRouter({
   scrollBehavior (to, from, savedPosition) {
     if (savedPosition) {
       return savedPosition
-    } else {
-      return { x: 0, y: 0 }
     }
+    // if you want to scroll to the top of a page use code below
+    // else {
+    //   return { x: 0, y: 0 }
+    // }
   }
 })
 
