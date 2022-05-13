@@ -116,7 +116,7 @@ export default {
     close (e) {
       const featured = document.getElementsByClassName('featured')[0]
       const dropDownMenu = document.getElementsByClassName('dropdownMenu')[0]
-      if (!this.$refs.dropDown.contains(e.target)) {
+      if (!this.$refs?.dropDown.contains(e.target)) {
         featured.classList.remove('show')
         dropDownMenu.classList.remove('show')
       }
