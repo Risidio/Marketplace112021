@@ -26,8 +26,9 @@
                     <img :src="item.image" class="nftGeneralView" style="margin-top: 15px;"/>
                       <p class="nFTName" style="margin-top: -5px;"> {{!item.name ? "NFT" : item.name }} <span style="float: right;">{{item.contractAsset.listingInUstx ? item.contractAsset.listingInUstx.price : 0}} STX</span></p>
                       <p class="nFTArtist">By
-                      <span>{{!item.properties.collection ? "Anonymous" : item.properties.collection }}</span>
-                      <span style="float: right; font-weight: 300">{{changeCurrencyTag() || '£'}} {{ item.contractAsset.listingInUstx ? changeCurrency(item.contractAsset.listingInUstx.price) : 0}}</span>
+                        <span v-if="item && item.properties && item.properties.collection">{{item.properties.collection }}</span>
+                        <span v-else>Anonymous</span>
+                        <span style="float: right; font-weight: 300">{{changeCurrencyTag() || '£'}} {{changeCurrency(item.contractAsset && item.contractAsset.listingInUstx && item.contractAsset.listingInUstx.price) || 0}}</span>
                       </p>
                     </router-link>
                   </div>

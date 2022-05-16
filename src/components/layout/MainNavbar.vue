@@ -102,13 +102,11 @@ export default {
       isLayer: false
     }
   },
-  created () {
+  mounted () {
     const $self = this
     window.addEventListener('click', function (e) {
       $self.close(e)
     })
-  },
-  mounted () {
     this.makerUrlKey = this.$route.params.makerß
     this.currentRunKey = this.$route.params.collection
   },
@@ -116,7 +114,7 @@ export default {
     close (e) {
       const featured = document.getElementsByClassName('featured')[0]
       const dropDownMenu = document.getElementsByClassName('dropdownMenu')[0]
-      if (!this.$refs?.dropDown.contains(e.target)) {
+      if (!this.$refs?.dropDown?.contains(e.target)) {
         featured.classList.remove('show')
         dropDownMenu.classList.remove('show')
       }

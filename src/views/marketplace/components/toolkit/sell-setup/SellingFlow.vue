@@ -85,6 +85,10 @@ export default {
     }
   },
   mounted () {
+    const $self = this
+    window.addEventListener('click', function (e) {
+      $self.close(e)
+    })
     if (this.loopRun.marketplaceVersion > 2) {
       this.$store.dispatch('rpayMarketGenFungStore/sipTenTokenFindBy').then((sipTenTokens) => {
         if (sipTenTokens) {
@@ -101,16 +105,10 @@ export default {
       this.loading = false
     }
   },
-  created () {
-    const $self = this
-    window.addEventListener('click', function (e) {
-      $self.close(e)
-    })
-  },
   methods: {
     close (e) {
       const arrow = document.getElementsByClassName('token-arrow')[0]
-      if (!this.$refs.buyNowInput.contains(e.target)) {
+      if (!this.$refs?.buyNowInput?.contains(e.target)) {
         arrow.classList.remove('active')
         this.show = false
       } else {

@@ -19,7 +19,7 @@
             <div class="mainGalleryBody">
                <div class="filter">
                    <div class="top-elements">
-                    <p class="viewcategory" @click="changeView()">View</p>
+                    <p class="viewcategory">View</p>
                       <div class="dropdown_option_container" ref="popularMenu"> <button class="collectionsButton" @click="popular = !popular"> Popular <img class="arrow2" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></button>
                         <div @click="popular = false" v-show="popular" class="dropdown_option_show" >
                           <p @click="filter()" class="dropdown_option" value="All">Popular <span class="blue">&#8593;</span></p>
@@ -201,13 +201,11 @@ export default {
       this.close(this.thisEvent)
     }
   },
-  created () {
+  async mounted () {
     const $self = this
     window.addEventListener('click', function (e) {
       $self.close(e)
     })
-  },
-  async mounted () {
     await this.fetchFullRegistry()
     if (JSON.parse(localStorage.getItem('gridPrefrence')) === true) {
       this.grid = true
@@ -225,10 +223,12 @@ export default {
   },
   methods: {
     close (e) {
-      if (!this.$refs.popularMenu.contains(e.target)) this.popular = false
-      if (!this.$refs.sortMenu.contains(e.target)) this.sort = false
-      if (!this.$refs.allMenu.contains(e.target)) this.all = false
-      if (!this.$refs.sortMMenu.contains(e.target)) this.sortM = false
+      if (this.$refs) {
+        if (!this.$refs?.popularMenu?.contains(e.target)) this.popular = false
+        if (!this.$refs?.sortMenu?.contains(e.target)) this.sort = false
+        if (!this.$refs?.allMenu?.contains(e.target)) this.all = false
+        if (!this.$refs?.sortMMenu?.contains(e.target)) this.sortM = false
+      }
     },
     searching (query) {
       this.$store.state.contentStore.content.searchWord = query

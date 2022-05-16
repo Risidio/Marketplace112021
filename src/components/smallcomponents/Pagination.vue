@@ -8,8 +8,14 @@
   </div>
   <div v-else-if="$route.name === 'my-account'" class="pagination-container">
     <button :disabled="page > 0 ? false : true" @click="$router.push('/' + $route.name + '/' + $route.params.nftSection + '/' + (page - 1) + '#pagination')">&#60;</button>
+      <div v-if="page >= 4">
+      <router-link :to="'/' + $route.name + '/' + $route.params.nftSection + '/' + 0 + '#pagination'">0 ...</router-link>
+    </div>
     <div v-for="(item, index) in pages" :key="index">
       <router-link :to="'/' + $route.name + '/' + $route.params.nftSection + '/' + item + '#pagination'">{{item}}</router-link>
+    </div>
+     <div v-if="page <= Math.floor(numberOfItems / pageSize) - 4 && pages.length > 3">
+      <router-link :to="'/' + $route.name + '/' + $route.params.nftSection + '/' + Math.floor(numberOfItems / pageSize) + '#pagination'">... {{Math.floor(numberOfItems / pageSize)}}</router-link>
     </div>
     <button :disabled="numberOfItems > pageSize && page !== Math.floor(numberOfItems / pageSize) ? false : true" @click="$router.push('/' + $route.name + '/' + $route.params.nftSection + '/' + (page + 1) + '#pagination')">&#62;</button>
   </div>

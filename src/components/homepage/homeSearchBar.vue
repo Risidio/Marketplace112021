@@ -1,5 +1,5 @@
 <template>
-<div class="search_bar_container">
+<div id="searchBar" class="search_bar_container">
   <div :class="showSearchBar ? 'dropdown_container active' : 'dropdown_container'">
     <div class="dropdown_selector" @click="isHidden = !isHidden" ref="dropDown"> <strong class="search">Search by <img class="arrow2" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"/></strong>
       <div class="dropdown_option_container" v-show="isHidden">
@@ -31,7 +31,7 @@ export default {
       showSearchBar: false
     }
   },
-  created () {
+  mounted () {
     const $self = this
     window.addEventListener('click', function (e) {
       $self.close(e)
@@ -39,7 +39,7 @@ export default {
   },
   methods: {
     close (e) {
-      if (!this.$refs.dropDown.contains(e.target)) {
+      if (!this.$refs?.dropDown?.contains(e.target)) {
         this.isHidden = false
       }
     },
