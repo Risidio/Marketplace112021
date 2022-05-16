@@ -136,7 +136,7 @@
               <div v-else-if="saleItem.length === 0 && slide.id==2">
                 <h4 class="galleryNavItemM" style="text-align: center;">Your NFT's On Sale</h4>
                 <div class="noNFT">
-                  <h3> You do not own any items on sale</h3>
+                  <h3 style="text-align: center;"> You do not own any items on sale</h3>
                   <div class="profileBtns">
                     <router-link class="button filled" to='/nft-marketplace/'>Explore Gallery</router-link>
                     <!-- <router-link class="button notFilledBlue" to="/create">Mint Your Item</router-link> -->
@@ -153,11 +153,11 @@
               </div>
               <div v-else-if="slide.id==3 && !favouriteNfts" class="noNFT">
                 <h4 class="galleryNavItemM" style="text-align: center;">Your Favourites</h4>
-                <h3> You do not have any favourite items</h3>
+                <h3 style="text-align: center;"> You do not have any favourite items</h3>
               </div>
               <div v-else>
                 <div class="noNFT">
-                <h3> You do not own any Items yet</h3>
+                <h3 style="text-align: center;"> You do not own any Items yet</h3>
                   <div class="profileBtns">
                     <router-link class="button filled" to='/nft-marketplace/'>Explore Gallery</router-link>
                     <!-- <router-link class="button notFilledBlue" to="/create">Mint Your Item</router-link> -->

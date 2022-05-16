@@ -12,7 +12,7 @@
     <div class="NFTbackgroundColour NFTbackgroundColour-collection createCollection" >
       <p class="title"> Your Collection </p>
       <p class="text"> You have a good idea for a collection? Want to collaborate with use on that ? <br/> Awesome </p>
-      <button class="button notFilledBlue"> Get In Touch </button>
+      <a href="https://risidio.com/contact" target="_blank"><button class="button notFilledBlue"> Get In Touch </button></a>
     </div>
   </div>
 </template>
