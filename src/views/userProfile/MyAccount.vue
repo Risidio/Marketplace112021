@@ -250,7 +250,7 @@ export default {
     window.addEventListener('resize', this.checkScreen)
     this.checkScreen()
     this.currencyPreference = JSON.parse(localStorage.getItem('currencyPreferences'))
-    this.setSliderHeight()
+    // this.setSliderHeight()
   },
   watch: {
     '$route' () {
