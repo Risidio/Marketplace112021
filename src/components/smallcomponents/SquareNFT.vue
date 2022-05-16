@@ -7,7 +7,7 @@
             alt="Risidio Gallery" class="square-display-img" loading="lazy">
             <div class="rel">
             <div class="galleryHover">
-                <p class="nFTName"> {{!item.name ? "NFT" : item.name }} <span style="float: right;" v-if="item && item.contractAsset && item.contractAsset.saleData && item.contractAsset.saleData.buyNowOrStartingPrice">{{item.contractAsset.saleData.buyNowOrStartingPrice}} STX</span>
+                <p class="nFTName"> {{!item.name ? "NFT" : item.name }} <span style="float: right;" v-if="item && item.contractAsset && item.contractAsset.saleData && item.contractAsset.saleData.buyNowOrStartingPrice">{{item.contractAsset.saleData.buyNowOrStartingPrice}} STX</span></p>
                 <p class="nFTArtist">By <span>{{!item.artist ? "Anonymous" : item.artist }}</span> </p>
             </div>
             </div>
