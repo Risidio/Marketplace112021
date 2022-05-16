@@ -1,11 +1,20 @@
 <template>
   <section class ="our_values" >
     <div class ="values_container">
-      <vueper-slides fixed-height="true" :infinite="false" class="no-shadow" :touchable="false">
-        <template #arrow-left>
+      <vueper-slides
+      fixed-height="true"
+      :infinite="false"
+      :arrows="showArrow"
+      :arrows-outside="showArrow"
+      :touchable="touchableSlide"
+      :bullets="bullets"
+      class="no-shadow"
+      :breakpoints="breakpoints"
+      >
+        <template v-if="showArrow == true" #arrow-left>
           <img src="https://res.cloudinary.com/risidio/image/upload/v1637153014/RisidioMarketplace/Icon_ionic-md-arrow-dropleft-circle_zpgise.svg" alt="wallet" class="arrow"/>
         </template>
-        <template #arrow-right>
+        <template  v-if="showArrow == true" #arrow-right>
           <img src="https://res.cloudinary.com/risidio/image/upload/v1637152994/RisidioMarketplace/Icon_ionic-md-arrow-dropleft-circle_1_ex6tmv.svg" alt="wallet" class="arrow"/>
         </template>
         <vueper-slide
@@ -51,6 +60,16 @@ export default {
   },
   props: ['content'],
   data: () => ({
+    windowWidth: window.innerWidth,
+    touchableSlide: true,
+    showArrow: true,
+    bullets: false,
+    breakpoints: {
+      700: {
+        touchableSlide: true,
+        bullets: true
+      }
+    },
     slide: [
       {
         id: '1',
@@ -64,7 +83,23 @@ export default {
     return: {
       response: null
     }
-  })
+  }),
+  created () {
+    window.addEventListener('resize', this.checkScreen)
+    this.checkScreen()
+  },
+  methods: {
+    checkScreen () {
+      this.windowWidth = window.innerWidth
+      if (this.windowWidth < 720) {
+        this.touchableSlide = true
+        this.showArrow = false
+      } else if (this.windowWidth > 720) {
+        this.touchableSlide = false
+        this.showArrow = true
+      }
+    }
+  }
 }
 
 </script>

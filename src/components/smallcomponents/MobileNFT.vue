@@ -1,10 +1,10 @@
 <template>
   <div>
     <div v-for="(item, index) in resultSet" :key="index">
-      <div v-if="item.image" class="mobile-square-display" >
+      <div v-if="item.image || errorImage" v-on:error="errorImage" class="mobile-square-display" >
         <b-link class="mobilegalleryNFTContainer" v-bind:to="'/nfts/' + item.contractAsset.contractId + '/' + item.contractAsset.nftIndex">
         <div>
-          <img :src="item.image"
+          <img :src="item.image || errorImage" v-on:error="errorImage"
             alt="Risidio Gallery" class="mobile-square-display-img" loading="lazy">
         </div>
           <h2 class="artwork">{{!item.name ? "NFT" : item.name }}</h2>
@@ -21,10 +21,15 @@
 <script>
 import { APP_CONSTANTS } from '@/app-constants'
 import utils from '@/services/utils'
-
+import errorImage from '@/assets/img/sticksnstones_logo.png'
 export default {
   name: 'ResultSet',
-  props: ['resultSet']
+  props: ['resultSet'],
+  data () {
+    return {
+      errorImage: errorImage
+    }
+  }
 }
 </script>
 
