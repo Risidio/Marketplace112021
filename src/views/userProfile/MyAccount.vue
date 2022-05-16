@@ -46,7 +46,7 @@
           </div>
         </div>
     </div>
-<div v-if="windowWidth > 549">
+  <div v-if="windowWidth > 549">
     <div v-if="!transaction" class="galleryContainerLimited">
       <div>
         <b-nav class="galleryNav" >
@@ -166,7 +166,7 @@
               </div>
             </div>
             <div v-else>
-                <UserTransaction :loopRun="loopRun" :profile="profile"/>
+              <UserTransaction :loopRun="loopRun" :profile="profile"/>
             </div>
           </template>
       </vueper-slide>
