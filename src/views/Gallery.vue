@@ -121,7 +121,7 @@
                     <div v-for="(item, index) in resultSet" :key="index">
                       <div class="MobileNFTG">
                         <b-link class="galleryNFTContainer" v-bind:to="'/nfts/' + item.contractAsset.contractId + '/' + item.contractAsset.nftIndex">
-                        <img :src="item.image" alt="Risidio Gallery" class="mobile-square-display-img" loading="lazy">
+                        <img :src="item.image || errorImage" v-on:error="errorImage" alt="Risidio Gallery" class="mobile-square-display-img" loading="lazy">
                         </b-link>
                       </div>
                     </div>
@@ -138,6 +138,7 @@ import MobileNFT from '../components/smallcomponents/MobileNFT.vue'
 import SquareNFT from '@/components/smallcomponents/SquareNFT.vue'
 import Pagination from '@/components/smallcomponents/Pagination.vue'
 import loadingImage from '@/assets/img/loading-risid.gif'
+import errorImage from '@/assets/img/sticksnstones_logo.png'
 
 export default {
   name: 'Gallery',
@@ -148,6 +149,7 @@ export default {
   },
   data () {
     return {
+      errorImage: errorImage,
       resultSet: [],
       loadingImage: loadingImage,
       loaded: true,
