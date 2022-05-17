@@ -1,6 +1,5 @@
 <template>
-  <section class ="our_values" >
-    <div class ="values_container">
+  <section class ="our_values">
       <vueper-slides
       fixed-height="true"
       :infinite="false"
@@ -44,7 +43,6 @@
           </template>
         </vueper-slide>
       </vueper-slides>
-      </div>
   </section>
 </template>
 
@@ -65,7 +63,7 @@ export default {
     showArrow: true,
     bullets: false,
     breakpoints: {
-      700: {
+      1272: {
         touchableSlide: true,
         bullets: true
       }
@@ -91,10 +89,10 @@ export default {
   methods: {
     checkScreen () {
       this.windowWidth = window.innerWidth
-      if (this.windowWidth < 720) {
+      if (this.windowWidth < 1272) {
         this.touchableSlide = true
         this.showArrow = false
-      } else if (this.windowWidth > 720) {
+      } else if (this.windowWidth > 1272) {
         this.touchableSlide = false
         this.showArrow = true
       }
@@ -108,11 +106,16 @@ export default {
 /* General style */
 .our_values{
   background-color: rgb(11, 11, 116);
-  min-height: 400px;
+  min-height: 490px;
   text-align: center;
   justify-content: center;
   color:white;
 }
+// .our_values ::v-deep {
+//   .vueperslides__track{
+//     height: 100%;
+//   }
+// }
 .textContainer{
   margin-top: 100px;
 }
@@ -136,8 +139,8 @@ p{
 }
 .vueperslides--fixed-height {
   // min-width: 500px;
-  max-width: 1000px;
-  height: 500px;
+  max-width: 1100px;
+  height: 470px;
   margin: auto;
   border-radius: 0;
   // padding: 0 50px;
