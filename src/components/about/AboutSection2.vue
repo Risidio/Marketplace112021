@@ -106,16 +106,16 @@ export default {
 /* General style */
 .our_values{
   background-color: rgb(11, 11, 116);
-  min-height: 400px;
+  min-height: 490px;
   text-align: center;
   justify-content: center;
   color:white;
 }
-.our_values ::v-deep {
-  .vueperslides__track{
-    height: 97%;
-  }
-}
+// .our_values ::v-deep {
+//   .vueperslides__track{
+//     height: 100%;
+//   }
+// }
 .textContainer{
   margin-top: 100px;
 }
@@ -140,7 +140,7 @@ p{
 .vueperslides--fixed-height {
   // min-width: 500px;
   max-width: 1100px;
-  height: 500px;
+  height: 470px;
   margin: auto;
   border-radius: 0;
   // padding: 0 50px;
