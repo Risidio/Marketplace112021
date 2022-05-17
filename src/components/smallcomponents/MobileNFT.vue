@@ -1,16 +1,16 @@
 <template>
   <div>
     <div v-for="(item, index) in resultSet" :key="index">
-      <div v-if="item.image || errorImage" v-on:error="errorImage" class="mobile-square-display" >
+      <div v-if="item.image || errorImage" class="mobile-square-display" >
         <b-link class="mobilegalleryNFTContainer" v-bind:to="'/nfts/' + item.contractAsset.contractId + '/' + item.contractAsset.nftIndex">
         <div>
-          <img :src="item.image || errorImage" v-on:error="errorImage"
+          <img :src="item.image || errorImage"
             alt="Risidio Gallery" class="mobile-square-display-img" loading="lazy">
         </div>
           <h2 class="artwork">{{!item.name ? "NFT" : item.name }}</h2>
           <p class="mobilenFTArtist">By <span>{{!item.artist ? "Anonymous" : item.artist }}</span> </p>
           <div class="price">
-          <p >{{item.contractAsset.saleData.buyNowOrStartingPrice}} STX</p>
+          <p ><span v-if="item && item.contractAsset && item.contractAsset.listingInUstx">{{item.contractAsset.listingInUstx.price || 0}} STX</span></p>
           </div>
         </b-link>
       </div>

@@ -3,11 +3,11 @@
     <div v-for="(item, index) in resultSet" :key="index">
         <div class="square-display" >
             <b-link class="galleryNFTContainer" v-bind:to="'/nfts/' + item.contractAsset.contractId + '/' + item.contractAsset.nftIndex">
-            <img :src="item.image || errorImage" v-on:error="errorImage"
+            <img :src="item.image || errorImage"
             alt="Risidio Gallery" class="square-display-img" loading="lazy">
             <div class="rel">
             <div class="galleryHover">
-                <p class="nFTName"> {{!item.name ? "NFT" : item.name }} <span style="float: right;" v-if="item && item.contractAsset && item.contractAsset.saleData && item.contractAsset.saleData.buyNowOrStartingPrice">{{item.contractAsset.saleData.buyNowOrStartingPrice}} STX</span></p>
+                <p class="nFTName"> {{!item.name ? "NFT" : item.name }} <span style="float: right;" v-if="item && item.contractAsset && item.contractAsset.listingInUstx">{{item.contractAsset.listingInUstx.price || 0}} STX</span></p>
                 <p class="nFTArtist">By <span>{{!item.artist ? "Anonymous" : item.artist }}</span> </p>
             </div>
             </div>

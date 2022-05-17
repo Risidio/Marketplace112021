@@ -3,7 +3,7 @@
   <div v-for="(item, index) in gaiaAssets" :key="index" class="NFTbackgroundColour">
     <div class="">
       <b-link class="galleryNFTContainer" :to="assetUrl(item)" v-if="item && item.contractAsset">
-        <img class="nftGeneralView" :src="item.image || loadingImage" v-on:error="loadingImage" :ref="index"/>
+        <img class="nftGeneralView" :src="item.image || loadingImage" :ref="index"/>
         <p class="nFTName"> {{!item.name ? "NFT" : artName(item.name) }} <span style="float: right;">{{item.contractAsset && item.contractAsset.listingInUstx && item.contractAsset.listingInUstx.price || 0}} STX</span></p>
         <p class="nFTArtist">By
           <span v-if="item && item.properties && item.properties.collection">{{item.properties.collection }}</span>
