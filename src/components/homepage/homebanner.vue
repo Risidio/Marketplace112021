@@ -29,7 +29,7 @@
                 v-for="(slide) in slide"
                 :key="slide.id">
                     <template #content>
-                        <div v-if="slide.id==1" class = "slideContainer">
+                        <!-- <div v-if="slide.id==1" class = "slideContainer">
                             <div class="slideImage">
                               <h2 class="mobileHeader">{{content.heroarea[1].herotitle[0].text}}</h2>
                               <div class="collectionImageBack">
@@ -52,8 +52,8 @@
                               <p class="slide-text-p"> {{content.heroarea[1].herotext[0].text}}</p>
                               <router-link to="/numberone_roots"><button class="button filled"> See The Collection </button></router-link>
                             </div>
-                        </div>
-                          <div v-if="slide.id == 2" class = "slideContainer">
+                        </div> -->
+                          <div v-if="slide.id == 1" class = "slideContainer">
                             <div class="slideImage">
                             <h2 class="mobileHeader"> The Indige Collection</h2>
                               <div class="collectionImageBack">
@@ -77,7 +77,7 @@
                               <router-link to="/indige_mirror/0"><button class="button filled"> See The Collection </button></router-link>
                             </div>
                         </div>
-                        <div v-if="slide.id == 3" class = "slideContainer">
+                        <div v-if="slide.id == 2" class = "slideContainer">
                             <div class="slideImage">
                             <h2 class="mobileHeader">{{content.heroarea[2].herotitle[0].text}}</h2>
                               <div class="collectionImageBack">
@@ -178,11 +178,11 @@ export default {
       {
         id: '2',
         text: 'Collection'
-      },
-      {
-        id: '3',
-        text: 'Collection'
       }
+      // {
+      //   id: '3',
+      //   text: 'Collection'
+      // }
     ],
     return: {
       resultSet: [],

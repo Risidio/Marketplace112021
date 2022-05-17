@@ -11,14 +11,14 @@
         <div class="col-lg-7 col-12 d-flex columns3-content__container">
             <div class="footer__column-content ml-lg-auto">
               <div> Marketplace</div>
-              <div v-on:click="topFunction()"><router-link to="/nft-marketplace">Gallery</router-link></div>
-              <div v-on:click="topFunction()"><router-link to="/how-it-works">How It Works</router-link></div>
+              <div><router-link to="/nft-marketplace">Gallery</router-link></div>
+              <div><router-link to="/how-it-works">How It Works</router-link></div>
               <div class="text-secondary">leveller</div>
               <div class="text-secondary">leveller</div>
             </div>
             <div v-if="profile.loggedIn" class="footer__column-content">
               <div >Your NFTs</div>
-              <div v-on:click="topFunction()"><router-link to="/my-account">All Your Nft's</router-link></div>
+              <div><router-link to="/my-account">All Your Nft's</router-link></div>
               <!-- <div v-on:click="topFunction()"><router-link to="/create">Add an NFT</router-link></div> -->
               <div>
                 <router-link
@@ -38,10 +38,10 @@
               <div v-on:click="topFunction()"><router-link to="/about">What We Do</router-link></div>
               <div v-on:click="topFunction()"><router-link to="/about">Work With Us</router-link></div>
               <div v-on:click="topFunction()"><router-link to="/about">Get in Touch</router-link></div>-->
-              <div v-on:click="topFunction()"><a  href="https://risidio.com/aboutus" target="_blank">Who We Are</a></div>
-              <div v-on:click="topFunction()"><a  href="https://risidio.com/our-work" target="_blank">What We Do</a></div>
-              <div v-on:click="topFunction()"><a  href="https://risidio.com/" target="_blank">Work With Us</a></div>
-              <div v-on:click="topFunction()"><a  href="https://risidio.com/contact" target="_blank">Get in Touch</a></div>
+              <div><a  href="https://risidio.com/aboutus" target="_blank">Who We Are</a></div>
+              <div><a  href="https://risidio.com/our-work" target="_blank">What We Do</a></div>
+              <div><a  href="https://risidio.com/" target="_blank">Work With Us</a></div>
+              <div><a  href="https://risidio.com/contact" target="_blank">Get in Touch</a></div>
             </div>
         </div>
       </div>
