@@ -8,7 +8,7 @@
         <div class="noNFT">
         <h3> You do not own any Items yet</h3>
           <div class="profileBtns">
-            <router-link class="button filled" to="/">Gallery</router-link>
+            <router-link class="button filled" to="/nft-marketplace/">Gallery</router-link>
           </div>
         </div>
       </div>
