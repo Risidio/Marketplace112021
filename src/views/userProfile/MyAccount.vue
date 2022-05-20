@@ -353,7 +353,8 @@ export default {
         pageSize: this.pageSize
       }
       this.$store.dispatch('rpayStacksContractStore/fetchMyTokensCPSV2', data).then((result) => {
-        this.resultSet = result.gaiaAssets.filter((res) => res.contractId !== null)
+        console.log(result)
+        this.resultSet = result.gaiaAssets
         console.log(result)
         this.numberOfItems = result.tokenCount
         this.loading = true
