@@ -22,18 +22,18 @@
                     <p class="viewcategory">View</p>
                       <div class="dropdown_option_container" ref="popularMenu"> <button class="collectionsButton" @click="popular = !popular"> Popular <img class="arrow2" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></button>
                         <div @click="popular = false" v-show="popular" class="dropdown_option_show" >
-                          <p @click="filter()" class="dropdown_option" value="All">Popular <span class="blue">&#8593;</span></p>
-                          <p @click="filter()" class="dropdown_option" value="Category">Popular <span class="blue">&#8595;</span></p>
-                          <p @click="filter()" class="dropdown_option" value="Category">Date <span class="blue">&#8593;</span></p>
-                          <p @click="filter()" class="dropdown_option" value="Category">Date <span class="blue">&#8595;</span></p>
+                          <p @click="filter()" class="dropdown_option" value="All">Most Popular<span class="blue"></span></p>
+                          <p @click="filter()" class="dropdown_option" value="Category">Least Popular<span class="blue"></span></p>
+                          <p @click="filter()" class="dropdown_option" value="Category">Recent <span class="blue"></span></p>
+                          <p @click="filter()" class="dropdown_option" value="Category">Old <span class="blue"></span></p>
                         </div>
                       </div>
                       <div class="dropdown_option_container" ref="sortMenu"> <button class="collectionsButton" @click="sort = !sort"> Sort by <img class="arrow2" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></button>
                         <div @click="sort = false" v-show="sort" class="dropdown_option_show" >
-                          <p @click="filter()" class="dropdown_option" value="All">Price <span class="blue">&#8593;</span></p>
-                          <p @click="filter()" class="dropdown_option" value="Category">Price <span class="blue">&#8595;</span></p>
-                          <p @click="filter()" class="dropdown_option" value="Category">Alphabetical <span class="blue">&#8593;</span></p>
-                          <p @click="filter()" class="dropdown_option" value="Category">Alphabetical <span class="blue">&#8595;</span></p>
+                          <p @click="filter()" class="dropdown_option" value="All">Price: Low to High <span class="blue"></span></p>
+                          <p @click="filter()" class="dropdown_option" value="Category">Price: High to Low <span class="blue"></span></p>
+                          <p @click="filter()" class="dropdown_option" value="Category">Alphabetical: A-Z <span class="blue"></span></p>
+                          <p @click="filter()" class="dropdown_option" value="Category">Alphabetical: Z-A <span class="blue"></span></p>
                         </div>
                       </div>
                     </div>
