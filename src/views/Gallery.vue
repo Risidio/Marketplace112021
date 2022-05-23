@@ -20,20 +20,20 @@
                <div class="filter">
                    <div class="top-elements">
                     <p class="viewcategory">View</p>
-                      <div class="dropdown_option_container" ref="popularMenu"> <button class="collectionsButton" @click="popular = !popular"> Popular <img class="arrow2" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></button>
+                      <div class="dropdown_option_container" ref="popularMenu"> <button class="collectionsButton" @click="popular = !popular, arrow2on = !arrow2on"> Popular <img :class="arrow2on ? 'arrow1 active' : 'arrow1'" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></button>
                         <div @click="popular = false" v-show="popular" class="dropdown_option_show" >
-                          <p @click="filter()" class="dropdown_option" value="All">Popular <span class="blue">&#8593;</span></p>
-                          <p @click="filter()" class="dropdown_option" value="Category">Popular <span class="blue">&#8595;</span></p>
-                          <p @click="filter()" class="dropdown_option" value="Category">Date <span class="blue">&#8593;</span></p>
-                          <p @click="filter()" class="dropdown_option" value="Category">Date <span class="blue">&#8595;</span></p>
+                          <p @click="filter()" class="dropdown_option" value="All">Most Popular<span class="blue"></span></p>
+                          <p @click="filter()" class="dropdown_option" value="Category">Least Popular<span class="blue"></span></p>
+                          <p @click="filter()" class="dropdown_option" value="Category">Recent <span class="blue"></span></p>
+                          <p @click="filter()" class="dropdown_option" value="Category">Old <span class="blue"></span></p>
                         </div>
                       </div>
-                      <div class="dropdown_option_container" ref="sortMenu"> <button class="collectionsButton" @click="sort = !sort"> Sort by <img class="arrow2" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></button>
+                      <div class="dropdown_option_container" ref="sortMenu"> <button class="collectionsButton" @click="sort = !sort, arrow3on = !arrow3on"> Sort by <img :class="arrow3on ? 'arrow1 active' : 'arrow1'" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></button>
                         <div @click="sort = false" v-show="sort" class="dropdown_option_show" >
-                          <p @click="filter()" class="dropdown_option" value="All">Price <span class="blue">&#8593;</span></p>
-                          <p @click="filter()" class="dropdown_option" value="Category">Price <span class="blue">&#8595;</span></p>
-                          <p @click="filter()" class="dropdown_option" value="Category">Alphabetical <span class="blue">&#8593;</span></p>
-                          <p @click="filter()" class="dropdown_option" value="Category">Alphabetical <span class="blue">&#8595;</span></p>
+                          <p @click="filter()" class="dropdown_option" value="All">Price: Low to High <span class="blue"></span></p>
+                          <p @click="filter()" class="dropdown_option" value="Category">Price: High to Low <span class="blue"></span></p>
+                          <p @click="filter()" class="dropdown_option" value="Category">Alphabetical: A-Z <span class="blue"></span></p>
+                          <p @click="filter()" class="dropdown_option" value="Category">Alphabetical: Z-A <span class="blue"></span></p>
                         </div>
                       </div>
                     </div>
@@ -64,27 +64,37 @@
                   <input type="text" placeholder="Looking for anything in particular ?" name="search" :value="currentSearch" @change="searching($event.target.value)" class="mobilesearch">
                   <img class="mobileimage" src="https://res.cloudinary.com/risidio/image/upload/v1637238428/RisidioMarketplace/magnifying-search-lenses-tool_yaatpo.svg">
                 </div>
-                <div class="sorting">
+                <div>
                  <div><h1 class="mobileview">View</h1></div>
-                     <div class="dropdown_option_containerM" ref="allMenu"> <button class="collectionsButtonM" @click="all = !all"> All <img class="arrow2" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></button>
+                     <div class="dropdown_option_containerM" ref="allMenu"> <button class="collectionsButtonM" @click="all = !all, arrow4on = !arrow4on"> Popular <img :class="arrow4on ? 'arrow1 active' : 'arrow1'" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></button>
                         <div @click="all = false" v-show="all" class="dropdown_option_showM" >
-                          <p @click="filter()" class="dropdown_option" value="All">All <span class="blue">&#8593;</span></p>
-                          <p @click="filter()" class="dropdown_option" value="Category">All <span class="blue">&#8595;</span></p>
-                          <p @click="filter()" class="dropdown_option" value="Category">Date <span class="blue">&#8593;</span></p>
-                          <p @click="filter()" class="dropdown_option" value="Category">Date <span class="blue">&#8595;</span></p>
+                          <p @click="filter()" class="dropdown_option" value="All">Most Popular<span class="blue"></span></p>
+                          <p @click="filter()" class="dropdown_option" value="Category">Least Popular<span class="blue"></span></p>
+                          <p @click="filter()" class="dropdown_option" value="Category">Recent <span class="blue"></span></p>
+                          <p @click="filter()" class="dropdown_option" value="Category">Old <span class="blue"></span></p>
                         </div>
                       </div>
-                     <div class="dropdown_option_containerM" ref="sortMMenu"> <button class="collectionsButtonM" @click="sortM = !sortM"> sort by <img class="arrow2" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></button>
+                     <div class="dropdown_option_containerM" ref="sortMMenu"> <button class="collectionsButtonM" @click="sortM = !sortM, arrow5on = !arrow5on"> Sort by <img :class="arrow5on ? 'arrow1 active' : 'arrow1'" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></button>
                         <div @click="sortM = false" v-show="sortM" class="dropdown_option_showM" >
-                          <p @click="filter()" class="dropdown_option" value="All">Sort by <span class="blue">&#8593;</span></p>
-                          <p @click="filter()" class="dropdown_option" value="Category">Sort by <span class="blue">&#8595;</span></p>
-                          <p @click="filter()" class="dropdown_option" value="Category">Date <span class="blue">&#8593;</span></p>
-                          <p @click="filter()" class="dropdown_option" value="Category">Date <span class="blue">&#8595;</span></p>
+                          <p @click="filter()" class="dropdown_option" value="All">Price: Low to High <span class="blue"></span></p>
+                          <p @click="filter()" class="dropdown_option" value="Category">Price: High to Low <span class="blue"></span></p>
+                          <p @click="filter()" class="dropdown_option" value="Category">Alphabetical: A-Z <span class="blue"></span></p>
+                          <p @click="filter()" class="dropdown_option" value="Category">Alphabetical: Z-A <span class="blue"></span></p>
                         </div>
                       </div>
                    </div>
-                <p class="mobilefilter"  v-on:click="toggleFilter()">Filter results</p>
-                <div>
+                  <div class="filterResultsContainer">
+                    <div v-if="grid" v-on:click="changeGrid()" class="gridDisplayOptions">
+                      <img  src="../assets/img/gridDisplay.svg">
+                      <img  src="../assets/img/normalDisplay.svg">
+                    </div>
+                    <div v-else v-on:click="changeGrid()" class="gridDisplayOptions">
+                      <img src="https://res.cloudinary.com/risidio/image/upload/v1649167477/RisidioMarketplace/imagebar1_px1ppz.png">
+                      <img src="https://res.cloudinary.com/risidio/image/upload/v1649167498/RisidioMarketplace/imagebar2_ohxsez.png">
+                    </div>
+                    <span class="mobilefilter"  v-on:click="toggleFilter()">Filter results</span>
+                </div>
+                 <div>
                   <div v-if="filterToggle" class="toggleFilterContainer">
                   <div class="crossIcon">
                     <b-icon v-on:click="toggleFilter()" icon="x" variant="primary"></b-icon>
@@ -101,16 +111,6 @@
                     </div>
                   </div>
                  </div>
-                </div>
-                  <div>
-                    <div v-if="grid" v-on:click="changeGrid()" class="gridDisplayOptions">
-                      <img  src="../assets/img/gridDisplay.svg">
-                      <img  src="../assets/img/normalDisplay.svg">
-                    </div>
-                    <div v-else v-on:click="changeGrid()" class="gridDisplayOptions">
-                      <img src="https://res.cloudinary.com/risidio/image/upload/v1649167477/RisidioMarketplace/imagebar1_px1ppz.png">
-                      <img src="https://res.cloudinary.com/risidio/image/upload/v1649167498/RisidioMarketplace/imagebar2_ohxsez.png">
-                    </div>
                 </div>
             </div>
                <div v-if="resultSet && view == 'squared' && searched.length == 0" class="mobilegallerySquare">
@@ -183,7 +183,11 @@ export default {
       pageSize: 50,
       loading: true,
       error: '',
-      isLayer: false
+      isLayer: false,
+      arrow2on: false,
+      arrow3on: false,
+      arrow4on: false,
+      arrow5on: false
     }
   },
   watch: {
@@ -445,6 +449,12 @@ export default {
   height: 121;
   padding: 20px;
 }
+.filterResultsContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+}
 .collectionsMenuSide {
   display: none;
 }
@@ -511,9 +521,6 @@ export default {
   margin-left: 220px;
   font-size: 14px;
 }
-.sorting {
-  margin-top: -20px;
-}
 .sort-by {
   margin-top: -60px;
   margin-left: 210px;
@@ -545,8 +552,6 @@ export default {
   font-size: 13px;
   font-weight: 800;
   color: #5fbdc1;
-  margin-top: -32px;
-  text-align: right;
   cursor: pointer;
 }
 .blue {
@@ -855,20 +860,13 @@ export default {
 .galleryCategory .galleryCategories.active {
   display: block;
 }
-.arrow1,
-.arrow2 {
+.arrow1 {
   margin-left: 15px;
   width: 12px;
   height: 12px;
   transform: rotate(180deg);
 }
-.arrow3 {
-  margin-left: 50px;
-  width: 12px;
-  height: 12px;
-}
-.arrow1.active,
-.arrow2.active {
+.arrow1.active {
   transform: rotate(360deg);
 }
 .galleryContainer {
