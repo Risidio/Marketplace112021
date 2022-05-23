@@ -21,7 +21,7 @@
 </div>
 <div class="nav-container">
     <div class = "mainNavbar">
-        <img @click="$router.push('/')" width="150px;" :src="logo" alt="risidio-logo"/>
+        <img @click="$router.push('/'), mobileNavebar()" width="150px;" :src="logo" alt="risidio-logo"/>
         <div class="toggle-button" v-on:click="mobileNavebar()">
           <span class="bar"></span>
           <span class="bar"></span>
