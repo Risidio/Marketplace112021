@@ -168,7 +168,6 @@ footer .navbar-brand {
 .nfts{
   margin-bottom: 81px;
 }
-
 /* FOOTER CONTENT COLUMN */
 .columns3-content__container {
   align-items: flex-end;
@@ -186,6 +185,9 @@ footer .navbar-brand {
   font-weight: 300;
   color: #E3E3E3;
   /* margin-bottom: 15px; */
+}
+.discord-logo{
+  width: 14px;
 }
 
 .footer__column-content div {
@@ -224,7 +226,7 @@ footer .navbar-brand {
   justify-content: space-around ;
 }
 .social-media :hover{
-  transform: scale(1.3);
+  transform: scale(1.15);
 }
 
 /* FOOTER ON MOBILE */

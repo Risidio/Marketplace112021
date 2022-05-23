@@ -117,8 +117,8 @@ export default {
 }
 
 .dropdown_selector:hover {
-  transform: scale(1.02);
-  transition: 0.3s;
+  // transform: scale(1.02);
+  // transition: 0.3s;
   cursor: pointer;
   z-index: 10;
 }
