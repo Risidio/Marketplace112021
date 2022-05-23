@@ -256,6 +256,10 @@ export default {
     padding: 10px;
   }
 }
+.galleryNavContainer{
+  width: 600px;
+  justify-content: space-between;
+}
 .loading-pass {
   text-align: center;
 }
