@@ -529,7 +529,7 @@ export default {
   flex-wrap: wrap;
 }
 .galleryNavContainer{
-  width: 400px;
+  width: 710px;
   justify-content: space-between;
 }
 .wantMore {

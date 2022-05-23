@@ -129,6 +129,10 @@ export default {
   padding: 0 10px;
   margin-top: 50px;
 }
+.galleryNavContainer{
+  width: 620px;
+  justify-content: space-between;
+}
 .transaction-table {
   width: 100%;
   height: 200px;
