@@ -21,7 +21,7 @@
           <div id="walletDetails" class="walletDetails">
             <button class="notFilled" @click="viewInfo(0)">HIDE</button>
             <h1>Your Wallet Info:</h1>
-            <h2>ID - {{username.substring(0, 30)}}...</h2>
+            <p>ID - {{username.substring(0, 30)}}...</p>
             <!-- <h2>John Doe</h2> -->
             <br/>
             <div class="walletCurrency">
@@ -50,11 +50,11 @@
     <div v-if="!transaction" class="galleryContainerLimited">
       <div>
         <b-nav class="galleryNav" >
-          <div class="galleryNavContainer" >
-            <router-link class="galleryNavItem" :to="'/my-account/nft'">Your NFTs</router-link>
-            <router-link class="galleryNavItem" :to="'/my-account/sale'">Your NFTs On Sale</router-link>
-            <router-link class="galleryNavItem" :to="'/my-account/fav'">Your Favourites</router-link>
-          </div>
+          <nav class="galleryNavContainer" >
+            <h2><router-link class="galleryNavItem" :to="'/my-account/nft'">Your NFTs</router-link></h2>
+            <h2><router-link class="galleryNavItem" :to="'/my-account/sale'">Your NFTs On Sale</router-link></h2>
+            <h2><router-link class="galleryNavItem" :to="'/my-account/fav'">Your Favourites</router-link></h2>
+          </nav>
         </b-nav>
       </div>
       <div v-if="tab === 'nft' && loopRun" class="">
@@ -353,7 +353,8 @@ export default {
         pageSize: this.pageSize
       }
       this.$store.dispatch('rpayStacksContractStore/fetchMyTokensCPSV2', data).then((result) => {
-        this.resultSet = result.gaiaAssets.filter((res) => res.contractId !== null)
+        console.log(result)
+        this.resultSet = result.gaiaAssets
         console.log(result)
         this.numberOfItems = result.tokenCount
         this.loading = true
@@ -528,7 +529,7 @@ export default {
   flex-wrap: wrap;
 }
 .galleryNavContainer{
-  width: 400px;
+  width: 710px;
   justify-content: space-between;
 }
 .wantMore {
@@ -756,7 +757,7 @@ transition: all 0.2s ease-in-out;
     font: normal normal 600 15px/19px Montserrat;
     margin: 20px auto 0 auto;
   }
-  & > h2 {
+  & > p {
     margin: 8px auto 0 auto;
     font: normal normal 600 12px/15px Montserrat;
     color: #5154a1;

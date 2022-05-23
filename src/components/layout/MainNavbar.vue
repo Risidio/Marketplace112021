@@ -21,7 +21,7 @@
 </div>
 <div class="nav-container">
     <div class = "mainNavbar">
-        <router-link class="risidioLogo" to="/"><img v-on:click="isLayer ? mobileNavebar() : '' " width="150px;" :src="logo" alt="risidio-logo"/></router-link>
+        <img @click="$router.push('/'), mobileNavebar()" width="150px;" :src="logo" alt="risidio-logo"/>
         <div class="toggle-button" v-on:click="mobileNavebar()">
           <span class="bar"></span>
           <span class="bar"></span>
@@ -147,7 +147,7 @@ export default {
         this.$emit('connect-login', myProfile)
       } else {
         this.$store.dispatch('rpayAuthStore/startLogin').then((profile) => {
-          // location.reload()
+          location.reload()
         }).catch(() => {
           this.$store.commit(APP_CONSTANTS.SET_WEB_WALLET_NEEDED)
           // window.open('https://www.hiro.so/wallet', '_blank')
@@ -278,6 +278,9 @@ export default {
   max-width: 1600px;
   padding: 20px 20px;
   position: relative;
+  img {
+    cursor: pointer;
+  }
 }
 /* NAVBAR PADDING AND WIDTH */
 .nav_banner {
@@ -504,8 +507,8 @@ export default {
 #howItWorks {
   margin-left: auto;
 }
-.nav-bar{
- border-bottom: 3px solid transparent;
+.nav-bar {
+  border-bottom: 3px solid transparent;
   color: white;
   &:hover {
     color: white;
@@ -519,11 +522,13 @@ export default {
   border-bottom: 1px solid white;
   //color: #5fbdc1;
 }
-.nav-items a.nav-links:hover, .nav-items a.nav-links.router-link-active {
+.nav-items a.nav-links:hover,
+.nav-items a.nav-links.router-link-active {
   text-decoration: underline;
   text-underline-offset: 3px;
 }
-.nav-items a.nav-bar:hover, .nav-items a.nav-bar.router-link-active {
+.nav-items a.nav-bar:hover,
+.nav-items a.nav-bar.router-link-active {
   text-decoration: underline;
   text-underline-offset: 3px;
 }

@@ -9,14 +9,14 @@
           <p class="footer__pitch" v-if="content && content.footertext[0]">{{content.footertext[0].text}}</p>
         </div>
         <div class="col-lg-7 col-12 d-flex columns3-content__container">
-            <div class="footer__column-content ml-lg-auto">
+            <div  class=" marketPlace footer__column-content ml-lg-auto">
               <div> Marketplace</div>
               <div><router-link to="/nft-marketplace">Gallery</router-link></div>
               <div><router-link to="/how-it-works">How It Works</router-link></div>
-              <div class="text-secondary">leveller</div>
-              <div class="text-secondary">leveller</div>
+              <!-- <div class="text-secondary">leveller</div>
+              <div class="text-secondary">leveller</div> -->
             </div>
-            <div v-if="profile.loggedIn" class="footer__column-content">
+            <div v-if="profile.loggedIn" class=" nfts footer__column-content">
               <div >Your NFTs</div>
               <div><router-link to="/my-account">All Your Nft's</router-link></div>
               <!-- <div v-on:click="topFunction()"><router-link to="/create">Add an NFT</router-link></div> -->
@@ -27,10 +27,10 @@
                 || profile.stxAddress == 'ST28QQXAKCFWG7M956JPCJK0AT9FTSJ2DW27BX7ER'
                 || profile.stxAddress == 'ST1C3ERA3SJYNEWV4AK4JN6TDY7CMDKHA92YZDTSX'"
                 to="/admin-collection-mint" >Admin</router-link>
-                <div v-else class="text-secondary">leveller</div>
+                <!-- <div v-else class="text-secondary">leveller</div> -->
               </div>
-              <div class="text-secondary">leveller</div>
-              <div class="text-secondary">leveller</div>
+              <!-- <div class="text-secondary">leveller</div> -->
+              <!-- <div class="text-secondary">leveller</div> -->
             </div>
             <div class="footer__column-content">
               <div>Risidio</div>
@@ -142,7 +142,9 @@ footer .container {
   padding-top: 90px;
   padding-bottom: 50px;
 }
-
+.marketPlace{
+margin-bottom: 54px;
+}
 footer a {
   color: #fff !important;
   }
@@ -163,7 +165,9 @@ footer .navbar-brand {
   font-size: 1.2rem;
   color: #fff;
 }
-
+.nfts{
+  margin-bottom: 81px;
+}
 /* FOOTER CONTENT COLUMN */
 .columns3-content__container {
   align-items: flex-end;
@@ -180,7 +184,10 @@ footer .navbar-brand {
 .footer__column-content div:first-child {
   font-weight: 300;
   color: #E3E3E3;
-  margin-bottom: 15px;
+  /* margin-bottom: 15px; */
+}
+.discord-logo{
+  width: 14px;
 }
 
 .footer__column-content div {

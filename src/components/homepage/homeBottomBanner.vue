@@ -2,16 +2,16 @@
     <section class="homeBottomBanner">
         <div v-if="profile.loggedIn" class="homeBottomContainer">
             <h2>{{content.bottomcontent[0].maintitle[0].text}}</h2>
-            <h3>{{content.bottomcontent[0].text[0].text}}<br/>
-            {{content.bottomcontent[0].text[1].text}}</h3>
+            <p>{{content.bottomcontent[0].text[0].text}}<br/>
+            {{content.bottomcontent[0].text[1].text}}</p>
             <div class="buttonCont">
                 <router-link class="button notFilled" to="/how-it-works"> Find Out More </router-link>
             </div>
         </div>
         <div v-else class="homeBottomContainer">
             <h2>{{content.bottomcontent[0].maintitle[0].text}}</h2>
-            <h3>{{content.bottomcontent[0].text[0].text}}<br/>
-            {{content.bottomcontent[0].text[1].text}}</h3>
+            <p>{{content.bottomcontent[0].text[0].text}}<br/>
+            {{content.bottomcontent[0].text[1].text}}</p>
             <div class="buttonCont">
                 <button class="button filled" @click="startLogin"> Connect with Hiro Wallet</button>
                 <router-link class="button notFilled" to="/how-it-works"> Find Out More </router-link>
@@ -77,7 +77,7 @@ export default {
   margin-bottom: 50px;
   color: white;
 }
-.homeBottomContainer h3 {
+.homeBottomContainer p {
   font-size: 17px;
   color: white;
   margin-bottom: 50px;

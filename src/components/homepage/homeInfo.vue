@@ -1,8 +1,8 @@
 <template>
     <section class="homeInfo">
                 <div class="homeText">
-            <h1 style="font: normal normal bold 17px/20px Montserrat;">{{content.needahand[0].needtitle[0].text}} </h1>
-            <h2 style="font: normal normal 200 40px/49px Montserrat;"> {{content.needahand[0].needtitle2[0].text}} </h2>
+            <h2 style="font: normal normal bold 17px/20px Montserrat;">{{content.needahand[0].needtitle[0].text}} </h2>
+            <p style="font: normal normal 200 40px/49px Montserrat;"> {{content.needahand[0].needtitle2[0].text}} </p>
         </div>
    <div v-if="windowWidth < 840">
         <vueper-slides
@@ -25,7 +25,7 @@
                     <div>
                         <div v-if="slide.id==1"  class="textCon slide-con">
                             <img src='https://res.cloudinary.com/risidio/image/upload/v1637162044/RisidioMarketplace/002-distributed_ledger_b4tq2s.svg'/>
-                            <p style="font-size: 14px; font-weight: 700;"> {{content.needahand[0].sell[0].text}}  <br/><br/></p>
+                            <h3 style="margin-bottom: 20px; color: white; font-size: 14px; font-weight: 700;"> {{content.needahand[0].sell[0].text}}  <br/><br/></h3>
                             <p class="homeInfoText">{{content.needahand[0].selltext[0].text}} </p><br/>
                             <router-link style="width:200px; margin:auto; text-align: center; padding: auto" class='button notFilled' to="/my-account"> <span style="margin: auto"  class="notFilledButtonText">My NFTs</span> </router-link>
                         </div>
@@ -35,7 +35,7 @@
                     <div>
                         <div v-if="slide.id==2" class="textCon slide-con">
                         <img src='https://res.cloudinary.com/risidio/image/upload/v1637162045/RisidioMarketplace/009-coin_ojj2mp.svg'/>
-                            <p style="font-size: 14px; font-weight: 700;"> {{content.needahand[0].buy[0].text}}  <br/></p>
+                            <h3 style="margin-bottom: 20px; color: white; font-size: 14px; font-weight: 700;"> {{content.needahand[0].buy[0].text}}  <br/></h3>
                             <p class="homeInfoText">{{content.needahand[0].buytext[0].text}} </p>
                             <router-link style="width:200px; margin:auto; text-align: center; padding: auto" class='button notFilled' to="/nft-marketplace"> <span style="margin: auto" class="notFilledButtonText">Gallery</span> </router-link>
                         </div>
@@ -50,7 +50,7 @@
                         <div v-if="slide.id==1"  class="textCon slide-con-not-logged" >
                             <!-- <h1 class="oneTwoThreeFour">3</h1> -->
                             <img src='https://res.cloudinary.com/risidio/image/upload/v1637162044/RisidioMarketplace/002-distributed_ledger_b4tq2s.svg'/>
-                            <p style="font-size: 14px; font-weight: 700;"> {{content.needahand[0].sell[0].text}}  <br/><br/></p>
+                            <h3 style="margin-bottom: 20px; color: white; font-size: 14h3x; font-weight: 700;"> {{content.needahand[0].sell[0].text}}  <br/><br/></h3>
                             <p class="homeInfoText">{{content.needahand[0].selltext[0].text}} </p>
                         <!-- <button class='button notFilled'> My NFTs </button> -->
                         </div>
@@ -61,7 +61,7 @@
                         <div v-if="slide.id==2" class="textCon slide-con-not-logged">
                             <!-- <h1 class="oneTwoThreeFour">4</h1> -->
                         <img src='https://res.cloudinary.com/risidio/image/upload/v1637162045/RisidioMarketplace/009-coin_ojj2mp.svg'/>
-                            <p style="font-size: 14px; font-weight: 700;"> {{content.needahand[0].buy[0].text}}  <br/><br/></p>
+                            <h3 style=" margin-bottom: 20px; color: white; font-size: 14px; font-weight: 700;"> {{content.needahand[0].buy[0].text}}  <br/><br/></h3>
                             <p class="homeInfoText">{{content.needahand[0].buytext[0].text}} </p>
                          <!-- <button  class='button notFilled'> Gallery </button> -->
                         </div>
@@ -80,7 +80,7 @@
                     <div>
                         <div class="textCon slide-con">
                             <img src='https://res.cloudinary.com/risidio/image/upload/v1637162044/RisidioMarketplace/002-distributed_ledger_b4tq2s.svg'/>
-                            <p style="font-size: 14px; font-weight: 700;"> {{content.needahand[0].sell[0].text}}  <br/><br/></p>
+                            <h3 style="margin-bottom: 20px; color: white; font-size: 14px; font-weight: 700;"> {{content.needahand[0].sell[0].text}}  <br/><br/></h3>
                             <p class="homeInfoText">{{content.needahand[0].selltext[0].text}} </p><br/>
                             <router-link style="width:200px; margin:auto; text-align: center; padding: auto" class='button notFilled' to="/my-account"> <span style="margin: auto"  class="notFilledButtonText">My NFTs</span> </router-link>
                         </div>
@@ -90,7 +90,7 @@
                     <div>
                         <div class="textCon slide-con">
                         <img src='https://res.cloudinary.com/risidio/image/upload/v1637162045/RisidioMarketplace/009-coin_ojj2mp.svg'/>
-                            <p style="font-size: 14px; font-weight: 700;"> {{content.needahand[0].buy[0].text}}  <br/></p>
+                            <h3 style="margin-bottom: 20px; color: white; font-size: 14px; font-weight: 700;"> {{content.needahand[0].buy[0].text}}  <br/></h3>
                             <p class="homeInfoText">{{content.needahand[0].buytext[0].text}} </p>
                             <router-link style="width:200px; margin:auto; text-align: center; padding: auto" class='button notFilled' to="/nft-marketplace"> <span style="margin: auto" class="notFilledButtonText">Gallery</span> </router-link>
                         </div>
