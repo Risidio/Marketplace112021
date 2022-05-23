@@ -145,6 +145,10 @@ p {
   max-width: 1800px;
   margin: auto;
 }
+.galleryNavContainer{
+  width: 600px;
+  justify-content: space-between;
+}
 .comingSoon {
   display: grid;
   place-items: center;
