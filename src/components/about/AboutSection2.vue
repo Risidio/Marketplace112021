@@ -124,6 +124,14 @@ export default {
   // max-width: 600px;
 
 }
+.button{
+  display: inline-block;
+  margin-top: -10px;
+}
+@media only screen and (max-width: 550px){
+  .button {
+}
+}
 h1{
   padding-bottom: 25px;
   text-align: center;
