@@ -64,7 +64,7 @@
                   <input type="text" placeholder="Looking for anything in particular ?" name="search" :value="currentSearch" @change="searching($event.target.value)" class="mobilesearch">
                   <img class="mobileimage" src="https://res.cloudinary.com/risidio/image/upload/v1637238428/RisidioMarketplace/magnifying-search-lenses-tool_yaatpo.svg">
                 </div>
-                <div class="sorting">
+                <div>
                  <div><h1 class="mobileview">View</h1></div>
                      <div class="dropdown_option_containerM" ref="allMenu"> <button class="collectionsButtonM" @click="all = !all"> All <img class="arrow2" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></button>
                         <div @click="all = false" v-show="all" class="dropdown_option_showM" >
@@ -83,8 +83,18 @@
                         </div>
                       </div>
                    </div>
-                <p class="mobilefilter"  v-on:click="toggleFilter()">Filter results</p>
-                <div>
+                  <div class="filterResultsContainer">
+                    <div v-if="grid" v-on:click="changeGrid()" class="gridDisplayOptions">
+                      <img  src="../assets/img/gridDisplay.svg">
+                      <img  src="../assets/img/normalDisplay.svg">
+                    </div>
+                    <div v-else v-on:click="changeGrid()" class="gridDisplayOptions">
+                      <img src="https://res.cloudinary.com/risidio/image/upload/v1649167477/RisidioMarketplace/imagebar1_px1ppz.png">
+                      <img src="https://res.cloudinary.com/risidio/image/upload/v1649167498/RisidioMarketplace/imagebar2_ohxsez.png">
+                    </div>
+                    <span class="mobilefilter"  v-on:click="toggleFilter()">Filter results</span>
+                </div>
+                 <div>
                   <div v-if="filterToggle" class="toggleFilterContainer">
                   <div class="crossIcon">
                     <b-icon v-on:click="toggleFilter()" icon="x" variant="primary"></b-icon>
@@ -101,16 +111,6 @@
                     </div>
                   </div>
                  </div>
-                </div>
-                  <div>
-                    <div v-if="grid" v-on:click="changeGrid()" class="gridDisplayOptions">
-                      <img  src="../assets/img/gridDisplay.svg">
-                      <img  src="../assets/img/normalDisplay.svg">
-                    </div>
-                    <div v-else v-on:click="changeGrid()" class="gridDisplayOptions">
-                      <img src="https://res.cloudinary.com/risidio/image/upload/v1649167477/RisidioMarketplace/imagebar1_px1ppz.png">
-                      <img src="https://res.cloudinary.com/risidio/image/upload/v1649167498/RisidioMarketplace/imagebar2_ohxsez.png">
-                    </div>
                 </div>
             </div>
                <div v-if="resultSet && view == 'squared' && searched.length == 0" class="mobilegallerySquare">
@@ -445,6 +445,12 @@ export default {
   height: 121;
   padding: 20px;
 }
+.filterResultsContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+}
 .collectionsMenuSide {
   display: none;
 }
@@ -511,9 +517,6 @@ export default {
   margin-left: 220px;
   font-size: 14px;
 }
-.sorting {
-  margin-top: -20px;
-}
 .sort-by {
   margin-top: -60px;
   margin-left: 210px;
@@ -545,8 +548,6 @@ export default {
   font-size: 13px;
   font-weight: 800;
   color: #5fbdc1;
-  margin-top: -32px;
-  text-align: right;
   cursor: pointer;
 }
 .blue {
