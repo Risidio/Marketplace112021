@@ -23,7 +23,7 @@
           <template #content>
             <div v-if="slide.id==1" class = "container">
               <div class = "textContainer">
-                <h1 style="font: normal normal 300 37px/30px Montserrat; color: white; margin-bottom: 50px;">{{content.aboutsection2[0].abouttitle[0].text}}</h1>
+                <h2 style="font: normal normal 300 37px/30px Montserrat; color: white; margin-bottom: 50px;">{{content.aboutsection2[0].abouttitle[0].text}}</h2>
                 <p style="color: white; font: normal normal normal 14px/20px Montserrat; max-width: 600px">{{content.aboutsection2[0].abouttext[0].text}}<br><br>
                   {{content.aboutsection2[0].abouttext1[0].text}}</p>
                 <div class="m-5 d-flex justify-content-center">
@@ -33,7 +33,7 @@
             </div>
             <div v-if="slide.id==2" class = "container">
               <div class = "textContainer">
-                <h1 style="font: normal normal 300 37px/30px Montserrat; color: white; margin-bottom: 50px;">{{content.aboutsection2[1].abouttitle[0].text}}</h1>
+                <h2 style="font: normal normal 300 37px/30px Montserrat; color: white; margin-bottom: 50px;">{{content.aboutsection2[1].abouttitle[0].text}}</h2>
                 <p style="color: white; font: normal normal normal 14px/20px Montserrat; max-width: 600px">{{content.aboutsection2[1].abouttext[0].text}}<br><br></p>
                 <div class="m-5 d-flex justify-content-center">
                   <a title="read more about us" target="_blank" href="https://risidio.com/aboutus"><button class="button filled">Read More</button></a>

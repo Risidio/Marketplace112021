@@ -4,13 +4,13 @@
         <div class="mainGalleryContainer">
             <div class="mainGallerySidebar">
                 <div class="galleryCollections">
-                  <button class="collectionsButton" v-on:click="showCollections()">Collections <img class="arrow1 active" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></button>
+                  <h1 class="collectionsButton" v-on:click="showCollections()">Collections <img class="arrow1 active" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></h1>
                   <div class="collectionsMenu active" v-if="allLoopRuns">
                     <div class="collectionMenuContainer">
-                      <router-link :to="'/nft-marketplace/all/0'">All</router-link>
+                      <h2 style="margin: 0;"><router-link :to="'/nft-marketplace/all/0'">All</router-link></h2>
                     </div>
                     <div v-for="(item, index) in allLoopRuns" :key="index" class="collectionMenuContainer">
-                      <router-link :to="'/nft-marketplace/' + item.contractId + '/0'">{{item.currentRun}}</router-link>
+                      <h2 style="margin: 0;"><router-link :to="'/nft-marketplace/' + item.contractId + '/0'">{{item.currentRun}}</router-link></h2>
                     </div>
                   </div>
                 </div>
@@ -90,13 +90,13 @@
                     <b-icon v-on:click="toggleFilter()" icon="x" variant="primary"></b-icon>
                   </div>
                    <div class="collectionOption">
-                    <button class="filterCollection" v-on:click="toggleCollections()">Collections <img :class="collectionToggle ? 'arrow1 active' : 'arrow1'" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></button>
+                    <h2 class="filterCollection" v-on:click="toggleCollections()">Collections <img :class="collectionToggle ? 'arrow1 active' : 'arrow1'" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></h2>
                     <div :class="collectionToggle ? 'collectionsMenuSide active' : 'collectionsMenuSide'">
                       <div class="collectionMenuContainer" v-on:click="toggleFilter()">
-                        <router-link :to="'/nft-marketplace/all/0'">All</router-link>
+                        <h3 style="margin: 0;"><router-link :to="'/nft-marketplace/all/0'">All</router-link></h3>
                       </div>
                       <div v-for="(item, index) in allLoopRuns" :key="index" class="collectionMenuContainer" v-on:click="toggleFilter()">
-                        <router-link :to="'/nft-marketplace/' + item.contractId + '/0'">{{item.currentRun}}</router-link>
+                        <h3 style="margin: 0;"><router-link :to="'/nft-marketplace/' + item.contractId + '/0'">{{item.currentRun}}</router-link></h3>
                       </div>
                     </div>
                   </div>
