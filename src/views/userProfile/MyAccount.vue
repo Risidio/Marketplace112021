@@ -531,6 +531,7 @@ export default {
 .galleryNavContainer{
   width: 710px;
   justify-content: space-between;
+  margin-bottom: -12px;
 }
 .wantMore {
   display: block;
