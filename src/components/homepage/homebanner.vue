@@ -29,7 +29,7 @@
                 v-for="(slide) in slide"
                 :key="slide.id">
                     <template #content>
-                        <div v-if="slide.id==1" class = "slideContainer">
+                        <!-- <div v-if="slide.id==1" class = "slideContainer">
                             <div class="slideImage">
                               <h2 class="mobileHeader">{{content.heroarea[1].herotitle[0].text}}</h2>
                               <div class="collectionImageBack">
@@ -52,10 +52,10 @@
                               <p class="slide-text-p"> {{content.heroarea[1].herotext[0].text}}</p>
                               <router-link to="/numberone_roots"><button class="button filled"> See The Collection </button></router-link>
                             </div>
-                        </div>
-                          <div v-if="slide.id == 2" class = "slideContainer">
+                        </div> -->
+                          <div v-if="slide.id == 1" class = "slideContainer">
                             <div class="slideImage">
-                            <h2 class="mobileHeader"> The Indige Collection</h2>
+                            <h1 class="mobileHeader"> The Indige Collection</h1>
                               <div class="collectionImageBack">
                                 <img
                                 src="@/assets/img/indigeImages/indige-40.jpg"
@@ -72,14 +72,14 @@
                               </div>
                             </div>
                             <div class="slideText">
-                              <h2 class="notMobileHeader">The Indige Collection</h2>
+                              <h1 class="notMobileHeader">The Indige Collection</h1>
                               <p class="slide-text-p"> {{content.heroarea[3].herotext[0].text}}</p>
                               <router-link to="/indige_mirror/0"><button class="button filled"> See The Collection </button></router-link>
                             </div>
                         </div>
-                        <div v-if="slide.id == 3" class = "slideContainer">
+                        <div v-if="slide.id == 2" class = "slideContainer">
                             <div class="slideImage">
-                            <h2 class="mobileHeader">{{content.heroarea[2].herotitle[0].text}}</h2>
+                            <h1 class="mobileHeader">{{content.heroarea[2].herotitle[0].text}}</h1>
                               <div class="collectionImageBack">
                                 <img
                                 src="https://res.cloudinary.com/risidio/image/upload/f_auto/RisidioMarketplace/Screenshot_2022-02-07_110034_vy0tyl.png"
@@ -96,7 +96,7 @@
                               </div>
                             </div>
                             <div class="slideText">
-                              <h2 class="notMobileHeader">{{content.heroarea[2].herotitle[0].text}}</h2>
+                              <h1 class="notMobileHeader">{{content.heroarea[2].herotitle[0].text}}</h1>
                               <p class="slide-text-p"> {{content.heroarea[2].herotext[0].text}}</p>
                               <button class="button filled"> Coming soon </button>
                             </div>
@@ -124,14 +124,14 @@
     <div v-else>
         <div class="slideContainerNotLogged" >
             <div class="notLoggedCont">
-              <h2 class="mobileHeader"> {{content.heroarea[0].herotitle[0].text}}</h2>
+              <h1 class="mobileHeader"> {{content.heroarea[0].herotitle[0].text}}</h1>
               <video class="home-video"
               src="https://res.cloudinary.com/risidio/video/upload/v1639140586/RisidioMarketplace/Latest_Risidio_Video_by_Fizan_100721_5_r3o1or.mp4"
               controls
               ></video>
             </div>
             <div class="slideText slideText-notLogged">
-              <h2 class="notMobileHeader" style="margin-top: 50px;"> {{content.heroarea[0].herotitle[0].text}}</h2>
+              <h1 class="notMobileHeader" style="margin-top: 50px;"> {{content.heroarea[0].herotitle[0].text}}</h1>
               <p class="slide-text-p">{{content.heroarea[0].herotext[0].text}}</p><br/>
               <div class="bannerButtonContainer">
                 <router-link to="/hiro-wallet" ><button class="button filled">Get Your Hiro Wallet To Start</button></router-link><br/>
@@ -178,11 +178,11 @@ export default {
       {
         id: '2',
         text: 'Collection'
-      },
-      {
-        id: '3',
-        text: 'Collection'
       }
+      // {
+      //   id: '3',
+      //   text: 'Collection'
+      // }
     ],
     return: {
       resultSet: [],

@@ -1,11 +1,11 @@
 <template>
   <div class = "hS3_container">
-    <h1>{{ content.howsection2_title[0].text }}</h1>
+    <h2>{{ content.howsection2_title[0].text }}</h2>
 
     <div class="question-container" v-for="(item, index) in content.howsection2" :key="index">
     <div v-if="index == 0 || index == 3"> <!-- comment this code out to return all the text on prismic-->
       <button v-b-toggle="`question-${index}`" @click="isCollapsed.splice(index, 1, !isCollapsed[index])" class="question-button">
-        {{ item.subtitle[0].text }}
+        <h3>{{ item.subtitle[0].text }}</h3>
         <b-icon v-if="isCollapsed[index]" icon="x"></b-icon>
         <b-icon v-else icon="info-circle"></b-icon>
       </button>
@@ -48,7 +48,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .hS3_container {
   justify-content: center;
   background-color:#170A6D;
@@ -58,8 +58,6 @@ export default {
   display: flex;
   align-items: center;
   font: normal normal 300 25px/30px Montserrat;
-  letter-spacing: 0px;
-  color: #170A6D;
   text-align: left;
   margin: 0 auto 23px;
   padding: 20px 30px;
@@ -70,6 +68,10 @@ export default {
   box-shadow: 0px 3px 6px #00000029;
   border-radius: 15px;
   border: none;
+  h3{
+    letter-spacing: 0px;
+    color: #170A6D;
+  }
 }
 .question-button.not-collapsed {
   border-radius: 6px 6px 0 0;
@@ -112,7 +114,7 @@ export default {
   padding-right: 30px;
   margin-top: 50px;
 }
-h1{
+h2{
   color:white;
   font: normal normal 300 37px/30px Montserrat;
   text-align: center;

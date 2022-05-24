@@ -21,7 +21,7 @@
 </div>
 <div class="nav-container">
     <div class = "mainNavbar">
-        <router-link class="risidioLogo" to="/"><img v-on:click="isLayer ? mobileNavebar() : '' " width="150px;" :src="logo" alt="risidio-logo"/></router-link>
+        <img @click="$router.push('/'), mobileNavebar()" width="150px;" :src="logo" alt="risidio-logo"/>
         <div class="toggle-button" v-on:click="mobileNavebar()">
           <span class="bar"></span>
           <span class="bar"></span>
@@ -31,7 +31,7 @@
           <div class="nav-items" v-on:click="isLayer ? mobileNavebar() : '' ">
             <router-link class="nav-links bold" to="/nft-marketplace">Explore</router-link>
           </div>
-            <div style="position: relative; margin-top: 2px;" @click="openMenu()" id="dropDown" class="dropDown">
+            <div style="position: relative; margin-top: 2px;" @click="openMenu()" ref="dropDown" class="dropDown">
               <p id="dropDown-1" class="nav-items bold" > Featured Collections <img class="arrow2" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></p>
               <p id="dropDown-2" class="featured" > Featured Collections <img style="margin-left: 8px;" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></p>
               <div id="dropDown-3" class="dropdownMenu">
@@ -55,7 +55,7 @@
            <div class="nav-items" v-on:click="isLayer ? mobileNavebar() : '' ">
             <router-link class="bold nav-bar" to="/nft-marketplace" >Explore</router-link>
            </div>
-            <div style="position: relative; margin-top: 2px;" @click="openMenu()" id="dropDown" class="dropDown">
+            <div style="position: relative; margin-top: 2px;" @click="openMenu()" ref="dropDown" class="dropDown">
               <p id="dropDown-1" class="nav-items bold" > Featured Collections <img class="arrow2" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></p>
               <p id="dropDown-2" class="featured" > Featured Collections <img style="margin-left: 8px;" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></p>
               <div id="dropDown-3" class="dropdownMenu">
@@ -102,27 +102,23 @@ export default {
       isLayer: false
     }
   },
-  created () {
-    window.addEventListener('click', function (e) {
-      const x = document.getElementById('dropDown')
-      const one = document.getElementById('dropDown-1')
-      const two = document.getElementById('dropDown-2')
-      const three = document.getElementById('dropDown-3')
-      const four = document.getElementById('dropDown-4')
-      const featured = document.getElementsByClassName('featured')[0]
-      const dropDownMenu = document.getElementsByClassName('dropdownMenu')[0]
-      if (e.target === x || e.target === one || e.target === two || e.target === three || e.target === four) {
-      } else {
-        featured.classList.remove('show')
-        dropDownMenu.classList.remove('show')
-      }
-    })
-  },
   mounted () {
+    const $self = this
+    window.addEventListener('click', function (e) {
+      $self.close(e)
+    })
     this.makerUrlKey = this.$route.params.makerß
     this.currentRunKey = this.$route.params.collection
   },
   methods: {
+    close (e) {
+      const featured = document.getElementsByClassName('featured')[0]
+      const dropDownMenu = document.getElementsByClassName('dropdownMenu')[0]
+      if (!this.$refs?.dropDown?.contains(e.target)) {
+        featured.classList.remove('show')
+        dropDownMenu.classList.remove('show')
+      }
+    },
     linkTo (data) {
       this.$router.push(`/${data.currentRunKey}`)
     },
@@ -151,7 +147,7 @@ export default {
         this.$emit('connect-login', myProfile)
       } else {
         this.$store.dispatch('rpayAuthStore/startLogin').then((profile) => {
-          // location.reload()
+          location.reload()
         }).catch(() => {
           this.$store.commit(APP_CONSTANTS.SET_WEB_WALLET_NEEDED)
           // window.open('https://www.hiro.so/wallet', '_blank')
@@ -282,6 +278,9 @@ export default {
   max-width: 1600px;
   padding: 20px 20px;
   position: relative;
+  img {
+    cursor: pointer;
+  }
 }
 /* NAVBAR PADDING AND WIDTH */
 .nav_banner {
@@ -508,8 +507,8 @@ export default {
 #howItWorks {
   margin-left: auto;
 }
-.nav-bar{
- border-bottom: 3px solid transparent;
+.nav-bar {
+  border-bottom: 3px solid transparent;
   color: white;
   &:hover {
     color: white;
@@ -523,11 +522,13 @@ export default {
   border-bottom: 1px solid white;
   //color: #5fbdc1;
 }
-.nav-items a.nav-links:hover, .nav-items a.nav-links.router-link-active {
+.nav-items a.nav-links:hover,
+.nav-items a.nav-links.router-link-active {
   text-decoration: underline;
   text-underline-offset: 3px;
 }
-.nav-items a.nav-bar:hover, .nav-items a.nav-bar.router-link-active {
+.nav-items a.nav-bar:hover,
+.nav-items a.nav-bar.router-link-active {
   text-decoration: underline;
   text-underline-offset: 3px;
 }

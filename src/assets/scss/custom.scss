@@ -559,9 +559,13 @@ select {
 	width: 255px;
 	height: 320px;
 	padding: 20px;
-	margin: 2rem;
 	cursor: pointer;
 	transition: all 0.2s ease-in-out;
+}
+@media (max-width: 550px) {
+.NFTbackgroundColour {
+	margin-top: 40px;
+}
 }
 
 .NFTbackgroundColour-buy {
@@ -594,7 +598,7 @@ select {
 
 .galleryNavContainer {
 	margin: auto;
-	margin-bottom: -1px;
+	// margin-bottom: -1px;
 	display: flex;
 	flex-direction: row;
 }
@@ -1018,4 +1022,5 @@ select {
 			width: 10px;
 		}
 	}
+
 }

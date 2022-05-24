@@ -6,17 +6,17 @@
       <div class="row m-0 d-flex">
         <div class="col-lg-5 col-12 d-flex flex-column justify-content-center align-items-lg-start align-items-center">
           <router-link to="/" class="navbar-brand text-black"><img :src="logo" alt="risidio-logo" class="footer-logo"/></router-link>
-          <p class="footer__pitch">{{content.footertext[0].text}}</p>
+          <p class="footer__pitch" v-if="content && content.footertext[0]">{{content.footertext[0].text}}</p>
         </div>
         <div class="col-lg-7 col-12 d-flex columns3-content__container">
-            <div class="footer__column-content ml-lg-auto">
+            <div  class=" marketPlace footer__column-content ml-lg-auto">
               <div> Marketplace</div>
-              <div v-on:click="topFunction()"><router-link to="/nft-marketplace">Gallery</router-link></div>
-              <div v-on:click="topFunction()"><router-link to="/how-it-works">How It Works</router-link></div>
-              <div class="text-secondary">leveller</div>
-              <div class="text-secondary">leveller</div>
+              <div><router-link to="/nft-marketplace">Gallery</router-link></div>
+              <div><router-link to="/how-it-works">How It Works</router-link></div>
+              <!-- <div class="text-secondary">leveller</div>
+              <div class="text-secondary">leveller</div> -->
             </div>
-            <div v-if="profile.loggedIn" class="footer__column-content">
+            <div v-if="profile.loggedIn" class=" nfts footer__column-content">
               <div >Your NFTs</div>
               <div v-on:click="topFunction()"><router-link to="/my-account">All Your NFTs</router-link></div>
               <!-- <div v-on:click="topFunction()"><router-link to="/create">Add an NFT</router-link></div> -->
@@ -27,10 +27,10 @@
                 || profile.stxAddress == 'ST28QQXAKCFWG7M956JPCJK0AT9FTSJ2DW27BX7ER'
                 || profile.stxAddress == 'ST1C3ERA3SJYNEWV4AK4JN6TDY7CMDKHA92YZDTSX'"
                 to="/admin-collection-mint" >Admin</router-link>
-                <div v-else class="text-secondary">leveller</div>
+                <!-- <div v-else class="text-secondary">leveller</div> -->
               </div>
-              <div class="text-secondary">leveller</div>
-              <div class="text-secondary">leveller</div>
+              <!-- <div class="text-secondary">leveller</div> -->
+              <!-- <div class="text-secondary">leveller</div> -->
             </div>
             <div class="footer__column-content">
               <div>Risidio</div>
@@ -38,10 +38,10 @@
               <div v-on:click="topFunction()"><router-link to="/about">What We Do</router-link></div>
               <div v-on:click="topFunction()"><router-link to="/about">Work With Us</router-link></div>
               <div v-on:click="topFunction()"><router-link to="/about">Get in Touch</router-link></div>-->
-              <div v-on:click="topFunction()"><a  href="https://risidio.com/aboutus" target="_blank">Who We Are</a></div>
-              <div v-on:click="topFunction()"><a  href="https://risidio.com/our-work" target="_blank">What We Do</a></div>
-              <div v-on:click="topFunction()"><a  href="https://risidio.com/" target="_blank">Work With Us</a></div>
-              <div v-on:click="topFunction()"><a  href="https://risidio.com/contact" target="_blank">Get in Touch</a></div>
+              <div><a  href="https://risidio.com/aboutus" target="_blank">Who We Are</a></div>
+              <div><a  href="https://risidio.com/our-work" target="_blank">What We Do</a></div>
+              <div><a  href="https://risidio.com/" target="_blank">Work With Us</a></div>
+              <div><a  href="https://risidio.com/contact" target="_blank">Get in Touch</a></div>
             </div>
         </div>
       </div>
@@ -51,7 +51,7 @@
           &copy; &nbsp; Risidio Ltd. All right reserved.
         </div>
         <div class="social-media">
-         <div><a href="https://discord.gg/nmKx5WkPaG" target="_blank"><img :src="discordLogo" alt="discord-logo" class="discord-logo"></a></div>
+         <div><a href="https://discord.gg/nmKx5WkPaG" target="_blank"><img :src="discordLogo" alt="discord-logo" class="discord-logo" style="width : 14px; "></a></div>
          <div><a href="https://www.instagram.com/risidio_official/" target="_blank"><img :src="instagramLogo" alt="instagram-logo" class="instagram-logo"></a></div>
           <div><a href="https://twitter.com/Risidio1" target="_blank"><img :src="twitterLogo" alt="twitter-logo" class="twitter-logo"></a></div>
           <!--<a href="https://www.youtube.com/channel/UCrMDxxhMvpeyErw7m92IIXA/featured"><img :src="youtubeLogo" alt="youtube-logo"></a> -->
@@ -142,7 +142,9 @@ footer .container {
   padding-top: 90px;
   padding-bottom: 50px;
 }
-
+.marketPlace{
+margin-bottom: 54px;
+}
 footer a {
   color: #fff !important;
   }
@@ -163,7 +165,9 @@ footer .navbar-brand {
   font-size: 1.2rem;
   color: #fff;
 }
-
+.nfts{
+  margin-bottom: 81px;
+}
 /* FOOTER CONTENT COLUMN */
 .columns3-content__container {
   align-items: flex-end;
@@ -180,7 +184,10 @@ footer .navbar-brand {
 .footer__column-content div:first-child {
   font-weight: 300;
   color: #E3E3E3;
-  margin-bottom: 15px;
+  /* margin-bottom: 15px; */
+}
+.discord-logo{
+  width: 14px;
 }
 
 .footer__column-content div {
@@ -214,12 +221,12 @@ footer .navbar-brand {
 }
 .social-media{
   width: 100px;
-   display: flex;
+  display: flex;
   align-items: center;
   justify-content: space-around ;
 }
 .social-media :hover{
-  transform: scale(1.3);
+  transform: scale(1.1);
 }
 
 /* FOOTER ON MOBILE */

@@ -3,7 +3,7 @@
   <b-nav class="galleryNav" >
     <div class="galleryNavContainer" >
       <b-nav-item class="galleryNavItem active" id="discover" @click="tabChange('discover')">Discover</b-nav-item>
-      <b-nav-item class="galleryNavItem" style="margin-left: 50px " id="collections" @click="tabChange('collections')">Collections</b-nav-item>
+      <b-nav-item class="galleryNavItem" id="collections" @click="tabChange('collections')">Collections</b-nav-item>
       <!-- <b-nav-item class="galleryNavItem" @click="tabChange('Your NFT')">Your NFT's</b-nav-item> -->
     </div>
   </b-nav>
@@ -144,6 +144,10 @@ p {
 .homeMarketItems {
   max-width: 1800px;
   margin: auto;
+}
+.galleryNavContainer{
+  width: 600px;
+  justify-content: space-between;
 }
 .comingSoon {
   display: grid;

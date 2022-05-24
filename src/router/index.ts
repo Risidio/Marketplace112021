@@ -74,7 +74,7 @@ const routes: Array<RouteConfig> = [
   },
   {
     path: '/nft-marketplace/',
-    redirect: './nft-marketplace/ST1NXBK3K5YYMD6FD41MVNP3JS1GABZ8TRVX023PT.rmart-t1/0'
+    redirect: './nft-marketplace/ST1NXBK3K5YYMD6FD41MVNP3JS1GABZ8TRVX023PT.risidio-indige/0'
   },
   {
     path: '/nft-marketplace/:title/:page',
@@ -108,7 +108,7 @@ const routes: Array<RouteConfig> = [
   },
   {
     path: '/indige_mirror/',
-    redirect: './indige_mirror/0'
+    redirect: './risidio_indige/0'
   },
   {
     path: '/risidio_indige/',
@@ -180,6 +180,8 @@ const router = new VueRouter({
   routes,
   scrollBehavior (to, from, savedPosition) {
     if (savedPosition) {
+      return savedPosition
+    } else if (to.hash) {
       return savedPosition
     } else {
       return { x: 0, y: 0 }

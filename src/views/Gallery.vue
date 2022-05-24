@@ -1,19 +1,16 @@
 <template>
     <section class="mainGallery">
+    <div v-on:click="toggleFilter()" :class="isLayer ? 'overlay' : ''"></div>
         <div class="mainGalleryContainer">
             <div class="mainGallerySidebar">
                 <div class="galleryCollections">
-                  <button class="collectionsButton" v-on:click="showCollections()">Collections <img class="arrow1 active" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></button>
-                  <div class="collectionsMenu active" v-if="projects">
-                    <input class="collectionItemRadio" type="radio" @click="$router.push('/nft-marketplace/' + 'all' + '/' + '0')" name="radio">
-                    <label class="collectionItems">All</label>
-                    <div v-for="(item, index) in projects" :key="index" class="collectionMenuContainer">
-                    <!--  <input @click="$router.push('/nft-marketplace/' + item.contractId)" class="collectionItemRadio" type="radio" :id="item.title"
-                      name="radio" :value="index"
-                      :checked="$route.params.title === item.contractId ? true : false"
-                      >-->
-                      <label class="collectionItems"  @click="$router.push('/nft-marketplace/' + item.contractId)"
-                      :checked="$route.params.title === item.contractId ? true : false">{{item.title}}</label>
+                  <h1 class="collectionsButton" v-on:click="showCollections()">Collections <img class="arrow1 active" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></h1>
+                  <div class="collectionsMenu active" v-if="allLoopRuns">
+                    <div class="collectionMenuContainer">
+                      <h2 style="margin: 0;"><router-link :to="'/nft-marketplace/all/0'">All</router-link></h2>
+                    </div>
+                    <div v-for="(item, index) in allLoopRuns" :key="index" class="collectionMenuContainer">
+                      <h2 style="margin: 0;"><router-link :to="'/nft-marketplace/' + item.contractId + '/0'">{{item.currentRun}}</router-link></h2>
                     </div>
                   </div>
                 </div>
@@ -22,26 +19,23 @@
             <div class="mainGalleryBody">
                <div class="filter">
                    <div class="top-elements">
-                        <p class="viewcategory" @click="changeView()">View</p>
-                       <div> <button class="collectionsButton" @click="showHidden1()"> Popular <img class="arrow2" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></button></div>
-                                <div class="dropdown_option_container2">
-                                <div class="dropdown_option_down" style=" font-size:1.4rem; " v-show="isHiddenn"  @click="showHidden1()"> Popular <img  class="arrow3" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></div>
-                               <p class="dropdown_option" v-show="isHiddenn" value="All">Popular by</p>
-                               <p class="dropdown_option" v-show="isHiddenn" value="Category">Popular by</p>
-                               <p class="dropdown_option" v-show="isHiddenn" value="Category">Popular by</p>
-                               <p class="dropdown_option" v-show="isHiddenn" value="Category">Popular by</p>
-                               </div>
-                       <div> <button class="collectionsButton" @click="showHidden()"> Sort by <img class="arrow2" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></button></div>
-                        <div class="dropdown_option_container">
-                         <div class="dropdown_option_down" style=" font-size:1.4rem; " v-show="isHidden"  @click="showHidden()"> Sort by <img  class="arrow3" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></div>
-                               <p class="dropdown_option" v-show="isHidden" value="All">Sort by price</p>
-                               <p class="dropdown_option" v-show="isHidden" value="Category">Sort by price</p>
-                               <p class="dropdown_option" v-show="isHidden" value="Category">sort by price</p>
-                               <p class="dropdown_option" v-show="isHidden" value="Category">Sort by price</p>
+                    <p class="viewcategory">View</p>
+                      <div class="dropdown_option_container" ref="popularMenu"> <button class="collectionsButton" @click="popular = !popular, arrow2on = !arrow2on"> Popular <img :class="arrow2on ? 'arrow1 active' : 'arrow1'" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></button>
+                        <div @click="popular = false" v-show="popular" class="dropdown_option_show" >
+                          <p @click="filter()" class="dropdown_option" value="All">Most Popular<span class="blue"></span></p>
+                          <p @click="filter()" class="dropdown_option" value="Category">Least Popular<span class="blue"></span></p>
+                          <p @click="filter()" class="dropdown_option" value="Category">Recent <span class="blue"></span></p>
+                          <p @click="filter()" class="dropdown_option" value="Category">Old <span class="blue"></span></p>
                         </div>
-                        <div>
-                          <!-- <button @click="showSquare"> display</button> -->
-                       </div>
+                      </div>
+                      <div class="dropdown_option_container" ref="sortMenu"> <button class="collectionsButton" @click="sort = !sort, arrow3on = !arrow3on"> Sort by <img :class="arrow3on ? 'arrow1 active' : 'arrow1'" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></button>
+                        <div @click="sort = false" v-show="sort" class="dropdown_option_show" >
+                          <p @click="filter()" class="dropdown_option" value="All">Price: Low to High <span class="blue"></span></p>
+                          <p @click="filter()" class="dropdown_option" value="Category">Price: High to Low <span class="blue"></span></p>
+                          <p @click="filter()" class="dropdown_option" value="Category">Alphabetical: A-Z <span class="blue"></span></p>
+                          <p @click="filter()" class="dropdown_option" value="Category">Alphabetical: Z-A <span class="blue"></span></p>
+                        </div>
+                      </div>
                     </div>
                     <div class="search-elements">
                         <input class="search" type="text" id="search" name="search" placeholder="Looking for anything in particular ?" :value="currentSearch"  @change="searching($event.target.value)">
@@ -66,48 +60,30 @@
               </div>
             <div class="mobilemainGallery">
               <div class="mobiletop">
-                <div>
-                  <p class="showFilter" v-on:click="toggleFilter()">Show Filter</p>
-                </div>
-                <div>
-                  <div v-if="filterToggle" class="toggleFilterContainer">
-                  <div class="crossIcon">
-                    <b-icon v-on:click="toggleFilter()" icon="x" variant="primary"></b-icon>
-                  </div>
-                   <div class="collectionOption">
-                    <button class="filterCollection" v-on:click="toggleCollections()">Collections <img :class="collectionToggle ? 'arrow1 active' : 'arrow1'" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></button>
-                    <div :class="collectionToggle ? 'collectionsMenuSide active' : 'collectionsMenuSide'">
-                      <div v-for="(item, index) in projects" :key="index" class="collectionMenuContainer">
-                        <input class="collectionItemRadio" type="radio" :id="item.title" name="radio" :value="index" @click="sortCollection(item)">
-                        <label class="collectionItems">{{item.title}}</label>
-                      </div>
-                    </div>
-                  </div>
-                 </div>
-                </div>
                 <div class="search-container">
                   <input type="text" placeholder="Looking for anything in particular ?" name="search" :value="currentSearch" @change="searching($event.target.value)" class="mobilesearch">
                   <img class="mobileimage" src="https://res.cloudinary.com/risidio/image/upload/v1637238428/RisidioMarketplace/magnifying-search-lenses-tool_yaatpo.svg">
                 </div>
-                <div class="sorting">
+                <div>
                  <div><h1 class="mobileview">View</h1></div>
-                  <div><h2 class="all" @click="showHiddenP()">All</h2></div>
-                    <img class="mobilearrow1" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg">
-                      <div class="dropdown_option_container4">
-                        <div class="dropdown_option1" v-show="isHiddenP" value="Category">All by</div>
-                        <div class="dropdown_option1" v-show="isHiddenP" value="Category">All by</div>
-                        <div class="dropdown_option1" v-show="isHiddenP" value="Category">All by</div>
+                     <div class="dropdown_option_containerM" ref="allMenu"> <button class="collectionsButtonM" @click="all = !all, arrow4on = !arrow4on"> Popular <img :class="arrow4on ? 'arrow1 active' : 'arrow1'" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></button>
+                        <div @click="all = false" v-show="all" class="dropdown_option_showM" >
+                          <p @click="filter()" class="dropdown_option" value="All">Most Popular<span class="blue"></span></p>
+                          <p @click="filter()" class="dropdown_option" value="Category">Least Popular<span class="blue"></span></p>
+                          <p @click="filter()" class="dropdown_option" value="Category">Recent <span class="blue"></span></p>
+                          <p @click="filter()" class="dropdown_option" value="Category">Old <span class="blue"></span></p>
+                        </div>
                       </div>
-                    <div><h2 class="sort-by" @click="showHiddenM()">Sort by</h2></div>
-                    <img class="mobilearrow2" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg">
-                      <div class="dropdown_option_container3">
-                        <div class="dropdown_option1" v-show="isHiddenM" value="All">Popular by</div>
-                        <div class="dropdown_option1" v-show="isHiddenM" value="Category">Popular by</div>
-                        <div class="dropdown_option1" v-show="isHiddenM" value="Category">Popular by</div>
-                        <div class="dropdown_option1" v-show="isHiddenM" value="Category">Popular by</div>
+                     <div class="dropdown_option_containerM" ref="sortMMenu"> <button class="collectionsButtonM" @click="sortM = !sortM, arrow5on = !arrow5on"> Sort by <img :class="arrow5on ? 'arrow1 active' : 'arrow1'" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></button>
+                        <div @click="sortM = false" v-show="sortM" class="dropdown_option_showM" >
+                          <p @click="filter()" class="dropdown_option" value="All">Price: Low to High <span class="blue"></span></p>
+                          <p @click="filter()" class="dropdown_option" value="Category">Price: High to Low <span class="blue"></span></p>
+                          <p @click="filter()" class="dropdown_option" value="Category">Alphabetical: A-Z <span class="blue"></span></p>
+                          <p @click="filter()" class="dropdown_option" value="Category">Alphabetical: Z-A <span class="blue"></span></p>
+                        </div>
                       </div>
-                  <p class="mobilefilter">Filter results</p>
-                  <div>
+                   </div>
+                  <div class="filterResultsContainer">
                     <div v-if="grid" v-on:click="changeGrid()" class="gridDisplayOptions">
                       <img  src="../assets/img/gridDisplay.svg">
                       <img  src="../assets/img/normalDisplay.svg">
@@ -116,19 +92,36 @@
                       <img src="https://res.cloudinary.com/risidio/image/upload/v1649167477/RisidioMarketplace/imagebar1_px1ppz.png">
                       <img src="https://res.cloudinary.com/risidio/image/upload/v1649167498/RisidioMarketplace/imagebar2_ohxsez.png">
                     </div>
-                  </div>
+                    <span class="mobilefilter"  v-on:click="toggleFilter()">Filter results</span>
                 </div>
-              </div>
-
+                 <div>
+                  <div v-if="filterToggle" class="toggleFilterContainer">
+                  <div class="crossIcon">
+                    <b-icon v-on:click="toggleFilter()" icon="x" variant="primary"></b-icon>
+                  </div>
+                   <div class="collectionOption">
+                    <h2 class="filterCollection" v-on:click="toggleCollections()">Collections <img :class="collectionToggle ? 'arrow1 active' : 'arrow1'" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></h2>
+                    <div :class="collectionToggle ? 'collectionsMenuSide active' : 'collectionsMenuSide'">
+                      <div class="collectionMenuContainer" v-on:click="toggleFilter()">
+                        <h3 style="margin: 0;"><router-link :to="'/nft-marketplace/all/0'">All</router-link></h3>
+                      </div>
+                      <div v-for="(item, index) in allLoopRuns" :key="index" class="collectionMenuContainer" v-on:click="toggleFilter()">
+                        <h3 style="margin: 0;"><router-link :to="'/nft-marketplace/' + item.contractId + '/0'">{{item.currentRun}}</router-link></h3>
+                      </div>
+                    </div>
+                  </div>
+                 </div>
+                </div>
+            </div>
                <div v-if="resultSet && view == 'squared' && searched.length == 0" class="mobilegallerySquare">
                   <div v-if="!grid">
                     <MobileNFT :resultSet="resultSet"/>
                   </div>
                   <div v-else  class="imageGrid">
                     <div v-for="(item, index) in resultSet" :key="index">
-                      <div>
+                      <div class="MobileNFTG">
                         <b-link class="galleryNFTContainer" v-bind:to="'/nfts/' + item.contractAsset.contractId + '/' + item.contractAsset.nftIndex">
-                        <img :src="item.image" alt="Risidio Gallery" class="mobile-square-display-img" loading="lazy">
+                        <img :src="item.image || errorImage" v-on:error="errorImage" alt="Risidio Gallery" class="mobile-square-display-img" loading="lazy">
                         </b-link>
                       </div>
                     </div>
@@ -145,6 +138,7 @@ import MobileNFT from '../components/smallcomponents/MobileNFT.vue'
 import SquareNFT from '@/components/smallcomponents/SquareNFT.vue'
 import Pagination from '@/components/smallcomponents/Pagination.vue'
 import loadingImage from '@/assets/img/loading-risid.gif'
+import errorImage from '@/assets/img/sticksnstones_logo.png'
 
 export default {
   name: 'Gallery',
@@ -155,6 +149,7 @@ export default {
   },
   data () {
     return {
+      errorImage: errorImage,
       resultSet: [],
       loadingImage: loadingImage,
       loaded: true,
@@ -162,14 +157,15 @@ export default {
       types: 'all',
       numberOfItems: null,
       projects: [],
+      thisEvent: 'hi',
       view: 'squared',
       searched: [],
-      isHidden: false,
-      isHiddenn: false,
-      isHiddenM: false,
-      isHiddenP: false,
+      popular: false,
+      sort: false,
+      sortM: false,
+      all: false,
       grid: false,
-      filterToggle: true,
+      filterToggle: false,
       collectionToggle: false,
       fetched: null,
       defQuery: {
@@ -186,7 +182,12 @@ export default {
       currentSearch: null,
       pageSize: 50,
       loading: true,
-      error: ''
+      error: '',
+      isLayer: false,
+      arrow2on: false,
+      arrow3on: false,
+      arrow4on: false,
+      arrow5on: false
     }
   },
   watch: {
@@ -199,9 +200,16 @@ export default {
     },
     'fetched' () {
       if (this.currentSearch) this.searching(this.currentSearch)
+    },
+    'thisEvent' () {
+      this.close(this.thisEvent)
     }
   },
   async mounted () {
+    const $self = this
+    window.addEventListener('click', function (e) {
+      $self.close(e)
+    })
     await this.fetchFullRegistry()
     if (JSON.parse(localStorage.getItem('gridPrefrence')) === true) {
       this.grid = true
@@ -209,29 +217,27 @@ export default {
       this.grid = false
     }
     this.currentSearch = this.$store.getters['contentStore/getSearch']
+    if (this.$route.params.title === 'all') {
+      this.fetchAll()
+    } else {
+      this.fetchFullRegistry()
+    }
     // const content = this.$store.getters['contentStore/getSearch']
     // if (content) this.searching(content)
   },
   methods: {
-    showHidden () {
-      this.isHidden = !this.isHidden
-      this.isHiddenn = false
-    },
-    showHidden1 () {
-      this.isHiddenn = !this.isHiddenn
-      this.isHidden = false
-    },
-    showHiddenM () {
-      this.isHiddenM = !this.isHiddenM
-      this.isHiddenP = false
-    },
-    showHiddenP () {
-      this.isHiddenP = !this.isHiddenP
-      this.isHiddenM = false
+    close (e) {
+      if (this.$refs) {
+        if (!this.$refs?.popularMenu?.contains(e.target)) this.popular = false
+        if (!this.$refs?.sortMenu?.contains(e.target)) this.sort = false
+        if (!this.$refs?.allMenu?.contains(e.target)) this.all = false
+        if (!this.$refs?.sortMMenu?.contains(e.target)) this.sortM = false
+      }
     },
     searching (query) {
+      this.$store.state.contentStore.content.searchWord = query
       this.loading = true
-      this.$router.push('/nft-marketplace/' + 'all' + '/&query=' + query)
+      this.$router.push('/nft-marketplace/' + 'all' + '/0')
       this.error = ''
       this.currentSearch = query
       this.defQuery.query = query
@@ -271,6 +277,12 @@ export default {
         console.log(error)
         this.error = 'Could not find anything matching your search word ' + query
       })
+    },
+    filter () {
+      this.popular = false
+      this.sort = false
+      this.all = false
+      this.sortM = false
     },
     fetchAll () {
       const data = {
@@ -315,19 +327,17 @@ export default {
         this.loading = false
         this.fetched = 1
       })
-      this.filterToggle = !this.filterToggle
     },
     fetchFullRegistry () {
       const $self = this
-      this.$store.dispatch('rpayProjectStore/fetchProjectsByStatus', '').then((projects) => {
-        $self.projects = utils.sortResults(projects)
-        this.sortCollection()
-        $self.projects.forEach((p) => {
-          const application = this.$store.getters[APP_CONSTANTS.KEY_APPLICATION_FROM_REGISTRY_BY_CONTRACT_ID](p.contractId)
-          p.application = application
-        })
-        $self.loaded = true
+      this.sortCollection()
+      $self.projects.forEach((p) => {
+        const application = this.$store.getters[APP_CONSTANTS.KEY_APPLICATION_FROM_REGISTRY_BY_CONTRACT_ID](p.contractId)
+        p.application = application
       })
+      $self.loaded = true
+      // this.$store.dispatch('rpayProjectStore/fetchProjectsByStatus', 'active').then((projects) => {
+      //   $self.projects = utils.sortResults(projects)
     },
     setCurrentRunKey (result) {
       this.currentRunKey = result
@@ -337,12 +347,16 @@ export default {
       localStorage.setItem('gridPrefrence', JSON.stringify(this.grid))
     },
     toggleFilter () {
+      console.log('toggled')
+      const body = document.getElementsByTagName('body')[0]
+      body.classList.toggle('stop-scrolling')
       this.filterToggle = !this.filterToggle
+      this.isLayer = !this.isLayer
     }
   },
   computed: {
     allLoopRuns () {
-      const loopRuns = this.$store.getters[APP_CONSTANTS.GET_LOOP_RUNS]
+      const loopRuns = this.$store.getters[APP_CONSTANTS.GET_LOOP_RUNS].filter((loopRun) => loopRun.status === 'active')
       return loopRuns
     },
     application () {
@@ -375,6 +389,13 @@ export default {
   border-radius: 10px;
   // margin-left: 25px;
 }
+.overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: rgba(3, 3, 3, 0.56);
+  z-index: 19;
+}
 .artwork {
   margin-left: 220px;
   font-size: 20px;
@@ -396,6 +417,9 @@ export default {
   margin-top: -10px;
   border-radius: 8%;
   object-fit: cover;
+}
+.MobileNFTG {
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 }
 .imageGrid {
   display: flex;
@@ -425,6 +449,12 @@ export default {
   height: 121;
   padding: 20px;
 }
+.filterResultsContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+}
 .collectionsMenuSide {
   display: none;
 }
@@ -434,6 +464,22 @@ export default {
     font-weight: 400;
     padding: 3px 0px 0px 10px;
     font-size: 12px;
+  }
+  a {
+    color: black;
+    padding: 12px 0px;
+    text-decoration: none;
+    display: block;
+    background: transparent;
+    font-size: 11px;
+  }
+  a:hover,
+  a:active,
+  a:focus,
+  .router-link-active {
+    font-weight: 500;
+    color: #5fbdc1;
+    text-decoration: underline;
   }
 }
 .crossIcon {
@@ -459,12 +505,12 @@ export default {
   margin-top: -45px;
 }
 .mobiletop {
-  margin-top: 10px;
+  padding-top: 10px;
 }
 .search-container {
   display: grid;
   place-items: center;
-  margin: 10px 10px;
+  padding: 10px 10px;
 }
 .mobilenFTArtist span {
   font-size: 14px;
@@ -474,9 +520,6 @@ export default {
 .price p {
   margin-left: 220px;
   font-size: 14px;
-}
-.sorting {
-  margin-top: -20px;
 }
 .sort-by {
   margin-top: -60px;
@@ -509,14 +552,11 @@ export default {
   font-size: 13px;
   font-weight: 800;
   color: #5fbdc1;
-  margin-top: -20px;
-  text-align: right;
-}
-.showFilter {
-  font-size: 13px;
-  font-weight: 800;
-  color: #5fbdc1;
   cursor: pointer;
+}
+.blue {
+  color: #5fbdc1;
+  font-weight: bolder;
 }
 .gridDisplayOptions {
   display: flex;
@@ -524,6 +564,11 @@ export default {
   width: 40px;
   cursor: pointer;
 }
+.router-link-exact-active {
+  text-decoration: underline;
+  color: #50b1b5;
+}
+
 @media only screen and (min-width: 595px) {
   .mobilemainGallery {
     display: none;
@@ -540,100 +585,60 @@ export default {
     display: none;
   }
 }
-.dropdown_selector {
-  border-top-left-radius: 40px;
-  border-bottom-left-radius: 40px;
-  font: normal normal 300 11px/14px Montserrat;
-  height: 50px;
-  width: 155px;
-  padding: 9px;
-  outline: none;
-  background: white;
-  transition: 0.3s;
-  box-shadow: 0px 3px 6px #00000029;
-  border: 1px solid #f5f5f5;
-  text-align: center;
-  z-index: 10;
+.dropdown_option_containerM {
+  position: relative;
+  display: inline-block;
+  top: -25px;
+  left: 25px;
 }
 .dropdown_option_container {
+  position: relative;
+  display: inline-block;
+}
+.dropdown_option_show {
   position: absolute;
-  background: none;
-  display: flex;
-  flex-direction: column;
-  align-content: flex-start;
-  justify-content: flex-start;
-  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-  margin-top: 26px;
-  width: 140px;
-  margin-left: 260px;
   z-index: 10;
-  background: white;
-  border-color: white;
-  border-radius:8px;
-  border-top-style: none;
-      p:hover {
-    text-decoration: underline;
-    color: #5fbdc1;
+  top: 60px;
+  left: 30px;
+  width: 100%;
+  background: #ffffff;
+  padding: 10px 15px;
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  text-align: left;
+  p {
+    cursor: pointer;
+    &:hover {
+      text-decoration: underline;
+      color: #5fbdc1;
+    }
   }
 }
-.dropdown_option_container2 {
+.dropdown_option_showM {
   position: absolute;
-  background: none;
-  display: flex;
-  flex-direction: column;
-  align-content: flex-start;
-  justify-content: flex-start;
-  margin-top: 26px;
-  width: 140px;
-  margin-left: 85px;
   z-index: 10;
-  background: white;
-  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-  border-color: white;
-  border-radius:8px;
-  border-top-style: none;
-  // box-shadow: 2px 2px #E4E4E4 ;
-    p:hover {
-    text-decoration: underline;
-    color: #5fbdc1;
+  top: 30px;
+  left: 30px;
+  width: 100%;
+  background: #ffffff;
+  padding: 10px 15px;
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  text-align: left;
+  p {
+    cursor: pointer;
+    &:hover {
+      text-decoration: underline;
+      color: #5fbdc1;
+    }
   }
-}
-.dropdown_option_container3 {
-  position: absolute;
-  background: none;
-  display: flex;
-  flex-direction: column;
-  align-content: flex-start;
-  justify-content: flex-start;
-  margin-top: -38px;
-  width: 140px;
-  margin-left: 170px;
-  z-index: 10;
-  background: white;
-  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-
-}
-.dropdown_option_container4 {
-  position: absolute;
-  background: none;
-  display: flex;
-  flex-direction: column;
-  align-content: flex-start;
-  justify-content: flex-start;
-  margin-top: -38px;
-  width: 140px;
-  margin-left: 25px;
-  z-index: 10;
-  background: white;
 }
 .dropdown_option {
   padding: 5px;
   background: #ffffff;
   margin: 1px;
-  transition: 0.3s;
   z-index: 10;
   font-size: 1.2rem;
-  text-align: center;
 }
 .dropdown_option1 {
   padding: 5px;
@@ -745,6 +750,7 @@ export default {
   margin-top: -40px;
 }
 .top-elements {
+  position: relative;
   max-width: 440px;
   display: flex;
 }
@@ -760,19 +766,12 @@ export default {
   height: 50px;
   margin-top: 10px;
   margin-left: 10px;
-  //padding-left: 50px;
-  //margin-right: 70px;
-  //padding-left: 100px;
   padding-right: 5px;
-  //padding-top: 10px;
   padding-bottom: 5px;
   border: 0px;
-  //border-radius: 25px;
-  //border:2px solid #f5f2f2;
   font-size: 12px;
   font-weight: 450;
   text-align: left;
-  //z-index: 10;
 }
 .view {
   margin-left: 20px;
@@ -801,6 +800,18 @@ export default {
   border: none;
   cursor: pointer;
 }
+.collectionsButtonM {
+  margin: 0px 0 0 45px;
+  background-color: transparent;
+  color: rgb(49, 49, 49);
+  padding-right: 16px;
+  padding-bottom: 16px;
+  padding-left: 16px;
+  font: normal normal 600 14px/18px Montserrat;
+  border: none;
+  cursor: pointer;
+}
+
 .filterCollection {
   background-color: transparent;
   color: rgb(49, 49, 49);
@@ -809,7 +820,7 @@ export default {
   cursor: pointer;
 }
 .collectionOption {
-  border-top: 1px lightgray solid;
+  border-bottom: 1px lightgray solid;
 }
 .filter {
   display: flex;
@@ -829,14 +840,17 @@ export default {
   z-index: 1;
   a {
     margin-left: 35px;
-    font-size: 15px;
     color: black;
-    padding: 12px 16px;
+    padding: 12px 0px;
     text-decoration: none;
     display: block;
     background: transparent;
+    font-size: 11px;
   }
-  a:hover {
+  a:hover,
+  a:active,
+  a:focus,
+  .router-link-active {
     font-weight: 500;
     color: #5fbdc1;
     text-decoration: underline;
@@ -846,20 +860,13 @@ export default {
 .galleryCategory .galleryCategories.active {
   display: block;
 }
-.arrow1,
-.arrow2 {
-  margin-left: 50px;
+.arrow1 {
+  margin-left: 15px;
   width: 12px;
   height: 12px;
   transform: rotate(180deg);
 }
-.arrow3 {
-  margin-left: 50px;
-  width: 12px;
-  height: 12px;
-}
-.arrow1.active,
-.arrow2.active {
+.arrow1.active {
   transform: rotate(360deg);
 }
 .galleryContainer {
@@ -890,27 +897,27 @@ export default {
   border-radius: 50%;
   // box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
 }
-.collectionItems::first-letter{
+.collectionItems::first-letter {
   text-transform: capitalize;
 }
-.collectionMenuContainer label{
+.galleryCollections label {
   margin-left: 32px;
-
+}
 .collectionMenuContainer .collectionItems,
 .collectionItems {
   margin-top: 5px;
   font-size: 11px;
   border-bottom: 3px solid transparent;
 }
-.collectionMenuContainer label:hover{
+.galleryCollections label:hover {
   text-decoration: underline;
   font-weight: 500;
   color: #5fbdc1;
   cursor: pointer;
   //border-bottom: 3px solid white;
 }
-.collectionMenuContainer label:focus{
-  border-bottom: 2px solid #50b1b5;
+.collectionMenuContainer label:focus {
+  // border-bottom: 2px solid #50b1b5;
 }
 .galleryGrid {
   display: grid;

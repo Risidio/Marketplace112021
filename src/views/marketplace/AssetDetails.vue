@@ -25,10 +25,16 @@ export default {
       contractId: null
     }
   },
+  watch: {
+    'loopRuns' () {
+      // this.loading = true
+      this.loopRun = this.loopRuns.filter((loopRun) => loopRun.contractId === this.gaiaAsset.contractId)[0]
+    }
+  },
   mounted () {
     this.contractId = this.$route.params.contractId
+    this.nftIndex = Number(this.$route.params.nftIndex)
     if (this.$route.name === 'asset-by-index') {
-      this.nftIndex = Number(this.$route.params.nftIndex)
       this.$store.dispatch('rpayStacksContractStore/fetchTokenByContractIdAndNftIndex', { contractId: this.contractId, nftIndex: this.nftIndex }).then((gaiaAsset) => {
         this.$store.dispatch('rpayCategoryStore/fetchLoopRun', this.parseRunKey(gaiaAsset)).then((loopRun) => {
           this.gaiaAsset = gaiaAsset
@@ -48,7 +54,7 @@ export default {
   },
   methods: {
     parseRunKey (gaiaAsset) {
-      const loopRuns = this.$store.getters[APP_CONSTANTS.GET_LOOP_RUNS].filter((loopRun) => loopRun.contractId === gaiaAsset.contractId)
+      const loopRuns = this.loopRuns.filter((loopRun) => loopRun.contractId === gaiaAsset.contractId)
       const runKey = loopRuns[0]?.currentRunKey
       console.log(loopRuns)
       return runKey
@@ -65,6 +71,10 @@ export default {
       } else {
         return this.$store.getters[APP_CONSTANTS.KEY_GAIA_ASSET_BY_HASH](this.assetHash)
       }
+    },
+    loopRuns () {
+      const loopRuns = this.$store.getters[APP_CONSTANTS.GET_LOOP_RUNS]
+      return loopRuns
     }
   }
 }

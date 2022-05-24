@@ -1,11 +1,19 @@
 <template>
-  <section class ="our_values" >
-    <div class ="values_container">
-      <vueper-slides fixed-height="true" :infinite="false" class="no-shadow" :touchable="false">
-        <template #arrow-left>
+  <section class ="our_values">
+      <vueper-slides
+      fixed-height="true"
+      :infinite="false"
+      :arrows="showArrow"
+      :arrows-outside="showArrow"
+      :touchable="touchableSlide"
+      :bullets="bullets"
+      class="no-shadow"
+      :breakpoints="breakpoints"
+      >
+        <template v-if="showArrow == true" #arrow-left>
           <img src="https://res.cloudinary.com/risidio/image/upload/v1637153014/RisidioMarketplace/Icon_ionic-md-arrow-dropleft-circle_zpgise.svg" alt="wallet" class="arrow"/>
         </template>
-        <template #arrow-right>
+        <template  v-if="showArrow == true" #arrow-right>
           <img src="https://res.cloudinary.com/risidio/image/upload/v1637152994/RisidioMarketplace/Icon_ionic-md-arrow-dropleft-circle_1_ex6tmv.svg" alt="wallet" class="arrow"/>
         </template>
         <vueper-slide
@@ -15,7 +23,7 @@
           <template #content>
             <div v-if="slide.id==1" class = "container">
               <div class = "textContainer">
-                <h1 style="font: normal normal 300 37px/30px Montserrat; color: white; margin-bottom: 50px;">{{content.aboutsection2[0].abouttitle[0].text}}</h1>
+                <h2 style="font: normal normal 300 37px/30px Montserrat; color: white; margin-bottom: 50px;">{{content.aboutsection2[0].abouttitle[0].text}}</h2>
                 <p style="color: white; font: normal normal normal 14px/20px Montserrat; max-width: 600px">{{content.aboutsection2[0].abouttext[0].text}}<br><br>
                   {{content.aboutsection2[0].abouttext1[0].text}}</p>
                 <div class="m-5 d-flex justify-content-center">
@@ -25,7 +33,7 @@
             </div>
             <div v-if="slide.id==2" class = "container">
               <div class = "textContainer">
-                <h1 style="font: normal normal 300 37px/30px Montserrat; color: white; margin-bottom: 50px;">{{content.aboutsection2[1].abouttitle[0].text}}</h1>
+                <h2 style="font: normal normal 300 37px/30px Montserrat; color: white; margin-bottom: 50px;">{{content.aboutsection2[1].abouttitle[0].text}}</h2>
                 <p style="color: white; font: normal normal normal 14px/20px Montserrat; max-width: 600px">{{content.aboutsection2[1].abouttext[0].text}}<br><br></p>
                 <div class="m-5 d-flex justify-content-center">
                   <a title="read more about us" target="_blank" href="https://risidio.com/aboutus"><button class="button filled">Read More</button></a>
@@ -35,7 +43,6 @@
           </template>
         </vueper-slide>
       </vueper-slides>
-      </div>
   </section>
 </template>
 
@@ -51,6 +58,16 @@ export default {
   },
   props: ['content'],
   data: () => ({
+    windowWidth: window.innerWidth,
+    touchableSlide: true,
+    showArrow: true,
+    bullets: false,
+    breakpoints: {
+      1272: {
+        touchableSlide: true,
+        bullets: true
+      }
+    },
     slide: [
       {
         id: '1',
@@ -64,7 +81,23 @@ export default {
     return: {
       response: null
     }
-  })
+  }),
+  created () {
+    window.addEventListener('resize', this.checkScreen)
+    this.checkScreen()
+  },
+  methods: {
+    checkScreen () {
+      this.windowWidth = window.innerWidth
+      if (this.windowWidth < 1272) {
+        this.touchableSlide = true
+        this.showArrow = false
+      } else if (this.windowWidth > 1272) {
+        this.touchableSlide = false
+        this.showArrow = true
+      }
+    }
+  }
 }
 
 </script>
@@ -73,11 +106,16 @@ export default {
 /* General style */
 .our_values{
   background-color: rgb(11, 11, 116);
-  min-height: 400px;
+  min-height: 490px;
   text-align: center;
   justify-content: center;
   color:white;
 }
+// .our_values ::v-deep {
+//   .vueperslides__track{
+//     height: 100%;
+//   }
+// }
 .textContainer{
   margin-top: 100px;
 }
@@ -85,6 +123,14 @@ export default {
   margin: auto;
   // max-width: 600px;
 
+}
+.button{
+  display: inline-block;
+  margin-top: -10px;
+}
+@media only screen and (max-width: 550px){
+  .button {
+}
 }
 h1{
   padding-bottom: 25px;
@@ -101,8 +147,8 @@ p{
 }
 .vueperslides--fixed-height {
   // min-width: 500px;
-  max-width: 1000px;
-  height: 500px;
+  max-width: 1100px;
+  height: 470px;
   margin: auto;
   border-radius: 0;
   // padding: 0 50px;

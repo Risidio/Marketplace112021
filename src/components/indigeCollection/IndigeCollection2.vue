@@ -256,6 +256,10 @@ export default {
     padding: 10px;
   }
 }
+.galleryNavContainer{
+  width: 600px;
+  justify-content: space-between;
+}
 .loading-pass {
   text-align: center;
 }
@@ -282,6 +286,7 @@ p {
   border-radius: 26px;
   max-width: 260px;
   height: 320px;
+  margin-bottom: 20px;
 }
 .mintPlus {
   font-size: 120px;

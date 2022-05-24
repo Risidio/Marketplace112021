@@ -15,7 +15,7 @@
                 <p style="font-size: 12px; margin-top: 20px;"> Price</p>
                 <div class="buyNowInput">
                   <label class="buyNowInputLabel" >
-                    {{tokenSymbol}} <img @click="showTokens()" class="token-arrow" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg">
+                    {{tokenSymbol}} <img ref="buyNowInput" @click="show = !show" class="token-arrow" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg">
                     </label>
                     <div v-show="show" class="token-dropdownMenu-container">
                       <div v-for="(token, index) in sipTenTokens" :key="index">
@@ -80,15 +80,22 @@ export default {
       sipTenToken: null,
       tokenContractId: null,
       show: false,
-      tokenSymbol: 'STX'
+      tokenSymbol: null,
+      buyNowOrStartingPrice: null
     }
   },
   mounted () {
+    const $self = this
+    window.addEventListener('click', function (e) {
+      $self.close(e)
+    })
     if (this.loopRun.marketplaceVersion > 2) {
       this.$store.dispatch('rpayMarketGenFungStore/sipTenTokenFindBy').then((sipTenTokens) => {
         if (sipTenTokens) {
+          console.log(sipTenTokens)
           this.sipTenTokens = sipTenTokens
           this.sipTenToken = sipTenTokens[0]
+          this.tokenSymbol = sipTenTokens[0].symbol
           this.tokenContractId = this.sipTenToken.contractId
           this.$notify({ type: 'success', title: 'Available Tokens', text: 'List NFT for x tokens' })
         }
@@ -99,6 +106,15 @@ export default {
     }
   },
   methods: {
+    close (e) {
+      const arrow = document.getElementsByClassName('token-arrow')[0]
+      if (!this.$refs?.buyNowInput?.contains(e.target)) {
+        arrow.classList.remove('active')
+        this.show = false
+      } else {
+        arrow.classList.toggle('active')
+      }
+    },
     minted () {
       return this.contractAsset
     },
@@ -106,14 +122,6 @@ export default {
       this.sipTenToken = token
       this.tokenContractId = token.contractId
       this.tokenSymbol = token.symbol
-    },
-    showTokens () {
-      const showToken = document.getElementsByClassName('token-dropdownMenu-container')[0]
-      const arrow = document.getElementsByClassName('token-arrow')[0]
-      arrow.classList.toggle('active')
-      showToken.classList.add('active')
-      this.show = !this.show
-      console.log(showToken)
     },
     updateAmount (amount) {
       this.contractAsset.listingInUstx.price = Number(amount)

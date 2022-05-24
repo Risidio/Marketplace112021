@@ -21,7 +21,7 @@
           <div id="walletDetails" class="walletDetails">
             <button class="notFilled" @click="viewInfo(0)">HIDE</button>
             <h1>Your Wallet Info:</h1>
-            <h2>ID - {{username.substring(0, 30)}}...</h2>
+            <p>ID - {{username.substring(0, 30)}}...</p>
             <!-- <h2>John Doe</h2> -->
             <br/>
             <div class="walletCurrency">
@@ -46,34 +46,35 @@
           </div>
         </div>
     </div>
+  <div v-if="windowWidth > 549">
     <div v-if="!transaction" class="galleryContainerLimited">
       <div>
         <b-nav class="galleryNav" >
-          <div class="galleryNavContainer" >
-            <router-link class="galleryNavItem" :to="'/my-account/nft'">Your NFTs</router-link>
-            <router-link class="galleryNavItem" :to="'/my-account/sale'">Your NFTs On Sale</router-link>
-            <router-link class="galleryNavItem" :to="'/my-account/fav'">Your Favourites</router-link>
-          </div>
+          <nav class="galleryNavContainer" >
+            <h2><router-link class="galleryNavItem" :to="'/my-account/nft'">Your NFTs</router-link></h2>
+            <h2><router-link class="galleryNavItem" :to="'/my-account/sale'">Your NFTs On Sale</router-link></h2>
+            <h2><router-link class="galleryNavItem" :to="'/my-account/fav'">Your Favourites</router-link></h2>
+          </nav>
         </b-nav>
       </div>
       <div v-if="tab === 'nft' && loopRun" class="">
         <div>
           <MyPageableItems :loopRun="loopRun" :resultSet="resultSet"/>
-          <router-link to="/gallery" style="font: normal normal bold 11px/14px Montserrat; display: block; text-align: center; margin-top: 50px"><!--<span style="color: #5FBDC1; ">Want More ? See The Gallery</span>--></router-link>
+          <router-link to='/nft-marketplace/' style="font: normal normal bold 11px/14px Montserrat; display: block; text-align: center; margin-top: 50px"><!--<span style="color: #5FBDC1; ">Want More ? See The Gallery</span>--></router-link>
         </div>
           <Pagination :pageSize="pageSize" :numberOfItems="numberOfItems"/>
       </div>
       <div v-else-if="saleItem.length > 0 && tab === 'sale'" >
         <div>
           <MyPageableItems :loopRun="loopRun" :resultSet="saleItem"/>
-          <router-link to="/gallery" style="font: normal normal bold 11px/14px Montserrat; display: block; text-align: center; margin-top: 50px"><!--<span style="color: #5FBDC1; ">Want More ? See The Gallery</span>--></router-link>
+          <router-link to='/nft-marketplace/' style="font: normal normal bold 11px/14px Montserrat; display: block; text-align: center; margin-top: 50px"><!--<span style="color: #5FBDC1; ">Want More ? See The Gallery</span>--></router-link>
         </div>
       </div>
       <div v-else-if="saleItem.length === 0 && tab === 'sale'">
         <div class="noNFT">
           <h3> You do not own any items on sale</h3>
           <div class="profileBtns">
-            <router-link class="button filled" to="/">Explore Gallery</router-link>
+            <router-link class="button filled" to='/nft-marketplace/'>Explore Gallery</router-link>
             <!-- <router-link class="button notFilledBlue" to="/create">Mint Your Item</router-link> -->
           </div>
         </div>
@@ -81,7 +82,7 @@
       <div v-else-if="tab === 'fav' && favouriteNfts">
           <MyPageableItems :loopRun="loopRun" :resultSet="favouriteNfts"/>
         <div class="profileBtns">
-          <router-link class="button filled" to="/">Explore Gallery</router-link>
+          <router-link class="button filled" to='/nft-marketplace/'>Explore Gallery</router-link>
           <!-- <router-link class="button notFilledBlue" to="/create">Mint Your Item</router-link> -->
         </div>
       </div>
@@ -92,7 +93,7 @@
         <div class="noNFT">
         <h3> You do not own any Items yet</h3>
           <div class="profileBtns">
-            <router-link class="button filled" to="/">Explore Gallery</router-link>
+            <router-link class="button filled" to='/nft-marketplace/'>Explore Gallery</router-link>
             <!-- <router-link class="button notFilledBlue" to="/create">Mint Your Item</router-link> -->
           </div>
         </div>
@@ -102,13 +103,84 @@
         <UserTransaction :loopRun="loopRun" :profile="profile"/>
     </div>
   </div>
+  <div class="MobileV" v-else>
+    <vueper-slides
+      :infinite="false"
+      :arrows="showArrow"
+      class="no-shadow"
+      :gap="2"
+      draggable= false
+      fixed-height="true"
+      :visible-slides="1"
+      bullets-outside
+      @slide="logEvents($event)"
+      >
+        <vueper-slide v-for="(slide) in slide" :key="slide.id">
+          <template #content>
+            <div v-if="!transaction" class="galleryContainerLimited">
+              <div v-if="slide.id==1 && loopRun" class="">
+                <h4 class="galleryNavItemM" style="text-align: center;">Your NFTs</h4>
+                <div>
+                  <MyPageableItems v-if="slide.id==1" :loopRun="loopRun" :resultSet="resultSet"/>
+                  <router-link to='/nft-marketplace/' style="font: normal normal bold 11px/14px Montserrat; display: block; text-align: center; margin-top: 50px"><!--<span style="color: #5FBDC1; ">Want More ? See The Gallery</span>--></router-link>
+                </div>
+                <Pagination :pageSize="pageSize" :numberOfItems="numberOfItems"/>
+              </div>
+              <div v-else-if="saleItem.length > 0 && slide.id==2" >
+                <h4 class="galleryNavItemM" style="text-align: center;">Your NFT's On Sale</h4>
+                <div>
+                  <MyPageableItems :loopRun="loopRun" :resultSet="saleItem"/>
+                  <router-link to='/nft-marketplace/' style="font: normal normal bold 11px/14px Montserrat; display: block; text-align: center; margin-top: 50px"><!--<span style="color: #5FBDC1; ">Want More ? See The Gallery</span>--></router-link>
+                </div>
+              </div>
+              <div v-else-if="saleItem.length === 0 && slide.id==2">
+                <h4 class="galleryNavItemM" style="text-align: center;">Your NFT's On Sale</h4>
+                <div class="noNFT">
+                  <h3 style="text-align: center;"> You do not own any items on sale</h3>
+                  <div class="profileBtns">
+                    <router-link class="button filled" to='/nft-marketplace/'>Explore Gallery</router-link>
+                    <!-- <router-link class="button notFilledBlue" to="/create">Mint Your Item</router-link> -->
+                  </div>
+                </div>
+              </div>
+              <div v-else-if="slide.id==3 && favouriteNfts">
+                <h4 class="galleryNavItemM" style="text-align: center;">Your Favourites</h4>
+                <MyPageableItems :loopRun="loopRun" :resultSet="favouriteNfts"/>
+                <div class="profileBtns">
+                  <router-link class="button filled" to='/nft-marketplace/'>Explore Gallery</router-link>
+                  <!-- <router-link class="button notFilledBlue" to="/create">Mint Your Item</router-link> -->
+                </div>
+              </div>
+              <div v-else-if="slide.id==3 && !favouriteNfts" class="noNFT">
+                <h4 class="galleryNavItemM" style="text-align: center;">Your Favourites</h4>
+                <h3 style="text-align: center;"> You do not have any favourite items</h3>
+              </div>
+              <div v-else>
+                <div class="noNFT">
+                <h3 style="text-align: center;"> You do not own any Items yet</h3>
+                  <div class="profileBtns">
+                    <router-link class="button filled" to='/nft-marketplace/'>Explore Gallery</router-link>
+                    <!-- <router-link class="button notFilledBlue" to="/create">Mint Your Item</router-link> -->
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div v-else>
+              <UserTransaction :loopRun="loopRun" :profile="profile"/>
+            </div>
+          </template>
+      </vueper-slide>
+    </vueper-slides>
+  </div>
+</div>
 </template>
-
 <script>
 
 import MyPageableItems from '@/views/marketplace/components/gallery/MyPageableItems'
 import Pagination from '@/components/smallcomponents/Pagination.vue'
 import UserTransaction from './UserTransaction.vue'
+import { VueperSlides, VueperSlide } from 'vueperslides'
+import 'vueperslides/dist/vueperslides.css'
 import { APP_CONSTANTS } from '@/app-constants'
 import utils from '@/services/utils'
 // import MySingleItem from '../marketplace/components/gallery/MySingleItem.vue'
@@ -116,6 +188,8 @@ import utils from '@/services/utils'
 export default {
   name: 'MyAccount',
   components: {
+    VueperSlides,
+    VueperSlide,
     MyPageableItems,
     UserTransaction,
     Pagination
@@ -123,6 +197,7 @@ export default {
   },
   data () {
     return {
+      windowWidth: window.innerWidth,
       loading: true,
       myNfts: [],
       myMintingNfts: [],
@@ -141,7 +216,23 @@ export default {
       defaultRate: null,
       currencyPreference: null,
       favouriteNfts: JSON.parse(localStorage.getItem('addNFTToFavourite')),
-      transaction: false
+      transaction: false,
+      touchableSlide: false,
+      showArrow: true,
+      bullets: false,
+      // sliderHeight: '320px',
+      slide: [
+        {
+          id: '1'
+
+        },
+        {
+          id: '2'
+        },
+        {
+          id: '3'
+        }
+      ]
     }
   },
   mounted () {
@@ -156,8 +247,10 @@ export default {
     this.loading = true
   },
   created () {
-    // this.amount = this.profile.accountInfo.balance
+    window.addEventListener('resize', this.checkScreen)
+    this.checkScreen()
     this.currencyPreference = JSON.parse(localStorage.getItem('currencyPreferences'))
+    // this.setSliderHeight()
   },
   watch: {
     '$route' () {
@@ -179,6 +272,9 @@ export default {
     'page' () {
       this.fetchAllocations()
     }
+    // 'resultSet' () {
+    //   this.setSliderHeight()
+    // }
   },
   methods: {
     fetchFullRegistry () {
@@ -193,6 +289,16 @@ export default {
         })
         $self.loaded = true
       })
+    },
+    checkScreen () {
+      this.windowWidth = window.innerWidth
+      if (this.windowWidth < 540) {
+        this.touchableSlide = true
+        this.showArrow = false
+      } else if (this.windowWidth > 840) {
+        this.touchableSlide = true
+        this.showArrow = true
+      }
     },
     viewTransaction () {
       this.transaction = true
@@ -247,7 +353,8 @@ export default {
         pageSize: this.pageSize
       }
       this.$store.dispatch('rpayStacksContractStore/fetchMyTokensCPSV2', data).then((result) => {
-        this.resultSet = result.gaiaAssets.filter((res) => res.contractId !== null)
+        console.log(result)
+        this.resultSet = result.gaiaAssets
         console.log(result)
         this.numberOfItems = result.tokenCount
         this.loading = true
@@ -284,7 +391,22 @@ export default {
     },
     closeModal () {
       document.getElementById('linkModal').style.display = 'none'
+    },
+    logEvents (params) {
+      const index = params.currentSlide.index
+      if (index === 0) {
+        this.$router.push('/my-account/nft#pagination')
+      } else if (index === 1) {
+        this.$router.push('/my-account/sale#pagination')
+      } else if (index === 2) {
+        this.$router.push('/my-account/fav#pagination')
+      }
     }
+    // setSliderHeight () {
+    //   let height = 320
+    //   height = (((this.resultSet.length + 1) * 320) + 40 * this.resultSet.length)
+    //   this.sliderHeight = height + 'px'
+    // }
   },
   computed: {
     application () {
@@ -361,6 +483,10 @@ export default {
   max-width: 1135px;
   margin: auto;
 }
+// .vueperslides--fixed-height {
+//   height: 500px;
+//   overflow-y: auto;
+// }
 .profile {
   max-width: 900px;
   // padding: 0 100px;
@@ -403,8 +529,9 @@ export default {
   flex-wrap: wrap;
 }
 .galleryNavContainer{
-  width: 400px;
+  width: 710px;
   justify-content: space-between;
+  margin-bottom: -12px;
 }
 .wantMore {
   display: block;
@@ -426,6 +553,30 @@ export default {
 .walletCurrency > * {
   flex: 1 1 120px;
 }
+.MobileV{
+  margin-top:20px;
+  padding-top: 20px;
+  background-color: #EFEFEF;
+  border-radius: 14px;
+}
+.MobileV ::v-deep {
+  .vueperslides__parallax-wrapper,
+  .vueperslide--active, .vueperslide--visible{
+    min-height: 450px;
+    overflow-y: auto;
+    // z-index: 2;
+  }
+  .vueperslides__inner{
+    position: relative;
+  }
+  .vueperslides__bullets{
+    max-height: 30px;
+    // position: absolute;
+    color: #50B1B5;
+    top: 20px;
+    z-index: 0;
+  }
+  }
 .backBtn {
   display: flex;
   color: #170a6d;
@@ -449,7 +600,6 @@ export default {
   display: block;
   margin: 25px auto;
 }
-
 .profileContainer {
   display: flex;
   // justify-content: space-between;
@@ -458,6 +608,17 @@ export default {
   max-width: 1380px;
   margin: auto;
   gap: 20px;
+}
+.galleryNavItemM {
+  position: relative;
+  font-size: 12px;
+  font-weight: 500;
+  max-width: 500px;
+  padding: 5px;
+  max-width: 150px;
+  margin: 0 auto;
+  border: solid rgba(255, 255, 255, 0) 2px;
+  border-bottom: 2px solid #50b1b5;
 }
 .profileContainer > * {
   flex: 1 1 500px;
@@ -491,6 +652,19 @@ export default {
 .form-control {
   max-width: 150px;
   margin: auto;
+}
+.NFTbackgroundColour {
+background: rgba(129, 129, 129, 0.12);
+display: grid;
+display: -ms-grid;
+place-items: center;
+border-radius: 26px;
+width: 255px;
+height: 320px;
+padding: 20px;
+margin: 1rem;
+cursor: pointer;
+transition: all 0.2s ease-in-out;
 }
 .usernameEdit {
   max-width: 500px;
@@ -584,7 +758,7 @@ export default {
     font: normal normal 600 15px/19px Montserrat;
     margin: 20px auto 0 auto;
   }
-  & > h2 {
+  & > p {
     margin: 8px auto 0 auto;
     font: normal normal 600 12px/15px Montserrat;
     color: #5154a1;
@@ -633,6 +807,16 @@ export default {
   color: #50b1b5;
   cursor: pointer;
 }
+.profile-historyM {
+  margin: 20px 0;
+  padding: 0 10px;
+  font: normal normal bold 12px/15px Montserrat;
+  text-decoration: underline;
+  color: #50b1b5;
+  cursor: pointer;
+  text-align: center;
+  margin-bottom: 10px;
+}
 .router-link-active {
   border-bottom: 2px solid #50b1b5;
 }
@@ -673,6 +857,9 @@ export default {
   }
   .walletDetails {
     background: #efefef;
+    .button {
+    margin-top: 20px;
+  }
   }
   .walletDetails {
     margin: auto;

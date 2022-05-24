@@ -243,6 +243,10 @@ p {
   justify-content: center;
   margin: auto;
 }
+.galleryNavContainer{
+  width: 550px;
+  justify-content: space-between;
+}
 .homeMarketItems {
   max-width: 1135px;
   margin: auto;
