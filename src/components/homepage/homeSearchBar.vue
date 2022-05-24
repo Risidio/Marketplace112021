@@ -127,7 +127,7 @@ export default {
   font-size: 1.7rem;
   width: 9px;
   height: 5px;
-  transform: rotate(90deg);
+  transform: rotate(180deg);
 }
 .search {
   display: flex;

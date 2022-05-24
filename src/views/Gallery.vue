@@ -936,4 +936,5 @@ export default {
   width: 100%;
   margin: auto;
 }
+}
 </style>

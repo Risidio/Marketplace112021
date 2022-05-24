@@ -18,7 +18,7 @@
             </div>
             <div v-if="profile.loggedIn" class=" nfts footer__column-content">
               <div >Your NFTs</div>
-              <div><router-link to="/my-account">All Your Nft's</router-link></div>
+              <div v-on:click="topFunction()"><router-link to="/my-account">All Your NFTs</router-link></div>
               <!-- <div v-on:click="topFunction()"><router-link to="/create">Add an NFT</router-link></div> -->
               <div>
                 <router-link
