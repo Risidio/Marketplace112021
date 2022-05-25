@@ -1,12 +1,18 @@
 <template>
 <div v-if="!loading">
   <div v-if="flowType === 1">
+    <p> Your Transaction is being verified by the blockchain</p>
   </div>
   <div v-else>
     <div >
       <div v-if="contractAsset && contractAsset.listingInUstx" class="modall">
-        <PurchaseBuyNow :gaiaAsset="gaiaAsset" :contractAsset="contractAsset" :listingInUstx="contractAsset.listingInUstx" @buyNow="buyNow"/>
-        <div class="text-danger" v-html="errorMessage"></div>
+        <div v-if="buyPage === 0">
+          <PurchaseBuyNow @nextPage="nextPage" :gaiaAsset="gaiaAsset" :contractAsset="contractAsset" :listingInUstx="contractAsset.listingInUstx" @buyNow="buyNow"/>
+          <div class="text-danger" v-html="errorMessage"></div>
+        </div>
+        <div v-else-if="buyPage === 1">
+          <p>Helllo </p>
+        </div>
       </div>
       <div v-else>
         Asset not on sale.
@@ -21,8 +27,8 @@ import { APP_CONSTANTS } from '@/app-constants'
 import PurchaseBuyNow from './PurchaseBuyNow'
 import PurchaseNowNft from './PurchaseNowNft'
 
-const STX_CONTRACT_ADDRESS = process.env.VUE_APP_STACKS_CONTRACT_ADDRESS
-const STX_CONTRACT_NAME = process.env.VUE_APP_STACKS_CONTRACT_NAME
+// const STX_CONTRACT_ADDRESS = process.env.VUE_APP_STACKS_CONTRACT_ADDRESS
+// const STX_CONTRACT_NAME = process.env.VUE_APP_STACKS_CONTRACT_NAME
 
 export default {
   name: 'PurchaseFlow',
@@ -30,17 +36,8 @@ export default {
     PurchaseBuyNow
   },
   props: ['gaiaAsset', 'forceOfferFlow', 'loopRun'],
-  data: () => ({
-    slide: [
-      {
-        id: '1'
-
-      },
-      {
-        id: '2'
-      }
-    ],
-    return: {
+  data () {
+    return {
       errorMessage: null,
       loading: true,
       offerStage: 0,
@@ -48,9 +45,10 @@ export default {
       biddingData: {},
       biddingEndTime: null,
       flowType: 0,
-      webWalletNeeded: false
+      webWalletNeeded: false,
+      buyPage: 0
     }
-  }),
+  },
   mounted () {
     this.errorMessage = null
     this.$store.dispatch('rpayStacksStore/fetchMacSkyWalletInfo').then(() => {
@@ -96,7 +94,7 @@ export default {
         console.log(buyNowData)
         this.$store.dispatch('rpayMarketGenFungStore/buyInToken', buyNowData).then((result) => {
           this.result = result
-          this.flowType = 2
+          this.flowType = 1
         }).catch((err) => {
           console.log(err.message)
           this.errorMessage = err
@@ -108,6 +106,12 @@ export default {
       const contractAsset = this.gaiaAsset.contractAsset
       if (!contractAsset) return
       return contractAsset.nftIndex > -1
+    },
+    nextPage () {
+      this.buyPage += 1
+    },
+    previousPage () {
+      if (this.buyPage !== 0) this.buyPage -= 1
     }
   },
   computed: {

@@ -28,7 +28,7 @@
       <p style="text-align: center;">You already own this NFT!</p>
     </b-col>
     <b-col class="mt-5" cols="12" v-else>
-      <button class="button notFilledBlue" @click="$emit('buyNow')" >PLACE YOUR ORDER</button>
+      <button class="button notFilledBlue" @click="$emit('nextPage')" >PLACE YOUR ORDER</button>
       <p style="font: normal normal 600 12px/15px Montserrat; padding-left: 80px;">or <span style="font: normal normal bold 14px/16px Montserrat; cursor: pointer;" class="cyanText" @click="$emit('buyNow')">Use Connect Wallet</span> <br/></p>
     </b-col>
   </b-row>
