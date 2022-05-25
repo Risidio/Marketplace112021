@@ -7,11 +7,11 @@
     <div >
       <div v-if="contractAsset && contractAsset.listingInUstx" class="modall">
         <div v-if="buyPage === 0">
-          <PurchaseBuyNow @nextPage="nextPage" :gaiaAsset="gaiaAsset" :contractAsset="contractAsset" :listingInUstx="contractAsset.listingInUstx" @buyNow="buyNow"/>
+          <PurchaseBuyNow  @previousPage="previousPage" @nextPage="nextPage" :gaiaAsset="gaiaAsset" :contractAsset="contractAsset" :listingInUstx="contractAsset.listingInUstx" @buyNow="buyNow"/>
           <div class="text-danger" v-html="errorMessage"></div>
         </div>
         <div v-else-if="buyPage === 1">
-          <p>Helllo </p>
+          <PurchaseNowNft @nextPage="nextPage" :gaiaAsset="gaiaAsset" :contractAsset="contractAsset" :listingInUstx="contractAsset.listingInUstx" @buyNow="buyNow"/>
         </div>
       </div>
       <div v-else>
@@ -33,7 +33,8 @@ import PurchaseNowNft from './PurchaseNowNft'
 export default {
   name: 'PurchaseFlow',
   components: {
-    PurchaseBuyNow
+    PurchaseBuyNow,
+    PurchaseNowNft
   },
   props: ['gaiaAsset', 'forceOfferFlow', 'loopRun'],
   data () {
