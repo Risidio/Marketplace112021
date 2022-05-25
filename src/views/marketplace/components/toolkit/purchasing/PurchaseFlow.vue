@@ -19,6 +19,7 @@
 <script>
 import { APP_CONSTANTS } from '@/app-constants'
 import PurchaseBuyNow from './PurchaseBuyNow'
+import PurchaseNowNft from './PurchaseNowNft'
 
 const STX_CONTRACT_ADDRESS = process.env.VUE_APP_STACKS_CONTRACT_ADDRESS
 const STX_CONTRACT_NAME = process.env.VUE_APP_STACKS_CONTRACT_NAME
@@ -29,8 +30,17 @@ export default {
     PurchaseBuyNow
   },
   props: ['gaiaAsset', 'forceOfferFlow', 'loopRun'],
-  data () {
-    return {
+  data: () => ({
+    slide: [
+      {
+        id: '1'
+
+      },
+      {
+        id: '2'
+      }
+    ],
+    return: {
       errorMessage: null,
       loading: true,
       offerStage: 0,
@@ -40,7 +50,7 @@ export default {
       flowType: 0,
       webWalletNeeded: false
     }
-  },
+  }),
   mounted () {
     this.errorMessage = null
     this.$store.dispatch('rpayStacksStore/fetchMacSkyWalletInfo').then(() => {
