@@ -55,7 +55,7 @@
               <Pagination :pageSize="pageSize" :numberOfItems="numberOfItems" :loopRun="loopRun" v-if="tab === 'Items'"/>
             <p v-if="mintPassLoad" class="loading-pass">
               checking mint pass....<br/>
-              <img class="loading-image" src="@/assets/img/loading-risid.gif"/>
+              <img class="loading-image" src="@/assets/img/loading-risid.gif" alt="loading">
             </p>
             <!-- <router-link to="/nft-marketplace/risidio/launch_collection_t1"><button class="button notFilledBlue"> See More </button></router-link> -->
             <button v-if="tab === 'Activity'" class="button notFilledBlue" @click="setPageSize()" :disabled="isDisabled ? true : false"> See More </button>

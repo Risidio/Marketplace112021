@@ -1,7 +1,7 @@
 <template>
 <div id="searchBar" class="search_bar_container">
   <div :class="showSearchBar ? 'dropdown_container active' : 'dropdown_container'">
-    <div class="dropdown_selector" @click="isHidden = !isHidden" ref="dropDown"> <strong class="search">Search by <img class="arrow2" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"/></strong>
+    <div class="dropdown_selector" @click="isHidden = !isHidden" ref="dropDown"> <strong class="search">Search by <img class="arrow2" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg" alt="arrow-icon"></strong>
       <div class="dropdown_option_container" v-show="isHidden">
         <div class="dropdown_option" value="All"><p>All</p></div>
         <div class="dropdown_option" value="Category"><p>IndigeNFT</p></div>

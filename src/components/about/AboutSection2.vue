@@ -11,10 +11,10 @@
       :breakpoints="breakpoints"
       >
         <template v-if="showArrow == true" #arrow-left>
-          <img src="https://res.cloudinary.com/risidio/image/upload/v1637153014/RisidioMarketplace/Icon_ionic-md-arrow-dropleft-circle_zpgise.svg" alt="wallet" class="arrow"/>
+          <img src="https://res.cloudinary.com/risidio/image/upload/v1637153014/RisidioMarketplace/Icon_ionic-md-arrow-dropleft-circle_zpgise.svg" alt="arrow-icon" class="arrow"/>
         </template>
         <template  v-if="showArrow == true" #arrow-right>
-          <img src="https://res.cloudinary.com/risidio/image/upload/v1637152994/RisidioMarketplace/Icon_ionic-md-arrow-dropleft-circle_1_ex6tmv.svg" alt="wallet" class="arrow"/>
+          <img src="https://res.cloudinary.com/risidio/image/upload/v1637152994/RisidioMarketplace/Icon_ionic-md-arrow-dropleft-circle_1_ex6tmv.svg" alt="arrow-icon" class="arrow"/>
         </template>
         <vueper-slide
           v-for="(slide) in slide"
