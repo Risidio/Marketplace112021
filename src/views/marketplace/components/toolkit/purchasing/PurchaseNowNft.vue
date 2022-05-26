@@ -8,8 +8,8 @@
     <p style="text-align: center; position: relative; top: -30px; padding-bottom: 10px; font: normal normal 600 15px Montserrat;">Select your payement method</p>
     <div>
         <button class="button notFilledBlue flat">Flat</button>
-        <button class="button notFilledBlue bit"  >Bitcoin</button>
-        <button class="button notFilledBlue light" >Ligntning</button>
+        <button class="button notFilledBlue bit" @click="$emit('nextPage')" >Bitcoin</button>
+        <button class="button notFilledBlue light" @click="$emit('currPage')">Ligntning</button>
     </div>
 <p style="text-align: center;  font: normal normal 600 15px Montserrat;">Enter your payement informations</p>
 <div class="currency-table" style="background: #F0EFEF">

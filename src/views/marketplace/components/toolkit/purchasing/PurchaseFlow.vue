@@ -7,11 +7,15 @@
     <div >
       <div v-if="contractAsset && contractAsset.listingInUstx" class="modall">
         <div v-if="buyPage === 0">
-          <PurchaseBuyNow  @previousPage="previousPage" @nextPage="nextPage" :gaiaAsset="gaiaAsset" :contractAsset="contractAsset" :listingInUstx="contractAsset.listingInUstx" @buyNow="buyNow"/>
+          <PurchaseBuyNow @currPage="currPage" @previousPage="previousPage" @nextPage="nextPage" :gaiaAsset="gaiaAsset" :contractAsset="contractAsset" :listingInUstx="contractAsset.listingInUstx" @buyNow="buyNow"/>
           <div class="text-danger" v-html="errorMessage"></div>
         </div>
         <div v-else-if="buyPage === 1">
-          <PurchaseNowNft @nextPage="nextPage" :gaiaAsset="gaiaAsset" :contractAsset="contractAsset" :listingInUstx="contractAsset.listingInUstx" @buyNow="buyNow"/>
+        <PurchaseNowNft @currPage="currPage" @previousPage="previousPage" @nextPage="nextPage" :gaiaAsset="gaiaAsset" :contractAsset="contractAsset" :listingInUstx="contractAsset.listingInUstx" @buyNow="buyNow"/>
+        <div class="text-danger" v-html="errorMessage"></div>
+        </div>
+        <div v-else-if="buyPage === 2">
+        hello
         </div>
       </div>
       <div v-else>
@@ -47,7 +51,8 @@ export default {
       biddingEndTime: null,
       flowType: 0,
       webWalletNeeded: false,
-      buyPage: 0
+      buyPage: 0,
+      currencyPage: 0
     }
   },
   mounted () {
@@ -111,8 +116,11 @@ export default {
     nextPage () {
       this.buyPage += 1
     },
+    currPage () {
+      this.currencyPage += 1
+    },
     previousPage () {
-      if (this.buyPage !== 0) this.buyPage -= 1
+      if (this.buyPage !== 0) this.buyPage -= 1; this.currencyPage -= 1
     }
   },
   computed: {
