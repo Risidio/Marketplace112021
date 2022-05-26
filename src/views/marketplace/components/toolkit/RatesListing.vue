@@ -1,16 +1,11 @@
 <template>
-<div class="currency-table" style="background: #F0EFEF">
-<span class="text-smalll" style="font-weight: 600;">
-    Your Total
+<span class="text-small" style="display: block; margin: auto; text-align: center;">
     <span v-for="(rate, index) in rates" :key="index" class="">
-      <span>
-       <br>
-        {{rate.text}}
-         <span style=" margin-left: 20px;">{{rate.value}}</span>
+      <span class="text-center mr-2">
+        {{rate.value}} <span style="font-weight: 600">{{rate.text}}</span>
       </span>
     </span>
 </span>
-</div>
 </template>
 
 <script>
@@ -78,17 +73,5 @@ export default {
 .input-group-text {
   background: #fff;
   color: #000;
-}
-.text-smalll{
-  display: inline-block;
-  font-size: 1.2rem;
-  font-weight: 300;
-}
-.currency-table{
-margin-left: 30px;
-padding-left: 23px;
-padding-top: 10px;
-width: 290px;
-border-radius: 12px;
 }
 </style>
