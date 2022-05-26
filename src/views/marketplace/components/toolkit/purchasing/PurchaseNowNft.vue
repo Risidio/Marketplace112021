@@ -1,42 +1,33 @@
 <template>
 <b-container>
-    <div class="background">
-       <h1 style="font: normal normal 300 18px Montserrat;" class="ordertitle"> Your Order: </h1>
-      <p class="fullPrice"><span>  <span>{{gaiaAsset.contractAsset.listingInUstx.price}}</span> STX tokens</span></p>
-    </div>
-    <img :src="square" alt="square" class="icon">
-    <p style="text-align: center; position: relative; top: -30px; padding-bottom: 10px; font: normal normal 600 15px Montserrat;">Select your payement method</p>
-    <div>
-        <button class="button notFilledBlue flat">Flat</button>
-        <button class="button notFilledBlue bit" @click="$emit('nextPage')" >Bitcoin</button>
-        <button class="button notFilledBlue light" @click="$emit('currPage')">Ligntning</button>
-    </div>
-<p style="text-align: center;  font: normal normal 600 15px Montserrat;">Enter your payement informations</p>
-<div class="currency-table" style="background: #F0EFEF">
-    <div class="card-num" >
-        <input type="text" placeholder="xxxx xxxx xxxx xxxx"><span style="width: 35px; -webkit-transform: scaleX(-1);transform: scaleX(-1);"></span>
-    </div>
-    <div class="card-detail date" >
-        <input type="text" placeholder="MM / YY"><span style="width: 35px; -webkit-transform: scaleX(-1);transform: scaleX(-1);"></span>
-    </div>
-        <div class="card-detail ccv" >
-        <input type="text" placeholder="CVV"><span style="width: 35px; -webkit-transform: scaleX(-1);transform: scaleX(-1);"></span>
-    </div>
-        <div class="card-detail zip" >
-        <input type="text" placeholder="Zip code"><span style="width: 35px; -webkit-transform: scaleX(-1);transform: scaleX(-1);"></span>
-    </div>
-</div>
-      <button class="btn notFilledBlue" @click="$emit('nextPage')" >SEND $</button>
-
+  <div class="background">
+    <h1 style="font: normal normal 300 18px Montserrat;" class="ordertitle"> Your Order: </h1>
+    <p class="fullPrice"><span>  <span>{{gaiaAsset.contractAsset.listingInUstx.price}}</span> STX tokens</span></p>
+  </div>
+  <div>
+    <img v-if="currPage === 0" :src="square" alt="square" class="icon">
+    <img v-else-if="currPage === 2" :src="QrCode" alt="square" class="icon">
+  </div>
+  <p style="text-align: center; position: relative; top: -30px; padding-bottom: 10px; font: normal normal 600 15px Montserrat;">Select your payment method</p>
+  <div>
+    <button class="button notFilledBlue flat" @click="currPage = 0">Fiat</button>
+    <button class="button notFilledBlue bit" @click="currPage = 1" >Bitcoin</button>
+    <button class="button notFilledBlue light" @click="currPage = 2">Lightning</button>
+  </div>
+  <FiatPayment v-if="currPage === 0"/>
+  <BitcoinPayment v-if="currPage === 1"/>
 </b-container>
 </template>
 
 <script>
-import { APP_CONSTANTS } from '@/app-constants'
+import FiatPayment from './currencyFlow/fiatPayment.vue'
+import BitcoinPayment from './currencyFlow/bitcoinPayment.vue'
 
 export default {
   name: 'PurchaseBuyNow',
   components: {
+    FiatPayment,
+    BitcoinPayment
   },
   props: ['contractAsset', 'gaiaAsset'],
   data () {
@@ -46,16 +37,14 @@ export default {
       loading: true,
       formSubmitted: false,
       errorMessage: null,
-      defaultRate: null
+      defaultRate: null,
+      currPage: 0
     }
   },
   mounted () {
     this.loading = false
   },
   methods: {
-    // rateMessage: function () {
-    //   return 'Buy now for' + this.contractAsset.saleData.buyNowOrStartingPrice + ' STX'
-    // }
   },
   computed: {
     profile () {

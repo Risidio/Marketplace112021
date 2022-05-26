@@ -11,11 +11,11 @@
           <div class="text-danger" v-html="errorMessage"></div>
         </div>
         <div v-else-if="buyPage === 1">
-        <PurchaseNowNft @currPage="currPage" @previousPage="previousPage" @nextPage="nextPage" :gaiaAsset="gaiaAsset" :contractAsset="contractAsset" :listingInUstx="contractAsset.listingInUstx" @buyNow="buyNow"/>
-        <div class="text-danger" v-html="errorMessage"></div>
+          <PurchaseNowNft @currPage="currPage" @previousPage="previousPage" @nextPage="nextPage" :gaiaAsset="gaiaAsset" :contractAsset="contractAsset" :listingInUstx="contractAsset.listingInUstx" @buyNow="buyNow"/>
+          <div class="text-danger" v-html="errorMessage"></div>
         </div>
         <div v-else-if="buyPage === 2">
-        hello
+          hello
         </div>
       </div>
       <div v-else>
