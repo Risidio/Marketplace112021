@@ -20,60 +20,60 @@
    <img class="nav_banner" src="https://res.cloudinary.com/risidio/image/upload/v1633609222/RisidioMarketplace/gradienta-m_-1_v4hs5p.svg" alt="nav-banner-image">
 </div>
 <div class="nav-container">
-    <div class = "mainNavbar">
+    <nav class = "mainNavbar">
         <img @click="$router.push('/'), mobileNavebar()" width="150px;" :src="logo" alt="risidio-logo"/>
         <div class="toggle-button" v-on:click="mobileNavebar()">
           <span class="bar"></span>
           <span class="bar"></span>
           <span class="bar"></span>
         </div>
-        <div v-if="profile.loggedIn" class="navbar_links">
-          <div class="nav-items" v-on:click="isLayer ? mobileNavebar() : '' ">
+        <ul v-if="profile.loggedIn" class="navbar_links">
+          <li class="nav-items" v-on:click="isLayer ? mobileNavebar() : '' ">
             <router-link class="nav-links bold" to="/nft-marketplace">Explore</router-link>
-          </div>
-            <div style="position: relative; margin-top: 2px;" @click="openMenu()" ref="dropDown" class="dropDown">
-              <p id="dropDown-1" class="nav-items bold" > Featured Collections <img class="arrow2" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg" alt="arrow-icon"></p>
-              <p id="dropDown-2" class="featured" > Featured Collections <img style="margin-left: 8px;" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg" alt="arrow-icon"></p>
-              <div id="dropDown-3" class="dropdownMenu">
-                <div id="dropDown-4" v-for="(item, index) in allLoopRuns" :key="index" class="dropdownMenu-container">
-                <p @click="linkTo(item)" v-on:click="isLayer ? mobileNavebar() : '' ">{{item.currentRun}}</p>
-                </div>
-              </div>
-            </div>
-            <hr class="mobile-hr"/>
-            <div v-on:click="isLayer ? mobileNavebar() : '' " class="nav-items" id="howItWorks">
-              <router-link class="nav-links thin right" to="/how-it-works" >How It Works</router-link>
-            </div>
-            <div v-on:click="isLayer ? mobileNavebar() : '' " class="nav-items">
-              <router-link class="nav-links text-black thin" to="/about">About Risidio </router-link>
-            </div>
-            <div v-on:click="isLayer ? mobileNavebar() : '' " class="nav-items">
-              <router-link class="navBtn thin" to="/my-account"> My NFT's </router-link>
-            </div>
-        </div>
-         <div v-else class="navbar_links_not_logged">
-           <div class="nav-items" v-on:click="isLayer ? mobileNavebar() : '' ">
+          </li>
+          <li style="position: relative; margin-top: 2px;" @click="openMenu()" ref="dropDown" class="nav-items"  >
+            <router-link to="" id="dropDown-1" class="nav-items bold" > Featured Collections <img class="arrow2" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></router-link>
+            <p id="dropDown-2" class="featured" > Featured Collections <img style="margin-left: 8px;" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></p>
+            <ul id="dropDown-3" class="dropdownMenu">
+              <li id="dropDown-4" v-for="(item, index) in allLoopRuns" :key="index" class="dropdownMenu-container">
+                <router-link :to="`/${item.currentRunKey}`" v-on:click="isLayer ? mobileNavebar() : '' ">{{item.currentRun}}</router-link>
+              </li>
+            </ul>
+          </li>
+          <hr class="mobile-hr"/>
+          <li v-on:click="isLayer ? mobileNavebar() : '' " class="nav-items" id="howItWorks">
+            <router-link class="nav-links thin right" to="/how-it-works" >How It Works</router-link>
+          </li>
+          <li v-on:click="isLayer ? mobileNavebar() : '' " class="nav-items">
+            <router-link class="nav-links text-black thin" to="/about">About Risidio </router-link>
+          </li>
+          <li v-on:click="isLayer ? mobileNavebar() : '' " class="nav-items">
+            <router-link class="navBtn thin" to="/my-account"> My NFT's </router-link>
+          </li>
+        </ul>
+         <ul v-else class="navbar_links_not_logged">
+           <li class="nav-items" v-on:click="isLayer ? mobileNavebar() : '' ">
             <router-link class="bold nav-bar" to="/nft-marketplace" >Explore</router-link>
-           </div>
-            <div style="position: relative; margin-top: 2px;" @click="openMenu()" ref="dropDown" class="dropDown">
-              <p id="dropDown-1" class="nav-items bold" > Featured Collections <img class="arrow2" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg" alt="arrow-icon"></p>
-              <p id="dropDown-2" class="featured" > Featured Collections <img style="margin-left: 8px;" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg" alt="arrow-icon"></p>
-              <div id="dropDown-3" class="dropdownMenu">
-                <div id="dropDown-4" v-for="(item, index) in allLoopRuns" :key="index" class="dropdownMenu-container">
-                  <p @click="linkTo(item)" v-on:click="isLayer ? mobileNavebar() : '' ">{{item.currentRun}}</p>
-                </div>
-              </div>
-            </div>
+           </li>
+            <li style="position: relative; margin-top: 2px;" @click="openMenu()" ref="dropDown" class="dropDown">
+              <router-link to="" id="dropDown-1" class="nav-items bold" > Featured Collections <img class="arrow2" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></router-link>
+              <p id="dropDown-2" class="featured" > Featured Collections <img style="margin-left: 8px;" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></p>
+              <ul id="dropDown-3" class="dropdownMenu">
+                <li id="dropDown-4" v-for="(item, index) in allLoopRuns" :key="index" class="dropdownMenu-container">
+                  <router-link :to="`/${item.currentRunKey}`" v-on:click="isLayer ? mobileNavebar() : '' ">{{item.currentRun}}</router-link>
+                </li>
+              </ul>
+            </li>
             <hr class="mobile-hr"/>
-            <div v-on:click="isLayer ? mobileNavebar() : '' " class="nav-items" id="howItWorks">
-            <router-link class="text-black thin nav-bar" to="/how-it-works" id="howItWorks">How It Works</router-link>
-            </div>
-             <div v-on:click="isLayer ? mobileNavebar() : '' " class="nav-items">
-            <router-link class="text-black thin nav-bar" to="/about">About Risidio </router-link>
-             </div>
+            <li v-on:click="isLayer ? mobileNavebar() : '' " class="nav-items" id="howItWorks">
+              <router-link class="text-black thin nav-bar" to="/how-it-works" id="howItWorks">How It Works</router-link>
+            </li>
+            <li v-on:click="isLayer ? mobileNavebar() : '' " class="nav-items">
+              <router-link class="text-black thin nav-bar" to="/about">About Risidio </router-link>
+            </li>
             <div @mouseover="isHidden = !isHidden" @blur="isHidden = !isHidden" class=" nav-items navBtn text-black" id="register" v-on:click="startRegister()"> CONNECT WITH HIRO WALLET </div>
-        </div>
-    </div>
+        </ul>
+    </nav>
   </div>
 </div>
 </template>
@@ -169,7 +169,7 @@ export default {
       const hr = document.getElementsByClassName('mobile-hr')[0]
       if (myProfile.loggedIn) {
         const navLogged = document.getElementsByClassName('navbar_links')[0]
-        const featured = document.getElementsByClassName('dropDown')[0]
+        const featured = document.getElementsByClassName('featured')[0]
         hr.classList.toggle('active')
         featured.classList.toggle('active')
         mainNavbar.classList.toggle('active')
@@ -304,6 +304,7 @@ export default {
   display: flex;
   flex-direction: row;
   width: 100%;
+  list-style: none;
   &.right {
     margin-left: auto;
     background: black;
@@ -418,12 +419,16 @@ export default {
   z-index: 10;
   max-height: 200px;
   overflow-y: auto;
-  p {
+  list-style: none;
+  gap: 10px;
+  padding-left: 10px;
+  padding-bottom: 10px;
+  a {
     font-size: 11px;
     padding: 5px 20px;
     cursor: pointer;
   }
-  p:hover {
+  a:hover {
     text-decoration: underline;
     color: #5fbdc1;
   }
@@ -441,12 +446,12 @@ export default {
 .featured {
   position: absolute;
   background: white;
-  padding: 18px 10px 10px 10px;
+  padding: 18px 10px 10px 30px;
   display: none;
   top: 0;
-  left: 9px;
   font-size: 1.2rem;
   font-weight: bolder;
+  border-radius: 5px;
   z-index: 11;
   cursor: pointer;
 }
