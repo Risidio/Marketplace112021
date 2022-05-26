@@ -20,8 +20,8 @@
                         <p class="collectionInfoDetail"> {{content.artistinfo[0].artistdescription[0].text}}</p>
                     </div>
                     <div class="icons">
-                        <a href="https://twitter.com/jsgumbula" target="_blank"><img class="icon" src="https://res.cloudinary.com/risidio/image/upload/v1640102430/RisidioMarketplace/twitter-black-shape-svgrepo-com_pfxicm.svg"/></a>
-                        <a href=" https://www.instagram.com/johnsmithgumbula/" target="_blank"><img class="icon" src="https://res.cloudinary.com/risidio/image/upload/v1640102517/RisidioMarketplace/instagram-svgrepo-com_apkdhy.svg"/></a>
+                        <a href="https://twitter.com/jsgumbula" target="_blank"><img class="icon" src="https://res.cloudinary.com/risidio/image/upload/v1640102430/RisidioMarketplace/twitter-black-shape-svgrepo-com_pfxicm.svg" alt="twitter-logo"></a>
+                        <a href=" https://www.instagram.com/johnsmithgumbula/" target="_blank"><img class="icon" src="https://res.cloudinary.com/risidio/image/upload/v1640102517/RisidioMarketplace/instagram-svgrepo-com_apkdhy.svg" alt="instagram-logo"></a>
                     </div>
                 </div>
             </div>

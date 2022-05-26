@@ -6,7 +6,7 @@
     <div class="profileContainer">
       <div class="profile">
           <div class="profileItems">
-            <img class="profileImg" src="https://res.cloudinary.com/risidio/image/upload/v1637580392/RisidioMarketplace/depositphotos_137014128-stock-illustration-user-profile-icon_splob8.jpg" alt="">
+            <img class="profileImg" src="https://res.cloudinary.com/risidio/image/upload/v1637580392/RisidioMarketplace/depositphotos_137014128-stock-illustration-user-profile-icon_splob8.jpg" alt="profile-image">
             <p title='edit your profile' style="width: 25px; -webkit-transform: scaleX(-1);transform: scaleX(-1);" class="pencil">&#9998;</p>
           </div>
           <div v-if="!transaction" class="usernameContainer">

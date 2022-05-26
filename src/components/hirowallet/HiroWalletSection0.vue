@@ -1,6 +1,6 @@
 <template>
 <section class="container section0-container">
-  <img class="wallet-img" src="https://res.cloudinary.com/risidio/image/upload/v1633609788/RisidioMarketplace/006-wallet_uy3myg.svg"/>
+  <img class="wallet-img" src="https://res.cloudinary.com/risidio/image/upload/v1633609788/RisidioMarketplace/006-wallet_uy3myg.svg" alt="wallet-image">
   <h1>{{ content.s1_title[0].text }}</h1>
   <prismic-rich-text class="main-content text-center" :field="content.s1_text"/>
   <button class="button" @click="startRegister()"><a href="#">{{ content.s1_button[0].text }}</a></button>

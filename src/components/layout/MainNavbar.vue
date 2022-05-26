@@ -17,7 +17,7 @@
 </div>
 
 <div class="navbar_container">
-   <img class="nav_banner" src="https://res.cloudinary.com/risidio/image/upload/v1633609222/RisidioMarketplace/gradienta-m_-1_v4hs5p.svg" alt="">
+   <img class="nav_banner" src="https://res.cloudinary.com/risidio/image/upload/v1633609222/RisidioMarketplace/gradienta-m_-1_v4hs5p.svg" alt="nav-banner-image">
 </div>
 <div class="nav-container">
     <div class = "mainNavbar">
@@ -32,8 +32,8 @@
             <router-link class="nav-links bold" to="/nft-marketplace">Explore</router-link>
           </div>
             <div style="position: relative; margin-top: 2px;" @click="openMenu()" ref="dropDown" class="dropDown">
-              <p id="dropDown-1" class="nav-items bold" > Featured Collections <img class="arrow2" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></p>
-              <p id="dropDown-2" class="featured" > Featured Collections <img style="margin-left: 8px;" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></p>
+              <p id="dropDown-1" class="nav-items bold" > Featured Collections <img class="arrow2" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg" alt="arrow-icon"></p>
+              <p id="dropDown-2" class="featured" > Featured Collections <img style="margin-left: 8px;" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg" alt="arrow-icon"></p>
               <div id="dropDown-3" class="dropdownMenu">
                 <div id="dropDown-4" v-for="(item, index) in allLoopRuns" :key="index" class="dropdownMenu-container">
                 <p @click="linkTo(item)" v-on:click="isLayer ? mobileNavebar() : '' ">{{item.currentRun}}</p>
@@ -56,8 +56,8 @@
             <router-link class="bold nav-bar" to="/nft-marketplace" >Explore</router-link>
            </div>
             <div style="position: relative; margin-top: 2px;" @click="openMenu()" ref="dropDown" class="dropDown">
-              <p id="dropDown-1" class="nav-items bold" > Featured Collections <img class="arrow2" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></p>
-              <p id="dropDown-2" class="featured" > Featured Collections <img style="margin-left: 8px;" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></p>
+              <p id="dropDown-1" class="nav-items bold" > Featured Collections <img class="arrow2" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg" alt="arrow-icon"></p>
+              <p id="dropDown-2" class="featured" > Featured Collections <img style="margin-left: 8px;" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg" alt="arrow-icon"></p>
               <div id="dropDown-3" class="dropdownMenu">
                 <div id="dropDown-4" v-for="(item, index) in allLoopRuns" :key="index" class="dropdownMenu-container">
                   <p @click="linkTo(item)" v-on:click="isLayer ? mobileNavebar() : '' ">{{item.currentRun}}</p>
