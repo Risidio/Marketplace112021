@@ -1,39 +1,56 @@
 <template>
 <b-container>
   <div class="background">
-    <h1 style="font: normal normal 300 18px Montserrat;" class="ordertitle"> Your Order: </h1>
+    <!-- <h1 style="font: normal normal 300 18px Montserrat;" class="ordertitle"> Your Order: </h1> -->
     <p class="fullPrice"><span>  <span>{{gaiaAsset.contractAsset.listingInUstx.price}}</span> STX tokens</span></p>
+    <p style="font: normal normal 500 12px Montserrat;"  class="edit" ><span>Edit</span></p>
+    <img :src="edit" alt="edit" class="edit-img">
   </div>
   <div>
-    <img v-if="currPage === 0" :src="square" alt="square" class="icon">
-    <img v-else-if="currPage === 2" :src="QrCode" alt="square" class="icon">
+    <img  v-if="currPage === 0" :src="square" alt="square" class="icon">
+    <img v-else-if="currPage === 2" :src="square" alt="QRCode" class="icon">
+    <img style="width: 150px; margin-bottom: 40px;" v-else-if="currPage === 1" :src="stacks" alt="stacks" class="icon">
   </div>
   <p style="text-align: center; position: relative; top: -30px; padding-bottom: 10px; font: normal normal 600 15px Montserrat;">Select your payment method</p>
   <div>
-    <button class="button notFilledBlue flat" @click="currPage = 0">Fiat</button>
-    <button class="button notFilledBlue bit" @click="currPage = 1" >Bitcoin</button>
-    <button class="button notFilledBlue light" @click="currPage = 2">Lightning</button>
+    <button :class="['button', 'flat', currPage === 0 ? 'blue' : 'white']" @click="currPage = 0">Fiat</button>
+    <button :class="['button', 'bit', currPage === 1 ? 'blue' : 'white']" @click="currPage = 1" >Bitcoin</button>
+    <button :class="['button', 'light', currPage === 2 ? 'blue' : 'white']"  @click="currPage = 2">Lightning</button>
+  </div>
+  <div class="progressbar">
+     <img style="width: 300px; margin-left: 30px;" :src="progress" alt="progres" class="">
+    <p style="font: normal normal 500 9px Montserrat;"  class="order" ><span>Place Order</span></p>
+    <p style="font: normal normal 500 9px Montserrat;"  class="payment" ><span>Make the payement</span></p>
+    <p style="font: normal normal 500 9px Montserrat;"  class="Confirmation" ><span>Confirmation</span></p>
   </div>
   <FiatPayment v-if="currPage === 0"/>
-  <BitcoinPayment v-if="currPage === 1"/>
+  <BitcoinPayment  v-if="currPage === 1"/>
+  <LightningPayment v-if="currPage === 2"/>
+  <PaymentConfirm v-if="currPage === 3" />
 </b-container>
 </template>
 
 <script>
 import FiatPayment from './currencyFlow/fiatPayment.vue'
 import BitcoinPayment from './currencyFlow/bitcoinPayment.vue'
-
+import LightningPayment from './currencyFlow/lightningPayment.vue'
+import PaymentConfirm from './currencyFlow/paymentConfirm.vue'
 export default {
   name: 'PurchaseBuyNow',
   components: {
     FiatPayment,
-    BitcoinPayment
+    BitcoinPayment,
+    LightningPayment,
+    PaymentConfirm
   },
-  props: ['contractAsset', 'gaiaAsset'],
+  props: ['contractAsset', 'gaiaAsset', 'currpage'],
   data () {
     return {
-      square: require('@/assets/img/square.png'),
+      square: require('@/assets/img/square1.png'),
       QrCode: require('@/assets/img/QR-Code.png'),
+      stacks: require('@/assets/img/stacks-icon.png'),
+      edit: require('@/assets/img/edit.png'),
+      progress: require('@/assets/img/ProgressLine2.png'),
       loading: true,
       formSubmitted: false,
       errorMessage: null,
@@ -61,6 +78,14 @@ export default {
 .input-group-text {
   background: #fff;
   color: #000;
+}
+.blue{
+  background: #170a6d;
+  color: white;
+}
+.white{
+ background: #F7F7F7;
+ color: black;
 }
 .modal-contentt {
   display: flex;
@@ -91,72 +116,29 @@ border-radius: 12px;
   margin-bottom: -20px;
   border-radius: 10px;
 }
-.btn{
+.payment{
   position: relative;
-  top: -30px;
-  width: 120px;
-  display: grid;
-  place-items: center;
-  width: 300px;
-  height: 57px;
-  margin: auto;
-  margin-bottom: 110px;
-  border-radius: 20px;
-  border: none;
-  font: normal normal bold 15px/14px Montserrat;
-  font-weight: 500;
+  left: 135px;
+  top: -22px;
+}.Confirmation{
+  position: relative;
+  left: 290px;
+  top: -42px;
 }
-.card-num > input {
-  position: relative;
-  background:#FFFFFF;
-  border-radius: 7px;
-  border: solid 1px rgb(235, 235, 235);
-  width: 80%;
-  height: 40px;
-  padding: 5px;
-  top: -120px;
-  left: 18px;
-  padding-left: 35px;
-  outline: none;
-  font-weight: 200;
-  font-size: 1.2rem;
+.progressbar{
+  position:absolute;
+  bottom: -40px;
 }
-.card-detail > input {
-  position: relative;
-  background:#FFFFFF;
-  border-radius: 7px;
-  border: solid 1px rgb(235, 235, 235);
-  width: 25%;
-  height: 40px;
-  padding: 15px;
-  top: -120px;
-  left: 18px;
-  // padding-left: 35px;
-  outline: none;
-  font-weight: 200;
-  font-size: 1.2rem;
-}
-.date{
-  position: relative;
-  padding-top: 10px;
-  right: 0px;
-}
-.ccv{
-  position: relative;
-  left:95px;
-  top: -40px;
-}
-.zip{
-  position: relative;
-  top: -80px;
-  left: 190px;
-  }
 .backBtn {
     color: #170a6d;
     font: normal normal bold 11px/14px Montserrat;
     cursor: pointer;
     position: relative;
 }
+// .button:hover {
+//   background: #170a6d;
+//   color: white;
+// }
 .background{
   position: relative;
   top: -69px;
@@ -165,6 +147,9 @@ border-radius: 12px;
   border-radius: 25px;
   margin-left: -45px;
   width: 458px;
+  background:#F7F7F7;
+  color: #000;
+;
 }
 .cyanText {
     color: #14127B;
@@ -172,7 +157,6 @@ border-radius: 12px;
 }
 .notFilledBlue {
     color: #FFFFFF;
-    background: #14127B;
     text-align: center;
 }
 .bit{
@@ -195,6 +179,7 @@ border-radius: 12px;
   margin-right: auto;
   width: 200px;
 }
+
 // .icon1{
 //   display: block;
 //   margin-left: auto;
@@ -210,10 +195,22 @@ margin-left: 40px;
 top: 30px;
 
 }
+.edit{
+  position: relative;
+  left: 400px;
+  top: 15px;
+  cursor: pointer;
+}
+.edit-img{
+position: relative;
+width: 13px;
+left: 430px;
+top: -20px;
+}
 .fullPrice{
     position: absolute;
-    top: 25px;
-    left: 220px;
+    top: 40px;
+    left: 160px;
    font: normal normal 300 19px/29px Montserrat;
      span{
       font: normal normal 300 19px/29px Montserrat;

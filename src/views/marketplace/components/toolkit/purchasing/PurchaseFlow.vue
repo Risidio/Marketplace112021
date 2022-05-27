@@ -15,7 +15,6 @@
           <div class="text-danger" v-html="errorMessage"></div>
         </div>
         <div v-else-if="buyPage === 2">
-          hello
         </div>
       </div>
       <div v-else>
