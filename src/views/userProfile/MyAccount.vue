@@ -11,7 +11,7 @@
           </div>
           <div v-if="!transaction" class="usernameContainer">
             <div v-if="userExists" class="usernameEdit">
-              <h3 style="padding: 30px 0px;font-size: 15px;">User Name: {{userExists}}</h3>
+              <p class="username">User Name: <span>{{userExists}}</span></p>
               <span @click="uploadUserName('editing')" style="width: 35px; -webkit-transform: scaleX(-1);transform: scaleX(-1);cursor: pointer;" title='edit your profile' class="">&#9998;</span>
             </div>
             <div v-else class="usernameEdit" >
@@ -670,7 +670,6 @@ export default {
   object-fit: cover;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
 }
-
 .pencil {
   background: white;
   color: lightseagreen;
@@ -704,16 +703,24 @@ export default {
   cursor: pointer;
   transition: all 0.2s ease-in-out;
 }
+.username {
+  font: normal normal 600 12px/15px Montserrat;
+  color: black;
+  height: 100%;
+  margin-top: 12px;
+  span{
+    color: #5154a1;
+  }
+}
 .usernameEdit {
   max-width: 500px;
   background: rgb(243, 243, 243);
   border-radius: 20px;
   margin: 30px 0;
   display: flex;
-  align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
-  padding: 0px 20px;
+  padding: 0 20px;
 }
 .usernameEdit > input {
   background: rgb(243, 243, 243);
