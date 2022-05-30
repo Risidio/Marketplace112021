@@ -10,8 +10,14 @@
             <p title='edit your profile' style="width: 25px; -webkit-transform: scaleX(-1);transform: scaleX(-1);" class="pencil">&#9998;</p>
           </div>
           <div v-if="!transaction" class="usernameContainer">
-            <div class="usernameEdit" >
-              <input type="text" placeholder="Username"><span style="width: 35px; -webkit-transform: scaleX(-1);transform: scaleX(-1);" title='edit your profile' class="">&#9998;</span>
+            <div v-if="userExists" class="usernameEdit">
+              <h3 style="padding: 30px 0px;font-size: 15px;">User Name: {{userExists}}</h3>
+              <span @click="uploadUserName('editing')" style="width: 35px; -webkit-transform: scaleX(-1);transform: scaleX(-1);cursor: pointer;" title='edit your profile' class="">&#9998;</span>
+            </div>
+            <div v-else class="usernameEdit" >
+              <input type="text" placeholder="Username" @input="setUserName($event.target.value)" />
+              <span @click="uploadUserName()" style="width: 35px; -webkit-transform: scaleX(-1);transform: scaleX(-1);cursor: pointer;" title='edit your profile' class="">&#x0002B;</span>
+              <p v-if="regError" style="color:red;font-size: 10px;padding: 20px;">Your Username must have at least 3 charechters</p>
             </div>
             <p  class="profile-history" @click="viewTransaction()" >View Transaction History</p>
           </div>
@@ -183,6 +189,8 @@ import { VueperSlides, VueperSlide } from 'vueperslides'
 import 'vueperslides/dist/vueperslides.css'
 import { APP_CONSTANTS } from '@/app-constants'
 import utils from '@/services/utils'
+import axios from 'axios'
+
 // import MySingleItem from '../marketplace/components/gallery/MySingleItem.vue'
 
 export default {
@@ -220,6 +228,9 @@ export default {
       touchableSlide: false,
       showArrow: true,
       bullets: false,
+      userName: '',
+      regError: false,
+      userExists: '',
       // sliderHeight: '320px',
       slide: [
         {
@@ -242,6 +253,7 @@ export default {
     this.defaultRate = tickerRates[0].currency
     this.loading = false
     this.setSTX()
+    this.getUser()
     // this.yourSTX = this.profile.accountInfo.balance
     // let currentRunKey = 'indige5'
     this.loading = true
@@ -401,6 +413,31 @@ export default {
       } else if (index === 2) {
         this.$router.push('/my-account/fav#pagination')
       }
+    },
+    setUserName (e) {
+      this.userName = e
+      this.regError = false
+    },
+    getUser () {
+      axios.get(`https://risidio-marketplace-database.herokuapp.com/user/${this.profile.stxAddress}`)
+        .then((res) => { this.userExists = res.data[0].username })
+    },
+    uploadUserName (string) {
+      const pattern = /^[a-z0-9]{3,16}$/
+      const result = pattern.test(this.userName)
+      if (string === 'editing') {
+        this.userExists = ''
+        return
+      }
+      if (result) {
+        axios.post('https://risidio-marketplace-database.herokuapp.com/user', {
+          username: this.userName,
+          stxAddress: this.profile.stxAddress
+        })
+        this.userExists = this.userName
+      } else {
+        this.regError = true
+      }
     }
     // setSliderHeight () {
     //   let height = 320
@@ -528,7 +565,7 @@ export default {
   justify-content: center;
   flex-wrap: wrap;
 }
-.galleryNavContainer{
+.galleryNavContainer {
   width: 710px;
   justify-content: space-between;
   margin-bottom: -12px;
@@ -553,30 +590,31 @@ export default {
 .walletCurrency > * {
   flex: 1 1 120px;
 }
-.MobileV{
-  margin-top:20px;
+.MobileV {
+  margin-top: 20px;
   padding-top: 20px;
-  background-color: #EFEFEF;
+  background-color: #efefef;
   border-radius: 14px;
 }
 .MobileV ::v-deep {
   .vueperslides__parallax-wrapper,
-  .vueperslide--active, .vueperslide--visible{
+  .vueperslide--active,
+  .vueperslide--visible {
     min-height: 450px;
     overflow-y: auto;
     // z-index: 2;
   }
-  .vueperslides__inner{
+  .vueperslides__inner {
     position: relative;
   }
-  .vueperslides__bullets{
+  .vueperslides__bullets {
     max-height: 30px;
     // position: absolute;
-    color: #50B1B5;
+    color: #50b1b5;
     top: 20px;
     z-index: 0;
   }
-  }
+}
 .backBtn {
   display: flex;
   color: #170a6d;
@@ -654,31 +692,34 @@ export default {
   margin: auto;
 }
 .NFTbackgroundColour {
-background: rgba(129, 129, 129, 0.12);
-display: grid;
-display: -ms-grid;
-place-items: center;
-border-radius: 26px;
-width: 255px;
-height: 320px;
-padding: 20px;
-margin: 1rem;
-cursor: pointer;
-transition: all 0.2s ease-in-out;
+  background: rgba(129, 129, 129, 0.12);
+  display: grid;
+  display: -ms-grid;
+  place-items: center;
+  border-radius: 26px;
+  width: 255px;
+  height: 320px;
+  padding: 20px;
+  margin: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
 }
 .usernameEdit {
   max-width: 500px;
-  display: flex;
-  flex-direction: row;
   background: rgb(243, 243, 243);
   border-radius: 20px;
   margin: 30px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  padding: 0px 20px;
 }
 .usernameEdit > input {
   background: rgb(243, 243, 243);
   border-radius: 20px;
   border: solid 1px rgb(235, 235, 235);
-  width: 90%;
+  width: 80%;
   padding: 5px;
   padding-left: 15px;
   outline: none;
@@ -696,13 +737,13 @@ transition: all 0.2s ease-in-out;
   right: 150px;
   top: 100px;
 }
-@media only screen and (max-width: 475px){
+@media only screen and (max-width: 475px) {
   .infoButton {
-  position: absolute;
-  z-index: 20;
-  right: 115px;
-  top: 100px;
-}
+    position: absolute;
+    z-index: 20;
+    right: 115px;
+    top: 100px;
+  }
 }
 .infoButton.hidden {
   display: none;
@@ -846,6 +887,10 @@ transition: all 0.2s ease-in-out;
     background: none;
     max-width: 300px;
     margin: 20px auto 50px auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
     input {
       border: none;
       background: none;
@@ -858,8 +903,8 @@ transition: all 0.2s ease-in-out;
   .walletDetails {
     background: #efefef;
     .button {
-    margin-top: 20px;
-  }
+      margin-top: 20px;
+    }
   }
   .walletDetails {
     margin: auto;

@@ -265,6 +265,9 @@ export default {
 .nav-container {
   height: 100px;
 }
+.risidio-logo{
+  margin-top: -12px;
+}
 .whiteBackground {
   position: fixed;
   width: 100%;
@@ -276,6 +279,7 @@ export default {
   display: flex;
   margin: 0 auto;
   max-width: 1600px;
+  margin-left: 20px;
   padding: 20px 20px;
   position: relative;
   img {
@@ -376,6 +380,7 @@ export default {
   background: rgba(227, 238, 238, 0.6);
 }
 .nav-links {
+  margin-left: 10px;
   color: white;
   &:hover {
     color: white;
