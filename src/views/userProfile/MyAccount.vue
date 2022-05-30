@@ -9,15 +9,15 @@
             <img class="profileImg" src="https://res.cloudinary.com/risidio/image/upload/v1637580392/RisidioMarketplace/depositphotos_137014128-stock-illustration-user-profile-icon_splob8.jpg" alt="profile-image">
             <p title='edit your profile' style="width: 25px; -webkit-transform: scaleX(-1);transform: scaleX(-1);" class="pencil">&#9998;</p>
           </div>
+          <div v-if="userExists" class="usernameEdit">
+            <p class="username">User Name: <span>{{userExists}}</span></p>
+            <span @click="uploadUserName('editing')" style="width: 35px; -webkit-transform: scaleX(-1);transform: scaleX(-1);cursor: pointer;" title='edit your profile' class="">&#9998;</span>
+          </div>
           <div v-if="!transaction" class="usernameContainer">
-            <div v-if="userExists" class="usernameEdit">
-              <p class="username">User Name: <span>{{userExists}}</span></p>
-              <span @click="uploadUserName('editing')" style="width: 35px; -webkit-transform: scaleX(-1);transform: scaleX(-1);cursor: pointer;" title='edit your profile' class="">&#9998;</span>
-            </div>
-            <div v-else class="usernameEdit" >
+            <div v-if="!userExists" class="usernameEdit" >
               <input type="text" placeholder="Username" @input="setUserName($event.target.value)" />
               <span @click="uploadUserName()" style="width: 35px; -webkit-transform: scaleX(-1);transform: scaleX(-1);cursor: pointer;" title='edit your profile' class="">&#x0002B;</span>
-              <p v-if="regError" style="color:red;font-size: 10px;padding: 20px;">Your Username must have at least 3 charechters</p>
+              <p v-if="regError" style="color:red;font-size: 10px;padding: 20px;">Your Username must have at least 3 characters</p>
             </div>
             <p  class="profile-history" @click="viewTransaction()" >View Transaction History</p>
           </div>
@@ -70,38 +70,15 @@
         </div>
           <Pagination :pageSize="pageSize" :numberOfItems="numberOfItems"/>
       </div>
-      <div v-else-if="saleItem.length > 0 && tab === 'sale'" >
+      <div v-else-if="tab === 'sale'" >
         <div>
           <MyPageableItems :loopRun="loopRun" :resultSet="saleItem"/>
           <router-link to='/nft-marketplace/' style="font: normal normal bold 11px/14px Montserrat; display: block; text-align: center; margin-top: 50px"><!--<span style="color: #5FBDC1; ">Want More ? See The Gallery</span>--></router-link>
         </div>
       </div>
-      <div v-else-if="saleItem.length === 0 && tab === 'sale'">
-        <div class="noNFT">
-          <h3> You do not own any items on sale</h3>
-          <div class="profileBtns">
-            <router-link class="button filled" to='/nft-marketplace/'>Explore Gallery</router-link>
-            <!-- <router-link class="button notFilledBlue" to="/create">Mint Your Item</router-link> -->
-          </div>
-        </div>
-      </div>
       <div v-else-if="tab === 'fav' && favouriteNfts">
           <MyPageableItems :loopRun="loopRun" :resultSet="favouriteNfts"/>
         <div class="profileBtns">
-          <router-link class="button filled" to='/nft-marketplace/'>Explore Gallery</router-link>
-          <!-- <router-link class="button notFilledBlue" to="/create">Mint Your Item</router-link> -->
-        </div>
-      </div>
-      <div v-else-if="tab === 'fav' && !favouriteNfts" class="noNFT">
-        <h3> You do not have any favourite items</h3>
-      </div>
-      <div v-else>
-        <div class="noNFT">
-        <h3> You do not own any Items yet</h3>
-          <div class="profileBtns">
-            <router-link class="button filled" to='/nft-marketplace/'>Explore Gallery</router-link>
-            <!-- <router-link class="button notFilledBlue" to="/create">Mint Your Item</router-link> -->
-          </div>
         </div>
       </div>
     </div>

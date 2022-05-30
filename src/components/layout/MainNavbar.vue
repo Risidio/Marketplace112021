@@ -184,11 +184,11 @@ export default {
         notLogged.classList.toggle('active')
         body.classList.toggle('stop-scrolling')
       }
-      if (mainNavbar.classList.value === 'mainNavbar active') {
-        this.isLayer = true
-      } else {
-        this.isLayer = false
-      }
+      // if (mainNavbar.classList.value === 'mainNavbar active') {
+      //   this.isLayer = true
+      // } else {
+      //   this.isLayer = false
+      // }
     },
     startRegister () {
       this.startLogin()

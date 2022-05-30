@@ -6,9 +6,9 @@
       </div>
       <div v-else>
         <div class="noNFT">
-        <h3> You do not own any Items yet</h3>
+        <h3>There are no items here, find items in the gallery </h3>
           <div class="profileBtns">
-            <router-link class="button filled" to="/nft-marketplace/">Gallery</router-link>
+            <router-link class="button filled" to="/nft-marketplace/">Explore Gallery</router-link>
           </div>
         </div>
       </div>
@@ -18,8 +18,6 @@
 import MySingleItem from './MySingleItem'
 // import Pagination from './common/Pagination'
 import { APP_CONSTANTS } from '@/app-constants'
-
-const LOOP_RUN_DEF = process.env.VUE_APP_DEFAULT_LOOP_RUN
 
 export default {
   name: 'MyPageableItems',
@@ -94,7 +92,7 @@ export default {
   .noNFT{
   display: block;
   margin: auto;
-  max-width: 100%;
+  max-width: 600px;
   text-align: center;
   h3{
     margin: 50px 0;
