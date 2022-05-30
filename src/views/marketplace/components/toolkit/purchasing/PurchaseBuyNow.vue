@@ -20,13 +20,7 @@
       <p style="text-align: center;">You already own this NFT!</p>
     </b-col>
     <b-col class="mt-5" cols="12" v-else>
-      <button class="button notFilledBlue" @click="$emit('nextPage')" >PLACE YOUR ORDER</button>
-      <p style="font: normal normal 600 12px/15px Montserrat; padding-left: 80px;">or <span style="font: normal normal bold 14px/16px Montserrat; cursor: pointer;" class="cyanText" @click="$emit('buyNow')">Use Connect Wallet</span> <br/></p>
-         <img style="width: 300px; margin-left: 30px;" :src="progress" alt="progres" class="">
-    <p style="font: normal normal 500 9px Montserrat;"  class="order" ><span>Place Order</span></p>
-    <p style="font: normal normal 500 9px Montserrat;"  class="payment" ><span>Make the payement</span></p>
-    <p style="font: normal normal 500 9px Montserrat;"  class="Confirmation" ><span>Confirmation</span></p>
-
+      <button class="button notFilledBlue" @click="$emit('buyNow')">BUY NOW</button>
     </b-col>
   </b-row>
 </b-container>
@@ -34,6 +28,8 @@
 
 <script>
 import RatesListing from '@/views/marketplace/components/toolkit/RatesListing'
+import { APP_CONSTANTS } from '@/app-constants'
+
 export default {
   name: 'PurchaseBuyNow',
   components: {
@@ -45,8 +41,7 @@ export default {
       loading: true,
       formSubmitted: false,
       errorMessage: null,
-      defaultRate: null,
-      progress: require('@/assets/img/ProgressLine.png')
+      defaultRate: null
     }
   },
   mounted () {
@@ -73,23 +68,6 @@ export default {
   background: #fff;
   color: #000;
 }
-.modal-contentt {
-  display: flex;
-  flex-direction: column;
-  width: 200px;
-  position: relative;
-  margin: auto;
-  // padding: 20px;
-}
-.payment{
-  position: relative;
-  left: 135px;
-  top: -22px;
-}.Confirmation{
-  position: relative;
-  left: 290px;
-  top: -42px;
-}
 .button{
   width: 120px;
   padding: 0;
@@ -99,8 +77,8 @@ export default {
   height: 43px;
   margin: auto;
 }
-.progress{
-}
+.priceSection{
+  }
 .basePrice, .feePrice{
   text-align: left;
   font: normal normal 300 12px/18px Montserrat;

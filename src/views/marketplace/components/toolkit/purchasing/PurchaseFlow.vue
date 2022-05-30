@@ -5,17 +5,8 @@
   <div v-else>
     <div >
       <div v-if="contractAsset && contractAsset.listingInUstx" class="modall">
-        <div v-if="buyPage === 0">
-          <PurchaseBuyNow @currPage="currPage" @previousPage="previousPage" @nextPage="nextPage" :gaiaAsset="gaiaAsset" :contractAsset="contractAsset" :listingInUstx="contractAsset.listingInUstx" @buyNow="buyNow"/>
-          <div class="text-danger" v-html="errorMessage"></div>
-        </div>
-        <div v-else-if="buyPage === 1">
-          <PurchaseNowNft @currPage="currPage" @previousPage="previousPage" @nextPage="nextPage" :gaiaAsset="gaiaAsset" :contractAsset="contractAsset" :listingInUstx="contractAsset.listingInUstx" @buyNow="buyNow"/>
-          <div class="text-danger" v-html="errorMessage"></div>
-        </div>
-        <div v-else-if="buyPage === 2">
-        <PaymentConfirm  @currPage="currPage" @previousPage="previousPage" @nextPage="nextPage" :gaiaAsset="gaiaAsset" :contractAsset="contractAsset" :listingInUstx="contractAsset.listingInUstx" @buyNow="buyNow"/>
-        </div>
+        <PurchaseBuyNow :gaiaAsset="gaiaAsset" :contractAsset="contractAsset" :listingInUstx="contractAsset.listingInUstx" @buyNow="buyNow"/>
+        <div class="text-danger" v-html="errorMessage"></div>
       </div>
       <div v-else>
         Asset not on sale.
@@ -28,8 +19,6 @@
 <script>
 import { APP_CONSTANTS } from '@/app-constants'
 import PurchaseBuyNow from './PurchaseBuyNow'
-import PurchaseNowNft from './PurchaseNowNft'
-import PaymentConfirm from './currencyFlow/paymentConfirm.vue'
 
 const STX_CONTRACT_ADDRESS = process.env.VUE_APP_STACKS_CONTRACT_ADDRESS
 const STX_CONTRACT_NAME = process.env.VUE_APP_STACKS_CONTRACT_NAME
@@ -37,9 +26,7 @@ const STX_CONTRACT_NAME = process.env.VUE_APP_STACKS_CONTRACT_NAME
 export default {
   name: 'PurchaseFlow',
   components: {
-    PurchaseBuyNow,
-    PurchaseNowNft,
-    PaymentConfirm
+    PurchaseBuyNow
   },
   props: ['gaiaAsset', 'forceOfferFlow', 'loopRun'],
   data () {
@@ -123,7 +110,6 @@ export default {
 <style lang="scss" scoped>
 .modall{
   max-width: 500px;
-  height: 750px;
   margin: auto;
 }
 </style>

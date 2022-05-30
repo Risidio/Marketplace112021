@@ -67,5 +67,4 @@ export default {
   text-transform: uppercase;
   color: #000;
 }
-
 </style>
