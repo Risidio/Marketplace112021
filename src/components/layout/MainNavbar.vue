@@ -401,7 +401,7 @@ export default {
   display: none; /* Hidden by default */
   position: fixed; /* Stay in place */
   z-index: 1; /* Sit on top */
-  padding: 100px 10px; /* Location of the box */
+  // padding: 100px 10px; /* Location of the box */
   left: 0;
   top: 0;
   width: 100%; /* Full width */
