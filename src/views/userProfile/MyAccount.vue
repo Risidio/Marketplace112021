@@ -10,8 +10,10 @@
             <p title='edit your profile' style="width: 25px; -webkit-transform: scaleX(-1);transform: scaleX(-1);" class="pencil">&#9998;</p>
           </div>
           <div v-if="!transaction" class="usernameContainer">
-            <div v-if="userExists">
+            <div v-if="userExists" class="usernameEdit">
               <h3 style="padding: 30px 0px;font-size: 15px;">User Name: {{userExists}}</h3>
+              <span @click="uploadUserName('editing')" style="width: 35px; -webkit-transform: scaleX(-1);transform: scaleX(-1);cursor: pointer;" title='edit your profile' class="">&#9998;</span>
+              <!-- <input v-if="editingName" type="text" placeholder="Username" @input="setUserName($event.target.value)" /> -->
             </div>
             <div v-else class="usernameEdit" >
               <input type="text" placeholder="Username" @input="setUserName($event.target.value)" />
@@ -421,10 +423,13 @@ export default {
       axios.get(`http://localhost:5000/user/${this.profile.stxAddress}`)
         .then((res) => { this.userExists = res.data[0].username })
     },
-    uploadUserName () {
+    uploadUserName (string) {
       const pattern = /^[a-z0-9]{3,16}$/
       const result = pattern.test(this.userName)
-
+      if (string === 'editing') {
+        this.userExists = ''
+        return
+      }
       if (result) {
         axios.post('http://localhost:5000/user', {
           username: this.userName,
@@ -710,7 +715,7 @@ export default {
   background: rgb(243, 243, 243);
   border-radius: 20px;
   border: solid 1px rgb(235, 235, 235);
-  width: 90%;
+  width: 80%;
   padding: 5px;
   padding-left: 15px;
   outline: none;
@@ -878,6 +883,10 @@ export default {
     background: none;
     max-width: 300px;
     margin: 20px auto 50px auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
     input {
       border: none;
       background: none;
