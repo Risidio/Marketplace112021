@@ -13,11 +13,10 @@
             <div v-if="userExists" class="usernameEdit">
               <h3 style="padding: 30px 0px;font-size: 15px;">User Name: {{userExists}}</h3>
               <span @click="uploadUserName('editing')" style="width: 35px; -webkit-transform: scaleX(-1);transform: scaleX(-1);cursor: pointer;" title='edit your profile' class="">&#9998;</span>
-              <!-- <input v-if="editingName" type="text" placeholder="Username" @input="setUserName($event.target.value)" /> -->
             </div>
             <div v-else class="usernameEdit" >
               <input type="text" placeholder="Username" @input="setUserName($event.target.value)" />
-              <span @click="uploadUserName()" style="width: 35px; -webkit-transform: scaleX(-1);transform: scaleX(-1);cursor: pointer;" title='edit your profile' class="">&#9998;</span>
+              <span @click="uploadUserName()" style="width: 35px; -webkit-transform: scaleX(-1);transform: scaleX(-1);cursor: pointer;" title='edit your profile' class="">&#x0002B;</span>
               <p v-if="regError" style="color:red;font-size: 10px;padding: 20px;">Your Username must have at least 3 charechters</p>
             </div>
             <p  class="profile-history" @click="viewTransaction()" >View Transaction History</p>
@@ -420,7 +419,7 @@ export default {
       this.regError = false
     },
     getUser () {
-      axios.get(`http://localhost:5000/user/${this.profile.stxAddress}`)
+      axios.get(`https://risidio-marketplace-database.herokuapp.com/user/${this.profile.stxAddress}`)
         .then((res) => { this.userExists = res.data[0].username })
     },
     uploadUserName (string) {
@@ -431,7 +430,7 @@ export default {
         return
       }
       if (result) {
-        axios.post('http://localhost:5000/user', {
+        axios.post('https://risidio-marketplace-database.herokuapp.com/user', {
           username: this.userName,
           stxAddress: this.profile.stxAddress
         })
@@ -710,6 +709,11 @@ export default {
   background: rgb(243, 243, 243);
   border-radius: 20px;
   margin: 30px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  padding: 0px 20px;
 }
 .usernameEdit > input {
   background: rgb(243, 243, 243);
