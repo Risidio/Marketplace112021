@@ -20,7 +20,7 @@
    <img class="nav_banner" src="https://res.cloudinary.com/risidio/image/upload/v1633609222/RisidioMarketplace/gradienta-m_-1_v4hs5p.svg" alt="nav-banner-image">
 </div>
 <div class="nav-container">
-    <nav class = "mainNavbar">
+    <nav class="mainNavbar">
         <img @click="$router.push('/'), mobileNavebar()" width="150px;" :src="logo" alt="risidio-logo"/>
         <div class="toggle-button" v-on:click="mobileNavebar()">
           <span class="bar"></span>
@@ -264,6 +264,8 @@ export default {
 <style lang="scss">
 .nav-container {
   height: 100px;
+  margin: auto;
+  // max-width: 1800px;
 }
 .risidio-logo{
   margin-top: -12px;
@@ -279,7 +281,7 @@ export default {
   display: flex;
   margin: 0 auto;
   max-width: 1600px;
-  margin-left: 20px;
+  // margin-left: 20px;
   padding: 20px 20px;
   position: relative;
   img {
