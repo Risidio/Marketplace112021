@@ -1,18 +1,12 @@
 <template>
   <div class="bitcoin">
-    <button class="btn notFilledBlue">One Click Payment With Xxx</button>
+    <button class="btn notFilledBlue " @click="$parent.$emit('nextPage')">One Click Payment With Xxx</button>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'BitcoinPayment',
-  props: ['currpage'],
-  data () {
-    return {
-      currPage: 0
-    }
-  }
+  name: 'BitcoinPayment'
 }
 </script>
 

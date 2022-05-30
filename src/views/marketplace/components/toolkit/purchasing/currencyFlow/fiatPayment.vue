@@ -15,13 +15,12 @@
         <input type="text" placeholder="Zip code"><span class="card-details"></span>
       </div>
     </div>
-    <button class="btn notFilledBlue" @click="$emit('buyNow')" >SEND $</button>
+    <button class="btn notFilledBlue" @click="$parent.$emit('nextPage')" >SEND $</button>
   </div>
 </template>
 
 <script>
 export default {
-
 }
 </script>
 

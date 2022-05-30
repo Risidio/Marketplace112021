@@ -15,6 +15,7 @@
           <div class="text-danger" v-html="errorMessage"></div>
         </div>
         <div v-else-if="buyPage === 2">
+        <PaymentConfirm  @currPage="currPage" @previousPage="previousPage" @nextPage="nextPage" :gaiaAsset="gaiaAsset" :contractAsset="contractAsset" :listingInUstx="contractAsset.listingInUstx" @buyNow="buyNow"/>
         </div>
       </div>
       <div v-else>
@@ -29,6 +30,7 @@
 import { APP_CONSTANTS } from '@/app-constants'
 import PurchaseBuyNow from './PurchaseBuyNow'
 import PurchaseNowNft from './PurchaseNowNft'
+import PaymentConfirm from './currencyFlow/paymentConfirm.vue'
 
 // const STX_CONTRACT_ADDRESS = process.env.VUE_APP_STACKS_CONTRACT_ADDRESS
 // const STX_CONTRACT_NAME = process.env.VUE_APP_STACKS_CONTRACT_NAME
@@ -37,7 +39,8 @@ export default {
   name: 'PurchaseFlow',
   components: {
     PurchaseBuyNow,
-    PurchaseNowNft
+    PurchaseNowNft,
+    PaymentConfirm
   },
   props: ['gaiaAsset', 'forceOfferFlow', 'loopRun'],
   data () {

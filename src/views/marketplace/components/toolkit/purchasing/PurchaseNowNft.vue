@@ -3,7 +3,7 @@
   <div class="background">
     <!-- <h1 style="font: normal normal 300 18px Montserrat;" class="ordertitle"> Your Order: </h1> -->
     <p class="fullPrice"><span>  <span>{{gaiaAsset.contractAsset.listingInUstx.price}}</span> STX tokens</span></p>
-    <p style="font: normal normal 500 12px Montserrat;"  class="edit" ><span>Edit</span></p>
+    <p style="font: normal normal 500 12px Montserrat;"  class="edit" @click="$parent.$emit()" ><span>Edit</span></p>
     <img :src="edit" alt="edit" class="edit-img">
   </div>
   <div>
@@ -23,8 +23,8 @@
     <p style="font: normal normal 500 9px Montserrat;"  class="payment" ><span>Make the payement</span></p>
     <p style="font: normal normal 500 9px Montserrat;"  class="Confirmation" ><span>Confirmation</span></p>
   </div>
-  <FiatPayment v-if="currPage === 0"/>
-  <BitcoinPayment  v-if="currPage === 1"/>
+  <FiatPayment @nextPage="nextPage" v-if="currPage === 0"/>
+  <BitcoinPayment  @nextPage="nextPage" v-if="currPage === 1"/>
   <LightningPayment v-if="currPage === 2"/>
   <PaymentConfirm v-if="currPage === 3" />
 </b-container>
