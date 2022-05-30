@@ -900,8 +900,8 @@ export default {
 .collectionItems::first-letter {
   text-transform: capitalize;
 }
-.galleryCollections label {
-  margin-left: 32px;
+.galleryCollections {
+  margin-left: 10px;
 }
 .collectionMenuContainer .collectionItems,
 .collectionItems {
