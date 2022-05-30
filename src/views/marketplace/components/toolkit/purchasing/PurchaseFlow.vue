@@ -135,6 +135,7 @@ export default {
 <style lang="scss" scoped>
 .modall{
   max-width: 500px;
+  height: 750px;
   margin: auto;
 }
 </style>
