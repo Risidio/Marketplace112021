@@ -122,7 +122,7 @@ export default {
       this.currencyPage += 1
     },
     previousPage () {
-      if (this.buyPage !== 0) this.buyPage -= 1; this.currencyPage -= 1
+      if (this.buyPage !== 0) this.buyPage -= 1
     }
   },
   computed: {
@@ -135,6 +135,8 @@ export default {
 <style lang="scss" scoped>
 .modall{
   max-width: 500px;
+  position: relative;
+  top: -10px;
   height: 750px;
   margin: auto;
 }
