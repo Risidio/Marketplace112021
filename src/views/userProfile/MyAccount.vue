@@ -14,10 +14,14 @@
             <span @click="uploadUserName('editing')" style="width: 35px; -webkit-transform: scaleX(-1);transform: scaleX(-1);cursor: pointer;" title='edit your profile' class="">&#9998;</span>
           </div>
           <div v-if="!transaction" class="usernameContainer">
-            <div v-if="!userExists" class="usernameEdit" >
+            <div v-if="userExists" class="usernameEdit">
+              <p class="username">User Name: <span>{{userExists}}</span></p>
+              <span @click="uploadUserName('editing')" style="width: 35px; -webkit-transform: scaleX(-1);transform: scaleX(-1);cursor: pointer;" title='edit your profile' class="">&#9998;</span>
+            </div>
+            <div v-if="editingUsername" class="usernameEdit" >
               <input type="text" placeholder="Username" @input="setUserName($event.target.value)" />
-              <span @click="uploadUserName()" style="width: 35px; -webkit-transform: scaleX(-1);transform: scaleX(-1);cursor: pointer;" title='edit your profile' class="">&#x0002B;</span>
-              <p v-if="regError" style="color:red;font-size: 10px;padding: 20px;">Your Username must have at least 3 characters</p>
+              <span @click="uploadUserName('upload')" style="width: 35px; -webkit-transform: scaleX(-1);transform: scaleX(-1);cursor: pointer;" title='edit your profile' class="">&#x0002B;</span>
+              <p v-if="regError" style="color:red;font-size: 10px;padding: 20px;">Your Username must have at least 3 charechters</p>
             </div>
             <p  class="profile-history" @click="viewTransaction()" >View Transaction History</p>
           </div>
@@ -208,6 +212,7 @@ export default {
       userName: '',
       regError: false,
       userExists: '',
+      editingUsername: false,
       // sliderHeight: '320px',
       slide: [
         {
@@ -403,8 +408,11 @@ export default {
       const pattern = /^[a-z0-9]{3,16}$/
       const result = pattern.test(this.userName)
       if (string === 'editing') {
-        this.userExists = ''
+        this.editingUsername = true
         return
+      }
+      if (string === 'upload' && result) {
+        this.editingUsername = false
       }
       if (result) {
         axios.post('https://risidio-marketplace-database.herokuapp.com/user', {
@@ -685,7 +693,7 @@ export default {
   color: black;
   height: 100%;
   margin-top: 12px;
-  span{
+  span {
     color: #5154a1;
   }
 }
