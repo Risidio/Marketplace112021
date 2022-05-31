@@ -21,7 +21,7 @@
 </div>
 <div class="nav-container">
     <nav class="mainNavbar">
-        <img @click="$router.push('/'), mobileNavebar()" width="150px;" :src="logo" alt="risidio-logo"/>
+        <img @click="$router.push('/')" width="150px;" :src="logo" alt="risidio-logo"/>
         <div class="toggle-button" v-on:click="mobileNavebar()">
           <span class="bar"></span>
           <span class="bar"></span>
@@ -184,11 +184,11 @@ export default {
         notLogged.classList.toggle('active')
         body.classList.toggle('stop-scrolling')
       }
-      // if (mainNavbar.classList.value === 'mainNavbar active') {
-      //   this.isLayer = true
-      // } else {
-      //   this.isLayer = false
-      // }
+      if (mainNavbar.classList.value === 'mainNavbar active') {
+        this.isLayer = true
+      } else {
+        this.isLayer = false
+      }
     },
     startRegister () {
       this.startLogin()
