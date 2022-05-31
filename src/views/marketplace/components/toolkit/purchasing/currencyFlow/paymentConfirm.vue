@@ -1,11 +1,11 @@
 <template>
   <div class="paymentConfirm">
      <img :src="paymentConfirm" alt="payment" class="icon">
-       <p style="text-align: center; position: relative; top: -50px; padding-bottom: 10px; font: normal normal 800 15px Montserrat;">Select your payment method</p>
+       <p style="text-align: center; position: relative; top: -50px; padding-bottom: 10px; font: normal normal 800 15px Montserrat;"> Your Payment Successful</p>
         <p class="fullPrice"><span>  <span>{{gaiaAsset.contractAsset.listingInUstx.price}}</span> STX tokens</span></p>
         <p> <span style="font: normal normal bold 14px/16px Montserrat;  cursor: pointer;" class="cyanText">Copy The Receive</span> <br/></p>
       <img :src="copy" alt="copy-icon" class="icon1">
-    <button class="btn notFilledBlue" @click="$emit('previousPage')">Done</button>
+    <button class="btn notFilledBlue"  @click="$emit('')">Done</button>
       <div class="progressbar">
      <img style="width: 300px; margin-left: 50px;" :src="progressFinal" alt="progres" class="">
     <p style="font: normal normal 500 9px Montserrat;"  class="order" ><span>Place Order</span></p>
@@ -53,9 +53,9 @@ export default {
   display: block;
   position: relative;
   margin-left: -30px;
-  top: -70px;
+  top: -63px;
   margin-right: auto;
-  width: 456px;
+  width: 458px;
 }
 .progressbar{
   position:absolute;
