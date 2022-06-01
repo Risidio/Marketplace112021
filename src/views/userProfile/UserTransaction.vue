@@ -130,7 +130,7 @@ export default {
   margin-top: 50px;
 }
 .galleryNavContainer{
-  width: 620px;
+  width: 550px;
   justify-content: space-between;
 }
 .transaction-table {

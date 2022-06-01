@@ -146,7 +146,7 @@ p {
   margin: auto;
 }
 .galleryNavContainer{
-  width: 600px;
+  width: 500px;
   justify-content: space-between;
 }
 .comingSoon {
