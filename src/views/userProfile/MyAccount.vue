@@ -6,18 +6,22 @@
     <div class="profileContainer">
       <div class="profile">
           <div class="profileItems">
-            <img class="profileImg" src="https://res.cloudinary.com/risidio/image/upload/v1637580392/RisidioMarketplace/depositphotos_137014128-stock-illustration-user-profile-icon_splob8.jpg" alt="profile-image">
-            <p title='edit your profile' style="width: 25px; -webkit-transform: scaleX(-1);transform: scaleX(-1);" class="pencil">&#9998;</p>
-          </div>
-          <div v-if="userExists" class="usernameEdit">
-            <p class="username">User Name: <span>{{userExists}}</span></p>
-            <span @click="uploadUserName('editing')" style="width: 35px; -webkit-transform: scaleX(-1);transform: scaleX(-1);cursor: pointer;" title='edit your profile' class="">&#9998;</span>
+            <img v-if="previewImage" class="profileImg" :src="previewImage" alt="profile-image">
+            <img v-else class="profileImg" src="https://res.cloudinary.com/risidio/image/upload/v1637580392/RisidioMarketplace/depositphotos_137014128-stock-illustration-user-profile-icon_splob8.jpg" alt="profile-image">
+            <label style="width: 25px; -webkit-transform: scaleX(-1);transform: scaleX(-1);" class="pencil">
+             <input @change="uploadImage($event)" type="file" id="image-input" accept="image/jpeg, image/png, image/jpg" class="uploadImage">
+             &#9998;
+            </label>
           </div>
           <div v-if="!transaction" class="usernameContainer">
-            <div v-if="!userExists" class="usernameEdit" >
+            <div v-if="userExists" class="usernameEdit">
+              <p class="username">User Name: <span>{{userExists}}</span></p>
+              <span @click="uploadUserName('editing')" style="width: 35px; -webkit-transform: scaleX(-1);transform: scaleX(-1);cursor: pointer;" title='edit your profile' class="">&#9998;</span>
+            </div>
+            <div v-if="editingUsername || !userExists" class="usernameEdit" >
               <input type="text" placeholder="Username" @input="setUserName($event.target.value)" />
-              <span @click="uploadUserName()" style="width: 35px; -webkit-transform: scaleX(-1);transform: scaleX(-1);cursor: pointer;" title='edit your profile' class="">&#x0002B;</span>
-              <p v-if="regError" style="color:red;font-size: 10px;padding: 20px;">Your Username must have at least 3 characters</p>
+              <span @click="uploadUserName('upload')" style="width: 35px; -webkit-transform: scaleX(-1);transform: scaleX(-1);cursor: pointer;" title='edit your profile' class="">&#x0002B;</span>
+              <p v-if="regError" style="color:red;font-size: 10px;padding: 20px;">Your Username must have at least 3 charechters</p>
             </div>
             <p  class="profile-history" @click="viewTransaction()" >View Transaction History</p>
           </div>
@@ -208,6 +212,8 @@ export default {
       userName: '',
       regError: false,
       userExists: '',
+      editingUsername: false,
+      previewImage: null,
       // sliderHeight: '320px',
       slide: [
         {
@@ -397,14 +403,20 @@ export default {
     },
     getUser () {
       axios.get(`https://risidio-marketplace-database.herokuapp.com/user/${this.profile.stxAddress}`)
-        .then((res) => { this.userExists = res.data[0].username })
+        .then((res) => {
+          this.userExists = res.data[0].username
+          this.previewImage = res.data[0].profileImage
+        })
     },
     uploadUserName (string) {
       const pattern = /^[a-z0-9]{3,16}$/
       const result = pattern.test(this.userName)
       if (string === 'editing') {
-        this.userExists = ''
+        this.editingUsername = true
         return
+      }
+      if (string === 'upload' && result) {
+        this.editingUsername = false
       }
       if (result) {
         axios.post('https://risidio-marketplace-database.herokuapp.com/user', {
@@ -414,6 +426,27 @@ export default {
         this.userExists = this.userName
       } else {
         this.regError = true
+      }
+    },
+    uploadImage (e) {
+      const image = e.target.files[0]
+      const reader = new FileReader()
+      reader.readAsDataURL(image)
+
+      if (e.target.files[0].size > 1248576) {
+        alert('File is too big!')
+        return
+      };
+
+      reader.onload = e => {
+        axios.put('https://risidio-marketplace-database.herokuapp.com/user/', {
+          image: e.target.result,
+          stxAddress: this.profile.stxAddress
+        }).then((res) => {
+          this.previewImage = res.data.profileImage
+        }).catch((err) => {
+          console.log('error', err.message)
+        })
       }
     }
     // setSliderHeight () {
@@ -543,7 +576,7 @@ export default {
   flex-wrap: wrap;
 }
 .galleryNavContainer {
-  width: 630px;
+  width: 710px;
   justify-content: space-between;
   margin-bottom: -12px;
 }
@@ -555,7 +588,8 @@ export default {
 }
 .profileItems {
   width: 15rem;
-  height: 15rem;
+  display: flex;
+  position: relative;
 }
 .walletCurrency {
   display: flex;
@@ -638,6 +672,9 @@ export default {
 .profileContainer > * {
   flex: 1 1 500px;
 }
+input[type="file"] {
+  display: none;
+}
 .profileImg {
   width: 149px;
   height: 149px;
@@ -648,17 +685,13 @@ export default {
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
 }
 .pencil {
+  position: absolute;
   background: white;
   color: lightseagreen;
-  position: relative;
-  // width: 3rem;
-  // height: 2rem;
-  // padding: 1px;
-  top: -140px;
-  left: 110px;
-  padding: 2px;
+  text-align: center;
+  padding: 5px;
+  right: 10px;
   border-radius: 50%;
-  // text-align: center;
   box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
   font-size: 1.5rem;
   cursor: pointer;
@@ -685,7 +718,7 @@ export default {
   color: black;
   height: 100%;
   margin-top: 12px;
-  span{
+  span {
     color: #5154a1;
   }
 }
@@ -756,8 +789,6 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  & > * {
-  }
   & > *:hover {
     color: white;
   }
