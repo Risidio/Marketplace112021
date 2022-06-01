@@ -575,7 +575,7 @@ export default {
   flex-wrap: wrap;
 }
 .galleryNavContainer {
-  width: 710px;
+  width: 630px;
   justify-content: space-between;
   margin-bottom: -12px;
 }
