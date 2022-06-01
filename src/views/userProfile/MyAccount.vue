@@ -6,7 +6,8 @@
     <div class="profileContainer">
       <div class="profile">
           <div class="profileItems">
-            <img class="profileImg" :src="previewImage" alt="profile-image">
+            <img v-if="previewImage" class="profileImg" :src="previewImage" alt="profile-image">
+            <img v-else class="profileImg" src="https://res.cloudinary.com/risidio/image/upload/v1637580392/RisidioMarketplace/depositphotos_137014128-stock-illustration-user-profile-icon_splob8.jpg" alt="profile-image">
             <label style="width: 25px; -webkit-transform: scaleX(-1);transform: scaleX(-1);" class="pencil">
              <input @change="uploadImage($event)" type="file" id="image-input" accept="image/jpeg, image/png, image/jpg" class="uploadImage">
              &#9998;
@@ -17,7 +18,7 @@
               <p class="username">User Name: <span>{{userExists}}</span></p>
               <span @click="uploadUserName('editing')" style="width: 35px; -webkit-transform: scaleX(-1);transform: scaleX(-1);cursor: pointer;" title='edit your profile' class="">&#9998;</span>
             </div>
-            <div v-if="editingUsername" class="usernameEdit" >
+            <div v-if="editingUsername || !userExists" class="usernameEdit" >
               <input type="text" placeholder="Username" @input="setUserName($event.target.value)" />
               <span @click="uploadUserName('upload')" style="width: 35px; -webkit-transform: scaleX(-1);transform: scaleX(-1);cursor: pointer;" title='edit your profile' class="">&#x0002B;</span>
               <p v-if="regError" style="color:red;font-size: 10px;padding: 20px;">Your Username must have at least 3 charechters</p>
@@ -575,7 +576,7 @@ export default {
   flex-wrap: wrap;
 }
 .galleryNavContainer {
-  width: 630px;
+  width: 710px;
   justify-content: space-between;
   margin-bottom: -12px;
 }
