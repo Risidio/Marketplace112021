@@ -141,7 +141,8 @@ export default {
       visible: false,
       socialmessage: 'This is number one, an art engine and decentralised marketplace',
       isHovered: false,
-      isLiked: false
+      isLiked: false,
+      hideModule: false
     }
   },
   watch: {

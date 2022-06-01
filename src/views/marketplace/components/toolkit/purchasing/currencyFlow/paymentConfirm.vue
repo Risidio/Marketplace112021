@@ -5,7 +5,7 @@
         <p class="fullPrice"><span>  <span>{{gaiaAsset.contractAsset.listingInUstx.price}}</span> STX tokens</span></p>
         <p> <span style="font: normal normal bold 14px/16px Montserrat;  cursor: pointer;" class="cyanText">Copy The Receive</span> <br/></p>
       <img :src="copy" alt="copy-icon" class="icon1">
-    <button class="btn notFilledBlue"  @click="$emit('')">Done</button>
+    <button class="btn notFilledBlue"  @click="$emit('hideModule')">Done</button>
       <div class="progressbar">
      <img style="width: 300px; margin-left: 50px;" :src="progressFinal" alt="progres" class="">
     <p style="font: normal normal 500 9px Montserrat;"  class="order" ><span>Place Order</span></p>

@@ -15,7 +15,7 @@
           <div class="text-danger" v-html="errorMessage"></div>
         </div>
         <div v-else-if="buyPage === 2">
-        <PaymentConfirm  @currPage="currPage" @previousPage="previousPage" @nextPage="nextPage" :gaiaAsset="gaiaAsset" :contractAsset="contractAsset" :listingInUstx="contractAsset.listingInUstx" @buyNow="buyNow"/>
+        <PaymentConfirm  :hideModule="hideModule = true" :openPurchaseDialog="openPurchaseDialog" @currPage="currPage" @previousPage="previousPage" @nextPage="nextPage" :gaiaAsset="gaiaAsset" :contractAsset="contractAsset" :listingInUstx="contractAsset.listingInUstx" @buyNow="buyNow"/>
         </div>
       </div>
       <div v-else>
