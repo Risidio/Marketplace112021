@@ -210,6 +210,7 @@ export default {
   font: normal normal 300 40px/55px Montserrat;
   padding: 10px;
   color: White;
+  margin-top: 30px;
 }
 
 .collectionArtist {
@@ -259,7 +260,7 @@ export default {
   font-size: 14px;
   max-width: 575px;
   margin: auto;
-  margin-top: 20px;
+  margin-top: 45px;
   padding: 5px;
   margin-bottom: 30px;
 }
@@ -310,7 +311,7 @@ export default {
 }
 .artistContainer {
   position: absolute;
-  top: -150px;
+  top: -175px;
   left: 0;
   right: 0;
   margin-left: auto;
