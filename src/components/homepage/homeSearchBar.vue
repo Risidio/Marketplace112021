@@ -11,7 +11,7 @@
     </div>
   </div>
   <form @submit="doSearch($event)" class="icon_container">
-    <input :class="showSearchBar ? 'search_input_box active' : 'search_input_box'" type="text" placeholder=" Looking for something in particular?" ref="search" @input="searchWord($event)"><span class="searchIcon" v-on:click="openSearchBar()">&#8981;</span>
+    <input :class="showSearchBar ? 'search_input_box active' : 'search_input_box'" size="100" type="text" placeholder=" Looking for something in particular?" ref="search" @input="searchWord($event)"><span class="searchIcon" v-on:click="openSearchBar()">&#8981;</span>
   </form>
 </div>
 </template>
@@ -137,8 +137,9 @@ export default {
 }
 
 .search_input_box {
-  min-width: 500px;
-  max-width: 1000px !important;
+  // min-width: 800px;
+  // max-width: 1500px !important;
+  width: 100%;
   border-top-right-radius: 40px;
   border-bottom-right-radius: 40px;
   height: 50px;
