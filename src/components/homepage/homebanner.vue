@@ -332,7 +332,7 @@ export default {
   border-radius: 30px;
   gap: 100px;
   max-width: 1135px;
-  min-height: 344px;
+  min-height: 287px;
   padding: 20px;
 }
 

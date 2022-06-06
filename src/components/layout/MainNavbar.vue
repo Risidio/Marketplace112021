@@ -13,21 +13,19 @@
     <button class="button notFilledBlue" @click="downloadWallet()"> Download For "Browser"</button>
     <p class="modalP3" @click="closeModal()"> <router-link to="/hiro-wallet">What's A Wallet ? </router-link></p>
   </div>
-
 </div>
-
 <div class="navbar_container">
    <img class="nav_banner" src="https://res.cloudinary.com/risidio/image/upload/v1633609222/RisidioMarketplace/gradienta-m_-1_v4hs5p.svg" alt="nav-banner-image">
 </div>
 <div class="nav-container">
     <nav class="mainNavbar">
-        <img @click="$router.push('/')" width="150px;" :src="logo" alt="risidio-logo"/>
+        <img @click="$router.push('/')" class="risidio-button" :src="logo" alt="risidio-logo"/>
         <div class="toggle-button" v-on:click="mobileNavebar()">
           <span class="bar"></span>
           <span class="bar"></span>
           <span class="bar"></span>
         </div>
-        <ul v-if="profile.loggedIn" class="navbar_links">
+        <ul class="navbar_links">
           <li class="nav-items" v-on:click="isLayer ? mobileNavebar() : '' ">
             <router-link class="nav-links bold" to="/nft-marketplace">Explore</router-link>
           </li>
@@ -47,31 +45,10 @@
           <li v-on:click="isLayer ? mobileNavebar() : '' " class="nav-items">
             <router-link class="nav-links text-black thin" to="/about">About Risidio </router-link>
           </li>
-          <li v-on:click="isLayer ? mobileNavebar() : '' " class="nav-items">
+          <li v-if="profile.loggedIn" v-on:click="isLayer ? mobileNavebar() : '' " class="nav-item-button">
             <router-link class="navBtn thin" to="/my-account"> My NFT's </router-link>
           </li>
-        </ul>
-         <ul v-else class="navbar_links_not_logged">
-           <li class="nav-items" v-on:click="isLayer ? mobileNavebar() : '' ">
-            <router-link class="bold nav-bar" to="/nft-marketplace" >Explore</router-link>
-           </li>
-            <li style="position: relative; margin-top: 2px;" @click="openMenu()" ref="dropDown" class="dropDown">
-              <router-link to="" id="dropDown-1" class="nav-items bold" > Featured Collections <img class="arrow2" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></router-link>
-              <p id="dropDown-2" class="featured" > Featured Collections <img style="margin-left: 8px;" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></p>
-              <ul id="dropDown-3" class="dropdownMenu">
-                <li id="dropDown-4" v-for="(item, index) in allLoopRuns" :key="index" class="dropdownMenu-container">
-                  <router-link :to="`/${item.currentRunKey}`" v-on:click="isLayer ? mobileNavebar() : '' ">{{item.currentRun}}</router-link>
-                </li>
-              </ul>
-            </li>
-            <hr class="mobile-hr"/>
-            <li v-on:click="isLayer ? mobileNavebar() : '' " class="nav-items" id="howItWorks">
-              <router-link class="text-black thin nav-bar" to="/how-it-works" id="howItWorks">How It Works</router-link>
-            </li>
-            <li v-on:click="isLayer ? mobileNavebar() : '' " class="nav-items">
-              <router-link class="text-black thin nav-bar" to="/about">About Risidio </router-link>
-            </li>
-            <div @mouseover="isHidden = !isHidden" @blur="isHidden = !isHidden" class=" nav-items navBtn text-black" id="register" v-on:click="startRegister()"> CONNECT WITH HIRO WALLET </div>
+            <div v-else @mouseover="isHidden = !isHidden" @blur="isHidden = !isHidden" class="nav-items navBtn text-black" id="register" v-on:click="startRegister()"> CONNECT WITH HIRO WALLET </div>
         </ul>
     </nav>
   </div>
@@ -357,7 +334,9 @@ export default {
 .nav-items:hover {
   color: white;
 }
-
+.nav-item-button{
+  padding: 13px 0;
+}
 .navBtn {
   background: rgba(255, 255, 255, 0.247);
   padding: 15px 40px;
@@ -388,6 +367,10 @@ export default {
     color: white;
   }
   border-bottom: 3px solid transparent;
+}
+.risidio-button{
+  // width: 150px;
+  height: 65px;
 }
 .registerTooltip {
   margin-top: 25px;
@@ -428,8 +411,7 @@ export default {
   overflow-y: auto;
   list-style: none;
   gap: 10px;
-  padding-left: 10px;
-  padding-bottom: 10px;
+  padding: 0 10px 30px 10px;
   a {
     font-size: 11px;
     padding: 5px 20px;
