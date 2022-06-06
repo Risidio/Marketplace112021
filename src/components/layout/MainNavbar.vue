@@ -259,7 +259,7 @@ export default {
   margin: 0 auto;
   max-width: 1600px;
   // margin-left: 20px;
-  padding: 20px 20px;
+  padding: 20px 50px;
   position: relative;
   img {
     cursor: pointer;
