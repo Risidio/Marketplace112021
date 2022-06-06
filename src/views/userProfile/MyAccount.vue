@@ -13,30 +13,32 @@
              &#9998;
             </label>
           </div>
-          <div v-if="!transaction" class="usernameContainer">
-            <div v-if="userExists" class="usernameEdit">
-              <p class="username">User Name: <span>{{userExists}}</span></p>
-              <span @click="uploadUserName('editing')" style="width: 35px; -webkit-transform: scaleX(-1);transform: scaleX(-1);cursor: pointer;" title='edit your profile' class="">&#9998;</span>
-            </div>
-            <div v-if="editingUsername || !userExists" class="usernameEdit" >
-              <input type="text" placeholder="Username" @input="setUserName($event.target.value)" />
-              <span @click="uploadUserName('upload')" style="width: 35px; -webkit-transform: scaleX(-1);transform: scaleX(-1);cursor: pointer;" title='edit your profile' class="">&#x0002B;</span>
-              <p v-if="regError" style="color:red;font-size: 10px;padding: 20px;">Your Username must have at least 3 charechters</p>
-            </div>
-            <p  class="profile-history" @click="viewTransaction()" >View Transaction History</p>
+          <div v-if="userExists && !editingUsername" class="usernameEdit">
+            <p class="username">User Name: <span>{{userExists}}</span></p>
+            <span @click="uploadUserName('editing')" title='edit your profile' class="">&#9998;</span>
+          </div>
+          <div v-else-if="editingUsername || !userExists" class="usernameEdit" >
+            <p class="plus" @click="editingUsername = false"> &#60; </p>
+            <input type="text" placeholder="Username" @input="setUserName($event.target.value)"/>
+            <span @click="uploadUserName('upload')" title='edit your profile' class="">&#x0002B;</span>
+            <p v-if="regError" style="color:red;font-size: 10px;padding: 20px;">Your Username must have at least 3 charechters</p>
+          </div>
+          <div class="usernameContainer">
+            <p v-if="!transaction" class="profile-history" @click="viewTransaction()"> View Transaction History </p>
+            <p v-else-if="transaction" :to="'/my-account/nft'" @click="viewNFTS()" class="profile-history"> View NFTs </p>
           </div>
         </div>
         <div class="walletContainer">
-          <button class="button filled infoButton hidden" id="infoButton" @click="viewInfo(1)"> View Info</button>
+          <button class="button filled infoButton hidden" id="infoButton" @click="viewInfo(1)"> View Info </button>
           <div id="walletDetails" class="walletDetails">
-            <button class="notFilled" @click="viewInfo(0)">HIDE</button>
-            <h1>Your Wallet Info:</h1>
-            <p>ID - {{username.substring(0, 30)}}...</p>
+            <button class="notFilled" @click="viewInfo(0)"> HIDE </button>
+            <h1> Your Wallet Info: </h1>
+            <p> ID - {{username.substring(0, 30)}}... </p>
             <!-- <h2>John Doe</h2> -->
             <br/>
             <div class="walletCurrency">
               <div>
-                <p style="font: normal normal 300 12px/15px Montserrat;">Credit Remaining:</p>
+                <p style="font: normal normal 300 12px/15px Montserrat;"> Credit Remaining: </p>
                 <pre id="stxInfo" style="font: normal normal 300 15px/19px Montserrat;"> <span style="color: rgba(81, 84, 161, 1); font: normal normal 600 12px/15px Montserrat;" v-if="profile && profile.accountInfo">{{profile.accountInfo.balance || 5}}</span>  STX</pre>
               </div>
               <div>
@@ -87,7 +89,7 @@
       </div>
     </div>
     <div v-else>
-        <UserTransaction :loopRun="loopRun" :profile="profile"/>
+      <UserTransaction :loopRun="loopRun" :profile="profile"/>
     </div>
   </div>
   <div class="MobileV" v-else>
@@ -298,6 +300,10 @@ export default {
     viewTransaction () {
       this.transaction = true
       this.$router.push('/my-account/transaction')
+    },
+    viewNFTS () {
+      this.transaction = false
+      this.$router.push('/my-account/nft')
     },
     viewInfo (pressed) {
       if (pressed === 1) {
@@ -675,6 +681,15 @@ export default {
 input[type="file"] {
   display: none;
 }
+.plus{
+  color: #50b1b5;
+  font-weight: 700;
+  font-size: 12px;
+  padding: 0;
+  margin: 0;
+  margin-top: 10px;
+  cursor: pointer;
+}
 .profileImg {
   width: 149px;
   height: 149px;
@@ -744,6 +759,8 @@ input[type="file"] {
   font-size: 1.2rem;
 }
 .usernameEdit > span {
+  -webkit-transform: scaleX(-1);transform: scaleX(-1);
+  cursor: pointer;
   width: 10%;
   padding: 5px;
   color: lightseagreen;
