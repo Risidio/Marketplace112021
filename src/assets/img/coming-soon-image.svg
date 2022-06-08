@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="785" height="122" viewBox="0 0 785 122">
+  <defs>
+    <filter id="COMING_SOON">
+      <feOffset dx="3" dy="3" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="15" result="blur"/>
+      <feFlood flood-color="#fff" flood-opacity="0.373" result="color"/>
+      <feComposite operator="out" in="SourceGraphic" in2="blur"/>
+      <feComposite operator="in" in="color"/>
+      <feComposite operator="in" in2="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="Groupe_16447" data-name="Groupe 16447" transform="translate(-186 -407)">
+    <g id="Groupe_16446" data-name="Groupe 16446">
+      <g data-type="innerShadowGroup">
+        <text id="COMING_SOON-2" data-name="COMING SOON" transform="translate(186 504)" fill="#2c1f86" font-size="100" font-family="Montserrat-Bold, Montserrat" font-weight="700"><tspan x="0" y="0">COMING SOON</tspan></text>
+        <g transform="matrix(1, 0, 0, 1, 186, 407)" filter="url(#COMING_SOON)">
+          <text id="COMING_SOON-3" data-name="COMING SOON" transform="translate(0 97)" fill="#fff" font-size="100" font-family="Montserrat-Bold, Montserrat" font-weight="700"><tspan x="0" y="0">COMING SOON</tspan></text>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

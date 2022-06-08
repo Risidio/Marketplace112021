@@ -21,6 +21,7 @@ const Gallery = () => import('@/views/Gallery.vue')
 const HowItWorks = () => import('@/views/HowItWorks.vue')
 const LaunchCollection = () => import('@/views/collections/LaunchCollection.vue')
 const IndigeCollection = () => import('@/views/collections/IndigeCollection.vue')
+const LoopbombGenesis = () => import('@/views/collections/LoopbombGenesis.vue')
 const QandA = () => import('@/views/QandA.vue')
 const errorFour = () => import('@/views/FourOFour.vue')
 const AdminPage = () => import('@/views/AdminPage.vue')
@@ -105,6 +106,12 @@ const routes: Array<RouteConfig> = [
     name: 'launch-collection',
     components: { default: LaunchCollection, header: MainNavbar, footer: MainFooter },
     meta: { title: 'Launch Collection Featuring Benny' }
+  },
+  {
+    path: '/loopbomb_genesis',
+    name: 'loopbomb-genesis',
+    components: { default: LoopbombGenesis, header: MainNavbar, footer: MainFooter },
+    meta: { title: 'Loopbomb Genesis Coming Soon' }
   },
   {
     path: '/indige_mirror/',
