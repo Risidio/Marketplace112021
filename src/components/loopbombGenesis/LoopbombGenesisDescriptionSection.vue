@@ -1,16 +1,16 @@
 <template>
     <div id="loopbomb-description" class="main-loopbomb-description-container">
         <div class="main-loopbomb-description-section">
-            <h3>The New Marketplace</h3>
-            <span><b>Technology is progressing so art is evolving.</b></span>
+            <h2>The New Marketplace</h2>
+            <p><span>Technology is progressing so art is evolving.</span></p>
             <p>
                 Risidio Marketplace is a decentralised platform to mint, buy and sell digital collectibles and NFTs in the most simple and secure way on Stacks.
             </p>
 
             <div class="loopbomb-description-buttons-container">
-                <a href="https://risidio.com/aboutus" target="_blank" class="button green-background-button">
+                <router-link to="/about" class="button green-background-button">
                     About Risidio
-                </a>
+                </router-link>
                 <a href="https://www.stacks.co/learn/introduction" target="_blank" class="green-text-button">
                     About Stacks
                 </a>
@@ -25,7 +25,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
     .main-loopbomb-description-container {
         width: 100vw;
         padding-top: 35vh;
@@ -35,32 +35,27 @@ export default {
         background-color: #fff;
         margin: 0;
         display: flex;
-        align-items: center;
-        justify-content: center;
     }
-    .main-loopbomb-description-section h3 {
+    .main-loopbomb-description-section{
+        max-width: 700px;
+        margin: auto;
+    }
+    .main-loopbomb-description-section h2 {
         font: normal normal 300 40px/55px Montserrat;
         text-align: center;
     }
-    .main-loopbomb-description-section span {
-        font: bolder bolder bolder 24px/28px Montserrat;
-        width: inherit;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-        margin-top: 6vh;
-    }
     .main-loopbomb-description-section p {
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        margin-top: 2.5em;
+        max-width: 570px;
         text-align: center;
-        margin-top: 10vh;
-        font: normal normal 300 20px/24px Montserrat;
+        font: normal normal 300 14px/18px Montserrat;
+        span{
+            font: normal normal 500 17px/20px Montserrat;
+            text-align: center;
+        }
     }
     .loopbomb-description-buttons-container {
-        margin-top: 20vh;
+        margin-top: 2.5em;
         display: flex;
         align-items: center;
         justify-content: center;

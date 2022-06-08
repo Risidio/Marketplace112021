@@ -5,7 +5,7 @@
     </div>
     <div class="logo-container">
         <img class="risidio-marketplace-logo" src="@/assets/img/risidio_white_logo.svg" alt="Risidio Marketplace">
-        <h3 class="logo-text">Marketplace</h3>
+        <h1 class="logo-text">Marketplace</h1>
     </div>
     <div class="coming-soon-container">
         <img src="@/assets/img/coming-soon.png" alt="Coming Soon">
@@ -50,7 +50,7 @@ export default {
         font: normal normal medium 17px/20px Montserrat;
         justify-items: center;
     }
-    .logo-container h3 {
+    .logo-container h1 {
         color: #fff;
     }
     .logo-container img {

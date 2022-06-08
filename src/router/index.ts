@@ -110,7 +110,7 @@ const routes: Array<RouteConfig> = [
   {
     path: '/loopbomb_genesis',
     name: 'loopbomb-genesis',
-    components: { default: LoopbombGenesis, footer: MainFooter },
+    components: { default: LoopbombGenesis, header: MainNavbar, footer: MainFooter },
     meta: { title: 'Loopbomb Genesis Coming Soon' }
   },
   {
