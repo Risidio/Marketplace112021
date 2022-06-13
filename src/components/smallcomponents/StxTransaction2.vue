@@ -2,7 +2,7 @@
     <div>
         <table class="transaction-table">
         <tr><th>Date</th><th>Method</th><th>Sold By</th><th>Fees</th><th>Status</th></tr>
-        <StxSingleTransaction class="transaction-data" v-for="(item, index) in stxTransaction2" :key="index" :item="item" :index="index"  />
+        <StxSingleTransaction class="transaction-data" v-for="(item, index) in StxTransaction2" :key="index" :item="item" :index="index"  />
         </table>
     </div>
 </template>
