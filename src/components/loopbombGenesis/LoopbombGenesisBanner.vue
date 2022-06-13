@@ -75,7 +75,7 @@ export default {
         width: 195px;
         position: absolute;
         left: 0px;
-        top: 496px;
+        top: 596px;
     }
     .read-more-section {
         position: absolute;
@@ -84,7 +84,7 @@ export default {
         align-items: center;
         width: 30vw;
         left: 35vw;
-        top: 525px;
+        top: 625px;
     }
     .read-more-button {
         border: none;
@@ -102,44 +102,44 @@ export default {
     .triangle-and-painter-image {
         position: absolute;
         z-index: 1;
-        top: 413px;
+        top: 513px;
         right: 0px;
     }
     @media only screen and (max-width: 1100px) {
         .read-more-section {
-            top: 525px;
+            top: 625px;
         }
         .triangle-and-painter-image {
-            top: 413px;
+            top: 513px;
         }
         .paint-palette-image {
-        top: 496px;
+        top: 596px;
         }
     }
     @media only screen and (max-width: 991px) {
     .triangle-and-painter-image {
         width: 200px;
-        top: 444px;
+        top: 544px;
     }
         .paint-palette-image {
             width: 130px;
-            top: 550px;
+            top: 650px;
         }
 }
 @media only screen and (max-width: 800px) {
     .triangle-and-painter-image {
         width: 180px;
-        top: 465px;
+        top: 565px;
     }
 }
 @media only screen and (max-width: 580px) {
     .triangle-and-painter-image {
         width: 120px;
-        top: 529px;
+        top: 629px;
     }
     .paint-palette-image {
         width: 100px;
-        top: 574px;
+        top: 674px;
     }
     .coming-soon-container img {
         width: 400px;
