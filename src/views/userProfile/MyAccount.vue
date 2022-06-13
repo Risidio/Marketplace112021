@@ -21,7 +21,8 @@
             <p class="plus" @click="editingUsername = false"> &#60; </p>
             <input type="text" placeholder="Username" @input="setUserName($event.target.value)"/>
             <span @click="uploadUserName('upload')" title='edit your profile' class="">&#x0002B;</span>
-            <p v-if="regError" style="color:red;font-size: 10px;padding: 20px;">Your Username must have at least 3 charechters</p>
+            <p v-if="regError" style="color:red;font-size: 10px;padding: 20px;">Your Username must have at least 3 characters,
+              no more than 16. Must contain a capital letter and cannot contain special characters or spaces</p>
           </div>
           <div class="usernameContainer">
             <p v-if="!transaction" class="profile-history" @click="viewTransaction()"> View Transaction History </p>
@@ -216,7 +217,6 @@ export default {
       userExists: '',
       editingUsername: false,
       previewImage: null,
-      // sliderHeight: '320px',
       slide: [
         {
           id: '1'
@@ -233,21 +233,17 @@ export default {
   },
   mounted () {
     this.fetchFullRegistry()
-    // this.fetchLoopRun()
     const tickerRates = this.$store.getters[APP_CONSTANTS.KEY_TICKER_RATES]
     this.defaultRate = tickerRates[0].currency
     this.loading = false
     this.setSTX()
     this.getUser()
-    // this.yourSTX = this.profile.accountInfo.balance
-    // let currentRunKey = 'indige5'
     this.loading = true
   },
   created () {
     window.addEventListener('resize', this.checkScreen)
     this.checkScreen()
     this.currencyPreference = JSON.parse(localStorage.getItem('currencyPreferences'))
-    // this.setSliderHeight()
   },
   watch: {
     '$route' () {
@@ -269,9 +265,6 @@ export default {
     'page' () {
       this.fetchAllocations()
     }
-    // 'resultSet' () {
-    //   this.setSliderHeight()
-    // }
   },
   methods: {
     fetchFullRegistry () {
@@ -316,12 +309,10 @@ export default {
       }
     },
     logout () {
-      // this.$emit('updateEventCode', { eventCode: 'connect-logout' })
       this.$store.dispatch('rpayAuthStore/startLogout').then(() => {
         if (this.$route.name !== 'home') {
           this.$router.push('/')
         }
-        // sessionStorage.clear()
       }).catch((err) => {
         console.log(err)
         this.$store.commit(APP_CONSTANTS.SET_WEB_WALLET_NEEDED)
@@ -367,7 +358,6 @@ export default {
       let getRate = null
       if (this.currencyPreference) getRate = this.rates.find((rate) => rate.text === this.currencyPreference.text)
       if (this.currencyPreference) this.yourSTX = getRate.value
-      // if (this.currencyPreference) this.yourSTX = getRate.value
     },
     currencyChange (currency) {
       this.yourSTX = this.profile.accountInfo.balance || 55
@@ -415,7 +405,7 @@ export default {
         })
     },
     uploadUserName (string) {
-      const pattern = /^[a-z0-9]{3,16}$/
+      const pattern = /^[a-zA-Z0-9]{3,16}$/
       const result = pattern.test(this.userName)
       if (string === 'editing') {
         this.editingUsername = true
