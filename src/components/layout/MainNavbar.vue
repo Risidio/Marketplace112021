@@ -144,23 +144,13 @@ export default {
       const body = document.getElementsByTagName('body')[0]
       const mainNavbar = document.getElementsByClassName('mainNavbar')[0]
       const hr = document.getElementsByClassName('mobile-hr')[0]
-      if (myProfile.loggedIn) {
-        const navLogged = document.getElementsByClassName('navbar_links')[0]
-        const featured = document.getElementsByClassName('featured')[0]
-        hr.classList.toggle('active')
-        featured.classList.toggle('active')
-        mainNavbar.classList.toggle('active')
-        navLogged.classList.toggle('active')
-        body.classList.toggle('stop-scrolling')
-      } else {
-        const notLogged = document.getElementsByClassName('navbar_links_not_logged')[0]
-        const featured = document.getElementsByClassName('featured')[0]
-        hr.classList.toggle('active')
-        featured.classList.toggle('active')
-        mainNavbar.classList.toggle('active')
-        notLogged.classList.toggle('active')
-        body.classList.toggle('stop-scrolling')
-      }
+      const navLogged = document.getElementsByClassName('navbar_links')[0]
+      const featured = document.getElementsByClassName('featured')[0]
+      hr.classList.toggle('active')
+      featured.classList.toggle('active')
+      mainNavbar.classList.toggle('active')
+      navLogged.classList.toggle('active')
+      body.classList.toggle('stop-scrolling')
       if (mainNavbar.classList.value === 'mainNavbar active') {
         this.isLayer = true
       } else {
