@@ -1,0 +1,80 @@
+.javascript-not-enabled-message-container {
+  background-image: url("https://res.cloudinary.com/risidio/image/upload/v1633609373/RisidioMarketplace/Group_-304_ofssmk.svg");
+  min-height: 100vh;
+  background-size: cover;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  padding: 25px;
+}
+
+.javascript-not-enabled-message-container .main-message-container {
+  background-color: rgba(255, 255, 255, 0.8);
+  font-family: Montserrat, Arial, Helvetica, sans-serif;
+  padding: 40px;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: column;
+          flex-flow: column;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  border-radius: 25px;
+}
+
+.javascript-not-enabled-message-container .main-message-container h1 {
+  font-size: 40px;
+  text-align: center;
+}
+
+.javascript-not-enabled-message-container .main-message-container strong {
+  font-size: 18px;
+  text-align: center;
+  font-weight: 400;
+  max-width: 500px;
+  margin: auto;
+}
+
+.javascript-not-enabled-message-container .main-message-container .enable-javascript-guide-link-button {
+  background-color: #50b1b5;
+  border-radius: 40px;
+  padding: 20px;
+  border: none;
+  -webkit-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
+  text-align: center;
+  cursor: pointer;
+  color: white;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.javascript-not-enabled-message-container .main-message-container a {
+  display: block;
+  margin-top: 30px;
+  text-decoration: none;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+}
+
+.javascript-not-enabled-message-container .main-message-container .enable-javascript-guide-link-button:hover {
+  background-color: rgba(95, 189, 193, 0.5);
+}
+
+body {
+  margin: 0;
+}
+/*# sourceMappingURL=javascript-not-enabled.css.map */
