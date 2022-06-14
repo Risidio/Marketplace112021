@@ -75,7 +75,7 @@
           <MyPageableItems :loopRun="loopRun" :resultSet="resultSet"/>
           <router-link to='/nft-marketplace/' style="font: normal normal bold 11px/14px Montserrat; display: block; text-align: center; margin-top: 50px"><!--<span style="color: #5FBDC1; ">Want More ? See The Gallery</span>--></router-link>
         </div>
-          <Pagination :pageSize="pageSize" :numberOfItems="numberOfItems"/>
+          <Pagination v-if="numberOfItems > pageSize" :pageSize="pageSize" :numberOfItems="numberOfItems"/>
       </div>
       <div v-else-if="tab === 'sale'" >
         <div>
@@ -671,7 +671,7 @@ export default {
 input[type="file"] {
   display: none;
 }
-.plus{
+.plus {
   color: #50b1b5;
   font-weight: 700;
   font-size: 12px;
@@ -749,7 +749,8 @@ input[type="file"] {
   font-size: 1.2rem;
 }
 .usernameEdit > span {
-  -webkit-transform: scaleX(-1);transform: scaleX(-1);
+  -webkit-transform: scaleX(-1);
+  transform: scaleX(-1);
   cursor: pointer;
   width: 10%;
   padding: 5px;

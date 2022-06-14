@@ -46,11 +46,11 @@
                   <div v-if="resultSet && view == 'squared' && searched.length == 0 && !loading">
                     <p>{{error}}</p>
                     <SquareNFT :resultSet="resultSet"/>
-                    <Pagination :pageSize="pageSize" :numberOfItems="numberOfItems"/>
+                    <Pagination  v-if="numberOfItems > pageSize" :pageSize="pageSize" :numberOfItems="numberOfItems"/>
                   </div>
                   <div v-if="resultSet && view == 'squared' && searched.length > 0 && !loading">
                     <SquareNFT :resultSet="searched"/>
-                    <Pagination :pageSize="pageSize" :numberOfItems="numberOfItems"/>
+                    <Pagination  v-if="numberOfItems > pageSize" :pageSize="pageSize" :numberOfItems="numberOfItems" />
                   </div>
                 <div style="display: grid; place-items: center;" v-else-if="loading">
                   <img :src="loadingImage" alt="loading" />

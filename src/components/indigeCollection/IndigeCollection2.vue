@@ -52,7 +52,7 @@
                 <p class="mint-text-2"> You have a mintpass balance of {{mintPasses}}. Therefore, you may mint in this collection !</p>
               </div>
             </div>
-              <Pagination :pageSize="pageSize" :numberOfItems="numberOfItems" :loopRun="loopRun" v-if="tab === 'Items'"/>
+              <Pagination v-if="tab === 'Items' && numberOfItems > pageSize" :pageSize="pageSize" :numberOfItems="numberOfItems" :loopRun="loopRun" />
             <p v-if="mintPassLoad" class="loading-pass">
               checking mint pass....<br/>
               <img class="loading-image" src="@/assets/img/loading-risid.gif" alt="loading">
@@ -121,6 +121,7 @@ export default {
     },
     /* eslint-enable */
     fetchMintPass () {
+      console.log('pagesize', this.pageSize, 'numberitems', this.numberOfItems)
       if (this.loopRun) {
         const data = {
           stxAddress: this?.profile?.stxAddress,
@@ -256,7 +257,7 @@ export default {
     padding: 10px;
   }
 }
-.galleryNavContainer{
+.galleryNavContainer {
   width: 600px;
   justify-content: space-between;
 }
