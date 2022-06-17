@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import ListBeneficiary from '@/views/marketplace/components/toolkit/ListBeneficiary'
+import ListBeneficiary from '@/components/toolkit/ListBeneficiary'
 import { APP_CONSTANTS } from '@/app-constants'
 
 export default {

@@ -3,17 +3,7 @@
   <h6 class="text-black"> <b>NFT History</b></h6>
   <hr class="text-black"/>
   <div class="scroll">
-    <div  v-for="(item, index) in events" :key="index">
-      <div class="history-sub-container">
-        <p class="stx-address small">{{dayjs(item.timestamp).format('DD.MM.YYYY')}} &nbsp;</p>
-        <p class="stx-address small" style="min-width: 50px;">&nbsp; {{dayjs(item.timestamp).format('hh:mm')}} &nbsp;</p>
-        <p class="stx-address small" style="min-width: 150px;">&nbsp; <b>{{item.from.slice(0, 5) + "..." + item.from.slice(-3)}}</b></p>
-        <p class="stx-address small" style="min-width: 150px;">&nbsp; {{item.functionName ? item.functionName : 'Setup'}}</p>
-        <p v-if="item.amount" class="stx-address small" style="margin-left: auto;">STX: <span class="blue">{{item.amount}}</span> <span class="light">= {{changeCurrencyTag() || '£'}} {{changeCurrency(item.amount || 0)}}</span></p>
-        <p v-else class="stx-address small" style="margin-left: auto;"> N/A </p>
-      </div>
-      <hr style="min-width: 450px;"/>
-    </div>
+    <NftHistoryEvent v-for="(item, index) in events" :key="index" :item="item" />
   </div>
     <!-- <table class="transaction-table ">
       <tr><th>NFT History</th></tr>
@@ -35,8 +25,7 @@ import SockJS from 'sockjs-client'
 import dayjs from 'dayjs'
 import Stomp from '@stomp/stompjs'
 import LocalizedFormat from 'dayjs/plugin/localizedFormat'
-import { APP_CONSTANTS } from '@/app-constants'
-import utils from '@/services/utils'
+import NftHistoryEvent from './NftHistoryEvent.vue'
 dayjs.extend(LocalizedFormat)
 
 let socket = null
@@ -73,6 +62,7 @@ const subscribeApiNews = function (that) {
 export default {
   name: 'NFTHistory',
   components: {
+    NftHistoryEvent
   },
   props: ['nftIndex', 'assetHash', 'loopRun'],
   data: function () {
@@ -277,35 +267,6 @@ export default {
         }
       })
       return mapped
-    },
-    changeCurrency (price) {
-      if (!price) return 0
-      if (this.currencyPreference) {
-        const tickerRates = this.$store.getters[APP_CONSTANTS.KEY_TICKER_RATES]
-        const rates = tickerRates.find((rate) => rate.currency === this.currencyPreference.text)
-        const nFTPrice = utils.toDecimals(rates.stxPrice * price)
-        return nFTPrice
-      } else {
-        const tickerRates = this.$store.getters[APP_CONSTANTS.KEY_TICKER_RATES]
-        const rates = tickerRates.find((rate) => rate.currency === 'GBP')
-        const nFTPrice = utils.toDecimals(rates.stxPrice * price)
-        return nFTPrice
-      }
-    },
-    changeCurrencyTag () {
-      if (this.currencyPreference && this.currencyPreference.text === 'GBP') {
-        return '£'
-      } else if (this.currencyPreference && this.currencyPreference.text === 'USD') {
-        return '$'
-      } else if (this.currencyPreference && this.currencyPreference.text === 'CNY') {
-        return '¥'
-      } else if (this.currencyPreference && this.currencyPreference.text === 'JPY') {
-        return '¥'
-      } else if (this.currencyPreference && this.currencyPreference.text === 'EUR') {
-        return '€'
-      } else {
-        return '£'
-      }
     }
   },
   computed: {
