@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import AssetDetailsSectionV1 from '@/views/marketplace/components/gallery/AssetDetailsSectionV1'
+import AssetDetailsSectionV1 from '@/components/gallery/AssetDetailsSectionV1'
 import { APP_CONSTANTS } from '@/app-constants'
 
 export default {

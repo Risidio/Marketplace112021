@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import MySingleItem from './MySingleItem'
+import MySingleItem from '@/components/gallery/MySingleItem'
 // import Pagination from './common/Pagination'
 import { APP_CONSTANTS } from '@/app-constants'
 
