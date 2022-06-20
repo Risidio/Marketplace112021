@@ -166,7 +166,7 @@
 </template>
 <script>
 
-import MyPageableItems from '@/views/marketplace/components/gallery/MyPageableItems'
+import MyPageableItems from '@/components/gallery/MyPageableItems'
 import Pagination from '@/components/smallcomponents/Pagination.vue'
 import UserTransaction from './UserTransaction.vue'
 import { VueperSlides, VueperSlide } from 'vueperslides'
