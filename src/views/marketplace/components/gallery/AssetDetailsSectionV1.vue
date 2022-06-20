@@ -109,11 +109,11 @@ import { APP_CONSTANTS } from '@/app-constants'
 import { DateTime } from 'luxon'
 import Vue from 'vue'
 import utils from '@/services/utils'
-import AssetUpdatesModal from '@/views/marketplace/components/toolkit/purchasing/AssetUpdatesModal'
-import PurchaseFlow from '@/views/marketplace/components/toolkit/purchasing/PurchaseFlow'
-import MediaItemGeneral from '@/views/marketplace/components/media/MediaItemGeneral'
-import PendingTransactionInfo from '@/views/marketplace/components/toolkit/nft-history/PendingTransactionInfo'
-import NFTHistory from '@/views/marketplace/components/toolkit/nft-history/NftHistory.vue'
+import AssetUpdatesModal from '@/components/toolkit/purchasing/AssetUpdatesModal'
+import PurchaseFlow from '@/components/toolkit/purchasing/PurchaseFlow'
+import MediaItemGeneral from '@/components/media/MediaItemGeneral'
+import PendingTransactionInfo from '@/components/toolkit/nft-history/PendingTransactionInfo'
+import NFTHistory from '@/components/toolkit/nft-history/NftHistory.vue'
 
 export default {
   name: 'AssetDetailsSectionV1',

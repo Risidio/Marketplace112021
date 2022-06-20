@@ -67,8 +67,8 @@
 <script>
 import SellingFlow from './sell-setup/SellingFlow'
 import { APP_CONSTANTS } from '@/app-constants'
-import AcceptOffer from '@/views/marketplace/components/toolkit/AcceptOffer'
-import ListBeneficiaries from '@/views/marketplace/components/toolkit/ListBeneficiaries'
+import AcceptOffer from '@/components/toolkit/AcceptOffer'
+import ListBeneficiaries from '@/components/toolkit/ListBeneficiaries'
 
 const STX_CONTRACT_NAME_V2 = process.env.VUE_APP_STACKS_CONTRACT_NAME_V2
 

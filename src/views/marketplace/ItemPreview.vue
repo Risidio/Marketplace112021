@@ -111,10 +111,10 @@
 <script>
 import { APP_CONSTANTS } from '@/app-constants'
 // import ItemActionMenu from '@/views/marketplace/components/update/ItemActionMenu'
-import PendingTransactionInfo from '@/views/marketplace/components/toolkit/nft-history/PendingTransactionInfo'
-import NftHistory from '@/views/marketplace/components/toolkit/nft-history/NftHistory'
+import PendingTransactionInfo from '@/components/toolkit/nft-history/PendingTransactionInfo'
+import NftHistory from '@/components/toolkit/nft-history/NftHistory'
 // import MintInfo from '@/views/marketplace/components/toolkit/mint-setup/MintInfo'
-import MintingTools from '@/views/marketplace/components/toolkit/MintingTools'
+import MintingTools from '@/components/toolkit/MintingTools'
 import moment from 'moment'
 
 export default {
