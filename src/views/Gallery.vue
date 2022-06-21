@@ -395,9 +395,7 @@ export default {
   margin-left: 30px;
   margin-right: 10px;
   border-radius: 50%;
-  // box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
 }
-
 .collectionMenuContainer .collectionItems{
   margin-top: 5px;
   font-size: 11px;
@@ -405,23 +403,13 @@ export default {
 .galleryGrid{
   display: grid;
   grid-auto-flow: dense;
-  grid-template-columns: repeat(auto-fit, minmax(225px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(195px, 1fr));
   grid-auto-rows: minmax(min-content, max-content);
-  // grid-auto-rows: 10px;
   align-items: start;
-  // justify-items: start;
-  // grid-auto-flow: dense;
-  // gap: 10px;
-}
-.galleryGrid >*{
-  // border: 1px solid red;
-  // margin: 0;
-  // padding: 0;
 }
 .gallery-display{
   overflow: hidden;
   object-fit: contain;
-  // padding: 5px;
 }
 .gallery-display-img{
   padding: 5px;
