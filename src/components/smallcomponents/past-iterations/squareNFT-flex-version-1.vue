@@ -1,9 +1,9 @@
 <template>
 <div class="gallerySquare">
-    <div ref="galleryItems" :style="{'max-height': singleNFTHeight + 'px'}" class="single-nft" v-for="(item, index) in resultSet" :key="index">
+    <div v-for="(item, index) in resultSet" :key="index">
         <div class="square-display" >
             <b-link class="galleryNFTContainer" v-bind:to="'/nfts/' + item.contractAsset.contractId + '/' + item.contractAsset.nftIndex">
-            <img :style="{ 'max-height': singleNFTHeight + 'px' }" ref="galleryImages" :src="item.image || errorImage"
+            <img :src="item.image || errorImage"
             alt="Risidio Gallery" class="square-display-img" loading="lazy">
             <div class="rel">
             <div class="galleryHover">
@@ -27,63 +27,25 @@ export default {
   props: ['resultSet'],
   data () {
     return {
-      errorImage: errorImage,
-      singleNFTHeight: window.innerWidth / 5
-    }
-  },
-  mounted () {
-    window.addEventListener('resize', this.updateNFTHeight())
-  },
-  methods: {
-    updateNFTHeight (e) {
-      console.log('Width: ', window.innerWidth)
-      this.singleNFTHeight = window.innerWidth / 5
+      errorImage: errorImage
     }
   }
-  // mounted () {
-  //   this.resultSet.forEach((item, index) => {
-  //     this.chooseGridSize(index)
-  //   })
-  // },
-  // methods: {
-  //   chooseGridSize (index) {
-  //     console.log('Index: ' + index)
-  //     const gridItem = this.$refs.galleryItems[index]
-  //     const gridImage = this.$refs.galleryImages[index]
-  //     const width = gridImage.clientWidth
-  //     const height = gridImage.clientHeight
-  //     if (width > 250) {
-  //       gridItem.style.gridColumnEnd = 'span 2'
-  //     } else if (width > 350) {
-  //       gridItem.style.gridColumnEnd = 'span 2'
-  //     }
-  //     if (height > 250) {
-  //       gridItem.style.gridRowEnd = 'span 2'
-  //     } else if (height > 350) {
-  //       gridItem.style.gridRowEnd = 'span 2'
-  //     }
-  //     if (width > 400) {
-  //       gridItem.style.gridColumnEnd = 'span 3'
-  //     }
-  //     console.log(width)
-  //   }
-  // }
 }
 </script>
 
 <style lang="scss" scoped>
-.single-nft {
-  margin: 0 1rem 1rem 0;
-  flex: 1 0 auto;
-}
 .square-display {
   background: transparent url("../../assets/img/sticksnstones_logo.png") center
     no-repeat;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  height: 262.8px;
+  flex-grow: 1;
+}
+.square-display:last-child {
+  flex-grow: 10;
 }
 .square-display-img {
+  min-width: 100%;
+  max-height: 100%;
   // background-size: cover;
   object-fit: cover;
   // object-fit: scale-down;
@@ -117,6 +79,30 @@ export default {
     font-size: 13px;
   }
 }
+@media(max-aspect-ratio: 1/1){
+  .square-display {
+    height: 30vh;
+  }
+}
+@media(max-height: 480px){
+  .square-display {
+    height: 80vh;
+  }
+}
+@media(max-aspect-ratio: 1/1) and (max-width: 480px){
+  .gallerySquare {
+    flex-direction: row;
+  }
+  .square-display {
+    height: auto;
+    width: 100%;
+  }
+  .square-display-img {
+    width: 100%;
+    max-height: 75vh;
+    min-width: 0;
+  }
+}
 @supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
   .galleryHover {
     -webkit-backdrop-filter: blur(30px);
@@ -137,22 +123,9 @@ export default {
   }
 }
 .gallerySquare {
-  position: relative;
   display: flex;
   flex-wrap: wrap;
   gap: 40px;
-  justify-content: space-evenly;
   transition: all smooth 2s ease-in-out;
-  padding: 30px;
 }
-.span-2 {
-  grid-column-end: span 2;
-  grid-row-end: span 2;
-}
-
-.span-3 {
-  grid-column-end: span 3;
-  grid-row-end: span 4;
-}
-
 </style>

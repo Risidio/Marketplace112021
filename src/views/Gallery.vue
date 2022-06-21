@@ -42,14 +42,18 @@
                         <img class="view" src="https://res.cloudinary.com/risidio/image/upload/v1637238428/RisidioMarketplace/magnifying-search-lenses-tool_yaatpo.svg" alt="search-icon">
                       </div>
                     </div>
+                    <button @click="changeDisplayStyle('Flexbox')" class="show-flexbox-layout">Flexbox Layout</button>
+                    <button @click="changeDisplayStyle('Flexbox2')" class="show-grid-layout">Flexbox Layout 2</button>
                 <hr class="hr1"/>
                   <div v-if="resultSet && view == 'squared' && searched.length == 0 && !loading">
                     <p>{{error}}</p>
-                    <SquareNFT :resultSet="resultSet"/>
+                    <SquareNFT v-if="displayStyle == 'Flexbox2'" :resultSet="resultSet"/>
+                    <SquareNFTFlexbox v-else-if="displayStyle == 'Flexbox'" :resultSet="resultSet"/>
                     <Pagination :pageSize="pageSize" :numberOfItems="numberOfItems"/>
                   </div>
                   <div v-if="resultSet && view == 'squared' && searched.length > 0 && !loading">
-                    <SquareNFT :resultSet="searched"/>
+                    <SquareNFT v-if="displayStyle = 'Flexbox2'" :resultSet="searched"/>
+                    <SquareNFTFlexbox v-else-if="displayStyle = 'Flexbox'" :resultSet="resultSet"/>
                     <Pagination :pageSize="pageSize" :numberOfItems="numberOfItems"/>
                   </div>
                 <div style="display: grid; place-items: center;" v-else-if="loading">
@@ -136,6 +140,7 @@ import { APP_CONSTANTS } from '@/app-constants'
 import utils from '@/services/utils'
 import MobileNFT from '../components/smallcomponents/MobileNFT.vue'
 import SquareNFT from '@/components/smallcomponents/SquareNFT.vue'
+import SquareNFTFlexbox from '@/components/smallcomponents/past-iterations/SquareNFTFlexbox.vue'
 import Pagination from '@/components/smallcomponents/Pagination.vue'
 import loadingImage from '@/assets/img/loading-risid.gif'
 import errorImage from '@/assets/img/sticksnstones_logo.png'
@@ -145,6 +150,7 @@ export default {
   components: {
     MobileNFT,
     SquareNFT,
+    SquareNFTFlexbox,
     Pagination
   },
   data () {
@@ -187,7 +193,8 @@ export default {
       arrow2on: false,
       arrow3on: false,
       arrow4on: false,
-      arrow5on: false
+      arrow5on: false,
+      displayStyle: 'Flexbox2'
     }
   },
   watch: {
@@ -352,6 +359,9 @@ export default {
       body.classList.toggle('stop-scrolling')
       this.filterToggle = !this.filterToggle
       this.isLayer = !this.isLayer
+    },
+    changeDisplayStyle (displayStyle) {
+      this.displayStyle = displayStyle
     }
   },
   computed: {

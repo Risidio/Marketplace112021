@@ -1,9 +1,9 @@
 <template>
 <div class="gallerySquare">
-    <div ref="galleryItems" :style="{'max-height': singleNFTHeight + 'px'}" class="single-nft" v-for="(item, index) in resultSet" :key="index">
+    <div v-for="(item, index) in resultSet" :key="index">
         <div class="square-display" >
             <b-link class="galleryNFTContainer" v-bind:to="'/nfts/' + item.contractAsset.contractId + '/' + item.contractAsset.nftIndex">
-            <img :style="{ 'max-height': singleNFTHeight + 'px' }" ref="galleryImages" :src="item.image || errorImage"
+            <img :src="item.image || errorImage"
             alt="Risidio Gallery" class="square-display-img" loading="lazy">
             <div class="rel">
             <div class="galleryHover">
@@ -27,63 +27,22 @@ export default {
   props: ['resultSet'],
   data () {
     return {
-      errorImage: errorImage,
-      singleNFTHeight: window.innerWidth / 5
-    }
-  },
-  mounted () {
-    window.addEventListener('resize', this.updateNFTHeight())
-  },
-  methods: {
-    updateNFTHeight (e) {
-      console.log('Width: ', window.innerWidth)
-      this.singleNFTHeight = window.innerWidth / 5
+      errorImage: errorImage
     }
   }
-  // mounted () {
-  //   this.resultSet.forEach((item, index) => {
-  //     this.chooseGridSize(index)
-  //   })
-  // },
-  // methods: {
-  //   chooseGridSize (index) {
-  //     console.log('Index: ' + index)
-  //     const gridItem = this.$refs.galleryItems[index]
-  //     const gridImage = this.$refs.galleryImages[index]
-  //     const width = gridImage.clientWidth
-  //     const height = gridImage.clientHeight
-  //     if (width > 250) {
-  //       gridItem.style.gridColumnEnd = 'span 2'
-  //     } else if (width > 350) {
-  //       gridItem.style.gridColumnEnd = 'span 2'
-  //     }
-  //     if (height > 250) {
-  //       gridItem.style.gridRowEnd = 'span 2'
-  //     } else if (height > 350) {
-  //       gridItem.style.gridRowEnd = 'span 2'
-  //     }
-  //     if (width > 400) {
-  //       gridItem.style.gridColumnEnd = 'span 3'
-  //     }
-  //     console.log(width)
-  //   }
-  // }
 }
 </script>
 
 <style lang="scss" scoped>
-.single-nft {
-  margin: 0 1rem 1rem 0;
-  flex: 1 0 auto;
-}
 .square-display {
-  background: transparent url("../../assets/img/sticksnstones_logo.png") center
+  background: transparent url("../../../assets/img/sticksnstones_logo.png") center
     no-repeat;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  max-width: 470px;
 }
 .square-display-img {
+  max-width: 470px;
+  max-height: 378px;
+  min-height: 130px;
   // background-size: cover;
   object-fit: cover;
   // object-fit: scale-down;
@@ -102,15 +61,17 @@ export default {
   border-radius: 5px;
   opacity: 1;
   padding: 4px 16px;
+  width: 100%;
   .nFTName,
   .nFTArtist {
-    width: 180px;
+    max-width: 100%;
   }
   .nFTName {
     font-size: 20px;
     margin-top: 10px;
     span {
       font-size: 13px;
+      margin-left: 20px;
     }
   }
   .nFTArtist {
@@ -140,19 +101,43 @@ export default {
   position: relative;
   display: flex;
   flex-wrap: wrap;
-  gap: 40px;
   justify-content: space-evenly;
+  align-content: space-between;
+  align-items: center;
+  gap: 15px;
+  padding: 30px 0;
   transition: all smooth 2s ease-in-out;
-  padding: 30px;
 }
-.span-2 {
-  grid-column-end: span 2;
-  grid-row-end: span 2;
+@media(max-width: 735px){
+  .square-display {
+  background: transparent url("../../../assets/img/sticksnstones_logo.png") center
+    no-repeat;
+  max-width: 350px;
 }
-
-.span-3 {
-  grid-column-end: span 3;
-  grid-row-end: span 4;
+.square-display-img {
+  max-width: 350px;
+  max-height: 378px;
+  // background-size: cover;
+  object-fit: cover;
+  // object-fit: scale-down;
+  box-shadow: 10px 10px 30px #0000002f;
+  border-radius: 5px;
 }
-
+}
+@media(max-width: 660px){
+  .square-display {
+  background: transparent url("../../../assets/img/sticksnstones_logo.png") center
+    no-repeat;
+  max-width: 290px;
+}
+.square-display-img {
+  max-width: 290px;
+  max-height: 378px;
+  // background-size: cover;
+  object-fit: cover;
+  // object-fit: scale-down;
+  box-shadow: 10px 10px 30px #0000002f;
+  border-radius: 5px;
+}
+}
 </style>
