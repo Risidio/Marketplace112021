@@ -12,67 +12,56 @@
                   </div>
                 </div>
                 <hr class="hr"/>
-                <!-- <div class="galleryCategory">
-                  <button class="collectionsButton" v-on:click="showCategories()"> Categories <img class="arrow2" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></button>
-                  <div class="galleryCategories">
-                    <a href="#" v-on:click="setCategories('all')">All</a>
-                    <a href="#" v-on:click="setCategories('img')">Images</a>
-                    <a href="#" v-on:click="setCategories('aud')">Audio</a>
-                    <a href="#" v-on:click="setCategories('vid')">Video</a>
-                    <a href="#" v-on:click="setCategories('3d')">3D assets</a>
-                    <a href="#" v-on:click="setCategories('doc')">Documents</a>
-                  </div>
-                </div>
-                <hr class="hr"/> -->
             </div>
             <div class="mainGalleryBody">
-                <div class="filter">
-                    <div>
-                        <p class="view" @click="changeView()">View</p>
-                        <button class="collectionsButton"> Popular <img class="arrow2" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></button>
-                        <div class="galleryCategories">
-                            <a href="#">Category 1</a>
-                            <a href="#">Category 2</a>
-                            <a href="#">Category 3</a>
-                            <a href="#">Category 4</a>
-                            <a href="#">Category 5</a>
-                        </div>
-                        <button class="collectionsButton"> Sort by <img class="arrow2" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></button>
-                        <div class="galleryCategories">
-                            <a href="#">Category 1</a>
-                            <a href="#">Category 2</a>
-                            <a href="#">Category 3</a>
-                            <a href="#">Category 4</a>
-                            <a href="#">Category 5</a>
-                        </div>
-                        <div>
-                          <!-- <button @click="showSquare"> display</button> -->
-                        </div>
-                    </div>
-                        <input class="search" type="text" id="search" name="search" placeholder="Looking for anything in particular ?"><img class="view" src="https://res.cloudinary.com/risidio/image/upload/v1637238428/RisidioMarketplace/magnifying-search-lenses-tool_yaatpo.svg">
+              <div class="filter">
+                <div>
+                  <p class="view">View</p>
+                  <button @click="view = 'not-squared'">Grid</button>
+                  <button @click="view = 'flex'">Flex</button>
+                  <button @click="view = 'squared'">Square</button>
+                  <button class="collectionsButton"> Popular <img class="arrow2" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></button>
+                  <div class="galleryCategories">
+                      <a href="#">Category 1</a>
+                      <a href="#">Category 2</a>
+                      <a href="#">Category 3</a>
+                      <a href="#">Category 4</a>
+                      <a href="#">Category 5</a>
+                  </div>
+                  <button class="collectionsButton"> Sort by <img class="arrow2" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></button>
+                  <div class="galleryCategories">
+                      <a href="#">Category 1</a>
+                      <a href="#">Category 2</a>
+                      <a href="#">Category 3</a>
+                      <a href="#">Category 4</a>
+                      <a href="#">Category 5</a>
+                  </div>
+                  </div>
+                      <input class="search" type="text" id="search" name="search" placeholder="Looking for anything in particular ?"><img class="view" src="https://res.cloudinary.com/risidio/image/upload/v1637238428/RisidioMarketplace/magnifying-search-lenses-tool_yaatpo.svg">
                 </div>
                 <hr/>
-                <div v-if="resultSet && view !== 'squared'" class="galleryGrid">
-                  <div v-for="(item, index) in resultSet" :key="index" :id="index">
+                <div v-if="resultSet && view == 'not-squared'" class="galleryGrid">
+                  <div v-for="(item, index) in resultSet" :key="'g' + index" :id="index">
                     <div v-if="item.image" class="gallery-display" >
-                      <img :id="'image' + index" :src="'https://res.cloudinary.com/risidio/image/upload/f_auto/q_auto:low/indige-testing/' + item.image.split('/')[5]"
+                      <img :id="'image' + index" :src="item.image"
+                       alt="Risidio Gallery" class="gallery-display-img">
+                    </div>
+                  </div>
+                </div>
+                <div v-if="resultSet && view == 'flex'" class="galleryFlex" >
+                  <div v-for="(item, index) in resultSet" :key="index" :id="'f' + index" class="flex-item">
+                    <div v-if="item.image" >
+                      <img :id="'image' + index" :src="item.image"
                        alt="Risidio Gallery" class="gallery-display-img">
                     </div>
                   </div>
                 </div>
                 <div v-if="resultSet && view == 'squared'" class="gallerySquare">
-                  <div v-for="(item, index) in resultSet" :key="index">
+                  <div v-for="(item, index) in resultSet" :key="'s' + index" >
                     <div v-if="item.image" class="square-display" >
                       <b-link class="galleryNFTContainer" v-bind:to="'/nfts/' + item.contractAsset.contractId + '/' + item.contractAsset.nftIndex">
-                      <img :src="'https://res.cloudinary.com/risidio/image/upload/f_auto/q_auto:low/indige-testing/' + item.image.split('/')[5]"
+                      <img :src="item.image"
                        alt="Risidio Gallery" class="square-display-img">
-                      <div class="rel">
-                        <div class="galleryHover">
-                          <p class="nFTName"> {{!item.name ? "NFT" : item.name }} <span style="float: right;">{{item.contractAsset.saleData.buyNowOrStartingPrice}} STX</span>
-                              <!-- <span>$ {{item.contractAsset.saleData.buyNowOrStartingPrice * 1.9}}</span></p> -->
-                          <p class="nFTArtist">By <span>{{!item.artist ? "Anonymous" : item.artist }}</span> </p>
-                        </div>
-                      </div>
                       </b-link>
                     </div>
                   </div>
@@ -84,8 +73,6 @@
 
 <script>
 import { APP_CONSTANTS } from '@/app-constants'
-import GalleryNft from '@/views/marketplace/components/gallery/GalleryNft'
-import CollectionSidebar from '@/views/marketplace/components/gallery/CollectionSidebar'
 import utils from '@/services/utils'
 
 export default {
@@ -136,47 +123,31 @@ export default {
         }
       }
     },
-    changeView () {
-      if (this.view === 'squared') {
-        this.view = 'not-squared'
-      } else {
-        this.view = 'squared'
-      }
-    },
     getImageDimensions () {
-      for (let i = 0; i < this.projects.length; ++i) {
+      for (let i = 0; i < this.resultSet.length; ++i) {
         const container = document.getElementById(i)
         const imageId = document.getElementById('image' + i)
         const imgWidth = imageId.clientWidth
         const imgHeight = imageId.clientHeight
-        console.log(imgWidth)
-        console.log('height')
-        console.log(imgHeight)
         const dimensions = imgWidth / imgHeight
         let y = 0
-        for (let x = 1; x < imgHeight / 10; ++x) {
+        for (let x = 1; x < imgHeight / 8; ++x) {
           y += 10
           if (imgHeight >= y && imgHeight < y + 10) {
-            container.classList.add('grid-height-' + x)
+            container.classList.add('grid-height-' + (x + 1))
           }
           // console.log(y)
         }
-        if (dimensions >= 2.8) {
+        if (dimensions >= 3) {
           container.classList.add('grid-length-2')
           console.log(container.classList[0].split('-')[2])
           const currentClass = container.classList[0]
           container.classList.remove(currentClass)
-          container.classList.add('grid-height-' + (parseInt(container.classList[0].split('-')[2]) + 7))
+          container.classList.add('grid-height-' + (parseInt(container.classList[0].split('-')[2]) + 10))
           console.log(container.classList)
         } else {
           container.classList.add('grid-length-1')
         }
-        // if (imgHeight >= 60 && imgHeight < 90) container.classList.add('grid-height-2')
-        // else if (imgHeight >= 90 && imgHeight < 120) container.classList.add('grid-height-3')
-        // else if (imgHeight >= 120 && imgHeight < 150) container.classList.add('grid-height-4')
-        // else if (imgHeight >= 150 && imgHeight < 180) container.classList.add('grid-height-5')
-        // else if (imgHeight >= 180 && imgHeight < 210) container.classList.add('grid-height-6')
-        // if (imgWidth > 211) container.classList.add('grid-length-2')
         console.log(container.classList)
       }
     },
@@ -203,7 +174,7 @@ export default {
         asc: true,
         runKey: loopRun ? loopRun.currentRunKey : null,
         page: 0,
-        pageSize: 30
+        pageSize: 50
       }
       this.resultSet = null
       this.$store.dispatch('rpayStacksContractStore/fetchTokensByContractId', data).then((result) => {
@@ -262,20 +233,20 @@ export default {
 }
 .mainGalleryContainer .mainGalleryBody{
     flex: 1 1 85%;
-    padding: 10px 50px;
-    max-width: 1600px;
+    padding: 10px 40px;
+    max-width: 1500px;
     // margin: auto;
 }
 .gallerySquare{
   position: relative;
-display: grid;
-display: -ms-grid;
-grid-template-columns: repeat(auto-fit, 255px);
--ms-grid-columns: repeat(auto-fit, 255px);
-// justify-content: space-between;
-justify-content: space-evenly;
-row-gap: 40px;
-transition: all smooth 2s ease-in-out;
+  display: grid;
+  display: -ms-grid;
+  grid-template-columns: repeat(auto-fit, 255px);
+  -ms-grid-columns: repeat(auto-fit, 255px);
+  // justify-content: space-between;
+  justify-content: space-evenly;
+  row-gap: 40px;
+  transition: all smooth 2s ease-in-out;
 }
 .rel{
   position: relative;
@@ -310,6 +281,18 @@ transition: all smooth 2s ease-in-out;
   object-fit: contain;
   box-shadow: 10px 10px 30px #0000002F;
   border-radius: 5px;
+}
+.galleryFlex{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  flex-flow: row wrap;
+  gap: 10px;
+}
+.galleryFlex > * {
+}
+.flex-item{
+  flex: 1 1 300px;
 }
 .filter{
   display: flex;
@@ -422,8 +405,9 @@ transition: all smooth 2s ease-in-out;
 .galleryGrid{
   display: grid;
   grid-auto-flow: dense;
-  grid-template-columns: repeat(auto-fit, minmax(211px, 1fr));
-  grid-auto-rows: 10px;
+  grid-template-columns: repeat(auto-fit, minmax(225px, 1fr));
+  grid-auto-rows: minmax(min-content, max-content);
+  // grid-auto-rows: 10px;
   align-items: start;
   // justify-items: start;
   // grid-auto-flow: dense;
@@ -447,13 +431,11 @@ transition: all smooth 2s ease-in-out;
 }
 .grid-length-2{
   grid-column-end: span 2;
+}.grid-length-3{
+  grid-column-end: span 3;
+}.grid-length-4{
+  grid-column-end: span 4;
 }
-// .grid-length-3{
-//   grid-column-end: span 3;
-// }
-// .grid-length-4{
-//   grid-column-end: span 4;
-// }
 .grid-height-2{
   grid-row-end: span 3;
 }.grid-height-3{
@@ -560,5 +542,37 @@ transition: all smooth 2s ease-in-out;
   grid-row-end: span 54;
 }.grid-height-54{
   grid-row-end: span 55;
+}.grid-height-55{
+  grid-row-end: span 56;
+}.grid-height-56{
+  grid-row-end: span 57;
+}.grid-height-57{
+  grid-row-end: span 58;
+}.grid-height-58{
+  grid-row-end: span 59;
+}.grid-height-59{
+  grid-row-end: span 60;
+}.grid-height-60{
+  grid-row-end: span 61;
+}.grid-height-61{
+  grid-row-end: span 62;
+}.grid-height-62{
+  grid-row-end: span 63;
+}.grid-height-63{
+  grid-row-end: span 64;
+}.grid-height-64{
+  grid-row-end: span 65;
+}.grid-height-65{
+  grid-row-end: span 66;
+}.grid-height-66{
+  grid-row-end: span 67;
+}.grid-height-67{
+  grid-row-end: span 68;
+}.grid-height-68{
+  grid-row-end: span 69;
+}.grid-height-69{
+  grid-row-end: span 70;
+}.grid-height-70{
+  grid-row-end: span 71;
 }
 </style>
