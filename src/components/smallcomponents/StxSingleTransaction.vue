@@ -1,10 +1,11 @@
 <template>
-    <tr class="transaction-data" @click="openTransaction(item)">
+    <tr class="transaction-data" >
         <th>{{dayjs(item.burn_block_time_iso).format('DD/MM/YYYY')}}</th>
         <th v-if="item.contract_call && item.contract_call.function_name"> {{item.contract_call.function_name}}</th> <th v-else> Setup</th>
         <th class="stx-address">{{ author }}</th>
         <th>{{item.fee_rate ? `STX: ${(item.fee_rate/1000000).toFixed(2)} ` : 'N/A'}}</th>
         <th class="stx-address">{{item.tx_status}}</th>
+        <th class="open-in-new-tab-icon"><img @click="openTransaction(item)" src="@/assets/img/open-in-new-icon.svg" alt="Open In New Tab"></th>
     </tr>
 </template>
 
@@ -48,7 +49,8 @@ export default {
 </script>
 
 <style scoped>
-    .transaction-data {
+    .open-in-new-tab-icon img {
         cursor: pointer;
+        max-width: 20px;
     }
 </style>

@@ -7,6 +7,7 @@
         <p class="stx-address small" style="min-width: 150px;">&nbsp; {{item.functionName ? item.functionName : 'Setup'}}</p>
         <p v-if="item.amount" class="stx-address small" style="margin-left: auto;">STX: <span class="blue">{{item.amount}}</span> <span class="light">= {{changeCurrencyTag() || '£'}} {{changeCurrency(item.amount || 0)}}</span></p>
         <p v-else class="stx-address small" style="margin-left: auto;"> N/A </p>
+        <p class="open-in-new-tab-icon"><img @click="openTransaction(item)" src="../../../assets/img/open-in-new-icon.svg" alt="Open In New Tab" /></p>
       </div>
       <hr style="min-width: 450px;"/>
   </div>
@@ -72,6 +73,9 @@ export default {
       } else {
         return '£'
       }
+    },
+    openTransaction (item) {
+      window.open(`https://explorer.stacks.co/txid/${item.txId}?chain=testnet`)
     }
   }
 }
@@ -117,5 +121,10 @@ export default {
 .flasher {
   border-bottom: 2pt solid #FFCE00;
   padding: 0px;
+}
+.open-in-new-tab-icon img {
+  cursor: pointer;
+  max-width: 20px;
+  margin-left: 20px;
 }
 </style>
