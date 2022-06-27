@@ -28,6 +28,23 @@
             <p v-if="!transaction" class="profile-history" @click="viewTransaction()"> View Transaction History </p>
             <p v-else-if="transaction" :to="'/my-account/nft'" @click="viewNFTS()" class="profile-history"> View NFTs </p>
           </div>
+          <div class="mobileInfoContainer">
+            <div v-if="userExists && !editingUsername" class="mobileUsernameEdit">
+              <p class="username">User Name: <span>{{userExists}}</span></p>
+              <span @click="uploadUserName('editing')" title='edit your profile' class="">&#9998;</span>
+            </div>
+            <div v-else-if="editingUsername || !userExists" class="mobileUsernameEdit" >
+              <p class="plus" @click="editingUsername = false"> &#60; </p>
+              <input type="text" placeholder="Username" @input="setUserName($event.target.value)"/>
+              <span @click="uploadUserName('upload')" title='edit your profile' class="">&#x0002B;</span>
+              <p v-if="regError" style="color:red;font-size: 10px;padding: 20px;">Your Username must have at least 3 characters,
+                no more than 16. Must contain a capital letter and cannot contain special characters or spaces</p>
+            </div>
+            <div class="mobileUsernameContainer">
+              <p v-if="!transaction" class="profile-history" @click="viewTransaction()"> View Transaction History </p>
+              <p v-else-if="transaction" :to="'/my-account/nft'" @click="viewNFTS()" class="profile-history"> View NFTs </p>
+            </div>
+          </div>
         </div>
         <div class="walletContainer">
           <button class="button filled infoButton hidden" id="infoButton" @click="viewInfo(1)"> View Info </button>
@@ -75,7 +92,7 @@
           <MyPageableItems :loopRun="loopRun" :resultSet="resultSet"/>
           <router-link to='/nft-marketplace/' style="font: normal normal bold 11px/14px Montserrat; display: block; text-align: center; margin-top: 50px"><!--<span style="color: #5FBDC1; ">Want More ? See The Gallery</span>--></router-link>
         </div>
-          <Pagination v-if="numberOfItems > pageSize" :pageSize="pageSize" :numberOfItems="numberOfItems"/>
+          <Pagination :pageSize="pageSize" :numberOfItems="numberOfItems"/>
       </div>
       <div v-else-if="tab === 'sale'" >
         <div>
@@ -165,7 +182,6 @@
 </div>
 </template>
 <script>
-
 import MyPageableItems from '@/components/gallery/MyPageableItems'
 import Pagination from '@/components/smallcomponents/Pagination.vue'
 import UserTransaction from './UserTransaction.vue'
@@ -174,9 +190,7 @@ import 'vueperslides/dist/vueperslides.css'
 import { APP_CONSTANTS } from '@/app-constants'
 import utils from '@/services/utils'
 import axios from 'axios'
-
 // import MySingleItem from '../marketplace/components/gallery/MySingleItem.vue'
-
 export default {
   name: 'MyAccount',
   components: {
@@ -220,7 +234,6 @@ export default {
       slide: [
         {
           id: '1'
-
         },
         {
           id: '2'
@@ -428,12 +441,10 @@ export default {
       const image = e.target.files[0]
       const reader = new FileReader()
       reader.readAsDataURL(image)
-
       if (e.target.files[0].size > 1248576) {
         alert('File is too big!')
         return
       };
-
       reader.onload = e => {
         axios.put('https://risidio-marketplace-database.herokuapp.com/user/', {
           image: e.target.result,
@@ -520,7 +531,6 @@ export default {
   }
 }
 </script>
-
 <style lang="scss" scoped>
 .galleryContainerLimited {
   max-width: 1135px;
@@ -671,7 +681,7 @@ export default {
 input[type="file"] {
   display: none;
 }
-.plus {
+.plus{
   color: #50b1b5;
   font-weight: 700;
   font-size: 12px;
@@ -749,8 +759,7 @@ input[type="file"] {
   font-size: 1.2rem;
 }
 .usernameEdit > span {
-  -webkit-transform: scaleX(-1);
-  transform: scaleX(-1);
+  -webkit-transform: scaleX(-1);transform: scaleX(-1);
   cursor: pointer;
   width: 10%;
   padding: 5px;
@@ -761,6 +770,12 @@ input[type="file"] {
   z-index: 20;
   right: 150px;
   top: 100px;
+}
+.mobileInfoContainer {
+  display: none;
+}
+.mobileUsernameEdit {
+  display: none;
 }
 @media only screen and (max-width: 475px) {
   .infoButton {
@@ -783,7 +798,6 @@ input[type="file"] {
     font-size: 40px;
     font-weight: 300;
   }
-
   // .profileBtns >:nth-child(1){
   //   background:#50B1B5;
   //   color: white;
@@ -807,6 +821,9 @@ input[type="file"] {
 .walletContainer {
   position: relative;
 }
+.mobileInfoContainer {
+  max-width: 416px;
+}
 .walletDetails {
   position: relative;
   max-width: 416px;
@@ -826,6 +843,7 @@ input[type="file"] {
     margin: 8px auto 0 auto;
     font: normal normal 600 12px/15px Montserrat;
     color: #5154a1;
+    word-break: break-all;
   }
   .profileBtns {
     display: flex;
@@ -884,7 +902,55 @@ input[type="file"] {
 .router-link-active {
   border-bottom: 2px solid #50b1b5;
 }
-@media only screen and (max-width: 1050px) {
+@media only screen and (max-width: 1069px) {
+  .mobileUsernameEdit {
+    display: flex;
+    background: none;
+    width: 100%;
+    margin: auto;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    input {
+      background: rgb(243, 243, 243);
+      border-radius: 20px;
+      border: solid 1px rgb(235, 235, 235);
+      width: 80%;
+      padding: 5px;
+      padding-left: 15px;
+      outline: none;
+      font-weight: 200;
+      font-size: 1.2rem;
+      border: none;
+      background: none;
+    }
+  }
+  .mobileUsernameContainer {
+    margin: auto;
+    margin-top: 40px;
+    width: 100%;
+  }
+  .mobileInfoContainer {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    justify-content: center;
+    background: rgba(129, 129, 129, 0.06);
+    max-width: 416px;
+    margin: auto;
+    padding: 10px 20px;
+    margin-top: 30px;
+    border-radius: 14px;
+  }
+  .mobileUsernameEdit > span {
+  -webkit-transform: scaleX(-1);transform: scaleX(-1);
+  cursor: pointer;
+  width: 10%;
+  padding: 5px;
+  color: lightseagreen;
+  }
+  .usernameContainer {
+    display: none;
+  }
   .walletCurrency {
     flex-wrap: nowrap;
     flex-direction: column;
@@ -909,8 +975,8 @@ input[type="file"] {
   .usernameEdit {
     background: none;
     max-width: 300px;
-    margin: 20px auto 50px auto;
-    display: flex;
+    margin: auto;
+    display: none;
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
