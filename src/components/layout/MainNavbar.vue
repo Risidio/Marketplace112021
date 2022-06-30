@@ -30,15 +30,14 @@
             <router-link class="nav-links bold" to="/nft-marketplace">Explore</router-link>
           </li>
           <li style="position: relative; margin-top: 2px;" @click="openMenu()" ref="dropDown" class="nav-items"  >
-            <router-link to="" id="dropDown-1" class="nav-items bold" > Featured Collections <img class="arrow2" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></router-link>
-            <p id="dropDown-2" class="featured" > Featured Collections <img style="margin-left: 8px;" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></p>
+            <router-link to="" id="dropDown-1" class="nav-items bold" > Featured Collections <img class="arrow2" alt ="Icon" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></router-link>
+            <p id="dropDown-2" class="featured" > Featured Collections <img style="margin-left: 8px;" alt ="Icon1" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg"></p>
             <ul id="dropDown-3" class="dropdownMenu">
-              <li id="dropDown-4" v-for="(item, index) in allLoopRuns" :key="index" class="dropdownMenu-container">
+              <li :id="index" v-for="(item, index) in allLoopRuns" :key="index" class="dropdownMenu-container">
                 <router-link :to="`/${item.currentRunKey}`" v-on:click="isLayer ? mobileNavebar() : '' ">{{item.currentRun}}</router-link>
               </li>
             </ul>
           </li>
-          <hr class="mobile-hr"/>
           <li v-on:click="isLayer ? mobileNavebar() : '' " class="nav-items" id="howItWorks">
             <router-link class="nav-links thin right" to="/how-it-works" >How It Works</router-link>
           </li>
