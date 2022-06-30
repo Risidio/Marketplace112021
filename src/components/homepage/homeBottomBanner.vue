@@ -53,7 +53,7 @@ export default {
 .homeBottomBanner {
   width: 100%;
   margin: auto;
-  min-height: 500px;
+  min-height: 560px;
   // max-height: 50vh;
   background: url(https://res.cloudinary.com/risidio/image/upload/v1633609373/RisidioMarketplace/Group_-304_ofssmk.svg)
     no-repeat center center;
