@@ -1,10 +1,10 @@
 <template>
 <div class = "Htitle">
-  <div class = "containerr">
+  <div class = "about_container">
      <img class="banner" src="https://res.cloudinary.com/risidio/image/upload/v1633609373/RisidioMarketplace/Group_-304_ofssmk.svg" alt="">
       <h1>{{content.aboutsection0[0].abouttitle[0].text}}</h1>
       <p>{{content.aboutsection0[0].abouttext[0].text}}</p>
-      <button class="button notFilled" > <a href="https://risidio.com/" target="_blank">Risidio Website</a></button>
+      <a class="button notFilled" href="https://risidio.com/" target="_blank">Risidio Website</a>
   </div>
 </div>
 </template>
@@ -33,7 +33,7 @@ export default {
   color:white;
 }
 
-.containerr {
+.about_container {
   min-width: 100%;
   padding: 50px;
   align-items: center;
@@ -42,14 +42,14 @@ export default {
   margin-top: -35px;
   min-height: 400px;
 }
-.containerr h1{
+.about_container h1{
   margin-top: 40px;
   font-family: inherit;
   font-size: 40px;
   font-weight: 300;
   color: white;
 }
-.containerr p{
+.about_container p{
   font-size: 1em;
   font-weight: 300;
   padding: 20px 0;
@@ -57,10 +57,10 @@ export default {
   max-width: 600px;
   margin: auto;
 }
-.containerr button{
+.button {
   margin: auto;
 }
 a, a:after, a:hover{
-    color:var(--cyan);
+  color:var(--cyan);
 }
 </style>
