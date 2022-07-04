@@ -4,31 +4,18 @@
     <div v-if="profile.loggedIn" class="if">
         <div class="loggedBanner">
             <div class="vueSlideContainer galleryContainer">
-              <vueper-slides
-              :infinite="false"
-              fixed-height="true"
-              class="no-shadow"
-              :arrows="showArrow"
-              :arrows-outside="showArrow"
-              :touchable="touchableSlide"
-              :gap="3"
-              :visible-slides="1"
-              :bullets="bullets"
-              :breakpoints="breakpoints"
-              bullets-outside
+              <div
+              class="no-shadow home-banner-swiper swiper"
+              ref="swiper"
               >
               <template>
               </template>
-                <template v-if="showArrow == true" #arrow-left>
-                  <img src="https://res.cloudinary.com/risidio/image/upload/v1637153014/RisidioMarketplace/Icon_ionic-md-arrow-dropleft-circle_zpgise.svg" alt="arrow-icon" class="arrow"/>
-                </template>
-                <template v-if="showArrow == true" #arrow-right>
-                  <img src="https://res.cloudinary.com/risidio/image/upload/v1637152994/RisidioMarketplace/Icon_ionic-md-arrow-dropleft-circle_1_ex6tmv.svg" alt="arrow-icon" class="arrow"/>
-                </template>
-                <vueper-slide
+                <div class="swiper-wrapper">
+                  <div
+                class="swiper-slide home-banner-swiper-slide"
                 v-for="(slide) in slide"
                 :key="slide.id">
-                    <template #content>
+                    <template>
                         <!-- <div v-if="slide.id==1" class = "slideContainer">
                             <div class="slideImage">
                               <h2 class="mobileHeader">{{content.heroarea[1].herotitle[0].text}}</h2>
@@ -113,8 +100,19 @@
                             </div>
                         </div> -->
                     </template>
-                </vueper-slide>
-              </vueper-slides>
+                </div>
+                </div>
+                <div class="swiper-button-prev swiper-arrow">
+          <img src="https://res.cloudinary.com/risidio/image/upload/v1637153014/RisidioMarketplace/Icon_ionic-md-arrow-dropleft-circle_zpgise.svg" alt="arrow-icon" class="arrow"/>
+        </div>
+        <div class="swiper-button-next swiper-arrow">
+          <img src="https://res.cloudinary.com/risidio/image/upload/v1637152994/RisidioMarketplace/Icon_ionic-md-arrow-dropleft-circle_1_ex6tmv.svg" alt="arrow-icon" class="arrow"/>
+        </div>
+        <div class="swiper-pagination swiper-pagination-home-banner">
+          <span class="swiper-pagination-bullet swiper-pagination-clickable"></span>
+          <span class="swiper-pagination-bullet swiper-pagination-clickable"></span>
+        </div>
+              </div>
             </div>
             <div class="searchContainer-1">
               <HomeSearchBar/>
@@ -147,18 +145,15 @@
 </template>
 
 <script>
-import { VueperSlides, VueperSlide } from 'vueperslides'
-import 'vueperslides/dist/vueperslides.css'
+import Swiper, { Navigation, Pagination, Thumbs } from 'swiper'
+import '@/assets/scss/swiper-bundle.css'
 import HomeSearchBar from './homeSearchBar.vue'
 import { APP_CONSTANTS } from '@/app-constants'
 
 export default {
   name: 'Homebanner',
   props: ['profile', 'content'],
-
   components: {
-    VueperSlides,
-    VueperSlide,
     HomeSearchBar
   },
   data: () => ({
@@ -194,6 +189,40 @@ export default {
   created () {
     window.addEventListener('resize', this.checkScreen)
     this.checkScreen()
+  },
+  mounted () {
+    const swiper = new Swiper(this.$refs.swiper, {
+      // configure Swiper to use modules
+      modules: [Navigation, Pagination, Thumbs],
+      // Optional parameters
+      loop: true,
+      speed: 400,
+      slidesPerView: 1,
+      spaceBetween: 300,
+
+      // If we need pagination
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+        type: 'bullets',
+        bulletActiveClass: 'swiper-pagination-bullet-active',
+        bulletClass: 'swiper-pagination-bullet',
+        bulletElement: 'span',
+        clickableClass: 'swiper-pagination-clickable'
+      },
+
+      // Navigation arrows
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev'
+      },
+
+      // And if we need scrollbar
+      scrollbar: {
+        el: '.swiper-scrollbar',
+        draggable: true
+      }
+    })
   },
   methods: {
     startLogin () {
@@ -232,6 +261,30 @@ export default {
   height: 50rem;
   align-items: center;
   padding: 20px;
+}
+.swiper-wrapper {
+  cursor: pointer;
+}
+.swiper-pagination-home-banner {
+  display: none;
+}
+.swiper-arrow {
+  opacity: 0.7;
+  height: 25px;
+  width: 25px;
+  transition: 0.5s ease-in-out;
+}
+.swiper-arrow:hover {
+  opacity: 1;
+}
+.home-banner-swiper-slide {
+  padding: 0 50px;
+}
+.swiper-button-next:after {
+  content: none;
+}
+.swiper-button-prev:after {
+  content: none;
 }
 .if {
   max-width: 1300px;
@@ -346,24 +399,17 @@ export default {
     padding-bottom: 20px;
   }
 }
-.vueperslide {
+.slideContainer {
   background-color: rgba(255, 255, 255, 0.637);
   border-radius: 30px;
 }
-.vueperslides__bullet--active .default {
-  border-width: 6px;
-  border-color: white;
-}
-.vueperslides__bullets .default {
-  background-color: #50b1b5;
-}
-.vueperslides--fixed-height {
+.home-banner-swiper {
   height: 287px;
   max-width: 1135px;
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 25px;
-  backdrop-filter: blur(2rem);
+  padding-bottom: 30px;
 }
 .loggedBanner,
 .blurBackground {
@@ -374,7 +420,7 @@ export default {
   margin: 35px auto;
   border-radius: 30px;
 }
-.vueperslides__arrow .arrow {
+.home-banner-swiper .arrow {
   width: 25px;
   height: 25px;
   color: rgb(255, 255, 255);
@@ -426,23 +472,28 @@ export default {
 }
 
 @media only screen and (max-width: 1290px) {
-  .vueperslides--fixed-height {
+  .home-banner-swiper {
     max-width: 85%;
+  }
+  .swiper-pagination-home-banner {
+    display: block;
+  }
+  .home-banner-swiper-slide {
+    padding-bottom: 35px;
   }
 }
 @media only screen and (max-width: 1120px) {
-  .vueperslides--fixed-height {
-    height: 50rem;
+  .home-banner-swiper {
+    height: 54rem;
     // max-width: 95%;
     margin-left: auto;
     margin-right: auto;
-    backdrop-filter: blur(2rem);
   }
   .slideContainerNotLogged {
     flex-direction: column;
   }
   .searchContainer-1 {
-    margin-top: 120px;
+    margin-top: 80px;
   }
   .searchContainer-2 {
     margin-top: 25px;
@@ -485,9 +536,24 @@ export default {
 .notMobileHeader {
   display: block;
 }
+@media only screen and (max-width: 800px) {
+  .home-banner-swiper-slide {
+  padding: 0 50px;
+  padding-bottom: 35px;
+  }
+}
 @media only screen and (max-width: 720px) {
-  .vueperslides--fixed-height {
+  .home-banner-swiper {
     max-width: 1135px;
+  }
+}
+@media only screen and (max-width: 620px) {
+  .home-banner-swiper {
+    max-width: 1135px;
+  }
+  .collectionImage {
+    width: 150px;
+    height: 150px;
   }
 }
 @media only screen and (max-width: 550px) {
@@ -498,7 +564,7 @@ export default {
     }
   }
   .searchContainer-1 {
-    margin-top: 25px;
+    margin-top: 80px;
   }
   .searchContainer-2 {
     margin-top: 32px;
@@ -507,7 +573,7 @@ export default {
     top: 100px;
   }
   .slide-text-p {
-    margin-top: -80px;
+    margin-top: -35px;
   }
   .button {
     margin-top: 30px;
@@ -522,13 +588,12 @@ export default {
   .slideText-notLogged {
     margin-top: 50px;
   }
-  .vueperslides--fixed-height {
+  .home-banner-swiper {
     height: 60rem;
     // max-width: 85%;
     margin-left: auto;
     margin-right: auto;
     margin-bottom: 25px;
-    backdrop-filter: blur(2rem);
   }
   .collectionImage {
     width: 150px;
@@ -547,35 +612,57 @@ export default {
     height: 86rem;
   }
 }
-@media only screen and (max-width: 370px)
-  {
-   .vueperslides--fixed-height {
-    height: 60rem;
-    // max-width: 85%;
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 25px;
-    backdrop-filter: blur(2rem);
-  }
+@media only screen and (max-width: 510px) {
   .collectionImage {
     width: 110px;
     height: 110px;
     margin-right: auto;
   }
+}
+@media only screen and (max-width: 500px) {
+  .swiper-button-next {
+    display: none;
   }
-  @media only screen and (max-width: 285px)
+  .swiper-button-prev {
+    display: none;
+  }
+  .swiper-slide {
+    padding: 0;
+    padding-bottom: 50px;
+  }
+}
+@media only screen and (max-width: 420px) {
+    .collectionImage {
+      width: 80px;
+      height: 80px;
+    }
+}
+@media only screen and (max-width: 370px)
   {
-   .vueperslides--fixed-height {
+   .home-banner-swiper {
     height: 60rem;
     // max-width: 85%;
     margin-left: auto;
     margin-right: auto;
     margin-bottom: 25px;
-    backdrop-filter: blur(2rem);
   }
-  .collectionImage {
-    width: 90px;
-    height: 90px;
+  }
+  @media only screen and (max-width: 330px) {
+    .swiper-slide {
+      padding-bottom: 35px;
+    }
+    .mobileHeader {
+      margin-bottom: 15px;
+    }
+  }
+  @media only screen and (max-width: 285px)
+  {
+   .home-banner-swiper {
+    height: 60rem;
+    // max-width: 85%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 25px;
   }
   }
   @media only screen and (max-width: 1120px){

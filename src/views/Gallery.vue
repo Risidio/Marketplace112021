@@ -46,11 +46,11 @@
                   <div v-if="resultSet && view == 'squared' && searched.length == 0 && !loading">
                     <p>{{error}}</p>
                     <SquareNFT :resultSet="resultSet"/>
-                    <Pagination  v-if="numberOfItems > pageSize" :pageSize="pageSize" :numberOfItems="numberOfItems"/>
+                    <MarketplacePagination  v-if="numberOfItems > pageSize" :pageSize="pageSize" :numberOfItems="numberOfItems"/>
                   </div>
                   <div v-if="resultSet && view == 'squared' && searched.length > 0 && !loading">
                     <SquareNFT :resultSet="searched"/>
-                    <Pagination  v-if="numberOfItems > pageSize" :pageSize="pageSize" :numberOfItems="numberOfItems" />
+                    <MarketplacePagination  v-if="numberOfItems > pageSize" :pageSize="pageSize" :numberOfItems="numberOfItems" />
                   </div>
                 <div style="display: grid; place-items: center;" v-else-if="loading">
                   <img :src="loadingImage" alt="loading" />
@@ -136,7 +136,7 @@ import { APP_CONSTANTS } from '@/app-constants'
 import utils from '@/services/utils'
 import MobileNFT from '../components/smallcomponents/MobileNFT.vue'
 import SquareNFT from '@/components/smallcomponents/SquareNFT.vue'
-import Pagination from '@/components/smallcomponents/Pagination.vue'
+import MarketplacePagination from '@/components/smallcomponents/MarketplacePagination.vue'
 import loadingImage from '@/assets/img/loading-risid.gif'
 import errorImage from '@/assets/img/sticksnstones_logo.png'
 
@@ -145,7 +145,7 @@ export default {
   components: {
     MobileNFT,
     SquareNFT,
-    Pagination
+    MarketplacePagination
   },
   data () {
     return {

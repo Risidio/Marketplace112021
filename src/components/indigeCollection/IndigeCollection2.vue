@@ -52,7 +52,7 @@
                 <p class="mint-text-2"> You have a mintpass balance of {{mintPasses}}. Therefore, you may mint in this collection !</p>
               </div>
             </div>
-              <Pagination v-if="tab === 'Items' && numberOfItems > pageSize" :pageSize="pageSize" :numberOfItems="numberOfItems" :loopRun="loopRun" />
+              <MarketplacePagination v-if="tab === 'Items' && numberOfItems > pageSize" :pageSize="pageSize" :numberOfItems="numberOfItems" :loopRun="loopRun" />
             <p v-if="mintPassLoad" class="loading-pass">
               checking mint pass....<br/>
               <img class="loading-image" src="@/assets/img/loading-risid.gif" alt="loading">
@@ -66,14 +66,14 @@
 <script>
 import axios from 'axios'
 import StxTransaction from '../smallcomponents/StxTransaction.vue'
-import Pagination from '../smallcomponents/Pagination.vue'
+import MarketplacePagination from '../smallcomponents/MarketplacePagination.vue'
 import DefaultNFT from '../smallcomponents/DefaultNFT.vue'
 
 export default {
   name: 'Indige-Collection-S2',
   props: ['content', 'loopRun', 'resultSet', 'numberOfItems', 'pageSize'],
   components: {
-    Pagination,
+    MarketplacePagination,
     StxTransaction,
     DefaultNFT
   },

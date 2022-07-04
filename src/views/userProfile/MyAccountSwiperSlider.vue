@@ -1,136 +1,88 @@
 <template>
-  <div class="viewContainer" v-if="loading === true">
-    <div class="btn-div" v-if="transaction">
-      <router-link class="backBtn" :to="'/my-account/nft'"><b-icon class="icon-button" icon="chevron-left" shift-h="-3"></b-icon> Back</router-link>
-    </div>
-    <div class="profileContainer">
-      <div class="profile">
-          <div class="profileItems">
-            <img v-if="previewImage" class="profileImg" :src="previewImage" alt="profile-image">
-            <img v-else class="profileImg" src="https://res.cloudinary.com/risidio/image/upload/v1637580392/RisidioMarketplace/depositphotos_137014128-stock-illustration-user-profile-icon_splob8.jpg" alt="profile-image">
-            <label style="width: 25px; -webkit-transform: scaleX(-1);transform: scaleX(-1);" class="pencil">
-             <input @change="uploadImage($event)" type="file" id="image-input" accept="image/jpeg, image/png, image/jpg" class="uploadImage">
-             &#9998;
-            </label>
-          </div>
-          <div v-if="userExists && !editingUsername" class="usernameEdit">
-            <p class="username">User Name: <span>{{userExists}}</span></p>
-            <span @click="uploadUserName('editing')" title='edit your profile' class="">&#9998;</span>
-          </div>
-          <div v-else-if="editingUsername || !userExists" class="usernameEdit" >
-            <p class="plus" @click="editingUsername = false"> &#60; </p>
-            <input type="text" placeholder="Username" @input="setUserName($event.target.value)"/>
-            <span @click="uploadUserName('upload')" title='edit your profile' class="">&#x0002B;</span>
-            <p v-if="regError" style="color:red;font-size: 10px;padding: 20px;">Your Username must have at least 3 characters,
-              no more than 16. Must contain a capital letter and cannot contain special characters or spaces</p>
-          </div>
-          <div class="usernameContainer">
-            <p v-if="!transaction" class="profile-history" @click="viewTransaction()"> View Transaction History </p>
-            <p v-else-if="transaction" :to="'/my-account/nft'" @click="viewNFTS()" class="profile-history"> View NFTs </p>
-          </div>
-          <div class="mobileInfoContainer">
-            <div v-if="userExists && !editingUsername" class="mobileUsernameEdit">
-              <p class="username">User Name: <span>{{userExists}}</span></p>
-              <span @click="uploadUserName('editing')" title='edit your profile' class="">&#9998;</span>
-            </div>
-            <div v-else-if="editingUsername || !userExists" class="mobileUsernameEdit" >
-              <p class="plus" @click="editingUsername = false"> &#60; </p>
-              <input type="text" placeholder="Username" @input="setUserName($event.target.value)"/>
-              <span @click="uploadUserName('upload')" title='edit your profile' class="">&#x0002B;</span>
-              <p v-if="regError" style="color:red;font-size: 10px;padding: 20px;">Your Username must have at least 3 characters,
-                no more than 16. Must contain a capital letter and cannot contain special characters or spaces</p>
-            </div>
-            <div class="mobileUsernameContainer">
-              <p v-if="!transaction" class="profile-history" @click="viewTransaction()"> View Transaction History </p>
-              <p v-else-if="transaction" :to="'/my-account/nft'" @click="viewNFTS()" class="profile-history"> View NFTs </p>
-            </div>
-          </div>
-        </div>
-        <div class="walletContainer">
-          <button class="button filled infoButton hidden" id="infoButton" @click="viewInfo(1)"> View Info </button>
-          <div id="walletDetails" class="walletDetails">
-            <button class="notFilled" @click="viewInfo(0)"> HIDE </button>
-            <h1> Your Wallet Info: </h1>
-            <p> ID - {{username.substring(0, 30)}}... </p>
-            <!-- <h2>John Doe</h2> -->
-            <br/>
-            <div class="walletCurrency">
-              <div>
-                <p style="font: normal normal 300 12px/15px Montserrat;"> Credit Remaining: </p>
-                <pre id="stxInfo" style="font: normal normal 300 15px/19px Montserrat;"> <span style="color: rgba(81, 84, 161, 1); font: normal normal 600 12px/15px Montserrat;" v-if="profile && profile.accountInfo">{{profile.accountInfo.balance || 5}}</span>  STX</pre>
+  <div
+      ref="swiper"
+      class="no-shadow swiper"
+      >
+        <div class="swiper-wrapper">
+          <div class="swiper-slide" v-for="(slide) in slide" :key="slide.id">
+          <template>
+            <div v-if="!transaction" class="galleryContainerLimited">
+              <div v-if="slide.id==1 && loopRun" class="">
+                <h4 class="galleryNavItemM" style="text-align: center;">Your NFTs</h4>
+                <div>
+                  <MyPageableItems v-if="slide.id==1" :loopRun="loopRun" :resultSet="resultSet"/>
+                  <router-link to='/nft-marketplace/' style="font: normal normal bold 11px/14px Montserrat; display: block; text-align: center; margin-top: 50px"><!--<span style="color: #5FBDC1; ">Want More ? See The Gallery</span>--></router-link>
+                </div>
+                <MarketplacePagination :pageSize="pageSize" :numberOfItems="numberOfItems"/>
               </div>
-              <div>
-                  <pre v-if="currencyPreference && currencyPreference.text" class="figure" style="font: normal normal 300 15px/19px Montserrat;"><span style="color: rgba(81, 84, 161, 1); font: normal normal 600 12px/15px Montserrat;">{{yourSTX}}</span> {{currency ? currency : currencyPreference.text || null}}</pre>
-                  <pre v-else class="figure" style="font: normal normal 300 15px/19px Montserrat;"><span style="color: rgba(81, 84, 161, 1); font: normal normal 600 12px/15px Montserrat;">{{yourSTX}}</span> {{currency || null}}</pre>
-                  <select id="currency" name="currency" class="form-control"  @change="currencyChange($event.target.value)">
-                    <option v-if="currencyPreference" :value="currencyPreference.text">{{currencyPreference.text}}</option>
-                    <option v-for="(rates, index) in rates" :key="index" :value="rates.text">
-                      {{rates.text}}
-                    </option>
-                  </select>
+              <div v-else-if="saleItem.length > 0 && slide.id==2" >
+                <h4 class="galleryNavItemM" style="text-align: center;">Your NFT's On Sale</h4>
+                <div>
+                  <MyPageableItems :loopRun="loopRun" :resultSet="saleItem"/>
+                  <router-link to='/nft-marketplace/' style="font: normal normal bold 11px/14px Montserrat; display: block; text-align: center; margin-top: 50px"><!--<span style="color: #5FBDC1; ">Want More ? See The Gallery</span>--></router-link>
+                </div>
+              </div>
+              <div v-else-if="saleItem.length === 0 && slide.id==2">
+                <h4 class="galleryNavItemM" style="text-align: center;">Your NFT's On Sale</h4>
+                <div class="noNFT">
+                  <h3 style="text-align: center;"> You do not own any items on sale</h3>
+                  <div class="profileBtns">
+                    <router-link class="button filled" to='/nft-marketplace/'>Explore Gallery</router-link>
+                    <!-- <router-link class="button notFilledBlue" to="/create">Mint Your Item</router-link> -->
+                  </div>
+                </div>
+              </div>
+              <div v-else-if="slide.id==3 && favouriteNfts">
+                <h4 class="galleryNavItemM" style="text-align: center;">Your Favourites</h4>
+                <MyPageableItems :loopRun="loopRun" :resultSet="favouriteNfts"/>
+                <div class="profileBtns">
+                  <router-link class="button filled" to='/nft-marketplace/'>Explore Gallery</router-link>
+                  <!-- <router-link class="button notFilledBlue" to="/create">Mint Your Item</router-link> -->
+                </div>
+              </div>
+              <div v-else-if="slide.id==3 && !favouriteNfts" class="noNFT">
+                <h4 class="galleryNavItemM" style="text-align: center;">Your Favourites</h4>
+                <h3 style="text-align: center;"> You do not have any favourite items</h3>
+              </div>
+              <div v-else>
+                <div class="noNFT">
+                <h3 style="text-align: center;"> You do not own any Items yet</h3>
+                  <div class="profileBtns">
+                    <router-link class="button filled" to='/nft-marketplace/'>Explore Gallery</router-link>
+                    <!-- <router-link class="button notFilledBlue" to="/create">Mint Your Item</router-link> -->
+                  </div>
+                </div>
               </div>
             </div>
-            <div class="profileBtns">
-              <button class="button" @click="logout">Disconnect</button>
+            <div v-else>
+              <UserTransaction :loopRun="loopRun" :profile="profile"/>
             </div>
-          </div>
+          </template>
+      </div>
+        </div>
+        <div class="swiper-pagination">
+          <span class="swiper-pagination-bullet swiper-pagination-clickable"></span>
+          <span class="swiper-pagination-bullet swiper-pagination-clickable"></span>
+          <span class="swiper-pagination-bullet swiper-pagination-clickable"></span>
         </div>
     </div>
-  <div v-if="windowWidth > 549">
-    <div v-if="!transaction" class="galleryContainerLimited">
-      <div>
-        <b-nav class="galleryNav" >
-          <nav class="galleryNavContainer" >
-            <h2><router-link class="galleryNavItem" :to="'/my-account/nft'">Your NFTs</router-link></h2>
-            <h2><router-link class="galleryNavItem" :to="'/my-account/sale'">Your NFTs On Sale</router-link></h2>
-            <h2><router-link class="galleryNavItem" :to="'/my-account/fav'">Your Favourites</router-link></h2>
-          </nav>
-        </b-nav>
-      </div>
-      <div v-if="tab === 'nft' && loopRun" class="">
-        <div>
-          <MyPageableItems :loopRun="loopRun" :resultSet="resultSet"/>
-          <router-link to='/nft-marketplace/' style="font: normal normal bold 11px/14px Montserrat; display: block; text-align: center; margin-top: 50px"><!--<span style="color: #5FBDC1; ">Want More ? See The Gallery</span>--></router-link>
-        </div>
-          <MarketplacePagination :pageSize="pageSize" :numberOfItems="numberOfItems"/>
-      </div>
-      <div v-else-if="tab === 'sale'" >
-        <div>
-          <MyPageableItems :loopRun="loopRun" :resultSet="saleItem"/>
-          <router-link to='/nft-marketplace/' style="font: normal normal bold 11px/14px Montserrat; display: block; text-align: center; margin-top: 50px"><!--<span style="color: #5FBDC1; ">Want More ? See The Gallery</span>--></router-link>
-        </div>
-      </div>
-      <div v-else-if="tab === 'fav' && favouriteNfts">
-          <MyPageableItems :loopRun="loopRun" :resultSet="favouriteNfts"/>
-        <div class="profileBtns">
-        </div>
-      </div>
-    </div>
-    <div v-else>
-      <UserTransaction :loopRun="loopRun" :profile="profile"/>
-    </div>
-  </div>
-  <div class="MobileV" v-else>
-    <MyAccountSwiperSlider />
-  </div>
-</div>
 </template>
+
 <script>
 import MyPageableItems from '@/components/gallery/MyPageableItems'
 import MarketplacePagination from '@/components/smallcomponents/MarketplacePagination.vue'
 import UserTransaction from './UserTransaction.vue'
-import MyAccountSwiperSlider from './MyAccountSwiperSlider.vue'
 import { APP_CONSTANTS } from '@/app-constants'
 import utils from '@/services/utils'
 import axios from 'axios'
-// import MySingleItem from '../marketplace/components/gallery/MySingleItem.vue'
+import Swiper, { Navigation, Pagination, Thumbs } from 'swiper'
+import '@/assets/scss/swiper-bundle.css'
 export default {
-  name: 'MyAccount',
+  name: 'MyAccountSwiperSlider',
   components: {
     MyPageableItems,
     UserTransaction,
-    MarketplacePagination,
-    MyAccountSwiperSlider
+    MarketplacePagination
     // MySingleItem
   },
   data () {
@@ -184,6 +136,33 @@ export default {
     this.setSTX()
     this.getUser()
     this.loading = true
+    const swiper = new Swiper(this.$refs.swiper, {
+      // configure Swiper to use modules
+      modules: [Navigation, Pagination, Thumbs],
+      // Optional parameters
+      rewind: true,
+      speed: 400,
+      slidesPerView: 1,
+      spaceBetween: 300,
+      initialSlide: 0,
+
+      // If we need pagination
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+        type: 'bullets',
+        bulletActiveClass: 'swiper-pagination-bullet-active',
+        bulletClass: 'swiper-pagination-bullet',
+        bulletElement: 'span',
+        clickableClass: 'swiper-pagination-clickable'
+      },
+
+      // And if we need scrollbar
+      scrollbar: {
+        el: '.swiper-scrollbar',
+        draggable: true
+      }
+    })
   },
   created () {
     window.addEventListener('resize', this.checkScreen)
@@ -463,6 +442,7 @@ export default {
   }
 }
 </script>
+
 <style lang="scss" scoped>
 .galleryContainerLimited {
   max-width: 1135px;
@@ -579,7 +559,7 @@ export default {
   font-weight: 500;
   max-width: 500px;
   padding: 5px;
-  max-width: 150px;
+  max-width: 245px;
   margin: 0 auto;
   border: solid rgba(255, 255, 255, 0) 2px;
   border-bottom: 2px solid #50b1b5;
@@ -702,6 +682,10 @@ input[type="file"] {
   margin: auto;
   max-width: 100%;
   text-align: center;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
   & > :nth-child(1) {
     margin: 50px 0;
     font-size: 40px;
@@ -893,6 +877,10 @@ input[type="file"] {
       border: none;
       background: none;
     }
+  }
+  .swiper-slide {
+    cursor: grab;
+    min-height: 520px;
   }
   .profile-history {
     text-align: center;

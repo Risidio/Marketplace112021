@@ -2,24 +2,13 @@
     <section class='seeAlso'>
         <h2> See Also</h2>
         <div class='seeAlsoContainer'>
-        <vueper-slides
-            class="no-shadow"
-            :visible-slides="4"
-            :gap="2"
-            :slide-ratio="1/3"
-            :dragging-distance="211"
-            :breakpoints="breakpoints"
-            fixed-height="true"
-            :bullets="false"
-            autoplay>
-            <template #arrow-left>
-                <img src="https://res.cloudinary.com/risidio/image/upload/v1633609469/RisidioMarketplace/Icon_ionic-md-arrow-dropleft-circle_v37pyt.svg" alt="arrow-icon" class="arrow"/>
-            </template>
-            <template #arrow-right>
-                <img src="https://res.cloudinary.com/risidio/image/upload/v1633609474/RisidioMarketplace/Icon_ionic-md-arrow-dropleft-circle-1_oclpff.svg" alt="arrow-icon" class="arrow"/>
-            </template>
-            <vueper-slide v-for="(item, index) in gaiaAssets" :key="index" class="NFTbackgroundColour" >
-              <template #content>
+        <div
+            class="no-shadow swiper"
+            ref="swiper"
+            >
+            <div class="swiper-wrapper">
+              <div class="swiper-slide NFTbackgroundColour" v-for="(item, index) in gaiaAssets" :key="index" >
+              <template>
                   <div>
                     <router-link v-bind:to="'/nfts/' + item.contractId + '/' + item.contractAsset.nftIndex" >
                     <!-- <img :src="'https://res.cloudinary.com/risidio/image/upload/f_auto/q_auto:low/indige-testing/' + item.image.split('/')[5]" class="nftGeneralView" style="margin-top: 15px;"/> -->
@@ -33,25 +22,31 @@
                     </router-link>
                   </div>
               </template>
-          </vueper-slide>
-        </vueper-slides>
+          </div>
+            </div>
+            <div class="swiper-pagination-see-also">
+              <span class="swiper-pagination-bullet-see-also swiper-pagination-clickable-see-also"></span>
+            </div>
+        </div>
+        <div class="swiper-button-prev-see-also swiper-arrow">
+                <img src="https://res.cloudinary.com/risidio/image/upload/v1633609469/RisidioMarketplace/Icon_ionic-md-arrow-dropleft-circle_v37pyt.svg" alt="arrow-icon" class="arrow"/>
+            </div>
+            <div class="swiper-button-next-see-also swiper-arrow">
+                <img src="https://res.cloudinary.com/risidio/image/upload/v1633609474/RisidioMarketplace/Icon_ionic-md-arrow-dropleft-circle-1_oclpff.svg" alt="arrow-icon" class="arrow"/>
+            </div>
         </div>
     </section>
 </template>
 
 <script>
-import { VueperSlides, VueperSlide } from 'vueperslides'
-import 'vueperslides/dist/vueperslides.css'
+import Swiper, { Navigation, Pagination, Thumbs } from 'swiper'
+import '@/assets/scss/swiper-bundle.css'
 import { APP_CONSTANTS } from '@/app-constants'
 import utils from '@/services/utils'
 
 export default {
   name: 'homeSeeAlso',
   props: ['gaiaAssets'],
-  components: {
-    VueperSlides,
-    VueperSlide
-  },
   data () {
     return {
       placeHolderItems: [],
@@ -83,6 +78,37 @@ export default {
   },
   mounted () {
     this.currencyPreference = JSON.parse(localStorage.getItem('currencyPreferences'))
+    const swiper = new Swiper(this.$refs.swiper, {
+      // configure Swiper to use modules
+      modules: [Navigation, Pagination, Thumbs],
+      // Optional parameters
+      rewind: true,
+      slidesPerView: 'auto',
+      speed: 400,
+      sensitivity: 0.5,
+      spaceBetween: 20,
+      // If we need pagination
+      pagination: {
+        el: '.swiper-pagination-see-also',
+        clickable: true,
+        type: 'bullets',
+        bulletActiveClass: 'swiper-pagination-bullet-active-see-also',
+        bulletClass: 'swiper-pagination-bullet-see-also',
+        bulletElement: 'span',
+        clickableClass: 'swiper-pagination-clickable-see-also'
+      },
+      // Navigation arrows
+      navigation: {
+        nextEl: '.swiper-button-next-see-also',
+        prevEl: '.swiper-button-prev-see-also'
+      },
+
+      // And if we need scrollbar
+      scrollbar: {
+        el: '.swiper-scrollbar',
+        draggable: true
+      }
+    })
   },
   methods: {
     changeCurrency (price) {
@@ -122,32 +148,48 @@ export default {
 .seeAlso {
   min-height: 40rem;
   margin: 0 5% 10px 5%;
+  padding-bottom: 100px;
   h2 {
     font: normal normal 300 37px/45px Montserrat;
     margin: 100px 20px 50px 20px;
     text-align: center;
   }
 }
+.swiper-slide {
+  cursor: grab;
+}
+.swiper-button-prev-see-also,
+.swiper-button-next-see-also {
+  position: absolute;
+  width: calc(var(--swiper-navigation-size) / 44 * 27);
+  height: var(--swiper-navigation-size);
+  margin-bottom: 100px;
+  transform: translateY(-50%);
+  z-index: 10;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--swiper-navigation-color, var(--swiper-theme-color));
+}
+.swiper-button-next-see-also,
+.swiper-rtl .swiper-button-prev-see-also {
+  right: -39px;
+  left: auto;
+  top: 50%;
+}
+.swiper-button-prev-see-also,
+.swiper-rtl .swiper-button-next-see-also {
+  left: -39px;
+  right: auto;
+  top: 50%;
+}
 .seeAlsoContainer {
   max-width: 1170px;
   margin: auto;
   min-height: 200px;
-}
-.vueperslides--fixed-height {
-  height: 380px;
-  max-width: 100%;
-  margin-left: auto;
-  margin-right: auto;
-  margin-bottom: 50px;
-}
-.vueperslide {
-  background-color: rgba(226, 226, 226, 0.8);
-  min-height: 319px;
-  border-radius: 30px;
-}
-.vueperslides__arrow .arrow {
-  width: 23px;
-  height: 23px;
+  position: relative;
+  display: block;
 }
 .galleryItem {
   display: block;
@@ -168,11 +210,11 @@ export default {
     margin: auto;
     min-height: 200px;
   }
-  @media only screen and (max-width: 1150px) {
-    .vueperslides--fixed-height {
-      height: 380px;
-      max-width: 90%;
-    }
-  }
+}
+@media only screen and (max-width: 900px) {
+  .swiper-button-prev-see-also,
+.swiper-button-next-see-also {
+  display: none;
+}
 }
 </style>
