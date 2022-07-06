@@ -1,5 +1,5 @@
 <template>
-    <section class='seeAlso'>
+    <div class='seeAlso'>
         <h2> See Also</h2>
         <div class='seeAlsoContainer'>
         <div
@@ -12,7 +12,7 @@
                   <div>
                     <router-link v-bind:to="'/nfts/' + item.contractId + '/' + item.contractAsset.nftIndex" >
                     <!-- <img :src="'https://res.cloudinary.com/risidio/image/upload/f_auto/q_auto:low/indige-testing/' + item.image.split('/')[5]" class="nftGeneralView" style="margin-top: 15px;"/> -->
-                    <img :src="item.image" class="nftGeneralView" style="margin-top: 15px;"/>
+                    <img :src="item.image" alt="NFT-image" class="nftGeneralView" style="margin-top: 15px;"/>
                       <p class="nFTName" style="margin-top: -5px;"> {{!item.name ? "NFT" : item.name }} <span style="float: right;">{{item.contractAsset.listingInUstx ? item.contractAsset.listingInUstx.price : 0}} STX</span></p>
                       <p class="nFTArtist">By
                         <span v-if="item && item.properties && item.properties.collection">{{item.properties.collection }}</span>
@@ -35,7 +35,7 @@
                 <img src="https://res.cloudinary.com/risidio/image/upload/v1633609474/RisidioMarketplace/Icon_ionic-md-arrow-dropleft-circle-1_oclpff.svg" alt="arrow-icon" class="arrow"/>
             </div>
         </div>
-    </section>
+    </div>
 </template>
 
 <script>
@@ -46,7 +46,7 @@ import utils from '@/services/utils'
 
 export default {
   name: 'homeSeeAlso',
-  props: ['gaiaAssets'],
+  props: ['profile', 'gaiaAssets'],
   data () {
     return {
       placeHolderItems: [],
@@ -145,12 +145,18 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+:root {
+  --swiper-navigation-size: 44px;
+  /*
+  --swiper-navigation-color: var(--swiper-theme-color);
+  */
+}
 .seeAlso {
   min-height: 40rem;
   margin: 0 5% 10px 5%;
   padding-bottom: 100px;
   h2 {
-    font: normal normal 300 37px/45px Montserrat;
+    font: normal 300 37px/45px Montserrat;
     margin: 100px 20px 50px 20px;
     text-align: center;
   }

@@ -245,15 +245,15 @@ export default {
   text-align: center;
   max-width: 800px;
   h1 {
-    font: normal normal 300 40px/55px Montserrat;
+    font: normal 300 40px/55px Montserrat;
     padding: 10px;
   }
   :nth-child(2) {
-    font: normal normal bolder 17px/20px Montserrat;
+    font: normal bolder 17px/20px Montserrat;
     padding: 10px;
   }
   :nth-child(3) {
-    font: normal normal normal 14px/20px Montserrat;
+    font: normal 14px/20px Montserrat;
     padding: 10px;
   }
 }
@@ -303,11 +303,12 @@ p {
   }
 }
 .mint-text-1 {
-  font: normal normal medium 12px/15px Montserrat;
+  font: normal 12px/15px Montserrat;
+  font-weight: medium;
   text-align: center;
 }
 .mint-text-2 {
-  font: normal normal 300 12px/18px Montserrat;
+  font: normal 300 12px/18px Montserrat;
 }
 .button {
   margin: 50px auto 50px auto;
@@ -358,23 +359,23 @@ p {
     margin: 50px auto 0 auto;
   }
   .modalH3 {
-    font: normal normal 300 30px/55px Montserrat;
+    font: normal 300 30px/55px Montserrat;
     margin-top: 50px;
     padding: 0;
   }
   .modalP,
   .modalP2 {
-    font: normal normal normal 14px/18px Montserrat;
+    font: normal 14px/18px Montserrat;
     max-width: 300px;
     margin: 0 auto;
   }
   .modalP2 {
-    font: normal normal 300 20px/24px Montserrat;
+    font: normal 300 20px/24px Montserrat;
     color: #777777;
     margin-top: 30px;
   }
   .modalP3 {
-    font: normal normal 700 11px/14px Montserrat;
+    font: normal 700 11px/14px Montserrat;
     margin-top: 10px;
     color: #df9882;
     cursor: pointer;
@@ -383,7 +384,7 @@ p {
     }
   }
   .button {
-    font: normal normal bold 11px/14px Montserrat;
+    font: normal bold 11px/14px Montserrat;
   }
 }
 #Items {

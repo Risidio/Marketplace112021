@@ -185,7 +185,6 @@ export default {
   object-fit: cover;
 }
 .container {
-  padding-top: -2px;
   text-align: center;
   max-width: 700px;
   min-height: 100px;
@@ -207,7 +206,7 @@ export default {
 }
 .collectionName {
   text-align: center;
-  font: normal normal 300 40px/55px Montserrat;
+  font: normal 300 40px/55px Montserrat;
   padding: 10px;
   color: White;
   margin-top: 30px;
@@ -215,7 +214,8 @@ export default {
 
 .collectionArtist {
   display: none;
-  font: normal normal medium 17px/20px Montserrat;
+  font: normal 17px/20px Montserrat;
+  font-weight: medium;
   padding: 10px;
   // color: white;
   text-align: center;
@@ -240,10 +240,11 @@ export default {
   font-weight: 500;
 }
 .contentTitle {
-  font: normal normal normal 20px/24px Helvetica Neue;
+  font: normal 20px/24px Helvetica Neue;
 }
 .collectionInfo {
-  font: normal normal medium 17px/20px Montserrat;
+  font: normal 17px/20px Montserrat;
+  font-weight: medium;
   color: white;
 }
 .collectionInfoDetail {
@@ -253,10 +254,11 @@ export default {
   margin-top: 0px;
   padding: 5px;
   margin-bottom: 30px;
-  font: normal normal medium 17px/20px Montserrat;
+  font: normal 17px/20px Montserrat;
+  font-weight: medium;
 }
 .collectionInfo2 {
-  // font: normal normal normal 14px/20px Montserrat;
+  // font: normal 14px/20px Montserrat;
   font-size: 14px;
   max-width: 575px;
   margin: auto;
@@ -265,7 +267,8 @@ export default {
   margin-bottom: 30px;
 }
 .collectionInfo1 {
-  font: normal normal medium 17px/20px Montserrat;
+  font: normal 17px/20px Montserrat;
+  font-weight: medium;
   max-width: 450px;
   padding: 0 5px;
   text-align: center;
@@ -279,7 +282,7 @@ export default {
   color: #2e638c;
 }
 .readMore {
-  font: normal normal 700 14px/20px Montserrat;
+  font: normal 700 14px/20px Montserrat;
   cursor: pointer;
   display: none;
   color: #50b1b5;
@@ -316,7 +319,7 @@ export default {
   right: 0;
   margin-left: auto;
   margin-right: auto;
-  transition: all smooth 2s ease-in-out;
+  transition: all 2s ease-in-out;
 }
 .circleImage {
   display: inline-block;
@@ -395,11 +398,10 @@ export default {
   max-width: 611px;
   background: #f9f9f9;
   border-radius: 25px;
-  justify-content: sa;
   margin: auto;
   padding: 15px 20px;
   align-items: center;
-  font: normal normal 300 16px/19px Montserrat;
+  font: normal 300 16px/19px Montserrat;
   & > * {
     flex: 1 1 50px;
     text-align: center;
@@ -435,13 +437,13 @@ export default {
     width: 330px;
   }
   .collectionName {
-    font: normal normal 300 30px/55px Montserrat;
+    font: normal 300 30px/55px Montserrat;
   }
   .numbers {
     display: flex;
     flex-direction: column;
     max-width: 240px;
-    font: normal normal 300 16px/19px Montserrat;
+    font: normal 300 16px/19px Montserrat;
     & > * {
       flex: 1 1 50px;
       text-align: center;

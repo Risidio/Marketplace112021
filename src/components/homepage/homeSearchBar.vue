@@ -103,7 +103,7 @@ export default {
 .dropdown_selector {
   border-top-left-radius: 40px;
   border-bottom-left-radius: 40px;
-  font: normal normal 300 11px/14px Montserrat;
+  font: normal 300 11px/14px Montserrat;
   height: 50px;
   width: 155px;
   padding: 9px;
@@ -148,31 +148,31 @@ export default {
   background: white;
   box-shadow: 0px 3px 6px #00000029;
   border: 1px solid #f5f5f5;
-  font: normal normal 300 11px/14px Montserrat;
+  font: normal 300 11px/14px Montserrat;
   z-index: 1;
 }
 
 ::-webkit-input-placeholder {
-  font: normal normal 300 11px/14px Montserrat;
+  font: normal 300 11px/14px Montserrat;
 }
 
 :-moz-placeholder {
   /* Firefox 18- */
-  font: normal normal 300 11px/14px Montserrat;
+  font: normal 300 11px/14px Montserrat;
 }
 
 ::-moz-placeholder {
   /* Firefox 19+ */
-  font: normal normal 300 11px/14px Montserrat;
+  font: normal 300 11px/14px Montserrat;
 }
 
 :-ms-input-placeholder {
-  font: normal normal 300 11px/14px Montserrat;
+  font: normal 300 11px/14px Montserrat;
 }
 
 .dropdown_container {
   display: flex;
-  font: normal normal 300 16px/24px Montserrat;
+  font: normal 300 16px/24px Montserrat;
   justify-content: center;
   align-items: center;
 }

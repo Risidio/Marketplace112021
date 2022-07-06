@@ -61,7 +61,7 @@
                             <div class="slideText">
                               <h1 class="notMobileHeader">The Indige Collection</h1>
                               <p class="slide-text-p"> {{content.heroarea[3].herotext[0].text}}</p>
-                              <router-link to="/indige_mirror/0"><button class="button filled"> See The Collection </button></router-link>
+                              <router-link class="button filled see-collection-link" to="/indige_mirror/0">See The Collection</router-link>
                             </div>
                         </div>
                         <div v-if="slide.id == 2" class = "slideContainer">
@@ -262,6 +262,12 @@ export default {
   align-items: center;
   padding: 20px;
 }
+.see-collection-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 162.92px;
+}
 .swiper-wrapper {
   cursor: pointer;
 }
@@ -302,10 +308,10 @@ export default {
   h2 {
     margin-bottom: 1rem;
     letter-spacing: 1px;
-    font: normal normal 300 30px/55px Montserrat;
+    font: normal 300 30px/55px Montserrat;
   }
   .slide-text-p {
-    font: normal normal 300 14px/18px Montserrat;
+    font: normal 300 14px/18px Montserrat;
     max-width: 450px;
   }
 }
@@ -315,7 +321,7 @@ export default {
   margin: -30px auto 0;
 }
 .bannerButtonText {
-  font: normal normal bold 11px/14px Montserrat;
+  font: normal bold 11px/14px Montserrat;
   position: absolute;
   top: 50px;
   left: 20px;
@@ -525,7 +531,7 @@ export default {
 .mobileHeader {
   margin-bottom: 1rem;
   letter-spacing: 1px;
-  font: normal normal 300 30px/55px Montserrat;
+  font: normal 300 30px/55px Montserrat;
 }
 .bullets--bullet {
   color: red;

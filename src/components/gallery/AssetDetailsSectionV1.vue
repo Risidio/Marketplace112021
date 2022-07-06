@@ -36,7 +36,7 @@
               </div>
               <div>
                 <div class="d-flex justify-content-between">
-                  <div><p style="font: normal normal 300 12px/15px Montserrat;">By <span style="font: normal normal bold 12px/15px Montserrat;" class="cyanText">{{loopRun.makerName}}</span> <br/></p>
+                  <div><p style="font: normal 300 12px/15px Montserrat;">By <span style="font: normal bold 12px/15px Montserrat;" class="cyanText">{{loopRun.makerName}}</span> <br/></p>
                     <div class="mt-2 mb-5" style="font-size: 1.2rem">
                       <span v-if="loopRun.type !== 'punks'">from collection <span class="cyanText">{{loopRun.currentRun}}</span> Minted at {{created()}}</span>{{editionMessage}}
                     </div>
@@ -491,25 +491,25 @@ export default {
 .priceSection {
   .basePrice,
   .feePrice {
-    font: normal normal 300 12px/18px Montserrat;
+    font: normal 300 12px/18px Montserrat;
     span {
       float: right;
       margin-left: auto;
       span {
         margin-left: 4px;
         color: #5154a1;
-        font: normal normal bold 16px/19px Montserrat;
+        font: normal bold 16px/19px Montserrat;
       }
     }
   }
 }
 .fullPrice {
-  font: normal normal 300 20px/29px Montserrat;
+  font: normal 300 20px/29px Montserrat;
   float: right;
   span {
-    font: normal normal 300 20px/29px Montserrat;
+    font: normal 300 20px/29px Montserrat;
     span {
-      font: normal normal bold 24px/29px Montserrat;
+      font: normal bold 24px/29px Montserrat;
       color: #5154a1;
     }
   }
@@ -607,7 +607,7 @@ export default {
 }
 .backBtn {
   color: #170a6d;
-  font: normal normal bold 11px/14px Montserrat;
+  font: normal bold 11px/14px Montserrat;
   cursor: pointer;
   position: relative;
 }

@@ -26,7 +26,7 @@
                 <div v-for="(item, index) in resultSet" :key="index" class="NFTbackgroundColour" >
                     <div class="">
                         <b-link class="galleryNFTContainer" v-if="item && item.contractAsset" :to="assetUrl(item)">
-                        <img class="nftGeneralView" v-on="$listeners" :src="item.image"/>
+                        <img class="nftGeneralView" alt="NFT-image" v-on="$listeners" :src="item.image"/>
                       <p class="nFTName"> {{!item.name ? "NFT" : item.name }} <span style="float: right;">{{item.contractAsset.listingInUstx.price || 0}} STX</span></p>
                       <p class="nFTArtist">By <span>{{!item.properties.collection ? "Anonymous" : item.properties.collection }}</span><span style="float: right; font-weight: 300">{{changeCurrencyTag() || '£'}} {{changeCurrency(item.contractAsset.listingInUstx.price) || 0}}</span></p>
                     </b-link>
@@ -218,15 +218,15 @@ export default {
   text-align: center;
   max-width: 800px;
   h1 {
-    font: normal normal 300 40px/55px Montserrat;
+    font: normal 300 40px/55px Montserrat;
     padding: 10px;
   }
   :nth-child(2) {
-    font: normal normal bolder 17px/20px Montserrat;
+    font: normal bolder 17px/20px Montserrat;
     padding: 10px;
   }
   :nth-child(3) {
-    font: normal normal normal 14px/20px Montserrat;
+    font: normal 14px/20px Montserrat;
     padding: 10px;
   }
 }

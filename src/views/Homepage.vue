@@ -1,17 +1,17 @@
 <template>
-    <section v-if="!loading" class="homepage">
+    <div v-if="!loading" class="homepage">
       <HomeBanner v-bind:profile='profile' :content="content"/>
       <HomeMarket v-bind:profile='profile' :gaiaAssets="resultSet"/>
       <HomeInfo v-bind:profile='profile' :content="content"/>
       <HomeSeeAlso v-bind:profile='profile' :gaiaAssets="resultSet"/>
       <HomeBottomBanner v-bind:profile='profile' :content="content"/>
-    </section>
-    <section v-else style="display: grid; place-items: center;">
+    </div>
+    <div v-else style="display: grid; place-items: center;">
       <div >
         <img src="@/assets/img/loading-risid.gif" alt="loading">
         <p style="text-align: center;"> loading... </p>
       </div>
-    </section>
+    </div>
 </template>
 
 <script>

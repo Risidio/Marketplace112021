@@ -1,5 +1,5 @@
 <template>
-<section class="homeMarket">
+<div class="homeMarket">
   <b-nav class="galleryNav" >
     <div class="galleryNavContainer" >
       <b-nav-item class="galleryNavItem active" id="discover" @click="tabChange('discover')">Discover</b-nav-item>
@@ -20,7 +20,7 @@
           <h1 style="margin: auto; text-align: center;">Coming soon!</h1>
         </div>
       </div>
-        <router-link style="color:white" class="routerL" to="/nft-marketplace"> <button class="button filled">See More Collectables</button></router-link>
+        <router-link style="color:white" class="button filled see-more-collectables-button routerL" to="/nft-marketplace">See More Collectables</router-link>
     </div>
   </div>
   <div v-else>
@@ -36,10 +36,10 @@
           <h1 style="margin: auto; text-align: center;">Coming soon!</h1>
         </div>
       </div>
-        <router-link style="color:white" class="routerL" to="/nft-marketplace"> <button class="button filled">See More Collectables</button></router-link>
+        <router-link style="color:white" class="routerL button filled see-more-collectables-button" to="/nft-marketplace"> See More Collectables</router-link>
     </div>
   </div>
-</section>
+</div>
 </template>
 
 <script>
@@ -115,6 +115,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.see-more-collectables-button {
+  width: 186.91px;
+}
 p {
   padding: 0;
   margin: 0;
@@ -157,7 +160,7 @@ p {
 }
 .button {
   margin: 50px auto;
-  font: normal normal bold 11px/14px Montserrat;
+  font: normal bold 11px/14px Montserrat;
 }
 
 #discover {

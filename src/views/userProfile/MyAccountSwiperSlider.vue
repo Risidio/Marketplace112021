@@ -11,7 +11,7 @@
                 <h4 class="galleryNavItemM" style="text-align: center;">Your NFTs</h4>
                 <div>
                   <MyPageableItems v-if="slide.id==1" :loopRun="loopRun" :resultSet="resultSet"/>
-                  <router-link to='/nft-marketplace/' style="font: normal normal bold 11px/14px Montserrat; display: block; text-align: center; margin-top: 50px"><!--<span style="color: #5FBDC1; ">Want More ? See The Gallery</span>--></router-link>
+                  <router-link to='/nft-marketplace/' style="font: normal bold 11px/14px Montserrat; display: block; text-align: center; margin-top: 50px"><!--<span style="color: #5FBDC1; ">Want More ? See The Gallery</span>--></router-link>
                 </div>
                 <MarketplacePagination :pageSize="pageSize" :numberOfItems="numberOfItems"/>
               </div>
@@ -19,7 +19,7 @@
                 <h4 class="galleryNavItemM" style="text-align: center;">Your NFT's On Sale</h4>
                 <div>
                   <MyPageableItems :loopRun="loopRun" :resultSet="saleItem"/>
-                  <router-link to='/nft-marketplace/' style="font: normal normal bold 11px/14px Montserrat; display: block; text-align: center; margin-top: 50px"><!--<span style="color: #5FBDC1; ">Want More ? See The Gallery</span>--></router-link>
+                  <router-link to='/nft-marketplace/' style="font: normal bold 11px/14px Montserrat; display: block; text-align: center; margin-top: 50px"><!--<span style="color: #5FBDC1; ">Want More ? See The Gallery</span>--></router-link>
                 </div>
               </div>
               <div v-else-if="saleItem.length === 0 && slide.id==2">
@@ -462,7 +462,7 @@ export default {
   flex-direction: row;
   justify-content: space-around;
   p {
-    font: normal normal bold 12px/15px Montserrat;
+    font: normal bold 12px/15px Montserrat;
     color: #50b1b5;
     cursor: pointer;
     &:hover {
@@ -476,7 +476,7 @@ export default {
     justify-content: center;
   }
   span {
-    font: normal normal bold 12px/15px Montserrat;
+    font: normal bold 12px/15px Montserrat;
     color: #50b1b5;
     cursor: pointer;
     &:hover {
@@ -524,7 +524,7 @@ export default {
 .backBtn {
   display: flex;
   color: #170a6d;
-  font: normal normal bold 11px/14px Montserrat;
+  font: normal bold 11px/14px Montserrat;
   cursor: pointer;
   position: absolute;
   top: -20px;
@@ -618,7 +618,7 @@ input[type="file"] {
   transition: all 0.2s ease-in-out;
 }
 .username {
-  font: normal normal 600 12px/15px Montserrat;
+  font: normal 600 12px/15px Montserrat;
   color: black;
   height: 100%;
   margin-top: 12px;
@@ -729,12 +729,12 @@ input[type="file"] {
   border-radius: 14px;
   margin-left: auto;
   & > h1 {
-    font: normal normal 600 15px/19px Montserrat;
+    font: normal 600 15px/19px Montserrat;
     margin: 20px auto 0 auto;
   }
   & > p {
     margin: 8px auto 0 auto;
-    font: normal normal 600 12px/15px Montserrat;
+    font: normal 600 12px/15px Montserrat;
     color: #5154a1;
     word-break: break-all;
   }
@@ -760,7 +760,7 @@ input[type="file"] {
     font-size: 14px;
     margin: 0 0 0 auto;
     border: none;
-    padding: 10px auto;
+    padding: 10px;
     font-weight: 700;
     color: black;
     margin-left: auto;
@@ -777,7 +777,7 @@ input[type="file"] {
 .profile-history {
   margin: -20px 0;
   padding: 0 10px;
-  font: normal normal bold 12px/15px Montserrat;
+  font: normal bold 12px/15px Montserrat;
   text-decoration: underline;
   color: #50b1b5;
   cursor: pointer;
@@ -785,7 +785,7 @@ input[type="file"] {
 .profile-historyM {
   margin: 20px 0;
   padding: 0 10px;
-  font: normal normal bold 12px/15px Montserrat;
+  font: normal bold 12px/15px Montserrat;
   text-decoration: underline;
   color: #50b1b5;
   cursor: pointer;

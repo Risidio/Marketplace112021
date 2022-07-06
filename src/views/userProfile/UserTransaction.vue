@@ -163,11 +163,12 @@ export default {
   margin: auto;
 }
 .mint-text-1 {
-  font: normal normal medium 12px/15px Montserrat;
+  font: normal 12px/15px Montserrat;
+  font-weight: medium;
   text-align: center;
 }
 .mint-text-2 {
-  font: normal normal 300 12px/18px Montserrat;
+  font: normal 300 12px/18px Montserrat;
 }
 .button {
   margin: 50px auto 50px auto;

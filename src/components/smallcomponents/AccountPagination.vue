@@ -50,7 +50,7 @@ export default {
   flex-direction: row;
   justify-content: space-around;
   p {
-    font: normal normal bold 12px/15px Montserrat;
+    font: normal bold 12px/15px Montserrat;
     color: #50b1b5;
     cursor: pointer;
     &:hover {
@@ -64,7 +64,7 @@ export default {
     justify-content: center;
   }
   a {
-    font: normal normal bold 12px/15px Montserrat;
+    font: normal bold 12px/15px Montserrat;
     color: #50b1b5;
     cursor: pointer;
     &:hover {

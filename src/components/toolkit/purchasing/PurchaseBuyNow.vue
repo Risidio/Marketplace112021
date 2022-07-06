@@ -2,10 +2,10 @@
 <b-container>
   <b-row class="p-3 row mt-1">
     <b-col cols="12" style="text-align: center;">
-      <h1 style="font: normal normal 300 30px/55px Montserrat;"> Confirm </h1>
-      <h4 style="font: normal normal normal 14px/18px Montserrat;"> You're going to buy</h4>
-      <h4 style="font: normal normal 300 20px/24px Montserrat;"> {{gaiaAsset.name}}</h4>
-      <p style="font: normal normal normal 14px/18px Montserrat;"> For </p>
+      <h1 style="font: normal 300 30px/55px Montserrat;"> Confirm </h1>
+      <h4 style="font: normal 14px/18px Montserrat;"> You're going to buy</h4>
+      <h4 style="font: normal 300 20px/24px Montserrat;"> {{gaiaAsset.name}}</h4>
+      <p style="font: normal 14px/18px Montserrat;"> For </p>
       <div style="max-width: 200px; margin: auto;">
         <p class="basePrice"> Price <span> STX  <span> {{(gaiaAsset.contractAsset.listingInUstx.price / 1.10).toFixed(0)}}</span></span></p>
         <p class="feePrice"> Fees <span>STX {{gaiaAsset.contractAsset.listingInUstx.price - (gaiaAsset.contractAsset.listingInUstx.price / 1.10).toFixed(0)}}</span></p>
@@ -81,24 +81,24 @@ export default {
   }
 .basePrice, .feePrice{
   text-align: left;
-  font: normal normal 300 12px/18px Montserrat;
+  font: normal 300 12px/18px Montserrat;
   span{
     float: right;
     margin-left: auto;
     span{
       margin-left: 4px;
       color: #5154A1;
-      font: normal normal bold 16px/19px Montserrat;
+      font: normal bold 16px/19px Montserrat;
     }
   }
 }
 .fullPrice{
-  font: normal normal 300 20px/29px Montserrat;
+  font: normal 300 20px/29px Montserrat;
   text-align: center;
     span{
-      font: normal normal 300 20px/29px Montserrat;
+      font: normal 300 20px/29px Montserrat;
       span{
-        font: normal normal bold 24px/29px Montserrat;
+        font: normal bold 24px/29px Montserrat;
         color:#5154A1;
       }
     }

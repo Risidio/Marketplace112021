@@ -38,7 +38,7 @@
               </li>
             </ul>
           </li>
-          <hr class="mobile-hr"/>
+          <li class="mobile-hr"></li>
           <li v-on:click="isLayer ? mobileNavebar() : '' " class="nav-items" id="howItWorks">
             <router-link class="nav-links thin right" to="/how-it-works" >How It Works</router-link>
           </li>
@@ -316,10 +316,10 @@ export default {
   border-bottom: 3px solid transparent;
 }
 .thin {
-  font: normal normal 300 12px/15px Montserrat;
+  font: normal 300 12px/15px Montserrat;
 }
 .bold {
-  font: normal normal 600 12px/15px Montserrat;
+  font: normal 600 12px/15px Montserrat;
 }
 .nav-items:hover {
   color: white;
@@ -471,16 +471,16 @@ export default {
     margin: 50px auto 0 auto;
   }
   .modalH3 {
-    font: normal normal 300 30px/55px Montserrat;
+    font: normal 300 30px/55px Montserrat;
   }
   .modalP,
   .modalP2 {
-    font: normal normal normal 14px/18px Montserrat;
+    font: normal 14px/18px Montserrat;
     max-width: 460px;
     margin: 5px auto;
   }
   .modalP3 {
-    font: normal normal bold 11px/14px Montserrat;
+    font: normal bold 11px/14px Montserrat;
     padding: 5px;
     cursor: pointer;
     &:hover {
@@ -558,6 +558,7 @@ export default {
     color: grey;
     background: rgba(255, 255, 255, 0.288);
     height: 1px;
+    margin: 10px 0;
   }
   .mainNavbar {
     flex-direction: column;

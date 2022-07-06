@@ -4,7 +4,7 @@
      <img class="banner" src="https://res.cloudinary.com/risidio/image/upload/v1633609373/RisidioMarketplace/Group_-304_ofssmk.svg" alt="">
       <h1>{{content.aboutsection0[0].abouttitle[0].text}}</h1>
       <p>{{content.aboutsection0[0].abouttext[0].text}}</p>
-      <a class="button notFilled" href="https://risidio.com/" target="_blank">Risidio Website</a>
+      <a class="button notFilled risidio-website-button" href="https://risidio.com/" target="_blank">Risidio Website</a>
   </div>
 </div>
 </template>
@@ -32,7 +32,12 @@ export default {
   z-index: -10;
   color:white;
 }
-
+.risidio-website-button {
+  width: 145.84px;
+}
+.risidio-website-button:hover {
+  background: rgba(95, 189, 193, 0.6);
+}
 .about_container {
   min-width: 100%;
   padding: 50px;
