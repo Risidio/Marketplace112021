@@ -67,7 +67,7 @@ h1{
   font-weight: 300;
 }
 p{
-  font: normal normal normal 14px/20px Montserrat;
+  font: normal 14px/20px Montserrat;
 }
 .theTeamContainer, .theTeamContainer1{
   display: flex;
@@ -89,21 +89,21 @@ p{
   min-width: 300px;
 }
 .title1{
-  font: normal normal 700 25px/30px Montserrat;
+  font: normal 700 25px/30px Montserrat;
   margin-top: 75px;
 }
 .title2{
-  font: normal normal 200 36px/36px Montserrat;
+  font: normal 200 36px/36px Montserrat;
   margin-bottom: 75px;
 }
 .name{
-  font: normal normal 300 17px Montserrat;
+  font: normal 300 17px Montserrat;
 }
 .nameTitle{
-  font: normal normal 700 12px Montserrat;
+  font: normal 700 12px Montserrat;
 }
 .nameInfo{
-  font: normal normal 300 15px Montserrat;
+  font: normal 300 15px Montserrat;
 }
 .imgIcon{
   width: 100px;

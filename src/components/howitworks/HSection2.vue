@@ -32,7 +32,7 @@ export default {
   margin: auto;
 }
 .title-container h1{
-  font: normal normal 300 37px/30px Montserrat;
+  font: normal 300 37px/30px Montserrat;
 }
 .title-container p{
   font-family: inherit;
@@ -42,7 +42,7 @@ export default {
   padding-bottom: 20px;
 }
 .pCont p{
-  font: normal normal 300 14px/20px Montserrat;
+  font: normal 300 14px/20px Montserrat;
   margin:auto;
   max-width: 570px;
 }
@@ -55,7 +55,7 @@ button {
 }
 .faq-tag{
   position: absolute;
-  font: normal normal normal 14px/16px Helvetica Neue;
+  font: normal 14px/16px Helvetica Neue;
   text-transform: uppercase;
   color: #1B0A72;
   text-align: center;

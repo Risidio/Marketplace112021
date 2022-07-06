@@ -182,7 +182,7 @@ export default {
     max-height: 300px;
   }
   p {
-    font: normal normal 300 14px/18px Montserrat;
+    font: normal 300 14px/18px Montserrat;
     display: block;
     margin: auto;
     color: white;

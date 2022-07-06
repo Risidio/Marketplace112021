@@ -1,5 +1,5 @@
 @import "my_variables.scss";
-@import "node_modules/bootstrap/scss/bootstrap.scss";
+@import "../../../node_modules/bootstrap/scss/bootstrap.scss";
 @import "node_modules/bootstrap-vue/src/index.scss";
 @import "../../assets/scss/video-js.css";
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
@@ -19,7 +19,6 @@ body {
 	-moz-osx-font-smoothing: grayscale;
 	height: 100%;
 	width: 100%;
-	background-color: none;
 	color: black !important;
 }
 
@@ -144,10 +143,6 @@ select {
 .cyanBg {
 	background: #50b1b5;
 	border: none;
-}
-
-.cyanBg:hover {
-	background: auto;
 }
 
 .greyBg {
@@ -281,7 +276,7 @@ select {
 
 // .btn {
 //   width: 150px;
-//   white-space: 'nowrap';
+//   white-space: nowrap;
 // }
 .btn-action {
 	width: auto;
@@ -333,13 +328,13 @@ select {
 .cover-image {
 	min-height: 300px;
 	height: auto;
-	width: "100%";
-	background-repeat: "no-repeat";
-	background-position: "center center";
-	-webkit-background-size: "contain";
-	-moz-background-size: "contain";
-	-o-background-size: "contain";
-	background-size: "contain";
+	width: 100%;
+	background-repeat: no-repeat;
+	background-position: center center;
+	-webkit-background-size: contain;
+	-moz-background-size: contain;
+	-o-background-size: contain;
+	background-size: contain;
 	opacity: 1;
 	text-align: center;
 }
@@ -352,7 +347,7 @@ select {
 	padding: 10px;
 	height: auto;
 	border: 0pt dashed rgb(146, 146, 38);
-	background-color: #fcfcfc 0% 0% no-repeat padding-box;
+	background: #fcfcfc 0% 0% no-repeat padding-box;
 	box-shadow: 0px 6px 9px #00000029;
 	border-radius: 0px;
 }
@@ -684,7 +679,7 @@ select {
 	// margin-bottom: 40px;
 	padding: 10px;
 	background: rgba(129, 129, 129, 0.12) 0% 0% no-repeat;
-	transition: all smooth 2s ease-in-out;
+	transition: all 2s ease-in-out;
 }
 
 .galleryItem.isNFT {
@@ -704,10 +699,10 @@ select {
 	margin: auto;
 	box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.18);
 	border-radius: 5px;
-	transition: all smooth 2s ease-in-out;
+	transition: all 2s ease-in-out;
 
 	&:hover {
-		transition: all smooth 2s;
+		transition: all 2s;
 		box-shadow: rgba(0, 0, 0, 0.3) 0px 10px 15px;
 		transform: scale(1.01);
 	}
@@ -745,7 +740,7 @@ select {
 	align-items: center;
 
 	&:hover {
-		transition: all smooth 2s;
+		transition: all 2s;
 		// box-shadow: rgba(0, 0, 0, 0.589) 0px 10px 15px;
 		box-shadow: rgba(0, 36, 70, 0.61) 0px 25px 20px -20px;
 		transform: scale(1.01);
@@ -765,7 +760,7 @@ select {
 	align-items: center;
 
 	&:hover {
-		transition: all smooth 2s;
+		transition: all 2s;
 		box-shadow: rgba(0, 36, 70, 0.61) 0px 25px 20px -20px;
 		transform: scale(1.01);
 	}
@@ -848,7 +843,7 @@ select {
 	width: 280px;
 
 	p {
-		font: normal normal 300 12px/18px Montserrat;
+		font: normal 300 12px/18px Montserrat;
 		padding: 0;
 		margin: 0;
 	}
@@ -901,7 +896,7 @@ select {
 	min-width: 100px;
 	border-radius: 100px;
 	border: none;
-	font: normal normal bold 11px/14px Montserrat;
+	font: normal bold 11px/14px Montserrat;
 	font-weight: 500;
 }
 
@@ -913,11 +908,11 @@ select {
 	max-width: 550px;
 }
 
-#my-nft-tabs>>>.nav-link.active {
+#my-nft-tabs >>> .nav-link.active {
 	color: #000 !important;
 }
 
-#my-nft-tabs>>>.nav-link {
+#my-nft-tabs >>> .nav-link {
 	color: #fff !important;
 }
 
@@ -938,7 +933,7 @@ select {
 	min-width: 100px;
 	border-radius: 100px;
 	border: none;
-	font: normal normal bold 11px/14px Montserrat;
+	font: normal bold 11px/14px Montserrat;
 	font-weight: 500;
 }
 
@@ -948,7 +943,7 @@ select {
 	min-width: 100px;
 	border-radius: 100px;
 	border: none;
-	font: normal normal bold 11px/14px Montserrat;
+	font: normal bold 11px/14px Montserrat;
 	font-weight: 500;
 	margin: auto;
 	background: none;

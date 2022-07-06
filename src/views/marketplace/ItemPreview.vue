@@ -15,7 +15,7 @@
     <div :key="componentKey" class="itemPreviewContainer" >
       <div class = "itemPreviewSubContainer">
         <div class="NFTbackgroundColour">
-          <img :src="item.image" class="nftGeneralView" :options="options"/>
+          <img :src="item.image" alt="NFT-image" class="nftGeneralView" :options="options"/>
           <h2 style="margin-top: 0;" class="nFTName" v-if="item.name" >{{item.name}}</h2>
           <p style="margin: 0; justify-self: flex-start; align-self: start;" class="nFTArtist" v-if="item.properties.collection">By: <span>{{item.properties.collection}}</span></p>
         </div>
@@ -36,7 +36,7 @@
       <div class="itemPreviewContainerDetails">
         <div>
           <div class="mb-2 d-flex justify-content-between">
-            <h2 class="font: normal normal normal 38px/41px Montserrat;">{{mintedMessage}}</h2>
+            <h2 class="font: normal 38px/41px Montserrat;">{{mintedMessage}}</h2>
             <!-- <ItemActionMenu :item="item" :loopRun="loopRun"/> -->
           </div>
         </div>
@@ -57,7 +57,7 @@
           <NftHistory class="mt-5" @update="update" @setPending="setPending" :loopRun="loopRun" :nftIndex="(item.contractAsset) ? item.contractAsset.nftIndex : -1" :assetHash="item.assetHash"/>
         </div>
         <div v-if="tab === 'Info'">
-          <p style="font: normal normal normal 14px/18px Montserrat;">Description of the NFT / collectable - Examples such the content of NFTs, specific themes of the collection, quotations by the creator, the meaning behind the creation of this piece etc.</p>
+          <p style="font: normal 14px/18px Montserrat;">Description of the NFT / collectable - Examples such the content of NFTs, specific themes of the collection, quotations by the creator, the meaning behind the creation of this piece etc.</p>
         </div>
       </div>
     </div>
@@ -72,10 +72,10 @@
     <div :key="componentKey" class="itemPreviewContainer" >
       <div class = "itemPreviewSubContainerM">
             <div class="mb-2 justify-content-between" style="text-align: center; margin-top: 130px;">
-            <h2 class="font: normal normal normal 38px/41px Montserrat;">{{mintedMessage}}</h2>
+            <h2 class="font: normal 38px/41px Montserrat;">{{mintedMessage}}</h2>
           </div>
         <div class="NFTbackgroundColour">
-          <img :src="item.image" class="nftGeneralView" :options="options"/>
+          <img :src="item.image" alt="NFT-image" class="nftGeneralView" :options="options"/>
           <h2 style="margin-top: 0;" class="nFTName" v-if="item.name" >{{item.name}}</h2>
           <p style="margin: 0; justify-self: flex-start; align-self: start;" class="nFTArtist" v-if="item.properties.collection">By: <span>{{item.properties.collection}}</span></p>
         </div>
@@ -430,19 +430,19 @@ export default {
   border-bottom-left-radius: 4px;
   .lastUpdate{
     color: white !important;
-    font: normal normal bold 10px/13px Montserrat;
+    font: normal bold 10px/13px Montserrat;
     padding: 0;
     margin: 0;
   }
   .spanDate{
     color: white !important;
-    font: normal normal normal 10px/14px Montserrat;
+    font: normal 10px/14px Montserrat;
     padding: 0;
     margin: 3px 0;
   }
   .spanDate1{
     color: white !important;
-    font: normal normal normal 21px/11px Montserrat;
+    font: normal 21px/11px Montserrat;
     padding: 0;
     margin: 0;
   }
@@ -487,7 +487,7 @@ export default {
 }
 .backBtn{
   color: #170A6D;
-  font: normal normal bold 11px/14px Montserrat;
+  font: normal bold 11px/14px Montserrat;
   margin-bottom: 30px;
 }
 .itemPreviewBody{

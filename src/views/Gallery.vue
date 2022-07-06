@@ -446,7 +446,7 @@ export default {
   background: #f5f5f5;
   height: 100vh;
   width: 245px;
-  height: 121;
+  height: 121px;
   padding: 20px;
 }
 .filterResultsContainer {
@@ -796,7 +796,7 @@ export default {
   background-color: transparent;
   color: rgb(49, 49, 49);
   padding: 16px;
-  font: normal normal 600 14px/18px Montserrat;
+  font: normal 600 14px/18px Montserrat;
   border: none;
   cursor: pointer;
 }
@@ -807,7 +807,7 @@ export default {
   padding-right: 16px;
   padding-bottom: 16px;
   padding-left: 16px;
-  font: normal normal 600 14px/18px Montserrat;
+  font: normal 600 14px/18px Montserrat;
   border: none;
   cursor: pointer;
 }
@@ -815,7 +815,7 @@ export default {
 .filterCollection {
   background-color: transparent;
   color: rgb(49, 49, 49);
-  font: normal normal 600 14px/18px Montserrat;
+  font: normal 600 14px/18px Montserrat;
   border: none;
   cursor: pointer;
 }

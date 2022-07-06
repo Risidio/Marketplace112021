@@ -33,7 +33,7 @@ export default {
         text-align: center;
 
         h1  {
-            font: normal normal 300 40px/55px Montserrat;
+            font: normal 300 40px/55px Montserrat;
             margin-bottom: 24px;
         }
     }
@@ -76,7 +76,7 @@ export default {
                 max-width: 540px;
                 margin: auto;
                 margin-bottom: 15px;
-                font: normal normal normal 14px/20px Montserrat;
+                font: normal 14px/20px Montserrat;
                 letter-spacing: 0;
             }
 

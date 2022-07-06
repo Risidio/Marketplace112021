@@ -53,13 +53,13 @@ export default {
   min-height: 300px;
 }
 .container h1{
-  font: normal normal 300 37px/30px Montserrat;
+  font: normal 300 37px/30px Montserrat;
   color:white;
 
 }
 .container p{
   margin: 30px auto;
-  font: normal normal 200 1em Montserrat;
+  font: normal 200 1em Montserrat;
   max-width: 700px;
     color:white;
 }

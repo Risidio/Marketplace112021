@@ -47,7 +47,8 @@ export default {
         width: 100vw;
         display: grid;
         grid-template-rows: 1fr;
-        font: normal normal medium 17px/20px Montserrat;
+        font: normal 17px/20px Montserrat;
+        font-weight: medium;
         justify-items: center;
     }
     .logo-container h1 {
@@ -91,7 +92,8 @@ export default {
         background-color: transparent;
         color: #fff;
         text-align: center;
-        font: normal normal medium 17px/20px Montserrat;
+        font: normal 17px/20px Montserrat;
+        font-weight: medium;
         text-decoration: none;
     }
     .read-more-button-line {

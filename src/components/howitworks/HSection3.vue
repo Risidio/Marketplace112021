@@ -57,7 +57,7 @@ export default {
 .question-button {
   display: flex;
   align-items: center;
-  font: normal normal 300 25px/30px Montserrat;
+  font: normal 300 25px/30px Montserrat;
   text-align: left;
   margin: 0 auto 23px;
   padding: 20px 30px;
@@ -93,7 +93,7 @@ export default {
   padding: 45px 30px;
 }
 .question-content--text, .question-instructions--text {
-  font: normal normal normal 14px/20px Montserrat;
+  font: normal 14px/20px Montserrat;
   text-align: left;
   color: #000000;
   margin: 0;
@@ -103,7 +103,7 @@ export default {
 }
 .question-container a.button {
   display: inline-flex;
-  font: normal normal bold 11px/14px Montserrat;
+  font: normal bold 11px/14px Montserrat;
   letter-spacing: 0px;
   color: #FFFFFF;
   text-transform: capitalize;
@@ -116,7 +116,7 @@ export default {
 }
 h2{
   color:white;
-  font: normal normal 300 37px/30px Montserrat;
+  font: normal 300 37px/30px Montserrat;
   text-align: center;
   margin-bottom: 100px;
 }

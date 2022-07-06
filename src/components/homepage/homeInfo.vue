@@ -1,8 +1,8 @@
 <template>
     <section class="homeInfo">
                 <div class="homeText">
-            <h2 style="font: normal normal bold 17px/20px Montserrat;">{{content.needahand[0].needtitle[0].text}} </h2>
-            <p style="font: normal normal 200 40px/49px Montserrat;"> {{content.needahand[0].needtitle2[0].text}} </p>
+            <h2 style="font: normal bold 17px/20px Montserrat;">{{content.needahand[0].needtitle[0].text}} </h2>
+            <p style="font: normal 200 40px/49px Montserrat;"> {{content.needahand[0].needtitle2[0].text}} </p>
         </div>
    <div v-if="windowWidth < 840">
       <homeInfoSwiperSlider :content="content" :profile="profile" />
@@ -159,7 +159,7 @@ export default {
     max-height: 300px;
   }
   p {
-    font: normal normal 300 14px/18px Montserrat;
+    font: normal 300 14px/18px Montserrat;
     display: block;
     margin: auto;
     color: white;

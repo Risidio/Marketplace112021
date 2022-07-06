@@ -35,7 +35,7 @@ export default {
   margin-bottom: 50px;
 }
 .aboutSection1Container p{
-  font: normal normal normal 14px/20px Montserrat;
+  font: normal 14px/20px Montserrat;
   max-width: 600px;
   padding: 15px;
 }

@@ -3,7 +3,7 @@
     <div v-for="(item, index) in activeLoopRuns" :key="index" class="NFTbackgroundColour NFTbackgroundColour-collection">
       <div class="">
           <b-link class="galleryNFTContainer" :to="item.currentRunKey" >
-            <img class="nftGeneralView" :src="item.image"/>
+            <img class="nftGeneralView" alt="NFT-image" :src="item.image"/>
             <p class="nFTName" style="color: white;"> {{!item.currentRun ? "Collection" : item.currentRun }} </p>
             <p class="nFTArtist" style="color: white;">By <span>{{!item.makerName ? 'unknown' : item.makerName }}</span></p>
           </b-link>
@@ -30,11 +30,11 @@ export default {
   .title {
     margin-top: 35px;
     color: white;
-    font: normal normal medium 14px/18px Montserrat;
+    font: normal 14px/18px Montserrat;
   }
   .text {
     color: white;
-    font: normal normal normal 12px/20px Montserrat;
+    font: normal 12px/20px Montserrat;
   }
   button {
     padding: 15px 40px;

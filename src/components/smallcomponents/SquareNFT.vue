@@ -101,6 +101,6 @@ export default {
   -ms-grid-columns: repeat(auto-fit, 255px);
   justify-content: space-evenly;
   row-gap: 40px;
-  transition: all smooth 2s ease-in-out;
+  transition: all 2s ease-in-out;
 }
 </style>

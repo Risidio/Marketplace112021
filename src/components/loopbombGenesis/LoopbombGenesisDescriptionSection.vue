@@ -41,16 +41,16 @@ export default {
         margin: auto;
     }
     .main-loopbomb-description-section h2 {
-        font: normal normal 300 40px/55px Montserrat;
+        font: normal 300 40px/55px Montserrat;
         text-align: center;
     }
     .main-loopbomb-description-section p {
         margin-top: 2.5em;
         max-width: 570px;
         text-align: center;
-        font: normal normal 300 14px/18px Montserrat;
+        font: normal 300 14px/18px Montserrat;
         span{
-            font: normal normal 500 17px/20px Montserrat;
+            font: normal 500 17px/20px Montserrat;
             text-align: center;
         }
     }
@@ -63,7 +63,7 @@ export default {
     .green-background-button {
         width: 141px;
         height: 43px;
-        font: normal normal bold 11px/14px Montserrat;
+        font: normal bold 11px/14px Montserrat;
         color: #fff;
         border: none;
         background: #5FBDC1 0% 0% no-repeat padding-box;
@@ -84,7 +84,7 @@ export default {
         border: none;
         width: 141px;
         height: 43px;
-        font: normal normal bold 11px/14px Montserrat;
+        font: normal bold 11px/14px Montserrat;
         letter-spacing: 0px;
         color: #5FBDC1;
         display: flex;
