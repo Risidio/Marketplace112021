@@ -2,7 +2,7 @@
 <div>
 <div class="saleModal" v-if="!loading">
   <div style="display: block; max-width: 210px; margin: auto;">
-    <img style="margin: 0;" class="nftGeneralView" :src="item.image"/>
+    <img style="margin: 0;" class="nftGeneralView" :src="item.image" alt="NFTimage"/>
     <p class="nFTName">{{item.name}}</p>
     <p class="nFTArtist">By <span>{{item.properties.collection}}</span></p>
   </div>

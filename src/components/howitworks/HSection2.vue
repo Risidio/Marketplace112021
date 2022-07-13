@@ -5,7 +5,7 @@
       <div class="pCont">
         <p> {{content.howsection1[0].howtext[0].text}}<br/></p></div>
       </div>
-      <router-link to="/about" ><button style="display: block; margin: auto;" class="button"> About Risidio </button></router-link>
+      <router-link to="/about" class="button filled"> About Risidio</router-link>
 </div>
 </template>
 
@@ -46,12 +46,16 @@ export default {
   margin:auto;
   max-width: 570px;
 }
-button {
+.button {
   background-color: rgba(80, 177, 181, 0.1);
   margin: 40px auto 0;
   font-size: 1.1rem;
   font-weight: 700;
   color: #5FBDC1;
+  // margin-left: 700px;
+  // margin-right: 680px;
+  margin: auto;
+  display: block;
 }
 .faq-tag{
   position: absolute;

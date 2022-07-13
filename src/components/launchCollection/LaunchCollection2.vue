@@ -26,7 +26,7 @@
                 <div v-for="(item, index) in resultSet" :key="index" class="NFTbackgroundColour" >
                     <div class="">
                         <b-link class="galleryNFTContainer" v-if="item && item.contractAsset" :to="assetUrl(item)">
-                        <img class="nftGeneralView" v-on="$listeners" :src="item.image"/>
+                        <img class="nftGeneralView" v-on="$listeners" :src="item.image" alt="NFTimage"/>
                       <p class="nFTName"> {{!item.name ? "NFT" : item.name }} <span style="float: right;">{{item.contractAsset.listingInUstx.price || 0}} STX</span></p>
                       <p class="nFTArtist">By <span>{{!item.properties.collection ? "Anonymous" : item.properties.collection }}</span><span style="float: right; font-weight: 300">{{changeCurrencyTag() || '£'}} {{changeCurrency(item.contractAsset.listingInUstx.price) || 0}}</span></p>
                     </b-link>

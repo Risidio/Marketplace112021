@@ -22,18 +22,18 @@
                     <p class="viewcategory">View</p>
                       <div class="dropdown_option_container" ref="popularMenu"> <button class="collectionsButton" @click="popular = !popular, arrow2on = !arrow2on"> Popular <img :class="arrow2on ? 'arrow1 active' : 'arrow1'" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg" alt="arrow-image"></button>
                         <div @click="popular = false" v-show="popular" class="dropdown_option_show" >
-                          <p @click="filter()" class="dropdown_option" value="All">Most Popular<span class="blue"></span></p>
-                          <p @click="filter()" class="dropdown_option" value="Category">Least Popular<span class="blue"></span></p>
-                          <p @click="filter()" class="dropdown_option" value="Category">Recent <span class="blue"></span></p>
-                          <p @click="filter()" class="dropdown_option" value="Category">Old <span class="blue"></span></p>
+                          <p @click="filter()" class="dropdown_option" >Most Popular<span class="blue"></span></p>
+                          <p @click="filter()" class="dropdown_option" >Least Popular<span class="blue"></span></p>
+                          <p @click="filter()" class="dropdown_option" >Recent <span class="blue"></span></p>
+                          <p @click="filter()" class="dropdown_option" >Old <span class="blue"></span></p>
                         </div>
                       </div>
                       <div class="dropdown_option_container" ref="sortMenu"> <button class="collectionsButton" @click="sort = !sort, arrow3on = !arrow3on"> Sort by <img :class="arrow3on ? 'arrow1 active' : 'arrow1'" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg" alt="arrow-image"></button>
                         <div @click="sort = false" v-show="sort" class="dropdown_option_show" >
-                          <p @click="filter()" class="dropdown_option" value="All">Price: Low to High <span class="blue"></span></p>
-                          <p @click="filter()" class="dropdown_option" value="Category">Price: High to Low <span class="blue"></span></p>
-                          <p @click="filter()" class="dropdown_option" value="Category">Alphabetical: A-Z <span class="blue"></span></p>
-                          <p @click="filter()" class="dropdown_option" value="Category">Alphabetical: Z-A <span class="blue"></span></p>
+                          <p @click="filter()" class="dropdown_option" >Price: Low to High <span class="blue"></span></p>
+                          <p @click="filter()" class="dropdown_option" >Price: High to Low <span class="blue"></span></p>
+                          <p @click="filter()" class="dropdown_option" >Alphabetical: A-Z <span class="blue"></span></p>
+                          <p @click="filter()" class="dropdown_option" >Alphabetical: Z-A <span class="blue"></span></p>
                         </div>
                       </div>
                     </div>
@@ -68,25 +68,25 @@
                  <div><h1 class="mobileview">View</h1></div>
                      <div class="dropdown_option_containerM" ref="allMenu"> <button class="collectionsButtonM" @click="all = !all, arrow4on = !arrow4on"> Popular <img :class="arrow4on ? 'arrow1 active' : 'arrow1'" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg" alt="arrow-image"></button>
                         <div @click="all = false" v-show="all" class="dropdown_option_showM" >
-                          <p @click="filter()" class="dropdown_option" value="All">Most Popular<span class="blue"></span></p>
-                          <p @click="filter()" class="dropdown_option" value="Category">Least Popular<span class="blue"></span></p>
-                          <p @click="filter()" class="dropdown_option" value="Category">Recent <span class="blue"></span></p>
-                          <p @click="filter()" class="dropdown_option" value="Category">Old <span class="blue"></span></p>
+                          <p @click="filter()" class="dropdown_option" >Most Popular<span class="blue"></span></p>
+                          <p @click="filter()" class="dropdown_option" >Least Popular<span class="blue"></span></p>
+                          <p @click="filter()" class="dropdown_option" >Recent <span class="blue"></span></p>
+                          <p @click="filter()" class="dropdown_option" >Old <span class="blue"></span></p>
                         </div>
                       </div>
                      <div class="dropdown_option_containerM" ref="sortMMenu"> <button class="collectionsButtonM" @click="sortM = !sortM, arrow5on = !arrow5on"> Sort by <img :class="arrow5on ? 'arrow1 active' : 'arrow1'" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg" alt="arrow-image"></button>
                         <div @click="sortM = false" v-show="sortM" class="dropdown_option_showM" >
-                          <p @click="filter()" class="dropdown_option" value="All">Price: Low to High <span class="blue"></span></p>
-                          <p @click="filter()" class="dropdown_option" value="Category">Price: High to Low <span class="blue"></span></p>
-                          <p @click="filter()" class="dropdown_option" value="Category">Alphabetical: A-Z <span class="blue"></span></p>
-                          <p @click="filter()" class="dropdown_option" value="Category">Alphabetical: Z-A <span class="blue"></span></p>
+                          <p @click="filter()" class="dropdown_option" >Price: Low to High <span class="blue"></span></p>
+                          <p @click="filter()" class="dropdown_option" >Price: High to Low <span class="blue"></span></p>
+                          <p @click="filter()" class="dropdown_option" >Alphabetical: A-Z <span class="blue"></span></p>
+                          <p @click="filter()" class="dropdown_option" >Alphabetical: Z-A <span class="blue"></span></p>
                         </div>
                       </div>
                    </div>
                   <div class="filterResultsContainer">
                     <div v-if="grid" v-on:click="changeGrid()" class="gridDisplayOptions">
-                      <img  src="../assets/img/gridDisplay.svg">
-                      <img  src="../assets/img/normalDisplay.svg">
+                      <img  src="../assets/img/gridDisplay.svg" alt="grid-display">
+                      <img  src="../assets/img/normalDisplay.svg" alt="normal-display">
                     </div>
                     <div v-else v-on:click="changeGrid()" class="gridDisplayOptions">
                       <img src="https://res.cloudinary.com/risidio/image/upload/v1649167477/RisidioMarketplace/imagebar1_px1ppz.png" alt="grid-view-icon">
@@ -387,7 +387,6 @@ export default {
   margin-top: 40px;
   z-index: -10;
   border-radius: 10px;
-  // margin-left: 25px;
 }
 .overlay {
   position: absolute;
@@ -446,7 +445,7 @@ export default {
   background: #f5f5f5;
   height: 100vh;
   width: 245px;
-  height: 121;
+  height: 121px;
   padding: 20px;
 }
 .filterResultsContainer {
@@ -490,7 +489,6 @@ export default {
 }
 .mobilesearch {
   width: 100%;
-  // margin: 20px auto 0 auto;
   padding-left: 20px;
   padding-top: 10px;
   padding-bottom: 10px;
@@ -698,7 +696,6 @@ export default {
 @media only screen and (max-width: 365px) {
   .mobileimage {
     margin-left: 200px;
-    //margin-right: 20px;
   }
   .mobilearrow1 {
     margin-left: 120px;
@@ -722,7 +719,6 @@ export default {
   --height: 0;
   grid-template-columns: repeat(auto-fit, 255px);
   -ms-grid-columns: repeat(auto-fit, 255px);
-  // justify-content: space-between;
 }
 .mainGalleryContainer {
   display: flex;
@@ -744,7 +740,6 @@ export default {
   flex: 1 1 65%;
   padding: 10px 50px;
   max-width: 1600px;
-  // margin: auto;
 }
 .search-elements {
   margin-top: -40px;
@@ -895,7 +890,6 @@ export default {
   margin-left: 30px;
   margin-right: 10px;
   border-radius: 50%;
-  // box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
 }
 .collectionItems::first-letter {
   text-transform: capitalize;
@@ -914,10 +908,8 @@ export default {
   font-weight: 500;
   color: #5fbdc1;
   cursor: pointer;
-  //border-bottom: 3px solid white;
 }
 .collectionMenuContainer label:focus {
-  // border-bottom: 2px solid #50b1b5;
 }
 .galleryGrid {
   display: grid;
