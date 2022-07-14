@@ -12,7 +12,7 @@
                   <div>
                     <router-link v-bind:to="'/nfts/' + item.contractId + '/' + item.contractAsset.nftIndex" >
                     <!-- <img :src="'https://res.cloudinary.com/risidio/image/upload/f_auto/q_auto:low/indige-testing/' + item.image.split('/')[5]" class="nftGeneralView" style="margin-top: 15px;"/> -->
-                    <img :src="item.image" class="nftGeneralView" style="margin-top: 15px;"/>
+                    <img :src="item.image" class="nftGeneralView" style="margin-top: 15px;" alt="NFTimage"/>
                       <p class="nFTName" style="margin-top: -5px;"> {{!item.name ? "NFT" : item.name }} <span style="float: right;">{{item.contractAsset.listingInUstx ? item.contractAsset.listingInUstx.price : 0}} STX</span></p>
                       <p class="nFTArtist">By
                         <span v-if="item && item.properties && item.properties.collection">{{item.properties.collection }}</span>

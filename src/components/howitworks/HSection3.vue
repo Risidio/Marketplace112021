@@ -5,17 +5,17 @@
     <div class="question-container" v-for="(item, index) in content.howsection2" :key="index">
     <div v-if="index == 0 || index == 3"> <!-- comment this code out to return all the text on prismic-->
       <button v-b-toggle="`question-${index}`" @click="isCollapsed.splice(index, 1, !isCollapsed[index])" class="question-button">
-        <h3>{{ item.subtitle[0].text }}</h3>
+        {{ item.subtitle[0].text }}
         <b-icon v-if="isCollapsed[index]" icon="x"></b-icon>
         <b-icon v-else icon="info-circle"></b-icon>
-      </button>
+        </button>
       <b-collapse :id="`question-${index}`">
         <div v-if="item.instructions[0]">
           <div class="question-content">
             <prismic-rich-text class="question-content--text" :field="item.text"/>
           </div>
           <div class="question-instructions">
-            <img :src="item.img" alt="">
+            <img :src="item.img" alt="image">
             <prismic-rich-text class="question-instructions--text" :field="item.instructions"/>
             <a href="/hiro-wallet" class="button filled">{{ item.button[0].text }}</a>
           </div>
@@ -59,7 +59,7 @@ export default {
   align-items: center;
   font: normal normal 300 25px/30px Montserrat;
   text-align: left;
-  margin: 0 auto 23px;
+  margin: 0px auto 23px;
   padding: 20px 30px;
   max-width: 730px;
   width: 100%;
@@ -68,11 +68,12 @@ export default {
   box-shadow: 0px 3px 6px #00000029;
   border-radius: 15px;
   border: none;
-  h3{
-    letter-spacing: 0px;
-    color: #170A6D;
-  }
-}
+ }
+ .question-button p{
+  letter-spacing: 0px;
+  color: #170A6D;
+  font-size: 20px;
+ }
 .question-button.not-collapsed {
   border-radius: 6px 6px 0 0;
   margin: 0 auto 0;
@@ -145,7 +146,7 @@ img {
   margin-bottom: 35px;
 }
 .question-instructions--text >>> li:last-child {
-  margin-bottom: 0;
+   margin-bottom: 0;
 }
 @media only screen and (max-width: 500px)  {
   .question-instructions--text >>> li {

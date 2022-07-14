@@ -79,13 +79,13 @@
   <div v-if="windowWidth > 549">
     <div v-if="!transaction" class="galleryContainerLimited">
       <div>
-        <b-nav class="galleryNav" >
-          <nav class="galleryNavContainer" >
+        <div class="galleryNav" >
+          <div class="galleryNavContainer" >
             <h2><router-link class="galleryNavItem" :to="'/my-account/nft'">Your NFTs</router-link></h2>
             <h2><router-link class="galleryNavItem" :to="'/my-account/sale'">Your NFTs On Sale</router-link></h2>
             <h2><router-link class="galleryNavItem" :to="'/my-account/fav'">Your Favourites</router-link></h2>
-          </nav>
-        </b-nav>
+          </div>
+        </div>
       </div>
       <div v-if="tab === 'nft' && loopRun" class="">
         <div>
@@ -470,7 +470,6 @@ export default {
 }
 .profile {
   max-width: 900px;
-  // padding: 0 100px;
   margin: 0 auto;
 }
 .pagination-container {
@@ -566,7 +565,6 @@ export default {
 }
 .profileContainer {
   display: flex;
-  // justify-content: space-between;
   margin-top: 2rem;
   flex-wrap: wrap;
   max-width: 1380px;
@@ -707,14 +705,6 @@ input[type="file"] {
     font-size: 40px;
     font-weight: 300;
   }
-  // .profileBtns >:nth-child(1){
-  //   background:#50B1B5;
-  //   color: white;
-  // }
-  // .profileBtns >:nth-child(2){
-  //   background:#50b2b523;
-  //   color: #50B1B5;
-  // }
 }
 .profileBtns {
   display: flex;
@@ -740,8 +730,6 @@ input[type="file"] {
   text-align: center;
   padding: 20px;
   background: rgba(129, 129, 129, 0.06);
-  // background: rgb(255,255,255);
-  // background: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 0%, rgb(245, 245, 245) 100%);
   border-radius: 14px;
   margin-left: auto;
   & > h1 {

@@ -14,13 +14,13 @@
 
       </div>
         <div>
-            <b-nav class="galleryNav" >
+            <div class="galleryNav" >
                 <div class="galleryNavContainer" >
-                <b-nav-item class="galleryNavItem active" id="Items" @click="tabChange('Items')">Items</b-nav-item>
-                <b-nav-item class="galleryNavItem" id="Activity" @click="tabChange('Activity')">Activity</b-nav-item>
+                <div class="galleryNavItem active" id="Items" @click="tabChange('Items')">Items</div>
+                <div class="galleryNavItem" id="Activity" @click="tabChange('Activity')">Activity</div>
                 <!-- <b-nav-item class="galleryNavItem" @click="tabChange('Your NFT')">Your NFT's</b-nav-item> -->
                 </div>
-            </b-nav>
+            </div>
         </div>
         <div class="homeMarketItems">
             <div v-if="stxTransaction && stxTransaction.length > 0 && tab === 'Activity'">
@@ -303,7 +303,7 @@ p {
   }
 }
 .mint-text-1 {
-  font: normal normal medium 12px/15px Montserrat;
+  font: normal normal normal 12px/15px Montserrat;
   text-align: center;
 }
 .mint-text-2 {

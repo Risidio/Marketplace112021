@@ -25,31 +25,31 @@
           <span class="bar"></span>
           <span class="bar"></span>
         </div>
-        <ul class="navbar_links">
-          <li class="nav-items" v-on:click="isLayer ? mobileNavebar() : '' ">
+        <div class="navbar_links">
+          <div class="nav-items" v-on:click="isLayer ? mobileNavebar() : '' ">
             <router-link class="nav-links bold" to="/nft-marketplace">Explore</router-link>
-          </li>
-          <li style="position: relative; margin-top: 2px;" @click="openMenu()" ref="dropDown" class="nav-items"  >
+          </div>
+          <div style="position: relative; margin-top: 2px;" @click="openMenu()" ref="dropDown" class="nav-items"  >
             <router-link to="" id="dropDown-1" class="nav-items bold" > Featured Collections <img class="arrow2" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg" alt="arrow"></router-link>
             <p class="featured" > Featured Collections <img style="margin-left: 8px;" src="https://res.cloudinary.com/risidio/image/upload/v1637233819/RisidioMarketplace/Icon_awesome-caret-down_1_nih0lx.svg" alt="arrow"></p>
-            <ul class="dropdownMenu">
-              <li v-for="(item, index) in allLoopRuns" :key="index" class="dropdownMenu-container">
+            <div class="dropdownMenu">
+              <div v-for="(item, index) in allLoopRuns" :key="index" class="dropdownMenu-container">
                 <router-link :to="`/${item.currentRunKey}`" v-on:click="isLayer ? mobileNavebar() : '' ">{{item.currentRun}}</router-link>
-              </li>
-            </ul>
-          </li>
-          <hr class="mobile-hr"/>
-          <li v-on:click="isLayer ? mobileNavebar() : '' " class="nav-items" id="howItWorks">
+              </div>
+            </div>
+          </div>
+            <hr class="mobile-hr"/>
+          <div v-on:click="isLayer ? mobileNavebar() : '' " class="nav-items" id="howItWorks">
             <router-link class="nav-links thin right" to="/how-it-works" >How It Works</router-link>
-          </li>
-          <li v-on:click="isLayer ? mobileNavebar() : '' " class="nav-items">
+          </div>
+          <div v-on:click="isLayer ? mobileNavebar() : '' " class="nav-items">
             <router-link class="nav-links text-black thin" to="/about">About Risidio </router-link>
-          </li>
-          <li v-if="profile.loggedIn" v-on:click="isLayer ? mobileNavebar() : '' " class="nav-item-button">
+          </div>
+          <div v-if="profile.loggedIn" v-on:click="isLayer ? mobileNavebar() : '' " class="nav-item-button">
             <router-link class="navBtn thin" to="/my-account"> My NFT's </router-link>
-          </li>
+          </div>
             <div v-else @mouseover="isHidden = !isHidden" @blur="isHidden = !isHidden" class="nav-items navBtn text-black" id="register" v-on:click="startRegister()"> CONNECT WITH HIRO WALLET </div>
-        </ul>
+        </div>
     </nav>
   </div>
 </div>

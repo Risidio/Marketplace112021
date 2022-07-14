@@ -75,7 +75,7 @@
             <h2 class="font: normal normal normal 38px/41px Montserrat;">{{mintedMessage}}</h2>
           </div>
         <div class="NFTbackgroundColour">
-          <img :src="item.image" class="nftGeneralView" :options="options"/>
+          <img :src="item.image" class="nftGeneralView" :options="options" alt="NFTimages">
           <h2 style="margin-top: 0;" class="nFTName" v-if="item.name" >{{item.name}}</h2>
           <p style="margin: 0; justify-self: flex-start; align-self: start;" class="nFTArtist" v-if="item.properties.collection">By: <span>{{item.properties.collection}}</span></p>
         </div>
