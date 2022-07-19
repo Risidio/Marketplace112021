@@ -185,7 +185,7 @@ export default {
   object-fit: cover;
 }
 .container {
-  padding-top: -2px;
+  padding-top: 0px;
   text-align: center;
   max-width: 700px;
   min-height: 100px;
@@ -199,8 +199,6 @@ export default {
 }
 
 .whiteContainer {
-  //   background-color:rgba(255, 255, 255, 0.637);
-  //   backdrop-filter: blur(2rem);
   border-radius: 30px;
   margin: -35px auto 10px auto;
   padding: 20px 20px;
@@ -215,9 +213,8 @@ export default {
 
 .collectionArtist {
   display: none;
-  font: normal normal medium 17px/20px Montserrat;
+  font: normal normal 500 17px/20px Montserrat;
   padding: 10px;
-  // color: white;
   text-align: center;
 }
 .collectionArtistshow {
@@ -243,7 +240,7 @@ export default {
   font: normal normal normal 20px/24px Helvetica Neue;
 }
 .collectionInfo {
-  font: normal normal medium 17px/20px Montserrat;
+  font: normal normal 500 17px/20px Montserrat;
   color: white;
 }
 .collectionInfoDetail {
@@ -253,10 +250,9 @@ export default {
   margin-top: 0px;
   padding: 5px;
   margin-bottom: 30px;
-  font: normal normal medium 17px/20px Montserrat;
+  font: normal normal 500 17px/20px Montserrat;
 }
 .collectionInfo2 {
-  // font: normal normal normal 14px/20px Montserrat;
   font-size: 14px;
   max-width: 575px;
   margin: auto;
@@ -265,7 +261,7 @@ export default {
   margin-bottom: 30px;
 }
 .collectionInfo1 {
-  font: normal normal medium 17px/20px Montserrat;
+  font: normal normal 500 17px/20px Montserrat;
   max-width: 450px;
   padding: 0 5px;
   text-align: center;
@@ -275,7 +271,6 @@ export default {
   max-width: 450px;
   padding: 0 5px;
   text-align: center;
-  // margin-top: -10px;
   color: #2e638c;
 }
 .readMore {
@@ -284,12 +279,9 @@ export default {
   display: none;
   color: #50b1b5;
 }
-.blue{color: #50b1b5}
-// @media(max-width: 611px){
-//     .readMore{
-//     padding-bottom: 200px;
-//     }
-// }
+.blue{
+  color: #50b1b5
+  }
 .readMore.show {
   display: block;
 }
@@ -316,7 +308,7 @@ export default {
   right: 0;
   margin-left: auto;
   margin-right: auto;
-  transition: all smooth 2s ease-in-out;
+  transition: all  2s ease-in-out;
 }
 .circleImage {
   display: inline-block;
@@ -326,7 +318,6 @@ export default {
   height: 100px;
   border-radius: 50%;
   position: absolute;
-  // box-shadow: 10px 10px 30px #0000002F;
   border: 2px solid white;
   margin: auto;
   object-fit: cover;
@@ -357,7 +348,6 @@ export default {
 }
 .artistInfo.show {
   display: flex;
-  // left: -1100px;
   top: 200px;
   flex-direction: row;
   gap: 10px;
@@ -395,7 +385,7 @@ export default {
   max-width: 611px;
   background: #f9f9f9;
   border-radius: 25px;
-  justify-content: sa;
+  justify-content: space-around;
   margin: auto;
   padding: 15px 20px;
   align-items: center;
