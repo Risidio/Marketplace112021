@@ -41,6 +41,6 @@
     "src/**/*.vue",
     "tests/**/*.ts",
     "tests/**/*.tsx", "src/services/utils.js"
-, "src/registerServiceWorker.ts", "src/app-constants.ts", "src/main.ts", "src/notify.js"  ],
+, "src/registerServiceWorker.ts", "src/app-constants.ts", "src/main.ts", "src/notify.js", "tests/unit/homeBanner.spec.ts", "tests/unit/homeBottomBanner.spec.js"  ],
   "exclude": ["node_modules"]
 }

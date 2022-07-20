@@ -1,7 +1,7 @@
 <template>
   <section class="bannerContainer">
     <img class="banner" src="https://res.cloudinary.com/risidio/image/upload/v1633609373/RisidioMarketplace/Group_-304_ofssmk.svg" alt="banner-image">
-    <div v-if="profile.loggedIn" class="if">
+    <div v-if="loggedIn" class="if">
         <div class="loggedBanner">
             <div class="vueSlideContainer galleryContainer">
               <div
@@ -18,7 +18,7 @@
                     <template>
                         <!-- <div v-if="slide.id==1" class = "slideContainer">
                             <div class="slideImage">
-                              <h2 class="mobileHeader">{{content.heroarea[1].herotitle[0].text}}</h2>
+                              <h2 class="mobileHeader">Testing</h2>
                               <div class="collectionImageBack">
                                 <img
                                 src="https://res.cloudinary.com/risidio/image/upload/v1634828295/RisidioMarketplace/Screenshot_2021-10-21_at_15.57.57_q7chjf.png"
@@ -35,14 +35,14 @@
                               </div>
                             </div>
                             <div class="slideText">
-                              <h2 class="notMobileHeader">{{content.heroarea[1].herotitle[0].text}}</h2>
-                              <p class="slide-text-p"> {{content.heroarea[1].herotext[0].text}}</p>
+                              <h2 class="notMobileHeader">Testing</h2>
+                              <p class="slide-text-p"> Testing</p>
                               <router-link to="/numberone_roots"><button class="button filled"> See The Collection </button></router-link>
                             </div>
                         </div> -->
                           <div v-if="slide.id == 1" class = "slideContainer">
                             <div class="slideImage">
-                            <h1 class="mobileHeader"> The Indige Collection</h1>
+                            <h1 ref="firstMobileHeader" class="mobileHeader"> The Indige Collection</h1>
                               <div class="collectionImageBack">
                                 <img
                                 src="@/assets/img/indigeImages/indige-40.jpg"
@@ -59,14 +59,14 @@
                               </div>
                             </div>
                             <div class="slideText">
-                              <h1 class="notMobileHeader">The Indige Collection</h1>
-                              <p class="slide-text-p"> {{content.heroarea[3].herotext[0].text}}</p>
-                              <router-link to="/indige_mirror/0"><button class="button filled"> See The Collection </button></router-link>
+                              <h1 ref="firstNotMobileHeader" class="notMobileHeader">The Indige Collection</h1>
+                              <p ref="firstSlideTextP" class="slide-text-p"> Testing 1</p>
+                              <router-link ref="firstSlideRouterLink" class="button filled see-collection-link" to="/indige_mirror/0">See The Collection</router-link>
                             </div>
                         </div>
                         <div v-if="slide.id == 2" class = "slideContainer">
                             <div class="slideImage">
-                            <h1 class="mobileHeader">{{content.heroarea[2].herotitle[0].text}}</h1>
+                            <h1 ref="secondMobileHeader" class="mobileHeader">Testing Mobile Header 2</h1>
                               <div class="collectionImageBack">
                                 <img
                                 src="https://res.cloudinary.com/risidio/image/upload/f_auto/RisidioMarketplace/Screenshot_2022-02-07_110034_vy0tyl.png"
@@ -83,18 +83,19 @@
                               </div>
                             </div>
                             <div class="slideText">
-                              <h1 class="notMobileHeader">{{content.heroarea[2].herotitle[0].text}}</h1>
-                              <p class="slide-text-p"> {{content.heroarea[2].herotext[0].text}}</p>
-                              <button class="button filled"> Coming soon </button>
+                              <h1 ref="secondNotMobileHeader" class="notMobileHeader">Testing Slide Text 2</h1>
+                              <p ref="secondSlideTextP" class="slide-text-p"> Testing Slide Paragraph 2</p>
+                              <button ref="secondSlideButton" class="button filled"> Coming soon </button>
                             </div>
                         </div>
                         <!-- <div v-if="slide.id==3" class = "slideContainer">
                             <div class="slideImage">
+
                             </div>
                             <div class="slideText">
                               <h2>{{slide.text}}</h2>
-                              <h2>{{content.heroarea[3].herotitle[0].text}}</h2>
-                              <p> {{content.heroarea[3].herotext[0].text}}</p>
+                              <h2>Testing</h2>
+                              <p> Testing</p>
                               <button class="button filled"> See The Collection </button>
                             </div>
                         </div> -->
@@ -114,25 +115,25 @@
               </div>
             </div>
             <div class="searchContainer-1">
-              <HomeSearchBar/>
+              <HomeSearchBar class="home-search-bar-component" />
             </div>
         </div>
     </div>
     <div v-else>
         <div class="slideContainerNotLogged" >
             <div class="notLoggedCont">
-              <h1 class="mobileHeader"> {{content.heroarea[0].herotitle[0].text}}</h1>
+              <h1 ref="notLoggedInMobileHeader" class="mobileHeader"> Testing Not Logged In</h1>
               <video class="home-video"
               src="https://res.cloudinary.com/risidio/video/upload/v1639140586/RisidioMarketplace/Latest_Risidio_Video_by_Fizan_100721_5_r3o1or.mp4"
               controls
               ></video>
             </div>
             <div class="slideText slideText-notLogged">
-              <h1 class="notMobileHeader" style="margin-top: 50px;"> {{content.heroarea[0].herotitle[0].text}}</h1>
-              <p class="slide-text-p">{{content.heroarea[0].herotext[0].text}}</p><br/>
+              <h1 ref="notLoggedInNotMobileHeader" class="notMobileHeader" style="margin-top: 50px;"> Testing Not Logged In Not Mobile Header</h1>
+              <p ref="notLoggedInSlideTextP" class="slide-text-p">Testing Not Logged In Slide Text P</p><br/>
               <div class="bannerButtonContainer">
-                <router-link to="/hiro-wallet" ><button class="button filled">Get Your Hiro Wallet To Start</button></router-link><br/>
-                <p class="bannerButtonText" v-on:click="startLogin()">Already Have One? Get Started</p>
+                <router-link to="/hiro-wallet" ><button ref="notLoggedInHiroWalletButton" class="button filled">Get Your Hiro Wallet To Start</button></router-link><br/>
+                <p class="bannerButtonText" ref="notLoggedInBannerButtonText" v-on:click="startLogin()">Already Have One? Get Started</p>
               </div>
             </div>
         </div>
@@ -148,42 +149,45 @@ import Swiper, { Navigation, Pagination, Thumbs } from 'swiper'
 import '@/assets/scss/swiper-bundle.css'
 import HomeSearchBar from './homeSearchBar.vue'
 import { APP_CONSTANTS } from '@/app-constants'
+
 export default {
   name: 'Homebanner',
   props: ['profile', 'content'],
   components: {
     HomeSearchBar
   },
-  data: () => ({
-    touchableSlide: false,
-    showArrow: true,
-    bullets: false,
-    breakpoints: {
-      700: {
-        bullets: true
-      }
-    },
-    slide: [
-      {
-        id: '1',
-        text: 'Collection'
+  data () {
+    return {
+      touchableSlide: false,
+      showArrow: true,
+      bullets: false,
+      loggedIn: true,
+      breakpoints: {
+        700: {
+          bullets: true
+        }
       },
-      {
-        id: '2',
-        text: 'Collection'
-      }
-      // {
-      //   id: '3',
-      //   text: 'Collection'
-      // }
-    ],
-    return: {
+      slide: [
+        {
+          id: '1',
+          text: 'Collection'
+        },
+        {
+          id: '2',
+          text: 'Collection'
+        }
+        // {
+        //   id: '3',
+        //   text: 'Collection'
+        // }
+      ],
       resultSet: [],
       loaded: false,
-      rand: 1
+      rand: 1,
       // touchableSlide: false
+      loading: true
     }
-  }),
+  },
   created () {
     window.addEventListener('resize', this.checkScreen)
     this.checkScreen()
@@ -197,6 +201,7 @@ export default {
       speed: 400,
       slidesPerView: 1,
       spaceBetween: 300,
+
       // If we need pagination
       pagination: {
         el: '.swiper-pagination',
@@ -207,30 +212,34 @@ export default {
         bulletElement: 'span',
         clickableClass: 'swiper-pagination-clickable'
       },
+
       // Navigation arrows
       navigation: {
         nextEl: '.swiper-button-next',
         prevEl: '.swiper-button-prev'
       },
+
       // And if we need scrollbar
       scrollbar: {
         el: '.swiper-scrollbar',
         draggable: true
       }
     })
+    this.loading = false
   },
   methods: {
     startLogin () {
       // this.$emit('updateEventCode', { eventCode: 'connect-login' })
-      const myProfile = this.$store.getters['rpayAuthStore/getMyProfile']
-      if (myProfile.loggedIn) {
-        this.$emit('connect-login', myProfile)
+      // const myProfile = this.$store.getters['rpayAuthStore/getMyProfile']
+      if (this.loggedIn) {
+        this.$emit('login-method-activated-while-logged-in', 'Profile')
       } else {
-        this.$store.dispatch('rpayAuthStore/startLogin').then((profile) => {
-          location.reload()
-        }).catch(() => {
-          this.$store.commit(APP_CONSTANTS.SET_WEB_WALLET_NEEDED)
-        })
+        // this.$store.dispatch('rpayAuthStore/startLogin').then((profile) => {
+        //   location.reload()
+        // }).catch(() => {
+        //   this.$store.commit(APP_CONSTANTS.SET_WEB_WALLET_NEEDED)
+        // })
+        this.$emit('login-method-activated-while-not-logged-in', 'Profile')
       }
     },
     startRegister () {
@@ -255,6 +264,12 @@ export default {
   height: 50rem;
   align-items: center;
   padding: 20px;
+}
+.see-collection-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 162.92px;
 }
 .swiper-wrapper {
   cursor: pointer;
@@ -296,19 +311,20 @@ export default {
   h2 {
     margin-bottom: 1rem;
     letter-spacing: 1px;
-    font: normal normal 300 30px/55px Montserrat;
+    font: normal 300 30px/55px Montserrat;
   }
   .slide-text-p {
-    font: normal normal 300 14px/18px Montserrat;
+    font: normal 300 14px/18px Montserrat;
     max-width: 450px;
   }
 }
+
 .bannerButtonContainer {
   position: relative;
   margin: -30px auto 0;
 }
 .bannerButtonText {
-  font: normal normal bold 11px/14px Montserrat;
+  font: normal bold 11px/14px Montserrat;
   position: absolute;
   top: 50px;
   left: 20px;
@@ -381,6 +397,7 @@ export default {
   min-height: 287px;
   padding: 20px;
 }
+
 .slideContainerNotLogged :nth-child(1) {
   justify-self: center;
   align-self: center;
@@ -462,6 +479,7 @@ export default {
   text-align: center;
   transform: scale(1.15);
 }
+
 @media only screen and (max-width: 1290px) {
   .home-banner-swiper {
     max-width: 85%;
@@ -516,7 +534,7 @@ export default {
 .mobileHeader {
   margin-bottom: 1rem;
   letter-spacing: 1px;
-  font: normal normal 300 30px/55px Montserrat;
+  font: normal 300 30px/55px Montserrat;
 }
 .bullets--bullet {
   color: red;

@@ -185,7 +185,7 @@ const gaiaAsset = {
 }
 const appDetails = {
   name: 'Risidio Marketplace - NFTs on Stacks!',
-  icon: origin + '@/assets/img/risidio.svg'
+  icon: location.origin + '@/assets/img/risidio.svg'
 }
 
 const setup = function (data) {
@@ -218,7 +218,7 @@ const setup = function (data) {
   return configuration
 }
 
-export default new Vuex.Store({
+export const defaultStore = () => ({
   modules: {
     contentStore,
     publicItemsStore
@@ -331,3 +331,4 @@ export default new Vuex.Store({
     }
   }
 })
+export default new Vuex.Store(defaultStore())

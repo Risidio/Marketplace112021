@@ -127,6 +127,23 @@ export default {
         draggable: true
       }
     })
+  },
+  methods: {
+    startLogin () {
+      // this.$emit('updateEventCode', { eventCode: 'connect-login' })
+      // const myProfile = this.$store.getters['rpayAuthStore/getMyProfile']
+      if (this.loggedIn) {
+        this.$emit('Logged-In', this.profile)
+      } else {
+        // this.$store.dispatch('rpayAuthStore/startLogin').then((profile) => {
+        //   location.reload()
+        // }).catch(() => {
+        //   this.$store.commit(APP_CONSTANTS.SET_WEB_WALLET_NEEDED)
+        //   window.open('https://www.hiro.so/wallet', '_blank')
+        // })
+        this.$emit('Not-Logged-In', this.profile)
+      }
+    }
   }
 }
 </script>

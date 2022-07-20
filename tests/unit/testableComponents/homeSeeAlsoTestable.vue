@@ -1,23 +1,23 @@
 <template>
     <div class='seeAlso'>
-        <h2>See Also</h2>
+        <h2 ref="seeAlsoHeading">See Also</h2>
         <div class='seeAlsoContainer'>
         <div
             class="no-shadow swiper"
             ref="swiper"
             >
             <div class="swiper-wrapper">
-              <div class="swiper-slide NFTbackgroundColour" v-for="(item, index) in gaiaAssets" :key="index" >
+              <div :ref="'swiperSlide' + (index + 1)" class="swiper-slide NFTbackgroundColour" v-for="(item, index) in gaiaAssets" :key="index" >
               <template>
                   <div>
-                    <router-link v-bind:to="'/nfts/' + item.contractId + '/' + item.contractAsset.nftIndex" >
+                    <router-link :ref="'slideRouterLink' + (index + 1)" v-bind:to="'/nfts/' + item.contractId + '/' + item.contractAsset.nftIndex" >
                     <!-- <img :src="'https://res.cloudinary.com/risidio/image/upload/f_auto/q_auto:low/indige-testing/' + item.image.split('/')[5]" class="nftGeneralView" style="margin-top: 15px;"/> -->
-                    <img :src="item.image" alt="NFT-image" class="nftGeneralView" style="margin-top: 15px;"/>
-                      <p class="nFTName" style="margin-top: -5px;"> {{!item.name ? "NFT" : item.name }} <span style="float: right;">{{item.contractAsset.listingInUstx ? item.contractAsset.listingInUstx.price : 0}} STX</span></p>
-                      <p class="nFTArtist">By
-                        <span v-if="item && item.properties && item.properties.collection">{{item.properties.collection }}</span>
-                        <span v-else>Anonymous</span>
-                        <span style="float: right; font-weight: 300">{{changeCurrencyTag() || '£'}} {{changeCurrency(item.contractAsset && item.contractAsset.listingInUstx && item.contractAsset.listingInUstx.price) || 0}}</span>
+                    <img :ref="'slideNFTImage' + (index + 1)" :src="item.image" alt="NFT-image" class="nftGeneralView" style="margin-top: 15px;"/>
+                      <p :ref="'slideNFTName' + (index + 1)" class="nFTName" style="margin-top: -5px;"> {{!item.name ? "NFT" : item.name }} <span style="float: right;">{{item.contractAsset.listingInUstx ? item.contractAsset.listingInUstx.price : 0}} STX</span></p>
+                      <p :ref="'slideNFTArtist' + (index + 1)" class="nFTArtist">By
+                        <span :ref="'slideNFTCollectionName' + (index + 1)" v-if="item && item.properties && item.properties.collection">{{item.properties.collection }}</span>
+                        <span :ref="'slideNFTAnonymous' + (index + 1)" v-else>Anonymous</span>
+                        <span :ref="'slideNFTCurrencyTag' + (index + 1)" style="float: right; font-weight: 300">{{changeCurrencyTag() || '£'}} {{changeCurrency(item.contractAsset && item.contractAsset.listingInUstx && item.contractAsset.listingInUstx.price) || 0}}</span>
                       </p>
                     </router-link>
                   </div>
@@ -29,12 +29,23 @@
             </div>
         </div>
         <div class="swiper-button-prev-see-also swiper-arrow">
-                <img src="https://res.cloudinary.com/risidio/image/upload/v1633609469/RisidioMarketplace/Icon_ionic-md-arrow-dropleft-circle_v37pyt.svg" alt="arrow-icon" class="arrow"/>
+                <img ref="swiper-button-prev-image" src="https://res.cloudinary.com/risidio/image/upload/v1633609469/RisidioMarketplace/Icon_ionic-md-arrow-dropleft-circle_v37pyt.svg" alt="arrow-icon" class="arrow"/>
             </div>
             <div class="swiper-button-next-see-also swiper-arrow">
-                <img src="https://res.cloudinary.com/risidio/image/upload/v1633609474/RisidioMarketplace/Icon_ionic-md-arrow-dropleft-circle-1_oclpff.svg" alt="arrow-icon" class="arrow"/>
+                <img ref="swiper-button-next-image" src="https://res.cloudinary.com/risidio/image/upload/v1633609474/RisidioMarketplace/Icon_ionic-md-arrow-dropleft-circle-1_oclpff.svg" alt="arrow-icon" class="arrow"/>
             </div>
         </div>
+        <button @click="changeCurrency(null)" class="test-change-currency-1">Change Currency with no price given</button>
+        <button @click="changeCurrency(100)" class="test-change-currency-2">Change Currency with no currency given</button>
+        <button @click="changeCurrency(100)" class="test-change-currency-3">Change Currency to pound currency</button>
+        <button @click="changeCurrency(100)" class="test-change-currency-4">Change Currency to euro currency</button>
+        <button @click="changeCurrency(100)" class="test-change-currency-5">Change Currency to dollar currency</button>
+        <buttton @click="changeCurrencyTag()" class="test-change-currency-tag-1">Change Currency tag without currency given</buttton>
+        <buttton @click="changeCurrencyTag()" class="test-change-currency-tag-2">Change Currency tag to GBP</buttton>
+        <buttton @click="changeCurrencyTag()" class="test-change-currency-tag-3">Change Currency tag to USD</buttton>
+        <buttton @click="changeCurrencyTag()" class="test-change-currency-tag-4">Change Currency tag to CNY</buttton>
+        <buttton @click="changeCurrencyTag()" class="test-change-currency-tag-5">Change Currency tag JPY</buttton>
+        <buttton @click="changeCurrencyTag()" class="test-change-currency-tag-6">Change Currency tag to EUR</buttton>
     </div>
 </template>
 
@@ -49,36 +60,13 @@ export default {
   props: ['profile', 'gaiaAssets'],
   data () {
     return {
-      placeHolderItems: [],
-      breakpoints: {
-        1600: {
-          visibleSlides: 4,
-          slideRatio: 1 / 2.5
-        },
-        1400: {
-          visibleSlides: 3.2,
-          slideRatio: 1 / 1.8
-        },
-        1200: {
-          visibleSlides: 3,
-          slideRatio: 1 / 1.8
-        },
-        1000: {
-          visibleSlides: 2.6,
-          slideRatio: 1 / 1.8
-        },
-        800: {
-          visibleSlides: 1.1,
-          slideRatio: 1,
-          arrows: false
-        }
-      },
       currencyPreference: null,
-      loading: true
+      nftPrice: null,
+      currencyTag: null
     }
   },
   mounted () {
-    this.currencyPreference = JSON.parse(window.localStorage.getItem('currencyPreferences'))
+    // this.currencyPreference = JSON.parse(window.localStorage.getItem('currencyPreferences'))
     const swiper = new Swiper(this.$refs.swiper, {
       // configure Swiper to use modules
       modules: [Navigation, Pagination, Thumbs],
@@ -113,31 +101,48 @@ export default {
   },
   methods: {
     changeCurrency (price) {
-      if (!price) return 0
+      this.$emit('change-currency-method-activated', 'change currency method')
+      if (!price) {
+        this.nftPrice = 0
+        return 0
+      }
       if (this.currencyPreference) {
-        const tickerRates = this.$store.getters[APP_CONSTANTS.KEY_TICKER_RATES]
+        this.$emit('change-currency-method-activated-with-currency-preference', 'change currency method')
+        // const tickerRates = this.$store.getters[APP_CONSTANTS.KEY_TICKER_RATES]
+        const tickerRates = [{ currency: 'GBP', stxPrice: 0.3133 }, { currency: 'EUR', stxPrice: 0.3642 }, { currency: 'USD', stxPrice: 0.3864 }, { currency: 'JPY', stxPrice: 52.95 }, { currency: 'CNY', stxPrice: 2.5823 }]
         const rates = tickerRates.find((rate) => rate.currency === this.currencyPreference.text)
         const nFTPrice = utils.toDecimals(rates.stxPrice * price)
+        this.nftPrice = nFTPrice
         return nFTPrice
       } else {
-        const tickerRates = this.$store.getters[APP_CONSTANTS.KEY_TICKER_RATES]
+        this.$emit('change-currency-method-activated-without-currency-preference', 'change currency method')
+        // const tickerRates = this.$store.getters[APP_CONSTANTS.KEY_TICKER_RATES]
+        const tickerRates = [{ currency: 'GBP', stxPrice: 0.3133 }, { currency: 'EUR', stxPrice: 0.3642 }, { currency: 'USD', stxPrice: 0.3864 }, { currency: 'JPY', stxPrice: 52.95 }, { currency: 'CNY', stxPrice: 2.5823 }]
         const rates = tickerRates.find((rate) => rate.currency === 'GBP')
         const nFTPrice = utils.toDecimals(rates.stxPrice * price)
+        this.nftPrice = nFTPrice
         return nFTPrice
       }
     },
     changeCurrencyTag () {
+      this.$emit('change-currency-tag-method-activated', 'change currency tag method')
       if (this.currencyPreference && this.currencyPreference.text === 'GBP') {
+        this.currencyTag = '£'
         return '£'
       } else if (this.currencyPreference && this.currencyPreference.text === 'USD') {
+        this.currencyTag = '$'
         return '$'
       } else if (this.currencyPreference && this.currencyPreference.text === 'CNY') {
+        this.currencyTag = '¥'
         return '¥'
       } else if (this.currencyPreference && this.currencyPreference.text === 'JPY') {
+        this.currencyTag = '¥'
         return '¥'
       } else if (this.currencyPreference && this.currencyPreference.text === 'EUR') {
+        this.currencyTag = '€'
         return '€'
       } else {
+        this.currencyTag = '£'
         return '£'
       }
     }
